@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>COBRANCABANCARIA_TITULOS_OCORRENCIAS.DATASOURCE.GRID</ViewName>
+  <EntityName>WEB_FN_COBRANCABANC_TITULOS_OCORRENCIAS.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if(entity.Fields["DATA"] != None and row.GetCellByName("DATA") != None):
+        row.GetCellByName("DATA").Text = entity.Fields["DATA"].ToString("dd/MM/yyyy");
+        
+    if(entity.Fields["DATAEMISSAO"] != None and row.GetCellByName("DATAEMISSAO") != None):
+        row.GetCellByName("DATAEMISSAO").Text = entity.Fields["DATAEMISSAO"].ToString("dd/MM/yyyy");
+        
+    if(entity.Fields["DATAVENCIMENTO"] != None and row.GetCellByName("DATAVENCIMENTO") != None):
+        row.GetCellByName("DATAVENCIMENTO").Text = entity.Fields["DATAVENCIMENTO"].ToString("dd/MM/yyyy");
+        
+    if(entity.Fields["VCTOPRORROGADO"] != None and row.GetCellByName("VCTOPRORROGADO") != None):
+        row.GetCellByName("VCTOPRORROGADO").Text = entity.Fields["VCTOPRORROGADO"].ToString("dd/MM/yyyy");
+        
+    if(entity.Fields["VALOR"] != None and row.GetCellByName("VALOR") != None):
+        row.GetCellByName("VALOR").Text = entity.Fields["VALOR"].ToString("C2")
+        
+    if(entity.Fields["DATAENTRADA"] != None and row.GetCellByName("DATAENTRADA") != None):
+        row.GetCellByName("DATAENTRADA").Text = entity.Fields["DATAENTRADA"].ToString("dd/MM/yyyy");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

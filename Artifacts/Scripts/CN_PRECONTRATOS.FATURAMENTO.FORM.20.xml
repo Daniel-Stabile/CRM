@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_PRECONTRATOS.FATURAMENTO.FORM</ViewName>
+  <EntityName>CN_PRECONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity
+    if registro == None: return
+    status = int(registro.Fields["STATUS"].Value)
+
+    if (status == 2 or status == 3 or status == 5)  :
+        widget.View.Commands["NEW"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+    
+    
+        
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

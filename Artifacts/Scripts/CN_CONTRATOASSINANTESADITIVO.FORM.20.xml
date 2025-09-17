@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOASSINANTESADITIVO.FORM</ViewName>
+  <EntityName>CN_CONTRATOASSINANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None or widget.Entity.AditivoHandle == None:
+        widget.Hidden = True
+        return
+    
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    podeInserir = AuthorizationHelper.PodeInserirEntidade(widget.View.EntityDefinition.Name)
+    aditivo = widget.Entity.AditivoInstance
+    
+    podeAlterar = aditivo.PermiteAlterarAssinantesAditivo
+    
+    widget.View.Commands["New"].Visible = podeAlterar and podeInserir
+    widget.View.Commands["Edit"].Visible = podeAlterar
+    widget.View.Commands["Delete"].Visible = podeAlterar</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

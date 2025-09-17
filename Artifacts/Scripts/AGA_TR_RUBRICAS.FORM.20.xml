@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_RUBRICAS.FORM</ViewName>
+  <EntityName>TR_RUBRICAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    widget.View.FieldDefinitions["EMPRESA"].Visible = False
+    
+    widget.View.Commands["Delete"].Visible = AuthorizationHelper.HasTask("EXCLUIR_RUBRICAS")
+    widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_RUBRICAS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_RUBRICAS")
+    
+    #Comentado pois no módulo tributos não estava funcionando.
+    #Fazer no ativo sob demanda, não foi incluido a tarefa de rúbricas ao papel ativo. 
+    #   widget.View.Commands["Delete"].Visible = AuthorizationHelper.HasTask("EXCLUIR_RUBRICAS_ATIVO")
+    #   widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_RUBRICAS_ATIVO")
+    #   widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_RUBRICAS_ATIVO")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

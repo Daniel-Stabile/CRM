@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_WFTAREFAS.INBOX.LITE.FORM</ViewName>
+  <EntityName>Z_WFTAREFAS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(form):
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = form.Entity
+    if registro == None: return
+    form.View.Commands["ASSUMIR"].Visible = (registro.Fields["RESPONSAVEL"].Handle.IsInvalid())
+    form.View.Commands["DEVOLVER"].Visible = (registro.Fields["RESPONSAVEL"].Handle.Equals(identity.UserHandle))
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

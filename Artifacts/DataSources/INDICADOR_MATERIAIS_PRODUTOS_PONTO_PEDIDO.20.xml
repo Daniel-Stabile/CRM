@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_PRODUTOS_PONTO_PEDIDO</Identifier>
+  <Name>Indicadores materiais - Produtos ponto de pedido</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.PRODUTOSPONTOREPOSICAO) PRODUTOSPONTOREPOSICAO, PD_DWINDICADORES.DATACOLETA&#xA;    FROM PD_DWINDICADORREGISTROS A &#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;WHERE @CRITERIOSELECAO&#xA;GROUP BY PD_DWINDICADORES.DATACOLETA" />
+  <Fields>
+    <DecimalField Alias="PRODUTOSPONTOREPOSICAO" From="A" Path="PRODUTOSPONTOREPOSICAO" FieldDecimalsFormat="0" />
+    <DateField Alias="DATACOLETA" From="A" Path="DATACOLETA" FieldDateFormat="DayMonthYear" FieldTimeFormat="NoTime" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

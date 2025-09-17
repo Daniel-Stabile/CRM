@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_TANQUELOTES_ITEMCONSUMO.CUSTOM.GRID</ViewName>
+  <EntityName>PD_TANQUELOTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Tecnologia.Common import WhereClause
+    grid = row.Grid
+    MestreForm = grid.ProviderWidget
+    EntidadeMestre = MestreForm.Entity
+    HandleItemConsumo = EntidadeMestre.Fields["HANDLE"].ToString()
+    row.GetCellByName("CUSTOM_ITEMCONSUMIDO").Text = HandleItemConsumo
+    
+    #linkQtdeItensLote = FormLinkDefinition()
+    #linkQtdeItensLote.TargetSystemInstanceName = entity.Definition.EntitySource.SystemInstanceName
+    #linkQtdeItensLote.TargetFormMode = FormLinkDefinition.FormMode.EditElseInsert
+    #linkQtdeItensLote.TargetEntityDefinitionName = "PR_LOTEITENSQTDE"
+    #linkQtdeItensLote.Url = "~/aga/a/LoteItensQtde/form.aspx"
+    #linkQtdeItensLote.WhereClause = WhereClause("A.TANQUELOTE = @CAMPO(HANDLE) AND A.ITEMCONSUMO = " + HandleItemConsumo )
+    #row.GetCustomCommand("CMD_QUANTIDADE").OutputDefinition = linkQtdeItensLote</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

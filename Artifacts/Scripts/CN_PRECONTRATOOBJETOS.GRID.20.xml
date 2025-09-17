@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_PRECONTRATOOBJETOS.GRID</ViewName>
+  <EntityName>CN_PRECONTRATOOBJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import EntityDefinition
+
+        
+    form = widget.ProviderWidget
+    if form == None: return
+    entity = form.Entity
+    if entity == None: return
+    status = int(entity.Fields["STATUS"].Value)
+	
+
+    if (status != 1 and status != 4):
+		widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Parameter 
+    
+    conta = Entity.GetFirstOrDefault(EntityDefinition.GetByName("CN_PRECONTRATOS"), Criteria(" A.STATUS IN (1,4) AND A.HANDLE IN (SELECT PRECONTRATO FROM CN_PRECONTRATOOBJETOS WHERE HANDLE = :HANDLE) ",Parameter("HANDLE",entity.Fields["HANDLE"])))           
+    
+    if conta == None :
+        if row.EditCommand != None: row.EditCommand.Visible = False
+        if row.DeleteCommand != None: row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

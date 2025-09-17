@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>VT_FN_DOCUMENTONFEPORTAL.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>VT_FN_DOCUMENTONFEPORTAL</EntityName>
+  <Type>Formulário</Type>
+  <Version>10</Version>
+  <FormDefinition entityDefinitionName="VT_FN_DOCUMENTONFEPORTAL" name="VT_FN_DOCUMENTONFEPORTAL.CUSTOM.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="DOCUMENTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CHAVE">
+            <layout>TwoColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PATH_635436993949317669">
+            <layout>OneColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PATH_635436995087387242">
+            <layout>OneColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PATH_635436999739051055">
+            <layout>OneColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PATH_635437000717536216">
+            <layout>OneColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ARQUIVOXML">
+            <layout>TwoColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ARQUIVODANFE">
+            <layout>TwoColumn</layout>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition xsi:nil="true" />
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Documento" key="DOCUMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Arquivo XML:" key="ARQUIVOXML">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Arquivo DANFE:" key="ARQUIVODANFE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Chave de acesso:" key="CHAVE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldPathDefinition" title="Loja:" key="PATH_635436993949317669">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+        <Path>DOCUMENTO&gt;FN_DOCUMENTOS.FILIAL&gt;FILIAIS.NOME</Path>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldPathDefinition" title="Nota fiscal:" key="PATH_635436995087387242">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+        <Path>DOCUMENTO&gt;FN_DOCUMENTOS.DOCUMENTODIGITADO</Path>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldPathDefinition" title="Data emissão:" key="PATH_635436999739051055">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+        <Path>DOCUMENTO&gt;FN_DOCUMENTOS.DATAEMISSAO</Path>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldPathDefinition" title="Valor documento:" key="PATH_635437000717536216">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+        <Path>DOCUMENTO&gt;FN_DOCUMENTOS.VALORNOMINAL</Path>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

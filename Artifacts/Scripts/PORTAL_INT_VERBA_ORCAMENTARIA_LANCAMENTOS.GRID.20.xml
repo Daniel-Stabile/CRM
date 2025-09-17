@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_VERBA_ORCAMENTARIA_LANCAMENTOS.GRID</ViewName>
+  <EntityName>CT_ORCAMENTOAPROVLANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition    
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import FieldDefinition    
+
+    entity = widget.Entity
+    view = widget.View
+    
+
+    orcamento = Entity.Get(EntityDefinition.GetByName("CT_ORCAMENTOAPROVACOES"), Criteria("A.HANDLE = :HANDLE",Parameter("HANDLE", widget.ProviderWidget.Entity.Handle)))
+
+    if orcamento.Fields["TIPO"].Value == 1 :
+        view.FieldDefinitions["ORIGEM"].Visible = True
+    else :         
+        view.FieldDefinitions["ORIGEM"].Visible = False        
+    
+    
+    #Verifica a versao
+    versao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("CT_VERSOESORCAMENTOS"), Criteria("A.HANDLE = (SELECT VERSAO FROM CT_ORCAMENTOAPROVACOES WHERE HANDLE = :HANDLE )",Parameter("HANDLE", widget.ProviderWidget.Entity.Handle)))
+
+    if versao &lt;&gt; None :  
+        if versao.Fields["CENTROSDECUSTO"].Value == 1 :
+            view.FieldDefinitions["CENTROCUSTOGERENCIAL"].Visible = False
+        else :         
+            view.FieldDefinitions["CENTROCUSTO"].Visible = False        
+            
+        if versao.Fields["PROJETOS"].Value == 1 :
+            view.FieldDefinitions["PROJETOGERENCIAL"].Visible = False
+        else :         
+            view.FieldDefinitions["PROJETO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

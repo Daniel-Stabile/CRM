@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_CT_MODULO.FORM</ViewName>
+  <EntityName>CT_CONTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONTASCONTABEISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONTASCONTABEISExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import *
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_CONTAS");
+    funcaoQuantidade = function.Call(entityDefinition, "VerificarQuantidadeDePlanos");
+    if (funcaoQuantidade.Vars["EHPLANOUNICO"] == "S"):
+        funcaoPlano = function.Call(entityDefinition, "TrazUnicoPlano");
+        
+        link = FormLinkDefinition()
+        link.TargetSystemInstanceName = entityDefinition.EntitySource.SystemInstanceName
+        link.TargetFormMode = FormLinkDefinition.FormMode.View
+        link.TargetEntityDefinitionName = "CT_PLANOVERSOES"
+        link.Url = "~/aga/e/Contabil/cadastros/ContaContabil.aspx";
+        link.WhereClause = WhereClause("A.HANDLE = " + str(funcaoPlano.Vars["PLANO"]))
+        command.OutputDefinition = link
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Administracao import Empresas
+    possuiNaturezaJuridicaCooperativa = Empresas.PossuiNaturezaJuridicaCooperativa()
+    widget.View.Commands["GRP_CADASTROS"].Items["CMD_ALOCACAOCOOPERATIVAS"].Visible = possuiNaturezaJuridicaCooperativa
+    widget.View.Commands["GRP_CONSULTAS"].Items["CMD_DEMONSTRATIVOCOOPERATIVAS"].Visible = possuiNaturezaJuridicaCooperativa
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

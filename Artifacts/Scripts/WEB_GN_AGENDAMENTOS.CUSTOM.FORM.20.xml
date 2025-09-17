@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_GN_AGENDAMENTOS.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_GN_AGENDAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.ERP.Comum import Utils
+    from Benner.Corporativo.Definicoes.Web.Genericos import WebGNAgendamento
+    registro = widget.Entity;
+
+    widget.View.Commands["Save"].Visible = WebGNAgendamento.VisibilidadeComandos("MANTER_CONFIGURACAO_AGENDAMENTOS") or WebGNAgendamento.VisibilidadeComandos("MANTER_PROCANALISEDECREDITO");
+    widget.View.Commands["EXCLUIR"].Visible = WebGNAgendamento.VisibilidadeComandos("EXCLUIR_CONFIGURACAO_AGENDAMENTOS") or WebGNAgendamento.VisibilidadeComandos("EXCLUIR_PROCANALISEDECREDITO");
+    
+    if(registro == None): return;
+    tipo = registro.Fields["TIPO"];
+    if (tipo.Value == 2):
+        widget.View.Commands["Save"].Visible = Utils.VerificaPermissao("MANTER_PROCANALISEDECREDITO"); 
+        widget.View.Commands["EXCLUIR"].Visible = Utils.VerificaPermissao("EXCLUIR_PROCANALISEDECREDITO");
+    if (tipo.Value == 3):
+        widget.View.Commands["Save"].Visible = Utils.VerificaPermissao("MANTER_RECEBIMENTOFISCAL"); 
+        widget.View.Commands["EXCLUIR"].Visible = Utils.VerificaPermissao("EXCLUIR_RECEBIMENTOFISCAL");
+        
+    if (tipo.Value == 4):
+        widget.View.Commands["Save"].Visible = Utils.VerificaPermissao("MANTER_DECLARACAODEBITO"); 
+        widget.View.Commands["EXCLUIR"].Visible = Utils.VerificaPermissao("EXCLUIR_DECLARACAODEBITO");
+    if (tipo.Value == 5):
+         widget.View.Commands["Save"].Visible = Utils.VerificaPermissao("MANTER_PROCINDICESFINANCEIROS"); 
+         widget.View.Commands["EXCLUIR"].Visible = Utils.VerificaPermissao("EXCLUIR_PROCINDICESFINANCEIROS");
+    if (tipo.Value == 6):
+         widget.View.Commands["Save"].Visible = Utils.VerificaPermissao("MANTER_FINANCEIROFISCAL"); 
+         widget.View.Commands["EXCLUIR"].Visible = Utils.VerificaPermissao("EXCLUIR_FINANCEIROFISCAL");
+    if (tipo.Value == 11):
+         widget.View.Commands["Save"].Visible = Utils.VerificaPermissao("MANTER_CADASTRO_AGENDAMENTO_COBRANCA"); 
+         widget.View.Commands["EXCLUIR"].Visible = Utils.VerificaPermissao("MANTER_CADASTRO_AGENDAMENTO_COBRANCA");</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

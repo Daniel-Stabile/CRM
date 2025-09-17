@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>LC_REQUISICAOITENS_AQUISICAO</Identifier>
+  <Name>Itens aquisições</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.CODIGOREFERENCIA, A.NOME NOMEPRODUTO, B.ABREVIATURA, C.HANDLE, C.PRODUTO, C.REQUISICAO,&#xD;&#xA;C.AMOXARIFADO, C.FAMILIA, C.VARIACAO, C.QUANTIDADE, C.UNIDADE, C.OPERACAO, C.VALORESTIMADO,&#xD;&#xA;(C.QUANTIDADE * C.VALORESTIMADO) VALORTOTAL, C.CENTROCUSTO, C.CONTAFINANCEIRA, C.PROJETO,&#xD;&#xA;C.COMPLEMENTO, C.ORCAMENTO, D.NOME NOMEFAMILIA, E.CONJUNTOVARIACOES NOMEVARIACAO,&#xD;&#xA;C.TIPOMOVIMENTACAO, F.NOME NOMETIPOMOVIMENTACAO,&#xD;&#xA;C.LOCALENTREGA, C.CEPENTREGA, C.PAISENTREGA, C.ESTADOENTREGA, C.MUNICIPIOENTREGA, C.BAIRROENTREGA,&#xD;&#xA;C.TIPOLOGRADOUROENTREGA, C.LOGRADOUROENTREGA, C.NUMEROENTREGA, C.COMPLEMENTOENTREGA&#xD;&#xA;FROM LC_REQUISICAOITENS C&#xD;&#xA;JOIN PD_PRODUTOS A ON (A.HANDLE = C.PRODUTO)&#xD;&#xA;JOIN CM_UNIDADESMEDIDA B ON (B.HANDLE = C.UNIDADE)&#xD;&#xA;JOIN PD_FAMILIASPRODUTOS D ON (D.HANDLE = C.FAMILIA)&#xD;&#xA;JOIN PD_PRODUTOVARIACOESMESTRE E ON (E.HANDLE = C.VARIACAO)&#xD;&#xA;LEFT JOIN CM_OPERACOESFATURAMENTO F ON (C.TIPOMOVIMENTACAO = F.HANDLE)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="CODIGOREFERENCIA" From="A" Path="CODIGOREFERENCIA" />
+    <Field Alias="NOMEPRODUTO" From="A" Path="NOMEPRODUTO" />
+    <Field Alias="ABREVIATURA" From="A" Path="ABREVIATURA" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="PRODUTO" From="A" Path="PRODUTO" />
+    <Field Alias="REQUISICAO" From="A" Path="REQUISICAO" />
+    <Field Alias="AMOXARIFADO" From="A" Path="AMOXARIFADO" />
+    <Field Alias="FAMILIA" From="A" Path="FAMILIA" />
+    <Field Alias="VARIACAO" From="A" Path="VARIACAO" />
+    <DecimalField Alias="QUANTIDADE" From="A" Path="QUANTIDADE" FieldDecimalsFormat="4" />
+    <Field Alias="UNIDADE" From="A" Path="UNIDADE" />
+    <Field Alias="OPERACAO" From="A" Path="OPERACAO" />
+    <DecimalField Alias="VALORESTIMADO" From="A" Path="VALORESTIMADO" FieldDecimalsFormat="4" />
+    <DecimalField Alias="VALORTOTAL" From="A" Path="VALORTOTAL" FieldDecimalsFormat="4" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="CONTAFINANCEIRA" From="A" Path="CONTAFINANCEIRA" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <Field Alias="COMPLEMENTO" From="A" Path="COMPLEMENTO" />
+    <Field Alias="ORCAMENTO" From="A" Path="ORCAMENTO" />
+    <Field Alias="NOMEFAMILIA" From="A" Path="NOMEFAMILIA" />
+    <Field Alias="NOMEVARIACAO" From="A" Path="NOMEVARIACAO" />
+    <Field Alias="TIPOMOVIMENTACAO" From="A" Path="TIPOMOVIMENTACAO" />
+    <Field Alias="NOMETIPOMOVIMENTACAO" From="A" Path="NOMETIPOMOVIMENTACAO" />
+    <Field Alias="LOCALENTREGA" From="A" Path="LOCALENTREGA" />
+    <Field Alias="CEPENTREGA" From="A" Path="CEPENTREGA" />
+    <Field Alias="PAISENTREGA" From="A" Path="PAISENTREGA" />
+    <Field Alias="ESTADOENTREGA" From="A" Path="ESTADOENTREGA" />
+    <Field Alias="MUNICIPIOENTREGA" From="A" Path="MUNICIPIOENTREGA" />
+    <Field Alias="BAIRROENTREGA" From="A" Path="BAIRROENTREGA" />
+    <Field Alias="TIPOLOGRADOUROENTREGA" From="A" Path="TIPOLOGRADOUROENTREGA" />
+    <Field Alias="LOGRADOUROENTREGA" From="A" Path="LOGRADOUROENTREGA" />
+    <Field Alias="NUMEROENTREGA" From="A" Path="NUMEROENTREGA" />
+    <Field Alias="COMPLEMENTOENTREGA" From="A" Path="COMPLEMENTOENTREGA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

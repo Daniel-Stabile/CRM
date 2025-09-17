@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_REGULARIZACAOITEM_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACAOREGULARIZITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    if widget.Entity != None :
+        widget.Entity.AtualizarValores()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnACRESCIMOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnACRESCIMOValueChanged(view, entity):
+    entity.AtualizarValores()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDESCONTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDESCONTOValueChanged(view, entity):
+    entity.AtualizarValores()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnACRESCIMOVALORValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnACRESCIMOVALORValueChanged(view, entity):
+    
+    entity.AtualizarPorcentagem()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDESCONTOVALORValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDESCONTOVALORValueChanged(view, entity):
+    
+    entity.AtualizarPorcentagem()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

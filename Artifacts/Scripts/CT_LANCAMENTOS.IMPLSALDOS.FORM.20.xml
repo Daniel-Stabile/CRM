@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOS.IMPLSALDOS.FORM</ViewName>
+  <EntityName>CT_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnNATUREZAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNATUREZAValueChanged(view, entity):
+    if entity == None: return;
+    
+    entity.TransitoryData["NATUREZA"] = str(entity.Fields["NATUREZA"]);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return;
+    
+    widget.Entity.TransitoryData["NATUREZA"] = str(widget.Entity.Fields["NATUREZA"]);
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

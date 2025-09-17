@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFAS.EDICAO_RAPIDA_TAREFA.GRID</ViewName>
+  <EntityName>GP_PROJETOTAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    entity.Fields["TAREFAPAI"].LocalWhere = "A.HANDLE != " + str(entity.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

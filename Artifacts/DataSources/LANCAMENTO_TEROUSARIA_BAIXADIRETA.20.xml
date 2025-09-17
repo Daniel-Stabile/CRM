@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>LANCAMENTO_TEROUSARIA_BAIXADIRETA</Identifier>
+  <Name>Lançamento tesouraria baixa</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       A.HANDLE CHAVE,&#xD;&#xA;       A.CONTATESOURARIA,&#xD;&#xA;       B.NOME,&#xD;&#xA;       A.OPERACAO,&#xD;&#xA;       D.SIGLA,&#xD;&#xA;       A.DOCUMENTO,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       A.HISTORICO,&#xD;&#xA;       B.NUMEROCONTA,&#xD;&#xA;       B.DIGITOVERIFICADOR,&#xD;&#xA;       A.NUMEROCHEQUE,&#xD;&#xA;       A.CONCILIADO,&#xD;&#xA;       E.DATAEMISSAO DATAEXTRATO&#xD;&#xA;  FROM FN_CONTASTESOURARIA B,&#xD;&#xA;       GN_OPERACOES C,&#xD;&#xA;       FN_TIPOSDOCUMENTOS D,&#xD;&#xA;       TS_LANCAMENTOS A LEFT JOIN TS_EXTRATOBANCARIO E ON E.CONCILIACAO = A.CONCILIACAO&#xD;&#xA; WHERE B.HANDLE = A.CONTATESOURARIA&#xD;&#xA;       AND&#xD;&#xA;       (&#xD;&#xA;           C.HANDLE = A.OPERACAO&#xD;&#xA;           AND D.HANDLE = C.TIPODOCUMENTO&#xD;&#xA;       )" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="CONTATESOURARIA" From="A" Path="CONTATESOURARIA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="OPERACAO" From="A" Path="OPERACAO" />
+    <Field Alias="SIGLA" From="A" Path="SIGLA" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="NUMEROCONTA" From="A" Path="NUMEROCONTA" />
+    <Field Alias="DIGITOVERIFICADOR" From="A" Path="DIGITOVERIFICADOR" />
+    <Field Alias="NUMEROCHEQUE" From="A" Path="NUMEROCHEQUE" />
+    <Field Alias="CONCILIADO" From="A" Path="CONCILIADO" />
+    <Field Alias="DATAEXTRATO" From="A" Path="DATAEXTRATO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

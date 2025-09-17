@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R2020.FORM</ViewName>
+  <EntityName>REINF_R2020</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    from Benner.Corporativo.Definicoes.SPED.REINF.TabelasLayout import REINFR9000
+    
+    if (widget.Entity &lt;&gt; None):
+        if (widget.Entity.Fields["AUDITORIA"].Handle.IsValid()):
+            widget.View.Commands["R9000"].Visible = REINFR9000.VerificarVisibilidadeR9000(widget.Entity.Fields["AUDITORIA"].Handle.Value)
+            widget.View.Commands["Excluir"].Visible = not widget.View.Commands["R9000"].Visible
+            widget.View.Commands["New"].Visible = not widget.View.Commands["R9000"].Visible
+            widget.View.Commands["Edit"].Visible = not widget.View.Commands["R9000"].Visible
+            widget.View.Commands["CMD_VALIDAR"].Visible = not widget.View.Commands["R9000"].Visible
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

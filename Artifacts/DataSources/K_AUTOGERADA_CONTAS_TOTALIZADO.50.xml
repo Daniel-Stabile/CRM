@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_AUTOGERADA_CONTAS_TOTALIZADO</Identifier>
+  <Name>AUTOGERADA_CONTAS_TOTALIZADO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) QUANTIDADE&#xD;&#xA;FROM K_CRM_PESSOAS&#xD;&#xA;WHERE USUARIOEXECUTIVO IS NOT NULL&#xD;&#xA;AND USUARIORESPONSAVEL IS NULL &#xD;&#xA;AND FILIAL IN (3,11,15,16,17)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QUANTIDADE" From="A" Path="QUANTIDADE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

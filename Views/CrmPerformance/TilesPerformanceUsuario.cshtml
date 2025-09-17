@@ -1,0 +1,61 @@
+﻿@using Models.Crm
+@using System.Globalization
+@model List<CrmPerformanceTile>
+
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (CrmPerformanceTile item in Model)
+        {
+
+            <div class="col-md-12" style="margin-bottom:20px">
+                <a href="@item.Link">@item.NomeTipo</a>
+                <br />
+                <div class="progress" style="margin-top:20px;margin-bottom:0px;">
+                    <div class="progress-bar bg-@item.Cor" role="progressbar" style="width: @item.Percent.ToString().Replace(',', '.')%" aria-valuenow="@item.Percent.ToString().Replace(',', '.')" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span><b>@(item.SelecaoResultado == "1" ? item.ValorRealizados : item.ValorRealizados.ToDecimal().ToString("N", CultureInfo.InvariantCulture).Replace(',','|').Replace('.',',').Replace('|','.'))</b></span>
+                <span style="float:right">DE @(item.SelecaoResultado == "1" ? item.Meta : item.Meta.ToDecimal().ToString("N", CultureInfo.InvariantCulture).Replace(',', '|').Replace('.', ',').Replace('|', '.'))</span>
+            </div>
+            
+
+
+            @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="@item.Link">
+                        <div class="dashboard-stat2 ">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-@item.Cor">
+                                        <span data-counter="counterup" data-value="7800">@Html.DisplayFor(modelItem => item.ValorRealizados)</span>
+                                        <small class="font-@item.Cor"></small>
+                                    </h3>
+                                    <small>@item.NomeTipo</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="icon-pie-chart"></i>
+                                </div>
+                            </div>
+                            <div class="progress-info">
+                                <div class="progress">
+                                    <span style="width:@item.Percent.ToString().Replace(',','.')%;" class="progress-bar progress-bar-success @item.Cor">
+                                        <span class="sr-only">@item.Percent%</span>
+                                    </span>
+                                </div>
+                                <div class="status">
+                                    <div class="status-title">@item.Resume </div>
+                                    <div class="status-number"> @item.Percent% </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>*@
+        }
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Não há metas de performance para esse usuário</strong>
+        </div>
+    }
+
+</div>

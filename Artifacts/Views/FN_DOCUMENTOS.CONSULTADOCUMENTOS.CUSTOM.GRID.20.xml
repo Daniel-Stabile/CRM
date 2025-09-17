@@ -1,0 +1,938 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>FN_DOCUMENTOS.CONSULTADOCUMENTOS.CUSTOM.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="FN_DOCUMENTOS" name="FN_DOCUMENTOS.CONSULTADOCUMENTOS.CUSTOM.GRID" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Situação" key="CUSTOM_STATUS">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>80px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>~/Views/Financeiro/ConsultaDocumentos.cshtml</Value>
+        <ValueType>View</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="St." key="STATUS">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="PESSOA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>250px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="FILIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>150px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Documento" cssClasses="text-left" key="DOCUMENTODIGITADO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>150px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="OPERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>250px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Tipo doc." cssClasses="text-left" key="TIPODOCUMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Emissão" cssClasses="text-left" key="DATAEMISSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>85px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Entrada" cssClasses="text-left" key="DATAENTRADA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="VALORNOMINAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>Sum</footerBehavior>
+        <Width>130px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Saldo" cssClasses="text-left" key="CUSTOM_SALDO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>151px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="VALORLIQUIDO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>140px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="VALORESBAIXADOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>140px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Contabilizado" cssClasses="text-center" key="CUSTOM_CONTABILIZADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    if(Model.Contabilizado)
+    {
+        &lt;span class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+    else
+    {
+        &lt;span class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Baixado" cssClasses="text-center" key="CUSTOM_BAIXADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    if(Model.Baixado())
+    {
+        &lt;span class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;                
+            &lt;/span&gt;
+    }
+    else
+    {
+        &lt;span class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;                
+            &lt;/span&gt;
+    }
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Adiantamento" cssClasses="text-center" key="CUSTOM_ADIANTAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    if(Model.EhAdtoCliente() || Model.EhAdtoFornecedor())
+    {
+        &lt;span class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+    else
+    {
+        &lt;span class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Devolução" cssClasses="text-center" key="CUSTOM_DEVOLUCAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    if(Model.DevolucaoCliente() || Model.DevolucaoFornecedor() || Model.EhAlgumaDevolucao() || Model.EhDevolucao)
+    {
+        &lt;span class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+    else
+    {
+        &lt;span class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Previsão" cssClasses="text-center" key="CUSTOM_PREVISAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{	
+    if(Model.EhAlgumaPrevisao())
+    {
+        &lt;span class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+    else
+    {
+        &lt;span class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"&gt;
+            &lt;/span&gt;
+    }
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="HISTORICO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="CNPJ/CPF" key="SQL_CNPJCPF">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>150px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Expression>SELECT CGCCPF FROM GN_PESSOAS WHERE HANDLE = ( SELECT PESSOA FROM FN_DOCUMENTOS WHERE HANDLE = @CAMPO(HANDLE) )</Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="SERIE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>40px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="MODELO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>30px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Doc. contábil" cssClasses="text-left" key="DOCUMENTOCONTABIL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data último pag." cssClasses="text-left" key="DATAULTIMALIQ">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>120px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Nominal moeda" cssClasses="text-left" key="VALORNOMINALMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Líquido moeda" cssClasses="text-left" key="VALORLIQUIDOMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Baixados moeda" cssClasses="text-left" key="VALORESBAIXADOSMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="MOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Usuário incluiu" cssClasses="text-left" key="USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>APELIDO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data inclusão" cssClasses="text-left" key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Usuário alterou" cssClasses="text-left" key="USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>APELIDO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data alteração" cssClasses="text-left" key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="USUARIOCONFIRMOU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>APELIDO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="DATACONFIRMACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Usuário último bloqueio" cssClasses="text-left" key="USUARIOULTIMOBLOQUEIO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>APELIDO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="ULTIMOBLOQUEIO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="USUARIOULTIMACONFIRMACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>APELIDO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="ULTIMACONFIRMACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" cssClasses="text-left" key="GRUPOASSINATURAS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <lookupResultFields>NOMEDOGRUPO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition cssClasses="text-left" key="STATUSAPROVACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="OPERACAOCANCELAMENTO" key="OPERACAOCANCELAMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="ENTRADASAIDA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="CONTABILIZADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="TIPOREGISTRO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="EHDEVOLUCAO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="EHADIANTAMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="EHPREVISAO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="ABRANGENCIA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="TIPODEMOVIMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="DOCUMENTOORIGEM">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="DOCTOAGLUTINADOR">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="EHRECEBIMENTOFISCAL">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Centros de custo" key="CUSTOM_CENTROSCUSTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Projetos" key="CUSTOM_PROJETOS">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Formas de pagamento" key="CUSTOM_FORMASPAGAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields>
+      <SortField key="DATAEMISSAO">
+        <Sort>Descending</Sort>
+      </SortField>
+    </SortFields>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+      </Command>
+      <Command title="Novo" image="fa fa-plus" color="btn-primary" key="CMD_NOVO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/aga/a/financeiro/documentos/novo.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Bloquear" image="fa fa-lock" color="btn-danger" key="CMD_BLOQUEARDOCUMENTO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="BloquearDocumentos" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Confirmar" image="fa fa-check" color="btn-secondary" key="CMD_CONFIRMARDOCUMENTO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="ConfirmarDocumentos" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Ações" color="btn-outline-primary" key="Acoes">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Excluir" image="fa fa-minus" color="red-sunglo" key="CMD_EXCLUIR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Record</context>
+            <ProcessDefinition xsi:type="Function" functionName="DeletarCpaCre" />
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Comissões" image="fa fa-dollar" key="CMD_COMISSOES">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Record</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/comercial/faturamento/Comissoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.DOCUMENTO = @CAMPO(HANDLE) AND A.PARCELA IS NULL</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>FN_DOCUMENTOCOMISSOES</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>ViewElseInsert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Duplicar" image="fa fa-copy" color="blue" key="Duplicar">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>FullPage</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Record</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/documentos/DuplicadorDocumentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.DOCUMENTOBASE=@CAMPO(HANDLE)</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>FN_VTDUPLICARDOCUMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

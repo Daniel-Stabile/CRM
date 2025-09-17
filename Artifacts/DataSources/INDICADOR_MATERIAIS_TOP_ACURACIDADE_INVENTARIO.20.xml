@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_TOP_ACURACIDADE_INVENTARIO</Identifier>
+  <Name>Indicadores materiais - Top acuracidade inventario</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT PD_ALMOXARIFADOS.NOME ALMOXARIFADO, &#xA;       (CASE &#xA;            WHEN SUM(PD_DWINDICADORREGISTROS.QTDECONTAGEMESTOQUESISTEMA) = 0 THEN 0&#xA;            WHEN SUM(PD_DWINDICADORREGISTROS.QTDECONTAGEMESTOQUESISTEMA) &gt; 0 THEN (SUM(PD_DWINDICADORREGISTROS.QTDECONTAGEMESTOQUEFISICO)/SUM(PD_DWINDICADORREGISTROS.QTDECONTAGEMESTOQUESISTEMA) *100 )&#xA;        END) ACURACIDADE,&#xA;       PD_DWINDICADORES.EMPRESA,&#xA;       PD_DWINDICADORES.COMPETENCIA,&#xA;       PD_DWINDICADORREGISTROS.FILIAL&#xA;    FROM PD_DWINDICADORREGISTROS&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = PD_DWINDICADORREGISTROS.DWINDICADOR&#xA;    JOIN PD_ALMOXARIFADOS ON PD_ALMOXARIFADOS.HANDLE = PD_DWINDICADORREGISTROS.ALMOXARIFADO&#xA;GROUP BY PD_DWINDICADORREGISTROS.ALMOXARIFADO, PD_DWINDICADORES.EMPRESA, PD_DWINDICADORES.COMPETENCIA, PD_DWINDICADORREGISTROS.FILIAL, PD_ALMOXARIFADOS.NOME&#xA;ORDER BY ACURACIDADE DESC" />
+  <Fields>
+    <Field Alias="ALMOXARIFADO" From="A" Path="ALMOXARIFADO" />
+    <DecimalField Alias="ACURACIDADE" From="A" Path="ACURACIDADE" FieldDecimalsFormat="2" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <DateField Alias="COMPETENCIA" From="A" Path="COMPETENCIA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

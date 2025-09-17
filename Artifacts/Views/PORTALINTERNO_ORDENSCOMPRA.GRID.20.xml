@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PORTALINTERNO_ORDENSCOMPRA.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Type>Grid</Type>
+  <Version>10</Version>
+  <GridDefinition entityDefinitionName="CP_ORDENSCOMPRA" name="PORTALINTERNO_ORDENSCOMPRA.GRID" title="Ordens compra" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition key="NUMERO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="STATUS">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>120px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="FORNECEDOR">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>230px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="CNPJ" key="PATH_635503464838627524">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>180px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>FORNECEDOR&gt;GN_PESSOAS.CGCCPF</Path>
+        <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Nome filial" key="NOMEFILIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>180px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>FILIAL&gt;FILIAIS.NOME</Path>
+        <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="TOTALGERAL">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>120px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="CONDICAOPAGAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="LIBERADA">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields>
+      <SortField key="NUMERO">
+        <Sort>Ascending</Sort>
+      </SortField>
+    </SortFields>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+      </Command>
+      <Command title="Aprovar" image="fa fa-check" key="CONFIRMAR">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+          <TargetEntityDefinitionName>GN_WEBMOTIVO.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO.TRUNK</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Function" functionName="BOTAOCONFIRMAR" />
+      </Command>
+      <Command title="Recusar" image="fa fa-times" key="RECUSAR">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>CORPORATIVO.TRUNK</SystemInstanceName>
+          <TargetEntityDefinitionName>GN_WEBMOTIVO.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO.TRUNK</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Function" functionName="BOTAORECUSAR" />
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

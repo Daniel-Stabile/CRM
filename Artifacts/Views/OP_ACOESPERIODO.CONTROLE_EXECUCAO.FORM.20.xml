@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>OP_ACOESPERIODO.CONTROLE_EXECUCAO.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>OP_ACOESPERIODO</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="OP_ACOESPERIODO" name="OP_ACOESPERIODO.CONTROLE_EXECUCAO.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="HANDLE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CUSTOM_638452552142748983">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VERSAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ACOESPROJETOS">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition key="HANDLE">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="CUSTOM_638452552142748983">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>~/Views/OrcamentoPublico/AcoesPeriodo/ControleExecucao.cshtml</ValueFromView>
+        <ValueType>View</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldSqlDefinition" title="VERSAO" key="VERSAO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <Expression>SELECT B.HANDLE FROM CT_VERSOESORCAMENTOS B WHERE B.HANDLE IN (SELECT C.VERSAO FROM OP_CLASSIFICACAOORCAMENTARIA C WHERE C.PERIODO = A.HANDLE) AND B.TIPO = 'O' AND ( B.ESTADO = 'X' OR ( B.ESTADO = 'H' AND B.ESTADOANTERIOR = 'X' ))</Expression>
+        <FieldType>Integer</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="ACOESPROJETOS">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

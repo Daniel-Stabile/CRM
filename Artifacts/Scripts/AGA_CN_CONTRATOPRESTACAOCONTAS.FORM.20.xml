@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOPRESTACAOCONTAS.FORM</ViewName>
+  <EntityName>CN_CONTRATOPRESTACAOCONTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoPrestacaoConta
+    
+    handle = widget.Entity.Handle
+    
+    if widget.View.Commands["Edit"] != None and widget.Entity.Handle.IsValid(): widget.View.Commands["Edit"].Visible = CNContratoPrestacaoConta.PodeEditarExcluirLiberarPrestacaoConta(handle)
+    if widget.View.Commands["Delete"] != None  and widget.Entity.Handle.IsValid(): widget.View.Commands["Delete"].Visible = CNContratoPrestacaoConta.PodeEditarExcluirLiberarPrestacaoConta(handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,61 @@
+﻿@model Benner.Corporativo.Definicoes.Financeiro.FNContaTesouraria
+
+<style>
+    label.saldo{
+        display: block;
+        font-size: 30px;
+        font-weight: 600;
+    }
+</style>
+<div class="form-actions top nobg no-border commands-bar fluid list-commands-bar">
+    <a href="@ViewBag.Editar" class="btn blue" data-original-title=""><i class="fa fa-pencil btn-action"></i> Editar</a>
+    <a href="@ViewBag.ImportarExtrato" class="btn default" data-original-title=""><i class="fa fa-list-alt btn-action"></i> Importar Extrato</a>
+    <a href="@ViewBag.ExportarRemessa" class="btn default" data-original-title=""><i class="fa fa-arrow-circle-up btn-action"></i> Exportar Remessa</a>
+    <a href="@ViewBag.ImportarRetorno" class="btn default" data-original-title=""><i class="fa fa-arrow-circle-down btn-action"></i> Importar Retorno</a>
+</div>
+<div class="row static-info">
+    <div class="form">
+        <div class="col-md-1">
+            <div class="form-group">
+                <div class="btn btn-lg" title="@Model["BANCO"].GetString()" style="color: #fff; background-color:@Benner.Corporativo.Wes.WebApp.ContaBancariaCor.Get(Model["BANCO"].GetInt32())">
+                    @(Model["BANCO"].GetString()
+                                .ToUpper()
+                                .Replace("BANCO DO", "")
+                                .Replace("BANCO ", "")
+                                .Replace("BCO ", "")
+                                .Replace("BANK ", "")
+                                .Trim()[0])
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Descrição</label>
+                <div class="input-group">
+                    <label class="value">@Model.Nome</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>Agência</label>
+                <div class="input-group">
+                    <label class="value">@Model["AGENCIA"].GetString()</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Número</label>
+                <div class="input-group">
+                    <label class="value">@(Model.NumeroConta + " - " + @Model.DigitoVerificador)</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4 text-right">
+            <label class="saldo @(Model["SALDOATUAL"].GetDecimal() < 0 ? "negativo" : "positivo") ">@string.Format("R$ {0:N}", Model["SALDOATUAL"].GetDecimal())</label>
+        </div>
+    </div>
+</div>

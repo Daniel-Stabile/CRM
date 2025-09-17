@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Fases Oportunidade" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:SimpleGrid runat="server" ID="K_FASESOPORTUNIDADE" Title="Fases Oportunidade" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_FASESOPORTUNIDADE.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" FormUrl="~/Pages/K_CRM_FASESOPORTUNIDADE/form.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_FASESOPORTUNIDADE_GRID" Level="50" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="K_CRITRIOS" Title="Critérios" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_FASESOPORTUNIDADE" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_FASESOPORTUNIDADECRIT.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FASEOPORTUNIDADE = @CAMPO(HANDLE)" FormUrl="~/Pages/K_CRM_FASESOPORTUNIDADECRIT/form.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_FASESOPORTUNIDADE_GRID" Level="50" Order="20"  />
+        <wes:SimpleGrid runat="server" ID="K_MOTIVOPERDA" Title="MOTIVO PERDA" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_FASESOPORTUNIDADE" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_MOTIVOPERDA.STATUS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FASEOPORTUNIDADE = @CAMPO(HANDLE)" FormUrl="~/Pages/K_CRM_MOTIVOPERDA/form.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_FASESOPORTUNIDADE_GRID" Level="50" Order="30"  />
+        </div>
+    
+      </asp:Content>
+    

@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>CM_ITEMENTREGALOTES.FATURAMENTO.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>CM_ITEMENTREGALOTES</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="CM_ITEMENTREGALOTES" name="CM_ITEMENTREGALOTES.FATURAMENTO.GRID" title="CM_ITEMENTREGALOTES" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ITEMENTREGA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="LOTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <where>(A.INUTILIZADO = 'N' OR A.INUTILIZADO IS NULL) AND A.QTDEDISPONIVEL &gt; 0</where>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Validade" key="PATH_DATAVALIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>20%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Path>LOTE&gt;PD_TANQUELOTES.DATAVALIDADE</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="QUANTIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>Sum</footerBehavior>
+        <Width>15%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Saldo" key="SALDO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>15%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+      </Command>
+      <Command xsi:type="CommandGroup" title="Calcular" image="fa fa-check" key="GRP_CALCULAR">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>true</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Ueps" key="CMD_CALCULARUEPS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>true</runInEditMode>
+            <context>Table</context>
+            <ProcessDefinition xsi:type="Function" functionName="CalculaLotesUeps" />
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Peps" key="CMD_CALCULARPEPS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>true</runInEditMode>
+            <context>Table</context>
+            <ProcessDefinition xsi:type="Function" functionName="CalculaLotePeps" />
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Data de validade" key="CMD_CALCULARDATAVALIDADE">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>true</runInEditMode>
+            <context>Table</context>
+            <ProcessDefinition xsi:type="Function" functionName="CalculaLotesDataValidade" />
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

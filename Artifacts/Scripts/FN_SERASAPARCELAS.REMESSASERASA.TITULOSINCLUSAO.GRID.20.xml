@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_SERASAPARCELAS.REMESSASERASA.TITULOSINCLUSAO.GRID</ViewName>
+  <EntityName>FN_SERASAPARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import ListItem
+    
+    mestre = widget.ProviderWidget
+    if mestre == None: return
+
+    remessa = mestre.Entity
+    if remessa == None: return
+
+    status = remessa.Fields["STATUS"]
+
+    comandoAjustarNatureza = widget.View.Commands["AjustarNatureza"]
+    if comandoAjustarNatureza != None:
+        comandoAjustarNatureza.Visible = status.Value in(1,5)
+        
+    comandoExcluirParcelas = widget.View.Commands["ExcluirParcelas"]
+    if comandoExcluirParcelas != None:
+        comandoExcluirParcelas.Visible = status.Value in(1,5)
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import ListItem
+    
+    remessa = entity.Fields["REMESSA"]
+    if remessa == None: return
+
+    status = remessa.Instance.Fields["STATUS"]
+    
+    comandoDeletar = row.DeleteCommand
+    if comandoDeletar != None:
+        comandoDeletar.Visible = status.Value in(1,5)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

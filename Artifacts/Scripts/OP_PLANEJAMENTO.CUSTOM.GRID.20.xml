@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_PLANEJAMENTO.CUSTOM.GRID</ViewName>
+  <EntityName>OP_PLANEJAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (row.EditCommand): row.EditCommand.Visible = entity.PodeEditar()
+    if (row.DeleteCommand): row.DeleteCommand.Visible = entity.PodeExcluir()
+    if (row.GetCustomCommand("CMD_LIBERAR")): row.GetCustomCommand("CMD_LIBERAR").Enabled = entity.PodeLiberar()
+    if (row.GetCustomCommand("CMD_RECUSAR")): row.GetCustomCommand("CMD_RECUSAR").Enabled =  entity.PodeConfirmarOuRecusar()
+    if (row.GetCustomCommand("CMD_CONFIRMAR")): row.GetCustomCommand("CMD_CONFIRMAR").Enabled = entity.PodeConfirmarOuRecusar()
+    if (row.GetCustomCommand("CMD_VOLTAR")): row.GetCustomCommand("CMD_VOLTAR").Enabled = entity.PodeVoltar()
+    if (row.GetCustomCommand("CMD_CONCLUIR")): row.GetCustomCommand("CMD_CONCLUIR").Enabled = entity.PodeEncerrar()
+    if (row.GetCustomCommand("CMD_GERAR")): row.GetCustomCommand("CMD_GERAR").Enabled = entity.PodeGerar()
+    if (row.GetCustomCommand("CMD_CANCELAR")): row.GetCustomCommand("CMD_CANCELAR").Enabled = entity.PodeCancelar()
+    if (row.GetCustomCommand("CMD_CONFIRMARLEGISLATIVO")): row.GetCustomCommand("CMD_CONFIRMARLEGISLATIVO").Enabled = entity.PodeConfirmarLegislativo()
+    if (row.GetCustomCommand("CMD_APROVACAO")): row.GetCustomCommand("CMD_APROVACAO").Enabled = entity.PodeEnviarAprovacao()
+    if (row.GetCustomCommand("CMD_REVISAR")): row.GetCustomCommand("CMD_REVISAR").Enabled =  entity.PodeRevisar()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

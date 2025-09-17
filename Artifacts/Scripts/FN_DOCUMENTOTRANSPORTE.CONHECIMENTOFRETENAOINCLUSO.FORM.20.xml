@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOTRANSPORTE.CONHECIMENTOFRETENAOINCLUSO.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOTRANSPORTE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if entity == None: return
+    
+    widget.View.Commands["Edit"].Visible = entity.Fields["STATUS"].Value == 2
+    widget.View.Commands["Delete"].Visible = entity.Fields["STATUS"].Value == 2
+    widget.View.Commands["CMD_RATEAR"].Visible = entity.Fields["STATUS"].Value == 2
+    widget.View.Commands["CMD_CONFIRMAR"].Visible = entity.Fields["STATUS"].Value == 2
+    widget.View.Commands["CMD_BLOQUEAR"].Visible = entity.Fields["STATUS"].Value == 1
+    widget.View.Commands["GRP_COMANDOS"].Visible = entity.Fields["STATUS"].Value == 2
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

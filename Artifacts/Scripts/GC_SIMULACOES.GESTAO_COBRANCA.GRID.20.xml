@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GC_SIMULACOES.GESTAO_COBRANCA.GRID</ViewName>
+  <EntityName>GC_SIMULACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    naoEstaEfetivado = entity.ValidarAcordoEfetivado();
+    
+    row.EditCommand.Visible = naoEstaEfetivado;
+    row.GetCustomCommand("CMD_EFETIVAR").Enabled = naoEstaEfetivado;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

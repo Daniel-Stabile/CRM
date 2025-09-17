@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_PESSOAS.FORM</ViewName>
+  <EntityName>FX_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESSOAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESSOAValueChanged(view, entity):
+	from Benner.Tecnologia.Common import RadioItem
+	from Benner.Tecnologia.Common import FieldDefinition
+	pessoa = entity.Fields["PESSOA"].Instance
+	if pessoa == None: return
+	
+	entity.Fields["NOME"] = pessoa.Fields["NOME"] 
+	entity.Fields["PAIS"] = pessoa.Fields["PAIS"]
+	entity.Fields["ESTADO"] = pessoa.Fields["ESTADO"]
+	entity.Fields["MUNICIPIO"] = pessoa.Fields["MUNICIPIO"]
+	entity.Fields["CATEGORIACLIENTE"] = pessoa.Fields["CATEGORIACLIENTE"]
+	entity.Fields["CATEGORIAFORNECEDOR"] = pessoa.Fields["CATEGORIAFORNECEDOR"]
+	entity.Fields["EHCLIENTE"] = pessoa.Fields["EHCLIENTE"]
+	entity.Fields["EHFORNECEDOR"] = pessoa.Fields["EHFORNECEDOR"]
+	entity.Fields["CGCCPF"] = pessoa.Fields["CGCCPF"]
+	
+	if entity.Fields["BANCO"] != None:
+	    entity.Fields["BANCO"].Instance = None
+	    
+	if entity.Fields["EHBANCO"] == True:
+	    entity.Fields["EHBANCO"] = False
+	
+	
+	tipoPessoa = int(pessoa.Fields["TIPO"].Value)
+	if tipoPessoa == 1:
+			entity.Fields["TIPO"] = RadioItem("F", "Pessoa Física")
+	else:
+			entity.Fields["TIPO"] = RadioItem("J", "Pessoa Jurídica")
+			
+			
+	view.FieldDefinitions["NOME"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["PAIS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["ESTADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["MUNICIPIO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CATEGORIACLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CATEGORIAFORNECEDOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHFORNECEDOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHBANCO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CGCCPF"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["TIPO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCGCCPFValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCGCCPFValueChanged(view, entity):
+	if(len(entity.Fields["CGCCPF"]) &gt; 11):
+		entity.Visualization.Fields["CGCCPF"].Mask = "99\.999\.999/9999-99"
+	else:
+		entity.Visualization.Fields["CGCCPF"].Mask = "999\.999\.999-99"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCUSTOM_636716508899524251ValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCUSTOM_636716508899524251ValueChanged(view, entity):
+	if(entity.Fields["CUSTOM_636716508899524251"].Value == "CPF"):
+		entity.Visualization.Fields["CGCCPF"].Visible = true
+	else:
+		entity.Visualization.Fields["CGCCPF"].Visible = false
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRADIOTIPODOCUMENTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRADIOTIPODOCUMENTOValueChanged(view, entity):
+	if(entity.Fields["RADIOTIPODOCUMENTO"].Value == "CPF"):
+		entity.Visualization.Fields["CGCCPF"].Visible = true
+	else:
+		entity.Visualization.Fields["CGCCPF"].Visible = false
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import RadioItem
+    if(entity.Fields["TIPO"] == RadioItem("J", "Pessoa Jurídica")):
+        entity.Visualization.Fields["CGCCPF"].Mask = "99\.999\.999/9999-99";
+    else:
+        entity.Visualization.Fields["CGCCPF"].Mask = "999\.999\.999-99";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	from Benner.Tecnologia.Common import RadioItem
+	from Benner.Tecnologia.Common import RadioItem
+	from Benner.Tecnologia.Common import FieldDefinition
+	entity = widget.Entity
+	if(entity.Fields["TIPO"] == RadioItem("J", "Pessoa Jurídica")):
+		entity.Visualization.Fields["CGCCPF"].Mask = "99\.999\.999/9999-99";
+	else:
+		entity.Visualization.Fields["CGCCPF"].Mask = "999\.999\.999-99";
+	
+	pessoa = entity.Fields["PESSOA"].Instance
+	if pessoa == None: return
+	
+	entity.Fields["NOME"] = pessoa.Fields["NOME"] 
+	entity.Fields["PAIS"] = pessoa.Fields["PAIS"]
+	entity.Fields["ESTADO"] = pessoa.Fields["ESTADO"]
+	entity.Fields["MUNICIPIO"] = pessoa.Fields["MUNICIPIO"]
+	entity.Fields["CATEGORIACLIENTE"] = pessoa.Fields["CATEGORIACLIENTE"]
+	entity.Fields["CATEGORIAFORNECEDOR"] = pessoa.Fields["CATEGORIAFORNECEDOR"]
+	entity.Fields["EHCLIENTE"] = pessoa.Fields["EHCLIENTE"]
+	entity.Fields["EHFORNECEDOR"] = pessoa.Fields["EHFORNECEDOR"]
+	entity.Fields["CGCCPF"] = pessoa.Fields["CGCCPF"]
+	
+	tipoPessoa = int(pessoa.Fields["TIPO"].Value)
+	if tipoPessoa == 1:
+			entity.Fields["TIPO"] = RadioItem("F", "Pessoa Física")
+	else:
+			entity.Fields["TIPO"] = RadioItem("J", "Pessoa Jurídica")
+			
+	view = widget.View
+	view.FieldDefinitions["NOME"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["PAIS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["ESTADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["MUNICIPIO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CATEGORIACLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CATEGORIAFORNECEDOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHFORNECEDOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHBANCO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CGCCPF"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["TIPO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    if (not (entity.Fields["EHBANCO"]) and not (entity.Fields["EHCLIENTE"]) and not (entity.Fields["EHFORNECEDOR"])) :
+        raise CancelledOperationException("Uma função deve ser informada para este cadastro!")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnBANCOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnBANCOValueChanged(view, entity):
+	from Benner.Tecnologia.Common import RadioItem
+	from Benner.Tecnologia.Common import FieldDefinition
+	banco = entity.Fields["BANCO"].Instance
+	if banco == None: return
+	
+	entity.Fields["NOME"] = banco.Fields["NOME"] 
+	entity.Fields["PAIS"] = banco.Fields["PAIS"]
+	entity.Fields["ESTADO"] = banco.Fields["ESTADO"]
+	entity.Fields["MUNICIPIO"] = banco.Fields["MUNICIPIO"]
+	#entity.Fields["CATEGORIACLIENTE"] = banco.Fields["CATEGORIACLIENTE"]
+	#entity.Fields["CATEGORIAFORNECEDOR"] = banco.Fields["CATEGORIAFORNECEDOR"]
+	entity.Fields["EHBANCO"] = True
+	entity.Fields["EHCLIENTE"] = False
+	entity.Fields["EHFORNECEDOR"] = False
+	
+	entity.Fields["TIPO"] = RadioItem("J", "Pessoa Jurídica")
+	entity.Fields["CGCCPF"] = banco.Fields["CGC"]
+	
+	if entity.Fields["PESSOA"] != None: 
+	    entity.Fields["PESSOA"].Instance = None	
+			
+	view.FieldDefinitions["NOME"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["PAIS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["ESTADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["MUNICIPIO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CATEGORIACLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CATEGORIAFORNECEDOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHFORNECEDOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["EHBANCO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["CGCCPF"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	view.FieldDefinitions["TIPO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

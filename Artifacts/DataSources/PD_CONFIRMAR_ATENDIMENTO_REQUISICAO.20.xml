@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>PD_CONFIRMAR_ATENDIMENTO_REQUISICAO</Identifier>
+  <Name>Confirmar atendimento requisições</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NUMEROSEQUENCIA,&#xD;&#xA;       A.QUANTIDADECONFIRMAR,&#xD;&#xA;       A.HANDLE,&#xD;&#xA;       A.DATA,&#xD;&#xA;       A.PRAZO,&#xD;&#xA;       A.QUANTIDADEATENDIDA,&#xD;&#xA;       A.VARIACAO,&#xD;&#xA;       B.CODIGOREFERENCIA CODIGOPRODUTO,&#xD;&#xA;       B.NOME NOMEPRODUTO,&#xD;&#xA;       G.NOME NOMEFAMILIA,&#xD;&#xA;       H.NOME NOMEALMOXARIFADO,&#xD;&#xA;       I.APELIDO NOMEREQUISITANTE&#xD;&#xA;  FROM CP_REQUISICOES A&#xD;&#xA;       JOIN PD_PRODUTOS B ON A.PRODUTO = B.HANDLE AND A.FAMILIA = B.FAMILIA&#xD;&#xA;       JOIN CM_UNIDADESMEDIDA C ON B.UNIDADEMEDIDAESTOQUE = C.HANDLE&#xD;&#xA;       JOIN CM_UNIDADESMEDIDA D ON B.UNIDADEMEDIDACOMPRAS = D.HANDLE&#xD;&#xA;       JOIN CM_UNIDADESMEDIDA E ON A.UNIDADE = E.HANDLE&#xD;&#xA;       JOIN PD_PRODUTOVARIACOESMESTRE F ON A.VARIACAO = F.HANDLE&#xD;&#xA;       JOIN PD_FAMILIASPRODUTOS G ON A.FAMILIA = G.HANDLE&#xD;&#xA;       JOIN PD_ALMOXARIFADOS H ON A.ALMOXARIFADO = H.HANDLE&#xD;&#xA;       JOIN Z_GRUPOUSUARIOS I ON A.REQUISITANTE = I.HANDLE&#xD;&#xA;       JOIN PD_ALMOXARIFADOPRODUTOS J ON A.ALMOXARIFADO = J.ALMOXARIFADO AND A.PRODUTO = J.PRODUTO&#xD;&#xA;       JOIN CP_REQUISICOESPAI K ON A.REQUISICAOPAI = K.HANDLE&#xD;&#xA;       JOIN PD_ALMOXARIFES L ON A.ALMOXARIFADO = L.ALMOXARIFADO&#xD;&#xA; WHERE A.AGRUPADO = 'N'&#xD;&#xA;       AND A.STATUS = 10&#xD;&#xA;       AND B.TIPO IN(1, 2, 5)&#xD;&#xA;       AND B.ATIVO = 'S'&#xD;&#xA;       AND L.ALMOXARIFE = @USUARIO &#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NUMEROSEQUENCIA" From="A" Path="NUMEROSEQUENCIA" />
+    <Field Alias="QUANTIDADECONFIRMAR" From="A" Path="QUANTIDADECONFIRMAR" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="PRAZO" From="A" Path="PRAZO" />
+    <Field Alias="QUANTIDADEATENDIDA" From="A" Path="QUANTIDADEATENDIDA" />
+    <Field Alias="VARIACAO" From="A" Path="VARIACAO" />
+    <Field Alias="CODIGOPRODUTO" From="A" Path="CODIGOPRODUTO" />
+    <Field Alias="NOMEPRODUTO" From="A" Path="NOMEPRODUTO" />
+    <Field Alias="NOMEFAMILIA" From="A" Path="NOMEFAMILIA" />
+    <Field Alias="NOMEALMOXARIFADO" From="A" Path="NOMEALMOXARIFADO" />
+    <Field Alias="NOMEREQUISITANTE" From="A" Path="NOMEREQUISITANTE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

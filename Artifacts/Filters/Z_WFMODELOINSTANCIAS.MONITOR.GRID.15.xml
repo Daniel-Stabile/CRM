@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_WFMODELOINSTANCIAS.MONITOR.GRID</ViewName>
+  <Level>Tecnologia</Level>
+  <EntityName>Z_WFMODELOINSTANCIAS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Concluídos com sucesso</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="SITUACAO">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>4</Value>
+      <Text />
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.SITUACAO = :1_SITUACAO</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1_SITUACAO</Name>
+      <Value xsi:type="xsd:int">4</Value>
+      <Direction>Input</Direction>
+      <DataType>String</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Em atraso</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="EMATRASO">
+    <FieldDefinitionName>BooleanFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:boolean">true</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="SITUACAO">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>3</Value>
+      <Text />
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.EMATRASO = :1_EMATRASO AND A.SITUACAO = :2_SITUACAO</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1_EMATRASO</Name>
+      <Value xsi:type="xsd:string">S</Value>
+      <Direction>Input</Direction>
+      <DataType>String</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+    <Parameter>
+      <Name>2_SITUACAO</Name>
+      <Value xsi:type="xsd:int">3</Value>
+      <Direction>Input</Direction>
+      <DataType>String</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Em execução</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="SITUACAO">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>3</Value>
+      <Text />
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.SITUACAO = :1_SITUACAO</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1_SITUACAO</Name>
+      <Value xsi:type="xsd:int">3</Value>
+      <Direction>Input</Direction>
+      <DataType>String</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Suspensos por erro</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="SITUACAO">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>5</Value>
+      <Text />
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.SITUACAO = :1_SITUACAO</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1_SITUACAO</Name>
+      <Value xsi:type="xsd:int">5</Value>
+      <Direction>Input</Direction>
+      <DataType>String</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOACONTATOS.GRID</ViewName>
+  <EntityName>K_CRM_PESSOACONTATOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import CompanyFilterMode
+    
+    if entity.Fields["CONTATOVALIDO"] == False:   
+            i = 0;
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#95a5a6";
+                i += 1;
+                if row.GetCustomCommand("cmdDesativarContato") != None:
+                    row.GetCustomCommand("cmdDesativarContato").Enabled = False;
+    else:
+        if row.GetCustomCommand("cmdDesativarContato") != None:
+            row.GetCustomCommand("cmdDesativarContato").Enabled = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

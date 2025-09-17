@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_DIRETOR_META_REALIZADA</Identifier>
+  <Name>CRM_V1_DIRETOR_META_REALIZADA</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT  D.NOME,&#xD;&#xA;        A.VALORMETA METAVENDA,&#xD;&#xA;        A.VALORFATURAMENTO METAFATURAMENTO,&#xD;&#xA;        (SELECT SUM(VALORTOTAL)&#xD;&#xA;            FROM K_CRM_PESSOAOPORTUNIDADES A1&#xD;&#xA;            JOIN K_CRM_METASUSUARIOS AA ON A1.RESPONSAVEL = AA.USUARIO&#xD;&#xA;            JOIN K_CRM_METASDIRETORES AB ON AA.METADIRETOR = AB.HANDLE&#xD;&#xA;            JOIN K_CRM_METASUNIDADES AC ON AB.METAUNIDADE = AC.HANDLE&#xD;&#xA;            JOIN K_CRM_METAS AD ON AC.META = AD.HANDLE&#xD;&#xA;            WHERE AB.DIRETOR = A.DIRETOR AND YEAR(GETDATE()) = YEAR(A1.DATAFECHAMENTO) ) VALORVENDA,&#xD;&#xA;        (SELECT SUM(VALORTOTAL)&#xD;&#xA;            FROM K_CRM_PESSOAOPORTUNIDADES A1&#xD;&#xA;            JOIN K_CRM_METASUSUARIOS AA ON A1.RESPONSAVEL = AA.USUARIO&#xD;&#xA;            JOIN K_CRM_METASDIRETORES AB ON AA.METADIRETOR = AB.HANDLE&#xD;&#xA;            JOIN K_CRM_METASUNIDADES AC ON AB.METAUNIDADE = AC.HANDLE&#xD;&#xA;            JOIN K_CRM_METAS AD ON AC.META = AD.HANDLE&#xD;&#xA;            WHERE AB.DIRETOR = A.DIRETOR AND YEAR(GETDATE()) = YEAR(A1.DATAFATURAMENTO) ) VALORFATURAMENTO&#xD;&#xA;FROM K_CRM_METASDIRETORES A&#xD;&#xA;JOIN K_CRM_METASUNIDADES B ON A.METAUNIDADE = B.HANDLE&#xD;&#xA;JOIN K_CRM_METAS C ON B.META = C.HANDLE&#xD;&#xA;JOIN Z_GRUPOUSUARIOS D ON A.DIRETOR = D.HANDLE&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY D.NOME,A.DIRETOR,A.VALORMETA,A.VALORFATURAMENTO&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="METAVENDA" From="A" Path="METAVENDA" />
+    <Field Alias="METAFATURAMENTO" From="A" Path="METAFATURAMENTO" />
+    <Field Alias="VALORVENDA" From="A" Path="VALORVENDA" />
+    <Field Alias="VALORFATURAMENTO" From="A" Path="VALORFATURAMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

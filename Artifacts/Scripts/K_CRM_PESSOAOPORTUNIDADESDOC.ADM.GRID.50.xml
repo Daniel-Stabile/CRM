@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESDOC.ADM.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESDOC</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+    
+    if ehAdmin:
+        widget.Hidden = False;
+    else:
+        widget.Hidden = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

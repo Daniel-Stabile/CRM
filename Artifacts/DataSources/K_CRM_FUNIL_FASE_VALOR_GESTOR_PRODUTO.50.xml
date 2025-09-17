@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_FUNIL_FASE_VALOR_GESTOR_PRODUTO</Identifier>
+  <Name>CRM_FUNIL_FASE_VALOR_GESTOR_PRODUTO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NOME FASE, SUM(C.VALORTOTAL+RECORRENTE+VALORSAAS) VALORFASES&#xD;&#xA;FROM K_CRM_FASES A&#xD;&#xA;JOIN K_CRM_PESSOAS B ON B.FASE = A.HANDLE&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADES C ON C.PESSOA = B.HANDLE&#xD;&#xA;WHERE C.ARQUITETOSOLUCAO IS NOT NULL&#xD;&#xA;GROUP BY A.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="FASE" From="A" Path="FASE" />
+    <DecimalField Alias="VALORFASES" From="A" Path="VALORFASES" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

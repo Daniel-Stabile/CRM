@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<TemplatePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>MESTRE_DETALHE_PADRAO</Id>
+  <Name>Mestre/detalhe com widgets filhos um abaixo do outro</Name>
+  <Level>Tecnologia</Level>
+  <Content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+                xmlns:wes="http://www.benner.com.br"
+                xmlns:asp="http://www.asp.net"
+                exclude-result-prefixes="msxsl wes asp">
+  <xsl:output method="html" indent="yes" />
+
+  <xsl:template match="Page">
+    <xsl:variable name="Registers" select="Registers/Register"/>
+    <xsl:variable name="Connections" select="Connections/Connection"/>
+    <xsl:variable name="Widgets" select="Widgets/Widget"/>
+    <xsl:variable name="Resources" select="Resources/Resource"/>
+
+    <xsl:text disable-output-escaping="yes">&lt;%@ Page Title="</xsl:text>
+    <xsl:value-of select="Title"/>
+    <xsl:text disable-output-escaping="yes">" Language="C#"</xsl:text>
+    <xsl:if test="CodeFile != ''">
+      <xsl:text disable-output-escaping="yes"> CodeFile="</xsl:text>
+      <xsl:value-of select="CodeFile"/>
+      <xsl:text disable-output-escaping="yes">"</xsl:text>
+    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="CodeInherits != ''">
+        <xsl:text disable-output-escaping="yes"> Inherits="</xsl:text>
+        <xsl:value-of select="CodeInherits"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text disable-output-escaping="yes"> Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text disable-output-escaping="yes">" %&gt;
+   </xsl:text>
+
+    <xsl:text disable-output-escaping="yes">
+&lt;%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %&gt;</xsl:text>
+    <xsl:for-each select="$Registers">
+      <xsl:text disable-output-escaping="yes">
+&lt;%@ Register Assembly="</xsl:text>
+      <xsl:value-of select="Assembly"/>
+      <xsl:text>" Namespace="</xsl:text>
+      <xsl:value-of select="Namespace"/>
+      <xsl:text>" TagPrefix="</xsl:text>
+      <xsl:value-of select="TagPrefix"/>
+      <xsl:text disable-output-escaping="yes">" %&gt;
+     </xsl:text>
+    </xsl:for-each>
+
+    <xsl:text disable-output-escaping="yes">
+      &lt;asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server"&gt;
+    </xsl:text>
+
+    <div class="row">
+      <xsl:for-each select="$Widgets">
+        <xsl:text disable-output-escaping="yes">
+        </xsl:text>
+        <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
+        <xsl:value-of select="TagName" />
+        <xsl:text> runat="server" ID="</xsl:text>
+        <xsl:value-of select="Id" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>Title="</xsl:text>
+        <xsl:value-of select="Title" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>Subtitle="</xsl:text>
+        <xsl:value-of select="Subtitle" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>PortletCssClass="</xsl:text>
+        <xsl:value-of select="PortletCssClass" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>PortletLayout="</xsl:text>
+        <xsl:value-of select="PortletLayout" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>BootstrapCols="</xsl:text>
+        <xsl:value-of select="BootstrapCols" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>FontIcon="</xsl:text>
+        <xsl:value-of select="FontIcon" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>ShowTitle="</xsl:text>
+        <xsl:value-of select="ShowTitle" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>ProviderWidgetUniqueId="</xsl:text>
+        <xsl:value-of select="ProviderId" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>ChromeState="</xsl:text>
+        <xsl:value-of select="ChromeState" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:value-of select="Attributes" />
+        <xsl:text disable-output-escaping="yes"> /&gt;</xsl:text>
+      </xsl:for-each>
+      <xsl:text disable-output-escaping="yes">
+        </xsl:text>
+    </div>
+
+    <xsl:text disable-output-escaping="yes">
+    </xsl:text>
+
+    <xsl:for-each select="$Resources">
+      <xsl:text disable-output-escaping="yes">
+        </xsl:text>
+      <xsl:choose>
+        <xsl:when test="Type = 'JavaScript'">
+          <script type="text/javascript">
+            <xsl:text disable-output-escaping="yes">
+              </xsl:text>
+            <xsl:value-of disable-output-escaping="yes" select="Content"/>
+            <xsl:text disable-output-escaping="yes">
+              </xsl:text>
+          </script>
+        </xsl:when>
+        <xsl:otherwise>
+          <style>
+            <xsl:text disable-output-escaping="yes">
+              </xsl:text>
+            <xsl:value-of disable-output-escaping="yes" select="Content" />
+            <xsl:text disable-output-escaping="yes">
+              </xsl:text>
+          </style>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+
+    <xsl:text disable-output-escaping="yes">
+      &lt;/asp:Content&gt;
+    </xsl:text>
+  </xsl:template>
+</xsl:stylesheet>
+]]></Content>
+</TemplatePortable>

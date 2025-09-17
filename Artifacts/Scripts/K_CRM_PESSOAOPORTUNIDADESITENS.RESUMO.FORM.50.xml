@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESITENS.RESUMO.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESITENS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORDESCONTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORDESCONTOValueChanged(view, entity):
+    
+    item        = entity.Fields["ITEM"].Handle;
+    desconto    = entity.Fields["VALORDESCONTO"];
+    valor       = entity.Fields["VALOR"];
+    quantidade  = entity.Fields["QUANTIDADE"];
+    
+    if item.IsValid():
+        entity.Fields["VALORFINAL"] = quantidade*(valor*(100 - desconto)/100)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORDESCONTOLUMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORDESCONTOLUMValueChanged(view, entity):
+    
+    item        = entity.Fields["ITEM"].Handle;
+    desconto    = entity.Fields["VALORDESCONTOLUM"];
+    valor       = entity.Fields["VALORLUM"];
+    quantidade  = entity.Fields["QUANTIDADE"];
+    
+    if item.IsValid():
+        entity.Fields["VALORFINALLUM"] = quantidade*( valor*(100 - desconto)/100)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    
+    if widget == None:return;
+    
+    entity = widget.Entity
+    
+    if entity == None:return;
+    
+    ehResponsavel = entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle
+    
+    if entity.Fields["PRODUTO"].Instance.Fields["ARQUITETOSOLUCAO"].Handle.IsValid():
+        ehArquiteto = entity.Fields["PRODUTO"].Instance.Fields["ARQUITETOSOLUCAO"].Handle
+    else:
+        ehArquiteto = None
+    
+    status = int(entity.Fields["OPORTUNIDADE"].Instance.Fields["STATUS"].Value)
+    
+    widget.View.Commands["Edit"].Visible = (status != 10 and (usuario == ehResponsavel or usuario == ehArquiteto))
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

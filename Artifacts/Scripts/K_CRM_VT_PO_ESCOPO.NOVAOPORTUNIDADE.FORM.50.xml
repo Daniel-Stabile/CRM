@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_PO_ESCOPO.NOVAOPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_VT_PO_ESCOPO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    if widget.Entity == None:
+        return
+    
+    widget.View.FieldDefinitions["PRODUTO"].Visible = (widget.Entity.Fields["PRODUTO"].Handle.IsValid() and widget.Entity.Fields["PRODUTO"].Handle.Value &gt;0)
+    widget.View.FieldDefinitions["ESCOPOPADRAO"].Visible = (widget.Entity.Fields["PRODUTO"].Handle.IsValid() and widget.Entity.Fields["PRODUTO"].Handle.Value &gt;0)
+        
+    widget.View.FieldDefinitions["QTDHORASGERPROJ"].Visible = widget.Entity.Fields["IRACOBRARGERPROJ"];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPRODUTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPRODUTOValueChanged(view, entity):
+    a=1;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnIRACOBRARGERPROJValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnIRACOBRARGERPROJValueChanged(view, entity):
+    entity.TransitoryVars["POSTBACK"] = 1
+    view.FieldDefinitions["QTDHORASGERPROJ"].Visible = entity.Fields["IRACOBRARGERPROJ"];
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,124 @@
+<div class="table-scrollable">
+    <div class="message-panel" id="mensagemOK">
+        
+    </div>
+    <table class="table simple-grid" style="width:95%">
+        <thead>
+            <tr>
+                <th>A&ccedil;&otilde;es</th>
+                <th>AS/SP</th>
+                <th>Par.</th>
+                <th>Venc.</th>
+                <th>Valor</th>
+                <th>Status</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var parcela in ViewBag.qryParcela)
+            {
+                <tr>
+                    <td width="100px">
+                        <i onclick="ExibeOcultaDetalhes(this)" class="fa fa-plus-circle " style="color:#4B77BE; cursor:pointer" title="Exibir detalhes da parcela."></i>
+                        <a href="@Benner.Corporativo.Wes.WebApp.ImprimeBoletoCobranca.PaginaImprimirBoleto(Convert.ToInt32(parcela.Fields["HANDLE"]), Convert.ToInt32(parcela.Fields["CONTATESOURARIA"]))">
+                            <i class="fa fa-barcode" style="margin-left:5px;display:none" title="Imprimir boleto"></i>
+                        </a>
+                        @if (!string.IsNullOrEmpty(parcela.Fields["NUMEROBANCO"]) && parcela.Fields["SALDO"] > 0)
+                        {
+                            <i onclick="BaixarBoleto(@Convert.ToInt32(parcela.Fields["HANDLE"]))" class="btn btn-xs btn-circle btn command-action grey fa fa-print " style="color:#000; cursor:pointer" title="Baixar boleto"></i>
+                        }
+                    </td>
+                    <td>@parcela.Fields["AP"]</td>
+                    <td>@parcela.Fields["PARCELADIGITADA"]</td>
+                    <td>@parcela.Fields["DATAVENCIMENTO"].ToString("dd/MM/yyyy")</td>
+                    <td>R$ @Html.FormatValue(@parcela.Fields["VALOR"], "{0:#,##0.00}")</td>
+                    <td>@(parcela.Fields["SALDO"] > 0 ? Html.Raw("<span class=\"label label-sm label-danger\">Aberta</span>") : Html.Raw("<span class=\"label label-sm label-primary\">Liquidada</span>"))</td>
+                    <td>R$ @Html.FormatValue(parcela.Fields["SALDO"], "{0:#,##0.00}")</td>
+                </tr>
+                <tr style="display:none;">
+                    <td colspan="7">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                    <th>Acr&eacute;scimos</th>
+                                    <th>Desconto</th>
+                                    <th>Vl. Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var baixa in ViewBag.qry)
+                                {
+                                    if (baixa.Fields["PARCELA"] == parcela.Fields["HANDLE"])
+                                    {
+                                        <tr class="detalhes">
+                                            <td>@baixa.Fields["DATA"].ToString("dd/MM/yyyy")</td>
+                                            <td>R$ @Html.FormatValue(baixa.Fields["VALOR"], "{0:#,##0.00}")</td>
+                                            <td>R$ @Html.FormatValue(baixa.Fields["ACRESCIMOS"], "{0:#,##0.00}")</td>
+                                            <td>R$ @Html.FormatValue(baixa.Fields["DESCONTO"], "{0:#,##0.00}")</td>
+                                            <td>R$ @Html.FormatValue(baixa.Fields["VALORTOTAL"], "{0:#,##0.00}")</td>
+                                        </tr>}
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>}
+    </tbody>
+</table>
+</div>
+
+<script>
+    function ExibeOcultaDetalhes(campo)
+    {
+        var linha = $(campo).parent().parent();
+
+        var lDetalhes = linha.next('tr').find('.detalhes');
+        if (lDetalhes.length == 0)
+            linha.next('tr').find('td').html("Nenhuma baixa encontrada para parcela selecionada.");
+
+        if ($(campo).hasClass('fa-plus-circle')) {
+            $(campo).addClass('fa-minus-circle').removeClass('fa-plus-circle');
+            linha.next('tr').show();
+        }
+        else {
+            $(campo).addClass('fa-plus-circle').removeClass('fa-minus-circle');
+            linha.next('tr').hide();
+        }
+
+
+
+    }
+
+    function BaixarBoleto(handleParcela) {
+        var params = {
+            handleParcela
+        }
+        $.post(Benner.Page.getApplicationPath() + 'api/PortalCliente/BaixarBoleto', params)
+            .done(function () {
+                document.location.reload();
+            });
+        
+    }
+
+    function EnviarBoletoEmail(handleParcela) {
+        var params = {
+            handleParcela
+        }
+
+        $.post(Benner.Page.getApplicationPath() + 'api/PortalCliente/EnviarBloquetoEmail', params)
+            .done(function () {
+                CriarMensagemOK();
+            })
+            .fail(function () {
+                CriarMensagemERRO();
+            });
+    }
+
+    function CriarMensagemOK() {
+        $("#mensagemOK").append("<div id='ctl00_Main_FORMTS_LANCAMENTOS_MsgUser' class='alert alert-info'><button class='close' data-dismiss='alert'></button><span id='ctl00_Main_FORMTS_LANCAMENTOS_MsgUser_message'>A a&ccedil;&atilde;o foi executada</span></div>")
+    }
+    function CriarMensagemERRO() {
+        $("#mensagemOK").append("<div id='ctl00_Main_FORMTS_LANCAMENTOS_MsgUser' class='alert alert-warning'><button class='close' data-dismiss='alert'></button><span id='ctl00_Main_FORMTS_LANCAMENTOS_MsgUser_message'>Ocorreu um problema ao enviar o e-mail.</span></div>")
+    }
+</script>

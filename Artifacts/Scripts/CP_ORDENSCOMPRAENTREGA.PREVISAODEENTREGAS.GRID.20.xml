@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRAENTREGA.PREVISAODEENTREGAS.GRID</ViewName>
+  <EntityName>CP_ORDENSCOMPRAENTREGA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPOrdemCompraEntrega
+    
+    if row.GetCustomCommand("CMD_REMANEJARENTREGAORCAMENTO") != None:
+        row.GetCustomCommand("CMD_REMANEJARENTREGAORCAMENTO").Enabled = CPOrdemCompraEntrega.PodeRemanejar(entity.Fields["HANDLE"].Value);
+        
+    if row.GetCustomCommand("CMD_EFETIVARANTECIPACAO") != None:
+        row.GetCustomCommand("CMD_EFETIVARANTECIPACAO").Enabled = CPOrdemCompraEntrega.EhAntecipacaoPendente(entity.Fields["HANDLE"].Value);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_REMANEJARENTREGAORCAMENTOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_REMANEJARENTREGAORCAMENTOExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("O remanejamento de entrega retira o valor empenhado do orçamento em execução. Deseja continuar?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

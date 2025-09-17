@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTRATOS_FATURAMENTO_FATURAMENTO_MEDIO_CONTRATO</Identifier>
+  <Name>Indicadores contratos faturamento - Valor faturamento médio contrato</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT (CONSULTA_FAT_MEDIO.FATURADO/CONSULTA_FAT_MEDIO.CONTRATOS) FATURAMENTO FROM&#xD;&#xA;(SELECT SUM(CN_DWINDICADORVALORES.VALOR) AS FATURADO,&#xD;&#xA;       COUNT(DISTINCT CN_DWINDICADOROBJETOS.CONTRATO) AS CONTRATOS&#xD;&#xA;  FROM CN_DWINDICADORVALORES&#xD;&#xA;  JOIN CN_DWINDICADORES ON (CN_DWINDICADORES.HANDLE = CN_DWINDICADORVALORES.COLETA AND CN_DWINDICADORES.TIPOCOLETA = 1)&#xD;&#xA;  JOIN CN_DWINDICADOROBJETOS ON (CN_DWINDICADOROBJETOS.INDICADOR = CN_DWINDICADORVALORES.HANDLE)&#xD;&#xA; WHERE CN_DWINDICADORVALORES.TIPO = 2 &#xD;&#xA;   AND @CRITERIOSELECAO AND CN_DWINDICADORES.COLETAPARCIAL = 'N') CONSULTA_FAT_MEDIO &#xD;&#xA; WHERE CONSULTA_FAT_MEDIO.CONTRATOS &lt;&gt; 0" />
+  <Fields>
+    <Field Alias="FATURAMENTO" From="A" Path="FATURAMENTO" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

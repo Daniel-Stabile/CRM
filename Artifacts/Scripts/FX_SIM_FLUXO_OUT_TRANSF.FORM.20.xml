@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_SIM_FLUXO_OUT_TRANSF.FORM</ViewName>
+  <EntityName>FX_SIMULACOESFLUXO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	entity = widget.Entity
+	if entity == None: return
+	fluxo = entity.Fields["FLUXO"].Instance
+	if fluxo == None: return
+	
+	widget.Entity.Fields["TRANSFDOBANCO"].LocalWhere = """A.HANDLE IN (SELECT B.CONTABANCO FROM FX_CONTABANCOCONTAGERENCIAL B WHERE B.PLANOCONTAGERENCIAL = (SELECT C.PLANOGERENCIAL FROM FX_FLUXO C WHERE C.HANDLE = @CAMPO(FLUXO)))"""
+	widget.Entity.Fields["TRANSFPARABANCO"].LocalWhere = """A.HANDLE IN (SELECT B.CONTABANCO FROM FX_CONTABANCOCONTAGERENCIAL B WHERE B.PLANOCONTAGERENCIAL = (SELECT C.PLANOGERENCIAL FROM FX_FLUXO C WHERE C.HANDLE = @CAMPO(FLUXO)))"""
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

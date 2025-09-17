@@ -1,0 +1,26 @@
+@{
+
+    var dotacao = string.Format("R$ {0:N2}", @Model["DOTACAO"].GetDecimal());
+    var total = string.Format("R$ {0:N2}", @Model["SQL_TOTAL"].GetDecimal());
+
+    var color = "#333345";
+    var bgcolor = "transparent";
+
+    if (@Model["DOTACAO"].GetDecimal() != @Model["SQL_TOTAL"].GetDecimal())
+    {
+        bgcolor = "#F8CECC77";
+        color = "#660000";
+    }
+
+}
+
+<div style="display: flex; width: 100%; justify-content:">
+
+    <div
+        style="background-color: @bgcolor; color: @color; padding: 2px 8px;border-radius: 6px !important;  white-space: nowrap; font-size: 13px">
+        <b style="white-space: nowrap;">@total</b>
+        /
+        @dotacao
+    </div>
+
+</div>

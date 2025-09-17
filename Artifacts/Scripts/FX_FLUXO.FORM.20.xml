@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_FLUXO.FORM</ViewName>
+  <EntityName>FX_FLUXO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnMOEDAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMOEDAValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    from Benner.Corporativo.Definicoes.FluxoCaixa.Utils import FuncoesUtilsFluxo
+    
+    if (entity.Fields["MOEDA"].Handle.IsValid()):
+      if (FuncoesUtilsFluxo.MoedaSelecionadaDiferenteDeReal(entity.Fields["MOEDA"].Handle)):
+          view.FieldDefinitions["VALORCOTACAOMOEDA"].Visible = True
+      else:
+          view.FieldDefinitions["VALORCOTACAOMOEDA"].Visible = False
+    else:
+      view.FieldDefinitions["VALORCOTACAOMOEDA"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Corporativo.Definicoes.FluxoCaixa.Utils import FuncoesUtilsFluxo
+
+    registro = widget.Entity
+    if registro == None: return
+    
+    ativo = registro.Fields["ATIVO"] == True
+    tipoFluxo = int(registro.Fields["TIPO"].Value)
+    
+    widget.View.Commands["CMD_INATIVAR"].Visible = ativo
+    widget.View.Commands["CMD_ATIVAR"].Visible = not ativo
+    widget.View.Commands["Edit"].Visible = ativo
+    widget.View.Commands["CMD_PROJETAR"].Visible = tipoFluxo == 3 and not registro.IsCreating
+    widget.View.Commands["CMD_REGRASPROJECAO"].Visible = tipoFluxo == 3 and not registro.IsCreating
+    widget.View.Commands["CMD_COPIAR"].Visible = tipoFluxo == 3 and not registro.IsCreating
+    
+    widget.View.FieldDefinitions["VALORREFERENCIA"].Visible = tipoFluxo == 3
+    
+    if (registro.State == EntityState.Read):
+        widget.View.FieldDefinitions["SELECIONARGRUPOS"].Visible = False
+
+    if (registro.Fields["MOEDA"].Handle.IsValid()):
+      if (FuncoesUtilsFluxo.MoedaSelecionadaDiferenteDeReal(registro.Fields["MOEDA"].Handle)):
+          widget.View.FieldDefinitions["VALORCOTACAOMOEDA"].Visible = True
+      else:
+          widget.View.FieldDefinitions["VALORCOTACAOMOEDA"].Visible = False
+    else:
+      widget.View.FieldDefinitions["VALORCOTACAOMOEDA"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSELECIONARGRUPOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSELECIONARGRUPOSValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    from Benner.Corporativo.Definicoes.FluxoCaixa.Utils import FuncoesUtilsFluxo
+    
+    if (entity.Fields["SELECIONARGRUPOS"].Value == "M"):
+        entity.Fields["GRUPOSLANCAMENTO"].Clear()
+        entity.Fields["GRUPOSLANCAMENTO"].Add(FuncoesUtilsFluxo.GetAllHandlesGrupos())
+    
+    if (entity.Fields["SELECIONARGRUPOS"].Value == "D"):
+        entity.Fields["GRUPOSLANCAMENTO"].Clear()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnGRUPOSLANCAMENTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnGRUPOSLANCAMENTOValueChanged(view, entity):
+    entity.Fields["SELECIONARGRUPOS"] = ""
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

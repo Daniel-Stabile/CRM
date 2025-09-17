@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.TERCEIROS.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Business import Query
+    from Benner.Corporativo.Definicoes.Genericos import GNPessoa
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    qPessoa = Query("SELECT HANDLE FROM GN_PESSOAS WHERE CGCCPF = '"+entity.Fields["CGCCPF"].ToString()+"'")
+    result = qPessoa.Execute()
+    handleExistente = 0
+    if (len(result) &gt; 0 and entity.IsCreating == True) :
+        raise CancelledOperationException("Já existe um terceiro com este CPF/CNPJ!")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCGCCPFValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCGCCPFValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Business import Query
+    from System.Web import HttpContext
+    from Benner.Corporativo.Definicoes.Genericos import GNPessoa
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    qPessoa = Query("SELECT HANDLE FROM GN_PESSOAS WHERE CGCCPF = '"+entity.Fields["CGCCPF"].ToString()+"'")
+    result = qPessoa.Execute()
+    handleExistente = 0
+    if (len(result) &gt; 0 and entity.IsCreating == True) :
+        #entity.OutputMessage = "Foi encontrado um terceiro com este documento e vinculado ao seu cadastro!"
+        GNPessoa.CommonVincularTerceiro(result[0]["HANDLE"].GetString())
+        ErpEnvironment.AtribuirSessionVar("FORN_TERC_VINCULADO", result[0]["HANDLE"].GetString())
+        raise CancelledOperationException("Foi encontrado um terceiro com este documento e vinculado ao seu cadastro!")
+        #OnCancelExecute( Command.GetViewCommand(view.Name, "Cancel"),entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

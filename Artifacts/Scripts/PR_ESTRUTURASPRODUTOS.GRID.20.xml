@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_ESTRUTURASPRODUTOS.GRID</ViewName>
+  <EntityName>PR_ESTRUTURAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Business import Query
+    
+    query = Query("SELECT TIPO,INDUSTRIALIZACAOEXTERNA FROM PD_PRODUTOS WHERE HANDLE = " + str(entity["PRODUTO"].GetInt32()));
+    resultado = query.Execute()[0];
+    
+    if row.GetCustomCommand("CMD_MANUFATURADO") != None:
+            row.GetCustomCommand("CMD_MANUFATURADO").Enabled = False;
+
+    if resultado["TIPO"].GetInt32() == 2:
+        if row.GetCustomCommand("CMD_MANUFATURADO") != None:
+            row.GetCustomCommand("CMD_MANUFATURADO").Enabled = True;
+            if resultado["INDUSTRIALIZACAOEXTERNA"].GetString() == "S":
+                row.GetCellByName("TIPO").FontIcon = "fa fa-object-group";
+                row.GetCellByName("TIPO").TextColor = "#0A59D7"
+                row.GetCellByName("TIPO").Text = ""
+                row.GetCellByName("TIPO").Tooltip = "Insdustrializado"
+            else:
+                row.GetCellByName("TIPO").FontIcon = "fa fa-sitemap";
+                row.GetCellByName("TIPO").TextColor = "#0051FF"
+                row.GetCellByName("TIPO").Text = ""
+                row.GetCellByName("TIPO").Tooltip = "Manufaturado"
+    
+    if resultado["TIPO"].GetInt32() == 1:
+        row.GetCellByName("TIPO").FontIcon = "fa fa-briefcase";
+        row.GetCellByName("TIPO").TextColor = "#00C3C3"
+        row.GetCellByName("TIPO").Text = ""
+        row.GetCellByName("TIPO").Tooltip = "Comprado"
+    
+    if resultado["TIPO"].GetInt32() == 3:
+        row.GetCellByName("TIPO").FontIcon = "fa fa-gears";
+        row.GetCellByName("TIPO").TextColor = "#848484"
+        row.GetCellByName("TIPO").Text = ""
+        row.GetCellByName("TIPO").Tooltip = "Serviço"
+    
+    if resultado["TIPO"].GetInt32() == 5:
+        row.GetCellByName("TIPO").FontIcon = "fa fa-sticky-note-o";
+        row.GetCellByName("TIPO").TextColor = "#008400"
+        row.GetCellByName("TIPO").Text = ""
+        row.GetCellByName("TIPO").Tooltip = "Genérico"
+    
+    if resultado["TIPO"].GetInt32() == 4:
+        row.GetCellByName("TIPO").FontIcon = "fa fa-money";
+        row.GetCellByName("TIPO").TextColor = "#008400"
+        row.GetCellByName("TIPO").Text = ""
+        row.GetCellByName("TIPO").Tooltip = "Custo"</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

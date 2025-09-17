@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>OP_PROJETOSETAPAS_GP_PROJETOS.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>OP_PROJETOSETAPAS</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="OP_PROJETOSETAPAS" name="OP_PROJETOSETAPAS_GP_PROJETOS.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="PLANEJAMENTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PROJETOESTRATEGICO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GRUPOINATIVIDADE" caption="Período de inatividade">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup>Fixed</stateGroup>
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="INICIOINATIVIDADE">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="FINALINATIVIDADE">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GRUPOAUDITORIA" caption="Auditoria">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup>Fixed</stateGroup>
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="USUARIOINCLUIU">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="DATAINCLUSAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="USUARIOALTEROU">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="DATAALTERACAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Incluído por" key="USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data inclusão" key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Alterado por" key="USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data alteração" key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Inicio" key="INICIOINATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Fim" key="FINALINATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Planejamento" key="PLANEJAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Auditoria" key="GRUPOAUDITORIA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Período de inatividade" key="GRUPOINATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="PROJETOESTRATEGICO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>CODIGO,NOME</LookupResultFields>
+        <Where> A.HANDLE NOT IN (SELECT B.PROJETOESTRATEGICO FROM OP_PROJETOSETAPAS B WHERE B.PLANEJAMENTO = @CAMPO(PLANEJAMENTO))</Where>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="&amp;nbsp;" key="Previous">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Previous" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="&amp;nbsp;" key="Next">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Next" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+        <OutputDefinition xsi:type="HistoryLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <LevelsToGoBack>1</LevelsToGoBack>
+        </OutputDefinition>
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

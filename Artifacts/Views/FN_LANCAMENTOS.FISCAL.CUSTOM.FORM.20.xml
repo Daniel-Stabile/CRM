@@ -1,0 +1,477 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>FN_LANCAMENTOS.FISCAL.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>FN_LANCAMENTOS</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="FN_LANCAMENTOS" name="FN_LANCAMENTOS.FISCAL.CUSTOM.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="EMPRESA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="FILIAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CONTA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="NATUREZA">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALOR">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="HISTORICO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="MOEDA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="IMPOSTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORMOEDA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DOCUMENTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAAGLUTINACAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAREALIZACAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ORIGEM">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="TIPO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CONTADESERVICO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORMOEDA1">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORMOEDA2">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="COMPETENCIA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CONTABILIZADO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CONTAFINANCEIRAESPECIAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="Auditoria" key="AUDITORIA">
+        <visible>false</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="USUARIOINCLUIU">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col8</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAINCLUSAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col4</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="USUARIOALTEROU">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col8</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAALTERACAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col4</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Filial" key="FILIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>OnlyCompany</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupResultFields>NOMEFANTASIA</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Conta" key="CONTA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupResultFields>ESTRUTURA,CODIGOREDUZIDO,NOME</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Natureza" key="NATUREZA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Valor" key="VALOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Histórico" key="HISTORICO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data" key="DATA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Moeda" key="MOEDA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Imposto" key="IMPOSTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data alteração" key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data inclusão" key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Usuário alteração" key="USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Usuário inclusão" key="USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Valor moeda" key="VALORMOEDA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Empresa" key="EMPRESA">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Documento" key="DOCUMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data aglutinação" key="DATAAGLUTINACAO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data realização" key="DATAREALIZACAO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Origem" key="ORIGEM">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Tipo" key="TIPO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Conta de serviço" key="CONTADESERVICO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Moeda 1" key="VALORMOEDA1">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Moeda 2" key="VALORMOEDA2">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Competência" key="COMPETENCIA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Contabilizado" key="CONTABILIZADO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Conta financeira especial" key="CONTAFINANCEIRAESPECIAL">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="" key="Previous">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Previous" />
+      </Command>
+      <Command title="" key="Next">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Next" />
+      </Command>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

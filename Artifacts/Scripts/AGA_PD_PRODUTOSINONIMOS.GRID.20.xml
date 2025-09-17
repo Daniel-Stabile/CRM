@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_PRODUTOSINONIMOS.GRID</ViewName>
+  <EntityName>PD_PRODUTOSINONIMOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Materiais import PDProdutoPai
+    widget.Hidden = PDProdutoPai.MostrarTabProdutosSinonimos()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

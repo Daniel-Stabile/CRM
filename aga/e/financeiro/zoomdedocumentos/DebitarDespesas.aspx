@@ -1,0 +1,15 @@
+﻿<%@ Page Title="Debitar despesas" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="DOCUMENTO" Title="Documento" Subtitle="Detalhes" PortletCssClass="" PortletLayout="Default" BootstrapCols="7" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Fixed" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="FN_DOCUMENTOS_DEBITAR.CUSTOM.FORM" FormMode="View" IncludeRecordInRecentItems="False" UserDefinedCommandsVisible="False" PageWidgetHandle="22429" Level="20" Order="1"  />
+        <wes:Tile runat="server" ID="TOTALDESPESAS" Title="Total despesas" Subtitle="" PortletCssClass="" PortletLayout="None" BootstrapCols="5" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="DOCUMENTO" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="DESPESAS_DOCUMENTO.DATASOURCE.GRID" CompanyFilterMode="None" CriteriaWhereClause="A.DOCUMENTO = @CAMPO(HANDLE)" TotalValue="VALORORIGEM" ValueFormat="###,###,##0.00" Value="TOTALDESPESAS" Description="Total despesas" Icon="fa fa-money" Color="blue" ValueAggregation="None" TileType="Progress" PageWidgetHandle="22427" Level="20" Order="2"  />
+        <wes:SimpleGrid runat="server" ID="DEBITARDESPESAS" Title="Despesas" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="7" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="DOCUMENTO" ChromeState="Normal" CanDelete="True" CanUpdate="False" CanInsert="False" EntityViewName="FN_DOCUMENTODEBITARDESPESAS.CUSTOM.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.DOCUMENTO = @CAMPO(HANDLE)  AND A.DATA = @CAMPO(DATAENTRADA) AND A.FILIAL = @CAMPO(FILIAL) " ShowExport="True" UserDefinedDisableRowSelection="False" PageWidgetHandle="22420" Level="20" Order="4"  />
+        <wes:AjaxForm runat="server" ID="DEBITARDESPESAS_1" Title="Debitar despesas" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="5" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="DEBITARDESPESAS" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_DOCUMENTODEBITARDESPESAS.CUSTOM.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageWidgetHandle="22421" Level="20" Order="6"  />
+        </div>
+    
+      </asp:Content>
+    

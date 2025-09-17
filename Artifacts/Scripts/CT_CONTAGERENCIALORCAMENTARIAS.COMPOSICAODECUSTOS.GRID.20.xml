@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_CONTAGERENCIALORCAMENTARIAS.COMPOSICAODECUSTOS.GRID</ViewName>
+  <EntityName>CT_CONTAGERENCIALORCAMENTARIAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+    
+    widget.Hidden = True
+    
+    if (entity == None) : return
+    
+    if (entity["ULTIMONIVEL"].GetDBValue() == "N") or ((entity["TIPOREGISTRO"].GetDBValue() != 3) and (entity["TIPOREGISTRO"].GetDBValue() != 4)):
+        widget.Hidden = True
+    else:
+        widget.Hidden = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

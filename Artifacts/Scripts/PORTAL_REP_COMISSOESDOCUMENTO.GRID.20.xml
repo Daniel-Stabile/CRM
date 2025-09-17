@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_COMISSOESDOCUMENTO.GRID</ViewName>
+  <EntityName>Q_COMISSOESDOCUMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (entity["TIPODOCUMENTO"].GetString() == "Devolução"):
+        row.GetCellByName("DOCUMENTODIGITADO").TextColor = "Red";
+        row.GetCellByName("TIPODOCUMENTO").TextColor = "Red";
+        row.GetCellByName("DATAEMISSAO").TextColor = "Red";
+        row.GetCellByName("DATAENTRADA").TextColor = "Red";
+        row.GetCellByName("VALORNOMINAL").TextColor = "Red";
+        row.GetCellByName("VALORLIQUIDO").TextColor = "Red";
+        row.GetCellByName("VALORESBAIXADOS").TextColor = "Red";
+        row.GetCellByName("SALDOPAGAR").TextColor = "Red";
+        row.GetCellByName("DATAULTIMALIQ").TextColor = "Red";
+        row.GetCellByName("CREDITADO").TextColor = "Red";
+        row.GetCellByName("LIBERADO").TextColor = "Red";
+        row.GetCellByName("APURADO").TextColor = "Red";
+        row.GetCellByName("RECEBIDO").TextColor = "Red";
+        row.GetCellByName("ARECEBER").TextColor = "Red";
+        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

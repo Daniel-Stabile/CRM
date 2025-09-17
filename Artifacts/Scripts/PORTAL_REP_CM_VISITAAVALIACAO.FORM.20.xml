@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_CM_VISITAAVALIACAO.FORM</ViewName>
+  <EntityName>CM_VISITAAVALIACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    registro = widget.Entity
+    if registro == None: return
+    
+    stEncerrada = 3
+
+    status = int(registro.Fields["VISITA"].Instance.Fields["STATUS"].Value)
+    if (status == stEncerrada):
+        if widget.View.Commands["Edit"] != None:
+		    widget.View.Commands["Edit"].Visible = False
+        if widget.View.Commands["New"] != None:
+            widget.View.Commands["New"].Visible = False
+        if widget.View.Commands["Save"] != None:
+            widget.View.Commands["Save"].Visible = False
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = False
+            
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

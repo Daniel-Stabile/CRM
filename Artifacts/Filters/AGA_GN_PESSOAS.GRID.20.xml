@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PESSOAS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Espólios</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="TIPO">
+    <FieldDefinitionName>TabFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="TabItem">
+      <Value>5</Value>
+      <Text>Espólio</Text>
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.TIPO = :1__TIPO</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1__TIPO</Name>
+      <Value xsi:type="xsd:int">5</Value>
+      <Direction>Input</Direction>
+      <DataType>Integer</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Pessoas físicas</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.TIPO IN (1, 3)</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.TIPO IN (1, 3)</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Pessoas jurídicas</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.TIPO IN (2, 4)</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.TIPO IN (2, 4)</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

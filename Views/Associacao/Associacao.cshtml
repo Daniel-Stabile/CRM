@@ -1,0 +1,348 @@
+<script src="~/Content/assets/plugins/jstree/dist/jstree.min.js"></script>
+
+<style type="text/css">
+    .nav-pills, .nav-pills li, .nav-pills a {
+        cursor: default;
+    }
+    h4, h5 {
+        margin-top: 0px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="portlet-body form">
+    <div class="form-wizard">
+        <div class="form-body" style="padding-top: 0px;">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 " data-mestre="ContasContabeis">
+                    <h4 id="TituloOrigem" class="bold"></h4>
+                    <h5 id="SubtituloOrigem"></h5>
+                    <div id="origem" style="overflow-y: scroll; height: 53vh; "></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6" data-mestre="ContasContabeis">
+                    <h4 id="TituloDestino" class="bold"></h4>
+                    <h5 id="SubtituloDestino"></h5>
+                    <div id="destino" style="overflow-y: scroll; height: 53vh; "></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var objetomestre;
+
+    var tabela, handle, funcao;
+    var JSonAssociacoesAntigo;
+    var JSonNaoAssociadosAntigo;
+
+    function fullscreen() {
+        var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+            (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+            (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+            (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+        var docElm = document.documentElement;
+        if (!isInFullScreen) {
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            } else if (docElm.mozRequestFullScreen) {
+                docElm.mozRequestFullScreen();
+            } else if (docElm.webkitRequestFullScreen) {
+                docElm.webkitRequestFullScreen();
+            } else if (docElm.msRequestFullscreen) {
+                docElm.msRequestFullscreen();
+            }
+            $('#origem').css('height', '59vh');
+            $('#destino').css('height', '59vh');
+            $("#btn-fullscreen").attr('title', "Desampliar tela");
+            $("#btn-fullscreen").attr("class", "btn btn-circle btn-icon-only btn-default fa fa-compress");
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            $('#origem').css('height', '53vh');
+            $('#destino').css('height', '53vh');
+            $("#btn-fullscreen").attr('title', "Ampliar tela");
+            $("#btn-fullscreen").attr("class", "btn btn-circle btn-icon-only btn-default fa fa-expand");
+        }
+    }
+
+    function AjustarDiv(lnk) {
+        var PorCento = (window.screen.height / 100) * 70;
+
+        if (!$(lnk).hasClass('on')) {
+            //tela cheia??
+            if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+                $('#origem, #destino').height('88vh');
+            }
+            else
+                $('#origem, #destino').height(PorCento + 'px');
+        }
+        else {
+            $('#origem, #destino').height('53vh');
+        }
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function RetiraAssociacao(value, index, ar) {
+        if (value.type == 'filho') {
+            if (objetomestre.Associacao.FilhoUnico) {
+                $("#origem").jstree(true).move_node(value, "#");
+            }
+            else {
+                $("#destino").jstree(true).delete_node(value);
+            }
+        }
+    }
+
+    function RemoverTodasAssociacoes() {
+        bootbox.dialog({
+            title: 'Desassociar',
+            message: 'Deseja realmente desassociar tudo?',
+            onEscape: function () { bootbox.hideAll() },
+            buttons: {
+                success: {
+                    label: 'Sim',
+                    className: 'red  btn-primary',
+                    callback: function () {
+                        treeOrigem = $("#origem").jstree(true);
+                        treeDestino = $("#destino").jstree(true);
+
+                        JSonAssociacoesAntigo = treeDestino.get_json('#', { flat: true });
+                        //JSonNaoAssociadosAntigo = treeOrigem.get_json('#', { flat: true });
+                        JSonAssociacoesAntigo.forEach(RetiraAssociacao);
+
+                        SalvarAssociacoes(true);
+                    }
+                },
+                main: {
+                    label: 'Não',
+                    className: 'default',
+                    callback: function () {
+                        bootbox.hideAll();
+                    }
+                }
+            }
+        });
+
+
+    }
+
+    function BuscarDados() {
+        $.ajax({
+            type: "POST",
+            datatype: 'json',
+            url: Benner.Page.getApplicationPath() + 'Associacao/ConstruirAssociacao?TABELA=' + tabela + '&HANDLE=' + handle + '&FUNCAO=' + funcao,
+            beforeSend: function () {
+                App.blockUI({
+                    target: $('#portlet_ITENSDEASSOCIAO'),
+                    animate: true
+                });
+            },
+            success: function (data) {
+                objetomestre = JSON.parse(data);
+                BuscarAssociacao();
+            },
+            error: function (request, status, error) {
+                ExibirErroUsuario(error);
+                App.unblockUI($("#portlet_ITENSDEASSOCIAO"));
+            }
+
+        });
+    }
+
+    $(function () {
+        tabela = getParameterByName("TABELA");
+        handle = getParameterByName("HANDLE");
+        funcao = getParameterByName("FUNCAO");
+
+        BuscarDados();
+
+        var btnFullScreen = $('<a class="btn btn-circle btn-icon-only btn-default fullscreen" style="margin-right:5px" href="#" title="Exibir tela cheia" onclick="AjustarDiv(this);"> </a>');
+
+        var btnRemoverAssociacoes = $('<a href="#" class="btn red btn-del command-action predef-action editable" style="margin-right:5px" onclick="RemoverTodasAssociacoes()"><i class="fa fa-times"></i> Desassociar todos </a>');
+
+        var btnSalvarAlteracoes = $('<a href="#" class="btn blue btn-save command-action predef-action editable" style="margin-right:5px" onclick="SalvarAssociacoes()"><i class="fa fa-check"></i> Salvar alterações </a>');
+
+        $('#portlet_ITENSDEASSOCIAO .tools').empty();
+        $('#portlet_ITENSDEASSOCIAO .actions').empty().append(btnSalvarAlteracoes).append(btnRemoverAssociacoes).append(btnFullScreen);
+    });
+
+    function ExibirMensagemUsuario(msg) {
+        if ($('#ctl00_Main_ITENSDEASSOCIAO_MsgUser').length == 0)
+        {
+            $('#ctl00_Main_ITENSDEASSOCIAO_MsgUserErro').remove();
+            $('#ctl00_Main_ITENSDEASSOCIAO_MsgUserErro').hide();
+
+            let htmlMessagemUser = '<div id="ctl00_Main_ITENSDEASSOCIAO_MsgUser" class="alert alert-info"><button class="close" data-dismiss="alert"></button><span id="ctl00_Main_ITENSDEASSOCIAO_MsgUser_message">{0}</span></div>'.replace('{0}', msg);
+            $(htmlMessagemUser).insertBefore('.portlet-body:has(.form)');
+
+            $('#ctl00_Main_ITENSDEASSOCIAO_MsgUser').show();
+        }
+    }
+
+    function ExibirErroUsuario(msg) {     
+        if ($('#ctl00_Main_ITENSDEASSOCIAO_MsgUserErro').length == 0) {
+
+            $('#ctl00_Main_ITENSDEASSOCIAO_MsgUser').remove();
+            $('#ctl00_Main_ITENSDEASSOCIAO_MsgUser').hide();
+
+            let htmlMessagemErro = '<div id="ctl00_Main_ITENSDEASSOCIAO_MsgUserErro" class="alert alert-danger"><button class="close" data-dismiss="alert"></button><span id="ctl00_Main_ITENSDEASSOCIAO_MsgUserErro_message">{0}</span></div>'.replace('{0}', msg);
+            $(htmlMessagemErro).insertBefore('.portlet-body:has(.form)');
+
+            $('#ctl00_Main_ITENSDEASSOCIAO_MsgUserErro').show();
+        }
+    }
+
+    function VerificarFilhosDuplicados(filhos, filhoMovido) {
+        var iguais = $.grep(filhos, function (a, b) {
+            return ($('#destino').jstree(true).get_node(a.id).data.handle == filhoMovido.data.handle) && ($('#destino').jstree(true).get_node(a.id).data.tabela == filhoMovido.data.tabela);
+        })
+
+        return iguais.length < 1;
+    }
+    function SalvarAssociacoes(atualizar) {
+        var JSonAssociacoes = $("#destino").jstree(true).get_json('#', { flat: true });
+        var JSonSemAssociacoes = $("#origem").jstree(true).get_json('#', { flat: true });
+
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: Benner.Page.getApplicationPath() + 'Associacao/SalvarAssociacoes',
+            data: { JSon: JSON.stringify(JSonAssociacoes), JSonNaoAssociado: JSON.stringify(JSonSemAssociacoes), CamposInsert: objetomestre.CamposInsert, TabelasAuxiliares: objetomestre.Associacao.TabelasAuxiliares, TabelaAssociativa: objetomestre.TabelaAssociativa, ApelidoTabelaAssociativa: objetomestre.ApelidoTabelaAssociativa, WhereDelete: objetomestre.WhereDelete, TipoDaAssociacao: objetomestre.TipoDaAssociacao },
+            success: function (data) {
+                if (atualizar) {
+                    BuscarAssociacao(atualizar);
+                }
+                if (data.message != null) {
+                    ExibirErroUsuario(data.message);
+                    data.message = "";
+                }
+                else {
+                    ExibirMensagemUsuario("Suas alterações foram salvas.");
+                }
+            }
+        });
+    };
+    function BuscarAssociacao(Atualizar) {
+        $('span.caption-subject').text(objetomestre.Titulo);
+        $('#TituloOrigem').text(objetomestre.Associacao.TituloOrigem);
+        $('#SubtituloOrigem').text(objetomestre.Associacao.SubtituloOrigem);
+        $('#TituloDestino').text(objetomestre.Associacao.TituloDestino);
+        $('#SubtituloDestino').text(objetomestre.Associacao.SubtituloDestino);
+
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: Benner.Page.getApplicationPath() + 'Associacao/Associar',
+            data: { Associacao: objetomestre.Associacao },
+            success: function (data) {
+
+                var Item1 = JSON.parse(data.Item1.replaceAll('&quot;', '"'));
+                var Item2 = JSON.parse(data.Item2.replaceAll('&quot;', '"'));
+
+                if (jQuery.isEmptyObject(Item1[0])) {
+                    Item1 = null;
+                }
+                if (jQuery.isEmptyObject(Item2[0])) {
+                    Item2 = null;
+                }
+
+                if (Atualizar) {
+                    $("#origem").jstree(true).settings.core.data = JSON.parse(Item1);
+                    $("#destino").jstree(true).settings.core.data = JSON.parse(Item2);
+                }
+                else {
+
+                    $("#origem").jstree({
+                        plugins: ["wholerow", "types", "dnd", "changed"],
+                        core: {
+                            'check_callback': function (operation, node, node_parent, node_position, more) {
+
+                                if (!objetomestre.Associacao.FilhoUnico && operation == 'move_node' && node.type == "filho")
+                                {
+                                    $("#destino").jstree(true).delete_node(node);
+                                    return true;
+                                }
+
+                                return objetomestre.Associacao.FilhoUnico;
+                            },
+                            data: Item1
+                        },
+                        "types": {
+                            "#": {
+                                "valid_children": ["filho"],
+                                icon: "fa fa-folder icon-state-warning icon-lg"
+                            },
+                            "filho": {
+                                "valid_children": [],
+                                icon: "fa fa-file icon-state-warning icon-lg"
+                            }
+                        }
+                    })
+                .on("copy_node.jstree", function (e, data) {
+                    data.node.type = data.original.type;
+                    data.node.data = $.extend(true, {}, data.original.data);
+                })
+                    .on("move_node.jstree", function (e, data) {
+                        //SalvarAssociacoes();
+                    })
+                    ;
+
+                    $("#destino").jstree({
+                        plugins: ["unique", "wholerow", "types", "dnd"],
+                        core: {
+                            'check_callback': true,
+                            data: Item2
+                        },
+                        "types": {
+                            "#": {
+                                "valid_children": ["pai"],
+                                icon: "fa fa-folder icon-state-warning icon-lg"
+                            },
+                            "pai": {
+                                "valid_children": ["filho"],
+                                icon: "fa fa-folder icon-state-warning icon-lg"
+                            },
+                            "filho": {
+                                "valid_children": [],
+                                icon: "fa fa-file icon-state-warning icon-lg"
+                            }
+                        }
+                    })
+                    .on("copy_node.jstree", function (e, data) {
+                        data.node.type = data.original.type;
+                        data.node.data = $.extend(true, {}, data.original.data);
+                    })
+                    .on("move_node.jstree", function (e, data) {
+                        //SalvarAssociacoes();
+                    })
+
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            },
+            complete: function () {
+                App.unblockUI($("#portlet_ITENSDEASSOCIAO"));
+            }
+        });
+    }
+
+</script> 

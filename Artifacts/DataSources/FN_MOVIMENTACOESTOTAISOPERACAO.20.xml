@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>FN_MOVIMENTACOESTOTAISOPERACAO</Identifier>
+  <Name>FN_MOVIMENTACOES.TOTAIS.OPERACAO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT OP.NOME,&#xD;&#xA;       MOV.LANCAMENTOTESOURARIA,&#xD;&#xA;       SUM(MOV.VALORTOTAL) VALORTOTAL&#xD;&#xA;  FROM FN_MOVIMENTACOES MOV&#xD;&#xA;       JOIN GN_OPERACOES OP ON(OP.HANDLE = MOV.OPERACAO)&#xD;&#xA; GROUP BY OP.NOME,&#xD;&#xA;       MOV.LANCAMENTOTESOURARIA &#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="LANCAMENTOTESOURARIA" From="A" Path="LANCAMENTOTESOURARIA" />
+    <Field Alias="VALORTOTAL" From="A" Path="VALORTOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

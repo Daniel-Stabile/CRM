@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOS.OPERACOESFISCAIS.GRID</ViewName>
+  <EntityName>CT_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.Hidden = True
+    
+    form = widget.ProviderWidget
+      
+    entidade_mestre = form.Entity
+	
+    if entidade_mestre == None:
+        return
+    
+    if not(entidade_mestre["F100AUTOMATICO"].IsNull):
+        widget.Hidden = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

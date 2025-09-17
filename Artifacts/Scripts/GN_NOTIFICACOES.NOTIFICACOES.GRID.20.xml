@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_NOTIFICACOES.NOTIFICACOES.GRID</ViewName>
+  <EntityName>GN_NOTIFICACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common.Components import GridLinkDefinition
+    from Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Tecnologia.Common import WhereClause
+    
+    notificacao = Entity.Get(EntityDefinition.GetByName("GN_NOTIFICACOES"), Criteria("A.HANDLE = :HANDLE", Parameter("HANDLE", entity.Fields["HANDLE"])))
+    command.OutputDefinition.Url = "~/" + entity.TipoNotificacaoInstance.Url
+    
+    if ((notificacao.RegistroOrigem &gt; 0) and (str(entity.TipoNotificacaoInstance.NomeTabelaOrigem) != "") and (str(entity.TipoNotificacaoInstance.Url) != "")):
+        if (entity.TipoNotificacaoInstance.UrlTipo.Index == 2):
+            link = GridLinkDefinition()
+            link.Url = "~/" + entity.TipoNotificacaoInstance.Url
+            link.TargetSystemInstanceName = entity.Definition.EntitySource.SystemInstanceName
+            link.TargetEntityDefinitionName = entity.TipoNotificacaoInstance.NomeTabelaOrigem
+            
+            if (str(entity.TipoNotificacaoInstance.UrlWhere) != ""):
+                link.WhereClause = WhereClause(entity.TipoNotificacaoInstance.UrlWhere.replace("@HANDLE", str(notificacao.RegistroOrigem)))
+            else:
+                link.WhereClause = WhereClause("A.HANDLE = " + str(notificacao.RegistroOrigem))
+                
+            command.OutputDefinition = link
+            
+        elif (entity.TipoNotificacaoInstance.UrlTipo.Index == 3):
+            link = FormLinkDefinition()
+            link.Url = "~/" + entity.TipoNotificacaoInstance.Url
+            link.TargetSystemInstanceName = entity.Definition.EntitySource.SystemInstanceName
+            link.TargetEntityDefinitionName = entity.TipoNotificacaoInstance.NomeTabelaOrigem
+            link.UseTargetDefinitionName = True
+            link.TargetFormMode = FormLinkDefinition.FormMode.View
+            link.TargetEntityHandle = notificacao.RegistroOrigem
+
+            command.OutputDefinition = link</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

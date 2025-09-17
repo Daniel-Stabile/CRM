@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAOREGIMEFILIAL.CUSTOM.GRID</ViewName>
+  <EntityName>TR_PCAPURACAOREGIMEFILIAL</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    RemovePrefixoMoedas("PERCENTUALCONTRRECEITABRUTA", entity, row)
+    RemovePrefixoMoedas("PERCENTUALCONTRREMUNERACAO", entity, row)
+    RemovePrefixoMoedas("RECEITAPESSOAJURIDICA", entity, row)
+    RemovePrefixoMoedas("RECEITACONTRRECEITABRUTA", entity, row)
+    RemovePrefixoMoedas("RECEITACONTRREMUNERACAO", entity, row)
+    
+def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+        if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

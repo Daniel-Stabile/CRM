@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_QUESTIONARIO_QUESTAO_ANEXOS.GRID</ViewName>
+  <EntityName>QL_RESPOSTAANEXO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    pai = widget.ProviderWidget;
+    if (pai == None): return;
+    registro = pai.Entity;
+    if (registro == None): return;
+    
+    status = int(registro.Fields["RESPOSTAFORNECEDOR"].Instance.Fields["STATUS"].Value);
+    
+    widget.View.Commands["New"].Visible = bool(bool(status == 3) or bool(status == 7));
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    status = int(entity.Fields["RESPOSTAFORNECEDOR"].Instance.Fields["STATUS"].Value);
+    delCommand = row.DeleteCommand
+    if delCommand != None:
+        delCommand.Visible = bool(bool(status == 3) or bool(status == 7));
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

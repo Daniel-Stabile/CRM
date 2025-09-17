@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OBJETIVOSFILHOS.DATASOURCE.GRID</ViewName>
+  <EntityName>OBJETIVOSFILHOS.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    objetivo = widget.ProviderWidget.Entity
+    if objetivo == None : return
+
+    
+    ativo = objetivo["AGRUPADOR"].GetBoolean()
+    if(ativo == None) : ativo = False;
+    widget.Hidden  = not ativo;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADORES_SUPRIMENTOS_QUANTIDADE_OCS</Identifier>
+  <Name>Indicadores suprimentos - Quantidade ordens de compra</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT DISTINCT CP_DWINDICADORESREGISTROS.ORDEMCOMPRA FROM CP_DWINDICADORESREGISTROS&#xD;&#xA; WHERE CP_DWINDICADORESREGISTROS.DIASRECEBIMENTOFISCAL IS NULL AND ((CP_DWINDICADORESREGISTROS.EMPRESA IN (SELECT EMPRESA FROM Z_GRUPOUSUARIOEMPRESAS WHERE USUARIO = @USUARIO))&#xD;&#xA;    OR (NOT EXISTS (SELECT EMPRESA FROM Z_GRUPOUSUARIOEMPRESAS WHERE USUARIO = @USUARIO)))&#xD;&#xA;   AND (((CP_DWINDICADORESREGISTROS.FILIAL IN (SELECT FILIAL FROM Z_GRUPOUSUARIOEMPRESAFILIAIS WHERE USUARIO = @USUARIO))&#xD;&#xA;    OR (NOT EXISTS (SELECT FILIAL FROM Z_GRUPOUSUARIOEMPRESAFILIAIS WHERE USUARIO = @USUARIO))))" />
+  <Fields>
+    <Field Alias="ORDEMCOMPRA" From="A" Path="ORDEMCOMPRA" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

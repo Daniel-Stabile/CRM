@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>W_FILTROCONSULTAFINANCEIRA.FORM</ViewName>
+  <EntityName>W_FILTROCONSULTAFINANCEIRA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFILTROValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFILTROValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition;
+    
+    if (entity["FILTRO"].IsNull):
+        entity["DOCUMENTODIGITADO"].Value = "";
+        entity["DATAEMISSAOMAIOR"].Value = "";
+        entity["DATAEMISSAOMENOR"].Value = "";
+        entity.Fields["PESSOA"].Instance = None;
+        view.FieldDefinitions["DATAEMISSAOMAIOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["DATAEMISSAOMENOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["DOCUMENTODIGITADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["PESSOA"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        return;
+    
+    if (int(entity.Fields["FILTRO"].Value) == 1) or (int(entity.Fields["FILTRO"].Value) == 3):
+        entity["DOCUMENTODIGITADO"].Value = "";
+        entity["DATAEMISSAOMAIOR"].Value = "";
+        entity["DATAEMISSAOMENOR"].Value = "";
+        view.FieldDefinitions["DATAEMISSAOMAIOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["DATAEMISSAOMENOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["DOCUMENTODIGITADO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+        view.FieldDefinitions["PESSOA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+        return;
+        
+    if (int(entity.Fields["FILTRO"].Value) == 2) or (int(entity.Fields["FILTRO"].Value) == 4):
+        view.FieldDefinitions["DATAEMISSAOMAIOR"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+        view.FieldDefinitions["DATAEMISSAOMENOR"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+        view.FieldDefinitions["DOCUMENTODIGITADO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+        view.FieldDefinitions["PESSOA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+        return;
+        
+    if (int(entity.Fields["FILTRO"].Value) == 5):
+        entity["DOCUMENTODIGITADO"].Value = "";
+        entity["DATAEMISSAOMAIOR"].Value = "";
+        entity["DATAEMISSAOMENOR"].Value = "";
+        view.FieldDefinitions["DATAEMISSAOMAIOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["DATAEMISSAOMENOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["DOCUMENTODIGITADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["PESSOA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

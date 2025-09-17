@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_CT_EDICAO_ASSINATURA.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_CT_EDICAO_ASSINATURA</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="WEB_CT_EDICAO_ASSINATURA" name="WEB_CT_EDICAO_ASSINATURA.CUSTOM.FORM" title="WEB_CT_EDICAO_ASSINATURA" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="ASSINATURAESQUERDA">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ASSINATURADIREITA">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition xsi:nil="true" />
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="ASSINATURAESQUERDA">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>6</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="ASSINATURADIREITA">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>6</lines>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Ok" image="fa fa-check" color="blue" key="Save">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+        <OutputDefinition xsi:type="HistoryLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <LevelsToGoBack>1</LevelsToGoBack>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Sugerir Assinatura" image="fa fa-magic" color="blue" key="BTN_SUGERE_ASSINATURA">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="SugerirAssinatura" />
+      </Command>
+      <Command title="Assinatura Anterior" image="fa fa-mail-forward" color="red" key="BTN_ASSINATURA_ANTERIOR">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="DesfazerAlteracoes" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

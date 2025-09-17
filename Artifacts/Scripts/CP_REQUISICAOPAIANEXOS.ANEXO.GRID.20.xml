@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOPAIANEXOS.ANEXO.GRID</ViewName>
+  <EntityName>CP_REQUISICAOPAIANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    requisicao = widget.ProviderWidget.Entity
+    
+    if requisicao == None : 
+        widget.Hidden = True
+        return
+    
+    if requisicao.Status.Index == 4:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        
+    if requisicao.Status.Index == 2:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+
+    if requisicao.Status.Index == 5:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+
+    if requisicao.Status.Index == 3:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

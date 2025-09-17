@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_SIM_FLUXO_CRE_ALTER_VENC.FORM</ViewName>
+  <EntityName>FX_SIMULACOESFLUXO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	from Benner.Tecnologia.Common import FieldDefinition
+	registro = widget.Entity
+	if registro == None: return
+
+	if (registro.Fields["ACAOALTERARVENCTO"] is not None):
+		if (registro.Fields["ACAOALTERARVENCTO"].Value == 3):
+			widget.View.FieldDefinitions["NOVADATAVENC"].Visible = True
+			widget.View.FieldDefinitions["QTDIASALTERARVENCTO"].Visible = False
+		else:
+			widget.View.FieldDefinitions["NOVADATAVENC"].Visible = False
+			widget.View.FieldDefinitions["QTDIASALTERARVENCTO"].Visible = True
+	else:
+		widget.View.FieldDefinitions["NOVADATAVENC"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnACAOALTERARVENCTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnACAOALTERARVENCTOValueChanged(view, entity):
+	from Benner.Tecnologia.Common import FieldDefinition
+	registro = entity
+	if registro == None: return
+
+	if (registro.Fields["ACAOALTERARVENCTO"] is not None):
+		if (registro.Fields["ACAOALTERARVENCTO"].Value == 3):
+			view.FieldDefinitions["NOVADATAVENC"].Visible = True
+			view.FieldDefinitions["QTDIASALTERARVENCTO"].Visible = False
+		else:
+			view.FieldDefinitions["NOVADATAVENC"].Visible = False
+			view.FieldDefinitions["QTDIASALTERARVENCTO"].Visible = True
+	else:
+		view.FieldDefinitions["NOVADATAVENC"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

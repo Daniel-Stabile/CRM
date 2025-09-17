@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PORTAL_INT_APROVARSOLICITACAO_FILTRO.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>CP_FILTROAPROVACAOSOLICITACAO</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="CP_FILTROAPROVACAOSOLICITACAO" name="PORTAL_INT_APROVARSOLICITACAO_FILTRO.FORM" title="CP_FILTROAPROVACAOSOLICITACAO" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="SOLICITACAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATADE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAATE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORDE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORATE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="FILIAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="SOLICITANTE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition title="Solicitação" key="SOLICITACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAggregationDefinition" key="FILIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <SearchOnEnter xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAggregationDefinition" key="SOLICITANTE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAATE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATADE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="VALORATE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="VALORDE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Ok" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

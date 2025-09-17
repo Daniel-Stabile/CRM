@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_TRANSFERELEADEXECUTIV.FORM</ViewName>
+  <EntityName>K_CRM_VT_TRANSFERELEADEXECUTIV</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnNOVOEXECUTIVOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNOVOEXECUTIVOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if entity.Fields["NOVOEXECUTIVO"].Handle.IsValid():
+        crit = Criteria("A.HANDLE = :CODIGO")
+        crit.Parameters.Add("CODIGO", entity.Fields["NOVOEXECUTIVO"].Handle.Value)
+        usuario = Entity.GetFirstOrDefault(EntityDefinition.GetByName("Z_GRUPOUSUARIOS"), crit);
+        if usuario.Fields["K_FILIAL"].Handle.IsValid():
+            entity.Fields["FILIAL"].Handle = usuario.Fields["K_FILIAL"].Handle
+    else:
+         entity.Fields["FILIAL"].Handle = None;</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCRIARTAREFAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCRIARTAREFAValueChanged(view, entity):
+    if entity.Fields["CRIARTAREFA"].Handle.IsValid():
+        view.FieldDefinitions["OBSERVACAO"].Required = True
+        view.FieldDefinitions["DATA"].Required = True
+    else:
+        view.FieldDefinitions["OBSERVACAO"].Required = False
+        view.FieldDefinitions["DATA"].Required = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

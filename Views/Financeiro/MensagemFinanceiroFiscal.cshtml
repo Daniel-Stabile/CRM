@@ -1,0 +1,41 @@
+﻿@{
+    string mensagem = "<div>" + Convert.ToString(@Model.Fields["MENSAGEM"]) + "</div>";
+    string id = "Popover_" + Convert.ToString(@Model.Fields["HANDLE"]);
+    string titulo = "Mensagem";
+}
+
+<div class="btn-group">
+    <div>
+        <a id="@id" href="javascript:parent.window.showPopover('#@id');"
+           data-toggle="popover"
+           data-trigger="manual"
+           class="label label-sm label-info"
+           data-placement="right"
+           data-container="body"
+           data-html="true"
+           title="@titulo"
+           style="color:white"
+           data-content="@mensagem">
+            <i class="fa fa-info-circle">
+
+            </i>
+        </a>
+
+    </div>
+</div>
+
+<script>
+
+    window.showPopover = function (id) {
+        if (window.lastPopover === id) {
+            $(".popover[role=tooltip]").detach();
+            window.lastPopover = null;
+        }
+        else {
+            $(".popover[role=tooltip]").detach();
+            window.lastPopover = id;
+            $(id).popover("show");
+        }
+    }
+
+</script>

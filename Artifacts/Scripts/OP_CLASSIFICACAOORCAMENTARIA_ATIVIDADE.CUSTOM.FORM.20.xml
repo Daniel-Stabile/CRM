@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_CLASSIFICACAOORCAMENTARIA_ATIVIDADE.CUSTOM.FORM</ViewName>
+  <EntityName>OP_CLASSIFICACAOORCAMENTARIA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnACOESPROJETOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnACOESPROJETOSValueChanged(view, entity):
+    
+    entity.Fields["VALOR"] = 0;
+    
+    try:
+        lookup = entity.Fields["ACOESPROJETOS"];
+        entity.Fields["VALOR"] = lookup.Instance.Fields["VALORANO"];
+    except:
+        print("An exception occurred")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

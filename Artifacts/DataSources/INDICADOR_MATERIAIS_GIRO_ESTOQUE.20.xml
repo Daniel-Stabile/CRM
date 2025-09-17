@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_GIRO_ESTOQUE</Identifier>
+  <Name>Indicadores materiais - Giro de estoque</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT (CASE&#xA;           WHEN (SUM(A.VALORMEDIOESTOQUE) = 0) THEN 0&#xA;           WHEN (SUM(A.VALORMEDIOESTOQUE) &gt; 0) THEN (SUM(A.VALORCMV) / SUM(A.VALORMEDIOESTOQUE))&#xA;        END) GIROESTOQUE&#xA;    FROM PD_DWINDICADORREGISTROS A&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;WHERE @CRITERIOSELECAO" />
+  <Fields>
+    <DecimalField Alias="GIROESTOQUE" From="A" Path="GIROESTOQUE" FieldDecimalsFormat="2" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_OPORTUNIDADES.GRID</ViewName>
+  <EntityName>CRM_OPORTUNIDADES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (not entity is None):
+        handleResponsavel = entity.Fields["RESPONSAVEL"].Handle
+        handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+        if (not row.EditCommand is None):
+            row.EditCommand.Visible = (handleUsuario == handleResponsavel)
+        if (not row.DeleteCommand is None):
+            row.DeleteCommand.Visible = (handleUsuario == handleResponsavel)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>QPARCELASADTOCOMPENSADOS.DATASOURCE.GRID</ViewName>
+  <EntityName>QPARCELASADTOCOMPENSADOS.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("DATAEMISSAO").Text = entity.Fields["DATAEMISSAO"].ToString("dd/MM/yyyy");
+    row.GetCellByName("DATAENTRADA").Text = entity.Fields["DATAENTRADA"].ToString("dd/MM/yyyy");
+    row.GetCellByName("DATAVENCIMENTO").Text = entity.Fields["DATAVENCIMENTO"].ToString("dd/MM/yyyy");
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_CONTABANCO.FORM</ViewName>
+  <EntityName>FX_CONTABANCO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	import clr
+	clr.AddReference("Benner.Corporativo.Definicoes")
+	
+	from Benner.Corporativo.Definicoes.FluxoCaixa.Utils import FuncoesUtilsFluxo
+	from Benner.Tecnologia.Common import FieldDefinition
+
+	
+	entity = widget.Entity
+	if entity is None: return
+	
+	if entity.Fields["HANDLE"].IsValid():
+	    podeEditarSaldo = FuncoesUtilsFluxo.PodeEditarSaldo(entity.Fields["HANDLE"].Value)
+	
+	    if not podeEditarSaldo:
+		    widget.View.FieldDefinitions["SALDOINICIAL"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+		    widget.View.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+		    widget.View.FieldDefinitions["DATAINICIO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

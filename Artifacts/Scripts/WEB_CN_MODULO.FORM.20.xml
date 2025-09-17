@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_CN_MODULO.FORM</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_AVISARATRASOASSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_AVISARATRASOASSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Tem certeza que deseja executar essa operação?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    widget.View.Commands["CMD_REAJUSTE"].Visible = CNContrato.VisibilidadeComandoReajusteSoftware()
+    widget.View.Commands["GRP_RENOVACAO"].Items["CMD_PORADITIVOSOFTWARE"].Visible = CNContrato.VisibilidadeComandoRenovacaoAditivoSoftware()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_CONTASAPAGAR.GRID</ViewName>
+  <EntityName>CLOUD_CONTASAPAGAR</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import String
+    import clr
+    clr.AddReference("Benner.Corporativo.Wes.WebApp")
+    from Benner.Corporativo.Wes.WebApp import ContaBancariaCor    
+    
+    situacao = entity["SITUACAO"].Value
+    
+    row.GetCellByName("CUSTOM_SITUACAO").Tooltip = entity["SITUACAO"].GetString()
+    
+    row.GetCustomCommand("CMD_EXCLUIPAGAMENTO").Enabled = False;
+
+    if (situacao.Value == "T"):
+        row.GetCellByName("CUSTOM_SITUACAO").FontIcon = "fa fa-check"
+        row.GetCellByName("CUSTOM_SITUACAO").TextColor = "#27a4b0"
+        row.GetCellByName("VALOR").TextColor = "#27a4b0"
+        row.GetCustomCommand("CMD_Baixar").Enabled = False;
+        row.GetCustomCommand("CMD_EXCLUIPAGAMENTO").Enabled = True;
+    elif (situacao.Value == "P"):
+        row.GetCellByName("CUSTOM_SITUACAO").FontIcon = "fa fa-check"
+        row.GetCellByName("CUSTOM_SITUACAO").TextColor = "#c29d0b"
+        row.GetCellByName("VALOR").TextColor = "#c29d0b"
+        row.GetCellByName("CUSTOM_SITUACAO").Tooltip = String.Format("Já foi pago: R$ {0}", entity["VALORPAGO"].Value)
+        row.GetCustomCommand("CMD_Baixar").Enabled = False;
+        row.GetCustomCommand("CMD_EXCLUIPAGAMENTO").Enabled = True;
+    elif (situacao.Value == "V"):
+        row.GetCellByName("CUSTOM_SITUACAO").FontIcon = "fa fa-clock-o"
+        row.GetCellByName("CUSTOM_SITUACAO").TextColor = "#e73d4a"
+        row.GetCellByName("DATAVENCIMENTO").TextColor = "#e73d4a"
+        row.GetCellByName("VALOR").TextColor = "#e73d4a"
+        row.CssClass = "danger"
+
+
+    if (not entity["CONTABANCARIA"].IsNull):
+        row.GetCellByName("CONTABANCARIA").Text = String.Format("&lt;span style=\"background-color:{0}\" class=\"label label-default\"&gt; {1} &lt;/span&gt;",ContaBancariaCor.Get(entity["BANCO"].GetInt32()),  entity["CONTABANCARIA"].GetString())
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    command.OutputDefinition.Url = "~/Erp/Financeiro/CPA/Inserir.aspx"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Tecnologia.Common import WhereClause
+    
+    command.OutputDefinition.Url = "~/Erp/Financeiro/CPA/Editar.aspx"
+    command.OutputDefinition.TargetEntityDefinitionName = "CLOUD_EDITARCONTASPAGAR"
+    command.OutputDefinition.WhereClause = WhereClause("A.HANDLEPARCELA = @CAMPO(HANDLE)")
+    command.OutputDefinition.TargetFormMode = FormLinkDefinition.FormMode.Insert
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIPAGAMENTOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIPAGAMENTOExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    command.OutputDefinition = None 
+    
+     # Obter a definição da entidade que contém a função configurada
+    entityDefinition = EntityDefinition.GetByName("CLOUD_BAIXARPARCELA");
+ 
+    # Passar parâmetros a função. Os parâmetros serão lidos no Jacobus via businessArgs.TransitoryVars
+    parameters = NameValueDictionary();
+    parameters.Add("PARCELA",entity.Fields["HANDLE"]);
+    
+    # Chamar a função ObterInformacoesDePaises que irá recuperar as entidades e coloca-las no dicionário Vars
+    result = function.Call(entityDefinition, "ExcluirBaixaParcela", parameters);
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

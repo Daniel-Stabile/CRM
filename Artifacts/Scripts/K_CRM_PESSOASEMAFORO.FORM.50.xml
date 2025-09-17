@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOASEMAFORO.FORM</ViewName>
+  <EntityName>K_CRM_PESSOASEMAFORO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    if(widget.Entity == None):
+        return;
+        
+    widget.View.FieldDefinitions["USUARIOSOLICITACAOMB"].Visible = widget.Entity.Fields["USUARIOSOLICITACAOMB"] != None;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

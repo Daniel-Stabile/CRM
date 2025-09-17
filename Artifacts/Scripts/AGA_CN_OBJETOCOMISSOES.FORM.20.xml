@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_OBJETOCOMISSOES.FORM</ViewName>
+  <EntityName>CN_OBJETOCOMISSOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    handleContrato = widget.Entity.ObjetoInstance.ContratoHandle 
+
+    podeVisualizar = widget.Entity.ObjetoInstance.ContratoEmElaboracao(handleContrato)
+    if widget.View.Commands["Edit"] &lt;&gt; None: widget.View.Commands["Edit"].Visible = podeVisualizar
+    if widget.View.Commands["Delete"] &lt;&gt; None: widget.View.Commands["Delete"].Visible = podeVisualizar
+    if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = podeVisualizar</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

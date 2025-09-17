@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_SIMULACAODOCUMENTO.GRID</ViewName>
+  <EntityName>CT_SIMULACAODOCUMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    parentNode = row.Grid.Breadcrumb.Parent
+    
+    if parentNode == None: return
+    
+    if entity == None: return
+    
+    cenario = parentNode.Entity.Handle
+    
+    parameters = NameValueDictionary()
+    parameters.Add("CENARIO", cenario)
+    
+    entity.TransitoryVars["CENARIO"] = cenario
+    
+    entityDefinition = EntityDefinition.GetByName("CT_SIMULACAODOCUMENTO")
+    funcao = function.Call(entityDefinition, "VerificarSeDocumentoEstaAssociadoNoCenario", entity, parameters)
+    
+    celulaSituacao = row.GetCellByName("SITUACAO")
+    
+    if funcao.Vars["ASSOCIADO"]:
+        celulaSituacao.Text = "&lt;b&gt;Associado&lt;/b&gt;"
+        celulaSituacao.TextColor = "#4C87B9"
+    else:
+        celulaSituacao.Text = "&lt;b&gt;Não associado&lt;/b&gt;"
+        celulaSituacao.TextColor = "#E43A45"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

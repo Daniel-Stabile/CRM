@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>TS_LANCAMENTOS.CUSTOM.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>TS_LANCAMENTOS</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="TS_LANCAMENTOS" name="TS_LANCAMENTOS.CUSTOM.GRID" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Status" key="CUSTOM_636797115867478319">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>75px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@if (Model["BLOQUEADOLIBERADO"].GetString() != null) 
+{
+    if (Model["BLOQUEADOLIBERADO"].GetString()[0] == 'L') 
+    {
+        &lt;span class="badge badge-info badge-roundless col-md-12"&gt;
+            Liberado
+        &lt;/span&gt;
+    } 
+    else if (Model["BLOQUEADOLIBERADO"].GetString()[0] == 'B') 
+    {
+        &lt;span class="badge badge-danger badge-roundless col-md-12"&gt;
+            Bloqueado
+        &lt;/span&gt;
+    }
+} 
+else 
+{
+&lt;span class="badge badge-info badge-roundless col-md-12"&gt;
+    Liberado
+&lt;/span&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Chave" key="HANDLE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>5px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="OPERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>230px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="DATAEMISSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Vencimento" key="DATAVENCIMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Documento" key="DOCUMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Valor" key="CUSTOM_636797044508261978">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <Value>@if(Model["NATUREZALANCAMENTO"].GetString().ToUpper() == "DÉBITO"){
+    &lt;p style="height:0px" class="font-red"&gt;@Model.Definition.FieldDefinitions["VALORLANCAMENTO"].ToUI(@Model["VALORLANCAMENTO"].Value)&lt;/p&gt;
+} else {
+    &lt;p style="height:0px" class="font-blue"&gt;@Model.Definition.FieldDefinitions["VALORLANCAMENTO"].ToUI(@Model["VALORLANCAMENTO"].Value)&lt;/p&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORLANCAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>130px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Saldo" key="SALDODIA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>150px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+int handleConta = Model["CONTATESOURARIA"].GetInt32();
+DateTime dataEmissao = Model["DATAEMISSAO"].GetDateTime();
+DateTime dataVencimento = Model["DATAVENCIMENTO"].GetDateTime();
+int handleLancamento = Model["HANDLE"].GetInt32();
+var request = Request["type"];
+decimal saldo = 0;
+if (request == "1") {
+    saldo = Model.ObterSaldoContaAnterior(handleConta, dataEmissao, handleLancamento, request);
+} else {
+    saldo = Model.ObterSaldoContaAnterior(handleConta, dataVencimento, handleLancamento, request);
+}
+}
+@if(saldo &lt; 0){
+    &lt;p style="height:0px;min-width:130px;" class="font-red"&gt;@saldo.ToString("C2")&lt;/p&gt;
+} else {
+    &lt;p style="height:0px;min-width:130px;" class="font-blue"&gt;@saldo.ToString("C2")&lt;/p&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="D/C" key="NATUREZA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>5px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@if(Model["NATUREZALANCAMENTO"].GetString().ToUpper() == "DÉBITO"){
+    &lt;p style="text-align:left"&gt;    D&lt;/p&gt; 
+} else {
+    &lt;p style="text-align:left"&gt;    C&lt;/p&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="HISTORICO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Cancel." key="CANCELADO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Cancelado" key="CANCEL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>5px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@if(Model["CANCELADO"].GetString().ToUpper() == "TRUE"){
+    &lt;p style="text-align:center"&gt;S&lt;/p&gt;
+} else {
+    &lt;p style="text-align:center"&gt;N&lt;/p&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Contabil." key="CONTABILIZADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Contabilizado" key="CONTABIL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>5px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@if(Model["CONTABILIZADO"].GetString().ToUpper() == "TRUE"){
+    &lt;p style="text-align:center"&gt;S&lt;/p&gt;
+} else {
+    &lt;p style="text-align:center"&gt;N&lt;/p&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Conc." key="CONCILIADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Conciliado" key="CONC">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>5px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@if(Model["CONCILIADO"].GetString().ToUpper() == "TRUE"){
+    &lt;p style="text-align:center"&gt;S&lt;/p&gt;
+} else {
+    &lt;p style="text-align:center"&gt;N&lt;/p&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="DATACONCILIACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="BLOQUEADOLIBERADO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="CONTATESOURARIA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="NATUREZALANCAMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="VALORLANCAMENTOMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields>
+      <SortField key="DATAEMISSAO">
+        <Sort>Ascending</Sort>
+      </SortField>
+      <SortField key="HANDLE">
+        <Sort>Ascending</Sort>
+      </SortField>
+    </SortFields>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

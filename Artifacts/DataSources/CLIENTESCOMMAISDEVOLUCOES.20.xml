@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CLIENTESCOMMAISDEVOLUCOES</Identifier>
+  <Name>Clientes com mais devoluções</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.SALDO SALDO,&#xD;&#xA;       A.VALORTOTAL VALORTOTAL,&#xD;&#xA;       A.PESSOA PESSOA&#xD;&#xA;  FROM (SELECT SUM(B.VALOR - B.VALORESBAIXADOS) SALDO,&#xD;&#xA;               SUM(B.VALOR) VALORTOTAL,&#xD;&#xA;               D.NOME PESSOA&#xD;&#xA;          FROM FN_DOCUMENTOS A&#xD;&#xA;               INNER JOIN FN_PARCELAS B ON B.DOCUMENTO = A.HANDLE&#xD;&#xA;               INNER JOIN GN_OPERACOES C ON A.OPERACAO = C.HANDLE&#xD;&#xA;               INNER JOIN GN_PESSOAS D ON A.PESSOA = D.HANDLE&#xD;&#xA;         WHERE C.CODIGOINTERNO &lt;&gt; 29&#xD;&#xA;               AND A.EHPREVISAO &lt;&gt; 'S'&#xD;&#xA;               AND&#xD;&#xA;               (&#xD;&#xA;                   B.DOCUMENTOSUSPENSO &lt;&gt; 'S'&#xD;&#xA;                   OR B.DOCUMENTOSUSPENSO IS NULL&#xD;&#xA;               )&#xD;&#xA;               AND&#xD;&#xA;               (&#xD;&#xA;                   B.EMABERTO = 'S'&#xD;&#xA;               )&#xD;&#xA;               AND A.TIPODEMOVIMENTO = 3&#xD;&#xA;               AND A.ENTRADASAIDA = 'E'&#xD;&#xA;         GROUP BY D.NOME) A" />
+  <Fields>
+    <Field Alias="SALDO" From="A" Path="SALDO" />
+    <Field Alias="VALORTOTAL" From="A" Path="VALORTOTAL" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_MF_ACOPLAGENS.GRID</ViewName>
+  <EntityName>MF_ACOPLAGENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity["ACOPLADO"].GetBoolean():
+        row.GetCustomCommand("CMD_ACOPLARGRID").Enabled = False
+    elif entity["DESACOPLADO"].GetBoolean():
+        row.GetCustomCommand("CMD_ACOPLARGRID").Enabled = False
+        row.GetCustomCommand("CMD_DESACOPLARGRID").Enabled = False
+    else:
+        row.GetCustomCommand("CMD_DESACOPLARGRID").Enabled = False
+        row.GetCustomCommand("CMD_VOLTARGRID").Enabled = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,72 @@
+﻿<script type='text/javascript'>
+    // ai com o comando chamo o controller pra abrir a função
+    $(function () {
+        var listObj = [];
+
+        $('#calendarioAtividadesUsuario').fullCalendar({
+            locale: "pt-br",
+            header: {
+                center: "month,agendaWeek,listDay"
+            },
+            defaultView: "month",
+            buttonText: {
+                today: 'Hoje',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Dia'
+            },
+            eventClick: function (event) {
+                console.log(event)
+                $.ajax({
+                    type: 'GET',
+                    dataType: "json",
+                    url: Benner.Page.getApplicationPath() + "/CrmTarefaUsuario/GetTarefaUsuario?id=" + event.id,
+                }).done(function (data) {
+                    Benner.WidgetCommandsBar.prepareModal(data.url, '', 'Large');
+                });
+            },
+            viewRender: function (view, element) {
+                var month = $('#calendarioAtividadesUsuario').fullCalendar('getDate').month();
+                var year = $('#calendarioAtividadesUsuario').fullCalendar('getDate').year();
+
+                GetAtendimentoMes(month+1,year)
+            }
+        });
+
+        function GetAtendimentoMes(month,year) {
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: Benner.Page.getApplicationPath() + "CalendarioCrm/AtividadesUsuarioMes?mes=" + month + "&ano=" + year + "&usuario=1",
+                success: function (data) {
+
+                    $.parseJSON(data).forEach(function (object) {
+                        if (listObj.filter(function (obj) { return obj.id === object.id }).length == 0) {
+                            listObj.push(object)
+                        }
+                    })
+
+                    $('#calendarioAtividadesUsuario').fullCalendar('removeEvents');
+                    $('#calendarioAtividadesUsuario').fullCalendar('addEventSource', listObj);
+                    $('#calendarioAtividadesUsuario').fullCalendar('rerenderEvents');
+
+                },
+                error: function (data) {
+                    console.log("Error")
+                    console.log(data)
+
+                }
+            });
+        }
+    });
+
+</script>
+
+<div id='calendarioAtividadesUsuario'>
+    <br />
+    <div style="width:40px;height:20px;background-color:#f03434;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Agendado (Atrasado)</span>
+    <div style="width:40px;height:20px;background-color:#3498db;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Agendado</span>
+    <div style="width:40px;height:20px;background-color:#26c281;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Concluido</span>
+    <div style="width:40px;height:20px;background-color:#95a5a6;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Cancelado</span>
+</div>

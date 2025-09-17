@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASUSUARIOSVERTICAL.FORM</ViewName>
+  <EntityName>K_CRM_METASUSUARIOSVERTICAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    sql = "SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOSVERTICAL A JOIN K_CRM_METASUSUARIOS B ON B.HANDLE = A.METAUSUARIO WHERE B.HANDLE = :METAUSUARIO GROUP BY B.VALORMETA";
+    crit = Criteria()
+    crit.Parameters.Add(Parameter("METAUSUARIO", widget.Entity.Fields["METAUSUARIO"].Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    saldo = Entity.GetFirstOrDefault(ed, crit)
+    
+    if saldo == None:
+        sql = "SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOS WHERE HANDLE = :METAUSUARIO";
+        crit = Criteria()
+        crit.Parameters.Add(Parameter("METAUSUARIO", widget.Entity.Fields["METAUSUARIO"].Handle))
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        saldo = Entity.GetFirstOrDefault(ed, crit)
+        widget.View.FieldDefinitions["SALDO"].Value = saldo.Fields["SALDO"].ToString();
+    elif saldo.Fields["SALDO"] != None:
+        widget.View.FieldDefinitions["SALDO"].Value = saldo.Fields["SALDO"].ToString();
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOS.GESTAO.FORM</ViewName>
+  <EntityName>GP_PROJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    
+    if (entity.Fields["STATUS"].Value != 1) and (widget.View.Commands["Delete"] != None): widget.View.Commands["Delete"].Visible = False
+    if (entity.Fields["STATUS"].Value == 3) and (widget.View.Commands["Edit"] != None): widget.View.Commands["Edit"].Visible = False
+    if widget.View.Commands["CMD_CALCULARPROJETO"] != None: widget.View.Commands["CMD_CALCULARPROJETO"].Visible = entity.EhGestorProjetos
+    
+    if widget.View.Commands["CMD_LIBERARAPROVACAO"] != None: widget.View.Commands["CMD_LIBERARAPROVACAO"].Visible =(entity.Fields["GRUPOASSINATURAS"].ToString() != "") and (entity.Fields["STATUS"].Value == 1) and (entity.Fields["APROVARCALCULO"] ) and ((entity.Fields["STATUSAPROVACAO"] != None and entity.Fields["STATUSAPROVACAO"].Value != 1) or (entity.Fields["STATUSAPROVACAO"] == None))
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

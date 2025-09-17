@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_ED_MODULO.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_ED_MODULO</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="WEB_ED_MODULO" name="WEB_ED_MODULO.FORM" title="WEB_ED_MODULO" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage key="GERAL" inherited="true">
+        <visible xsi:nil="true" />
+        <Items />
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition xsi:nil="true" />
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions />
+    <Commands>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command xsi:type="CommandGroup" title="ECD" key="GRP_ECD">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Movimentações" key="CMD_MOVIMENTACOES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/sped/ecd/Movimentacoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName />
+              <TargetEntityDefinitionName>ED_VTCARGAMOVIMENTACAOCONTABIL</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP.05.17.LEGAL.00</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

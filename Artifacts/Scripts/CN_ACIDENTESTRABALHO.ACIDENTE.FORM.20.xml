@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_ACIDENTESTRABALHO.ACIDENTE.FORM</ViewName>
+  <EntityName>CN_ACIDENTESTRABALHO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Business import Query
+    registro = widget.Entity
+    if registro == None: return
+    if widget.View.Commands["Edit"] != None : widget.View.Commands["Edit"].Visible = (registro.Fields["STATUS"].Value in (1, 4))
+    if widget.View.Commands["Delete"] != None : widget.View.Commands["Delete"].Visible = (registro.Fields["STATUS"].Value in (1, 4))
+    handleRegistro = registro.Fields["HANDLE"].ToString()
+    if handleRegistro == "": return
+
+    sqlSituacaoDocumento = Query("SELECT STATUS FROM CN_ACIDENTESTRABALHO WHERE HANDLE = " + registro.Fields["HANDLE"].ToString())
+    
+    situacaoDocumento = sqlSituacaoDocumento.Execute()
+    
+    widget.View.Commands["CMD_ENVIARAPROVACAO"].Visible = situacaoDocumento[0]["STATUS"].GetString()=="1"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

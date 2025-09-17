@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_DOCUMENTORECEBIMENTOS.FORMFATURAMENTO.GRID</ViewName>
+  <EntityName>CM_DOCUMENTORECEBIMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = Utils.VerificaPermissao("EXCLUIR_FATURAMENTO");
+    if row.EditCommand != None:
+        row.EditCommand.Visible = Utils.VerificaPermissao("MANTER_FATURAMENTO");</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = Utils.VerificaPermissao("MANTER_FATURAMENTO")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

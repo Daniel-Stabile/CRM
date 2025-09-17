@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_CONTAGERENCIALFINANCEIRAS.GRID</ViewName>
+  <EntityName>CT_CONTAGERENCIALFINANCEIRAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+    if (entity == None) :
+        widget.Hidden = True
+        return
+    
+    if (entity["SQL_CONTASFINANCEIRAS"].GetDBValue() == None) or (entity["ULTIMONIVEL"].GetDBValue() == "N"):
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

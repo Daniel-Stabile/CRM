@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_V1_ORIGEM</Identifier>
+  <Name>CRM_GRAPH_V1_ORIGEM</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     CAST(CAST(LEFT(DATENAME(MONTH,A.DATAINCLUSAO),3) AS VARCHAR) +'/'+ CAST(DATENAME(YEAR,A.DATAINCLUSAO) AS VARCHAR) AS VARCHAR) MES,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(INTERNA.VALOR)),0),2) INTERNA,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(INBOUND.VALOR)),0),2) INBOUND,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(EVENTO.VALOR)),0),2) EVENTO,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(IND_LIVRE.VALOR)),0),2) IND_LIVRE,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(IND_BENNER.VALOR)),0),2) IND_BENNER,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(FALE.VALOR)),0),2) FALE,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(EDITAL.VALOR)),0),2) EDITAL,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(BASE.VALOR)),0),2) BASE&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADESPROD C ON C.OPORTUNIDADE = A.HANDLE&#xD;&#xA;JOIN K_CRM_FASESOPORTUNIDADE B ON A.STATUSOPORTUNIDADE = B.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 1&#xD;&#xA;    ) INTERNA ON INTERNA.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 2&#xD;&#xA;    ) INBOUND ON INBOUND.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 3&#xD;&#xA;    ) EVENTO ON EVENTO.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 4&#xD;&#xA;    ) IND_LIVRE ON IND_LIVRE.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 5&#xD;&#xA;    ) IND_BENNER ON IND_BENNER.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 6&#xD;&#xA;    ) FALE ON FALE.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 7&#xD;&#xA;    ) EDITAL ON EDITAL.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     WHERE AA.ORIGEM = 8&#xD;&#xA;    ) BASE ON BASE.HANDLE = A.HANDLE&#xD;&#xA;WHERE A.STATUS IN (1,2,14)&#xD;&#xA;AND @CRITERIOSELECAO&#xD;&#xA;GROUP BY YEAR(A.DATAINCLUSAO),&#xD;&#xA;MONTH(A.DATAINCLUSAO),&#xD;&#xA;DATENAME(MONTH,A.DATAINCLUSAO),&#xD;&#xA;DATENAME(YEAR,A.DATAINCLUSAO)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="MES" From="A" Path="MES" />
+    <DecimalField Alias="INTERNA" From="A" Path="INTERNA" FieldDecimalsFormat="0" />
+    <DecimalField Alias="INBOUND" From="A" Path="INBOUND" FieldDecimalsFormat="0" />
+    <DecimalField Alias="EVENTO" From="A" Path="EVENTO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="IND_LIVRE" From="A" Path="IND_LIVRE" FieldDecimalsFormat="0" />
+    <DecimalField Alias="IND_BENNER" From="A" Path="IND_BENNER" FieldDecimalsFormat="0" />
+    <DecimalField Alias="FALE" From="A" Path="FALE" FieldDecimalsFormat="0" />
+    <DecimalField Alias="EDITAL" From="A" Path="EDITAL" FieldDecimalsFormat="0" />
+    <DecimalField Alias="BASE" From="A" Path="BASE" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_DOCUMENTOS.CUSTOM.GRID</ViewName>
+  <EntityName>CT_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common import *
+    from Benner.Tecnologia.Common.Components import *
+    
+    command.OutputDefinition.Url = "~/aga/e/Contabil/lancamentos/LancamentosContabeis.aspx"
+    command.OutputDefinition.TargetEntityDefinitionName = "CT_DOCUMENTOS"
+    command.OutputDefinition.WhereClause = WhereClause("A.HANDLE = :HANDLE", Parameter("HANDLE", entity.Fields["HANDLE"]));
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_DOCUMENTOPADRAOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_DOCUMENTOPADRAOExecute(command, entity):
+    command.OutputDefinition.Parameters["DOCUMENTOPADRAO"] = True;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_NOVOGERENCIALExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_NOVOGERENCIALExecute(command, entity):
+    command.OutputDefinition.Parameters["ORIGEM"] = 26;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

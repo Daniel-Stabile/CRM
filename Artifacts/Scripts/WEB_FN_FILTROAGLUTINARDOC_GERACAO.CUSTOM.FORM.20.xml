@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_FN_FILTROAGLUTINARDOC_GERACAO.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_FN_FILTROAGLUTINARDOC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    if registro.Fields["OPERACAO"].Value == 1:
+        widget.View.FieldDefinitions["DATAVENCIMENTO"].Visible = True
+        widget.View.FieldDefinitions["DOCSDATASDIFERENTES"].Visible = True
+        widget.View.FieldDefinitions["AGLUTINARDOCUMENTOS"].Visible = True
+    elif registro.Fields["OPERACAO"].Value == 2: 
+        widget.View.FieldDefinitions["DATAVENCIMENTO"].Visible = False
+        widget.View.FieldDefinitions["DOCSDATASDIFERENTES"].Visible = False
+        widget.View.FieldDefinitions["AGLUTINARDOCUMENTOS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnOPERACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnOPERACAOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    if entity.Fields["OPERACAO"].Value == 1:
+        view.FieldDefinitions["DATAVENCIMENTO"].Visible = True
+        view.FieldDefinitions["DOCSDATASDIFERENTES"].Visible = True
+        view.FieldDefinitions["AGLUTINARDOCUMENTOS"].Visible = True
+    elif entity.Fields["OPERACAO"].Value == 2: 
+        view.FieldDefinitions["DATAVENCIMENTO"].Visible = False
+        view.FieldDefinitions["DOCSDATASDIFERENTES"].Visible = False
+        view.FieldDefinitions["AGLUTINARDOCUMENTOS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

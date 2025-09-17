@@ -1,0 +1,87 @@
+﻿@{ 
+    var response = (Benner.Corporativo.Wes.WebApp.Controllers.AmChartCorpController.AmChartResponse)Model;
+    Ajax.OnReadyScript(string.Format("ProcessarGrafico({0}, {1}, '{2}', '{3}');", 
+        response.FiltroAplicado.ToString().ToLower(),
+        Html.Raw(response.FiltroAplicado ? response.DadosGrafico : "null"),
+        response.IdGrafico,
+        Html.Raw(response.ConfiguracaoGrafico)));
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="portlet solid bordered grey-cararra">
+            <div class="portlet-body">
+                <div id="@response.IdGrafico" class="chart">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var JogarMensagemSemFiltro = function (grafico) {
+        grafico.addLabel(0, '50%', "Você deve aplicar um filtro para visualizar os dados.", 'center', 18);
+        grafico.removeLegend();
+        grafico.chartDiv.style.opacity = 0.5;
+    };
+
+    var PopularGrafico = function (filtroAplicado, jsonDadosGrafico, idGrafico, configuracoes) {
+        if(configuracoes.includes("SuprimentosTop10"))
+        {
+            var chart = CorpComponents.AmCharts.CriarBaseGraficoXYInvertido(idGrafico, jsonDadosGrafico, "nome");
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "valortotal", "", false, "nome", false, true);
+        }
+
+        if(configuracoes.includes("SuprimentosHistoricoMesesStatusOc"))
+        {
+            console.log(jsonDadosGrafico);
+
+            var cores = ["#525E64", "#F4D03F", "#E87E04", "#4C87B9", "#26C281"];
+
+            var chart = CorpComponents.AmCharts.CriarBaseGraficoXY(idGrafico, jsonDadosGrafico, "descricao_mes", true, cores);  
+            CorpComponents.AmCharts.CriarColunaBarraEvento(chart, "cadastradas", "Cadastradas", false, "descricao_mes", true, "detalhe_cadastradas");
+            CorpComponents.AmCharts.CriarColunaBarraEvento(chart, "confirmar", "A aprovar", false, "descricao_mes", true, "detalhe_confirmar");
+            CorpComponents.AmCharts.CriarColunaBarraEvento(chart, "confirmadas", "Aprovadas", false, "descricao_mes", true, "detalhe_confirmadas");
+            CorpComponents.AmCharts.CriarColunaBarraEvento(chart, "recebendo", "Recebimento parcial", false, "descricao_mes", true, "detalhe_recebendo");
+            CorpComponents.AmCharts.CriarColunaBarraEvento(chart, "encerradas", "Recebidas", false, "descricao_mes", true, "detalhe_encerradas");
+        }   
+
+        if(configuracoes.includes("SuprimentosHistoricoMesesValoresCompra"))
+        {
+            var chart = CorpComponents.AmCharts.CriarBaseGraficoXY(idGrafico, jsonDadosGrafico, "descricao_mes");  
+            CorpComponents.AmCharts.CriarLinha(chart, "valortotal", "Valor total", "descricao_mes");
+            CorpComponents.AmCharts.CriarLinha(chart, "valormedio", "Valor médio","descricao_mes");
+            CorpComponents.AmCharts.CriarColunaBarra(chart, "quantidade", "Quantidade total", false, "descricao_mes", true);
+        } 
+
+        if(configuracoes.includes("SuprimentosEficienciaValoresCompras"))
+        {
+            var chart = CorpComponents.AmCharts.CriarBaseGraficoXY(idGrafico, jsonDadosGrafico, "descricao_mes");  
+            CorpComponents.AmCharts.CriarLinha(chart, "valor_inicotacao", "Soma de Valor Cotação Inicial", "descricao_mes");
+            CorpComponents.AmCharts.CriarLinha(chart, "valor_oc", "Soma de Valor OC","descricao_mes");
+            CorpComponents.AmCharts.CriarLinha(chart, "valor_estrequisicao", "Soma de Valor estimado","descricao_mes");
+        } 
+
+        if(configuracoes.includes("SuprimentosLeadtimeCompras"))
+        {
+            var chart = CorpComponents.AmCharts.CriarBaseGraficoXYInvertido(idGrafico, jsonDadosGrafico, "filial");  
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasaprovacaosolicitacao", "Aprovação Solicitação", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasgeracaorequisicao", "Geração Requisição", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diascotacao", "Geração Cotação", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasgeracaooc", "Geração OC", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasenviocotacao", "Enviado Aprovação", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasaprovacaooc", "Aprovação OC", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasrecebimentofisico", "Recebimento Físico", true, "filial", false);
+            CorpComponents.AmCharts.CriarColunaBarraInvertida(chart, "media_diasrecebimentofiscal", "Recebimento Fiscal", true, "filial", false);                                               
+        }                                 
+
+    };
+
+    var ProcessarGrafico = function (filtroAplicado, jsonDadosGrafico, idGrafico, configuracoes) {
+
+        if (filtroAplicado)
+            PopularGrafico(filtroAplicado, jsonDadosGrafico, idGrafico, configuracoes);
+        //else
+        //    JogarMensagemSemFiltro(grafico);
+    };
+</script>

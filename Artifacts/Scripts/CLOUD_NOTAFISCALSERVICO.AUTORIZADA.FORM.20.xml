@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_NOTAFISCALSERVICO.AUTORIZADA.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+      
+    entity = widget.Entity
+    if entity ==None: return
+
+    statusNF = int(entity.Fields["STATUSNFE"].Value)
+    if statusNF &lt;= 2:
+      widget.View.Commands["CMD_CANCELAR_NFS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

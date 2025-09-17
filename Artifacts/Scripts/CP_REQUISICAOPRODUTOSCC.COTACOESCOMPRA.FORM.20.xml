@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOPRODUTOSCC.COTACOESCOMPRA.FORM</ViewName>
+  <EntityName>CP_REQUISICAOPRODUTOSCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+
+    valorTotal = widget.Entity.ObterValorTotalItem()
+    widget.View.FieldDefinitions["CUSTOM_VALORTOTALITEM"].Value = valorTotal.ToString("N4")
+    widget.View.FieldDefinitions["CUSTOM_PORCENTAGEMTOTAL"].Value = widget.Entity.ObterPorcentagemTotal(valorTotal).ToString("N4")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

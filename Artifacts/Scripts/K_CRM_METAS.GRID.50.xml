@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METAS.GRID</ViewName>
+  <EntityName>K_CRM_METAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    ehGestor = Thread.CurrentPrincipal.IsInRole("K_CRM_VP")
+    ehPresidente = Thread.CurrentPrincipal.IsInRole("K_CRM_PRESIDENTE")
+
+    sql = "SELECT CASE WHEN (SELECT FORMAT((C.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL_ARQ A JOIN K_CRM_METASVERTICAL B ON B.HANDLE = A.METAVERTICAL JOIN K_CRM_METAS C ON C.HANDLE = B.META WHERE C.HANDLE = :META GROUP BY C.VALORMETA) IS NULL THEN (SELECT FORMAT(VALORMETA,'C', 'pt-BR') SALDO FROM K_CRM_METAS WHERE HANDLE = :META) ELSE (SELECT FORMAT((C.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL_ARQ A JOIN K_CRM_METASVERTICAL B ON B.HANDLE = A.METAVERTICAL JOIN K_CRM_METAS C ON C.HANDLE = B.META WHERE C.HANDLE = :META GROUP BY C.VALORMETA) END SALDO";
+    crit = Criteria()
+    crit.Parameters.Add(Parameter("META", entity.Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    saldo = Entity.GetFirstOrDefault(ed, crit)
+    
+    if saldo == None:
+        row.GetCellByName("SALDOARQUITETO").Text = "R$ 0,00";
+    elif saldo.Fields["SALDO"] != None:
+        row.GetCellByName("SALDOARQUITETO").Text = saldo.Fields["SALDO"].ToString()
+        
+    sql2 = "SELECT CASE WHEN (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASUNIDADES A JOIN K_CRM_METAS B ON B.HANDLE = A.META WHERE B.HANDLE = :META GROUP BY B.VALORMETA) IS NULL THEN (SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METAS WHERE HANDLE = :META) ELSE (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASUNIDADES A JOIN K_CRM_METAS B ON B.HANDLE = A.META WHERE B.HANDLE = :META GROUP BY B.VALORMETA) END SALDO";
+    crit2 = Criteria()
+    crit2.Parameters.Add(Parameter("META", entity.Handle))
+    ed2 = EntityDefinition.Create()
+    ed2.EntitySource = QuerySource(sql2)
+    saldo2 = Entity.GetFirstOrDefault(ed2, crit2)
+    
+    if saldo2 == None:
+        row.GetCellByName("SALDOUNIDADES").Text = "R$ 0,00";
+    elif saldo2.Fields["SALDO"] != None:
+        row.GetCellByName("SALDOUNIDADES").Text = saldo2.Fields["SALDO"].ToString()
+        
+    sql3 = "SELECT CASE WHEN (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL A JOIN K_CRM_METAS B ON B.HANDLE = A.META WHERE B.HANDLE = :META GROUP BY B.VALORMETA) IS NULL THEN (SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METAS WHERE HANDLE = :META) ELSE (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL A JOIN K_CRM_METAS B ON B.HANDLE = A.META WHERE B.HANDLE = :META GROUP BY B.VALORMETA) END SALDO";
+    crit3 = Criteria()
+    crit3.Parameters.Add(Parameter("META", entity.Handle))
+    ed3 = EntityDefinition.Create()
+    ed3.EntitySource = QuerySource(sql3)
+    saldo3 = Entity.GetFirstOrDefault(ed3, crit3)
+    
+    if saldo3 == None:
+        row.GetCellByName("SALDOPENDENTEVERTICAL").Text = "R$ 0,00";
+    elif saldo3.Fields["SALDO"] != None:
+        row.GetCellByName("SALDOPENDENTEVERTICAL").Text = saldo3.Fields["SALDO"].ToString();
+        
+    if ehGestor or ehPresidente:
+#        row.GetCellByName("VALORMETA").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("VALORFATURAMENTO").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+    else:
+        row.GetCellByName("VALORMETA").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("METAVERTICALACUMULADO").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("METAVERTICALARQUITETOACUM").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("SALDOARQUITETO").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("METAUNIDADEACUMULADO").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("SALDOUNIDADES").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+        row.GetCellByName("SALDOPENDENTEVERTICAL").Text = "&lt;span style='text-align:center;'&gt;&lt;b&gt;Indisponível&lt;/b&gt;&lt;/span&gt;"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

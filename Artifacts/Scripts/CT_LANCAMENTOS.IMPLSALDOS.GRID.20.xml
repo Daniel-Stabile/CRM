@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOS.IMPLSALDOS.GRID</ViewName>
+  <EntityName>CT_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    registro = entity
+    if registro == None: return
+
+    if entity.Fields["VALOR"] != None: row.GetCellByName("VALOR").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_PEDIDOS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>CM_WEB_PEDIDOSVENDA</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Número</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="NUMERO">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="CLIENTE">
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties>A.EHCLIENTE = 'S' AND A.AGENTEVENDAS IN (SELECT B.PESSOA FROM Z_GRUPOUSUARIOS B WHERE B.HANDLE = @USUARIO)</Properties>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>1=1 AND 1=1</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

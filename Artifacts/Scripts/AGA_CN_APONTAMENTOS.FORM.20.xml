@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_APONTAMENTOS.FORM</ViewName>
+  <EntityName>CN_APONTAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNApontamento
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity
+    if registro == None: return
+    if registro.Fields["CONTRATO"].Instance == None: return
+
+    contratoEmElaboracao = CNApontamento.ContratoEmElaboracao(registro.Fields["CONTRATO"].Handle.Value)
+    widget.View.Commands["New"].Visible = not contratoEmElaboracao
+    widget.View.Commands["Edit"].Visible = not contratoEmElaboracao
+    widget.View.Commands["Delete"].Visible = not contratoEmElaboracao
+    if (not contratoEmElaboracao):
+        statusApontamento = int(registro.Fields["STATUS"].Value)
+        statusCadastrado = 1
+        if (statusApontamento &gt; statusCadastrado):
+            widget.View.Commands["Edit"].Visible = False
+            widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>FN_VT_FILTROSALDOSBANCARIOS.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>FN_VT_FILTROSALDOSBANCARIOS</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="FN_VT_FILTROSALDOSBANCARIOS" name="FN_VT_FILTROSALDOSBANCARIOS.CUSTOM.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="PAINELTILES">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="PAINELTILES">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>&lt;div class="row"&gt;
+            &lt;div id="tileTotalSaldo" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"&gt;
+                @Wes.Tile("Total saldo", "R$ 0,00", "blue", "fa fa-usd")
+            &lt;/div&gt;
+            &lt;div id="tileTotalFuturo" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"&gt;
+                @Wes.Tile("Total futuro", "R$ 0,00", "blue", "fa fa-usd")
+            &lt;/div&gt;
+            &lt;div id="tileTotalGeral" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"&gt;
+                @Wes.Tile("Total geral", "R$ 0,00", "blue", "fa fa-usd")
+            &lt;/div&gt;
+&lt;/div&gt;</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Ok" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

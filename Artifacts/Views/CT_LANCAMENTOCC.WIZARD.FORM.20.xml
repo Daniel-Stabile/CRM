@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>CT_LANCAMENTOCC.WIZARD.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>CT_LANCAMENTOCC</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="CT_LANCAMENTOCC" name="CT_LANCAMENTOCC.WIZARD.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="TEXTOVALORTOTAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="TEXTOTOTALLANCADO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="TEXTOPERCENTUALLANCADO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="NATUREZA_CUSTOM">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="LANCAMENTO">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DOCUMENTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CENTROCUSTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PROJETO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALOR">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col3</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="PERCENTUAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="NATUREZA">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ROTULOVALORTOTAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ROTULOTOTALLANCADO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ROTULOPERCENTUALLANCADO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column>4</Column>
+    <FormCaptionPosition>Left</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="LANCAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="PROJETO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,CODIGOREDUZIDO,NOME</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="CENTROCUSTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,CODIGO,NOME</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Documento contábil" key="DOCUMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Percentual" key="PERCENTUAL" tooltip="Percentual rateado para centro de custo">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="VALOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="NATUREZA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="TEXTOPERCENTUALLANCADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>@if(Model.Fields["ROTULOPERCENTUALLANCADO"] != string.Empty){ 
+    if (Convert.ToDecimal(Model.Fields["ROTULOPERCENTUALLANCADO"]) == 100){
+        &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name blue" data-class="note-info" style="padding: 10px;"&gt;
+            &lt;h5 class="block" style="color: white;"&gt;@(Model.Fields["ROTULOPERCENTUALLANCADO"])%&lt;/h5&gt;
+            &lt;h6 style="color: white;"&gt;Percentual de centro de custos&lt;/h6&gt;
+        &lt;/div&gt;
+    } else if(Convert.ToDecimal(@Model.Fields["ROTULOPERCENTUALLANCADO"]) &gt; 100){
+        &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name red-intense" data-class="note-info" style="padding: 10px;"&gt;
+            &lt;h5 class="block" style="color: white;"&gt;@(Model.Fields["ROTULOPERCENTUALLANCADO"])%&lt;/h5&gt;
+            &lt;h6 style="color: white;"&gt;Percentual de centro de custos&lt;/h6&gt;
+        &lt;/div&gt;
+    } else {
+        &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name yellow-crusta" data-class="note-info" style="padding: 10px;"&gt;
+            &lt;h5 class="block" style="color: white;"&gt;@(Model.Fields["ROTULOPERCENTUALLANCADO"])%&lt;/h5&gt;
+            &lt;h6 style="color: white;"&gt;Percentual de centro de custos&lt;/h6&gt;
+        &lt;/div&gt;
+    }
+} else {
+    &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name blue" data-class="note-info" style="padding: 10px;"&gt;
+        &lt;h5 class="block" style="color: white;"&gt;0%&lt;/h5&gt;
+        &lt;h6 style="color: white;"&gt;Percentual de centro de custos&lt;/h6&gt;
+    &lt;/div&gt;
+}
+</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="TEXTOTOTALLANCADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>@if(Convert.ToDecimal(@Model.Fields["ROTULOTOTALLANCADO"]) == Convert.ToDecimal(@Model.Fields["ROTULOVALORTOTAL"])){
+    &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name blue" data-class="note-info" style="padding: 10px;"&gt;
+        &lt;h5 class="block" style="color: white;"&gt;R$ @(Model.Fields["ROTULOTOTALLANCADO"])&lt;/h5&gt;
+        &lt;h6 style="color: white;"&gt;Lançamentos de centro de custos&lt;/h6&gt;
+    &lt;/div&gt;
+} else if(Convert.ToDecimal(@Model.Fields["ROTULOTOTALLANCADO"]) &gt; Convert.ToDecimal(@Model.Fields["ROTULOVALORTOTAL"])){
+    &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name red-intense" data-class="note-info" style="padding: 10px;"&gt;
+        &lt;h5 class="block" style="color: white;"&gt;R$ @(Model.Fields["ROTULOTOTALLANCADO"])&lt;/h5&gt;
+        &lt;h6 style="color: white;"&gt;Lançamentos de centro de custos&lt;/h6&gt;
+    &lt;/div&gt;
+} else {
+    &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name yellow-crusta" data-class="note-info" style="padding: 10px;"&gt;
+        &lt;h5 class="block" style="color: white;"&gt;R$ @(Model.Fields["ROTULOTOTALLANCADO"])&lt;/h5&gt;
+        &lt;h6 style="color: white;"&gt;Lançamentos de centro de custos&lt;/h6&gt;
+    &lt;/div&gt;
+}</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="TEXTOVALORTOTAL">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>&lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name blue" data-class="note-info" style="padding: 10px;"&gt;
+&lt;h5 class="block" style="color: white;"&gt;R$ @Model.Fields["ROTULOVALORTOTAL"]&lt;/h5&gt;
+&lt;h6 style="color: white;"&gt;Valor do lançamento contábil&lt;/h6&gt;
+&lt;/div&gt;</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="ROTULOVALORTOTAL">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueType>Text</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="ROTULOTOTALLANCADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueType>Text</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="ROTULOPERCENTUALLANCADO">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueType>Text</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="NATUREZA_CUSTOM">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>@{
+  var natureza = @Model.Fields["NATUREZA"];
+}
+@if(natureza == "D"){
+    &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name blue" data-class="note-info" style="padding: 9px 0 26px 10px;"&gt;
+        &lt;h2 style="color: white;"&gt;Débito&lt;/h2&gt;
+    &lt;/div&gt;
+}else{
+    &lt;div class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name red-intense" data-class="note-info" style="padding: 9px 0 26px 10px;"&gt;
+        &lt;h2 style="color: white;"&gt;Crédito&lt;/h2&gt;
+    &lt;/div&gt;
+}
+</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Próximo" key="Save">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

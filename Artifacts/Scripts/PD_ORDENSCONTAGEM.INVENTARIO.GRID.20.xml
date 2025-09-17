@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ORDENSCONTAGEM.INVENTARIO.GRID</ViewName>
+  <EntityName>PD_ORDENSCONTAGEM</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.DeleteCommand != None:
+			row.DeleteCommand.Visible = entity.PodeExcluir
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import BennerContext
+    
+    podeInserirAlterar = BennerContext.Authorization.CanInsertOnUrl("~/aga/a/materiais/inventario/ItensDeInventario.aspx", "PD_ORDENSCONTAGEMITENS")
+    
+    ordemContagem = widget.Entity
+    if ordemContagem == None: return
+    widget.View.Commands["Cancelar"].Visible = ordemContagem.PodeCancelar and podeInserirAlterar
+    widget.View.Commands["Confirmar"].Visible = ordemContagem.PodeConfirmar and podeInserirAlterar
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+        
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa estar logado em uma Filial!")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

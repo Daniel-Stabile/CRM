@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOS.GESTAO.GRID</ViewName>
+  <EntityName>GP_PROJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    from Benner.Tecnologia.Common import BennerContext
+    
+    usuarioNaoEhGestor = BennerContext.Security.GetLoggedUserHandle() != entity.Fields["GESTORPROJETO"].Handle
+    
+    if (entity.Fields["STATUS"].Value != 1) and (row.DeleteCommand != None): row.DeleteCommand.Visible = False
+    if (entity.Fields["STATUS"].Value == 3) and (row.EditCommand != None) : row.EditCommand.Visible = False
+    
+    if (row.DeleteCommand != None) and(usuarioNaoEhGestor): row.DeleteCommand.Visible = False
+    if (row.EditCommand != None) and(usuarioNaoEhGestor): row.EditCommand.Visible = False
+    
+    if(row.GetCustomCommand("CMD_APROVAR") != None and row.GetCustomCommand("CMD_RECUSAR") != None):
+        emAprovacao = GPProjetos.PermissaoConfirmarRecusar(entity.Fields["HANDLE"].Value)
+        row.GetCustomCommand("CMD_APROVAR").Enabled = emAprovacao
+        row.GetCustomCommand("CMD_RECUSAR").Enabled = emAprovacao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_MOEDAS.FORM</ViewName>
+  <EntityName>GN_MOEDAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    from Benner.Tecnologia.Common import RadioItem
+    
+    entity = widget.Entity
+    view = widget.View
+
+    view.FieldDefinitions["MODOPROJECAO"].Visible = False
+    view.FieldDefinitions["PERIODICIDADE"].Visible = False
+    view.FieldDefinitions["CALCULO"].Visible = False
+    view.FieldDefinitions["BASE"].Visible = False
+    view.FieldDefinitions["CALCULODABASE"].Visible = False
+    view.FieldDefinitions["PERIODO"].Visible = False
+    view.FieldDefinitions["MENSAL"].Visible = False      
+    view.FieldDefinitions["COMPOSTO"].Visible = False        
+    view.FieldDefinitions["CANCELADEFASAGEM"].Visible = False
+    view.FieldDefinitions["VALIDADE"].Visible = False
+
+
+    if entity == None: return  
+
+    #Valor / Moeda
+    if entity.Fields["TIPO"] == RadioItem("C", "C"):
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True
+        view.FieldDefinitions["PERIODICIDADE"].Visible = True
+
+    #Taxa Diária
+    if entity.Fields["TIPO"] == RadioItem("D", "D"):
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True
+        view.FieldDefinitions["PERIODICIDADE"].Visible = True
+
+    #Taxa Cheia    
+    if entity.Fields["TIPO"] == RadioItem("T", "T"):
+        view.FieldDefinitions["PERIODICIDADE"].Visible = True
+        view.FieldDefinitions["CALCULO"].Visible = True
+        view.FieldDefinitions["BASE"].Visible = True
+        view.FieldDefinitions["CALCULODABASE"].Visible = True
+        view.FieldDefinitions["PERIODO"].Visible = True
+        view.FieldDefinitions["MENSAL"].Visible = True        
+        view.FieldDefinitions["COMPOSTO"].Visible = True        
+        view.FieldDefinitions["CANCELADEFASAGEM"].Visible = True        
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True   
+
+    #Taxa TR
+    if entity.Fields["TIPO"] == RadioItem("R", "R"):
+        view.FieldDefinitions["VALIDADE"].Visible = True
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True   
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+
+    from Benner.Tecnologia.Common import RadioItem
+
+    view.FieldDefinitions["MODOPROJECAO"].Visible = False
+    view.FieldDefinitions["PERIODICIDADE"].Visible = False
+    view.FieldDefinitions["CALCULO"].Visible = False
+    view.FieldDefinitions["BASE"].Visible = False
+    view.FieldDefinitions["CALCULODABASE"].Visible = False
+    view.FieldDefinitions["PERIODO"].Visible = False
+    view.FieldDefinitions["MENSAL"].Visible = False      
+    view.FieldDefinitions["COMPOSTO"].Visible = False        
+    view.FieldDefinitions["CANCELADEFASAGEM"].Visible = False
+    view.FieldDefinitions["VALIDADE"].Visible = False
+
+    if entity == None: 
+        return  
+        
+    #Valor / Moeda
+    if entity.Fields["TIPO"] == RadioItem("C", "C"):
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True
+        view.FieldDefinitions["PERIODICIDADE"].Visible = True
+
+    #Taxa Diária
+    if entity.Fields["TIPO"] == RadioItem("D", "D"):
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True
+        view.FieldDefinitions["PERIODICIDADE"].Visible = True
+
+    #Taxa Cheia    
+    if entity.Fields["TIPO"] == RadioItem("T", "T"):
+        view.FieldDefinitions["PERIODICIDADE"].Visible = True
+        view.FieldDefinitions["CALCULO"].Visible = True
+        view.FieldDefinitions["BASE"].Visible = True
+        view.FieldDefinitions["CALCULODABASE"].Visible = True
+        view.FieldDefinitions["PERIODO"].Visible = True
+        view.FieldDefinitions["MENSAL"].Visible = True        
+        view.FieldDefinitions["COMPOSTO"].Visible = True        
+        view.FieldDefinitions["CANCELADEFASAGEM"].Visible = True        
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True   
+
+    #Taxa TR
+    if entity.Fields["TIPO"] == RadioItem("R", "R"):
+        view.FieldDefinitions["VALIDADE"].Visible = True
+        view.FieldDefinitions["MODOPROJECAO"].Visible = True   
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnMODOPROJECAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMODOPROJECAOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import RadioItem
+    
+    view.FieldDefinitions["LIMITEMEDIA"].Visible = False
+    
+    if entity == None: 
+        return
+    
+    #Modo Projeção = Média das “n” últimas’
+    if entity.Fields["MODOPROJECAO"] == RadioItem("2", "2"):
+        view.FieldDefinitions["LIMITEMEDIA"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

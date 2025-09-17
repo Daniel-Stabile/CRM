@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAEQUIPEOPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAEQUIPEOPORTUNIDADE</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    entity = widget.Entity
+    view = widget.View
+    
+    if entity == None:
+        return
+    
+    view.FieldDefinitions["PARTICIPACAO"].Visible = False
+
+    if entity.Fields["CARGO"] != None:
+        cargo = int(entity.Fields["CARGO"].Value)
+        arquiteto = 1
+        if(cargo == arquiteto):
+            view.FieldDefinitions["PARTICIPACAO"].Visible = True
+        else:
+            view.FieldDefinitions["PARTICIPACAO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCARGOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCARGOValueChanged(view, entity):
+    a=1;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

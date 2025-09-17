@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAOAJUSTEBASECALCULO.GRID</ViewName>
+  <EntityName>TR_PCAPURACAOAJUSTEBASECALCULO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+    
+    #Zerando valores
+    row.GetCellByName("VALORAJUSTEBC").Text = "0,00";
+
+    #Formatação dos valores
+    if entity.Fields["VALORAJUSTEBC"] != None: row.GetCellByName("VALORAJUSTEBC").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORAJUSTEBC"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

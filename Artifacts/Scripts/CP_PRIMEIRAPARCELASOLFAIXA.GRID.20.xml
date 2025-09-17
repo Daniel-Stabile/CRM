@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_PRIMEIRAPARCELASOLFAIXA.GRID</ViewName>
+  <EntityName>CP_PRIMEIRAPARCELASOLFAIXA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    provider = widget.ProviderWidget
+    if provider == None: return
+    form = provider.Entity
+    if form == None: return
+
+    if form.Fields["VALIDAPRIMEIRAPARCELASOL"] != None:
+        widget.Hidden = not form.Fields["VALIDAPRIMEIRAPARCELASOL"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

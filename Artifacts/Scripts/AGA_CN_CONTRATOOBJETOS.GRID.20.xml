@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOOBJETOS.GRID</ViewName>
+  <EntityName>CN_CONTRATOOBJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+    
+    if (entity.Handle != None):
+        contratoEmElaboracao = CNContratoObjeto.ContratoEmElaboracao(entity.ContratoHandle)
+        if row.GetCustomCommand("btnGerarPrevisao") &lt;&gt; None: row.GetCustomCommand("btnGerarPrevisao").Enabled = contratoEmElaboracao
+        if row.GetCustomCommand("btnExcluirTodas") &lt;&gt; None: row.GetCustomCommand("btnExcluirTodas").Enabled = contratoEmElaboracao
+        if row.EditCommand &lt;&gt; None: row.EditCommand.Visible = contratoEmElaboracao
+        if row.DeleteCommand &lt;&gt; None: row.DeleteCommand.Visible = contratoEmElaboracao
+
+    if entity.Fields["TEMAPONTAMENTO"] == True:
+    	row.GetCellByName("TEMAPONTAMENTOSTRING").Text = "Sim"
+    if entity.Fields["APONTAMENTOCOMPLETO"] == True:
+    	row.GetCellByName("APONTAMENTOCOMPLETOSTRING").Text = "Sim"
+    if entity.Fields["INCLUIRCONTRATO"] == True:
+    	row.GetCellByName("INCLUIRCONTRATOSTRING").Text = "Sim"
+    if entity.Fields["ITEMPROPRIEDADE"] == True:
+    	row.GetCellByName("ITEMPROPRIEDADESTRING").Text = "Sim"
+    if entity.Fields["IGNORARRATEIODESCONTO"] == True:
+    	row.GetCellByName("IGNORARRATEIODESCONTOSTRING").Text = "Sim"
+    if entity.Fields["FATURARINDIVIDUALMENTE"] == True:
+    	row.GetCellByName("FATURARINDIVIDUALMENTESTRING").Text = "Sim"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    if widget.ProviderWidget &lt;&gt; None and (widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+    
+    if (widget.Breadcrumb.Parent.Entity.Handle != None):
+        contratoEmElaboracao = CNContratoObjeto.ContratoEmElaboracao(long(widget.Breadcrumb.Parent.Entity.Handle.Value))
+        if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

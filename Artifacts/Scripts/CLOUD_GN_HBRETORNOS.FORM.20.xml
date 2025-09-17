@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_GN_HBRETORNOS.FORM</ViewName>
+  <EntityName>GN_HBRETORNOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import ListItem
+    
+    if widget.Entity == None: return
+    if widget.Entity["STATUS"].IsNull: return
+
+    status = widget.Entity.Fields["STATUS"]
+    widget.View.Commands["CMD_Processar_Cobranca"].Visible = (status.Value in [1,5,6]);
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

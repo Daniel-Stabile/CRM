@@ -1,0 +1,112 @@
+@using Benner.Tecnologia.Common;
+@using Benner.Tecnologia.Business;
+@{
+
+    var versoes = new Query(@"SELECT B.NOME,B.ESTADO,B.TIPO,SUM(C.VALOR) TOTAL,COUNT(C.VALOR) QUANTIDADE FROM
+CT_VERSOESORCAMENTOS B
+INNER JOIN OP_CLASSIFICACAOORCAMENTARIA C ON B.HANDLE = C.VERSAO
+WHERE (B.ELABORACAOOFICIAL = 'S' OR B.ESTADO = 'X') AND C.PERIODO = :HANDLE
+GROUP BY B.TIPO, B.NOME, B.ESTADO ",
+    new Parameter("HANDLE", @Model.Handle)).Execute();
+
+    var PPA = versoes.Find(v => v["TIPO"].GetString() == "P");
+    var LDO = versoes.Find(v => v["TIPO"].GetString() == "L");
+    var LOA = versoes.Find(v => v["TIPO"].GetString() == "O");
+
+}
+@functions {
+    string formatMoney(decimal value)
+    {
+        return string.Format("R$ {0:N2}", value);
+    }
+}
+
+<div style="display: flex; flex-direction: column; align-items:center; gap: 4px;width: 100%;">
+
+    <div style="display: flex; gap: 4px;width: 100%;">
+
+        <div class="versao">
+            <div class="header">PPA</div>
+            @{
+                if (PPA != null)
+                {
+                    <div class="content">
+                        <b>@PPA["NOME"].GetString()</b>
+
+                    </div>
+                    <div class="footer">@formatMoney(PPA["TOTAL"].GetDecimal())</div>
+                }
+
+            }
+        </div>
+
+        <div class="versao">
+            <div class="header">LDO</div>
+            @{
+                if (LDO != null)
+                {
+                    <div class="content">
+                        <b>@LDO["NOME"].GetString()</b>
+
+                    </div>
+                    <div class="footer">@formatMoney(LDO["TOTAL"].GetDecimal())</div>
+                }
+
+            }
+        </div>
+
+        <div class="versao"
+            style='border-color: @(LOA != null && LOA["ESTADO"].GetString() == "X" ? "#303C8E" : "#dddddd")'>
+            <div class="header">LOA</div>
+            @{
+                if (LOA != null)
+                {
+                    <div class="content">
+                        <b>@LOA["NOME"].GetString()</b>
+
+                    </div>
+                    <div class="footer">@formatMoney(LOA["TOTAL"].GetDecimal())</div>
+                }
+            }
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+<style>
+    .versao {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .versao .header {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .versao .footer {
+        font-size: 12px;
+        color: #333;
+    }
+
+    .versao .content {
+        font-size: 12px;
+    }
+
+    .versao .content i {
+        font-size: 20px;
+        color: #ccc;
+    }
+</style>

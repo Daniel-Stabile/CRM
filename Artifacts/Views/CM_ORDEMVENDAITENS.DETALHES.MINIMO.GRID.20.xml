@@ -1,0 +1,1928 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>CM_ORDEMVENDAITENS.DETALHES.MINIMO.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>CM_ORDEMVENDAITENS</EntityName>
+  <Type>Grid</Type>
+  <Version>12</Version>
+  <GridDefinition entityDefinitionName="CM_ORDEMVENDAITENS" name="CM_ORDEMVENDAITENS.DETALHES.MINIMO.GRID" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition title="Posição" key="POSICAO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>30px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Item" key="PRODUTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Cód. ref." key="PATH_635449008996311533" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>PRODUTO&gt;PD_PRODUTOS.CODIGOREFERENCIA</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Produto" key="PATH_635449009433722398" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>PRODUTO&gt;PD_PRODUTOS.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Variação" key="VARIACAO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>80px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Un" key="UNIDADE" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>20px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Quantidade" key="QUANTIDADE" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>80px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor unitário" key="VALORUNITARIO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor líquido" key="VALORLIQUIDO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor total" key="VALORTOTAL" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="% IPI" key="IPI" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Frete" key="FRETE" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>50px</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Descontos" key="DESCONTOSVALOR" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="%" key="DESCONTOS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="%" key="ACRESCIMOS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="%" key="ICMSDIFERENCIAL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="% de partilha UF Destino" key="PERCENTUALICMSPARTILHADESTINO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="% de partilha UF Origem" key="PERCENTUALICMSPARTILHAORIGEM" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="% ICMS FCP" key="PERCENTUALICMSFCP" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="% Redução" key="REDUCAOINSS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="% Redução" key="REDUCAOISS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Acréscimo política" key="ACRESCIMOPOLITICA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ICMSRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="INSS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTAST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ISS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="IRF" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTACOFINSST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ICMS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTACONTRPREV" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTAIRPJ" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTAPISST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTACSLL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTAPISRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota" key="ALIQUOTACOFINSRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota COFINS" key="ALIQUOTACOFINS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Aliquota imposto importação" key="ALIQUOTAII" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota interestadual" key="ICMSPARTILHAINTERESTADUAL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota interna c/ FCP" key="ICMSPARTILHACOMFCP" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota interna s/ FCP" key="ICMSPARTILHASEMFCP" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Alíquota PIS" key="ALIQUOTAPIS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Aplicou politica comercial" key="APLICOUPOLITICACOMERCIAL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Bairro" key="BAIRRO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.BAIRRO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Bairro" key="LOCALRETIRADABAIRRO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.BAIRRO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo" key="BASECALCULOIRPJ" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo" key="BASECALCULOCSLL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo" key="BASECALCULOCOFINSRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo" key="BASECALCULOPISRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo ICMS" key="BASECALCULOICMS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo imposto importação" key="BASECALCULOII" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo INSS" key="BASECALCULOINSS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo IPI" key="BASECALCULOIPI" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo ISS" key="BASECALCULOISS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base cálculo ST" key="BASECALCULOSUBST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de cálculo" key="BASECALCULOCOFINSST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de cálculo" key="BASECALCULOPISST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de cálculo" key="BASECALCULOIR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de cálculo" key="BASECALCULOCONTRPREV" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de cálculo COFINS" key="BASECALCULOCOFINS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de Cálculo na UF de destino" key="BASECALCULOICMSPARTILHA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Base de cálculo PIS" key="BASECALCULOPIS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Benefício COFINS" key="BENEFICIOCOFINS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Benefício ICMS" key="BENEFICIOICMS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Benefício IPI" key="BENEFICIOIPI" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Benefício PIS" key="BENEFICIOPIS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Caixa postal" key="LOCALRETIRADACAIXAPOSTAL" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.CAIXAPOSTAL</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Caixa postal" key="CAIXAPOSTAL" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.CAIXAPOSTAL</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Centro de custo" key="CENTROCUSTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Cep" key="CEP" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.CEP</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="CEP" key="LOCALRETIRADACEP" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.CEP</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="CEST" key="CEST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Classificação CSOSN" key="CLASSIFICACAOCSOSN" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Classificação fiscal" key="CLASSIFICACAOFISCAL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Classificação origem" key="CLASSIFICACAOORIGEM" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Classificação TIPI" key="CLASSIFICACAOTIPI" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Classificação Tributária" key="CLASSIFICACAOTRIBUTARIA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="CNAE" key="CNAE" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Código de atividade" key="CODIGOATIVIDADECONTRPREV" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Código Nacional de Atividade Econômica" key="CODIGOCNAE" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Codigo serviço" key="CODIGOSERVICO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Complemente" key="LOCALRETIRADACOMPLEMENTO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.COMPLEMENTO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Complemento" key="COMPLEMENTO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.COMPLEMENTO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Conta financeira" key="CONTAFINANCEIRA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Critério de rateio" key="RATEIO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data entrega" key="PRAZO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Desconto política" key="DESCONTOPOLITICA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Descrição" key="DESCRICAONF" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Destinatário" key="DESTINATARIO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Documento" key="DOCUMENTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="É repasse" key="EHREPASSE" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Embalagem" key="EMBALAGEM" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Especificação para produção" key="TEXTOESPECIFICACAO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Estado" key="LOCALRETIRADAESTADO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.ESTADO&gt;ESTADOS.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Estado" key="ESTADO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.ESTADO&gt;ESTADOS.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Estrutura já definida" key="TEMESTRUTURA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Família" key="FAMILIA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Frete moeda" key="FRETEMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Garantia/reposição" key="EHGARANTIAREPOSICAO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Grupo" key="GRUPO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Icms alíquota frete" key="ICMSALIQUOTAFRETE" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="ICMS sem aprov" key="VALORICMSSEMAPROVEITAMENTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="IPI frete" key="VALORIPIFRETE" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Isentas IPI" key="ISENTASIPI" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Item específico" key="EHESPECIFICO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Logradouro" key="LOGRADOURO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.LOGRADOURO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Logradouro" key="LOCALRETIRADALOGRADOURO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.LOGRADOURO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Moeda" key="MOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Município" key="MUNICIPIO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.MUNICIPIO&gt;MUNICIPIOS.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Município" key="LOCALRETIRADAMUNICIPIO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.MUNICIPIO&gt;MUNICIPIOS.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Município prestado" key="MUNICIPIOPRESTADO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Nr. cliente" key="OCCLIENTENUMERO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Núm. Log." key="LOCALRETIRADANUMEROLOG" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.NUMEROLOG</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Número" key="NUMERO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.NUMEROLOG</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Número Recopi" key="NUMERORECOPI" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Observações" key="OBSERVACOES" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Operação" key="OPERACAO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Operação faturamento" key="OPERACAOFATURAMENTOITEM" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Ordem venda" key="ORDEMVENDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Outras IPI" key="OUTRASIPI" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="País" key="PAIS" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.PAIS&gt;PAISES.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="País" key="LOCALRETIRADAPAIS" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.PAIS&gt;PAISES.NOME</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Peso bruto" key="PESOBRUTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Peso líquido" key="PESOLIQUIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Produto fatura" key="PRODUTOFATURA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Projeto" key="PROJETO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Qtd. fat. entrega futura" key="QUANTIDADEFATURADAENTFUT" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Quantidade atendida" key="QUANTIDADEATENDIDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Quantidade faturada" key="QUANTIDADEFATURADA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Recalcular ICMS próprio" key="RECALCULARICMSPROPRIO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Remetente" key="LOCALRETIRADAREMETENTE" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Seguro" key="SEGURO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Seguro moeda" key="SEGUROMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Sequência item" key="OCCLIENTESEQITEM" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Sistema de movimentação" key="SISTEMAMOVIMENTACAO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Status" key="STATUS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Tabela de preços" key="TABELAPRECO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Tipo logradouro" key="TIPOLOGRADOURO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>DESTINATARIO&gt;GN_PESSOAENDERECOSENTREGA.TIPOLOGRADOURO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Tipo logradouro" key="LOCALRETIRADATIPOLOGRADO" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior xsi:nil="true" />
+        <Width xsi:nil="true" />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Path>LOCALRETIRADAREMETENTE&gt;GN_LOCAISRETIRADA.TIPOLOGRADOURO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORCSLL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="ACRESCIMOSVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORCOFINSST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORCONTRPREV" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORPISST" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="IRFVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORINSS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORPISRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="ISSVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="IPIVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="ICMSDIFERENCIALVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="ICMSRETIDOVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORIRPJ" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORCOFINSRETIDO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="ICMSVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor acr. moeda" key="ACRESCIMOSVALORMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor COFINS" key="VALORCOFINS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor comercial" key="VALORCOMERCIAL" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor de outros impostos" key="VALOROUTROSIMPOSTOS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor de tabela" key="VALORTABELA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor deduções" key="ISSDEDUCOES" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor desc. moeda" key="DESCONTOSVALORMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor do DIFAL p/ UF destino" key="ICMSVALORPARTILHADESTINO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor do DIFAL p/ UF Origem" key="ICMSVALORPARTILHAORIGEM" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor ICMS FCP" key="ICMSVALORFCP" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor imposto importação" key="VALORII" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor isentas ICMS" key="VALORISENTASICMS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor líquido moeda" key="VALORLIQUIDOMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor outras despesas" key="OUTROS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor outras despesas moeda" key="OUTROSMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor outras ICMS" key="VALOROUTRASICMS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor PIS" key="VALORPIS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor ST" key="ICMSSUBSTVALOR" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor total do DIFAL" key="ICMSVALORTOTALDIFA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor total ICMS p/ UF Destino" key="ICMSVALORTOTALUFDESTINO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor total moeda" key="VALORMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor unitário moeda" key="VALORUNITARIOMOEDA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="Novo" key="New" inherited="true">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit" inherited="true">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Salvar" key="Save" inherited="true">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew" inherited="true">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel" inherited="true">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete" inherited="true">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Ver" key="View" inherited="true">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+      </Command>
+      <Command title="Comissões" image="fa fa-dollar" color="green-meadow" key="CMD_COMISSOES" inherited="true">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/aga/a/comercial/OrdensVenda/Item/Comissoes.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>A.ORDEMVENDAITEM = @CAMPO(HANDLE)</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>CM_ITEMCOMISSOES</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MA_RECURSOPARTES.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>MA_RECURSOPARTES</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Baixado</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="LOCAL">
+    <TableName>MA_RECURSOPARTES</TableName>
+    <FieldDefinitionName>TabFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ArrayOfListItem">
+      <ListItem>
+        <Value>5</Value>
+        <Text>Baixado</Text>
+      </ListItem>
+    </Value>
+    <Label />
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>(A.LOCAL IN ('5'))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Centro de Manutenção</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_FN_FILTRORECURSOPARTES.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Estoque</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_FN_FILTRORECURSOPARTES.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Veiculos</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_FN_FILTRORECURSOPARTES.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

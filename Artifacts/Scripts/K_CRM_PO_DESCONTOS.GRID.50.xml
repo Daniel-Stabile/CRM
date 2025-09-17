@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_DESCONTOS.GRID</ViewName>
+  <EntityName>K_CRM_PO_DESCONTOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import CompanyFilterMode
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import QuerySource
+    
+    status = entity.Fields["STATUS"];
+    nivel = entity.Fields["NIVELAPROVACAO"]
+    nivelAprovacao = 0;
+    
+    if nivel == ListItem(1, "1"):
+        nivelAprovacao = 1;
+    elif nivel == ListItem(2, "2"):
+        nivelAprovacao = 2;
+    elif nivel == ListItem(3, "3"):
+        nivelAprovacao = 3;
+    elif nivel == ListItem(4, "4"):
+        nivelAprovacao = 4;
+    elif nivel == ListItem(5, "5"):
+        nivelAprovacao = 5;
+
+    row.GetCustomCommand("CmdCancelarSolicitacao").Enabled = False;
+        
+    #entity.OutputMessage = "Nivel atual: ";# + nivelAprovacao.ToString();
+    
+    if status == ListItem(2,"Em Análise"):
+        if nivelAprovacao &gt; 0:
+            criterio = Criteria();
+            sql = "SELECT MAX(NIVEL) NIVEL FROM K_CRM_NIVEISDESCONTO N WHERE N.PAPEL IN (SELECT PAPEL FROM Z_PAPELATRIBUICOES WHERE GRUPO IN (SELECT GRUPO FROM Z_GRUPOUSUARIOS WHERE HANDLE = :USUARIO) OR (USUARIO = :USUARIO AND GRUPO IS NULL))";
+            criterio.Parameters.Add(Parameter("USUARIO", BennerContext.Security.GetLoggedUserHandle().Value.ToString()))
+            ed = EntityDefinition.Create()
+            ed.EntitySource = QuerySource(sql)
+            resultado = Entity.GetFirstOrDefault(ed, criterio)
+            nivelUsuario = int(resultado.Fields["NIVEL"]);
+            if nivelUsuario &gt;= nivelAprovacao:
+                if row.GetCustomCommand("cmdEditarDesconto") != None:
+                    row.GetCustomCommand("cmdEditarDesconto").Enabled = True;
+            else:
+                if row.GetCustomCommand("cmdEditarDesconto") != None:
+                    row.GetCustomCommand("cmdEditarDesconto").Enabled = False;     
+        else:
+            if row.GetCustomCommand("cmdEditarDesconto") != None:
+                row.GetCustomCommand("cmdEditarDesconto").Enabled = False;
+    else:
+        if row.GetCustomCommand("cmdEditarDesconto") != None:
+            row.GetCustomCommand("cmdEditarDesconto").Enabled = False;
+            
+    if status == ListItem(2,"Em Análise") and entity.Fields["USUARIOSOLICITACAO"].Handle == BennerContext.Security.GetLoggedUserHandle():
+        row.GetCustomCommand("CmdCancelarSolicitacao").Enabled = True;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    
+    widget.MessagePanel.ShowMessage("A solicitação de desconto trava os valores da sua oportunidade. Caso deseje alterar algum item após a solicitação de desconto, você deve gerar uma nova versão da oportunidade!", MessageType.Information);
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

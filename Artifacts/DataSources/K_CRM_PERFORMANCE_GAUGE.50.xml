@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_PERFORMANCE_GAUGE</Identifier>
+  <Name>CRM_PERFORMANCE_GAUGE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     C.NOME,&#xD;&#xA;     ROUND((CAST(DD.REALIZADO AS FLOAT) * 100 ) /CAST(DD.META AS FLOAT),2) AS PRC&#xD;&#xA;FROM K_CRM_PERFORMANCEITEM DD&#xD;&#xA;JOIN K_CRM_PERFORMANCESEMANA A ON DD.PERFORMANCESEMANA = A.HANDLE&#xD;&#xA;JOIN K_CRM_PERFORMANCEANO B ON B.HANDLE = A.PERFORMANCEANO&#xD;&#xA;JOIN K_CRM_PERFORMANCETIPO C ON C.HANDLE = DD.TIPO&#xD;&#xA;WHERE B.USUARIO = 142 AND A.SEMANA = 8&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="PRC" From="A" Path="PRC" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FILIAIS.ALCADA.GRID</ViewName>
+  <EntityName>FILIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Criteria
+
+    form = widget.ProviderWidget
+    if (form == None) : 
+        widget.Hidden = True
+        return
+    
+    entity = form.Entity
+    if (entity == None) : 
+        widget.Hidden = True
+        return
+    
+    if (entity["ULTIMONIVEL"].GetDBValue() == "N") : 
+        widget.Hidden = True
+        return
+    
+    sql = "SELECT COUNT(HANDLE) HANDLE FROM CP_GRUPOALCADAS WHERE EMPRESA = @EMPRESA AND (EHALCADAPROJETO = 'N' OR EHALCADAPROJETO IS NULL) "
+    condicao = Entity.GetFirstOrDefault(EntityDefinition.FromQuery(sql), Criteria.Empty).Fields["HANDLE"]
+    widget.Hidden = condicao == 0
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

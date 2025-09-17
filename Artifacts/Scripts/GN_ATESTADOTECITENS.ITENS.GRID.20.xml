@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_ATESTADOTECITENS.ITENS.GRID</ViewName>
+  <EntityName>GN_ATESTADOTECITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    
+    form = widget.ProviderWidget
+    if form == None: return
+    registro = form.Entity
+    
+    if (widget.View.Commands["New"] != None):
+		widget.View.Commands["New"].Visible = registro.IsVisibleBTNINCLUIR</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import Entity
+    
+    form = row.Grid.ProviderWidget
+    if form == None: return
+    registro = form.Entity
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible = registro.IsVisibleBTNEDITAR
+        
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = registro.IsVisibleBTNEXCLUIR</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_META_VENDA_V1_TRI</Identifier>
+  <Name>META_VENDA_V1_TRI</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(PLANEJADO) PLANEJADO ,&#xD;&#xA;       SUM(REALIZADO) REALIZADO,&#xD;&#xA;       'R$ ' + REPLACE(REPLACE(REPLACE(convert(varchar,cast(CAST(SUM(PLANEJADO) as decimal) as money), 1),'.','|'),',','.'),'|',',') PLANEJADO_MONEY&#xD;&#xA;FROM(&#xD;&#xA;SELECT  A.DATA,&#xD;&#xA;        COALESCE(SUM(D.VALORMETA),0) PLANEJADO,&#xD;&#xA;        (&#xD;&#xA;           SELECT COALESCE(SUM(AA.VALORTOTAL),0)&#xD;&#xA;           FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;           WHERE AA.STATUS = 10&#xD;&#xA;           AND YEAR(AA.DATAFECHAMENTO) = YEAR(A.DATA)&#xD;&#xA;           AND AA.RESPONSAVEL = A.USUARIO&#xD;&#xA;           AND MONTH(AA.DATAFECHAMENTO) = MONTH(A.DATA)) REALIZADO&#xD;&#xA;FROM K_CRM_METASUSUARIOS A&#xD;&#xA;JOIN K_CRM_METASUNIDADES B ON A.METAUNIDADE = B.HANDLE&#xD;&#xA;JOIN K_CRM_METAS C ON B.META = C.HANDLE&#xD;&#xA;JOIN K_CRM_METASUSUARIOSVERTICAL D ON D.METAUSUARIO = A.HANDLE&#xD;&#xA;WHERE 1=1&#xD;&#xA;AND @CRITERIOSELECAO&#xD;&#xA;GROUP BY A.DATA,A.USUARIO) TABTEMP" />
+  <Fields>
+    <DecimalField Alias="PLANEJADO" From="A" Path="PLANEJADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="REALIZADO" From="A" Path="REALIZADO" FieldDecimalsFormat="0" />
+    <Field Alias="PLANEJADO_MONEY" From="A" Path="PLANEJADO_MONEY" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

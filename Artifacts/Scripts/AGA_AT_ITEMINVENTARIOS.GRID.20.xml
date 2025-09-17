@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_ITEMINVENTARIOS.GRID</ViewName>
+  <EntityName>AT_ITEMINVENTARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.ProviderWidget.Entity != None):
+        providerEntity = widget.ProviderWidget.Entity;
+        if ((providerEntity.Definition.Name == "AT_INVENTARIOS") and (providerEntity.Fields.ContainsKey("STATUS"))):
+            widget.Hidden = providerEntity["STATUS"].Value.Value != 1 and providerEntity["STATUS"].Value.Value !=3; # cadastrado e com erro 
+
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_CONSULTARINVENTARIO")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_CONSULTARINVENTARIO")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_CONSULTARINVENTARIO")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

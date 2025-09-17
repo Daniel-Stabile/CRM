@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASUNIDADESTIPOS.FORM</ViewName>
+  <EntityName>K_CRM_METASUNIDADESTIPOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    if widget == None:return;
+    if widget.Entity == None:return;
+    
+    ent     = widget.Entity
+    total   = ent.Fields["METAUNIDADE"].Instance.Fields["META"].Instance.Fields["VALOR"]
+    meta    = ent.Fields["METAUNIDADE"].Instance.Fields["META"].Handle 
+    
+    totalUnidades = 0
+    if meta.IsValid():
+        criteria = Criteria("A.METAUNIDADE IN (SELECT HANDLE FROM K_CRM_METASUNIDADES WHERE META = :META) ", Parameter("META", meta))
+        unidades = Entity.GetMany(EntityDefinition.GetByName("K_CRM_METASUNIDADESTIPOS"), criteria)
+        
+        if unidades.Count &gt; 0:
+            
+            for metaUnidade in unidades:
+                totalUnidades += metaUnidade.Fields["VALOR"]
+                
+                
+        #totalUnidades += ent.Fields["VALOR"]   
+    
+    if totalUnidades &gt; total:
+        
+        widget.MessagePanel.ShowMessage("&lt;h3&gt;&lt;b&gt;Valor Ultrapassa o total da meta!!!&lt;/b&gt;&lt;/h3&gt;&lt;/br&gt;Valor total da meta: &lt;b&gt;R$ " + str(total) + "&lt;/b&gt;&lt;/br&gt;Valor total da meta utilizada: &lt;b&gt;R$ "+str(totalUnidades)+"&lt;/b&gt;", MessageType.Error)
+    else :
+        widget.MessagePanel.ShowMessage("Valor total da meta: &lt;b&gt;R$ " + str(total) + "&lt;/b&gt;&lt;/br&gt;Valor total da meta utilizada: &lt;b&gt;R$ "+str(totalUnidades)+"&lt;/b&gt;", MessageType.Success)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

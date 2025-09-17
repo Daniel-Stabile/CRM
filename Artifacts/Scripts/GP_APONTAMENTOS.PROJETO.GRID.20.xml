@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_APONTAMENTOS.PROJETO.GRID</ViewName>
+  <EntityName>GP_APONTAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    from Benner.Tecnologia.Business import Query
+    from Benner.Tecnologia.Common import BennerContext
+    
+    sqlParticipante = Query("SELECT USUARIO FROM GP_PROJETOPARTICIPANTES WHERE PROJETO  = "+str(entity.ProjetoHandle) +" AND USUARIO = "+ str(BennerContext.Security.GetLoggedUserHandle()))
+    result = sqlParticipante.Execute()
+    
+    ehParticipante = result != None and len(result)&gt;0
+    ehGestor =entity.ProjetoInstance.GestorProjetoHandle == BennerContext.Security.GetLoggedUserHandle()
+    
+    
+    tarefaConcluida = GPProjetoTarefas.TarefaConcluida(entity.TarefaHandle)
+    
+    if row.EditCommand != None: row.EditCommand.Visible = not tarefaConcluida and entity.PermiteManterApontamentos and (ehParticipante or ehGestor)
+    if row.DeleteCommand != None: row.DeleteCommand.Visible =  not tarefaConcluida and entity.PermiteManterApontamentos and (ehParticipante or ehGestor)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

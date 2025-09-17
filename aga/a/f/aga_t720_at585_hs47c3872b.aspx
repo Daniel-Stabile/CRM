@@ -1,0 +1,140 @@
+﻿<%@ Page Title="Filiais" Language="C#" Inherits="aga.a.administracao.ParametrosFilialPage,Benner.Corporativo.Wes.WebApp" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="portlet light">
+  <div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <ul class="nav nav-tabs tabs-left">
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="FORMULARIO" class="active"><a data-toggle="tab" href="#tabFORMULARIO">Filiais</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_540_8039"><a data-toggle="tab" href="#tabWIDGET_540_8039">Grupos de alçadas&gt;Ativos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_540_8040"><a data-toggle="tab" href="#tabWIDGET_540_8040">Grupos de alçadas&gt;Inativos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_3293"><a data-toggle="tab" href="#tabWIDGET_3293">Inscrição estadual substituto</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_7256"><a data-toggle="tab" href="#tabWIDGET_7256">Parâmetros da integração Totall</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_2739"><a data-toggle="tab" href="#tabWIDGET_2739">Parâmetros de cheques</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_7625"><a data-toggle="tab" href="#tabWIDGET_7625">Parâmetros de documentos eletrônicos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_5761"><a data-toggle="tab" href="#tabWIDGET_5761">Parâmetros do módulo SPED</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_1912"><a data-toggle="tab" href="#tabWIDGET_1912">Parâmetros do módulo aquisições</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_5262"><a data-toggle="tab" href="#tabWIDGET_5262">Parâmetros do módulo ativo</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_1550"><a data-toggle="tab" href="#tabWIDGET_1550">Parâmetros do módulo comercial</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_2384"><a data-toggle="tab" href="#tabWIDGET_2384">Parâmetros do módulo contratos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_3322"><a data-toggle="tab" href="#tabWIDGET_3322">Parâmetros do módulo custo contábil</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_6120"><a data-toggle="tab" href="#tabWIDGET_6120">Parâmetros do módulo frente de loja</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_4375"><a data-toggle="tab" href="#tabWIDGET_4375">Parâmetros do módulo frotas</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_4311"><a data-toggle="tab" href="#tabWIDGET_4311">Parâmetros do módulo manutenção ind.</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_1538"><a data-toggle="tab" href="#tabWIDGET_1538">Parâmetros do módulo materiais</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_2188"><a data-toggle="tab" href="#tabWIDGET_2188">Parâmetros do módulo produção</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_4559"><a data-toggle="tab" href="#tabWIDGET_4559">Parâmetros do módulo qualidade</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_1537"><a data-toggle="tab" href="#tabWIDGET_1537">Parâmetros do módulo suprimentos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_3015"><a data-toggle="tab" href="#tabWIDGET_3015">Parâmetros do módulo tributos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="WIDGET_7335"><a data-toggle="tab" href="#tabWIDGET_7335">Situações especiais</a></li>
+      </ul>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-9">
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabFORMULARIO">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Filiais" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_FILIAIS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="1"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_540_8039">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="WIDGET_540_8039" Title="Grupos de alçadas&gt;Ativos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_CP_GRUPOALCADAS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="50" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="None" UserDefinedCriteriaWhereClause="(A.ATIVO = 'S' AND (((A.TIPO &lt;&gt; 7 OR (A.TIPO = 7 AND A.FILIAL IN (SELECT FILIAL FROM LC_PARAMETROS WHERE TIPOCENTRALIZADORA = 1))) AND ((A.TIPO &lt;&gt; 7 AND A.FILIAL = @TABELA(FILIAIS)) OR (A.TIPO = 7 AND A.FILIAL = @TABELA(FILIAIS) AND A.FILIAL IN (SELECT FILIAL FROM LC_PARAMETROS WHERE TIPOCENTRALIZADORA = 1)) OR (A.TIPO = 7 AND A.FILIAL IN (SELECT FILIALMESTRE FROM LC_PARAMETROS WHERE FILIAL = @TABELA(FILIAIS)) AND @TABELA(FILIAIS) NOT IN (SELECT FILIAL FROM LC_PARAMETROS WHERE TIPOCENTRALIZADORA = 1)))) OR (A.TIPO = 7 AND A.FILIAL = @TABELA(FILIAIS))) AND (A.ORIGEM IS NULL AND A.HANDLEORIGEM IS NULL)) AND A.EMPRESA = @CAMPO(EMPRESA)" FormUrl="~/aga/a/f/aga_t1645_at8039_hse56c35d7.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="10"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_540_8040">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="WIDGET_540_8040" Title="Grupos de alçadas&gt;Inativos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_CP_GRUPOALCADAS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="None" UserDefinedCriteriaWhereClause="(A.ATIVO &lt;&gt; 'S' AND (((A.TIPO &lt;&gt; 7 OR (A.TIPO = 7 AND A.FILIAL IN (SELECT FILIAL FROM LC_PARAMETROS WHERE TIPOCENTRALIZADORA = 1))) AND ((A.TIPO &lt;&gt; 7 AND A.FILIAL = @RASTRO(FILIAIS)) OR (A.TIPO = 7 AND A.FILIAL = @RASTRO(FILIAIS) AND A.FILIAL IN (SELECT FILIAL FROM LC_PARAMETROS WHERE TIPOCENTRALIZADORA = 1)) OR (A.TIPO = 7 AND A.FILIAL IN (SELECT FILIALMESTRE FROM LC_PARAMETROS WHERE FILIAL = @RASTRO(FILIAIS)) AND @RASTRO(FILIAIS) NOT IN (SELECT FILIAL FROM LC_PARAMETROS WHERE TIPOCENTRALIZADORA = 1)))) OR (A.TIPO = 7 AND A.FILIAL = @RASTRO(FILIAIS))) AND (A.ORIGEM IS NULL AND A.HANDLEORIGEM IS NULL)) AND A.EMPRESA = @CAMPO(EMPRESA)" FormUrl="~/aga/a/f/aga_t1645_at8040_hsf40382c8.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="15"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_3293">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="WIDGET_3293" Title="Inscrição estadual substituto" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_TR_INSCRICAOSUBSTITUTOFILIAIS.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t2370_at3293_hs484c00df.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="20"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_7256">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_7256" Title="Parâmetros da integração Totall" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_TT_PARAMETROSFILIAL.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="25"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_2739">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="WIDGET_2739" Title="Parâmetros de cheques" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_FN_CHEQUEPARAMETROS.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t2183_at2739_hs554d3ae2.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="30"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_7625">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_7625" Title="Parâmetros de documentos eletrônicos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_TR_PARAMETROFILIAL.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="35"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_5761">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_5761" Title="Parâmetros do módulo SPED" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_ED_PARAMETROFILIAIS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="40"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_1912">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_1912" Title="Parâmetros do módulo aquisições" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_LC_PARAMETROS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="45"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_5262">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="WIDGET_5262" Title="Parâmetros do módulo ativo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_AT_PARAMETROFILIAL.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t3120_at5262_hsf2ae27db.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="50"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_1550">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_1550" Title="Parâmetros do módulo comercial" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_CM_PARAMETROS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="55"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_2384">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_2384" Title="Parâmetros do módulo contratos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_CN_PARAMETROSCONTRATOS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="60"  />
+    <wes:EditableGrid runat="server" ID="ALCADACONTRATOS" Title="Alçada de contratos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_2384" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CN_PARAMETROALCADAS_CONTRATOFILIAIS.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FILIAL = @CAMPO(HANDLE)" ShowExport="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="195"  />
+    <wes:EditableGrid runat="server" ID="CONTRATOSFAIXADEVALOR" Title="Contratos faixa de valor" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_2384" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CN_PRIMEIRAPARCELAFAIXA.PARAMETRO.CONTRATO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.PARAMETRO= @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" ShowExport="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="215"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_3322">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_3322" Title="Parâmetros do módulo custo contábil" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_CS_PARAMFILIAL.FORM" CanDelete="True" CanUpdate="True" CanInsert="True" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="65"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_6120">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_6120" Title="Parâmetros do módulo frente de loja" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_FL_PARAMETROS.FORM" CanDelete="True" CanUpdate="True" CanInsert="True" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="70"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_4375">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_4375" Title="Parâmetros do módulo frotas" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_MF_PARAMETROSFILIAL.FORM" CanDelete="False" CanUpdate="True" CanInsert="True" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="75"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_4311">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_4311" Title="Parâmetros do módulo manutenção ind." Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_MI_PARAMETROS.FORM" CanDelete="True" CanUpdate="True" CanInsert="True" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="85"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_1538">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_1538" Title="Parâmetros do módulo materiais" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_PD_PARAMETROSESTOQUE.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="90"  />
+    <wes:EditableGrid runat="server" ID="OPERACOES" Title="Operações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1538" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="PD_MOVIMENTACAOOPERACOES_PARAMETROSMATERIAIS.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FILIAL = @CAMPO(HANDLE)" ShowExport="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="185"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_2188">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_2188" Title="Parâmetros do módulo produção" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_PR_PARAMETROS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="95"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_4559">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_4559" Title="Parâmetros do módulo qualidade" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_QL_PARAMETROS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="100"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_1537">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_1537" Title="Parâmetros do módulo suprimentos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_PD_PARAMETROSCOMPRAS.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="105"  />
+    <wes:EditableGrid runat="server" ID="ALADASDEREQUISIES" Title="Alçadas de requisições" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1537" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CP_ALCADAREQUISICOES.ALCADASDEQUISICOES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.PARAMETROS= @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="125"  />
+    <wes:EditableGrid runat="server" ID="ALADASDEOC" Title="Alçadas de O.C." Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1537" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CP_ALCADAS.ALCADASDEOC.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.PARAMETROS= @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="135"  />
+    <wes:EditableGrid runat="server" ID="GRUPOCOMPRAREQUISIES" Title="Grupo compra requisições" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1537" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CP_GRUPOCOMPRASVALOR.GRUPOCOMPRAREQUISICOES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.PARAMETRO = @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="145"  />
+    <wes:EditableGrid runat="server" ID="ALADASDESOLICITAES" Title="Alçadas de solicitações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1537" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CP_ALCADASOLICITACOES.ALCADASOLICITACOES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.PARAMETRO = @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="155"  />
+    <wes:EditableGrid runat="server" ID="SOLICITFAIXADEVALOR" Title="Solicit. Faixa de Valor" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1537" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CP_PRIMEIRAPARCELASOLFAIXA.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.PARAMETRO= @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" ShowExport="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="205"  />
+    <wes:EditableGrid runat="server" ID="OCFAIXAVALORES" Title="O.C. Faixa Valores" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="WIDGET_1537" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="CP_PRIMEIRAPARCELAOCFAIXA.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.PARAMETRO= @CAMPO(HANDLE) AND A.FILIAL = @CAMPO(FILIAL) AND A.EMPRESA = @CAMPO(EMPRESA)" ShowExport="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="205"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_3015">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="WIDGET_3015" Title="Parâmetros do módulo tributos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_TR_PARAMETROFILIAL.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" UserDefinedCommandsVisible="True" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="110"  /></div>
+        </div>
+        <div class="tab-pane" id="tabWIDGET_7335">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="WIDGET_7335" Title="Situações especiais" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" EntityViewName="AGA_GN_SITUACOESESPECIAIS.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.FILIAL = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t4971_at7335_hse7755f5d.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_EMPRESA__FILIAIS_FORM" Level="20" Order="115"  /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      </asp:Content>
+    

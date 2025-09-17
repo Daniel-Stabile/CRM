@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOTRANSPORTETRIBUTOS.CONHECIMENTOFRETENAOINCLUSO.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOTRANSPORTETRIBUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if entity == None: return
+
+    widget.View.Commands["New"].Visible = entity.Fields["DOCUMENTOTRANSPORTE"].Instance.Fields["STATUS"].Value == 2
+    widget.View.Commands["Delete"].Visible = entity.Fields["DOCUMENTOTRANSPORTE"].Instance.Fields["STATUS"].Value == 2
+    widget.View.Commands["Edit"].Visible = entity.Fields["DOCUMENTOTRANSPORTE"].Instance.Fields["STATUS"].Value == 2
+    RemovePrefixoMoedas("VALORCONTABIL", entity)
+    RemovePrefixoMoedas("BASEICMS", entity)
+    RemovePrefixoMoedas("VALORICMS", entity)
+    RemovePrefixoMoedas("VALORISENTASICMS", entity)
+    RemovePrefixoMoedas("VALOROUTRASICMS", entity)
+    RemovePrefixoMoedas("DIFERENCIALALIQUOTA", entity)
+    RemovePrefixoMoedas("BASECALCULOPIS", entity)
+    RemovePrefixoMoedas("VALORPIS", entity)
+    RemovePrefixoMoedas("BASECALCULOCOFINS", entity)
+    RemovePrefixoMoedas("VALORCOFINS", entity)
+    RemovePrefixoMoedas("BASESUBSTITRIBUTARIA", entity)
+    RemovePrefixoMoedas("VALORICMSSUBSTITRIB", entity)
+    
+def RemovePrefixoMoedas(nomeCampo, entidade):
+    if entidade == None: return
+    entidade.Fields[nomeCampo] = str(str(str("{:,.2f}".format(entidade[nomeCampo].GetDecimal())).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

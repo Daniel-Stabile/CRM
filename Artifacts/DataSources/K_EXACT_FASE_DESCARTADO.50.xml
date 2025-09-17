@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_EXACT_FASE_DESCARTADO</Identifier>
+  <Name>EXACT_FASE_DESCARTADO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT FASEEXACT,&#xD;&#xA;     (&#xD;&#xA;     SELECT COUNT(FASEEXACT)&#xD;&#xA;     FROM K_CRM_PESSOAS B&#xD;&#xA;     WHERE B.FASEEXACT = A.FASEEXACT AND EXACTDESCARTADO = 'N'&#xD;&#xA;     ) ATIVOS,&#xD;&#xA;     (&#xD;&#xA;     SELECT COUNT(FASEEXACT)&#xD;&#xA;     FROM K_CRM_PESSOAS B&#xD;&#xA;     WHERE B.FASEEXACT = A.FASEEXACT AND EXACTDESCARTADO = 'S'&#xD;&#xA;     ) DESCARTADOS&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;WHERE FASEEXACT IS NOT NULL AND FASEEXACT &lt;&gt; 'DESCARTADOS'&#xD;&#xA;GROUP BY FASEEXACT&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="FASEEXACT" From="A" Path="FASEEXACT" />
+    <Field Alias="ATIVOS" From="A" Path="ATIVOS" />
+    <Field Alias="DESCARTADOS" From="A" Path="DESCARTADOS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

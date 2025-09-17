@@ -1,0 +1,49 @@
+﻿@{
+    string log = Convert.ToString(@Model.Fields["LOG"]);
+    bool HasDivergences = !string.IsNullOrWhiteSpace(log);
+
+    string mensagem = "<div><p class=\"p-log\">" + (HasDivergences ? log : "Não há divergências.") + "</p></div>";
+    string id = "Popover_" + Convert.ToString(@Model.Fields["AP"]);
+    string titulo = "Log";
+    string classe = "";
+    classe = HasDivergences ? "font-red fa fa-exclamation-circle fa-lg" : "font-green-meadow fa fa-check-circle fa-lg";    
+}
+
+<div class="btn-group">
+    <div>
+        <a id="@id" href="javascript:parent.window.showPopover('#@id');"
+           data-toggle="popover"
+           data-trigger="hover"
+           class="@classe"
+           data-placement="bottom"
+           data-container="body"
+           data-html="true"
+           title="@titulo"
+           style="color:white"
+           data-content="@mensagem">
+        </a>
+
+    </div>
+</div>
+
+<style>
+    .p-log {
+        word-wrap: break-word;
+    }
+</style>
+
+<script>
+
+    window.showPopover = function (id) {
+        if (window.lastPopover === id) {
+            $(".popover[role=tooltip]").detach();
+            window.lastPopover = null;
+        }
+        else {
+            $(".popover[role=tooltip]").detach();
+            window.lastPopover = id;
+            $(id).popover("show");
+        }
+    }
+
+</script>

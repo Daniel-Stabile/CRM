@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>LA_SIMULACAO_CENARIOLANC_CONSULTA.DATASOURCE.GRID</ViewName>
+  <EntityName>LA_SIMULACAO_CENARIOLANC_CONSULTA.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import datetime
+
+    date_time_str = row.GetCellByName("COMPETENCIA").Text
+    date_time_obj = datetime.datetime.strptime(date_time_str, '%d/%m/%Y %H:%M:%S')
+    
+    row.GetCellByName("COMPETENCIA").Text = date_time_obj.date().strftime('%m/%d/%Y')
+    
+    row.GetCellByName("RESULTADO").Text = (entity["RESULTADO"].GetDecimal()).ToString("C2")
+    row.GetCellByName("ADICAO").Text = (entity["ADICAO"].GetDecimal()).ToString("C2")
+    row.GetCellByName("EXCLUSAO").Text = (entity["EXCLUSAO"].GetDecimal()).ToString("C2")
+    
+    basecalculo = entity["RESULTADO"].GetDecimal() + entity["ADICAO"].GetDecimal() - entity["EXCLUSAO"].GetDecimal()
+    
+    row.GetCellByName("BASE").Text = basecalculo.ToString("C2")
+    
+    row.GetCellByName("VALORCSLL").Text = ((basecalculo * entity["ALIQUOTACSLL"].GetDecimal()) / 100).ToString("C2")
+    
+    valorirpj = (basecalculo * entity["ALIQUOTAIRPJ"].GetDecimal()) / 100
+    acumulo = basecalculo - entity["ACUMULOPARAADICIONAL"].GetDecimal()
+    if acumulo &gt;= 0:
+        row.GetCellByName("VALORIRPJ").Text = (valorirpj + ((acumulo * entity["ADICIONALIRPJ"].GetDecimal()) / 100)).ToString("C2")
+    else:
+        row.GetCellByName("VALORIRPJ").Text = "R$ 0,00"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

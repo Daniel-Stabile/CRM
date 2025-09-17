@@ -1,0 +1,39 @@
+@{
+    string statusEmpenho = (@Model["STATUSPEDIDOEMPENHODADOS"].GetString());
+    string textoTitulo = "";
+    string statusColor = "";
+}
+    @{ 
+        switch (statusEmpenho)
+        {
+            case "PENDENTE":
+				textoTitulo = "Sim";
+                statusColor="#ED6B75";
+                break;
+            
+            default:
+				textoTitulo = "N\u00E3o";
+                statusColor="#659BE0";
+                break;
+            
+
+        }
+    }
+
+
+<div class="statusPedido" 
+     title="@textoTitulo" >
+<span class="label label-sm" 
+        style="
+            background-color: @statusColor !important;">
+        @textoTitulo
+</span>
+
+</div>
+
+    <style>
+        .statusPedido{
+            text-align:center;
+        }
+
+    </style>

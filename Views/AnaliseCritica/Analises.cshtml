@@ -1,0 +1,125 @@
+@using Benner.Corporativo.DataContracts.GestaoProjetos
+@model AnaliseCriticaIndicadorResponse
+
+@{
+    var dados = Model;
+}
+
+<div class="divIndicador">Indicador: @dados.NomeAnalise</div>
+<div class="divResponsavel">Respons&aacute;vel: @dados.ResponsavelAnalise</div>
+<div class="divUM">Unidade medi&ccedil;&atilde;o: @dados.UnidadeMedicaoAnalise</div>
+<div class="divMeta">META: @string.Format("{0:N2}", @dados.MetaAnalise)</div>
+<div class="divVI">VALOR INICIAL: @string.Format("{0:N2}", @dados.ValorInicialAnalise)</div>
+<table>
+    <tr>
+        <td class="campo">Pontos de Controle</td>
+        <td class="campo">Meta</td>
+        <td class="campo">Valor Inicial</td>
+        <td class="campo">Medi&ccedil;&atilde;o</td>
+        <td class="campo">Desempenho</td>
+    </tr>
+
+    @{
+        foreach (var pontoControleAnalise in dados.PontoControleAnalise)
+        {
+            <tr>
+                <td>@pontoControleAnalise.NomePontoControleAnalise</td>
+                <td>@string.Format("{0:N2}", @pontoControleAnalise.MetaPontoControleAnalise)</td>
+                <td>@string.Format("{0:N2}", @pontoControleAnalise.ValorInicialPontoControleAnalise)</td>
+                <td>@string.Format("{0:N2}", @pontoControleAnalise.MedicaoPontoControleAnalise)</td>
+                <td>@pontoControleAnalise.DesempenhoPontoControleAnalise</td>
+            </tr>
+
+            <tr>
+                <td class="tituloAnalise">An&aacute;lise Cr&iacute;tica</td>
+                <td class="Analise" colspan="4">@pontoControleAnalise.AnaliseCritica</td>
+            </tr>
+        }
+    }
+
+    <tr>
+        <td class="campoAcumulado">Acumulado</td>
+        <td class="campoAcumulado">@string.Format("{0:N2}", @dados.MetaAnalise)</td>
+        <td class="campoAcumulado">@string.Format("{0:N2}", @dados.ValorInicialAnalise)</td>
+        <td class="campoAcumulado">@string.Format("{0:N2}", @dados.MetaTotalAnalise)</td>
+        <td class="campoAcumulado">@dados.DesempenhoAnalise%</td>
+    </tr>
+</table>
+
+<style>
+    .divIndicador {
+        font-size: large;
+        width: 500px;
+        margin-left: 30px;
+    }
+
+    .divResponsavel {
+        font-size: large;
+        width: 400px;
+        margin-left: 30px;
+    }
+
+    .divUM {
+        font-size: large;
+        width: 300px;
+        position: relative;
+        left: 500px;
+        bottom: 25px;
+    }
+
+    .divMeta {
+        font-size: large;
+        width: 300px;
+        position: relative;
+        margin-left: 30px;
+        top: 16px;
+    }
+
+    .divVI {
+        font-size: large;
+        width: 300px;
+        position: relative;
+        left: 500px;
+        bottom: 8px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+
+    .campo {
+        font-weight: bold;
+    }
+
+    .campoAcumulado {
+        font-weight: bold;
+        background-color: #f0f0f0;
+    }
+
+    td:empty {
+        background-color: #f0f0f0;
+    }
+
+    td.campo:nth-child(2), td:nth-child(4) {
+        width: 20%;
+    }
+
+    .tituloAnalise {
+        font-weight: bold;
+        height: 10rem;
+    }
+
+    .Analise {
+        text-align: left;
+        min-width: 10rem;
+        padding-right: 1rem;
+        vertical-align: top;
+    }
+</style>

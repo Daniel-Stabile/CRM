@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_OBJETOREAJUSTES.GRID</ViewName>
+  <EntityName>CN_OBJETOREAJUSTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    breadcrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    contrato = breadcrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_CONTRATOOBJETOS"))
+    
+    if (contrato.Handle != None):
+        podeAlterar = CNContratoObjeto.VisibilidadeGridReajuste(contrato.Handle.Value)
+        widget.Hidden = podeAlterar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

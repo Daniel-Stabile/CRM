@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_VISUALIZAR_CAPA_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    valor = ""
+    
+    if widget.Entity["DDD"].GetString() != None :
+        valor = valor + "("+widget.Entity["DDD"].GetString()+") "
+        
+    if widget.Entity["TELEFONE"].GetString() != None :        
+        valor = valor + widget.Entity["TELEFONE"].GetString()
+        
+    if widget.Entity["RAMAL"].GetString() != None :        
+        valor = valor + " - Ramal: " + widget.Entity["RAMAL"].GetString()        
+
+    
+    widget.View.FieldDefinitions["CONTATO"].Value = valor
+    
+    widget.View.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % widget.Entity.ValorTotalSolicitacao())
+    
+    if widget.Breadcrumb.Parent.Entity.PhysicalTableName &lt;&gt; "Z_WFTAREFAS" :
+        widget.View.Commands["APROVAR"].Visible = False
+        widget.View.Commands["RECUSAR"].Visible = False
+        
+    if not widget.Entity["LIBERADA"].GetBoolean() :
+        widget.View.Commands["APROVAR"].Visible = False
+        widget.View.Commands["RECUSAR"].Visible = False
+        
+    if widget.Entity["STATUS"].Value.Value &lt;&gt; 1 :
+        widget.View.Commands["APROVAR"].Visible = False
+        widget.View.Commands["RECUSAR"].Visible = False        
+
+    if ("AprovarSolicitacoes.aspx" in widget.Breadcrumb.GetProvider().GetPreviousNode().PageStateURL) and widget.Entity["LIBERADA"].GetBoolean() and widget.Entity["STATUS"].GetInt32() == 1  :
+        widget.View.Commands["APROVAR"].Visible = True
+        widget.View.Commands["RECUSAR"].Visible = True   
+
+    if not widget.Entity["MODALIDADE"].Value.Value  == "R" :
+        widget.View.Commands["REGULARIZACAO"].Visible = False
+
+    if not widget.Entity["MODALIDADE"].Value.Value == "C" :
+        widget.View.Commands["ENDERECO"].Visible = False
+
+    if (widget.Entity.MostrarCampoTipo()):
+        widget.View.FieldDefinitions["TIPO"].Visible = True
+        widget.View.Pages[0].Items["TIPO"].Pages["1"].Visible = widget.Entity.HabilitarRegularizacaoNegociavel()
+        widget.View.Pages[0].Items["TIPO"].Pages["2"].Visible = widget.Entity.HabilitarRegularizacaoNaoNegociavel()
+        widget.View.Pages[0].Items["TIPO"].Pages["3"].Visible = widget.Entity.HabilitarRegularizacaoPequenasCompras()
+    else:
+        widget.View.FieldDefinitions["TIPO"].Visible = False
+        
+    if widget.Entity["STATUS"].Value.Value &lt;&gt; 7:
+        widget.View.FieldDefinitions["MOTIVOSTATUS"].Visible = False
+        
+    visibilidadeCamposAprovacao = widget.Entity.ControlarVisibilidadeCamposAprovacao()
+    widget.View.FieldDefinitions["GRUPOASSINATURAS"].Visible = visibilidadeCamposAprovacao.VisibilidadeGrupoAssinaturas 
+    widget.View.FieldDefinitions["TEXTO_APROVACAO_WORKFLOW"].Visible = visibilidadeCamposAprovacao.VisibilidadeAprovacaoWorkflow
+    widget.View.FieldDefinitions["CONFIRMANTE"].Visible = visibilidadeCamposAprovacao.VisibilidadeConfirmante
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

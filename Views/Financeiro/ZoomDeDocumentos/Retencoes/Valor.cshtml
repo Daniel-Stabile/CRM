@@ -1,0 +1,29 @@
+﻿@{
+    var valor = Model.Fields["VALOR"];
+    var valorTotal = Model.Fields["VALORTOTALADICIONAL"] != null && Model.Fields["VALORTOTALADICIONAL"] > 0 ?
+       Model.Fields["VALORTOTALADICIONAL"].ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) : null;
+    var valorTotalTitle = "";
+    if (valorTotal != null)
+    {
+        valorTotalTitle = "Valor total adicional";
+    }
+}
+<div class="row static-info grid-retencoes">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <span class="@(valorTotal == null ? "value valueValor" : "value")">@valor.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) </span>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        @valorTotalTitle
+                    </div>
+                </div>
+            </label>
+            <span class=" value valueSecundario">@valorTotal</span>
+        </div>
+    </div>
+</div>

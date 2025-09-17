@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>AGA_MF_LEITURASULCOS.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>MF_LEITURASULCOS</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="MF_LEITURASULCOS" name="AGA_MF_LEITURASULCOS.GRID" title="MF_LEITURASULCOS" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition key="HANDLE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Marca de Fogo" key="SQL_MARCAFOGO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT RP.MARCAFOGO   FROM MA_RECURSOPARTES AS RP       INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)        INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)        INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)        LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND                                         E.DATA = (SELECT MAX(F.DATA)                                                   FROM MF_LEITURASULCOS F                                                 WHERE F.SULCO = D.HANDLE))  WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Código" key="SQL_CODIGO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT RP.CODIGO    FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Código" key="PNEU" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Medida" key="SQL_MEDIDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT B.NOME FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Posição" key="SQL_POSICAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT RP.POSICAO    FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Vida" key="SQL_VIDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT RP.VIDAUTIL  FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Desgaste" key="SQL_DESGASTE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT RP.DESGASTEACUMULADOVIDA FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="SULCO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Data Última Leitura" key="SQL_DATAULTIMALEITURA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT D.DATAULTIMALEITURA FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Profundidade" key="SQL_PROFUNDIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT D.PROFUNDIDADE FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Pressão" key="SQL_PRESSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT D.PRESSAO FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Temperatura" key="SQL_TEMPERATURA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT D.TEMPERATURA FROM MA_RECURSOPARTES AS RP        INNER JOIN MF_MODELOPNEUMEDIDAS B ON (B.HANDLE = RP.MEDIDAS)         INNER JOIN MF_PNEUVIDAS C ON (RP.HANDLE = C.PNEU AND RP.VIDAUTIL = C.VIDA)         INNER JOIN MF_PNEUVIDASULCOS D ON (D.VIDA = C.HANDLE)         LEFT JOIN MF_LEITURASULCOS E ON (E.SULCO = D.HANDLE AND E.DATA = (SELECT MAX(F.DATA) FROM MF_LEITURASULCOS F WHERE F.SULCO = D.HANDLE))   WHERE E.HANDLE = A.HANDLE </Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Data última leitura" key="ULTIMALEITURA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>SULCO&gt;MF_PNEUVIDASULCOS.DATAULTIMALEITURA</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="DATA" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="EIXO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="PROFUNDIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="OBSERVACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ORIGEM">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="PRESSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="TEMPERATURA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Última leitura" key="ULTIMAPROFUNDIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>SULCO&gt;MF_PNEUVIDASULCOS.PROFUNDIDADE</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Última pressão" key="ULTIMAPRESSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>SULCO&gt;MF_PNEUVIDASULCOS.PRESSAO</Path>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="VEICULO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="" key="New" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Edit" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="SaveNew" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Delete" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="View" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

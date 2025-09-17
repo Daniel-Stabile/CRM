@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_TAREFAUSUARIO.GRID</ViewName>
+  <Level>Cliente</Level>
+  <EntityName>K_CRM_TAREFAUSUARIO</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Atrasadas</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.DATAAGENDAMENTO &lt; GetDate() AND A.DATACONCLUSAO IS NULL AND A.STATUS = 1</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.DATAAGENDAMENTO &lt; GetDate() AND A.DATACONCLUSAO IS NULL AND A.STATUS = 1</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Atrasadas ( Usuário )</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.DATAAGENDAMENTO &lt; GetDate() AND A.DATACONCLUSAO IS NULL AND A.STATUS = 1 AND A.RESPONSAVEL = @USUARIO</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.DATAAGENDAMENTO &lt; GetDate() AND A.DATACONCLUSAO IS NULL AND A.STATUS = 1 AND A.RESPONSAVEL = @USUARIO</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Canceladas</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="STATUS">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>3</Value>
+      <Text>Cancelado</Text>
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.STATUS = :1__STATUS</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1__STATUS</Name>
+      <Value xsi:type="xsd:int">3</Value>
+      <Direction>Input</Direction>
+      <DataType>Integer</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Concluídas</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="STATUS">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>2</Value>
+      <Text>Concluido</Text>
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.STATUS = :1__STATUS</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1__STATUS</Name>
+      <Value xsi:type="xsd:int">2</Value>
+      <Direction>Input</Direction>
+      <DataType>Integer</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Futuras</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.DATAAGENDAMENTO &gt; @HOJE AND A.DATACONCLUSAO IS NULL</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.DATAAGENDAMENTO &gt; @HOJE AND A.DATACONCLUSAO IS NULL</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Pendentes</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="STATUS">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ListItem">
+      <Value>1</Value>
+      <Text>Pendente</Text>
+    </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.STATUS = :1__STATUS</Where>
+  <Parameters>
+    <Parameter>
+      <Name>1__STATUS</Name>
+      <Value xsi:type="xsd:int">1</Value>
+      <Direction>Input</Direction>
+      <DataType>Integer</DataType>
+      <Precision>0</Precision>
+      <Scale>0</Scale>
+      <Size>0</Size>
+    </Parameter>
+  </Parameters>
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

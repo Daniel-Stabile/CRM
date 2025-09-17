@@ -1,0 +1,863 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>AGA_AT_CONTAS.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>CT_CONTAS</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="CT_CONTAS" name="AGA_AT_CONTAS.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Conta" key="CONTA">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageGroup" key="GRUPOIDENTIFICACAO" caption="Identificação">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="CODIGOREDUZIDO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="ESTRUTURA">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col10</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="NOME">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col10</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="APELIDO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="TIPO">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GRUPOCARACTERISTICAS" caption="Características">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="ULTIMONIVEL">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="EXIGECENTROCUSTO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CONTADIFERIMENTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GRUPOINATIVIDADE" caption="Período de inatividade">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="INICIOINATIVIDADE">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="FINALINATIVIDADE">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="EMPRESA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="Ativo" key="ATIVO">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageTab" key="IMOBILIZADO">
+            <Pages>
+              <FormPage caption="Não" key="1">
+                <visible>true</visible>
+                <Items />
+              </FormPage>
+              <FormPage caption="Sim" key="2">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="TIPODEPRECIACAO">
+                    <layout>TwoColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DEPRECIACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DEPRECIACAOMAXIMA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="CORRIGE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="CONTADEPRECIACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="CALCULAICMS">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="CALCULAPISCOFINS">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col3</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="RECUPERARPISCOFINSITENSBAIXADO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="IDENTIFBENS">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+            </Pages>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GRUPOADOCAOATIVO" caption="Adoção Lei 12.973">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="SUBCONTAADOCAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="SUBCONTAADOCAOAUX">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="SUBCONTAADOCAOAPOS">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="TAXADEPRECIACAOFISCAL">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="Auditoria" key="AUDITORIA">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="USUARIOINCLUIU">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAINCLUSAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col4</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="USUARIOALTEROU">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAALTERACAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col4</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="Complemento" key="COMPLEMENTO">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="COMPLEMENTO">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="Centros de custo válidos" key="CENTROS_DE_CUSTO_VALIDOS">
+        <visible>true</visible>
+        <Items />
+      </FormPage>
+    </Pages>
+    <Column>4</Column>
+    <FormCaptionPosition>Left</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="EMPRESA">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="CODIGOREDUZIDO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Estrutura" key="ESTRUTURA">
+        <visible>true</visible>
+        <DataAccessLevel>Insert</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Nome" key="NOME" tooltip="Descrição da conta">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Apelido" key="APELIDO" tooltip="Apelido da conta">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="TIPO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Analítico" key="ULTIMONIVEL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Centros de custo" key="EXIGECENTROCUSTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Início" key="INICIOINATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Fim" key="FINALINATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Imobilizado" key="IMOBILIZADO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Tipo depreciação" key="TIPODEPRECIACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Percentual depreciação" key="DEPRECIACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Depreciação máxima" key="DEPRECIACAOMAXIMA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Corrige" key="CORRIGE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Conta depreciação" key="CONTADEPRECIACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,CODIGOREDUZIDO,NOME</LookupResultFields>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Calcula ICMS" key="CALCULAICMS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Calcula PIS/COFINS" key="CALCULAPISCOFINS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Recuperar PIS/COFINS Itens Baixados" key="RECUPERARPISCOFINSITENSBAIXADO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Identificação dos bens" key="IDENTIFBENS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Subconta adoção inicial" key="SUBCONTAADOCAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,CODIGOREDUZIDO,NOME</LookupResultFields>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Subconta adoção inicial auxiliar" key="SUBCONTAADOCAOAUX">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,CODIGOREDUZIDO,NOME</LookupResultFields>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Subconta após adoção inicial" key="SUBCONTAADOCAOAPOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,CODIGOREDUZIDO,NOME</LookupResultFields>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Taxa de depreciação fiscal" key="TAXADEPRECIACAOFISCAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Usuário que incluiu" key="USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data da inclusão" key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Usuário que alterou" key="USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data alteração" key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Complemento" key="COMPLEMENTO" tooltip="Descrição complementar da conta">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>20</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Identificação" key="GRUPOIDENTIFICACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Nível superior" key="NIVELSUPERIOR">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Características" key="GRUPOCARACTERISTICAS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Período de inatividade" key="GRUPOINATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Versão" key="VERSAO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Adoção Lei 12.973" key="GRUPOADOCAOATIVO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Id hospitalar" key="IDHOSPITALAR">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="CONTADIFERIMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="SPED" color="blue-hoki" key="SPED">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="GridLinkDefinition">
+          <Url>~/aga/a/contabil/sped/GridContas.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>(A.ORIGEMCONTA = @CAMPO(HANDLE))</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>ED_CONTAS</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <DefaultFilterName />
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Guias" color="default" key="GRP_GUIASAUXILIARES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Bloqueio de empresas" image="fa fa-industry" color="default" key="CMD_BLOQUEIOEMPRESAS" inherited="true">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Record</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/contabil/contas/bloqueios.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>CT_CONTABLOQUEIO</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Centros de custos válidos" image="fa fa-pie-chart" color="default" key="CMD_CCSVALIDOS" inherited="true">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Record</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Contabil/contas/CentrosCustos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>CT_CONTACCVALIDOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Informações anuais" image="fa fa-info-circle" color="default" key="CMD_INFORMACOESANUAIS" inherited="true">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Record</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/contabil/contas/InfromacoesAnuais.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>TR_PLANOCONTASINF</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Rateios por filiais" image="fa fa-building-o" color="default" key="CMD_RATEIOSFILIAIS" inherited="true">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Record</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/contabil/contas/RateiosFiliais.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>CT_CONTARATEIOSFILIAIS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Dimensões gerenciais válidas" image="fa fa-cogs" color="default" key="CMD_DIMENSOESGERENCIAISVALIDAS" inherited="true">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>true</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Record</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/contabil/contas/DimensoesGerenciaisValidas.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>(A.CONTACONTABIL = @CAMPO(HANDLE))</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>CT_DIMENSAOGERENCIALCONTAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command title="Bloqueio de empresas" image="fa fa-industry" color="default" key="CMD_BLOQUEIOEMPRESAS1">
+        <visible>false</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="GridLinkDefinition">
+          <Url>~/aga/a/contabil/contas/bloqueios.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_CONTABLOQUEIO</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <DefaultFilterName />
+        </OutputDefinition>
+      </Command>
+      <Command title="Centros de custos válidos" image="fa fa-pie-chart" color="default" key="CMD_CCSVALIDOS1">
+        <visible>false</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="GridLinkDefinition">
+          <Url>~/aga/a/Contabil/contas/CentrosCustos.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_CONTACCVALIDOS</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <DefaultFilterName />
+        </OutputDefinition>
+      </Command>
+      <Command title="Informações anuais" image="fa fa-info-circle" color="default" key="CMD_INFORMACOESANUAIS1">
+        <visible>false</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="GridLinkDefinition">
+          <Url>~/aga/a/contabil/contas/InfromacoesAnuais.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>TR_PLANOCONTASINF</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <DefaultFilterName />
+        </OutputDefinition>
+      </Command>
+      <Command title="Rateios por filiais" image="fa fa-building-o" color="default" key="CMD_RATEIOSFILIAIS1">
+        <visible>false</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="GridLinkDefinition">
+          <Url>~/aga/a/contabil/contas/RateiosFiliais.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>(A.CONTA = @CAMPO(HANDLE))</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_CONTARATEIOSFILIAIS</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <DefaultFilterName />
+        </OutputDefinition>
+      </Command>
+      <Command title="Dimensões gerenciais válidas" image="fa fa-cog" color="default" key="CMD_DIMENSOESGERENCIAISVALIDAS1">
+        <visible>false</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="GridLinkDefinition">
+          <Url>~/aga/a/contabil/contas/DimensoesGerenciaisValidas.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>(A.CONTACONTABIL = @CAMPO(HANDLE))</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_DIMENSAOGERENCIALCONTAS</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <DefaultFilterName />
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

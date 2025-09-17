@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_ITENS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>AT_ITENS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Bens adições</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string"> A.ITEM IS NOT NULL AND A.DATAULTIMABAIXA IS NULL</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where> A.ITEM IS NOT NULL AND A.DATAULTIMABAIXA IS NULL</Where>
+  <Parameters />
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Bens ativos</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.ITEM IS NULL AND A.DATAULTIMABAIXA IS NULL </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.ITEM IS NULL AND A.DATAULTIMABAIXA IS NULL </Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Bens baixados</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.DATAULTIMABAIXA IS NOT NULL AND A.DATAULTIMABAIXA = (SELECT MAX(DATA) FROM AT_ITEMMOVIMENTACOES WHERE ITEM =  A.HANDLE AND MOVIMENTACAO IN (1,6) AND (EHBAIXAUNIAO = 'N' OR EHBAIXAUNIAO IS NULL)) </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.DATAULTIMABAIXA IS NOT NULL AND A.DATAULTIMABAIXA = (SELECT MAX(DATA) FROM AT_ITEMMOVIMENTACOES WHERE ITEM =  A.HANDLE AND MOVIMENTACAO IN (1,6) AND (EHBAIXAUNIAO = 'N' OR EHBAIXAUNIAO IS NULL)) </Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Bens baixados por união</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.DATAULTIMABAIXA IS NOT NULL AND A.DATAULTIMABAIXA = (SELECT MAX(DATA) FROM AT_ITEMMOVIMENTACOES WHERE ITEM =  A.HANDLE AND MOVIMENTACAO = 1 AND EHBAIXAUNIAO = 'S') </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.DATAULTIMABAIXA IS NOT NULL AND A.DATAULTIMABAIXA = (SELECT MAX(DATA) FROM AT_ITEMMOVIMENTACOES WHERE ITEM =  A.HANDLE AND MOVIMENTACAO = 1 AND EHBAIXAUNIAO = 'S') </Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Bens em recuperação de ICMS</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">'S' = (SELECT  B.CALCULAICMS FROM CT_CONTAS B WHERE B.HANDLE = A.CONTA      ) AND A.RECUPERAICMS = 2  AND A.DATASAIDA IS NULL   AND (A.COMPOSICAO = 1           OR            (A.COMPOSICAO = 2 AND A.CONCLUSAOCOMPOSICAO IS NOT NULL AND  A.RECUPERAICMSCOMPEMANDAMENTO = 'N')          OR           (A.COMPOSICAO = 3 AND A.RECUPERAICMSCOMPEMANDAMENTO = 'S')         )  AND (SELECT COUNT(Z.HANDLE)              FROM AT_ITEMCREDITOSICMS Z          WHERE Z.ITEM = A.HANDLE)    &lt;   A.NUMEROPARCELASRECUPERAICMS</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>'S' = (SELECT  B.CALCULAICMS FROM CT_CONTAS B WHERE B.HANDLE = A.CONTA      ) AND A.RECUPERAICMS = 2  AND A.DATASAIDA IS NULL   AND (A.COMPOSICAO = 1           OR            (A.COMPOSICAO = 2 AND A.CONCLUSAOCOMPOSICAO IS NOT NULL AND  A.RECUPERAICMSCOMPEMANDAMENTO = 'N')          OR           (A.COMPOSICAO = 3 AND A.RECUPERAICMSCOMPEMANDAMENTO = 'S')         )  AND (SELECT COUNT(Z.HANDLE)              FROM AT_ITEMCREDITOSICMS Z          WHERE Z.ITEM = A.HANDLE)    &lt;   A.NUMEROPARCELASRECUPERAICMS</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

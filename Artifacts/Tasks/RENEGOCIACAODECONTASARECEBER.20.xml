@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<TaskPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>RENEGOCIACAODECONTASARECEBER</Id>
+  <Title>Renegociação de contas a receber</Title>
+  <Description>Renegociação de contas a receber do módulo financeiro. O comando CMD_PermissaoRenegociarCRE estará disponível para diferenciar já que a página é a mesma.</Description>
+  <Level>Benner</Level>
+  <Reports />
+  <Pages>
+    <string>AGA_E_FINANCEIRO_RENEGOCIACAO_RENEGOCIACAO</string>
+  </Pages>
+  <Components>
+    <string>Benner.Corporativo.Financeiro.Renegociacao.RenegociadorDocumento|RENEGOCIAR</string>
+    <string>Benner.Corporativo.Financeiro.Renegociacao.RenegociadorDocumento|RENEGOCIARPORSERVIDOR</string>
+    <string>Benner.Corporativo.Financeiro.RenegociadorParcela|SOMARVALORPARCELAS</string>
+  </Components>
+  <Apis />
+  <Operations>
+    <string>FN_PARCELAS|DELETE</string>
+    <string>FN_PARCELAS|EXCLUIRPARCELA</string>
+    <string>FN_PARCELAS|INSERT</string>
+    <string>FN_PARCELAS|PERMISSAORENEGOCIARCRE</string>
+    <string>FN_PARCELAS|UPDATE</string>
+    <string>FN_PARCELAS|VIEW</string>
+    <string>VT_FN_PARCELAS_RENEGOCIACAO|INSERT</string>
+    <string>VT_FN_PARCELAS_RENEGOCIACAO|VIEW</string>
+    <string>VT_RENEGOCIACAO_BAIXA_AP|INSERT</string>
+    <string>VT_RENEGOCIACAO_BAIXA_AP|VIEW</string>
+    <string>VT_RENEGOCIACAO_DOCUMENTO|INSERT</string>
+    <string>VT_RENEGOCIACAO_DOCUMENTO|VIEW</string>
+    <string>VT_RENEGOCIACAO_PARCELAS|INSERT</string>
+    <string>VT_RENEGOCIACAO_PARCELAS|VIEW</string>
+  </Operations>
+  <Process>
+    <string>1|Benner.Corporativo.Financeiro.Renegociacao.RenegociadorDocumento, Benner.Corporativo.Financeiro</string>
+  </Process>
+  <Tasks />
+  <FieldVisibility />
+</TaskPortable>

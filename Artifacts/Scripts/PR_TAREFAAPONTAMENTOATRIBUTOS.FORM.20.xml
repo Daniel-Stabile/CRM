@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_TAREFAAPONTAMENTOATRIBUTOS.FORM</ViewName>
+  <EntityName>PR_TAREFAAPONTAMENTOATRIBUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System import Decimal
+    from System import DateTime
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    if widget.Entity &lt;&gt; None:
+        valor = ErpEnvironment.ObterSessionVar("PROD_APONT_TAREFA_VALOR")
+        tipo = ErpEnvironment.ObterSessionVar("PROD_APONT_TAREFA_TIPO_VL")
+        if valor &lt;&gt; None:
+            if tipo == "1":
+                widget.Entity.Numero = Decimal.Parse(valor)
+            if tipo == "2":
+                widget.Entity.Data = DateTime.Parse(valor)
+            if tipo == "3":
+                widget.Entity.Texto = valor
+            
+        ErpEnvironment.AtribuirSessionVar("PROD_APONT_TAREFA_VALOR", None)
+        ErpEnvironment.AtribuirSessionVar("PROD_APONT_TAREFA_TIPO_VL", None)
+        
+    Entidade =  widget.Entity
+    status = Entidade.Fields["TAREFAAPONTAMENTO"].Instance.Fields["APONTAMENTO"].Instance.Fields["STATUS"].Value
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = False
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = False
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = False
+    if status == 1:
+        if widget.View.Commands["Edit"] != None:
+            widget.View.Commands["Edit"].Visible = True
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = True
+        if widget.View.Commands["New"] != None:
+            widget.View.Commands["New"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

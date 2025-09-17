@@ -1,0 +1,1672 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Benner.Tecnologia.Tasks</name>
+    </assembly>
+    <members>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration">
+            <summary>
+            Configuração do Basicas
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.ServerName">
+            <summary>
+            Nome do servidor do BServer
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.SystemName">
+            <summary>
+            Nome do sistema no BServer
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.ServiceName">
+            <summary>
+            Nome do sistema no BServer
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.IsStartedByBServer">
+            <summary>
+            Serviço foi iniciado pelo BServer
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.NumberOfProviders">
+            <summary>
+            Número de providers do Worker
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.QueueName">
+            <summary>
+            Nome da fila que o Worker vai consumir as mensagens;
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.UseCOMFree">
+            <summary>
+            Define se o Provider usará COMFree
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.IsBennerEnvironment">
+            <summary>
+            True se é ambiente de desenvolvimento Benner, false se é ambiente de cliente
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.BProviderProgID">
+            <summary>
+            Nome do objeto DCOM do Provider
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.SetFileConfiguration(System.Boolean)">
+            <summary>
+            Seta se vai ser Arquivo de configuração (Serviço) ou Configuração por Memoria (Bserver)
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.Environment">
+            <summary>
+            Dados do Ambientes
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.DisableTrimAppMemorySize">
+            <summary>
+            Desativa a limpeza dos providers pelo Worker
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.NomeServico">
+            <summary>
+            Nome do serviço
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.DisplayService">
+            <summary>
+            Display Service
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.IsDynamicPool">
+            <summary>
+            Pool de providers dinâmica
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.CpuMultiplier">
+            <summary>
+            Multiplicador de CPU que define a quantidade limite de providers
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.TimeStartWorker">
+            <summary>
+            Horário definido para o worker começar a processar requisições
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.TimeFinishWorker">
+            <summary>
+            Horário definido para o worker parar de processar requisições
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.TimeToRecycle">
+            <summary>
+            Tempo para reciclagem (em minutos).
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IBaseConfiguration.IsWorkerTimeConfigured">
+            <summary>
+            Indica se existe parametrização sobre o período de atividade do worker
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration">
+            <summary>
+            Configuração do serviço
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.TerminateEventName">
+            <summary>
+            Nome do evento que sinaliza uma ordem de parada do Worker
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.User">
+            <summary>
+            Usuário de sistema
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.LoggingServerActive">
+            <summary>
+            Define se o log centralizado é ativo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.LoggingServerAddress">
+            <summary>
+            Endereço do servidor do log centralizado
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.AcknowledgeProcessing">
+            <summary>
+            Indica se este Worker deverá remover mensagens da fila somente após o processamento
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.ConsumerPrefetchSize">
+            <summary>
+            Indica o numero de mensagens em cache que deve ser feito
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.PrimaryMessageFilterSQL">
+            <summary>
+            Em caso de fila em Banco, esse filtro será aplicado à tabela de requisições, tornando esse worker exclusivo.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IServiceConfiguration.SecondaryMessageFilterSQL">
+            <summary>
+            Em caso de fila em Banco, esse filtro será aplicado à tabela de requisições caso o PrimaryMessageFilter não retorne nenhuma mensagem.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.IDatabaseConfiguration">
+            <summary>
+            Configuração global de acesso à base de dados Benner
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IDatabaseConfiguration.SqlDriver">
+            <summary>
+            Driver de acesso ao banco de dados
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IDatabaseConfiguration.ConnectionString">
+            <summary>
+            String de conexão
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.IDatabaseConfiguration.IsParadox">
+            <summary>
+            Se o lang driver de acesso a dados é no padrão paradox
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.IPoolConfiguration">
+            <summary>
+            Configuração global da Pool
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration">
+            <summary>
+            Configuração global do Business Tasks Library
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.TransportType">
+            <summary>
+            Tipo do mecanismo de mensageria 
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.TransportAddress">
+            <summary>
+            Endereço do mecanismo de mensageria (Quando não for banco de dados)
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.UseNetCore">
+            <summary>
+            Sinaliza que o worker na versão dotnet core já foi instalado
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.TaskRequestExchange">
+            <summary>
+            Exchange do rabbit MQ
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.ClearLogComponent">
+            <summary>
+            Component [ClassaName,Assembly] utilizado na limpeza de losgs
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.ClearLogEventName">
+            <summary>
+            Nome do evento de limpeza de logs
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.ProcessScheduledEmailComponent">
+            <summary>
+            Component [ClassaName,Assembly] utilizado no processamento dos z_emails
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.ProcessScheduledEmailEventName">
+            <summary>
+            Nome do evento de processamento de z_emails
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.TaskRequestQueue">
+            <summary>
+            Nome da fila que irá conter as requisições de execução de tarefas
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.ScheduleRequestQueue">
+            <summary>
+            Nome da fila que irá conter as requisições de execução de agendamentos
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.TransportTimeout">
+            <summary>
+            Tempo de espera do transporte por uma nova mensagem.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.ConsumerPrefetchSize">
+            <summary>
+            Indica o numero de mensagens em cache que deve ser feito
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.AcknowledgeProcessing">
+            <summary>
+            Indica se este BTL deverá remover mensagens da fila somente após o processamento
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.PrimaryMessageFilterSQL">
+            <summary>
+            Em caso de fila em Banco, esse filtro será aplicado à tabela de requisições, tornando esse worker exclusivo.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration.SecondaryMessageFilterSQL">
+            <summary>
+            Em caso de fila em Banco, esse filtro será aplicado à tabela de requisições caso o PrimaryMessageFilter não retorne nenhuma mensagem.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.TasksParams">
+            <summary>
+            Parâmetros para configuração do Business Tasks Library
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_TRANSPORT_TYPE">
+            <summary>
+            Nome do parâmetro que configura o Tipo de transporte
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_TRANSPORT_ADDR">
+            <summary>
+            Nome do parâmetro que configura o endereço do transporte
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_TRANSPORT_ACKNOWLEDGE">
+            <summary>
+            Nome do parâmetro que indica que o transporte deverá remover a mensagem da fila somente depois de concluir processamento da mensagem.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_CONSUMER_PREFETCHSIZE">
+            <summary>
+            Nome do parâmetro que indica o numero de mensages em cache.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_TASKREQUEST_QUEUE">
+            <summary>
+            Nome do parâmetro que configura nome da fila
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_SCHEDULEREQUEST_QUEUE">
+            <summary>
+            Nome do parâmetro que configura nome da fila de agendamento
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_TRANSPORT_TIMEOUT">
+            <summary>
+            Tempo de espera do transporte por uma nova mensagem.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.PARAM_BSERVER_ENABLED">
+            <summary>
+            Define se o BServer deve iniciar um TasksWorker local automaticamente
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.TRANSPORT_DATABASE">
+            <summary>
+            Tipo de transporte: Banco de dados   
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.TRANSPORT_AZUREQS">
+            <summary>
+            Tipo de transporte: Azure Queue Storage 
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.TRANSPORT_ACTIVEMQ">
+            <summary>
+            Tipo de transporte: ActiveMQ 
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.TRANSPORT_RABBITMQ">
+            <summary>
+            Tipo de transporte: ActiveMQ 
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.DEFAULT_TASKREQUEST_QUEUE">
+            <summary>
+            Nome padrão da fila de requisições de execução de tarefas
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.DEFAULT_SCHEDULEREQUEST_QUEUE">
+            <summary>
+            Nome padrão da fila de requisições de execução de agendamentos
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.DEFAULT_TIMETORECYCLE">
+            <summary>
+            Tempo padrão para reciclagem dos providers
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Configurations.TasksParams.ParseTransportType(System.String)">
+            <summary>
+            Converte um tipo de transporte string para o tipo TransportType
+            </summary>
+            <param name="transport">Tipo de transporte em String</param>
+            <returns>TransportType</returns>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.USE_WORKER_NET_CORE">
+            <summary>
+            Nome da z_variavel que indica se deve usar o processo em dot netcore ao invés do framework.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.DEFAULT_RABBITMQ_EXCHANGE">
+            <summary>
+            Nome da z_variavel que indica o nome da exchange do rabbitmq padrão.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.CLEAR_LOG_COMPONENT">
+            <summary>
+            Nome da z_variavel que indica o component em dotnet core utilizado para limpeza de logs
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TasksParams.CLEAR_LOG_EVENT_NAME">
+            <summary>
+            Nome da z_variavel que indica o event name do rabbitmq utilizado para identificação da mensagem.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Configurations.TransportType">
+            <summary>
+            Tipos de transporte
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TransportType.Database">
+            <summary>
+            Transporte banco de dados em base Benner
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TransportType.ActiveMQ">
+            <summary>
+            Transporte no Apache ActiveMQ
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TransportType.AzureQueueStorage">
+            <summary>
+            Transporte no Azure Queues
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Configurations.TransportType.RabbitMQ">
+            <summary>
+            Transporte no RabbitMQ
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIProviderInformation.Publish">
+            <summary>
+            Publica as informações para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIProviderInformation.Revoke">
+            <summary>
+            Remove as informações para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIWorkerInformation.GetServiceName">
+            <summary>
+            Obtém o nome do serviço.
+            </summary>
+            <returns>Retorna o nome do serviço.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIWorkerInformation.GetDisplayName">
+            <summary>
+            Obtém o nome do exibição.
+            </summary>
+            <returns>Retorna o nome do serviço.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIWorkerInformation.GetWorkerId">
+            <summary>
+            Obtém o ID do Worker
+            </summary>
+            <returns>Retorna o ID do Worker utilizando o padrão: BTL[ServiceName]</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIWorkerInformation.Publish">
+            <summary>
+            Publica as informações para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.IWMIWorkerInformation.Revoke">
+            <summary>
+            Remove as informações para o WMI.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIPublisher">
+            <summary>
+            Responsável por publicar informações para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIPublisher.Publish(System.Object)">
+            <summary>
+            Publica e remover informação para o WMI.
+            </summary>
+            <param name="information">Objeto que representa uma informação para o WMI.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIPublisher.Revoke(System.Object)">
+            <summary>
+            Remove informação para o WMI.
+            </summary>
+            <param name="information">Objeto que representa uma informação para o WMI.</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIManager">
+            <summary>
+            Gerencia as informações disponíveis para instrumentação no WMI.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIManager.Worker">
+            <summary>
+            Retorna um WMIWorkerInformation para publicação de informações sobre o Worker.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIManager.Provider">
+            <summary>
+            Retorna um WMIProviderInformation para publicação de informações sobre o Provider.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIProviderInformation">
+            <summary>
+            Objeto que representa informação sobre o Provider para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIProviderInformation.#ctor">
+            <summary>
+            Construtor padrão.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIProviderInformation.Publish">
+            <summary>
+            Publica as informações para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIProviderInformation.Revoke">
+            <summary>
+            Remove as informações para o WMI.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation">
+            <summary>
+            Objeto que representa informação sobre o Worker para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation.#ctor">
+            <summary>
+            Construtor padrão.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation.GetServiceName">
+            <summary>
+            Obtém o nome do serviço.
+            </summary>
+            <returns>Retorna o nome do serviço.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation.GetDisplayName">
+            <summary>
+            Obtém o nome do exibição.
+            </summary>
+            <returns>Retorna o nome do serviço.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation.GetWorkerId">
+            <summary>
+            Obtém o ID do Worker
+            </summary>
+            <returns>Retorna o ID do Worker utilizando o padrão: BTL[ServiceName]</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation.Publish">
+            <summary>
+            Publica as informações para o WMI.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMI.WMIWorkerInformation.Revoke">
+            <summary>
+            Remove as informações para o WMI.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.Logging.EventType">
+            <summary>
+            Eventos do Business Tasks Library. Qualquer alteração deve ser refletida em http://wiki.benner.com.br/wiki/index.php?title=Benner_Tasks_Worker_-_Monitoramento 
+            Avisos (quando implementados) devem ter código maior ou igual a 7000
+            Erros devem ter código maior ou igual a 9000
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.Logging.EventLogLogger">
+            <summary>
+            Logger para o EventViewer
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.EventLogLogger.SetSource(System.String)">
+            <summary>
+            Configura a fonte dos eventos no EventViewer que será utilizada
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.EventLogLogger.EventAlreadyRegistered(log4net.Core.Level,System.Int32,System.String,System.Exception)">
+            <summary>
+            Verifica se o evento é igual ao último já registrado
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.EventLogLogger.Log(log4net.Core.Level,System.Int32,System.String,System.Exception)">
+            <summary>
+            Registra mensagem de log no event Viewer do Windows
+            </summary>
+            <param name="level">Nível da mensagem de log</param>
+            <param name="eventId">Id do evento.</param>
+            <param name="message">Mensagem</param>
+            <param name="exception">Exception que será registrada no log</param>
+            <returns>Retorna false se o log já foi registrado e não gera um novo registro no EventViewer. Retorna true se ocorreu um registro no EventViewer.</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1">
+            <summary>
+            Gravador de logs
+            </summary>
+            <typeparam name="T">Tipo que irá logar</typeparam>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1._logger">
+            <summary>
+            Logger para as instâncias
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1.SetEventLogSource(System.String)">
+            <summary>
+            Configura o Source que será utilizado para geração de logs no EventViewer
+            </summary>
+            <param name="source"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1.Log(log4net.Core.Level,System.Int32,System.String,System.Exception)">
+            <summary>
+            Registra mensagem de log
+            </summary>
+            <param name="level">Nível da mensagem de log</param>
+            <param name="eventId">Id do evento. Se for maior que 0, será registrado no EventViewer do Windows</param>
+            <param name="message">Mensagem</param>
+            <param name="exception">Exception que será registrada no log</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1.Event(Benner.Tecnologia.Tasks.Instrumentation.Logging.EventType)">
+            <summary>
+            Modo fluente: Inicializa log de EventViewer a partir do tipo de evento passado já configurando mensagem e id do evento
+            </summary>
+            <param name="eventType">Tipo do evento</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1.Event(Benner.Tecnologia.Tasks.Instrumentation.Logging.EventType,System.Object[])">
+            <summary>
+            Modo fluente: Inicializa log de EventViewer a partir do tipo de evento passado já configurando mensagem e id do evento
+            </summary>
+            <param name="eventType">Tipo do evento</param>
+            <param name="args">Argumentos que serão passados para um string.Format</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1.Message(System.String)">
+            <summary>
+            Modo fluente: Inicializa log a partir da mensagem passada
+            </summary>
+            <param name="message">Linha</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger`1.Message(System.String,System.Object[])">
+            <summary>
+            Modo fluente: Inicializa log a partir da mensagem passada com argumentos
+            </summary>
+            <param name="message">Linha</param>
+            <param name="args">Argumentos que serão passados para um string.Format</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1">
+            <summary>
+            Interface fluente para geração de log
+            </summary>
+            <typeparam name="T">Tipo que irá logar</typeparam>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.#ctor(Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger{`0})">
+            <summary>
+            Inicializa a sintaxe fluente do gerador de logs
+            </summary>
+            <param name="logger">Mecanismo de log</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.#ctor(Benner.Tecnologia.Tasks.Instrumentation.Logging.Logger{`0},System.Int32)">
+            <summary>
+            Inicializa a sintaxe fluente do gerador de logs para logs do EventViewer
+            </summary>
+            <param name="logger">Mecanismo de log</param>
+            <param name="eventId">Id do eventviewer</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.Exception(System.Exception)">
+            <summary>
+            Configura uma exception na mensagem de log.
+            </summary>
+            <param name="exception">Exception que será passada para a mensagem de log</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.Message(System.String)">
+            <summary>
+            Adiciona linha na mensagem de log
+            </summary>
+            <param name="message">Linha</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.Message(System.String,System.Object[])">
+            <summary>
+            Adiciona linha na mensagem de log com argumentos passados
+            </summary>
+            <param name="message">Linha</param>
+            <param name="args">Argumentos para o string.Format</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.LogError">
+            <summary>
+            Registra log de erro
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.LogInfo">
+            <summary>
+            Registra log de informação
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.Logging.LoggerSyntax`1.LogDebug">
+            <summary>
+            Registra log de debug (Por padrão este log não vai para o EventViewer)
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Instrumentation.PerformanceCounter.PerformanceCountersManager">
+            <summary>
+            Gerencia os contadores de performance do BTL.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Instrumentation.WMISnapIn.BTLSnapInControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMISnapIn.BTLSnapInControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMISnapIn.BTLSnapInControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Instrumentation.WMISnapIn.SelectComputerForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMISnapIn.SelectComputerForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Instrumentation.WMISnapIn.SelectComputerForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.IntegrationMessaging.IUserScheduleContext">
+            <summary>
+            Informações sobre o usuário de agendamento
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IntegrationMessaging.IUserScheduleContext.GetUser(System.Int32)">
+            <summary>
+            Obtem o handle do usuário parametrizado para tipo de agendamento (Z_AGENDAMENTO.TIPO)
+            </summary>
+            <param name="scheduleType">Z_AGENDAMENTO.TIPO</param>
+            <returns>Handle do usuário</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.IntegrationMessaging.UserScheduleContext">
+            <summary>
+            Informações sobre o usuário de agendamento
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IntegrationMessaging.UserScheduleContext.GetUser(System.Int32)">
+            <summary>
+            Obtem o handle do usuário parametrizado para tipo de agendamento (Z_AGENDAMENTO.TIPO)
+            </summary>
+            <param name="scheduleType">Z_AGENDAMENTO.TIPO</param>
+            <returns>Handle do usuário</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.ExecutorsInterop">
+            <summary>
+            Executor de tarefas, utilizado pelo Provider
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.ExecutorsInterop.Configure">
+            <summary>
+            Utilizado pelo Provider, onde o BTL já foi inicializado pelo BEF
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.ExecutorsInterop.RunBusinessComponentTask(System.String,System.String)">
+            <summary>
+            Executa uma tarefa de BusinessComponent. Utilizada pelo Provider.
+            </summary>
+            <param name="businessComponentTypeName">Tipo do BusinessComponent</param>
+            <param name="requestXml">Xml contendo o Request serializado</param>
+            <returns>Xml contendo o Response serializado</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.ExecutorsInterop.GetDataXmlParser">
+            <summary>
+            Instancia o conversor de DataXml da request para um Container
+            </summary>
+            <returns>Instância do Parser</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.IInteropRequestFactory">
+            <summary>
+            Factory dos requests de execução de processos para a Interoperabilidade com o Delphi
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IInteropRequestFactory.CreateDllRequest(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Cria request de execução de CSServerExec para DLL
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IInteropRequestFactory.CreateMacroRequest(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Cria request de execução de CSServerExec para Macro
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IInteropRequestFactory.CreateClearLogRequest(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Cria o request de execução de agendamento de limpeza de log
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IInteropRequestFactory.CreateReportScheduleRequest(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Cria o request de execução de relatórios agendados
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.IInteropRequestFactory.CreateBusinessComponentScheduleRequest(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Cria o request de execução de BussinessComponent agendados
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.ITasksInterop">
+            <summary>
+            Interface utilizada pelo BServer para execução de agendamentos e CSServerExec via BTL
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.GetSequencesSupportHandler">
+            <summary>
+            Evento implementado pelo Delphi que dirá se o sistema suporta ou não sequences
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.NewHandleEventHandler">
+            <summary>
+            Evento implementado pelo Delphi que retornará um novo handle para a tabela passada
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Interop.TasksInterop">
+            <summary>
+            Interação direta do BServer com o BTL
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.GetExternalBennerServices">
+            <summary>
+            Liga os ExternalBennerServices com as implementações em Delphi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.ConfigureFromDb(System.String,System.String,System.Boolean)">
+            <summary>
+            Utilizado pelo BServer, para iniciar o BTL sem BEF
+            </summary>
+            <param name="sqlDriver">Driver SQL</param>
+            <param name="connectionString">String de conexão</param>
+            <param name="langDriverParadox">LangDriver</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.GetExecMacroRequest(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Obtém um enviador de requests de execução de Macro (legado). Utilizado pelo BServer ao executar um CSServerExec de Macro.
+            </summary>
+            <param name="username">Nome do usuário</param>
+            <param name="company">Handle da empresa</param>
+            <param name="branch">Handle da filial</param>
+            <param name="processLogHandle">Handle de Z_PROCSSOS (já criado pelo BServer)</param>
+            <param name="macroHandle">Handle da macro</param>
+            <returns>Instância de ICSServerExecRequest: Enviador de requests de execução de Macro</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.GetExecDllRequest(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtém um enviador de requests de execução de Dll (legado). Utilizado pelo BServer ao executar um CSServerExec de DLL.
+            </summary>
+            <param name="username">Nome do usuário</param>
+            <param name="company">Handle da empresa</param>
+            <param name="branch">Handle da filial</param>
+            <param name="processLogHandle">Handle de Z_PROCSSOS (já criado pelo BServer)</param>
+            <param name="dllClassName">Nome da classe e Dll (Dll.Classe)</param>
+            <returns>Instância de ICSServerExecRequest: Enviador de requests de execução de Dll</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.GetExecClearLogRequest(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Obtém um enviador de requests de execução de limpeza de log (agendamentos). Utilizado pelo BServer ao executar um agendamento.
+            </summary>
+            <param name="username">Nome do usuário</param>
+            <param name="company">Handle da empresa</param>
+            <param name="branch">Handle da filial</param>
+            <param name="processLogHandle">Handle de Z_PROCSSOS (já criado pelo BServer)</param>
+            <param name="logDefaultDays">Dias padrão para limpeza de log e auditoria</param>
+            <returns>Instância de IClearLogRequest: Enviador de requests de execução de limpeza de log</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.GetExecReportScheduleRequest(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtém um enviador de requests de execução de relatório de agendamentos. Utilizado pelo BServer ao executar um agendamento.
+            </summary>
+            <param name="username">Nome do usuário</param>
+            <param name="company">Handle da empresa</param>
+            <param name="branch">Handle da filial</param>
+            <param name="processLogHandle">Handle de Z_PROCSSOS (já criado pelo BServer)</param>
+            <param name="reportName">Nome do relatório para a emissão</param>
+            <returns>Instância de ReportScheduleRequest: Enviador de requests de execução de relatório</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.GetExecBusinessComponentScheduleRequest(System.String,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtém um enviador de requests de execução de componente de negócio(agendamentos). Utilizado pelo BServer ao executar um agendamento.
+            </summary>
+            <param name="username">Nome do usuário</param>
+            <param name="company">Handle da empresa</param>
+            <param name="branch">Handle da filial</param>
+            <param name="processLogHandle">Handle de Z_PROCSSOS (já criado pelo BServer)</param>
+            <param name="componentTypeName">BusinessComponente no formato Class, Namespace</param>
+            <returns>Instância de IClearLogRequest: Enviador de requests de execução de limpeza de log</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Interop.TasksInterop.FreeResources">
+            <summary>
+            Libera o BTL. Utilizado pelo BServer para descarregar as DLLs do BTL
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.LocalTasksService">
+            <summary>
+            Este serviço é instanciado pelo ContextServicesFactory. Não é registrado no Ninject diretamente.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.LocalTasksService.Detail">
+            <summary>
+            Representa o detalhe de uma informação que será registrada via instrumentação
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.CallInstrumentedOperation(System.Action,System.String,Benner.Tecnologia.Tasks.LocalTasksService.Detail[],System.Func{Benner.Tecnologia.Tasks.LocalTasksService.Detail})">
+            <summary>
+            Chama a operação e instrumenta
+            </summary>
+            <param name="operation">Operação</param>
+            <param name="operationName">Nome da operação</param>
+            <param name="startDetails">Detalhes de início</param>
+            <param name="endDetail">Detalhes para serem coletados após o retorno da operação</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.StartTask(Benner.Tecnologia.Common.Tasks.Requests.ITaskRequest,System.Type,System.Boolean,Benner.Tecnologia.Common.TransitoryData)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.ClearResultCache">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetStatus(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetResult(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.RequestAbort(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetMessage(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetBDebuggerLog(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetProgressPercent(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetTaskDescription(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetHost(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetUser(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetStartDate(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.LocalTasksService.GetWithoutProgressBar(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Messaging.IConsumer">
+            <summary>
+            Consumidor de mensagens de requisição de execução de tarefas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Messaging.IConsumer.ReceiveMessageContext">
+            <summary>
+            Recebe mensagem de requisição de execução de tarefas da fila
+            </summary>
+            <returns>Instância de ITaskMessage</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Messaging.IProducer">
+            <summary>
+            Produtor de mensagens de requisição de execução de tarefas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Messaging.IProducer.SendTaskMessage(Benner.Tecnologia.Tasks.Messaging.ITaskMessage)">
+            <summary>
+            Envia mensagem de requisição de execução de tarefas para a fila
+            </summary>
+            <param name="taskMessage">Mensagem (ITaskMessage)</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Messaging.IMessagingFactory">
+            <summary>
+            Factory das classes de mensageria para tarefas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Messaging.IMessagingFactory.CreateProducer(System.String)">
+            <summary>
+            Cria um produtor de requisições de execução de tarefas para a fila especificada
+            </summary>
+            <param name="queueName">Nome da fila</param>
+            <returns>Instância de IConsumer</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Messaging.IMessagingFactory.CreateConsumer(System.String,System.String,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Cria um consumidor de requisições de execução de tarefas da fila especificada
+            </summary>
+            <param name="queueName">Nome da fila</param>
+            <param name="serverName">Nome do serviço</param>/// 
+            <returns>Instância de IConsumer</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Messaging.ITaskMessage">
+            <summary>
+            Define a interface de uma TaskMessage.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Messaging.TaskMessage">
+            <summary>
+            Representa para envio de tarefas para execução.
+            Possui o cabeçalho e a tarefa que precisa ser executada.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.Id">
+            <summary>
+            Id da tarefa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.TaskDescription">
+            <summary>
+            Descrição/id da tarefa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.Description">
+            <summary>
+            Descrição da tarefa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.User">
+            <summary>
+            Apelido do usuário que solicitou a execução da tarefa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.Company">
+            <summary>
+            Handle da empresa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.Branch">
+            <summary>
+            Handle da filial.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.TaskRequest">
+            <summary>
+            TaskRequest que representa o que será executado.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.ProcessHandle">
+            <summary>
+            Handle de Z_PROCESSOS referente a tarefa em execução.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.InsertDate">
+            <summary>
+            Data de inclusão da requisição.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.Host">
+            <summary>
+            Host do usuário que solicitou a execução da tarefa. 
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Messaging.TaskMessage.RunAs">
+            <summary>
+            Usuário que deve executar a tarefa.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Messaging.TaskMessage.SetTaskRequest(Benner.Tecnologia.Common.Tasks.Requests.ITaskRequest)">
+            <summary>
+            Define a tarefa que deverá ser executada e extrai informações 
+            da tarefa para os atributos que representam o cabeçalho da tarefa.
+            </summary>
+            <param name="taskRequest">Tarefa que será executada.</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.DynamicPool">
+            <summary>
+            Pool de Providers para ambientes de desenvolvimento.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.DynamicPool.#ctor(Benner.Tecnologia.Tasks.Configurations.IPoolConfiguration,Benner.Tecnologia.Tasks.Pools.IProviderFactory)">
+            <summary>
+            Cria uma nova pool de providers recebendo as configurações da pool.
+            Se o número de providers na configuração for igual a 0 a pool será criada contendo apenas 1 provider.
+            </summary>
+            <param name="poolConfiguration">Configurações da pool.</param>
+            <param name="providerFactory">Factory do provider</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.DynamicPool.Start">
+            <summary>
+            Inicia a pool sem colocar nenhum provider no ar
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.DevelopmentPool">
+            <summary>
+            Pool de Providers para ambientes de desenvolvimento.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.DevelopmentPool.#ctor(Benner.Tecnologia.Tasks.Configurations.IPoolConfiguration,Benner.Tecnologia.Tasks.Pools.IProviderFactory)">
+            <summary>
+            Cria uma nova pool de providers recebendo as configurações da pool.
+            Se o número de providers na configuração for igual a 0 a pool será criada contendo apenas 1 provider.
+            </summary>
+            <param name="poolConfiguration">Configurações da pool.</param>
+            <param name="providerFactory">Factory do provider</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.DevelopmentPool.Start">
+            <summary>
+            Inicia a pool.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.Pool">
+            <summary>
+            Classe base para a criação das pools de provider.
+            Possui toda controle necessário para o ciclo de vida dos providers e para obter um provider para a execução de tarefas.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.IsAvailableProvider">
+            <summary>
+            Indica se existe provider disponível na pool
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.PoolConfiguration">
+            <summary>
+            Configuração da pool.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.NumberOfProviders">
+            <summary>
+            Obtém o número de providers gerenciados pela pool.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.CpuMultiplier">
+            <summary>
+            Multiplicador de CPU que define a quantidade limite de providers
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.ServerName">
+            <summary>
+            Nome do servidor que a pool está conectada.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.SystemName">
+            <summary>
+            Nome do sistema que a pool está conectada.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.PoolType">
+            <summary>
+            Tipo da pool de providers
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Pool.TimeToRecycle">
+            <summary>
+            Tempo para reciclagem (em minutos).
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Pool.GetNewProvider">
+            <summary>
+            Cria e retorna um novo provider.
+            </summary>
+            <returns>Retorna um novo provider.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Pool.GetAvailableProvider">
+            <summary>
+            Obtém um provider disponível para a execução de tarefas.
+            </summary>
+            <returns>Retorna um provider.</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.PoolTypes">
+            <summary>
+            Tipos de pools do Worker
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Pools.PoolTypes.Development">
+            <summary>
+            Pool em desenvolvimento
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Pools.PoolTypes.Dynamic">
+            <summary>
+            Pool dinâmica
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.Pools.PoolTypes.Production">
+            <summary>
+            Pool em produção
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.ProductionPool">
+            <summary>
+            Pool de Providers para ambientes de produção.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.ProductionPool.#ctor(Benner.Tecnologia.Tasks.Configurations.IPoolConfiguration,Benner.Tecnologia.Tasks.Pools.IProviderFactory)">
+            <summary>
+            Cria uma nova pool de providers recebendo as configurações da pool.
+            Se o número de providers na configuração for igual a 0 a pool será criada com o número de providers seguindo o número de processadores do computador.
+            </summary>
+            <param name="poolConfiguration">Configurações da pool.</param>
+            <pparam name="providerFactory">Factory do provider</pparam>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.ProductionPool.Start">
+            <summary>
+            Inicia a pool e coloca os providers no ar.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.ProviderSetLastClrExceptionInfoHandler">
+            <summary>
+            Acionado quando ocorre uma exception .Net no Provider
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Pools.Provider">
+            <summary>
+            Representa um Provider para execução de tarefas.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.ServerName">
+            <summary>
+            Nome do servidor que o provider está conectado. 
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.SystemName">
+            <summary>
+            Nome do sistema que o provider está conectado.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.BProviderPid">
+            <summary>
+            PID do Provider.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.CreatedAt">
+            <summary>
+            Data de criação.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.AcquiredAt">
+            <summary>
+            Data que o Provider foi obtido na pool.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.InRecyclingProcess">
+            <summary>
+            Informa se está em processo de reciclagem.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.IsAlive">
+            <summary>
+            Informa se o Provider está vivo ou foi finalizado.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.Acquired">
+            <summary>
+            Informa se o Provider foi obtido para o processamento de requisições.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.BProviderStarted">
+            <summary>
+            Informa se o executavel do Provider está rodando
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.IsExecutingSomeTask">
+            <summary>
+            Informa se alguma tarefa está em execução.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.IsAvailable">
+            <summary>
+            Informa se o Provider está disponível para executar alguma tarefa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.IsIdle">
+            <summary>
+            Informa se o provider está ocioso
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.NeedsRecycle">
+            <summary>
+            Informa se o Provider precisa ser reciclado.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.HostName">
+            <summary>
+            Nome do servidor onde o provider está em execução.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.UseCOMFree">
+            <summary>
+            Informa se o provider usa COMFree
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.DisableTrimAppMemorySize">
+            <summary>
+            Desativa a limpeza dos providers pelo Worker
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Pools.Provider.TaskMessageId">
+            <summary>
+            Id da Mensagem que esta sendo processada pelo provider.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.#ctor(Benner.Tecnologia.Tasks.Configurations.IPoolConfiguration,Benner.Tecnologia.Tasks.Loggers.IProcessLoggerFactory,Benner.Tecnologia.Tasks.Executors.ITaskSharedContextFactory,Benner.Tecnologia.Tasks.Repositories.IMacroRepository,Benner.Tecnologia.Tasks.Pools.IPool)">
+            <summary>
+            Construtor para a criação de novas instâncias de Provider.
+            </summary>
+            <param name="poolConfiguration">Configuração da pool que contém informações necessárias para o funcionamento do Provider.</param>
+            <param name="processLoggerFactory">Objeto que fará o log das execuções das tarefas.</param>
+            <param name="taskContextFactory">Objeto que cria contextos compartilhados entre Provider e Worker</param>
+            <param name="macroRepository">Repositório de macros</param>
+            <param name="pool">Objeto com informações sobre a pool de Providers.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.Start(System.Boolean)">
+            <summary>
+            Inicia um novo Provider.
+            </summary>
+            <param name="throwOnError">Se deve lançar exceções em caso de problemas para inicializar o Provider</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.Start">
+            <summary>
+            Inicia um novo Provider.
+            </summary>
+            <remarks>Não são lançadas qualquer exeção em caso de erro</remarks>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.Terminate">
+            <summary>
+            Finaliza o Provider.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.MarkToRecycle">
+            <summary>
+            Marca o Provider para reciclagem.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.SetCompletedNotificationCallback(System.Action)">
+            <summary>
+            Define o método que deve ser executado ao final do processamento de alguma requisição.
+            </summary>
+            <param name="action">Método que será executado.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.Ping">
+            <summary>
+            Efetua um ping no Provider.
+            Se algum problema ocorrer no ping um novo Provider será instanciado.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.MarkUnavailableToOtherTasks">
+            <summary>
+            Marca o Provider indisponível para processar outra tarefa.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.MarkAvailableToOtherTasks">
+            <summary>
+            Marca o Provider disponível para executar alguma tarefa.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.TrimAppMemorySize">
+            <summary>
+            Limpa memoria do provider.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.SetAcquired(System.DateTime)">
+            <summary>
+            Define que o provider foi obtido para processar mensagens.
+            </summary>
+            <param name="dateTime">Data/hora do momento em que o Provider foi obtido</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.SetReleased">
+            <summary>
+            Libera o provider para que ele possa ser obtido novamente para processar mensagens.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.SetExtraInformation(System.String,System.String,System.String)">
+            <summary>
+            Envia informações para o ProviderSniffer
+            </summary>
+            <param name="name">Nome interno e único da informação</param>
+            <param name="description">Descrição que irá aparecer no cabeçalho da coluna no Sniffer</param>
+            <param name="value">Valor</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.SafeRequestExec(Benner.Tecnologia.Common.Tasks.Requests.ITaskRequest,System.Func{System.String})">
+            <summary>
+            Executa a request, fazendo alguns tratamentos para exceptions e ProviderSniffer
+            </summary>
+            <param name="request">Request</param>
+            <param name="executeFunc">Método de execução</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.ExecuteComponent(System.Object)">
+            <summary>
+            Executa uma BusinessComponentTaskRequest
+            </summary>
+            <param name="taskRequest">Request</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.ExecuteDll(System.Object)">
+            <summary>
+            Executa uma CSServerExecDllTaskRequest
+            </summary>
+            <param name="taskRequest">Request</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.ExecuteMacro(System.Object)">
+            <summary>
+            Executa uma CSServerExecMacroTaskRequest
+            </summary>
+            <param name="taskRequest">Request</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Pools.Provider.ExecuteComponentSchedule(System.Object)">
+            <summary>
+            Executa uma BusinessComponentTaskRequest
+            </summary>
+            <param name="taskRequest">Request</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Repositories.ScheduleStatus">
+            <summary>
+            Opções da atualização do status dos processamentos em Z_AGENDAMENTOLOG
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Repositories.IScheduleRepository">
+            <summary>
+            Repositório de Z_AGENDAMENTOLOG
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Repositories.IProcessRepository">
+            <summary>
+            Repositório de Z_PROCESSOS
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.TasksServiceImplementation">
+            <inheritdoc />
+        </member>
+        <member name="F:Benner.Tecnologia.Tasks.TasksServiceImplementation._taskResultCache">
+            <summary>
+            Cache de resultados de tarefas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.#ctor(Benner.Tecnologia.Tasks.Repositories.IProcessRepository,Benner.Tecnologia.Tasks.Messaging.IMessagingFactory,Benner.Tecnologia.Tasks.Configurations.ITasksConfiguration,Benner.Tecnologia.Tasks.Executors.ITaskSharedContextFactory,Benner.Tecnologia.Common.Tasks.ITaskStartUtils,Benner.Tecnologia.Common.Services.ISecurityService,Benner.Tecnologia.Common.Services.IAdministrationService,Benner.Tecnologia.Common.Services.IInternalAdministrationService)">
+            <summary>
+            Instância a implementação do serviço da API
+            </summary>
+            <param name="processRepository">Repositório de processos</param>
+            <param name="messagingFactory">Factory de mensageria</param>
+            <param name="tasksConfiguration">Configuração do BTL</param>
+            <param name="taskContextFactory">Contexto de tarefa</param>
+            <param name="taskStartUtils">Utilitários de disparo de tarefas</param>
+            <param name="securityService">Serviço de segurança</param>
+            <param name="administrationService">Serviço de administração</param>
+            <param name="internalAdministrationService">Serviço interno de administração</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.StartTask(Benner.Tecnologia.Common.Tasks.Requests.ITaskRequest,System.Type,System.Boolean,Benner.Tecnologia.Common.TransitoryData)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetResultFromRepository(System.Int64,System.Int64)">
+            <summary>
+            Obtém resultado diretamente do repositório (Z_PROCESSOS)
+            </summary>
+            <param name="processHandle">ProcessHandle da tarefa</param>
+            <param name="waitMillisecondsTimeout">Tempo limite de espera pelo resultado</param>
+            <returns>Instância de TaskResult com informações sobre o resultado da tarefa</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetCachedResult(System.Int64,System.Int64)">
+            <summary>
+            Obtém o resultado da tarefa do cache. Se não existir, é obtido do respositório e adicionado ao cache quando possível.
+            </summary>
+            <param name="processHandle">ProcessHandle da tarefa</param>
+            <param name="waitMillisecondsTimeout">Tempo limite para aguardar a tarefa terminar. Informe 0 para não aguardar.</param>
+            <returns>Retorna o BusinessTaskResult da tarefa</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.ClearResultCache">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetStatus(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetResult(System.Int64,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.RequestAbort(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetMessage(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetBDebuggerLog(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetProgressPercent(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetTaskDescription(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetHost(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetUser(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetStartDate(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.TasksServiceImplementation.GetWithoutProgressBar(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Executors.TaskSharedContext">
+            <summary>
+            Contexto compartilhado da tarefa (Compartilhado entre Worker e Provider)
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Executors.TaskSharedContext.#ctor">
+            <summary>
+            Inicializa sem contexto algum (WES)
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Executors.TaskSharedContext.#ctor(Benner.Tecnologia.Common.Tasks.ISessionVarStorage)">
+            <summary>
+            Inicializa no contexto atual (Provider/Runner)
+            </summary>
+            <param name="sessionVarStorage">Armazenamento de SessionVars</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Executors.TaskSharedContext.#ctor(Benner.Tecnologia.Common.Tasks.ISessionVarStorage,System.Int64)">
+            <summary>
+            Inicializa um novo contexto (Worker) que vai ficar visível no Provider
+            </summary>
+            <param name="sessionVarStorage">Armazenamento de SessionVars</param>
+            <param name="processHandle">ProcessHandle da task</param>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Executors.TaskSharedContext.IsServerProcess">
+            <summary>
+            Retorna true se estiver executando uma tarefa de servidor
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Executors.TaskSharedContext.ProcessHandle">
+            <summary>
+            Handle do processo atual. Nulo se não for processo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Executors.TaskSharedContext.IsStartedByBTL">
+            <summary>
+            É um processo iniciado pelo BTL (Com Worker e tudo mais)
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Executors.ITaskSharedContext">
+            <summary>
+            Contexto compartilhando entre Worker e Provider
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Executors.ITaskSharedContext.IsServerProcess">
+            <summary>
+            Retorna true se estiver executando uma tarefa de servidor
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Executors.ITaskSharedContext.ProcessHandle">
+            <summary>
+            Handle do processo atual que está executando
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Executors.ITaskSharedContext.IsStartedByBTL">
+            <summary>
+            É um processo iniciado pelo BTL (Com Worker e tudo mais)
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Executors.ITaskSharedContextFactory">
+            <summary>
+            Criação de contextos compartilhados entre Worker e Provider
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Executors.ITaskSharedContextFactory.CreateTaskContext(Benner.Tecnologia.Common.Tasks.ISessionVarStorage,System.Int64)">
+            <summary>
+            Cria novo contexto
+            </summary>
+            <param name="processHandle">Handle do Processo</param>
+            <returns>Contexto</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Executors.ITaskSharedContextFactory.GetCurrentTaskContext">
+            <summary>
+            Obtém contexto atual 
+            </summary>
+            <returns>Contexto</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.LoadOnExternalKernel(Ninject.IKernel)">
+            <summary>
+            Força a utilização de um Kernel externo (utilizando quando está rodando no BEF)
+            </summary>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.Inject(System.Object)">
+            <summary>
+            Injeta na instância especificada
+            </summary>
+            <param name="instance">Instancia que receberá a injeção</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.Bind``1">
+            <summary>
+            Declara um Bind para um serviço especificado
+            </summary>
+            <typeparam name="T">Classe do serviço</typeparam>
+            <returns>Instância do serviço</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.Get``1">
+            <summary>
+            Obtém uma instância do serviço especificado
+            </summary>
+            <typeparam name="T">Tipo do serviço que será resolvido</typeparam>
+            <returns>Instância de T (serviço)</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.Get``1(Ninject.Parameters.IParameter[])">
+            <summary>
+            Obtém uma instância do serviço especificado
+            </summary>
+            <typeparam name="T">Tipo do serviço que será resolvido</typeparam>
+            <param name="parameters">Parâmetros para passar para a requisição</param>
+            <returns>Instância de T (serviço)</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.CanResolve``1">
+            <summary>
+            Indica se o Kernel consegue resolver a injeção de determinado tipo
+            </summary>
+            <typeparam name="T">O serviço que se deseja resolver</typeparam>
+            <returns>True se o serviço consegue ser resolvido, senão false</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.IoC.DependencyContainer.Unload">
+            <summary>
+            Libera o Injetor de dependências invocando os disposes dos objetos (apenas para o Kernel Interno)
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Loggers.IProcessLoggerFactory">
+            <summary>
+            Factory do Logger de execução de tarefas do Worker
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Loggers.IProcessLoggerFactory.CreateExecutionLogger(Benner.Tecnologia.Common.Tasks.Requests.ITaskRequest)">
+            <summary>
+            Cria o execution logger
+            </summary>
+            <param name="taskRequest">Requisição de execução de tarefa</param>
+            <returns>Instância do logger</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Loggers.TaskProcessLogService">
+            <summary>
+            Serviço do ProcessLog do BEF
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Loggers.TaskProcessLogService.IsScheduledProcess">
+            <summary>
+            Retorna true se é um processo disparado pelo BServer ou BTL
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Tasks.Loggers.TaskProcessLogService.Initialize(System.Boolean)">
+            <summary>
+            Inicializa o serviço do ProcessLog. Poderá executar automaticamente o Start do processo.
+            </summary>
+            <param name="isMainProcess">True se for o ProcessLog raiz/principal</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Properties.Resources.Executando">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Properties.Resources.Ocioso">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Properties.Resources.Parado">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Services.IExternalBennerServices">
+            <summary>
+            Serviços Benner fornecidos por qualquer ferramenta (BServer, BEF, WES)
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Services.IExternalBennerServices.GetSequencesSupport">
+            <summary>
+            Func para saber se suporta sequences
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Tasks.Services.IExternalBennerServices.NewHandle">
+            <summary>
+            Func para obter um novo Handle
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Tasks.Transports.ITaskMessageTransport">
+            <summary>
+            Define a interface de um TaskMessageTransport.
+            </summary>
+        </member>
+    </members>
+</doc>

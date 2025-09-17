@@ -1,0 +1,943 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>FN_DOCUMENTOS.NOTAS_FISCAIS_ORDENS_VENDA.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Type>Grid</Type>
+  <Version>12</Version>
+  <GridDefinition entityDefinitionName="FN_DOCUMENTOS" name="FN_DOCUMENTOS.NOTAS_FISCAIS_ORDENS_VENDA.GRID" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Status" key="CUSTOM_636867016535979011">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>~/Views/Comercial/Faturamento/StatusDocumento.cshtml</Value>
+        <ValueType>View</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Status" key="STATUS">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Pessoa" key="PESSOA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>15%</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Filial/Operação" key="CUSTOM_636867682162606940">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>25%</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Value>~/Views/Comercial/Faturamento/FilialEOperacao.cshtml</Value>
+        <ValueType>View</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Filial" key="FILIAL">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data de emissão" key="DATAEMISSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Operação faturamento" key="OPERACAOFATURAMENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Documento digitado" key="DOCUMENTODIGITADO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Nº da NF" key="NRNOTAFISCAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor" key="VALORNOMINAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>Sum</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor líquido" key="VALORLIQUIDO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>Sum</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Situação" key="SITUACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <Value>@{var statusNfe=Model.Fields["STATUSNFE"];
+var nomeStatus = Model.Definition.FieldDefinitions["STATUSNFE"].ToUI(Model["STATUSNFE"].Value);
+var statusMde=Model.BuscarStatusMDe();
+var handleNFSE = Model["HANDLENFSE"].GetInt32();
+var handleNFE = Model["HANDLENFE"].GetInt32();
+
+if(handleNFE != 0)
+{
+    if(statusNfe == 1)
+    {
+    &lt;span class="badge badge-info badge-roundless col-md-12" style="background-color: #3598dc;"&gt;NFe Cadastrada&lt;/span&gt;
+    }
+    if((statusNfe == 2) || (statusNfe == 4))
+    {
+    &lt;span class="badge badge-danger badge-roundless col-md-12" style="background-color: #E7CA14;"&gt;NFe @nomeStatus&lt;/span&gt;
+    }
+    if(statusNfe == 3)
+    {
+    &lt;span class="badge badge-danger badge-roundless col-md-12" style="background-color: #E7CA14;"&gt;NFe Rejeitada&lt;/span&gt;
+    }
+    if(statusNfe == 5)
+    {
+    &lt;span class="badge badge-danger badge-roundless col-md-12"style="background-color: #E7CA14;"&gt;NFe Denegada&lt;/span&gt;
+    }
+    if(statusNfe == 7)
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #E08283;"&gt;NFe Cancelada&lt;/span&gt;
+    }
+    if(statusNfe == 8)
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #E08283;"&gt;NFe Inutilizada&lt;/span&gt;
+    }
+    if(statusNfe == 6)
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12" style="background-color: #1BBC9B;"&gt;NFe Autorizada&lt;/span&gt;
+    }
+    if((statusNfe == 9) || (statusNfe == 10))
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #FCBA03;"&gt;NFe @nomeStatus&lt;/span&gt;
+    }
+}
+else if(handleNFSE != 0)
+{
+    if(statusNfe == 1)
+    {
+    &lt;span class="badge badge-info badge-roundless col-md-12" style="background-color: #3598dc;"&gt;NFSe Cadastrada&lt;/span&gt;
+    }
+    if((statusNfe == 2) || (statusNfe == 4))
+    {
+    &lt;span class="badge badge-danger badge-roundless col-md-12" style="background-color: #E7CA14;"&gt;NFSe @nomeStatus&lt;/span&gt;
+    }
+    if(statusNfe == 3)
+    {
+    &lt;span class="badge badge-danger badge-roundless col-md-12" style="background-color: #E7CA14;"&gt;NFSe Rejeitada&lt;/span&gt;
+    }
+    if(statusNfe == 5)
+    {
+    &lt;span class="badge badge-danger badge-roundless col-md-12"style="background-color: #E7CA14;"&gt;NFSe Denegada&lt;/span&gt;
+    }
+    if(statusNfe == 7)
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #E08283;"&gt;NFSe Cancelada&lt;/span&gt;
+    }
+    if(statusNfe == 8)
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #E08283;"&gt;NFSe Inutilizada&lt;/span&gt;
+    }
+    if(statusNfe == 6)
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12" style="background-color: #1BBC9B;"&gt;NFSe Autorizada&lt;/span&gt;
+    }
+    if((statusNfe == 9) || (statusNfe == 10))
+    {
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #FCBA03;"&gt;NFSe @nomeStatus&lt;/span&gt;
+    }
+}
+else
+{
+    &lt;span class="badge badge-default badge-roundless col-md-12" style="background-color: #bfbfbf;"&gt;Sem NFe/NFSe&lt;/span&gt;
+}
+&lt;br/&gt;
+if(statusMde == 7)
+{
+&lt;span class="badge badge-info badge-roundless col-md-12"style="background-color: #3598dc;"&gt;MDe Ciência da operação&lt;/span&gt;
+}
+if(statusMde == 8)
+{
+&lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #FCBA03;"&gt;MDe Confirmação da operação&lt;/span&gt;
+}
+if(statusMde == 9)
+{
+&lt;span class="badge badge-alert badge-roundless col-md-12"style="background-color: #E7CA14;"&gt;MDe Desconhecimento da operação&lt;/span&gt;
+}
+if(statusMde == 10)
+{
+&lt;span class="badge badge-danger badge-roundless col-md-12"style="background-color: #E08283;"&gt;MDe Operação não realizada&lt;/span&gt;
+}
+else if(statusMde == 0)
+{
+    &lt;span class="badge badge-default badge-roundless col-md-12" style="background-color: #bfbfbf;"&gt;MDe Sem manifestação&lt;/span&gt;
+}
+&lt;br/&gt;
+if(Model.GerouFinanceiroFiscal())
+{
+    &lt;span class="badge badge-success badge-roundless col-md-12"style="background-color: #1BBC9B;"&gt;Gerou financ/fiscal&lt;/span&gt;
+}
+else if(Model.SemFinanceiroFiscal())
+{
+    &lt;span class="badge badge-default badge-roundless col-md-12"style="background-color: #bfbfbf;"&gt;Sem financ/fiscal&lt;/span&gt;
+}
+else
+{
+    &lt;span class="badge badge-danger badge-roundless col-md-12" style="background-color: #E08283;"&gt;Não gerou financ/fiscal&lt;/span&gt;
+}
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Status NF-e" key="STATUSNFE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Documento de origem" key="DOCUMENTOORIGEM">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="HandleNfse" key="HANDLENFSE">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <Expression>SELECT HANDLE FROM FN_DOCUMENTONFE WHERE TIPONFE = 2 AND DOCUMENTO = @CAMPO(HANDLE)</Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="HandleNfe" key="HANDLENFE">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <Expression>SELECT HANDLE FROM FN_DOCUMENTONFE WHERE TIPONFE = 1 AND DOCUMENTO = @CAMPO(HANDLE)</Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data entrada" key="DATAENTRADA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Empresa" key="EMPRESA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Histórico" key="HISTORICO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Moeda" key="MOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Tipo de documento" key="TIPODOCUMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Abatimentos" key="ABATIMENTOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Acréscimos" key="ACRESCIMOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Adiantamento" key="EHADIANTAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="É contas pagar" key="EHCONTASPAGAR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor nominal moeda" key="VALORNOMINALMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valores baixados" key="VALORESBAIXADOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Conciliado" key="CONCILIADO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Conta contabil" key="CONTACONTABIL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Contrato" key="CONTRATO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data cancelamento" key="DATACANCELAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data contábil" key="DATACONTABIL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data da alteração" key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data da inclusão" key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data de conciliação" key="DATACONCILIACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Devolução" key="EHDEVOLUCAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Lote" key="LOTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Nr. Arquivo" key="DOCUMENTOCONTABIL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Operação de cancelamento" key="OPERACAOCANCELAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Série" key="SERIE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Situação Documento" key="SITUACAODOCTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Taxa de mora" key="TAXAMORA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Usuário que alterou" key="USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Usuário que incluiu" key="USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor líquido moeda" key="VALORLIQUIDOMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valores baixados moeda" key="VALORESBAIXADOSMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Abrangência" key="ABRANGENCIA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Contabilizado" key="CONTABILIZADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Data de vencimento previsto" key="DATAVENCIMENTOCAUCAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Datade envio do lote" key="DATAENVIOLOTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Documento aglutinador" key="DOCTOAGLUTINADOR">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Documento aglutinador" key="EHAGLUTINADOR">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Indicador da natureza do frete" key="NATUREZAFRETE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Número pedido/OC" key="NUMEROPEDIDO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Operação" key="OPERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Outras despesas" key="VALOROUTRASDESPESAS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Outras taxas, impostos, contribuições" key="VALOROUTRASTAXAS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Percentual acréscimo" key="PERCENTUALACRESCIMO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Previsão" key="EHPREVISAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Recebimento fiscal" key="EHRECEBIMENTOFISCAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Tipo de movimento" key="TIPODEMOVIMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Tipo de operação" key="TPOPERACAOCOMERCIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="UF" key="UF">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor desconto" key="VALORDESCONTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor do frete" key="VALORFRETE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Nota débito/crédito" key="EHNDC">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>false</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>false</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>false</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>false</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

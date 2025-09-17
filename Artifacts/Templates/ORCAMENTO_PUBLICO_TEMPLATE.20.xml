@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<TemplatePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>ORCAMENTO_PUBLICO_TEMPLATE</Id>
+  <Name>Orçamento Publico Template</Name>
+  <Level>Benner</Level>
+  <Content><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:wes="http://www.benner.com.br" xmlns:asp="http://www.asp.net"
+    exclude-result-prefixes="msxsl wes asp">
+    <xsl:output method="html" indent="yes" />
+
+    <xsl:template match="Page">
+        <xsl:variable name="Registers" select="Registers/Register" />
+        <xsl:variable name="Connections" select="Connections/Connection" />
+        <xsl:variable name="Widgets" select="Widgets/Widget" />
+        <xsl:variable name="Resources" select="Resources/Resource" />
+        <xsl:variable name="MasterWidget" select="Widgets/Widget[1]" />
+        <xsl:variable name="MasterWidgetBootstrapCols" select="Widgets/Widget[1]/BootstrapCols" />
+        <xsl:variable name="TabBootstrapCols" select="12 - $MasterWidgetBootstrapCols" />
+
+        <xsl:text disable-output-escaping="yes">&lt;%@ Page Title="</xsl:text>
+        <xsl:value-of select="Title" />
+        <xsl:text disable-output-escaping="yes">" Language="C#"</xsl:text>
+        <xsl:if test="CodeFile != ''">
+            <xsl:text disable-output-escaping="yes"> CodeFile="</xsl:text>
+            <xsl:value-of select="CodeFile" />
+            <xsl:text disable-output-escaping="yes">"</xsl:text>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="CodeInherits != ''">
+                <xsl:text disable-output-escaping="yes"> Inherits="</xsl:text>
+                <xsl:value-of select="CodeInherits" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text disable-output-escaping="yes"> Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage
+                </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text disable-output-escaping="yes">" %&gt;
+        </xsl:text>
+
+        <xsl:text disable-output-escaping="yes">
+            &lt;%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp"
+            Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %&gt;</xsl:text>
+        <xsl:for-each select="$Registers">
+            <xsl:text disable-output-escaping="yes">
+                &lt;%@ Register Assembly="</xsl:text>
+            <xsl:value-of select="Assembly" />
+            <xsl:text>" Namespace="</xsl:text>
+            <xsl:value-of select="Namespace" />
+            <xsl:text>" TagPrefix="</xsl:text>
+            <xsl:value-of select="TagPrefix" />
+            <xsl:text disable-output-escaping="yes">" %&gt;
+            </xsl:text>
+        </xsl:for-each>
+
+        <xsl:text disable-output-escaping="yes">
+            &lt;asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server"&gt;
+        </xsl:text>
+
+        <div class="row" >
+
+
+
+            <xsl:choose>
+                <xsl:when test="$TabBootstrapCols = 0">
+                    <xsl:text disable-output-escaping="yes">&lt;div class=&quot;col-md-12&quot;&gt;</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text disable-output-escaping="yes">&lt;div class=&quot;col-md-</xsl:text>
+                    <xsl:value-of select="$TabBootstrapCols" />
+                    <xsl:text disable-output-escaping="yes">&quot;&gt;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+
+
+            <div class="portlet light">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2" style="padding-right: 0px">
+                        <ul class="nav nav-tabs tabs-left" >
+                            <xsl:for-each select="$Widgets">
+                                <xsl:if test="position() = 1 or  ProviderId = $MasterWidget/Id or ProviderId = ''">
+                                    <li onclick="Benner.Page.changeSelectedTab(this)">
+                                        <xsl:attribute name="data-widget-id">
+                                            <xsl:value-of select="Id" />
+                                        </xsl:attribute>
+                                        <xsl:if test="position() = 1">
+                                            <xsl:attribute name="class">active</xsl:attribute>
+                                        </xsl:if>
+
+                                        <a data-toggle="tab">
+                                            <xsl:attribute name="href">
+                                                <xsl:value-of select="concat('#tab', Id)" />
+                                            </xsl:attribute>
+                                                 <xsl:attribute name="id">
+                                                                                        <xsl:value-of
+                                                                                            select="concat('#LI_TAB_', Id)" />
+                                                                                    </xsl:attribute>
+
+                                            <i style="margin-right: 5px">
+                                                <xsl:attribute name="class">
+                                                    <xsl:value-of select="FontIcon" />
+                                                </xsl:attribute>
+                                            </i>
+
+                                            <span>
+                                                <xsl:text disable-output-escaping="yes">&lt;%=
+                                                    Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"
+                                                </xsl:text>
+                                                <xsl:value-of select="Title" />
+                                                <xsl:text disable-output-escaping="yes">")%&gt;</xsl:text>
+                                            </span>
+
+
+
+
+
+                                        </a>
+                                    </li>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </ul>
+
+
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-10" style="padding-left: 0px">
+                        <div class="tab-container">
+                            <xsl:for-each select="$Widgets">
+                                <xsl:if test="position() = 1 or  ProviderId = $MasterWidget/Id or ProviderId = ''">
+                                    <div class="benner20">
+
+
+                                        <xsl:choose>
+                                            <xsl:when test="position() = 1">
+                                                <xsl:attribute name="class">tab-panel-content active</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="class">tab-panel-content</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:attribute name="id">
+                                            <xsl:value-of select="concat('tab', Id) " />
+                                        </xsl:attribute>
+                                        <xsl:text disable-output-escaping="yes">
+                                        </xsl:text>
+
+
+                                        <div class="row2" style="border-color: transparent;">
+
+                                            <div class="row" style="margin-left: -30px;margin-right:-30px;">
+
+                                                <xsl:call-template name="render_widget">
+                                                    <xsl:with-param name="widget" select="current()" />
+                                                    <xsl:with-param name="show_title" select="0" />
+                                                    <xsl:with-param name="render_children" select="0" />
+                                                    <xsl:with-param name="chrome_state" select="'Fixed'" />
+                                                </xsl:call-template>
+
+                                            </div>
+
+                                            <!-- <div style="height: 80px"></div> -->
+                                            <!-- </div>
+
+                                            <div class="row"> -->
+
+                                            <div class="tabbable-line">
+
+                                                <!-- COMEÇO DO 2° TAB NAVEGATOR -->
+
+                                                <ul class="nav nav-tabs">
+                                                    <xsl:for-each
+                                                        select="$Widgets[ProviderId = current()/Id and ProviderId != $MasterWidget/Id]">
+                                                        <!-- <xsl:if test="position() > 1 "> -->
+                                                        <li onclick="Benner.Page.changeSelectedTab(this)">
+                                                            <xsl:attribute name="data-widget-id">
+                                                                <xsl:value-of select="Id" />
+                                                            </xsl:attribute>
+                                                            <xsl:if test="position() = 1">
+                                                                <xsl:attribute name="class">active
+                                                                </xsl:attribute>
+                                                            </xsl:if>
+
+
+                                                            <a data-toggle="tab">
+                                                                <xsl:attribute name="href">
+                                                                    <xsl:value-of select="concat('#tab2', Id)" />
+                                                                </xsl:attribute>
+                                                                     <xsl:attribute name="id">
+                                                                                        <xsl:value-of
+                                                                                           select="concat('#LI_TAB_', Id)" />
+                                                                                    </xsl:attribute>
+
+                                                                <i style="margin-right: 5px">
+                                                                    <xsl:attribute name="class">
+                                                                        <xsl:value-of select="FontIcon" />
+                                                                    </xsl:attribute>
+                                                                </i>
+
+                                                                <span>
+                                                                    <xsl:text disable-output-escaping="yes">
+                                                                        &lt;%=
+                                                                        Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"
+                                                                    </xsl:text>
+                                                                    <xsl:value-of select="Title" />
+                                                                    <xsl:text disable-output-escaping="yes">
+                                                                        ")%&gt;</xsl:text>
+                                                                </span>
+
+
+
+
+
+                                                            </a>
+                                                        </li>
+                                                        <!-- </xsl:if> -->
+                                                    </xsl:for-each>
+                                                </ul>
+
+                                                <!-- COMEÇO DO 2° TAB CONTAINER -->
+
+                                                <div class="tab-container">
+                                                    <xsl:for-each
+                                                        select="$Widgets[ProviderId = current()/Id and ProviderId != $MasterWidget/Id]">
+                                                        <!-- <xsl:if test="position() > 1"> -->
+                                                        <div class="benner20">
+
+                                                            <xsl:choose>
+                                                                <xsl:when test="position() = 1">
+                                                                    <xsl:attribute name="class">tab-panel-content active
+                                                                    </xsl:attribute>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:attribute name="class">tab-panel-content
+                                                                    </xsl:attribute>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+
+                                                            <xsl:attribute name="id">
+                                                                <xsl:value-of select="concat('tab2', Id) " />
+                                                            </xsl:attribute>
+                                                            <xsl:text disable-output-escaping="yes">
+                                                            </xsl:text>
+
+
+                                                            <div class="row2">
+
+                                                                <div class="row">
+                                                                    <xsl:call-template name="render_widget">
+                                                                        <xsl:with-param name="widget" select="current()" />
+                                                                        <xsl:with-param name="show_title" select="0" />
+                                                                        <xsl:with-param name="render_children" select="0" />
+                                                                        <xsl:with-param name="chrome_state"
+                                                                            select="'Fixed'" />
+                                                                    </xsl:call-template>
+                                                                </div>
+                                                                
+                                                                    <div class="row">
+
+                                                                 <xsl:for-each
+                                                                    select="$Widgets[ProviderId = current()/Id and ProviderId != $MasterWidget/Id]">
+                                                                    <!-- <xsl:if test="position() > 1"> -->
+                                                             
+                                                                        
+
+                                                                            <xsl:call-template
+                                                                                name="render_widget">
+                                                                                <xsl:with-param name="widget"
+                                                                                    select="current()" />
+                                                                                <xsl:with-param
+                                                                                    name="show_title"
+                                                                                    select="0" />
+                                                                                <xsl:with-param
+                                                                                    name="render_children"
+                                                                                    select="0" />
+                                                                                <xsl:with-param
+                                                                                    name="chrome_state"
+                                                                                    select="'Fixed'" />
+                                                                            </xsl:call-template>
+                                                                          
+                                                                    
+                                                                    <!-- </xsl:if> -->
+                                                                </xsl:for-each>
+                                                                
+                                                                  </div>
+                                                        
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- </xsl:if> -->
+                                                    </xsl:for-each>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <xsl:text disable-output-escaping="yes">
+            </xsl:text>
+
+        </div>
+
+        <style>
+            .row2 {
+                padding: 20px;
+                border: 1px solid #dedef0;
+                border-radius: 6px !important;
+            }
+
+            .table tr.active{
+               
+                border-left: 5px solid #36c6d3;
+            }
+
+            .row2 ul {
+                padding-right: 6px;
+                padding-left: 6px;
+            }
+
+            .tab-panel-content {
+                display: none;
+                flex-direction: column;
+            }
+
+            .tab-panel-content.active {
+                display: flex;
+            }
+        </style>
+
+
+        <xsl:text disable-output-escaping="yes">&lt;/div&gt;</xsl:text>
+
+        <xsl:for-each select="$Resources">
+            <xsl:text disable-output-escaping="yes">
+            </xsl:text>
+            <xsl:choose>
+                <xsl:when test="Type = 'JavaScript'">
+                    <script type="text/javascript">
+
+                    </script>
+                </xsl:when>
+                <xsl:otherwise>
+                    <style>
+                        <xsl:text disable-output-escaping="yes"></xsl:text><xsl:value-of disable-output-escaping="yes" select="Content"/><xsl:text disable-output-escaping="yes"></xsl:text>
+                    </style>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
+
+        <xsl:text disable-output-escaping="yes">
+            &lt;/asp:Content&gt;
+        </xsl:text>
+    </xsl:template>
+
+    <xsl:template name="render_widget">
+        <xsl:param name="widget" />
+        <xsl:param name="show_title" />
+        <xsl:param name="render_children" />
+        <xsl:param name="chrome_state" />
+
+        <xsl:text disable-output-escaping="yes">
+        </xsl:text>
+        <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
+        <xsl:value-of select="TagName" />
+        <xsl:text> runat="server" ID="</xsl:text>
+        <xsl:value-of select="Id" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>Title="</xsl:text>
+        <xsl:value-of select="Title" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>Subtitle="</xsl:text>
+        <xsl:value-of select="Subtitle" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>PortletCssClass="</xsl:text>
+        <xsl:value-of select="PortletCssClass" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>PortletLayout="</xsl:text>
+        <xsl:value-of select="PortletLayout" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>BootstrapCols="</xsl:text>
+        <xsl:value-of select="BootstrapCols" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>FontIcon="</xsl:text>
+        <xsl:value-of select="FontIcon" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:choose>
+            <xsl:when test="$show_title = 1">
+                <xsl:text>ShowTitle="</xsl:text>
+                <xsl:value-of select="ShowTitle" />
+                <xsl:text disable-output-escaping="yes">" </xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>ShowTitle="false" </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>ProviderWidgetUniqueId="</xsl:text>
+        <xsl:value-of select="ProviderId" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:text>ChromeState="</xsl:text>
+        <xsl:value-of select="$chrome_state" />
+        <xsl:text disable-output-escaping="yes">" </xsl:text>
+        <xsl:value-of select="Attributes" />
+        <xsl:text disable-output-escaping="yes"> /&gt;</xsl:text>
+
+        <xsl:if test="$render_children = 1">
+            <xsl:for-each select="$widget/Children/Widget">
+                <xsl:call-template name="render_widget">
+                    <xsl:with-param name="widget" select="current()" />
+                    <xsl:with-param name="show_title" select="1" />
+                    <xsl:with-param name="render_children" select="1" />
+                    <xsl:with-param name="chrome_state" select="'Fixed'" />
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+</xsl:stylesheet>
+]]></Content>
+</TemplatePortable>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONSULTAR_SOLICITACOES.GRID</ViewName>
+  <EntityName>CP_SOLICITACAOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter    
+
+    args.WhereClause.Clear();
+    
+            
+
+    if(not args.Entity["DATAINCLUSAODE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.SOLICITACAO IN (SELECT HANDLE FROM CP_SOLICITACOES WHERE DATAINCLUSAO &gt;= :DE)", Parameter("DE", args.Entity["DATAINCLUSAODE"].GetDateTime().Date))
+        
+    if(not args.Entity["DATAINCLUSAOATE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.SOLICITACAO IN (SELECT HANDLE FROM CP_SOLICITACOES WHERE DATAINCLUSAO &lt;= :ATE)", Parameter("ATE", args.Entity["DATAINCLUSAOATE"].GetDateTime().Date)) 
+        
+
+    if(not args.Entity["NRCAPA"].IsNull):        
+        args.WhereClause.AddWhereClause("A.SOLICITACAO IN (SELECT HANDLE FROM CP_SOLICITACOES WHERE NUMERO LIKE :NRCAPA)", Parameter("NRCAPA", args.Entity["NRCAPA"].GetInt64()))         
+        
+    if(not args.Entity["ITEM"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.PRODUTO IN ("+args.Entity["ITEM"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.PRODUTO IN ("+args.Entity["ITEM"].GetString().replace("|_|",",").replace("|_","")+")" 
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    
+    if not entity.SolicitacaoLiberada and entity.SolicitacaoUsuario : 
+        command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/CadastrarItemSolicitacao.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACOES"
+        command.OutputDefinition.TargetEntityHandle = entity.HandleSolicitacao()        
+    else :
+        command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/VisualizarSolicitacao.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACAOITENS"
+ 
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    row.GetCellByName("VALORTOTAL").Text = str('%.2f' %(entity["QUANTIDADE"].GetDecimal() * entity["VALORESTIMADO"].GetDecimal())) 
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Breadcrumb.Parent != None :
+        widget.View.Commands["NOVO"].Visible = False
+    else :        
+        widget.View.Commands["COPIARITENS"].Visible = False
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

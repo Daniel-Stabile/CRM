@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE.GRID</ViewName>
+  <EntityName>CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    from Benner.Corporativo.Definicoes.Financeiro import FNDocumento
+    
+    documento = FNDocumento.Get(entity.Fields["DOCUMENTO"])
+        
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = documento
+    
+    if(documento.Fields["ENTRADASAIDA"] == "S"):
+        command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciFAT
+    else:
+        command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciFATD
+        
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+
+    widget.View.FieldDefinitions["CUSTOM_ACAO_ELEMENTO"].Visible = Utils.EhOrcamentoPublicoComControleAcao()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOASSINANTES.FORM</ViewName>
+  <EntityName>CN_CONTRATOASSINANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    breadcrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    contrato = breadcrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_CONTRATOS"))
+    
+    podeAlterar = CNContrato.PodeAlterarFilialFormulario(contrato.Handle.Value)
+    
+    widget.View.Commands["New"].Visible = podeAlterar
+    widget.View.Commands["Edit"].Visible = podeAlterar
+    widget.View.Commands["Delete"].Visible = podeAlterar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

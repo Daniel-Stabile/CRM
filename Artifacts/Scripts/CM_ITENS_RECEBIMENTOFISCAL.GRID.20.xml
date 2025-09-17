@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ITENS_RECEBIMENTOFISCAL.GRID</ViewName>
+  <EntityName>CM_ITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    grid = row.Grid
+    form = grid.ProviderWidget
+    
+    if form == None: return
+
+    doctoEmitido = int(form.Entity.Fields["STATUS"].Value) == 2
+    if row.GetCustomCommand("CMD_EDITAR") != None: 
+        row.GetCustomCommand("CMD_EDITAR").Enabled = not doctoEmitido
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

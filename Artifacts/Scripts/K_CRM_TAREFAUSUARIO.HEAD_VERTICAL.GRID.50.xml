@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_TAREFAUSUARIO.HEAD_VERTICAL.GRID</ViewName>
+  <EntityName>K_CRM_TAREFAUSUARIO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import BennerContext
+    
+    handleResponsavel = entity.Fields["RESPONSAVEL"].Handle
+    handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+    usuario = BennerIdentity.Current.UserHandle
+    status  = int(entity.Fields["STATUS"].Value)
+    statusNome  = entity.Fields["STATUS"].Text
+    tipo = int(entity.Fields["TIPO"].Value);
+    
+    if tipo in [1,2] and status in [1] and handleResponsavel == handleUsuario:
+        row.GetCustomCommand("CmdConcluir").Enabled = True;
+        row.EditCommand.Visible = False;
+    else:
+        row.GetCustomCommand("CmdConcluir").Enabled = False;
+        row.EditCommand.Visible = False;
+    
+    if row.GetCustomCommand("cmdConcluirAtividade") != None:
+        row.GetCustomCommand("cmdConcluirAtividade").Enabled  = status in [1] and entity.Fields["RESPONSAVEL"].Handle == usuario;
+    
+    if row.GetCustomCommand("cmdCancelarAtividade") != None:
+        row.GetCustomCommand("cmdCancelarAtividade").Enabled  = status in [1] and entity.Fields["RESPONSAVEL"].Handle == usuario;
+    
+    if row.GetCustomCommand("cmdReagendarAtividade") != None:
+        row.GetCustomCommand("cmdReagendarAtividade").Enabled = status in [1] and entity.Fields["RESPONSAVEL"].Handle == usuario;
+    
+    if row.GetCustomCommand("Edit") != None:
+        if entity.Fields["RESPONSAVEL"].Handle != usuario or status not in [1]:
+            row.GetCustomCommand("Edit").Enabled = False;
+    
+    if status in [1]:
+        row.GetCellByName("STATUS").Text = "&lt;span class='label bg-red'&gt;"+statusNome+"&lt;/span&gt;"
+        
+    if status in [2]:
+        row.GetCellByName("STATUS").Text = "&lt;span class='label bg-grey-salt'&gt;"+statusNome+"&lt;/span&gt;"
+        
+    if status in [3]:
+        row.GetCellByName("STATUS").Text = "&lt;span class='label bg-grey'&gt;"+statusNome+"&lt;/span&gt;"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+    
+    ehHeadVertical = activeRole == "K_CRM_DIRETORVERTICAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETORVERTICAL")
+    
+    if ehHeadVertical:
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

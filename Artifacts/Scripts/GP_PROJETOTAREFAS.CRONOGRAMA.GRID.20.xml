@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFAS.CRONOGRAMA.GRID</ViewName>
+  <EntityName>GP_PROJETOTAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    
+    if(entity == None or row == None): 
+        return;
+    
+    ehGestor =entity.ProjetoInstance.GestorProjetoHandle == BennerContext.Security.GetLoggedUserHandle()
+    participante = GPProjetos.UsuarioAtualEhParticipanteDoProjeto(entity.ProjetoInstance.Handle)
+    
+    status = 0;
+    if entity.Fields["STATUS"] != None:
+        status = entity.Fields["STATUS"].Value;
+        
+    if (status != 1 and row.DeleteCommand != None): 
+        row.DeleteCommand.Visible = False
+        
+    ativo = entity["TAREFAAGRUPADORA"].GetBoolean()
+    if(ativo == None): 
+        ativo = False;
+        
+    row.GetCustomCommand("APONTAMENTO").Enabled  = not ativo and (participante or ehGestor);
+    
+    if (row.EditCommand != None and row.DeleteCommand != None):
+        row.EditCommand.Visible = (not entity.Fields["PROJETOLINHABASE"].Handle.IsValid())
+        row.DeleteCommand.Visible = (not entity.Fields["PROJETOLINHABASE"].Handle.IsValid())
+
+    # Tratamento das permissões pelo papel
+    if (GPProjetoTarefas.EhPartipanteProjeto()):
+        if (row.EditCommand != None):
+            row.EditCommand.Visible = False
+            
+        if (row.DeleteCommand != None):
+            row.DeleteCommand.Visible = False
+    #
+    
+    dataAtual = BennerContext.Administration.ServerDateTime()
+
+    if (entity.Fields["DATAFINALCALCULADA"] &lt; dataAtual):
+        row.GetCellByName("ESTRUTURA").TextColor = "Red";
+        row.GetCellByName("NOME").TextColor = "Red";
+        row.GetCellByName("PRECEDENCIA").TextColor = "Red";
+        row.GetCellByName("DATAINICIALCALCULADA").TextColor = "Red";
+        row.GetCellByName("DATAFINALCALCULADA").TextColor = "Red";
+        row.GetCellByName("DATAULTIMOAPONTAMENTO").TextColor = "Red";
+        row.GetCellByName("TAREFAAGRUPADORA").TextColor = "Red";
+        row.GetCellByName("TAREFAENTREGAVEL").TextColor = "Red";
+        row.GetCellByName("PERCENTUALCONCLUSAO").TextColor = "Red";
+        row.GetCellByName("USUARIOAPONTAMENTO").TextColor = "Red";
+        row.GetCellByName("DATAHORAAPONTAMENTO").TextColor = "Red";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    
+    if (GPProjetoTarefas.EhPartipanteProjeto()):
+        if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = False
+        if widget.View.Commands["CMD_EDICAORAPIDA"] != None: widget.View.Commands["CMD_EDICAORAPIDA"].Visible = False
+        if widget.View.Commands["CMD_CALCULARPROJETO"] != None: widget.View.Commands["CMD_CALCULARPROJETO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

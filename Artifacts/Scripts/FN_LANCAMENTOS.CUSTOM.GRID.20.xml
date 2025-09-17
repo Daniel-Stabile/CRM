@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_LANCAMENTOS.CUSTOM.GRID</ViewName>
+  <EntityName>FN_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("CONTAFINANCEIRA").Text = entity.Fields["PATH_636301123387212570"] + "-" + entity.Fields["PATH_636301114737614747"]
+    if entity.Fields["NATUREZA"].Value == "C":
+        row.GetCellByName("NATUREZA").Text = "C"
+        row.GetCellByName("NATUREZA").Tooltip ="Crédito"
+    else:
+        row.GetCellByName("NATUREZA").Text = "D"
+        row.GetCellByName("NATUREZA").Tooltip ="Débito"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    documento = entity.Fields["DOCUMENTO"].Instance
+    
+    if(documento.EhCPA() or documento.EhAdtoFornecedor() or documento.DevolucaoFornecedor() or documento.EhFiscalEntrada()):
+        command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciBCP
+    elif(documento.EhCRE() or documento.EhAdtoCliente() or documento.DevolucaoCliente() or documento.EhFiscalSaida()):
+        command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciBCR
+    
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = documento
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = not documento.EstaBloqueado()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+
+    widget.View.FieldDefinitions["ACOESPROJETOS"].Visible = Utils.EhOrcamentoPublicoComControleAcao()
+    widget.View.FieldDefinitions["ELEMENTODESPESA"].Visible = Utils.EhOrcamentoPublicoComControleAcao()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

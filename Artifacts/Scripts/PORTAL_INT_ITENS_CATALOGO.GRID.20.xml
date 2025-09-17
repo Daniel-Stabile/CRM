@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ITENS_CATALOGO.GRID</ViewName>
+  <EntityName>CP_CATALOGOFORNECIMENTOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter    
+
+    args.WhereClause.Clear();
+    
+
+    if(not args.Entity["CODIGO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE CODIGO = :CODIGO) ", Parameter("CODIGO", args.Entity["CODIGO"].GetInt64()))  
+        
+    if(not args.Entity["CODIGOREFERENCIA"].IsNull):
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE CODIGOREFERENCIA LIKE :CODIGOREFERENCIA )", Parameter("CODIGOREFERENCIA", "%"+args.Entity["CODIGOREFERENCIA"].Value+"%"))        
+        
+    if(not args.Entity["NOME"].IsNull):        
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE NOME LIKE '%"+args.Entity["NOME"].GetString()+"%' ) ")   
+        
+    if(not args.Entity["DESCRICAO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE DESCRICAO LIKE '%"+args.Entity["DESCRICAO"].GetString()+"%' ) ")         
+        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

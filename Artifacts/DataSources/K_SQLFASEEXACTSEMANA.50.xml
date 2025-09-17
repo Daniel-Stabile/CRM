@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_SQLFASEEXACTSEMANA</Identifier>
+  <Name>CRM - Fase Exact Semanal</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.FASEEXACT,COUNT(A.HANDLE) AS QTDE&#xD;&#xA;FROM  K_CRM_PESSOAS A&#xD;&#xA;WHERE A.FASEEXACT IS NOT NULL AND A.DATAINCLUSAO BETWEEN dateadd(day, 1-datepart(dw, getdate()), getdate()) AND dateadd(day, 7-datepart(dw, getdate()), getdate())&#xD;&#xA;GROUP BY A.FASEEXACT&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="FASEEXACT" From="A" Path="FASEEXACT" />
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

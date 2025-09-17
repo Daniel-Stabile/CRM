@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CM_CONTRATOITEMCOMISSOES.FORM</ViewName>
+  <EntityName>CM_CONTRATOITEMCOMISSOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if entity == None: return
+    
+    status = entity.Fields["ITEM"].Instance.Fields["CONTRATO"].Instance.Fields["STATUSPROPOSTA"].Value == 1 and  entity.Fields["ITEM"].Instance.Fields["CONTRATO"].Instance.Fields["LIBERADOCONFIRMACAO"] == False
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = status
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = status 
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = status
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

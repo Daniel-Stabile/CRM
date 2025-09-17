@@ -1,0 +1,16 @@
+﻿@{
+    var handle = @Model.Fields["HANDLE"];
+}
+
+@if (Benner.Tecnologia.Common.Handle.IsValid(handle))
+{
+    <div class="note note-danger note-shadow">
+        <p class="block">O Documento está cancelado.</p>
+    </div>
+}
+else
+{
+    <div class="note note-info">
+        <p class="block">O documento não está cancelado.</p>
+    </div>
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_VTAGENDAMENTOSNFE.EMAIL.FORM</ViewName>
+  <EntityName>PD_VTAGENDAMENTOSNFE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.View.Commands["Save"].Visible = widget.Entity.Handle.IsInvalid()
+    widget.View.Commands["CMD_EXCLUIR"].Visible = widget.Entity.Handle.IsValid()</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRExecute(command, entity):
+    entity.TransitoryVars["COMANDO"] = "EXCLUIR"</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial.")
+    entity.TransitoryVars["COMANDO"] = "AGENDAR"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

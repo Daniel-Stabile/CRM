@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_ED_MODULO.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_ED_MODULO</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="WEB_ED_MODULO" name="WEB_ED_MODULO.CUSTOM.FORM" title="WEB_ED_MODULO" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items />
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions />
+    <Commands>
+      <Command title="Ok" key="Save">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="EFD ICMS/IPI" color="blue-dark" key="GRP_EFDICMSIPI">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Movimentações" color="blue-dark" key="CMD_MOVIMENTACAOICMSIPI">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>FullPage</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/e/sped/efd/icmsipi/Movimentacoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_MASTER_THAIS_0600</SystemInstanceName>
+              <TargetEntityDefinitionName>ED_VTCARGAMOVIMENTACAOICMSIPI</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_MASTER_THAIS_0600</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="EFD Contribuições" color="blue-dark" key="GRP_EFDPISCOFINS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Movimentações" color="blue-dark" key="CMD_MOVIMENTACAOPISCOFINS">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>FullPage</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/e/sped/efd/contribuicoes/Movimentacoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_MASTER_THAIS_0600</SystemInstanceName>
+              <TargetEntityDefinitionName>ED_VTCARGAMOVIMENTACAOCONTRIB</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_MASTER_THAIS_0600</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="ECD" color="blue-dark" key="GRP_ECD">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Movimentações" color="blue-dark" key="CMD_MOVIMENTACOESECD">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>FullPage</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/e/sped/ecd/Movimentacoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName />
+              <TargetEntityDefinitionName>ED_VTCARGAMOVIMENTACAOCONTABIL</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_MASTER_THAIS_0600</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

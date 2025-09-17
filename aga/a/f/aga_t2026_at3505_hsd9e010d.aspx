@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Lista de preços - Lista de preços" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Lista de preços - Lista de preços" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_CM_LISTASPRECOS.FORM" CanDelete="True" CanUpdate="True" CanInsert="True" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="CARGA_DE_LISTA_PRECO_FORNECEDOR__LISTA_DE_PRECOS_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_2335" Title="Estados" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_CM_LISTAPRECOESTADOS.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.LISTAPRECO = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t2030_at2335_hs998d310.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_LISTA_PRECO_FORNECEDOR__LISTA_DE_PRECOS_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_2331" Title="Tabelas de preços" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_CM_LISTAPRECOTABELAS.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.LISTA = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t2027_at2331_hsec58a284.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_LISTA_PRECO_FORNECEDOR__LISTA_DE_PRECOS_FORM" Level="20" Order="15"  />
+        </div>
+    
+      </asp:Content>
+    

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_PAPELTAREFAS.GRID</ViewName>
+  <EntityName>Z_PAPELTAREFAS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    command.OutputDefinition.TargetEntityDefinitionName = "Z_TAREFAS"
+    command.OutputDefinition.TargetEntityHandle = entity["TAREFA"].GetInt64()
+    command.OutputDefinition.Url = "~/SiteSettings/Task/Form.aspx"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

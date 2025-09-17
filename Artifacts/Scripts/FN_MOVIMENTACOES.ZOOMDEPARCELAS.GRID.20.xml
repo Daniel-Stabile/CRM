@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_MOVIMENTACOES.ZOOMDEPARCELAS.GRID</ViewName>
+  <EntityName>FN_MOVIMENTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+		if(row.GetCustomCommand("ESTORNO") != None):
+			row.GetCustomCommand("ESTORNO").Enabled = entity.EfetuaEstornoBaixaDireta()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

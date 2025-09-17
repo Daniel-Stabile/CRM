@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_WF_TAREFAS.FORM</ViewName>
+  <EntityName>CRM_WF_TAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    entity = widget.Entity
+    if (not entity is None):
+        if entity.Fields["TAREFAORIGEM"].Handle.IsValid():
+            widget.View.Commands["CMD_GERAROPORTUNIDADE"].Visible = entity.Fields["TAREFAORIGEM"].Instance.Fields["ACAORELACIONAMENTO"].Handle.IsValid()
+            
+        widget.View.FieldDefinitions["PESSOA"].Visible = entity.Fields["PESSOA"].Handle.IsValid()
+        
+        if (not entity.Fields["ACAO"] is None and entity.Fields["ACAO"].Value != 1):
+            widget.View.FieldDefinitions["ARQUIVO"].Visible = True
+        
+        if (not entity.Fields["ACAO"] is None and entity.Fields["ACAO"].Value != 1):
+            widget.View.FieldDefinitions["OBSERVACOES"].Required = True
+                
+        tarefaOrigem = entity.Fields["TAREFAORIGEM"].Instance
+        
+        if (tarefaOrigem.Fields["EXIGIRARQUIVO"].Value == 2):
+            widget.View.FieldDefinitions["ARQUIVO"].Required = True
+            
+        if (tarefaOrigem.Fields["EXIGIRAVALIACAO"].Value == 2):
+            widget.View.FieldDefinitions["AVALIACAO"].Required = True
+        
+        
+        
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERAROPORTUNIDADEExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_GERAROPORTUNIDADEExecute(command, entity):
+    if entity.Fields["PESSOA"].Handle.IsValid():
+            commmand.OutputDefinitin.WhereClause = "A.PESSOA = @CAMPO(PESSOA) AND A.ACAORELACIONAMENTO IN (SELECT ACAORELACIONAMENTO FROM CRM_TAREFAS WHERE HANDLE = @CAMPO(TAREFAORIGEM))"
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

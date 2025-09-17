@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_SIMULACOESFLUXO.GRID</ViewName>
+  <EntityName>FX_SIMULACOESFLUXO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	import clr
+	clr.AddReference("Benner.Corporativo.Definicoes")
+	from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+	
+	from Benner.Corporativo.Definicoes.FluxoCaixa.Utils import FuncoesUtilsFluxo
+
+	entity = widget.ProviderWidget.Entity
+	
+	naoTemFluxoPai = entity.Fields["FLUXO"].Instance == None
+	widget.View.Commands["CMD_AplicarSimulacaoFilho"].Visible = not naoTemFluxoPai
+	widget.View.Commands["CMD_APLICARSIMULACOES"].Visible = naoTemFluxoPai
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_DELETEExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_DELETEExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a exclusão?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

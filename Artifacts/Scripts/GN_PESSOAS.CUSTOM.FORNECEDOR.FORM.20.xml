@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.CUSTOM.FORNECEDOR.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.Tecnologia.Common.BennerVariables import BennerVarsFactory
+    
+    BennerVarsFactory().CreateSessionVars().SetSessionVar("GN_PESSOAS.FORNECEDOR.FORM", str(widget.Entity.Handle))
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIRFORNECEDOR")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTERFORNECEDOR")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTERFORNECEDOR")
+    
+    if (widget.View.Commands["CMD_DOCUMENTOSHABILITACAO"] != None):
+        widget.View.Commands["CMD_DOCUMENTOSHABILITACAO"].Visible = widget.Entity.VisibilidadeComandoDocumentosHabilitacao
+    
+    if (widget.View.Commands["CMD_Liberar"] != None):
+        widget.View.Commands["CMD_Liberar"].Visible = widget.Entity.VisibilidadeComandoLiberar
+        
+    if (widget.View.Commands["CMD_Confirmar"] != None):
+        widget.View.Commands["CMD_Confirmar"].Visible = widget.Entity.VisibilidadeComandoConfirmar
+        
+    if (widget.View.Commands["CMD_Recusar"] != None):
+        widget.View.Commands["CMD_Recusar"].Visible = widget.Entity.VisibilidadeComandoRecusar
+        
+    if (widget.View.Commands["CMD_Voltar"] != None):
+        widget.View.Commands["CMD_Voltar"].Visible = widget.Entity.VisibilidadeComandoVoltarCadastro
+        
+    if widget.Entity == None: return
+    widget.View.Commands["CMD_CONSULTARCNPJ"].Visible = widget.Entity.VisibilidadeComandoConsultarCnpj
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

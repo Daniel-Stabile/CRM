@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS.CONSULTAFISCAL.CUSTOM.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Web import HttpContext
+    saldo = entity.Fields["VALORLIQUIDO"] - entity.Fields["VALORESBAIXADOS"];
+    row.GetCellByName("CUSTOM_SALDO").Text = saldo.ToString("C2");
+    row.GetCellByName("CUSTOM_SALDO").Align = "right";
+    row.GetCellByName("DATAEMISSAO").Text = entity.Fields["DATAEMISSAO"].ToString("dd/MM/yyyy");
+    if entity.Fields["OPERACAOCANCELAMENTO"].Handle.IsValid() :
+        row.GetCellByName("STATUS").Text = "&lt;div class='label label-sm' style='background-color: #e7505a !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-times'&gt;&lt;/i&gt;&lt;/div&gt;";
+        row.GetCellByName("STATUS").Tooltip ="Cancelado"
+    else:
+        if entity["ENTRADASAIDA"].GetDBValue() == "I" or entity["ENTRADASAIDA"].GetDBValue() == "O":
+            row.GetCellByName("STATUS").Text = "&lt;div class='label label-sm' style='background-color: #e7505a !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-lock'&gt;&lt;/i&gt;&lt;/div&gt;";
+            row.GetCellByName("STATUS").Tooltip ="Bloqueado"
+        else:
+            row.GetCellByName("STATUS").Text = "&lt;div class='label label-sm' style='background-color: #1BBC9B !important; padding: 2px 4px !important;'&gt;&lt;i class='fa fa-check'&gt;&lt;/i&gt;&lt;/div&gt;";
+            row.GetCellByName("STATUS").Tooltip ="Confirmado"</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja excluir o documento e suas dependências?")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

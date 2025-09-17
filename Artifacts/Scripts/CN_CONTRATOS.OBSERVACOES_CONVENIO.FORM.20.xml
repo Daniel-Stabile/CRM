@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOS.OBSERVACOES_CONVENIO.FORM</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    if registro == None: return
+    status = int(registro.Fields["STATUS"].Value)
+    liberado = registro.Fields["LIBERADO"]
+    statusEmElaboracao = 1
+
+    if (((status == statusEmElaboracao) and liberado) or (status &gt; statusEmElaboracao)):
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_PROCESSOS.GRID</ViewName>
+  <EntityName>Z_PROCESSOS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    from Benner.Tecnologia.Business.Tasks import BusinessTask
+    
+    BusinessTask.Factory.GetTask(entity.Handle).RequestAbort()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (entity["SITUACAO"].GetInt32() not in [1,6] ):
+        row.GetCustomCommand("CMD_CANCELAR").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

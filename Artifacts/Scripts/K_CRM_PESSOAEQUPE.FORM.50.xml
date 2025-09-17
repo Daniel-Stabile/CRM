@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAEQUPE.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAEQUPE</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    
+    if widget.Entity.IsEditing == True or widget.Entity.IsCreating == True:
+        widget.View.FieldDefinitions["EMAIL"].Visible = False;
+        widget.View.FieldDefinitions["CELULAR"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

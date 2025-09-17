@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PROJETOS.GRID</ViewName>
+  <EntityName>GN_PROJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+
+    if (entity.Fields["ULTIMONIVEL"] and row.GetCustomCommand("CMD_INCLUIRABAIXO") != None) :
+        row.GetCustomCommand("CMD_INCLUIRABAIXO").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["CMD_PRIMEIRONIVEL"].Visible = AuthorizationHelper.HasTask("MANTER_PROJETOS")
+    
+    widget.View.Commands["CMD_ASSOCIARUSUARIOS"].Visible = AuthorizationHelper.HasTask("MANTER_PROJETOS")
+        
+    widget.View.Commands["CMD_INCLUIRABAIXO"].Visible = AuthorizationHelper.HasTask("MANTER_PROJETOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

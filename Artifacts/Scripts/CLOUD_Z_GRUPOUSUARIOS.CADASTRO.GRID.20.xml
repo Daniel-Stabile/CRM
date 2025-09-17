@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_Z_GRUPOUSUARIOS.CADASTRO.GRID</ViewName>
+  <EntityName>Z_GRUPOUSUARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    
+    command.OutputDefinition.Url = "~/defaultdatainput.aspx"
+    command.OutputDefinition.TargetEntityDefinitionName = "CLOUD_CADASTROUSUARIOS.FORM"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

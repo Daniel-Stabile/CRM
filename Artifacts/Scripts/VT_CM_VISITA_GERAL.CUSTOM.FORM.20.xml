@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>VT_CM_VISITA_GERAL.CUSTOM.FORM</ViewName>
+  <EntityName>VT_CM_VISITA_GERAL</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCLIENTEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCLIENTEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if entity == None: return
+
+    if entity.Fields["CLIENTE"].Handle.IsValid():
+        view.FieldDefinitions["PROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["CONTATOPROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    else:
+        view.FieldDefinitions["PROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["CONTATOPROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPROSPECTValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPROSPECTValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+
+    if entity == None: return
+    
+    if entity.Fields["PROSPECT"].Length &gt; 0 :
+        view.FieldDefinitions["CLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["CONTATOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    else:
+        view.FieldDefinitions["CLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["CONTATOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    registro = widget.Entity
+    if registro == None: return
+    if (registro.Fields["AGENTEVENDAS"].Handle.IsValid()):
+        widget.View.FieldDefinitions["AGENTEVENDAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    else:
+        widget.View.FieldDefinitions["AGENTEVENDAS"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

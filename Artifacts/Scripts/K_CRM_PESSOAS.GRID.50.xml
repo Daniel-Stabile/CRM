@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import CompanyFilterMode
+    
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+    ehCS = Thread.CurrentPrincipal.IsInRole("K_CRM_CUSTOMER_SUCCESS") 
+    
+    
+    #if ehCS == True:
+    #    row.GetCustomCommand("cmdConsultarVerticais").Visible = True;
+    #else:
+    #    row.GetCustomCommand("cmdConsultarVerticais").Enabled = False;
+    
+    # ======= FASES ===========
+    #   fase 1 = Suspecção, 
+    #   fase 2 = Prospecção, 
+    #   fase 3 = Negociação,  
+    #   fase 4 = Cliente,
+    #   fase 5 = Inativo,
+    # ======= END FASES =======
+    
+    # ======= STATUS ===========
+    #   status 1 = Não integrado, 
+    #   status 2 = Integrado
+    # ======= END FASES =======
+    
+    if entity.Fields["INTEGRACAOEXACT"] != None:
+        status = int(entity.Fields["INTEGRACAOEXACT"].Value);
+    
+    fase = int(entity.Fields["FASE"].Handle.Value)
+    faseCor = entity.Fields["FASE"].Instance.Fields["COR"]
+    faseLegenda = entity.Fields["FASE"].Instance.Fields["LEGENDAGRID"]
+    faseNome = entity.Fields["FASE"].Instance.Fields["NOME"]
+    faseFinal = ""
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    subfaseNome = entity.Fields["SUBFASE"].Instance.Fields["NOME"]
+    
+    if entity.Fields["TIPO"] != None:
+        tipo = int(entity.Fields["TIPO"].Value);
+    
+    if entity.Fields["SITUACAORECEITA"] != None:
+        situacaoreceita = int(entity.Fields["SITUACAORECEITA"].Value);
+    
+    usuario = BennerIdentity.Current.UserHandle
+    responsavel = entity.Fields["USUARIORESPONSAVEL"].Handle
+    executivo = entity.Fields["USUARIOEXECUTIVO"].Handle
+    
+    if row.GetCustomCommand("cmdIntegraExact") != None:
+        row.GetCustomCommand("cmdIntegraExact").Enabled = None;
+    
+    if row.GetCustomCommand("cmdVerificaExact") != None:
+        row.GetCustomCommand("cmdVerificaExact").Enabled = None;
+    
+    if row.GetCustomCommand("cmdSincronizaLead") != None:
+        row.GetCustomCommand("cmdSincronizaLead").Enabled = None;
+
+    if row.GetCustomCommand("cmdQualificar") != None:
+        row.GetCustomCommand("cmdQualificar").Enabled = (usuario == responsavel and faseNome == "Suspecção" and subfaseNome == "A qualificar" );
+    
+    if row.GetCustomCommand("cmdTrasferirLead") != None:
+        row.GetCustomCommand("cmdTrasferirLead").Enabled = (usuario == responsavel or ehAdmin == True);
+    
+    if row.GetCustomCommand("cmdTrasferirExecutivo") != None:
+        row.GetCustomCommand("cmdTrasferirExecutivo").Enabled = (usuario == executivo or ehAdmin == True);
+    
+    if row.GetCustomCommand("cmdOportunidades") != None:
+        row.GetCustomCommand("cmdOportunidades").Enabled = (faseNome != "Suspecção" and faseNome != "Ex cliente" and faseNome != "Prospecção Futura") #fase not in [8,2];
+        
+    if row.GetCustomCommand("cmdAtividadesPendentes") != None:
+        row.GetCustomCommand("cmdAtividadesPendentes").Enabled = (faseNome != "Ex cliente" and faseNome != "Prospecção Futura"); #(fase not in [11] );
+    
+    if row.GetCustomCommand("cmdRecuperarLead") != None:
+        row.GetCustomCommand("cmdRecuperarLead").Enabled = (faseNome == "Ex cliente" and faseNome == "Prospecção Futura"); #(fase in [11] );
+    
+    if row.GetCustomCommand("cmdGrupoEmpresarial") != None:
+        row.GetCustomCommand("cmdGrupoEmpresarial").Enabled = (entity.Fields["GRUPOEMPRESARIAL"].Handle.IsValid());
+        
+    if entity.Fields["USUARIORESPONSAVEL"].Handle != usuario:
+        if row.GetCustomCommand("cmdEdit") != None:
+            row.GetCustomCommand("cmdEdit").Enabled = False;
+            
+    #if entity.Fields["ESTADO"] != None:
+    #    if entity.Fields["ESTADO"].Handle.Value == 28:
+    #        row.GetCustomCommand("cmdSincronizaLead").Enabled = False;
+        
+    #if fase in [1]:
+    #    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-purple-wisteria'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    #if fase in [2]:
+    #    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-yellow-casablanca'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    #if fase in [3]:
+    #    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-blue-sharp'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    #if fase in [4]:
+    #    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-green-jungle'&gt;"+faseNome+"&lt;/span&gt;"  
+        
+    #if fase in [5]:
+    #    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-grey'&gt;"+faseNome+"&lt;/span&gt;"     
+        
+    #if fase in [6]:
+    #    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-green-haze'&gt;C/ Oportunidade&lt;/span&gt;"
+    
+#    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center;background-color:"+faseCor+"' class='label'&gt;"+faseLegenda +"&lt;/span&gt;"
+    
+#    if entity.Fields["GRUPOEMPRESARIAL"].Handle.IsValid():
+#        row.GetCellByName("FASE").Text = "&lt;span style='margin-left:40%'&gt;-&lt;/span&gt;" 
+#        row.GetCellByName("SUBFASE").Text = "&lt;span style='margin-left:40%'&gt;-&lt;/span&gt;"   
+        
+#    if entity.Fields["TIPO"] != None:    
+#        if tipo in [2]:
+#            i = 0
+#            while(row.Cells.Count &gt; i):
+#                row.GetCellByIndex(i).TextColor = "#95a5a6"
+#                i += 1
+    
+#    if entity.Fields["SITUACAORECEITA"] != None:    
+#        if situacaoreceita in [2]:
+#            i = 0
+#            while(row.Cells.Count &gt; i):
+#                row.GetCellByIndex(i).TextColor = "#f03434"
+#                i += 1
+    
+    if entity.Fields["SUBFASE"].Handle.IsValid():
+        if subfaseNome != "A qualificar":
+            if row.GetCustomCommand("cmdQuestionario") != None:
+                row.GetCustomCommand("cmdQuestionario").Enabled = False;
+            if row.GetCustomCommand("cmdConsultarVerticais") != None:
+                row.GetCustomCommand("cmdConsultarVerticais").Enabled = True;
+        elif subfaseNome == "A qualificar" and (entity.Fields["USUARIORESPONSAVEL"].Handle == usuario or entity.Fields["USUARIOEXECUTIVO"].Handle == usuario or ehAdmin or ehCS == True):
+            if row.GetCustomCommand("cmdQuestionario") != None:
+                row.GetCustomCommand("cmdQuestionario").Enabled = True;
+            if row.GetCustomCommand("cmdConsultarVerticais") != None:
+                row.GetCustomCommand("cmdConsultarVerticais").Enabled = False;
+        else:
+            if row.GetCustomCommand("cmdQuestionario") != None:
+                row.GetCustomCommand("cmdQuestionario").Enabled = False;
+            if row.GetCustomCommand("cmdConsultarVerticais") != None:
+                row.GetCustomCommand("cmdConsultarVerticais").Enabled = False;
+    
+    criteria = Criteria("A.PERMITIROPORTUNIDADE = 'S' AND A.HANDLE = :SUBFASE", Parameter("SUBFASE", subfase))
+    criteria.CompanyFilterMode = CompanyFilterMode.None;
+    aceitaOportunidade = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_SUBFASES"), criteria)
+        
+    if aceitaOportunidade != None:    
+        if row.GetCustomCommand("cmdOportunidades") != None:
+            row.GetCustomCommand("cmdOportunidades").Enabled = True;
+    else:
+        if row.GetCustomCommand("cmdOportunidades") != None:
+            row.GetCustomCommand("cmdOportunidades").Enabled = False;
+    </SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OncmdMostraNomeExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OncmdMostraNomeExecute(command, entity):
+    
+    entity.Definition.FieldDefinitions["NOME"].Visible = True
+    entity.Definition.FieldDefinitions["APELIDO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OncmdMostraApelidoExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OncmdMostraApelidoExecute(command, entity):
+    command.a ="aa"
+    entity.Definition.FieldDefinitions["NOME"].Visible = False
+    entity.Definition.FieldDefinitions["APELIDO"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+    
+    ehExecutivo = activeRole == "K_CRM_EXECUTIVO_CONTAS" #Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    ehArquiteto = activeRole == "K_CRM_ARQUITETO_SOLUCOES" #Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehGestorComercial = activeRole == "K_CRM_GESTOR_COMERCIAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL")
+    ehGestorComercialRevenda = activeRole == "K_CRM_GESTOR_COMERCIAL_REVENDA" #Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL_REVENDA")
+    ehGestorProduto = activeRole == "K_CRM_GESTOR_PRODUTO" #Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_PRODUTO") 
+    ehPresidente = activeRole == "K_CRM_PRESIDENTE" #Thread.CurrentPrincipal.IsInRole("K_CRM_PRESIDENTE")
+    ehVicePresidente = activeRole == "K_CRM_VP" #Thread.CurrentPrincipal.IsInRole("K_CRM_VP")
+    ehDiretor = activeRole == "K_CRM_DIRETOR_GERAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_GERAL")
+    ehDiretorProduto = activeRole == "K_CRM_DIRETOR_PRODUTO" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_PRODUTO")
+    ehDiretorVendas = activeRole == "K_CRM_DIRETOR_VENDAS" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_VENDAS")
+    ehGerenteCanais = activeRole == "K_CRM_ADMIN" #Thread.CurrentPrincipal.IsInRole("K_CRM_GERENTE_CANAIS")
+    ehAdmin = activeRole == "K_CRM_ADMIN" #Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN") 
+    ehGDQ = activeRole == "K_CRM_GDQ" #Thread.CurrentPrincipal.IsInRole("K_CRM_GDQ")
+    
+    ehAssistenteComercial = activeRole == "K_CRM_ASSISTENTE_COMERCIAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_ASSISTENTE_COMERCIAL")
+    ehDiretorRegional = activeRole == "K_CRM_DIRETOR_REGIONAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_REGIONAL")
+    ehGerenteRegional = activeRole == "K_CRM_GERENTE_REGIONAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_GERENTE_REGIONAL")
+    ehGerenteCanaisV2 = activeRole == "K_CRM_GERENTE_CANAIS_V2" #Thread.CurrentPrincipal.IsInRole("K_CRM_GERENTE_CANAIS_V2")
+    
+    ehGestorVertical = activeRole == "K_CRM_DIRETORVERTICAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETORVERTICAL")
+    ehSDR = activeRole == "K_CRM_SDR_V2" #Thread.CurrentPrincipal.IsInRole("K_CRM_SDR_V2")
+    ehCS = activeRole == "K_CRM_CUSTOMER_SUCCESS" #Thread.CurrentPrincipal.IsInRole("K_CRM_CUSTOMER_SUCCESS")
+    
+    if (ehCS or ehGestorComercial or ehGestorProduto or ehPresidente or 
+        ehVicePresidente or ehDiretor or ehDiretorProduto or 
+        ehDiretorVendas or ehGerenteCanais or ehAdmin or ehGDQ or
+        ehGerenteRegional or ehGerenteCanaisV2 or ehAssistenteComercial):
+        widget.Hidden = False
+    elif (ehGestorVertical):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+        
+    if ehAdmin or ehCS or ehGerenteCanaisV2 or ehPresidente or ehAssistenteComercial:
+        widget.View.Commands["cmdConsultarVerticais"].Visible = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

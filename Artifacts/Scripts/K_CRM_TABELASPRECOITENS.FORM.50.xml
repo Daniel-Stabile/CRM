@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_TABELASPRECOITENS.FORM</ViewName>
+  <EntityName>K_CRM_TABELASPRECOITENS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import EntityState
+    
+    entity = widget.Entity.Fields["TABELAPRECO"].Instance;
+    
+    if entity == None: return;
+    
+    if widget.Entity.Fields["TABELAPRECO"].Handle.IsInvalid() or widget.Entity.IsCreating or widget.Entity.IsEditing:
+        widget.View.FieldDefinitions["PERFILC"].Visible = False;
+        widget.View.FieldDefinitions["PERFILB"].Visible = False;
+        widget.Entity.Fields["BLU"] = 0;
+        widget.Entity.Fields["BLUM"] = 0;
+        widget.Entity.Fields["BLOCACAO"] = 0;
+        widget.Entity.Fields["CLU"] = 0;
+        widget.Entity.Fields["CLUM"] = 0;
+        widget.Entity.Fields["CLOCACAO"] = 0;
+    else:
+        widget.View.FieldDefinitions["PERFILC"].Visible = entity.Fields["TABELACLIENTE"];
+        widget.View.FieldDefinitions["PERFILB"].Visible = entity.Fields["TABELACLIENTE"];
+        
+        sqlb = "SELECT (((SELECT PORCENTAGEM FROM K_CRM_PERFILBENNER WHERE HANDLE IN (SELECT PERFILBASE FROM K_CRM_PERFILBENNER WHERE NOME = 'B')) * PORCENTAGEM)/100) POR FROM K_CRM_PERFILBENNER WHERE NOME = 'B'";
+        edb = EntityDefinition.Create();
+        edb.EntitySource = QuerySource(sqlb);
+        b = Entity.GetFirstOrDefault(edb, Criteria());
+        if None != b and b.Fields["POR"] &gt; 0:
+            widget.Entity.Fields["BLU"] = (widget.Entity.Fields["LU"] * (b.Fields["POR"] / 100));
+            widget.Entity.Fields["BLUM"] = (widget.Entity.Fields["LUM"] * (b.Fields["POR"] / 100));
+            widget.Entity.Fields["BLOCACAO"] = (widget.Entity.Fields["LOCACAO"] * (b.Fields["POR"] / 100));
+            
+        sqlc = "SELECT (((SELECT PORCENTAGEM FROM K_CRM_PERFILBENNER WHERE HANDLE IN (SELECT PERFILBASE FROM K_CRM_PERFILBENNER WHERE NOME = 'C')) * PORCENTAGEM)/100) POR FROM K_CRM_PERFILBENNER WHERE NOME = 'C'";
+        edc = EntityDefinition.Create();
+        edc.EntitySource = QuerySource(sqlc);
+        c = Entity.GetFirstOrDefault(edc, Criteria());
+        if None != c and c.Fields["POR"] &gt; 0:
+            widget.Entity.Fields["CLU"] = (widget.Entity.Fields["LU"] * (c.Fields["POR"] / 100));
+            widget.Entity.Fields["CLUM"] = (widget.Entity.Fields["LUM"] * (c.Fields["POR"] / 100));
+            widget.Entity.Fields["CLOCACAO"] = (widget.Entity.Fields["LOCACAO"] * (c.Fields["POR"] / 100));
+        
+    if None != widget.Entity.Fields["ITEM"].Instance:
+        widget.View.FieldDefinitions["PERFILA"].Visible = widget.Entity.Fields["ITEM"].Instance.Fields["TIPO"].Instance.Fields["NOME"] != "Item Livre";
+        widget.View.FieldDefinitions["INCLUSONOPACOTE"].Visible = widget.Entity.Fields["ITEM"].Instance.Fields["TIPO"].Instance.Fields["NOME"] != "Item Livre";
+        widget.View.FieldDefinitions["EXIGECOTACAO"].Visible = widget.Entity.Fields["ITEM"].Instance.Fields["TIPO"].Instance.Fields["NOME"] != "Item Livre";
+        widget.View.FieldDefinitions["PERFILC"].Visible = widget.Entity.Fields["ITEM"].Instance.Fields["TIPO"].Instance.Fields["NOME"] != "Item Livre";
+        widget.View.FieldDefinitions["PERFILB"].Visible = widget.Entity.Fields["ITEM"].Instance.Fields["TIPO"].Instance.Fields["NOME"] != "Item Livre";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnITEMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnITEMValueChanged(view, entity):
+    a=1;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

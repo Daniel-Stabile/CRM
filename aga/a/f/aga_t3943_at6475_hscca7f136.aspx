@@ -1,0 +1,17 @@
+﻿<%@ Page Title="Cálculo de depreciação - Múltiplos critérios de cálculo" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Cálculo de depreciação - Múltiplos critérios de cálculo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_AT_ITEMCRITERIOSCALCULO.FORM" CanDelete="False" CanUpdate="False" CanInsert="False" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="CARGA_DE_ITENS_DO_ATIVO_SLCALC__MULTIPLOSCRITERIOSCALCULOS_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_6150" Title="Cálculos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_AT_ITEMCALCULOS.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" FormUrl="~/aga/a/f/aga_t1292_at6150_hs891a9794.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_ITENS_DO_ATIVO_SLCALC__MULTIPLOSCRITERIOSCALCULOS_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_6151" Title="Movimentações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_AT_ITEMMOVIMENTACOES.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" FormUrl="~/aga/a/f/aga_t1293_at6151_hsc627684d.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_ITENS_DO_ATIVO_SLCALC__MULTIPLOSCRITERIOSCALCULOS_FORM" Level="20" Order="15"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_6152" Title="Movimentações destino" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_AT_ITEMMOVIMENTACOES.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ITEMDESTINO = @RASTRO(AT_ITENS)
+AND
+A.CRITERIOCALCULO = (SELECT B.CRITERIOCALCULO FROM AT_ITEMCRITERIOSCALCULO B WHERE B.HANDLE =  @RASTRO(AT_ITEMCRITERIOSCALCULO) )" FormUrl="~/aga/a/f/aga_t1293_at6152_hs4a7127a0.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_ITENS_DO_ATIVO_SLCALC__MULTIPLOSCRITERIOSCALCULOS_FORM" Level="20" Order="20"  />
+        </div>
+    
+      </asp:Content>
+    

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOGLOSASMULTAS.FORM</ViewName>
+  <EntityName>CN_CONTRATOGLOSASMULTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoGlosaMulta
+    
+    if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = CNContrato.PodeIncluirGlosasMultas(widget.Entity.ContratoHandle)
+
+    handle = widget.Entity.Handle
+    
+    if widget.View.Commands["Edit"] != None and widget.Entity.Handle.IsValid(): 
+        widget.View.Commands["Edit"].Visible = CNContratoGlosaMulta.PodeEditarExcluirGlosaMulta(handle)
+    if widget.View.Commands["Delete"] != None and widget.Entity.Handle.IsValid(): 
+        widget.View.Commands["Delete"].Visible = CNContratoGlosaMulta.PodeEditarExcluirGlosaMulta(handle)
+    if widget.View.Commands["CMD_CONFIRMAR"] != None and widget.Entity.Handle.IsValid(): 
+        widget.View.Commands["CMD_CONFIRMAR"].Visible = CNContratoGlosaMulta.PodeConfirmarGlosaMulta(handle)
+    if widget.View.Commands["CMD_CANCELAR"] != None and widget.Entity.Handle.IsValid(): 
+        widget.View.Commands["CMD_CANCELAR"].Visible = CNContratoGlosaMulta.PodeCancelarGlosaMulta(handle)
+    if widget.View.Commands["LancamentoFinanceiros"] != None and widget.Entity.Handle.IsValid(): 
+        widget.View.Commands["LancamentoFinanceiros"].Visible = CNContratoGlosaMulta.PodeCancelarGlosaMulta(handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

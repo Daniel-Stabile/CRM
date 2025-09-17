@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_ITENS.ITENSCOMPOSICAO.GRID</ViewName>
+  <EntityName>AT_ITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.ProviderWidget != None):
+        if (widget.ProviderWidget.Entity.Fields.ContainsKey("ULTIMONIVEL")):
+            widget.Hidden = not widget.ProviderWidget.Entity["ULTIMONIVEL"].Value;
+            
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    if widget.View.Commands["DELETE"] != None:
+        widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_ESPECIESBENS") or AuthorizationHelper.HasTask("EXCLUIR_LOCALIZACOES") or AuthorizationHelper.HasTask("EXCLUIR_BENSDOIMOBILIZADO")
+        
+    if widget.View.Commands["EDIT"] != None:
+        widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_ESPECIESBENS") or AuthorizationHelper.HasTask("MANTER_LOCALIZACOES") or AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+        
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_ESPECIESBENS") or AuthorizationHelper.HasTask("MANTER_LOCALIZACOES") or AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+
+    def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+        if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+        
+    RemovePrefixoMoedas("VALOR", entity, row)
+    if(row.GetCustomCommand("CMD_CONCLUIR_COMPOSICAO") != None):
+        row.GetCustomCommand("CMD_CONCLUIR_COMPOSICAO").Enabled = (entity["CONCLUSAOCOMPOSICAO"].IsNull and entity.Fields["COMPOSICAO"].Value == 2)
+    if(row.GetCustomCommand("CMD_DESFAZER_COMPOSICAO") != None):
+        row.GetCustomCommand("CMD_DESFAZER_COMPOSICAO").Enabled = not (entity["CONCLUSAOCOMPOSICAO"].IsNull) and AuthorizationHelper.HasTask("EXCLUIR_COMPOSICOESBENS")
+    
+    if entity == None:
+        return
+    if entity["COMPOSICAO"].GetInt32() == 2:
+        row.GetCellByName("CUSTOM_ICONES").FontIcon = "fa fa-object-group";
+        row.GetCellByName("CUSTOM_ICONES").TextColor = "#0509eb"
+        row.GetCellByName("CUSTOM_ICONES").Text = ""
+        row.GetCellByName("CUSTOM_ICONES").Tooltip = "Item principal"
+        
+    if entity["COMPOSICAO"].GetInt32() == 3:
+        row.GetCellByName("CUSTOM_ICONES").FontIcon = "fa fa-object-ungroup";
+        row.GetCellByName("CUSTOM_ICONES").TextColor = "#005ce6"
+        row.GetCellByName("CUSTOM_ICONES").Text = ""
+        row.GetCellByName("CUSTOM_ICONES").Tooltip = "Componente"</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

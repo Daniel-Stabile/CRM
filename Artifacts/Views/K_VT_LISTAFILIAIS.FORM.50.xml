@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>K_VT_LISTAFILIAIS.FORM</Name>
+  <Level>Cliente</Level>
+  <EntityName>K_VT_LISTAFILIAIS</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="K_VT_LISTAFILIAIS" name="K_VT_LISTAFILIAIS.FORM" title="K_VT_LISTAFILIAIS" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage key="GERAL" inherited="true">
+        <visible xsi:nil="true" />
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="FILIAL" inherited="true">
+            <layout xsi:nil="true" />
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition xsi:nil="true" />
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="FILIAL" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="&amp;nbsp;" key="EXPORTA_METAS">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName />
+          <TargetEntityDefinitionName>K_VT_LISTAFILIAIS.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CRM</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Report" reportName="Relatório de Metas" reportId="CRM.21.0.81.1.1" reportType="Stimulsoft" reportFormat="PDF" reportFormatSti="XLSX">
+          <systemReport>false</systemReport>
+        </ProcessDefinition>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/Default.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="&amp;nbsp;" key="EXPORTA_VENDAS_SEM_META">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Report" reportName="Venda sem Meta Associada" reportId="CRM.21.0.81.1.2" reportType="Stimulsoft" reportFormat="PDF" reportFormatSti="XLSX">
+          <systemReport>false</systemReport>
+        </ProcessDefinition>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/Default.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="&amp;nbsp;" key="REPORT_MINHAS_VERTICAIS">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Report" reportName="Minhas Verticais" reportId="CRM.22.0.87.1.1" reportType="Stimulsoft" reportFormat="PDF" reportFormatSti="XLSX">
+          <systemReport>false</systemReport>
+        </ProcessDefinition>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/Default.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="&amp;nbsp;" key="REPORT_MINHAS_TAREFAS">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Report" reportName="Minhas Tarefas" reportId="CRM.22.0.87.1.2" reportType="Stimulsoft" reportFormat="PDF" reportFormatSti="XLSX">
+          <systemReport>false</systemReport>
+        </ProcessDefinition>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/Default.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="&amp;nbsp;" key="REPORT_MINHAS_OPORTUNIDADES">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Report" reportName="Minhas Oportunidades" reportId="CRM.22.0.87.1.3" reportType="Stimulsoft" reportFormat="PDF" reportFormatSti="XLSX">
+          <systemReport>false</systemReport>
+        </ProcessDefinition>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/Default.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

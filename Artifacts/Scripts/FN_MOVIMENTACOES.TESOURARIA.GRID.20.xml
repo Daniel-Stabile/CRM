@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_MOVIMENTACOES.TESOURARIA.GRID</ViewName>
+  <EntityName>FN_MOVIMENTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    #Se for Diretor, deve ter permissão para Manter e Visualizar, porém somente visualiza
+    permissaoVisualizarDiretor = (AuthorizationHelper.HasTask("VISUALIZAR_TESOURARIA") and AuthorizationHelper.HasTask("MANTERMOVIMENTACOESTESOURARIA"))
+    if (permissaoVisualizarDiretor):
+        if (widget.View.Commands["OperacaoNovo"] != None):
+            widget.View.Commands["OperacaoNovo"].Visible = False
+	
+	permissaoModuloFinanceiro = (AuthorizationHelper.HasTask("MODULO_FINANCEIRO"))
+	if (permissaoModuloFinanceiro):	
+		if (widget.View.Commands["OperacaoNovo"] != None):
+			widget.View.Commands["OperacaoNovo"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

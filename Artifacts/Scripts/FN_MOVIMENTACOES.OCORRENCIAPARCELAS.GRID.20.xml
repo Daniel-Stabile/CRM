@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_MOVIMENTACOES.OCORRENCIAPARCELAS.GRID</ViewName>
+  <EntityName>FN_MOVIMENTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr 
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    if(row.DeleteCommand &lt;&gt; None):
+        row.DeleteCommand.Visible = Utils.VerificaPermissao("EXCLUIR_OCORRENCIAPARCELAS");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_OCORRENCIAPARCELAS")
+    
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_OCORRENCIAPARCELAS")
+        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

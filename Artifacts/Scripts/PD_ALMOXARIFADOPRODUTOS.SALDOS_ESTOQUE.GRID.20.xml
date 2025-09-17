@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ALMOXARIFADOPRODUTOS.SALDOS_ESTOQUE.GRID</ViewName>
+  <EntityName>PD_ALMOXARIFADOPRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.GetCustomCommand("CMD_LOTES") != None:
+        row.GetCustomCommand("CMD_LOTES").Enabled = not entity.ControlaVariacao() and entity.ControlaLotes()</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

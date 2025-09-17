@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_AJUSTEDOCUMENTODCIP.GRID</ViewName>
+  <EntityName>TR_AJUSTEDOCUMENTODCIP</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    RemovePrefixoMoedas("VALOR", entity, row)
+
+def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+    if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

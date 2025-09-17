@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_NOTASFISCAISSERVICO.GRID</ViewName>
+  <EntityName>CLOUD_NOTASFISCAISSERVICO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import String
+    # pega a situação da nf para incluir uma tag no grid
+    statusNF = entity["SITUACAO"].GetString();
+    if (statusNF == "Pendente"):
+        row.GetCellByName("SITUACAO").Text = String.Format("&lt;span class=\"label label-sm label-warning\"&gt; {0} &lt;/span&gt;", entity["SITUACAO"].GetString())
+    if (statusNF == "Cadastrada"):
+        row.GetCellByName("SITUACAO").Text = String.Format("&lt;span class=\"label label-sm label-info\"&gt; {0} &lt;/span&gt;", entity["SITUACAO"].GetString())
+    if (statusNF == "Cancelada"):
+        row.GetCellByName("SITUACAO").Text = String.Format("&lt;span class=\"label label-sm label-danger\"&gt; {0} &lt;/span&gt;", entity["SITUACAO"].GetString())
+    if (statusNF == "Autorizada"):
+        row.GetCellByName("SITUACAO").Text = String.Format("&lt;span class=\"label label-sm label-success\"&gt; {0} &lt;/span&gt;", entity["SITUACAO"].GetString())
+        
+    if ( statusNF != "Cadastrada" ) :
+       row.GetCustomCommand("CMD_IMPRIMIRNFSERVICO").Enabled = False;
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common import *
+    from Benner.Tecnologia.Common.Components import *
+    statusNF = entity["SITUACAO"].GetString();
+    if statusNF == "Cadastrada":
+        command.OutputDefinition.Url = "~/Erp/Vendas/NFS/Emitir.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "CLOUD_NOTAFISCALSERVICO"
+        command.OutputDefinition.WhereClause = WhereClause( "A.DOCUMENTO=:EVTHANDLE", Parameter("EVTHANDLE",entity.Fields["HANDLE"] ));
+        command.OutputDefinition.TargetFormMode = FormLinkDefinition.FormMode.Insert
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_IMPRIMIRNFSERVICOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_IMPRIMIRNFSERVICOExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    command.OutputDefinition.Url = ""
+    
+     # Obter a definição da entidade que contém a função configurada
+    entityDefinition = EntityDefinition.GetByName("CLOUD_NOTAFISCALSERVICO");
+ 
+    # Passar parâmetros a função. Os parâmetros serão lidos no Jacobus via businessArgs.TransitoryVars
+    parameters = NameValueDictionary();
+    parameters.Add("DOCUMENTOEMISSAO",entity.Fields["HANDLE"]);
+    
+    # Chamar a função ObterInformacoesDePaises que irá recuperar as entidades e coloca-las no dicionário Vars
+    result = function.Call(entityDefinition, "EmitirNFSe", parameters);
+    
+   
+        
+    
+    
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,467 @@
+﻿@model ListaConsultaFiscal
+
+@using System.Linq;
+@using Benner.Tecnologia.Common;
+@using Benner.Corporativo.Wes.WebApp.Helpers.Tributos;
+@using Benner.Corporativo.Definicoes.Tributos;
+@using Benner.Corporativo.Wes.WebApp.Models.Tributos.ConsultasFiscais;
+
+@{
+    // Objetos da viewbag
+    var defaultMask = "{0:###,###,##0.00}";
+    var columnCount = (Model.Lista().Count > 0 ? ((EntityBase)Model.Lista().FirstOrDefault()).Fields.Count + 2 : 0);
+    var defaultColSpan = Model.Agrupamentos.Count + 1;
+    var informacaoDataInicial = Model.DataObject.DataInicial.ToString("dd/MM/yyyy");
+    var informacaoDataFinal = Model.DataObject.DataFinal.ToString("dd/MM/yyyy");
+    var informacaoFilial = Model.DataObject.Filiais;
+    var informacaoModelo = Model.DataObject.Modelo;
+    var informacaoExibir = Model.DataObject.Exibir;
+
+    // Variaveis de controle da construção da tabela
+    List<string> keyFields = new List<string>() { "ENTRADASAIDA", "HANDLECFOP", "UF", "ALIQUOTA" };
+    string key = "";
+    string detailKey = "";
+    string htmlValueFormatted = "";
+    string column = "";
+
+    string filial = "";
+    if (informacaoFilial != null)
+    {
+        filial = ConsultasFiscaisHelper.GetDbValue(informacaoFilial, "FILIAIS", "NOME");
+    }
+
+    string modeloDocumento = "";
+    if (informacaoModelo != null)
+    {
+        modeloDocumento = ConsultasFiscaisHelper.GetDbValue(informacaoModelo, "TR_MODELOSFISCAIS", "CODIGOSPED", "MODELO");
+    }
+
+    string exibir = TRVTConsultaFiscalFiltroExibirListaItens.GetByIndex(informacaoExibir).Description;
+
+    // Variaveis de controle dos campos a serem exibidos. (Nome campo, Titulo na tabela)
+    Dictionary<string, string> camposVisao = new Dictionary<string, string>()
+{
+{"ENTRADASAIDA", "E/S"}, {"CFOP", "CFOP"}, {"NOMECFOP", "Nome CFOP"}, {"UF", "UF"}, {"ALIQUOTA", "Alíquota ICMS"}, {"VLRCONTABIL", "Valor contábil"}, {"BASEICMS", "Base Cálculo ICMS"}, {"ISENTASICMS", "Isentas ICMS"},
+{"VALORICMS", "Valor ICMS"}, {"OUTRASICMS", "Outras ICMS"}, {"DIFALUFORIGEM", "DIFAL UF Origem"}, {"DIFALUFDESTINO", "DIFAL UF Destino"}, {"ICMSFCPDIFAL", "ICMS FCP/DIFAL"}, {"BASECALCIPI", "Base Cálculo IPI"},
+{"VALORIPI", "Valor IPI"}, {"ISENTASIPI", "Isentas IPI"}, {"OUTRASIPI", "Outras IPI"}, {"VALOR50IPIRECUP", "50% IPI recuperar"}, {"BCSUBTRIB", "Base Cálculo ST"}, {"ICMSSUBST", "Valor ICMS ST"},
+{ "BASESTRESPONSAB", "BC ST p/ Responsabilidade"}, {"VALORSTRESPONSAB", "ST p/ Responsabilidade"}, {"BASECALCULOPIS", "Base Cálculo PIS"}, {"VALORPIS", "Valor PIS"}, {"BASECALCULOCOFINS", "Base Cálculo COFINS"},
+{"VALORCOFINS", "Valor COFINS"}, {"BASECALCULOCPRB", "Base Cálculo CPRB"}, {"VALORCPRB", "Valor CPRB"}, {"BASECALCULOISS", "Base Cálculo ISS"}, {"VALORISS", "Valor ISS"}
+};
+
+    Dictionary<string, string> camposVisaoDetalhe = new Dictionary<string, string>()
+{
+{"CST", "CST"}, {"VLRCONTABIL", "Valor contábil"}, {"BASEICMS", "Base Cálculo ICMS"}, {"ISENTASICMS", "Isentas ICMS"}, {"VALORICMS", "Valor ICMS"}, {"OUTRASICMS", "Outras ICMS"},
+{ "DIFALUFORIGEM", "DIFAL UF Origem"}, {"DIFALUFDESTINO", "DIFAL UF Destino"}, {"ICMSFCPDIFAL", "ICMS FCP/DIFAL"}, {"BASECALCIPI", "Base Cálculo IPI"}, {"VALORIPI", "Valor IPI"}, {"ISENTASIPI", "Isentas IPI"},
+{"OUTRASIPI", "Outras IPI"}, {"VALOR50IPIRECUP", "50% IPI recuperar"}, {"BCSUBTRIB", "Base Cálculo ST"}, {"ICMSSUBST", "Valor ICMS ST"}, {"BASESTRESPONSAB", "BC ST p/ Responsabilidade"},
+{ "VALORSTRESPONSAB", "ST p/ Responsabilidade"}, {"BASECALCULOPIS", "Base Cálculo PIS"}, {"VALORPIS", "Valor PIS"}, {"BASECALCULOCOFINS", "Base Cálculo COFINS"}, {"VALORCOFINS", "Valor COFINS"},
+{"BASECALCULOCPRB", "Base Cálculo CPRB"}, {"VALORCPRB", "Valor CPRB"}, {"BASECALCULOISS", "Base Cálculo ISS"}, {"VALORISS", "Valor ISS"}
+};
+}
+
+<div id="FILTROS_UTILIZADOS">
+    <div class="portlet light widget">
+        <div class="portlet-title">
+            <div class="caption collapsible" style="cursor: pointer;">
+                <span onclick="Benner.Widget.changeServerChromeState('FILTROS_UTILIZADOS');" class="caption-subject font-green-sharp bold">Informações utilizadas no filtro</span>
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="expand" id="carregaInformacoes" onclick="Benner.Widget.changeServerChromeState('FILTROS_UTILIZADOS');" data-original-title="" title=""></a>
+            </div>
+        </div>
+        <div class="portlet-body form" style="display:none;">
+            <div class="form-body form-horizontal legend-left-caption">
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2"><div class="label-form"><div class="label-title">Filial</div></div></label>
+                    <span data-field="FILIAL" data-label="Filial" data-type="number" class="col-md-5 col-sm-5"><input type="text" value="@filial" readonly="readonly" class="form-control" /></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2"><div class="label-form"><div class="label-title">Data inicial</div></div></label>
+                    <span data-field="DATAINICIAL" data-label="Data inicial" data-type="number" class="col-md-2 col-sm-2"><input type="text" value="@informacaoDataInicial" readonly="readonly" class="form-control auto-numeric" /></span>
+                    <label class="control-label col-md-1 col-sm-1"><div class="label-form"><div class="label-title">Data final</div></div></label>
+                    <span data-field="DATAFINAL" data-label="Data final" data-type="number" class="col-md-2 col-sm-2"><input type="text" value="@informacaoDataFinal" readonly="readonly" class="form-control auto-numeric" /></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2"><div class="label-form"><div class="label-title">Modelo de documento</div></div></label>
+                    <span data-field="MODELO" data-label="Modelo de documento" data-type="number" class="col-md-5 col-sm-5"><input type="text" value="@modeloDocumento" readonly="readonly" class="form-control" /></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2"><div class="label-form"><div class="label-title">Exibir</div></div></label>
+                    <span data-field="EXIBIR" data-label="Exibir" data-type="number" class="col-md-2 col-sm-2"><input type="text" value="@exibir" readonly="readonly" class="form-control" /></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Grid" class="table-responsive table-scrollable">
+    <table id="tableResultado" class="table table-hover simple-grid" cellspacing="0" border="0" style="border-collapse:collapse">
+        <thead>
+            <tr>
+                @if (Model.Lista().Count > 0)
+                {
+                    <th class="colMinLength noExl" scope="col"><i onclick="ExibeOcultaTodosDetalhes(this)" class="fa fa-plus-square btnExibeDetalhes"></i></th>
+                    <th class="column-action colMinLength noExl" scope="col">A&ccedil;&otilde;es</th>
+
+                    foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                    {
+                        if (camposVisao.ContainsKey(field.Key))
+                        {
+                            string valueField = camposVisao[field.Key];
+
+                            column = ConsultasFiscaisHelper.InserirColuna("th", field.Key, valueField, field.Value.GetType());
+
+                            if (field.Key == camposVisao.LastOrDefault().Key)
+                            {
+                                column = ConsultasFiscaisHelper.InserirColuna("th", field.Key, valueField, field.Value.GetType(), "padding-right: 40px");
+                                column = column.Replace("</th>", "");
+                                column += "<a href=\"#\" class=\"no-border btn btn-circle excel-export-link\" title=\"Exportar dados para Excel\" id=\"tableResultadoICMS_ExportToExcel\" style=\"right:3%;\">";
+                                column += "<i onclick=\"ExportarGridExcelClick('#tableResultado', 'ConsultasFiscaisICMS', 'ConsultasFiscaisICMS')\" class=\"fa fa-download\"></i></a></th>";
+                            }
+                            @Html.Raw(column);
+                        }
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Lista().Count == 0)
+            {
+                <tr><td>Nenhum registro encontrado!</td></tr>
+            }
+            else
+            {
+                foreach (var item in Model.Lista())
+                {
+                    // Linhas gerais
+                    <tr>
+                        <td class="colMinLength noExl"><i onclick="ExibeOcultaDetalhes(this)" class="fa fa-plus-square btnExibeDetalhes"></i></td>
+                        <td class="column-action colMinLength noExl">
+                            @{
+                                WhereClause whereClauseLink = ConsultasFiscaisHelper.GetWherePorCampo("ENTRADASAIDA", item["ENTRADASAIDA"].GetString());
+                                whereClauseLink.AddWhereClause(
+                                    ConsultasFiscaisHelper.GetWhereClauseLink(
+                                        Model.WhereDocumentos, Model.Agrupamentos, Convert.ToDateTime(informacaoDataInicial), Convert.ToDateTime(informacaoDataFinal), item));
+
+                                string paramsURL = "";
+                                if (((EntityBase)item).Fields.ContainsKey("CFOP"))
+                                {
+                                    paramsURL += "subCFOP=CFOP " + item["CFOP"].GetString();
+                                }
+                                if (((EntityBase)item).Fields.ContainsKey("UF"))
+                                {
+                                    if (!string.IsNullOrEmpty(paramsURL))
+                                    {
+                                        paramsURL += "&";
+                                    }
+                                    paramsURL += "subUF=UF " + item["UF"].GetString();
+                                }
+                                if (((EntityBase)item).Fields.ContainsKey("ALIQUOTA"))
+                                {
+                                    if (!string.IsNullOrEmpty(paramsURL))
+                                    {
+                                        paramsURL += "&";
+                                    }
+
+                                    paramsURL += "subALIQUOTA=Aliquota " + string.Format("{0:n4}", item["ALIQUOTA"].GetDecimal());
+                                }
+
+                                // Renderiza ação de exibir documentos na tabela
+                                @Html.Raw(ConsultasFiscaisHelper.InserirAcaoExibirDocumentos(whereClauseLink, paramsURL));
+                            }
+                        </td>
+
+                        @{
+                            key = "";
+
+                            // Dinamicamente busca os campos vindos do model e preenche as linhas da tabela
+                            foreach (var field in ((EntityBase)item).Fields)
+                            {
+                                key += ConsultasFiscaisHelper.MontarChave(keyFields, field);
+                                if (camposVisao.ContainsKey(field.Key))
+                                {
+                                    htmlValueFormatted = ConsultasFiscaisHelper.GetValor(Html, field, camposVisao);
+                                    column = ConsultasFiscaisHelper.InserirColuna("td", field.Key, htmlValueFormatted, field.Value.GetType());
+
+                                    @Html.Raw(column);
+                                }
+                            }
+                        }
+                    </tr>
+
+                    // Linhas de detalhes
+                    if (Model.ListaDetalhe.Count > 0)
+                    {
+                        foreach (var detail in Model.ListaDetalhe)
+                        {
+                            detailKey = "";
+
+                            foreach (var field in ((EntityBase)detail).Fields)
+                            {
+                                if (keyFields.Contains(field.Key))
+                                {
+                                    detailKey += ConsultasFiscaisHelper.MontarChave(keyFields, field);
+                                }
+                            }
+
+                            <tr class="detalhes" style="display:none;">
+                                @foreach (var field in ((EntityBase)detail).Fields)
+                                {
+                                    if (key != detailKey)
+                                    {
+                                        break;
+                                    }
+
+                                    if (camposVisaoDetalhe.ContainsKey(field.Key))
+                                    {
+                                        if (field.Key == "CST")
+                                        {
+                                            <td class="colMinLength noExl"></td>
+                                            <td class="column-action colMinLength noExl"></td>
+                                            <td colspan="@defaultColSpan" class="text-right colMinLength">CST @field.Value</td>
+                                        }
+                                        else
+                                        {
+                                            htmlValueFormatted = ConsultasFiscaisHelper.GetValor(Html, field, camposVisaoDetalhe);
+
+                                            Type tipo;
+                                            if (field.Value == null)
+                                            {
+                                                tipo = typeof(decimal);
+                                            }
+                                            else
+                                            {
+                                                tipo = field.Value.GetType();
+                                            }
+
+                                            column = ConsultasFiscaisHelper.InserirColuna("td", field.Key, htmlValueFormatted, tipo);
+                                            @Html.Raw(column);
+                                        }
+                                    }
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+        <tfoot>
+            @{
+                bool apresentaDetalhes = Model.Agrupamentos.ContainsKey("CFOP");
+
+                if (Model.Lista().Count > 0 && !Model.HasNextPage)
+                {
+                    // Totais das Entradas + detalhes Dentro do Estado, Interestadual e Importação
+
+                    <tr class="detalhesTotais linhaTotais">
+                        <td class="column-action colMinLength noExl">
+                            @if (apresentaDetalhes)
+                            {
+                                <i onclick="ExibeOcultaDetalhes(this)" class="fa fa-plus-square btnExibeDetalhesTotais"></i>
+                            }
+                        </td>
+                        <td class="colMinLength noExl"></td>
+                        <td colspan="@defaultColSpan" class="textIndentTotais">Totais das Entradas</td>
+
+                        @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                        {
+                            var total = Model.Totalizar(true, field);
+                            if (total != null)
+                            {
+                                string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                @Html.Raw(tag);
+                            }
+                        }
+                    </tr>
+
+                    if (apresentaDetalhes)
+                    {
+                        <tr class="detalhes linhaSubTotais" style="display:none">
+                            <td class="colMinLength noExl"></td>
+                            <td class="colMinLength noExl"></td>
+                            <td class="textIndentSubTotais" colspan="@defaultColSpan">Total da Entrada - Dentro do estado</td>
+
+                            @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                            {
+                                var total = Model.TotalizarDentroEstado(true, field);
+                                if (total != null)
+                                {
+                                    string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                    @Html.Raw(tag);
+                                }
+                            }
+                        </tr>
+                        <tr class="detalhes linhaSubTotais" style="display:none;">
+                            <td class="colMinLength noExl"></td>
+                            <td class="colMinLength noExl"></td>
+                            <td class="textIndentSubTotais" colspan="@defaultColSpan">Total da Entrada - Interestadual</td>
+
+                            @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                            {
+                                var total = Model.TotalizarInterestadual(true, field);
+                                if (total != null)
+                                {
+                                    string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                    @Html.Raw(tag);
+                                }
+                            }
+                        </tr>
+                        <tr class="detalhes linhaSubTotais" style="display:none;">
+                            <td class="colMinLength noExl"></td>
+                            <td class="colMinLength noExl"></td>
+                            <td class="textIndentSubTotais" colspan="@defaultColSpan">Total da Entrada - Importação</td>
+
+                            @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                            {
+                                var total = Model.TotalizarImportacao(true, field);
+                                if (total != null)
+                                {
+                                    string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                    @Html.Raw(tag);
+                                }
+                            }
+                        </tr>
+                    }
+
+                    //Totais das Saídas + detalhes Dentro do Estado, Interestadual e Importação*
+                    <tr class="detalhesTotais linhaTotais">
+                        <td class="column-action colMinLength noExl">
+                            @if (apresentaDetalhes)
+                            {
+                                <i onclick="ExibeOcultaDetalhes(this)" class="fa fa-plus-square btnExibeDetalhesTotais"></i>
+                            }
+                        </td>
+                        <td class="colMinLength noExl"></td>
+                        <td colspan="@defaultColSpan" class="textIndentTotais">Totais das Saídas</td>
+
+                        @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                        {
+                            var total = Model.Totalizar(false, field);
+                            if (total != null)
+                            {
+                                string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                @Html.Raw(tag);
+                            }
+                        }
+                    </tr>
+
+                    if (apresentaDetalhes)
+                    {
+                        <tr class="detalhes linhaSubTotais" style="display:none">
+                            <td class="colMinLength noExl"></td>
+                            <td class="colMinLength noExl"></td>
+                            <td class="textIndentSubTotais" colspan="@defaultColSpan">Total da Saída - Dentro do estado</td>
+
+                            @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                            {
+                                var total = Model.TotalizarDentroEstado(false, field);
+                                if (total != null)
+                                {
+                                    string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                    @Html.Raw(tag);
+                                }
+                            }
+                        </tr>
+                        <tr class="detalhes linhaSubTotais" style="display:none;">
+                            <td class="colMinLength noExl"></td>
+                            <td class="colMinLength noExl"></td>
+                            <td class="textIndentSubTotais" colspan="@defaultColSpan">Total da Saída - Interestadual</td>
+
+                            @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                            {
+                                var total = Model.TotalizarInterestadual(false, field);
+                                if (total != null)
+                                {
+                                    string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                    @Html.Raw(tag);
+                                }
+                            }
+                        </tr>
+                        <tr class="detalhes linhaSubTotais" style="display:none;">
+                            <td class="colMinLength noExl"></td>
+                            <td class="colMinLength noExl"></td>
+                            <td class="textIndentSubTotais" colspan="@defaultColSpan">Total da Saída - Exportação</td>
+
+                            @foreach (var field in ((EntityBase)Model.Lista().FirstOrDefault()).Fields)
+                            {
+                                var total = Model.TotalizarImportacao(false, field);
+                                if (total != null)
+                                {
+                                    string tag = "<td class=\"text-right colMaxLength\" data-field=\"" + field.Key + "\">" + Html.FormatValue(total, defaultMask) + "</td>";
+                                    @Html.Raw(tag);
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            }
+        </tfoot>
+    </table>
+</div>
+<div class="row grid-footer-row dataTables_wrapper">
+    <div class="col-sm-12 col-md-10 text-right">
+        <div class="dataTables_info" id="pageNumber" role="status" aria-live="polite">@(Model.PageIndex+1) de @Model.TotalPages</div>
+    </div>
+    <div class="col-sm-12 col-md-2">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+                @if (!Model.HasPreviousPage)
+                {
+                    <li class="paginate_button first disabled" tabindex="0">
+                        <a class="disabled" disabled="disabled">
+                            <i class='fa fa-angle-double-left'></i>
+                        </a>
+                    </li>
+                    <li class="paginate_button previous disabled" tabindex="0">
+                        <a class="disabled" disabled="disabled">
+                            <i class='fa fa-angle-left'></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="paginate_button first" tabindex="0">
+                        @{
+                            var link = Html.ActionLinkWes("#token", "ICMS", new { page = 0 }, null);
+                            @Html.Raw(link.ToString().Replace("#token", "<i class='fa fa-angle-double-left'></i>"));
+                        }
+                    </li>
+                    <li class="paginate_button previous" tabindex="0">
+                        @{
+                            link = Html.ActionLinkWes("#token", "ICMS", new { page = Model.PageIndex - 1 }, null);
+                            @Html.Raw(link.ToString().Replace("#token", "<i class='fa fa-angle-left'></i>"));
+                        }
+                    </li>
+                }
+
+                @if (!Model.HasNextPage)
+                {
+                    <li class="paginate_button next disabled" tabindex="0">
+                        <a class="disabled" disabled="disabled">
+                            <i class='fa fa-angle-right'></i>
+                        </a>
+                    </li>
+                    <li class="paginate_button last disabled" tabindex="0">
+                        <a class="disabled" disabled="disabled">
+                            <i class='fa fa-angle-double-right'></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="paginate_button next" tabindex="0">
+                        @{
+                            var link = Html.ActionLinkWes("#token", "ICMS", new { page = Model.PageIndex + 1 }, null);
+                            @Html.Raw(link.ToString().Replace("#token", "<i class='fa fa-angle-right'></i>"));
+                        }
+                    </li>
+                    <li class="paginate_button last" tabindex="0">
+                        @{
+                            link = Html.ActionLinkWes("#token", "ICMS", new { page = Model.TotalPages-1 }, null);
+                            @Html.Raw(link.ToString().Replace("#token", "<i class='fa fa-angle-double-right'></i>"));
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

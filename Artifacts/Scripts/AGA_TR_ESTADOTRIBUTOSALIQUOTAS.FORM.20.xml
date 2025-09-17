@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_ESTADOTRIBUTOSALIQUOTAS.FORM</ViewName>
+  <EntityName>TR_ESTADOTRIBUTOSALIQUOTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja excluir este cadastro duplicado? Os registros que estão abaixo também serão excluidos.")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

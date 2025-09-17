@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_ALMOXARIFADOLOCALIZACOES.FORM</ViewName>
+  <EntityName>PD_ALMOXARIFADOLOCALIZACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.View.Commands["Save"].Visible = not widget.Entity.Fields["ULTIMONIVEL"]
+    widget.View.Commands["New"].Visible = not widget.Entity.Fields["ULTIMONIVEL"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

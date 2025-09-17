@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_TILE_POTENCIAL_MES_1</Identifier>
+  <Name>CRM_TILE_POTENCIAL_MES_1</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(VALORTOTAL) POTENCIAL,&#xD;&#xA;   (&#xD;&#xA;   SELECT SUM(E.VALOR)&#xD;&#xA;   FROM K_CRM_METAS B&#xD;&#xA;   JOIN K_CRM_METASUNIDADES C ON B.HANDLE = C.META&#xD;&#xA;   JOIN K_CRM_METASPERIODOS D ON C.HANDLE = D.METAUNIDADE&#xD;&#xA;   JOIN K_CRM_METASPERIODOSTIPOS E ON D.HANDLE = E.METAPERIODO&#xD;&#xA;   WHERE MONTH(D.DATA) = MONTH(GETDATE()) AND YEAR(D.DATA) = YEAR(GETDATE())&#xD;&#xA;   ) TOTAL&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE MONTH(DATAFECHAMENTO) = MONTH(GETDATE()) AND YEAR(DATAFECHAMENTO) = YEAR(GETDATE()) AND STATUS NOT IN (3,5,9)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="POTENCIAL" From="A" Path="POTENCIAL" />
+    <Field Alias="TOTAL" From="A" Path="TOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

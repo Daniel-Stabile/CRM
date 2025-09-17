@@ -1,0 +1,30 @@
+@{
+    string Versao = (@Model["VERSAO"].GetString());
+    bool VersaoOficial = (@Model["VERSAOOFICIAL"].GetBoolean());
+
+    string icon = "";
+    string bgColor = "";
+    string display = "";
+    string color = "";
+
+    if (VersaoOficial == true)
+    {
+        display = "flex";
+
+    }
+    else
+    {
+        display = "none";
+
+    }
+
+}
+<div style="display: flex; align-items: center;gap:4px;">
+    <div title="Vers&atilde;o Oficial"
+        style="width: 20px;margin-right: 5px; height:20px; display: @display;align-items:center;justify-content:center; background-color: #f3c200; color: #ffffff; border-radius: 5px !important;">
+        <i class="fa fa-star" style="font-size:10px;"></i>
+    </div>
+
+    @Versao
+
+</div>

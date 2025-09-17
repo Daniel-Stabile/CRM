@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ADICIONAR_ITEM_CATALOGO.FORM</ViewName>
+  <EntityName>CP_WEBFORMITEMSOLICITACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType     
+    
+      
+    if not widget.Entity.FinalidadeValida() :
+        widget.MessagePanel.ShowMessage("Você não tem autorização para selecionar esta finalidade, selecione outra.", MessageType.Warning)   
+        
+    if widget.Entity["FINALIDADE"].GetInt32() &gt; 0 :
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["DATA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :        
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["DATA"].DataAccessLevel = FieldDefinition.AccessLevel.Read</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnFINALIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFINALIDADEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if entity["FINALIDADE"].GetInt32() &gt; 0 :
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["DATA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :        
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["DATA"].DataAccessLevel = FieldDefinition.AccessLevel.Read    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

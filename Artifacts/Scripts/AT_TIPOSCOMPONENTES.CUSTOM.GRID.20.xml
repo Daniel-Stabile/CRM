@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_TIPOSCOMPONENTES.CUSTOM.GRID</ViewName>
+  <EntityName>AT_TIPOSCOMPONENTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_TIPOS_COMPONENTES")
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_TIPOS_COMPONENTES")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_TIPOS_COMPONENTES")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

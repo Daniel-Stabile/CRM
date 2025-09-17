@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_TAREFAS.FORM</ViewName>
+  <EntityName>CRM_TAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSTATUSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSTATUSValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    if entity.Fields["STATUS"].Value == 2:
+        view.FieldDefinitions["OBSERVACAO"].Visible = True
+        view.FieldDefinitions["OBSERVACAO"].Required = True
+    else:
+        view.FieldDefinitions["OBSERVACAO"].Visible = False
+        view.FieldDefinitions["OBSERVACAO"].Required = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(form):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    entity = form.Entity
+    if entity == None: return
+    entity.Fields["RESPONSAVEL"] = EntityAssociation(Handle(str(identity.UserHandle)), EntityDefinition.GetByName("CORPORATIVO", "Z_GRUPOUSUARIOS"));
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

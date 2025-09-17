@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_GRUPOS.FORM</ViewName>
+  <EntityName>Z_GRUPOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    if entity.TransitoryVars["valorBotoes"] == None:
+        entity.Fields["BOTOES"] = 0
+    else:
+        entity.Fields["BOTOES"] = entity.TransitoryVars["valorBotoes"]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    
+    entity = widget.Entity
+    
+    entity.TransitoryVars["valorBotoes"] = entity.Fields["BOTOES"];
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

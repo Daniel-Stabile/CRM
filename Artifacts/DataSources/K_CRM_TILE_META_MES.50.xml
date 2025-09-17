@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_TILE_META_MES</Identifier>
+  <Name>CRM_TILE_META_MES</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;    SUM(A.VALOR) VENDIDOS,&#xD;&#xA;   (&#xD;&#xA;   SELECT SUM(E.VALOR)&#xD;&#xA;   FROM K_CRM_METAS B&#xD;&#xA;   JOIN K_CRM_METASUNIDADES C ON B.HANDLE = C.META&#xD;&#xA;   JOIN K_CRM_METASPERIODOS D ON C.HANDLE = D.METAUNIDADE&#xD;&#xA;   JOIN K_CRM_METASPERIODOSTIPOS E ON D.HANDLE = E.METAPERIODO&#xD;&#xA;   WHERE MONTH(D.DATA) = MONTH(GETDATE()) AND YEAR(D.DATA) = YEAR(GETDATE())&#xD;&#xA;   ) TOTAL&#xD;&#xA;FROM K_CRM_METASVENDAS A&#xD;&#xA;WHERE MONTH(A.DATA) = MONTH(GETDATE())&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="VENDIDOS" From="A" Path="VENDIDOS" />
+    <Field Alias="TOTAL" From="A" Path="TOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

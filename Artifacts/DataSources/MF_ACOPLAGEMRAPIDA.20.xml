@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>MF_ACOPLAGEMRAPIDA</Identifier>
+  <Name>Veiculos Disponiveis - Acoplagem Rapida</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CODIGO, PLACANUMERO, NOME, KMATUAL, HANDLE &#xD;&#xA;FROM MA_RECURSOS AS A WHERE A.ACOPLAGEM IN (2,4)&#xD;&#xA;AND (NOT EXISTS (SELECT NUMERO FROM MF_ACOPLAGENS WHERE VEICULOACOPLADO = A.HANDLE&#xD;&#xA;AND DATAACOPLAGEM &lt;= @AGORA AND ACOPLADO = 'S'&#xD;&#xA;AND (DATADESACOPLAGEM &gt;= @AGORA OR DESACOPLADO = 'N')) AND @CRITERIOSELECAO)&#xD;&#xA;ORDER BY PLACANUMERO" />
+  <Fields>
+    <Field Alias="CODIGO" From="A" Path="CODIGO" />
+    <Field Alias="PLACANUMERO" From="A" Path="PLACANUMERO" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DecimalField Alias="KMATUAL" From="A" Path="KMATUAL" FieldDecimalsFormat="0" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

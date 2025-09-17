@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_VTAPURACAOIMPOSTOS.FORM</ViewName>
+  <EntityName>TR_VTAPURACAOIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_APURARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_APURARExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    command.OutputDefinition = None 
+    
+     # Obter a definição da entidade que contém a função configurada
+    entityDefinition = EntityDefinition.GetByName("TR_VTAPURACAOIMPOSTOS");
+ 
+    # Passar parâmetros a função. Os parâmetros serão lidos no Jacobus via businessArgs.TransitoryVars
+    parameters = NameValueDictionary();
+    parameters.Add("IMPOSTOS",entity.Fields["IMPOSTOS"]);
+    parameters.Add("FILIAL",entity.Fields["FILIAL"]);
+    parameters.Add("DATAINICIAL",entity.Fields["DATAINICIAL"]);
+    parameters.Add("DATAFINAL",entity.Fields["DATAFINAL"]);
+    
+    # Chamar a função que irá recuperar as entidades e coloca-las no dicionário Vars
+    result = function.Call(entityDefinition, "Apurar", parameters);
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

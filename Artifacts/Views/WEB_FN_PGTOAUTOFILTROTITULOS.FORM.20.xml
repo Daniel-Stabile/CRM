@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_FN_PGTOAUTOFILTROTITULOS.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_FN_PGTOAUTOFILTROTITULOS</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="WEB_FN_PGTOAUTOFILTROTITULOS" name="WEB_FN_PGTOAUTOFILTROTITULOS.FORM" title="WEB_FN_PGTOAUTOFILTROTITULOS" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage key="GERAL" inherited="true">
+        <visible xsi:nil="true" />
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="DATAINICIAL" inherited="true">
+            <layout xsi:nil="true" />
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAFINAL" inherited="true">
+            <layout xsi:nil="true" />
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="FILTROPADRAO" inherited="true">
+            <layout xsi:nil="true" />
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="BOTAO_BUSCAR">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="BUSCAAVANCADA" inherited="true">
+            <visible xsi:nil="true" />
+            <bootstrapCols xsi:nil="true" />
+            <stateGroup>Minimized</stateGroup>
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="CONTRATADOS" inherited="true">
+                <layout xsi:nil="true" />
+                <bootstrapCols xsi:nil="true" />
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="PROJETOACORDO" inherited="true">
+                <layout xsi:nil="true" />
+                <bootstrapCols xsi:nil="true" />
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageGroup" key="TIPOSDOCUMENTO" inherited="true">
+                <visible xsi:nil="true" />
+                <bootstrapCols xsi:nil="true" />
+                <stateGroup xsi:nil="true" />
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DOCUMENTOSNORMAIS" inherited="true">
+                    <layout xsi:nil="true" />
+                    <bootstrapCols xsi:nil="true" />
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DOCUMENTOSADIANTA" inherited="true">
+                    <layout xsi:nil="true" />
+                    <bootstrapCols xsi:nil="true" />
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DOCUMENTOSDEVOLU" inherited="true">
+                    <layout xsi:nil="true" />
+                    <bootstrapCols xsi:nil="true" />
+                  </FormPageItem>
+                </Items>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="SELECIONADOS">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition title="Data vencimento inicial" key="DATAINICIAL" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent>false</HasScriptEvent>
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data vencimento final" key="DATAFINAL" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent>false</HasScriptEvent>
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="FILTROPADRAO" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>NOME</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAggregationDefinition" title="Contratado" key="CONTRATADOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <SearchOnEnter xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>NOME</LookupResultFields>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAggregationDefinition" title="Projeto/Acordo" key="PROJETOACORDO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>false</renderTitle>
+        <SearchOnEnter xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>ESTRUTURA,NOME</LookupResultFields>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DOCUMENTOSNORMAIS" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DOCUMENTOSADIANTA" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DOCUMENTOSDEVOLU" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="BUSCAAVANCADA" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="TIPOSDOCUMENTO" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" title="Selecionados" key="SELECIONADOS">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueType>Text</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="BOTAO_BUSCAR">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <ValueFromView>&lt;a href="javascript:__doPostBack('ctl00$Main$FILTRO','Save')" class="btn blue btn-save command-action predef-action editable" title="Ctrl + Enter"&gt;&lt;i class="fa fa-search btn-action"&gt;&lt;/i&gt; Buscar&lt;/a&gt;</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Filtrar" image="fa fa-search" color="blue" key="Save" inherited="true">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="HistoryLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <LevelsToGoBack>1</LevelsToGoBack>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

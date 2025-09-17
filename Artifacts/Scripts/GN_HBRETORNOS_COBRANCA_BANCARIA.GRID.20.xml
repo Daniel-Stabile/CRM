@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_HBRETORNOS_COBRANCA_BANCARIA.GRID</ViewName>
+  <EntityName>GN_HBRETORNOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    statusDetais = {
+        1: ["fa fa-save", "#CCCCCC","","Cadastrado", None],
+        2: ["fa fa-clock-o", "#C49F47","","Aguardando processamento", None],
+        3: ["fa fa-play", "#4B77BE","","Processando", None],
+        4: ["fa fa-check-square", "#26C281","","Processado", StatusFourMethod],
+        5: ["fa fa-times-circle", "#D91E18","","Com erro", None],
+        6: ["fa fa-copy", "#ACB5C3","","Com documentos duplicados", None],
+        7: ["fa fa-thumbs-o-down", "#555555","","Descartado", None]
+    }
+    
+    statusIndex = entity["STATUS"].GetInt32()
+    
+    if(statusIndex &gt; 0 and statusIndex &lt;= 7):
+        ICON = 0
+        TEXT_COLOR = 1
+        TEXT = 2
+        TOOLTIP = 3
+        METHOD = 4
+        
+        details = statusDetais[statusIndex]
+        
+        row.GetCellByName("STATUS").FontIcon = details[ICON]
+        row.GetCellByName("STATUS").TextColor = details[TEXT_COLOR]
+        row.GetCellByName("STATUS").Text = details[TEXT]
+        row.GetCellByName("STATUS").Tooltip = details[TOOLTIP]
+        row.GetCellByName("STATUS").Align = "center"
+        
+        statusMethod = details[METHOD]
+        
+        if(statusMethod != None):
+            statusMethod(row)
+
+def StatusFourMethod(row):
+    if(row.DeleteCommand != None):
+        row.DeleteCommand.Visible = False;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

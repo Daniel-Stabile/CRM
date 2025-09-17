@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ITEMESTRUTURATAREFAS.GRID</ViewName>
+  <EntityName>CM_ITEMESTRUTURATAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    mestre = widget.ProviderWidget
+    entidade = mestre.Entity
+    status = entidade["STATUS"].GetInt32()
+    
+    widget.View.Commands["New"].Visible = False
+    widget.View.Commands["Edit"].Visible = False
+    widget.View.Commands["Delete"].Visible = False
+    
+    if status == 1:
+        widget.View.Commands["New"].Visible = True
+        widget.View.Commands["Edit"].Visible = True
+        widget.View.Commands["Delete"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

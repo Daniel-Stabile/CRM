@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.ANALISECREDITO.GRID</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Wes.Components import WesBreadcrumbProvider
+    
+    WesBreadcrumbProvider.UpdateCurrentTitle("Análise de crédito")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import DateTime
+    from System import String
+    from Benner.Tecnologia.Common import Parameter
+    import clr
+    clr.AddReference("Benner.Tecnologia.Business") 
+    
+    from Benner.Tecnologia.Common import BennerContext
+    clr.AddReference("Benner.Corporativo.DataContracts")
+    from Benner.Corporativo.DataContracts.Web.Financeiro import ClienteCredito
+
+    clienteCredito = BennerContext.BusinessComponent.Call("Benner.Corporativo.Financeiro.Web.AnaliseCreditoCliente, Benner.Corporativo.Financeiro", "GetClienteCredito", entity["HANDLE"].GetInt32());
+    if ( clienteCredito.ValorUtilizado != None  ):
+        row.GetCellByName("CUSTOM_UTILIZADO").Text = "&lt;b&gt;"+clienteCredito.ValorUtilizado +"&lt;/b&gt;"
+        
+    limiteCredito = (0).ToString("C2");
+    if clienteCredito.ValorLimiteCredito.OriginalValue &gt; 0:
+        limiteCredito = clienteCredito.ValorLimiteCredito.FormattedValue
+        row.GetCellByName("CUSTOM_LIMITE").Text = "&lt;b&gt;" + limiteCredito + "&lt;/b&gt;"
+    else:
+        row.GetCellByName("CUSTOM_LIMITE").Text = limiteCredito
+    
+    disponivel = "R$ 0,00"
+    if clienteCredito.ValorLimiteCredito.OriginalValue &gt; 0:
+        disponivel = clienteCredito.ValorDisponivel.FormattedValue
+    if clienteCredito.ValorLimiteCredito.OriginalValue &gt; 0:
+        if (clienteCredito.ValorDisponivel.OriginalValue &lt; 0):
+            row.GetCellByName("CUSTOM_DISPONIVEL").Text = "&lt;b&gt;R$ 0,00&lt;/b&gt;"
+        else:
+            row.GetCellByName("CUSTOM_DISPONIVEL").Text = "&lt;b&gt;&lt;span class='font-green'&gt;" + disponivel + "&lt;/span&gt;&lt;/b&gt;"
+    else:
+        row.GetCellByName("CUSTOM_DISPONIVEL").Text = disponivel
+            
+    situacaoLabel = ""
+    if ( clienteCredito.Bloqueado == "N" ):
+        situacaoLabel = "label-success"
+    elif ( clienteCredito.Bloqueado == "A" ):
+        situacaoLabel = "label-danger"
+    elif ( clienteCredito.Bloqueado == "L" ):
+        situacaoLabel = "label-warning"
+    elif ( clienteCredito.Bloqueado == "O" ):
+        situacaoLabel = "label-default"
+    if ( clienteCredito.Situacao != None):
+        row.GetCellByName("CUSTOM_SITUACAO").Text = "&lt;div class=\"label label-sm " + situacaoLabel + "\"&gt;"+clienteCredito.Situacao+"&lt;/div&gt;"
+        
+        
+    row.GetCellByName("CUSTOM_UTILIZADO").Align = "right"
+    row.GetCellByName("CUSTOM_LIMITE").Align = "right"
+    row.GetCellByName("CUSTOM_DISPONIVEL").Align = "right"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

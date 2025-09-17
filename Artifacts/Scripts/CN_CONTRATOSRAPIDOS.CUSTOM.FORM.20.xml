@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOSRAPIDOS.CUSTOM.FORM</ViewName>
+  <EntityName>CN_CONTRATOSRAPIDOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONCLUIRExecute(command, entity):
+    contrato =  entity.Fields["CONTRATO"].Instance
+    tipoContratoEntity = contrato.Fields["TIPOCONTRATO"].Instance
+    tpContrato = tipoContratoEntity.Fields["TIPO"].ToString()
+    
+    if tpContrato == "Compra":
+        command.OutputDefinition.Url = "~/aga/a/contratos/ContratoCompraForm.aspx"
+        
+    if tpContrato == "Convênio Híbrido":
+        command.OutputDefinition.Url = "~/aga/a/contratos/ContratoConvenioForm.aspx"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

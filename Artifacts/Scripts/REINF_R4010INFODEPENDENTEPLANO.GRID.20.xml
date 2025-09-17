@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R4010INFODEPENDENTEPLANO.GRID</ViewName>
+  <EntityName>REINF_R4010INFODEPENDENTEPLANO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    row.GetCellByName("VLRSAUDE").Text = "0,00";
+ 
+    
+    if entity.Fields["VLRSAUDE"] != None: row.GetCellByName("VLRSAUDE").Text = str(str(str("{:,.2f}".format(entity.Fields["VLRSAUDE"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

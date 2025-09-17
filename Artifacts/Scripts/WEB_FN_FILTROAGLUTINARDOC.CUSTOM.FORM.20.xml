@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_FN_FILTROAGLUTINARDOC.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_FN_FILTROAGLUTINARDOC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnOPERACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnOPERACAOValueChanged(view, entity):
+    if entity == None: return
+
+    elif entity.Fields["OPERACAO"].Value == 1:
+        view.FieldDefinitions["DATAVENCIMENTO"].Visible = True
+        view.FieldDefinitions["DOCSDATASDIFERENTES"].Visible = True
+        view.FieldDefinitions["AGLUTINARDOCUMENTOS"].Visible = True
+    elif entity.Fields["OPERACAO"].Value == 2:
+        view.FieldDefinitions["DATAVENCIMENTO"].Visible = False
+        view.FieldDefinitions["DOCSDATASDIFERENTES"].Visible = False
+        view.FieldDefinitions["AGLUTINARDOCUMENTOS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

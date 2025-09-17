@@ -1,0 +1,1733 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Benner.Tecnologia.Wes.Components.WebApp</name>
+    </assembly>
+    <members>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.ClearCacheController.ClearCache(System.String)">
+            <summary>
+            Limpa caches com ou sem reiniciar a pool.
+            </summary>
+            <param name="reloadPoolString">"true" ou "false" dependendo se deseja reiniciar a pool</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.ClearCacheController.ClearCacheCategories(Newtonsoft.Json.Linq.JToken)">
+             <summary>
+             Limpa caches de acordo com as categorias passadas.
+             </summary>
+             <remarks>
+             Lista de caches:
+                 Undefined = 0,      
+                 None = 1,           
+                 Entity = 2,
+                 View = 4,           
+                 Authorization = 8,  
+                 Service = 16,
+                 Menu = 32,          
+                 Data = 64,         
+                 Script = 128, 
+                 Filter = 256,       
+                 Page = 512,         
+                 Translate = 1024,
+                 ViewName = 2048,    
+                 ViewState = 4096,   
+                 DataSourceDefinition = 8192,
+                 BitGroups = 16384,  
+                 User = 32768              
+                 
+            
+             Exemplos:
+            
+                 {
+                    "View": 4,
+                 }
+                 
+                 ou múltiplas categorias:
+                 
+                 {
+                    "View": 4,
+                    "Filter": 256
+                 }
+            
+             </remarks>
+             <param name="categories"></param>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.LGPDController">
+            <summary>
+            Api de apoio à LGPD
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.LGPDController.GetPersonalDataReport(System.String)">
+            <summary>
+            Emite relatório de informações pessoais para determinado titular
+            </summary>
+            <param name="document">Documento do titular</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.LGPDController.GetMappingReport">
+            <summary>
+            Emite relatório de mapeamento de dados
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.LGPDController.AnonymizeByDocument(System.String)">
+            <summary>
+            Dispara a anonimização de todos os registros do titular identificado pelo documento. Essa operação altera dados de forma irreversível.
+            </summary>
+            <param name="document"></param>
+            <returns>Documento do titular</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.AsyncProcessesController">
+            <summary>
+            Summary description for AsyncProcessesController
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.ChatbotController">
+            <summary>
+            Controller responsável pela utilização do ChatBot, que conversa com a assistente virtual.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.ChatbotController.#ctor">
+            <summary>
+            Inicializa o Controller do ChatBot.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.ChatbotController.Definition">
+            <summary>
+            Retorna a definição das configurações de exibição do ChatBot.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.ChatbotController.Message(System.String)">
+            <summary>
+            Envia uma mensagem à API de diálogo do ChatBot.
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.DataSourcesController">
+            <summary>
+            Api para acessar as consultas disponíveis no sistema
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.DataSourcesController.GetDataSources">
+            <summary>
+            Lista consultas disponíveis no sistema
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.DataSourcesController.GetMetadata(System.String)">
+            <summary>
+            Vistualiza o metadado da consulta
+            </summary>
+            <param name="id">Identificação da consulta</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.DataSourcesController.Get(System.String,System.Int32,System.Int32)">
+            <summary>
+            Executa a consulta e retorna os dados
+            </summary>
+            <param name="id">Indentificação da consulta</param>
+            <param name="startIndex">índice inicial da pagínação</param>
+            <param name="count">número de registros que devem ser retornados</param>
+            <returns></returns>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.Api.SearchApiModel.Query">
+            <summary>
+            Termo de pesquisa
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.Api.SearchApiModel.DependValueList">
+            <summary>
+            Nome dos campos dependentes
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.Api.SearchApiModel.SC">
+            <summary>
+            SearchContext
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.Api.SearchApiModel.MaxRows">
+            <summary>
+            Máximo de linhas para retorna
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.Api.SearchApiModel.StartRow">
+            <summary>
+            Indica o indice das páginas
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.Api.SearchApiModel.FieldsJson">
+            <summary>
+            Campos da entidade em formato json
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.SearcherController">
+            <summary>
+            Serviço que prove as urls de acesso rápido
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.MapController">
+            <summary>
+            API do Widget de Mapa
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.MapController.PopulatePointDefinition(Benner.Tecnologia.Wes.Components.PointDefinition)">
+            <summary>
+            Esta operação analisa as definições atribuídas na tabela virtual do widget e via reflection compara com o nome dos campos existentes na visão.
+            </summary>
+            <param name="pointDefinition">PointDefinition contém as definições do ponto vindas da configuração do widget.</param>
+            <returns>Lista de PointDefinition com o resultado das entidades de cada ponto do mapa a ser renderizado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.MapController.FindCoordinateByAdress(System.String)">
+            <summary>
+            Traduz o endereço para coordenada.
+            </summary>
+            <param name="address">Address é a string com o endereço completo. 
+            Para maior desempenho da API é importante que o endereço completo esteja na ordem e separados por virgula, 
+            por exemplo: endereço, número, bairro, município, estado ou UF.</param>
+            <returns>Um objeto Coordinate com as propriedades Latitude e Longitude.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.MapController.GetAcessToken">
+            <summary>
+            Pega o token de acesso a api do MapBox de acordo com parametro MAPBOXTOKEN configurado no Server Manager.
+            </summary>
+            <returns>Token de acesso a api do MapBox</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.CreateRelationBetweenPropertiesAndTileFields(Benner.Tecnologia.Wes.Components.TileDefinition)">
+            <summary>
+            Verifica se os valores preenchidos na VT são campos da visão e adiciona na propertiesAndFieldsRelation.
+            Caso tenha um agregador é incluído em aggregationOperations com a operação de agregação já definida para chamar a API.
+            Não é permitido campo customizado no campos Value e TotalValue do Tile. Não faz sentido.
+            </summary>
+            <param name="tile"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.TranslateTile(Benner.Tecnologia.Wes.Components.TileDefinition)">
+            <summary>
+            Campos que possam conter textos são traduzidos.
+            </summary>
+            <param name="tile"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.CalculateProgress(Benner.Tecnologia.Wes.Components.TileDefinition)">
+            <summary>
+            Calcula a porcentagem do Value e TotalValue do tile tipo progresso.
+            </summary>
+            <param name="tile"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.FillTile(Benner.Tecnologia.Wes.Components.TileDefinition,Benner.Tecnologia.Common.Components.GridDefinition,Benner.Tecnologia.Common.Criteria,Benner.Tecnologia.Common.Criteria)">
+            <summary>
+            Preenche os campos que serão retornados para o JS.
+            
+            Não é permitido campo customizado no campos Value e TotalValue do Tile. Não faz sentido.
+            </summary>
+            <param name="tile"></param>
+            <param name="gridDefinition"></param>
+            <param name="valueCriteria"></param>
+            <param name="totalValueCriteria"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.GetValueFromEntityOrViewEntity(Benner.Tecnologia.Common.Components.GridDefinition,Benner.Tecnologia.Common.EntityBase,System.Collections.Generic.KeyValuePair{System.String,System.String},System.Object)">
+            <summary>
+            Retorna o valor da entidade ou da visão (campo customizado).
+            </summary>
+            <param name="gridDefinition"></param>
+            <param name="entity"></param>
+            <param name="propertyAndField"></param>
+            <param name="aggregatedValue"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.GetAggregationValue(System.Collections.Generic.KeyValuePair{System.String,System.String},Benner.Tecnologia.Common.Components.GridDefinition,Benner.Tecnologia.Common.Criteria,Benner.Tecnologia.Common.AggregationOperationCollection)">
+            <summary>
+            Retorna o valor do agregador.
+            </summary>
+            <param name="propertyAndField"></param>
+            <param name="gridDefinition"></param>
+            <param name="Criteria"></param>
+            <param name="aggregationOperations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.SetFieldAndValueOnVoidEntity(System.String,System.Object)">
+            <summary>
+            Caso tenha agregador definido é criado campos em uma entidade oca para ser usado no campo customizado de controller.
+            No controller será possível obter a resultado da agregação de Value e TotalValue.
+            </summary>
+            <param name="fieldName"></param>
+            <param name="aggregatedValue"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.TileController.SetValueInTileProperty(Benner.Tecnologia.Wes.Components.TileDefinition,Benner.Tecnologia.Common.Components.GridDefinition,System.String,System.String,System.Object)">
+            <summary>
+            Atribui o valor em cada propriedade do tile.
+            </summary>
+            <param name="tile"></param>
+            <param name="gridDefinition"></param>
+            <param name="propertyName"></param>
+            <param name="fieldName"></param>
+            <param name="propertyValue"></param>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.GroupsController">
+            <summary>
+            API para gerenciar Grupos de Usuários do sistema.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.GroupsController.GetGroups(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtém listagem de grupos da base de dados.
+            Visão: Z_GRUPOS.REST.GRID
+            </summary>
+            <param name="startIndex">Índice de início para consultas paginadas.</param>
+            <param name="count">Quantidade de registros a serem retornados (default = 10).</param>
+            <param name="orderBy">Campo de ordenação (deve pertencer à visão).</param>
+            <returns>Listagem de grupos.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.GroupsController.NewGroup(System.Dynamic.ExpandoObject)">
+            <summary>
+            Cria um novo grupo na base de dados.
+            Visão: Z_GRUPOS.REST.FORM
+            </summary>
+            <param name="group">Grupo a ser criado.</param>
+            <returns>Grupo criado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.GroupsController.AlterGroup(System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Atualiza um grupo na base de dados.
+            Visão: Z_GRUPOS.REST.FORM
+            </summary>
+            <param name="groupName">Nome do grupo a ser atualizado.</param>
+            <param name="group">Grupo com os valores a serem atualziados.</param>
+            <returns>Grupo atualizado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.GroupsController.GetGroup(System.String)">
+            <summary>
+            Obtém detalhes de um grupo específico.
+            Visão: Z_GRUPOS.REST.FORM
+            </summary>
+            <param name="groupName">Nome do grupo a ser consultado.</param>
+            <returns>Grupo consultado.</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.RolesController">
+            <summary>
+            API para gerenciar Papéis do sistema.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.RolesController.GetRoles(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtém listagem de papéis da base de dados.
+            Visão: Z_PAPEIS.REST.GRID
+            </summary>
+            <param name="startIndex">Índice de início para consultas paginadas.</param>
+            <param name="count">Quantidade de registros a serem retornados (default = 10).</param>
+            <param name="orderBy">Campo de ordenação (deve pertencer à visão).</param>
+            <returns>Listagem de papéis.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.RolesController.NewRole(System.Dynamic.ExpandoObject)">
+            <summary>
+            Cria um novo papel na base de dados.
+            Visão: Z_PAPEIS.REST.FORM
+            </summary>
+            <param name="role">Papel a ser criado.</param>
+            <returns>Papel criado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.RolesController.AlterRole(System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Atualiza um papel na base de dados.
+            Visão: Z_PAPEIS.REST.FORM
+            </summary>
+            <param name="roleName">Nome do papel a ser atualizado.</param>
+            <param name="role">Papel com os valores a serem atualizados.</param>
+            <returns>Papel atualizado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.RolesController.GetRole(System.String)">
+            <summary>
+            Obtém detalhes de um papel específico.
+            Visão: Z_PAPEIS.REST.FORM
+            </summary>
+            <param name="roleName">Nome do papel a ser consultado.</param>
+            <returns>Papel consultado.</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController">
+            <summary>
+            API para gerenciar Usuários do sistema.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUsers(System.Int32,System.Int32,System.String)">
+            <summary>
+            Obtém lista de usuários da base de dados.
+            Visão: Z_GRUPOUSUARIOS.REST.GRID
+            </summary>
+            <param name="startIndex">Índice de início para consultas paginadas.</param>
+            <param name="count">Quantidade de registros a serem retornados (default = 10).</param>
+            <param name="orderBy">Campo de ordenação (deve pertencer à visão).</param>
+            <returns>Listagem de usuários.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.NewUser(System.Dynamic.ExpandoObject)">
+            <summary>
+            Cria um novo usuário na base de dados.
+            Visão: Z_GRUPOUSUARIOS.REST.FORM
+            </summary>
+            <param name="user">Usuário a ser criado.</param>
+            <returns>Usuário criado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.EditUser(System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Atualiza um usuário na base de dados.
+            Visão: Z_GRUPOUSUARIOS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ser atualizado.</param>
+            <param name="user">Usuário com os valores a serem atualizado.</param>
+            <returns>Usuário atualizado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUser(System.String)">
+            <summary>
+            Obtém detalhes de um usuário específico.
+            Visão: Z_GRUPOUSUARIOS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ser consultado.</param>
+            <returns>Usuário consultado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUserGroups(System.String)">
+            <summary>
+            Obtém listagem dos grupos vinculados a um usuário.
+            Visão: Z_GRUPOUSUARIOGRUPOS.REST.GRID
+            </summary>
+            <param name="nickname">Apelido do usuário a ter os grupos consultados.</param>
+            <returns>Listagem de grupos vinculados.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.NewGroup(System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Adiciona vínculo de grupo a usuário.
+            Visão: Z_GRUPOUSUARIOGRUPOS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ter grupo vinculado.</param>
+            <param name="group">Grupo a ser vinculado ao usuário.</param>
+            <returns>Grupo vinculado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUserGroup(System.String,System.String)">
+            <summary>
+            Obtém detalhes de um grupo vinculado a usuário.
+            Visão: Z_GRUPOS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ter o grupo consultado.</param>
+            <param name="groupName">Nome do grupo a ser consultado.</param>
+            <returns>Grupo consultado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.DeleteUserGroup(System.String,System.String)">
+            <summary>
+            Exclui um vínculo de grupo de um usuário.
+            </summary>
+            <param name="nickname">Apelido do usuário a ter vínculo a grupo excluído.</param>
+            <param name="groupName">Nome do grupo a ser desvinculado.</param>
+            <returns>Mensagem de status.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetRoles(System.String)">
+            <summary>
+            Obtém listagem de papéis vinculados a um usuário.
+            Visão: Z_PAPELATRIBUICOES.REST.GRID
+            </summary>
+            <param name="nickname">Apelido do usuário a ter os papéis consultados.</param>
+            <returns>Listagem de papéis vinculados.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.NewRole(System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Adiciona vínculo de papel a usuário.
+            Visão: Z_PAPELATRIBUICOES.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ter papel vinculado.</param>
+            <param name="role">Papel a ser vinculado ao usuário.</param>
+            <returns>Papel vinculado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetRole(System.String,System.String)">
+            <summary>
+            Obtém detalhes de um papel vinculado a usuário.
+            Visão: Z_PAPEIS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ter o papel consultado.</param>
+            <param name="groupName">Nome do papel a ser consultado.</param>
+            <returns>Papel consultado.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.DeleteRole(System.String,System.String)">
+            <summary>
+            Excluí vínculo de um papel de um usuário.
+            </summary>
+            <param name="nickname">Apelido do usuário a ter papel desvinculado.</param>
+            <param name="roleName">Nome do papel a ser desvinculado.</param>
+            <returns>Mensagem de status.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUserCompanies(System.String)">
+            <summary>
+            Obtém listagem de empresas vinculadas à um usuário.
+            Visão: Z_GRUPOUSUARIOEMPRESAS.REST.GRID
+            </summary>
+            <param name="nickname">Apelido do usuário a ter as empresas consultadas.</param>
+            <returns>Listagem de empresas vinculadas.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.NewUserCompany(System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Adiciona vínculo de empresa a usuário.
+            Visão: Z_GRUPOUSUARIOEMPRESAS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ter empresa vinculada.</param>
+            <param name="role">Empresa a ser vinculada ao usuário.</param>
+            <returns>Empresa vinculada.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUserCompany(System.String,System.String)">
+            <summary>
+            Obtém detalhes de uma empresa vinculada a usuário.
+            Visão: EMPRESAS.FORM (ou visão respectiva de tabela de empresas do sistema).
+            </summary>
+            <param name="nickname">Apelido do usuário a ter a empresa consultada.</param>
+            <param name="cnpj">CNPJ da empresa a ser consultada.</param>
+            <returns>Empresa consultada.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.DeleteUserCompany(System.String,System.String)">
+            <summary>
+            Excluí vínculo de uma empresa de um usuário.
+            </summary>
+            <param name="nickname">Apelido do usuário a ter empresa desvinculada.</param>
+            <param name="cnpj">CNPJ da empresa a ser desvinculada.</param>
+            <returns>Mensagem de status.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUserBranches(System.String,System.String)">
+            <summary>
+            Obtém listagem de filiais de empresa vinculadas à um usuário.
+            Visão: Z_GRUPOUSUARIOEMPRESAFILIAIS.REST.GRID
+            </summary>
+            <param name="nickname">Apelido do usuário a ter as filiais consultadas.</param>
+            <param name="companyCnpj">CNPJ da empresa a ter filiais consultadas.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.NewUserBranch(System.String,System.String,System.Dynamic.ExpandoObject)">
+            <summary>
+            Adiciona vínculo de filial à empresa de usuário.
+            Visão: Z_GRUPOUSUARIOEMPRESAFILIAIS.REST.FORM
+            </summary>
+            <param name="nickname">Apelido do usuário a ter filial vinculada.</param>
+            <param name="companyCnpj">CNPJ da empresa à qual a filial pertence.</param>
+            <param name="branch">Filial a ser vinculada ao usuário.</param>
+            <returns>Filial vinculada.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.GetUserBranch(System.String,System.String,System.String)">
+            <summary>
+            Obtém detalhes de uma filial vinculada a usuário.
+            Visão: FILIAIS.FORM (ou visão respectiva de tabela de filiais do sistema).
+            </summary>
+            <param name="nickname">Apelido do usuário a ter a filial consultada.</param>
+            <param name="companyCnpj">CNPJ da empresa a ter filial consultada.</param>
+            <param name="branchCnpj">CNPJ da filial a ser consultada.</param>
+            <returns>Filial consultada.</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Api.UsersController.DeleteUserBranch(System.String,System.String,System.String)">
+            <summary>
+            Excluí vínculo de filial de uma empresa de um usuário.
+            </summary>
+            <param name="nickname">Apelido do usuário a ter a filial desvinculada.</param>
+            <param name="companyCnpj">CNPJ da empresa a ter filial desvinculada.</param>
+            <param name="branchCnpj">CNPJ da filial a ser desvinculada.</param>
+            <returns>Mensagem de status.</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Controllers.EslController">
+            <summary>
+            Controle base para ApiControllers auto-gerados
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.EslController.CallOperation(System.String,System.String,Benner.Tecnologia.Common.EnterpriseServiceLibrary.Request)">
+            <summary>
+            Chama uma função de negócio de uma entidade especializada (BEF)
+            </summary>
+            <param name="entityDefinitionName">Nome da entidade</param>
+            <param name="functionName">Nome da função de negócio</param>
+            <param name="request">Documento estruturado de entregada para a função de negócio</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.EslController.CallOperation(System.String,System.String,Benner.Tecnologia.Common.EnterpriseServiceLibrary.Request,Benner.Tecnologia.Common.TransitoryData)">
+            <summary>
+            Chama uma função de negócio de uma entidade especializada (BEF)
+            </summary>
+            <param name="entityDefinitionName">Definição da entidade</param>
+            <param name="functionName">Nome da função de negócio</param>
+            <param name="request">Documento estruturado de entregada para a função de negócio</param>
+            <param name="transitoryData">Dados adicionais a serem utilizados pela função (opcional)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.EslController.CallOperation(System.String,System.String,System.String,Benner.Tecnologia.Common.TransitoryData)">
+            <summary>
+            Chama uma função de negócio de macro (OnCommandClick)
+            </summary>
+            <param name="entityDefinitionName">Nome da entidade</param>
+            <param name="functionName">Nome da função de negócio</param>
+            <param name="authenticationTokenId">Token de autenticação, existente na propriedade AuthenticationTokenId da classe de Request</param>
+            <param name="transitoryData">Dados adicionais a serem utilizados pela função (opcional)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.EslController.CallBusinessComponent(System.String,System.String,Benner.Tecnologia.Common.EnterpriseServiceLibrary.Request)">
+            <summary>
+            Dispara um método de um componente de negócio
+            </summary>
+            <param name="businessComponentName">Nome do componente de negócio</param>
+            <param name="businessMethodName">Nome do método do componente de negócio</param>
+            <param name="request">Entrada de dados para o método de negócio</param>
+            <returns>Saída de dados do método de negócio</returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.EslController.CallBusinessComponent(System.String,System.String,System.Object[])">
+            <summary>
+            Dispara um método de um componente de negócio
+            </summary>
+            <param name="businessComponentName">Nome do componente de negócio</param>
+            <param name="businessMethodName">Nome do método do componente de negócio</param>
+            <param name="request">Entrada de dados para o método de negócio</param>
+            <returns>Saída de dados do método de negócio</returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.Controllers.AccountController">
+            <summary>
+            Controller para fluxo de OIDC
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.AccountController.OnException(System.Web.Mvc.ExceptionContext)">
+            <summary>
+            Tratando erros para forçar o redirecionamento a página de erro na raiz da aplicação.
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Controllers.AccountController.StoreReturnUrlParamInSession">
+            <summary>
+            Armazena a url que o usuario informou antes da autenticacao via SSO ser exigida no navegador.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.CustomInstallArtifacts">
+            <summary>
+            Permitir a customização na instalação de artefatos
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CustomInstallArtifacts.AfterExecuteInstallArtifacts">
+            <summary>
+            Executa após a instalação de artefatos
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesCompositionRoot">
+            <summary>
+            Registros iniciais do WES no Ninject.
+            Só adicione aqui registros que são necessários para o Warmup do WES.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesCompositionRoot.Load(Ninject.IKernel)">
+            <summary>
+            Estes objetos são os primeiros a serem registrados no Ninject do WES.
+            </summary>
+            <param name="kernel">Kernel do container de injeção de dependência</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer">
+            <summary>
+            Registro dos Serviços no Ninject. Esta classe é utilizada pelo módulo de injeção do WES (Benner.Tecnologia.Wes.IoC.dll)
+            É utilizado também pelo WesCli.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterInternalBEFServices(Ninject.IKernel)">
+            <summary>
+            Serviços internos necessários para o BEF funcionar e que o programador não deve ter acesso
+            </summary>
+            <param name="kernel">Kernel do container de IoC</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterInternalBEFAnywhereServices(Ninject.IKernel)">
+            <summary>
+            BEF Anywhere - BEF sem Provider, rodando dentro do WES
+            Serviços internos necessários para o BEF funcionar e que o programador não deve ter acesso. 
+            </summary>
+            <param name="kernel">Kernel do container de IoC</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterPublicBEFServices(Ninject.IKernel)">
+            <summary>
+            Serviços públicos do BEF
+            </summary>
+            <param name="kernel">Kernel do container de IoC</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterPublicBEFAnywhereServices(Ninject.IKernel)">
+            <summary>
+            BEF Anywhere - BEF sem Provider, rodando dentro do WES
+            Serviços do BEF para entidades Business na Web
+            </summary>
+            <param name="kernel">Kernel do container de IoC</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterTemporaryFileStorageModule(Ninject.IKernel)">
+            <summary>
+            Serviço de armazenamento temporário para arquivos
+            </summary>
+            <param name="kernel">Kernel do container de IoC</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterLGPDRepositoryModule(Ninject.IKernel)">
+            <summary>
+            Serviço de configuração do repositório de log LGPD
+            </summary>
+            <param name="kernel">Kernel do container de IoC</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.IoC.WesServicesRegisterer.RegisterDataAccess">
+            <summary>
+            Configuração de acesso a dados
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SiteSettings.RegistryFilterPages.RegistryFilterEditorPage.GetUserHandle">
+            <summary>
+            Obtém o handle do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SiteSettings.RegistryFilterPages.RegistryFilterGalleryPage.GetUserHandle">
+            <summary>
+            Obtém o handle do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SimultaneousLogin.LoginManagerActive.DeleteInvalidUserAuthenticationsFromBase">
+             <summary>
+            Remove registros residuais de Z_USUARIOAUTENTICACAO deixados por encerramento inesperado da aplicação ou por situações adversas que
+            impediram a execução completa das rotinas de limpeza previstas.
+             </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SimultaneousLogin.LoginManagerActive.DeleteAllUserAuthenticationsForCurrentWesHostAndInstallation">
+            <summary>
+            Remove todos os registros de Z_USUARIOAUTENTICACAO criados pela instalação atual do WES.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SimultaneousLogin.LoginManagerActive.IsUserAuthenticationDropped(System.String)">
+            <summary>
+            Verifica se um usuário foi berrubado. Existem 3 possíveis retornos.
+                null - Não existe registro no banco, ou seja, usuário não está logado.
+                true - Existe registro no banco, porém este usuário foi derrubado por outro login.
+                false - Existe registro no banco, indicando que usuário está logado normalmente.
+            </summary>
+            <param name="sessionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SimultaneousLogin.LoginManagerActive.UpdateSessionsInMemory">
+            <summary>
+            Busca dados de Z_USUARIOAUTENTICACAO criados a partir da instalação atual do WES
+            e atualiza lista de sessões em memória com um intervalo mínimo de 30 segundos.
+            Método é chamado a cada request feito por qualquer usuário.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.UserActions">
+            <summary>
+            Ações genéricas do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.UserActions.Logoff">
+            <summary>
+            Realiza logoff do usuário e retorna a url para redirecionamento
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.ScriptsLoader">
+            <summary>
+            Classe que adiciona as referências de scripts (JS) na aplicação.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.SessionServerValidator">
+            <summary>
+            Valida disponibilidade do servidor de sessão.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SessionServerValidator.CheckAvailability">
+            <summary>
+            Verifica se o servidor de sessão configurado no web.config está disponível.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SessionServerValidator.GetSessionMode">
+            <summary>
+            Verifica o modo de sessão ativo no web.config.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SessionServerValidator.GetRedisInfo">
+            <summary>
+            Obtém as informações de Redis do web.config.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SessionServerValidator.GetRedisInfo(System.Xml.Linq.XDocument)">
+            <summary>
+            Obtém as informações de Redis em um determinado arquivo de configuração.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.SessionServerValidator.CheckRedisAvailability(System.String,System.Int32,System.Boolean,System.String)">
+            <summary>
+            Verifica se o servidor Redis especificado está disponível.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.InstallArtifactsPage.UpdateAttributesInViews">
+            <summary>
+            Atualiza os atributos criados errados em versões passadas
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.MaskFormPage">
+            <summary>
+            Codebehind da página SiteSettings/Mask/Form.aspx
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.MaskGridPage">
+            <summary>
+            Codebehind da página SiteSettings/Mask/Grid.aspx
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.ZUsersPage.SetUserDefinedCriteriaWhereClause">
+            <summary>
+            Seta as propriedades de UserDefinedCriteriaWhereClause no grid de FILIAIS e EMPRESAS.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.EditResourcesPage.CreateOrUpdateResources(System.String,Benner.Tecnologia.Metadata.Entities.PageResourceType,Benner.Tecnologia.Common.Handle)">
+            <summary>
+            Cria ou atualiza o recurso da pagina
+            </summary>
+            <param name="code">codigo</param>
+            <param name="pageResourceType">tipo</param>
+            <param name="page">handle da pagina</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.StylesLoader">
+            <summary>
+            Classe que adiciona as referências de estilos (CSS) na aplicação.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.CommandContextControl">
+            <remarks>http://www.benner.com.br/wiki/index.php?title=Editor_de_comandos_(WES_2008)</remarks>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.NinjectDependencyResolver">
+            <summary>
+            Responsável por injetar as dependências nos ApiControllers
+            </summary>
+            <remarks>
+            Referencia: https://docs.microsoft.com/en-US/aspnet/web-api/overview/advanced/dependency-injection
+            </remarks>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.NinjectDependencyScope">
+            <summary>
+            Responsável por definir o escopo da injeção de dependências nos ApiControllers
+            </summary>
+            <remarks>
+            Referencia: 
+            * https://docs.microsoft.com/en-US/aspnet/web-api/overview/advanced/dependency-injection
+            * https://github.com/OleksandrKulchytskyi/Sharedeployed/blob/bd894f46a9574b32a19e5b6de399e824117c6d9f/ShareDeployed/ShareDeployed/DependencyResolvers/NInjectWebApiDepResolver.cs
+            </remarks>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase">
+            <summary>
+            Classe base para páginas customizadas para pesquisa de lookup.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.CurrentText">
+            <summary>
+            Texto que está no campo lookup na origem.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.AssociationFieldName">
+            <summary>
+            Nome do campo lookup na entidade de origem.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.SourceEntity">
+            <summary>
+            Nome da entidade de origem
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.SelectedHandles">
+            <summary>
+            Handles selecionados separados por |
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.Fields">
+            <summary>
+            Entidade json com informações da tela
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.WhereClause">
+            <summary>
+            Cláusula where, podendo ter parâmatros, contendo o LocalWhere, campos de dependência, seleção especial definida no builder,...
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.ResultFieldNames">
+            <summary>
+            Lista do nome do campo de resultado, que pertence à entidade na qual o campo lookup aponta.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.TargetEntityDefinition">
+            <summary>
+            Definição de entidade para qual o campo lookup aponta, sobre esta definição de entidade pode ser feita a pesquisa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.TargetLookupViewDefinition">
+            <summary>
+            Visão de lookup da entidade para qual o campo lookup aponta, sobre esta visão pode ser feita a pesquisa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.DialogWidthInPixels">
+            <summary>
+            Permite indicar a largura em pixels do diálogo de pesquisa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.DialogHeightInPixels">
+            <summary>
+            Permite indicar a altura em pixels do diálogo de pesquisa.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.SelectAnyStructuredLevel">
+            <summary>
+            Indica se este lookup, quando apontar para uma tabela estruturada, irá permitir a seleção de registros em qualquer nível, ou apenas do último nivel.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CustomLookupBase.BuildLookupWhereClauseForField(Benner.Tecnologia.Common.FieldDefinition)">
+            <summary>
+            Método auxiliar que monta a sintaxe do where para manipular determinado campo baseado em seu tipo.
+            </summary>
+            <param name="searchFieldDefinition">Definição do campo no qual se deseja montar um Where.</param>
+            <returns>
+            <para>Se searchFieldDefinition é um campo tipo String, então o retorno será "A.NOME"</para>
+            <para>Se searchFieldDefinition é um campo tipo Tabela, então o retorno será "A.PAIS>PAISES.NOME"</para>
+            </returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Global.IsErrorPageRequest">
+            <summary>
+            Verifica se a requisição é para a página de erro que depende do usuário estar autenticado.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.Global.IsErrorNoMasterPageRequest">
+            <summary>
+            Verifica se a requisição é para a página de erro que não depende do usuário estar autenticado. 
+            Por exemplo, erro em página publica.
+            Error.aspx
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CompanySelectorPage.ValidateUIValues">
+            <summary>
+            Verifica se os valores informados na UI são válidos.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CompanySelectorPage.EnsureFiliaisLookupIsCreated(System.String)">
+            <summary>
+            Assegura a criação da definição de entidade "FILIAIS_LOOKUP" que é necessária para o carregamento dos dados no ComboBox de Filiais
+            </summary>
+            <param name="systemInstanceName">Nome da instancia do sistema</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.IsAuthenticated">
+            <summary>
+            Indica se a sessão atual já está autenticada
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.ExecuteRegularAuthentication(System.String,System.String)">
+            <summary>
+            Valida usuário e senha, e verifica se o usuário é administrador.
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.ExecuteReentrantAuthentication">
+            <summary>
+            Quando o aplicativo e a sessão terminam, porém a configuração não terminou,
+            neste caso o administrador não deve precisar informar credenciais novamente
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.LoadWebConfig">
+            <summary>
+            Carrega valores do WebConfig para a tela
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.LoadValuePoolConfigForm(Benner.Tecnologia.Bas.AppServer.Controller.IPool)">
+            <summary>
+            Mostra os campos da pool passa como parametro na tela
+            </summary>
+            <param name="pool"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.RefreshPoolFile">
+            <summary>
+            Atualiza o arquivo de pools (pool.config)
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.SaveWebConfig_Click(System.Object,System.EventArgs)">
+            <summary>
+            Evento do botão Salvar
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.RecreateUserContext">
+            <summary>
+            Recria o contexto de conexão para se logar um novo sistema.
+            Disclaimer: Quando é alterado o sistema, deve ser excluido do contexto a antiga configuração e recriado com as novas configurações.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.VerifyArtifactsAndRedirectToApplication">
+            <summary>
+            Caso tenha artefatos para importar redireciona para tela de InstallArtifacts.aspx senão para tela de login.aspx
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.TestConfiguration">
+            <summary>
+            Realiza a validações no arquivo pool.config e web.config
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.ShowExceptionMessage(System.Exception)">
+            <summary>
+            Apresenta mensagem de erro passada como parametro
+            </summary>
+            <param name="msgError"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.SavePoolConfig">
+            <summary>
+            Salva as informações da tela no arquivo Pool.config
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.CreateUpdatePool">
+            <summary>
+            Atualiza uma pool existente ou cria uma nova
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.SetValuePool(Benner.Tecnologia.Bas.AppServer.Controller.IPool)">
+            <summary>
+            Adiciona os valores da tela para a pool passada por parametro
+            </summary>
+            <param name="pool">Pool Atual</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPage.SaveWebConfig">
+            <summary>
+            Salva as informações na tela no arquivo WebConfig.config
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.AdminPageAuthenticationContext.OldDomainAuthenticationMethod">
+            <summary>
+            Configuração de nível de customização definida para testar ambiente local da Benner
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPageAuthenticationContext.ValidateCredentials(System.String,System.String,System.DirectoryServices.AccountManagement.UserPrincipal@)">
+            <summary>
+            Valida usuário e senha, inicialmente no dominio senão na máquina mesmo.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.AdminPageAuthenticationContext.IsMemberOfAdminGroup(System.DirectoryServices.AccountManagement.UserPrincipal)">
+            <summary>
+            Verifica se o usuário está no grupo de administração, inicialmente da máquina, senão do domínio.
+            </summary>
+            <param name="userPrincipal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.PageExtender.GetPostBackClientID(System.Web.UI.Page)">
+            <summary>
+            Retornar o ClientID do control que gerou o PostBack ou string.Empty se não tiver um controle acossiado
+            </summary>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateHeaderRow">
+            <summary>
+            Criar a linha de cabeçalho da tabela
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateRow(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Criar uma linha da tabela, considerando o tipo do campo (FieldDefinition)
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateDeleteConditionCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um célula de uma tabela com um botão para excluir uma condição
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateManuallyDefinedConditionCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um célula de uma tabela com uma caixa de texto para a condição definida manualmente
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateTableListCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um célula de uma tabela com um comboBox com os campos disponíveis
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateFieldListCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um célula de uma tabela com um comboBox com os campos disponíveis
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateOperatorListCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um célula de uma tabela com um comboBox com as operações disponíveis
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateInputRequiredCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um checkBox que define se o usuário deverá preencher o valor do campo antes da execução do filtro
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateRequiredFieldCell(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Cria um célula de uma tabela com um checkBox que define se o campo é obrigatório
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateConditionPropertiesCell(Benner.Tecnologia.Common.Components.FilterCondition,System.Web.UI.WebControls.TableCell)">
+            <summary>
+            Cria um célula de uma tabela com um botão para exibir um popup com as propriedades da condição
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateConditionPropertiesControl(System.Web.UI.WebControls.TableCell,Benner.Tecnologia.Common.Components.FilterCondition,System.Web.UI.WebControls.TableCell)">
+            <summary>
+            Cria o controle de propriedade para um condição para um campo do tipo lookup
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.CreateValueControl(Benner.Tecnologia.Common.Components.FilterCondition,System.String)">
+            <summary>
+            Criar o controle que receberá o valor informado pelo usuário conforme o tipo do FieldDefinition
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.ReadCellValue(Benner.Tecnologia.Common.FieldDefinition,System.Web.UI.WebControls.TableCell)">
+            <summary>
+            Ler o valor de um controle conforme o tipo do FieldDefinition
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.FillTableItens">
+            <summary>
+            Retorna uma coleção de ListItem com as tabelas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.FillOperatorItens(System.String)">
+            <summary>
+            Retorna uma coleção de ListItem com as operações pertinentes ao tipo do campo
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.AddConditionButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Adiciona uma condição
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.addWhereConditionButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Adiciona uma condição definida manualmente
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.DeleteButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Excluir uma condição
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.OnLoadOrOnChangeTableList(System.Object,System.EventArgs)">
+            <summary>
+            Foi carregado ou alterado a tabela selecionada
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.OnLoadOrOnChangeOperarionList(System.Object)">
+            <summary>
+            Foi carregado ou alterado a operação selecionada
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.userInputRequiredCheckBox_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Foi alterado o valor do campo "perguntar o valor ao usuário"
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.requiredCheckBox_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Foi alterado o valor do campo "Obrigatório"
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.HideAdvancedCondition(System.Boolean)">
+            <summary>
+            Esconder o controle que exibe a condição avançada
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.BuildAdvancedCondition">
+            <summary>
+            Contruir a condição avançada
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.UpdateConditionsFromUI">
+            <summary>
+            Atualizar as condições
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.ValidateParameterInManuallyDefinedCondition(Benner.Tecnologia.Common.Components.FilterCondition)">
+            <summary>
+            Valida se o parâmetro informado na condição existe na lista de campos da definição de entidade
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.Save(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Persiste o filtro
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.GetUserHandle">
+            <summary>
+            Obtém o handle do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditorControl.Delete(Benner.Tecnologia.Common.Handle)">
+            <summary>
+            Exclui o filtro
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FilterEditor.View">
+            <summary>
+            Se a visão que estiver sendo editada for de grid, retorna a visão. Caso contrário, retorna null.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FilterEditor.GetUserHandle">
+            <summary>
+            Obtém o handle do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormItemTemplate.GenerateTraceFields(System.String,System.String)">
+            <summary>
+            Concatena o id do componente pai com o atual
+            </summary>
+            <param name="parentStack"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.PasswordChangePage.ValidatePasswordChangeArguments">
+            <summary>
+            Verifica se os valores informados na UI são válidos para a troca de senha.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CustomArtifactsPage.VerifyLoginCustom(System.Web.UI.WebControls.GridViewRow,System.Web.UI.WebControls.CheckBox)">
+            <summary>
+            Verifica se a login precisa ser customizada
+            </summary>
+            <param name="row"></param>
+            <param name="check"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.InstrumentationPage.SetCheckboxGlobalInstrumentationLevel">
+            <summary>
+            Marca a checkbox de acordo com o InstrumentationLevel global
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.InstrumentationPage.SetGlobalInstrumentationLevel">
+            <summary>
+            Muda o InstrumentationLevel global de acordo com a checkbox
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CreateWidgetPage.WidgetForm_CommandExecuted(System.Object,Benner.Tecnologia.Wes.Components.FormCommandExecuteArgs)">
+            PASSO 1
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CreateWidgetPage.DataSourceForm_CommandExecute(System.Object,Benner.Tecnologia.Wes.Components.FormCommandExecuteArgs)">
+            PASSO 2
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CreateWidgetPage.AttributesForm_CommandExecuted(System.Object,Benner.Tecnologia.Wes.Components.FormCommandExecuteArgs)">
+            PASSO 3
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.ScriptEditorPage.ControllerSessionKey">
+            <summary>
+            Identifica a chave na sessao onde o controlador do editor de visao ficara mantido.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CacheViewerPage.LoadCacheView">
+            <summary>
+            Agrupa os objetos em cache pelo tipo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CommandsEditorPage.EditorSessionKey">
+            <summary>
+            Identifica a chave na sessao onde o controlador do editor de visao ficara mantido.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CommandsEditorPage.OnRemoveItemClick(System.Object,System.EventArgs)">
+            <summary>
+            Responsável por remover uma ação da lista
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CommandsEditorPage.OnCloneItemClick(System.Object,System.EventArgs)">
+            <summary>
+            Responsável por clonar uma ação da lista
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CommandsEditorPage.UpdateUIItemProperties">
+            <remarks>
+            Histórico:
+            - SMS453263: desabilita controles quando nao tem comando selecionado
+            </remarks>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.EntitiesPage">
+            <summary>
+            Página de exibição da lista de entidades de dados cadastradas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.EntityPage.lnkBtnEntityDefinitionGenerate_Click(System.Object,System.EventArgs)">
+            <summary>
+            Regera definição de entidade
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.EntityPage.lnkBtnShowXml_Click(System.Object,System.EventArgs)">
+            <summary>
+            Exibi XML da Entidade
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.IsNewView">
+            <summary>
+            Verifica se é uma visão nova
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.EditorSessionKey">
+            <summary>
+            Identifica a chave na sessao onde o controlador do editor de visao ficara mantido.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.SetValuesToUI(Benner.Tecnologia.Common.Components.FormPageItem,System.Collections.Generic.IList{Benner.Tecnologia.Common.Components.FormPageItem},Benner.Tecnologia.Common.Components.Interfaces.LayerCollection{Benner.Tecnologia.Common.Components.FormFieldDefinition})">
+            <summary>
+            Setar os valores para o comportamento do formulário de controle de posição de campos.
+            </summary>
+            <param name="currentItem">Item selecionado na visão</param>
+            <param name="currentParentItems">Os items da Seção ou Group no qual o item selecionado se encontra</param>
+            <param name="formFieldItems">Lista de definição dos campos, que possuem os titulos dos campos da visão</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.UpdateCurrentItemLayoutColumns">
+            <summary>
+            Atualiza valores de Layout e BootstrapCols ao alterar a posicionamento das legendas
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.OnButtonRemoveItemClick(System.Object,System.EventArgs)">
+            <summary>
+            Responsável por remover um campo do Form
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.UpdateUILayoutControl">
+            <summary>
+            Atualiza os dados da interface do controle de formulario
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormEditorPage.UpdateUILayoutControl(System.Int32)">
+            <summary>
+            Atualiza os dados da interface do controle de formulario
+            </summary>
+            <param name="tabIndex">Index para o FormLayoutControl</param>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridEditorPage.EditorSessionKey">
+            <summary>
+            Identifica a chave na sessao onde o controlador do editor de visao ficara mantido.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.GridEditorPage.CreateFakeEntity(Benner.Tecnologia.Common.Components.GridDefinition)">
+            <summary>
+            Cria uma entidade falsa somente para alimentar o grid do editor
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.GridEditorPage.OnDeleteClick(System.Object,System.EventArgs)">
+            <summary>
+            Responsável por remover um campo do grid
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.NewViewPage.EnsureWEntidadesLookupIsCreated(System.String)">
+            <summary>
+            Assegura a criação da definição de entidade "W_ENTIDADES_LOOKUP" que é necessária para o carregamento dos dados no ComboBox de Entidades
+            </summary>
+            <param name="systemInstanceName">Nome da instancia do sistema</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.NewViewPage.EnsureWEntidadeVisoesLookupIsCreated(System.String)">
+            <summary>
+            Assegura a criação da definição de entidade "W_ENTIDADEVISOESS_LOOKUP" que é necessária para o carregamento dos dados no ComboBox de Entidades
+            </summary>
+            <param name="systemInstanceName">Nome da instancia do sistema</param>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.LoginControl">
+            <summary>
+            Comportamento e fluxo da tela de login
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.LoginControl.SimultaneousLoginContinue_Click(System.Object,System.EventArgs)">
+            <summary>
+            Ação que bloqueia o login do usuário em outros dispositivos
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.LoginControl.SimultaneousLoginDeny_Click(System.Object,System.EventArgs)">
+            <summary>
+            Ação que realiza o logoff do usuário caso ele opte por não terminar sua sessão em outros dispositivos
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.LoginControl.IsParameterValid(System.String)">
+            <summary>
+            Verifica se os parametros para alterar senha não expirou
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.LoginControl.ExceptionHandler(System.String)">
+            <summary>
+            Tratador de exceção
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.SideBarMenuWidget.ShortcutProviderType">
+            <summary>
+            Tipo de provedor de itens para o widget.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesManagerUserControl.SetEnvironmentMessage">
+            <summary>
+            Defini a mensagem para ser apresentada na tarja de ambiente
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.UploadImage.FieldName">
+            <summary>Nome do campo da entidade para qual será feito o upload do arquivo </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.UploadImage.CurrentEntity">
+            <summary>Identifica a entidade que está sendo manipulada pelo formulário</summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.CommandFunctionControl">
+            <remarks>http://www.benner.com.br/wiki/index.php?title=Editor_de_comandos_(WES_2008)</remarks>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.CommandPropertiesControl">
+            <remarks>
+            http://www.benner.com.br/wiki/index.php?title=Editor_de_comandos_(WES_2008)
+            </remarks>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CommandPropertiesControl.ShowStructuredTableCommands">
+            <summary>
+            Define se permite visualizar as configurações de Structured Table
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CommandPropertiesControl.ShowInput">
+            <summary>
+            Define se permite visualizar as configurações de Input
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CommandPropertiesControl.ShowProcess">
+            <summary>
+            Define se permite visualizar as configurações de Process
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.CommandPropertiesControl.ShowOutput">
+            <summary>
+            Define se permite visualizar as configurações de Output
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CommandPropertiesControl.SetValuesToUI(System.String,System.Collections.Generic.List{Benner.Tecnologia.Common.Components.Command},System.Collections.Generic.List{Benner.Tecnologia.Common.FunctionDefinition},System.String,System.Boolean)">
+            <remarks>
+            Histórico:
+            - SMS453263: desabilita controles quando nao tem comando selecionado
+            </remarks>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CommandReportControl.AddFormatReportStimulsoft">
+            <summary>
+            Preenche a lista com os formatos do Stimulsoft
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.CommandReportControl.AddFormatReport">
+            <summary>
+            Preenche a lista com os formatos do QuickReports
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.CommandsControl">
+            <remarks>
+            http://www.benner.com.br/wiki/index.php?title=Editor_de_comandos_(WES_2008)
+            </remarks>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.EntityFieldListControl.NameFieldSearch">
+            <summary>
+            Nome do campo de pesquisa
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.Title">
+            <summary>
+            Título do campo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.Tooltip">
+            <summary>
+            Help do campo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.FieldVisible">
+            <summary>
+            Identifica se o campo é visível
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.Required">
+            <summary>
+            Identifica se o campo é obrigatório
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.RenderTitle">
+            <summary>
+            Identifica se o campo deve apresentar o titulo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.SelectAnyStructuredLevel">
+            <summary>
+            Indica se este lookup, quando apontar para uma tabela estruturada, irá permitir a seleção de registros em qualquer nível, ou apenas do último nivel.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.LookupViewName">
+            <summary>
+            Nome da visão de lookup
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.LookupResultFields">
+            <summary>
+            Campos de resultado para o lookup
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.PageForm">
+            <summary>
+            Nome da visão lookup para formulário
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.AssociationFieldWhere">
+            <summary>
+            Identifica o Critério de seleção de filtro de um campo tipo Tabela
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.SearchOnEnter">
+            <summary>
+            Configura o campo tabela para realizar a pesquisa apenas ao pressionar Enter
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.Lines">
+            <summary>
+            Identifica a quantidade de linhas de um campo texto
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.DataInput">
+            <summary>
+            Identifica se o nível de acesso aos dados do campo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.Path">
+            <summary>
+            Identifica o caminho especificado para um campo Traduzido
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.LabelValue">
+            <summary>
+            Identifica o valor do Rótulo na visão
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.Expression">
+            <summary>
+            Identifica o valor da Expressão SQL na visão
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormFieldPropertiesControl.CustomName">
+            <summary>
+            Identifica o valor do Nome Customizado na visão
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.FormLayoutControl">
+            <summary>
+            Responsável pela interface manutenção de uma definição de visão de formulário
+            </summary>
+        </member>
+        <member name="E:Benner.Tecnologia.Wes.Components.WebApp.FormLayoutControl.SelectPage">
+            <summary>
+            Ocorre quanto uma aba do formulário é selecionada pelo usuário
+            </summary>
+        </member>
+        <member name="E:Benner.Tecnologia.Wes.Components.WebApp.FormLayoutControl.SelectItem">
+            <summary>
+            Ocorre quanto um campo do formulário é selecionado pelo usuário
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.FormLayoutControl.DataSource">
+            <summary>
+            Identifica o fonte de dados na qual o componente se baseia para montar a interface do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormLayoutControl.SetPage(System.Int32)">
+            <summary>
+            Define a aba atualmente selecionada no formulário
+            </summary>
+            <param name="index">Índice da aba a ser selecionada</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormLayoutControl.OnTabFieldSelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>Ocorre quando o usuário selecionou uma das opções do campo Tab</summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.FormPropertiesControl.InitializeVisionSubstitute(Benner.Tecnologia.Common.Components.FormDefinition)">
+            <summary>
+            Inicializa o SearchControl com as visões substitutas
+            </summary>
+            <param name="formDefinition"></param>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.Title">
+            <summary>
+            Título do campo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.Width">
+            <summary>
+            Largura do campo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.LookupResultFields">
+            <summary>
+            Campos de resultado para o lookup
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.Where">
+            <summary>
+            Sql Especial (where) de filtro de um campo tipo tabela
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.DataInput">
+            <summary>
+            Identifica se o nível de acesso aos dados do campo
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.ThumbnailSize">
+            <summary>
+            Identifica o tamanho do ThumbNail de um campo imagem
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.SqlFieldType">
+            <summary>
+            Identifica o tipo do resultado de campo SQL
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.ValueCustom">
+            <summary>
+            Valor do campo customizado. Pode ser um texto (Label), html/razor ou uma View (.cshtml).
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.CustomValueType">
+            <summary>
+            Tipo do conteúdo 'valor' de um campo customizado.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.GridFieldPropertiesControl.Expression">
+            <summary>
+            Identifica o valor da Expressão SQL na visão
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.GridPropertiesControl.InitializeVisionSubstitute(Benner.Tecnologia.Common.Components.GridDefinition)">
+            <summary>
+            Inicializa o SearchControl com as visões substitutas
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.PagePropertiesControl.PageVisible">
+            <summary>
+            Identifica se a página é visível
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.ScriptEditorControl.LoadFunctionsDropDownList">
+            <summary>
+            Carrega a lista de funcoes disponiveis para selecao conforme o objeto selecionado
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.ScriptEditorControl.LoadObjectDropDownList">
+            <summary>
+            Carrega a lista de objetos disponiveis para selecao
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.UserControlExtender.GetPostBackUniqueID(System.Web.UI.UserControl)">
+            <summary>
+            Retornar o UniqueID do control que gerou o PostBack. Ou string.Empty se não tiver um controle acossiado
+            </summary>
+            <param name="control"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.HttpApplicationStateExtension">
+            <summary>
+            Extensions do HttpContext.Current.Application
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.HttpApplicationStateExtension.GetLoggedUsers(System.Web.HttpApplicationState)">
+            <summary>
+            Retorna todos os usuários logados
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.HttpApplicationStateExtension.UpdateLoggedUser(System.Web.HttpApplicationState,System.String)">
+            <summary>
+            Cria ou atualiza informações de controle de usuário logado
+            </summary>
+            <param name="app"></param>
+            <param name="sessionKey"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.HttpApplicationStateExtension.RemoveLoggedUser(System.Web.HttpApplicationState,System.String)">
+            <summary>
+            Remove informações de controle do usuário logado
+            </summary>
+            <param name="app"></param>
+            <param name="sessionKey"></param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesGlobalMessagePanel.ClearCommandExecutionContext">
+            <summary>
+            Limpa o contexto de execução do comando, caso o painel de mensagens global já esteja visível e com mensagem para exibir.
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.WesResourceLoader">
+            <summary>
+            Classe base para o carregamento de recursos na aplicação.
+            </summary>
+        </member>
+        <member name="P:Benner.Tecnologia.Wes.Components.WebApp.WesResourceLoader.Resources">
+            <summary>
+            Lista de recursos (JS, CSS) que serão carregados.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesResourceLoader.EnsureResource(System.Web.UI.Page)">
+            <summary>
+            Adiciona os recursos em uma determinada página.
+            </summary>
+            <param name="page">Página onde os recursos serão adicionados.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigrator.#ctor(System.String)">
+            <summary>
+            Construtor padrão informando o caminho do arquivo de configuração (web.config ou app.config).
+            </summary>
+            <param name="configFilePath">Caminho do arquivo de configuração.</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigrator.CheckApplyVersionWebConfig(System.Action{System.Xml.Linq.XDocument},System.Int32,System.Int32@)">
+            <summary>
+            Verifica e atualiza (se necessário) a versão do arquivo web.config
+            </summary>
+            <param name="updateMethod">Método utilizado para atualizar o web.config (será utilizada a propriedade Document no parâmetro)</param>
+            <param name="targetVersion">versão para qual o web.config será migrado</param>
+            <param name="currentVersion">versão atual do web.config</param>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigrator.CheckApplyVersionWebConfig(System.Action,System.Int32,System.Int32@)">
+            <summary>
+            Verifica e atualiza (se necessário) a versão do arquivo web.config
+            </summary>
+            <param name="updateMethod">Método utilizado para atualizar o web.config </param>
+            <param name="targetVersion">versão para qual o web.config será migrado</param>
+            <param name="currentVersion">versão atual do web.config</param>
+        </member>
+        <member name="F:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15._configSections">
+            <summary>
+            XElement /configuration/configSections
+            </summary>
+        </member>
+        <member name="F:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15._webServiceHandlers">
+            <summary>
+            XElement /configuration/system.webServer/handlers
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15.UpdateToVersion20(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Remove o arquivo WesGlimpseTab.cs da pasta App_Code.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15.UpdateToVersion18(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Adiciona configurações extras ao Glimpse. Habilitar para funcionar remotamente e remove algumas Tabs 
+            que poderiam expor informações sobre a infraestrutura do cliente.
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15.UpdateToVersion17(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+             Remove os arquivos: Default.aspx.modelo	, Default.master.modelo	, favicon.ico.modelo, Login.aspx.modelo
+             Tambem remover os arquivos Style.css e WebsiteConfig.css de todos os AppThemes
+             Alterar os arquivos que são costomizaveis por camada. Ex: Default20.master, Login20.aspx
+             </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15.UpdateToVersion12(System.Xml.Linq.XDocument)">
+            <summary>
+            Para migração do web.config da Tecnologia 15.0
+            </summary>
+        </member>
+        <member name="M:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToTecVersion15.UpdateToVersion11(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Para eliminação de pastas descontinuadas, movidas da Tecnologia 15.0
+            </summary>
+        </member>
+        <member name="T:Benner.Tecnologia.Wes.Components.WebApp.WesWebConfigMigratorToVersion1">
+            <summary>
+            Responsavel por migrar um arquivo de configuracao do WES para a versão 1.
+            </summary>
+            <remarks>
+            - Adicionado bloqueio de verbos HTTPs não utilizados pelo WES;
+            - Adicionado item que remove o header X-Powered-By do Response
+            </remarks>
+        </member>
+    </members>
+</doc>

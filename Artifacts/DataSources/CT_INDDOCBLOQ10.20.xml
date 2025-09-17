@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CT_INDDOCBLOQ10</Identifier>
+  <Name>Documentos bloqueados a mais de 10 dias</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE FROM CT_DOCUMENTOS A&#xD;&#xA;JOIN Z_DATAS DATAS ON DATAS.DATA = @HOJE&#xD;&#xA;WHERE A.DATA &lt; @ADDDAY(DATAS.DATA, -10) AND A.EMPRESA = @EMPRESA&#xD;&#xA; " />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

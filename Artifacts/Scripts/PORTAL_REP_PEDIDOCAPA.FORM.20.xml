@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_PEDIDOCAPA.FORM</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCustomLocalEntregaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCustomLocalEntregaExecute(command, entity):
+    from  Benner.Tecnologia.Common.Components import LinkDefinition
+    from Benner.Tecnologia.Common import ListItem
+    linkDefinition = command.OutputDefinition
+    linkDefinition.Parameters["ABRANGENCIA"] = "CAPA"
+    linkDefinition.Parameters["ENTREGA"] = 0
+    #linkDefinition.Parameters["STATUS"] = ListItem(entity.Fields["STATUS"]).Index
+    #linkDefinition.Parameters["CLIENTE"] = entity["CLIENTE"].GetInt32()
+    #linkDefinition.Parameters["PEDIDO"] = entity.Fields["HANDLE"]
+    #linkDefinition.Parameters["ATUAL"] = entity["DESTINATARIOPADRAOx"].GetInt32()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCustomExcluirExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCustomExcluirExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja Excluir?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

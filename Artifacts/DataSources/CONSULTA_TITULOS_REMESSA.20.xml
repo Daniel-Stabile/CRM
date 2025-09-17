@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONSULTA_TITULOS_REMESSA</Identifier>
+  <Name>Títulos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.REMESSA, B.VCTOPRORROGADO, C.DOCUMENTODIGITADO, B.PARCELADIGITADA, C.DATAEMISSAO,&#xD;&#xA;B.VALOR - B.VALORESBAIXADOS VALOR, D.NOME, E.NOME MUNICIPIO, D.CEPCOBRANCA, F.NOME ESTADO&#xD;&#xA;FROM FN_PARCELAREMESSAS A&#xD;&#xA;LEFT JOIN FN_PARCELAS B ON B.HANDLE = A.PARCELA&#xD;&#xA;LEFT JOIN FN_DOCUMENTOS C ON C.HANDLE = B.DOCUMENTO&#xD;&#xA;LEFT JOIN GN_PESSOAS D ON D.HANDLE = C.PESSOA&#xD;&#xA;LEFT JOIN MUNICIPIOS E ON E.HANDLE = D.MUNICIPIOCOBRANCA&#xD;&#xA;LEFT JOIN ESTADOS F ON F.HANDLE = E.ESTADO&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="MUNICIPIO" From="A" Path="MUNICIPIO" />
+    <Field Alias="CEPCOBRANCA" From="A" Path="CEPCOBRANCA" />
+    <Field Alias="ESTADO" From="A" Path="ESTADO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Itens da requisição" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Itens da requisição" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_LC_REQUISICAOITENS.FORM" CanDelete="False" CanUpdate="True" CanInsert="False" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="LC_CARGA_DE_REQUISICAO__ITENSCOMCONFIRMACAO_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_1880" Title="Fornecedores sugeridos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_LC_REQUISICAOFORNECEDORES.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.ITEM = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t1812_at1880_hs81a74388.aspx" UserDefinedDisableRowSelection="False" PageId="LC_CARGA_DE_REQUISICAO__ITENSCOMCONFIRMACAO_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_2569" Title="Ocorrências no ítem" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_PD_STATUS.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.HANDLETABELAORIGEM IN (SELECT B.HANDLE FROM Z_TABELAS B WHERE B.NOME = 'LC_REQUISICAOITENS') AND A.HANDLEREGISTROORIGEM = @RASTRO(LC_REQUISICAOITENS) AND DATAINCLUSAO &gt;= (SELECT DATA FROM LC_REQUISICOES WHERE HANDLE = @RASTRO(LC_REQUISICOES) ))" FormUrl="~/aga/a/f/aga_t1951_at2569_hs3660b91c.aspx" UserDefinedDisableRowSelection="False" PageId="LC_CARGA_DE_REQUISICAO__ITENSCOMCONFIRMACAO_FORM" Level="20" Order="15"  />
+        </div>
+    
+      </asp:Content>
+    

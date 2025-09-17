@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAODIFERIMENTO.GRID</ViewName>
+  <EntityName>TR_PCAPURACAODIFERIMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+    
+    #Zerando valores
+    row.GetCellByName("TOTALVENDAS").Text = "0,00";
+    row.GetCellByName("TOTALNAORECEBIDO").Text = "0,00";
+    row.GetCellByName("TOTALCONTRIBUICAODIFERIDA").Text = "0,00";
+    row.GetCellByName("TOTALCREDITODIFERIDO").Text = "0,00";
+
+    #Formatação dos valores
+    if entity.Fields["TOTALVENDAS"] != None: row.GetCellByName("TOTALVENDAS").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALVENDAS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALNAORECEBIDO"] != None: row.GetCellByName("TOTALNAORECEBIDO").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALNAORECEBIDO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALCONTRIBUICAODIFERIDA"] != None: row.GetCellByName("TOTALCONTRIBUICAODIFERIDA").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALCONTRIBUICAODIFERIDA"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALCREDITODIFERIDO"] != None: row.GetCellByName("TOTALCREDITODIFERIDO").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALCREDITODIFERIDO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

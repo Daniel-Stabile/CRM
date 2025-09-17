@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_CONTRATOITENS.CUSTOM.GRID</ViewName>
+  <EntityName>CM_CONTRATOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+    if entity == None: return
+  
+    widget.View.Commands["New"].Visible = entity.Fields["STATUSPROPOSTA"].Value == 1 and  entity.Fields["LIBERADOCONFIRMACAO"] == False
+    widget.View.Commands["Delete"].Visible = entity.Fields["STATUSPROPOSTA"].Value == 1 and  entity.Fields["LIBERADOCONFIRMACAO"] == False
+    widget.View.Commands["Edit"].Visible = entity.Fields["STATUSPROPOSTA"].Value == 1 and  entity.Fields["LIBERADOCONFIRMACAO"] == False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

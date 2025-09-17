@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PR_ATRIBUTOVALORES.GRID</ViewName>
+  <EntityName>PR_ATRIBUTOVALORES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    mestre = widget.ProviderWidget 
+    entidadeMestre = mestre.Entity
+    widget.Hidden = True
+
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = False
+    
+    if entidadeMestre["TIPO"].GetBoolean():
+        if widget.View.Commands["New"] != None:
+            widget.View.Commands["New"].Visible = True
+            widget.Hidden = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

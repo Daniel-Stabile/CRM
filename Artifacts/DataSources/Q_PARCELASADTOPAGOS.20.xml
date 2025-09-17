@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>Q_PARCELASADTOPAGOS</Identifier>
+  <Name>Parcelas de adiantamento pagos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE HNDLDOCUMENTO,&#xD;&#xA;       B.AP CHAVE,&#xD;&#xA;       SUM(D.VALORDESAGIO) DESAGIO,&#xD;&#xA;       A.DATAENTRADA DATAENTRADADOC,&#xD;&#xA;       A.DATAENTRADA,&#xD;&#xA;       B.DATAVENCIMENTO,&#xD;&#xA;       A.HANDLE DOCUMENTO,&#xD;&#xA;       B.DATALIQUIDACAO,&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       B.PARCELADIGITADA,&#xD;&#xA;       B.AP,&#xD;&#xA;       MO.ABREVIATURA MOEDA,&#xD;&#xA;       (B.VALORESBAIXADOS - B.VALORESCOMPENSADOS)VALOR,&#xD;&#xA;       B.VALORESBAIXADOS,&#xD;&#xA;       B.VALORMOEDA,&#xD;&#xA;       A.TIPODOCUMENTO,&#xD;&#xA;       B.VCTOPRORROGADO,&#xD;&#xA;       FI.NOME FILIAL,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       B.HANDLE,&#xD;&#xA;       C.NOME,&#xD;&#xA;       B.VALORESBAIXADOSMOEDA,&#xD;&#xA;       B.VALORESCOMPENSADOSMOEDA,&#xD;&#xA;       B.VALORESCOMPENSADOS,&#xD;&#xA;       A.PESSOA&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;       INNER JOIN FN_PARCELAS B ON (B.DOCUMENTO = A.HANDLE)&#xD;&#xA;       INNER JOIN GN_OPERACOES C ON (C.HANDLE = A.OPERACAO)&#xD;&#xA;       INNER JOIN FN_MOVIMENTACOES D ON (D.PARCELA = B.HANDLE)&#xD;&#xA;       LEFT JOIN GN_MOEDAS MO ON (MO.HANDLE = A.MOEDA)&#xD;&#xA;       JOIN FILIAIS FI ON (FI.HANDLE = A.FILIAL)&#xD;&#xA;&#xD;&#xA; GROUP BY A.DATAENTRADA,&#xD;&#xA;       B.DATAVENCIMENTO,&#xD;&#xA;       A.HANDLE,&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       B.PARCELADIGITADA,&#xD;&#xA;       B.AP,&#xD;&#xA;       MO.ABREVIATURA,&#xD;&#xA;       B.VALOR,&#xD;&#xA;       B.VALORESBAIXADOS,&#xD;&#xA;       B.VALORMOEDA,&#xD;&#xA;       B.VALORESBAIXADOSMOEDA,&#xD;&#xA;       A.TIPODOCUMENTO,&#xD;&#xA;       B.VCTOPRORROGADO,&#xD;&#xA;       FI.NOME,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       B.HANDLE,&#xD;&#xA;       C.NOME,&#xD;&#xA;       B.VALORESCOMPENSADOS,&#xD;&#xA;       B.VALORESCOMPENSADOSMOEDA,&#xD;&#xA;       B.DATALIQUIDACAO ,&#xD;&#xA;       A.PESSOA&#xD;&#xA;HAVING ((SUM(D.VALORDESAGIO) + ROUND(B.VALORESCOMPENSADOS, 2)) &lt; B.VALORESBAIXADOS)&#xD;&#xA;       OR ((ROUND(B.VALORESCOMPENSADOS, 2) &lt; B.VALORESBAIXADOS)&#xD;&#xA;       AND (SUM(D.VALORDESAGIO) IS NULL&#xD;&#xA;       OR SUM(D.VALORDESAGIO) = 0)&#xD;&#xA;       OR B.VALORESCOMPENSADOS IS NULL)&#xD;&#xA; ORDER BY A.DATAENTRADA" />
+  <Fields>
+    <Field Alias="HNDLDOCUMENTO" From="A" Path="HNDLDOCUMENTO" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="DESAGIO" From="A" Path="DESAGIO" />
+    <Field Alias="DATAENTRADADOC" From="A" Path="DATAENTRADADOC" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DATALIQUIDACAO" From="A" Path="DATALIQUIDACAO" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="VALORESBAIXADOSMOEDA" From="A" Path="VALORESBAIXADOSMOEDA" />
+    <Field Alias="VALORESCOMPENSADOSMOEDA" From="A" Path="VALORESCOMPENSADOSMOEDA" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

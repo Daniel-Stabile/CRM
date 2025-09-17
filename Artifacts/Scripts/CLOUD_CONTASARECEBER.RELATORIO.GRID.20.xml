@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_CONTASARECEBER.RELATORIO.GRID</ViewName>
+  <EntityName>CLOUD_CONTASARECEBER</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (entity["VALORRECEBIDO"].GetDecimal() == 0):
+        row.GetCellByName("VALORRECEBIDO").Text = ""
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

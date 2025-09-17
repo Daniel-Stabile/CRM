@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_VIRTUAL_CANCELAMENTO.CUSTOM.FORM</ViewName>
+  <EntityName>FN_VIRTUAL_CANCELAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+      widget.View.Commands["CMD_EXCLUIR"].Enabled = widget.Entity.EhExclusao
+      widget.View.Commands["CMD_SALVAR"].Enabled = not widget.Entity.EhExclusao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESATIV.MANUAL.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESATIV</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    entity = widget.Entity;
+    view   = widget.View;
+    
+    if entity == None or view == None: return
+    
+    if entity.Handle.IsValid():
+        #view.FieldDefinitions["ATIVIDADE"].DataAccessLevel  = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["ITEM"].DataAccessLevel  = FieldDefinition.AccessLevel.Read
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

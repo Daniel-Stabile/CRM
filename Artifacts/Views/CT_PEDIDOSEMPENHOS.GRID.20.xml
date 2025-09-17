@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>CT_PEDIDOSEMPENHOS.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>CT_PEDIDOSEMPENHOS</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="CT_PEDIDOSEMPENHOS" name="CT_PEDIDOSEMPENHOS.GRID" title="CT_PEDIDOSEMPENHOS" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition key="NUMEROPEDIDO" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>20px</Width>
+        <searchable>true</searchable>
+        <visibility xsi:nil="true" />
+      </GridFieldDefinition>
+      <GridFieldDefinition key="DATA" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility xsi:nil="true" />
+      </GridFieldDefinition>
+      <GridFieldDefinition key="STATUS">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="VALOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="FORNECEDOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME,CGCCPF</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="FILIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="ORIGEM">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="NUMEROPEDIDOEMPENHO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="EMPRESA" inherited="true">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="CENTROCUSTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="CONTA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="GRUPOALCADA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="PEDIDOORIGINAL">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="PROJETO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="REQUISITANTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="VALORENCERRADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="VALORUTILIZADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Saldo pendente" key="SQL_SALDOPENDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Expression>(A.VALOR-A.VALORUTILIZADO-A.VALORENCERRADO)</Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="NUMEROEMPENHOLEGADO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="" key="New" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal>true</showModal>
+        <modalSize>FullPage</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="" key="Edit" inherited="true">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal>true</showModal>
+        <modalSize>FullPage</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="HistoryLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <LevelsToGoBack>1</LevelsToGoBack>
+        </OutputDefinition>
+      </Command>
+      <Command title="" key="SaveNew" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Delete" inherited="true">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="" key="View" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal>true</showModal>
+        <modalSize>FullPage</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Liberar" key="CMD_LIBERAR">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="Function" functionName="LIBERARWEB" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Confirmar" key="CMD_CONFIRMAR">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="Function" functionName="CONFIRMAR" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Recusar" key="CMD_RECUSAR">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Default</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>TERRACAP</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_VTREJEITARCANCELARPEDIDO.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>TERRACAP</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Function" functionName="REJEITAR" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="CMD_CANCELAR">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Default</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>TERRACAP</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_VTREJEITARCANCELARPEDIDO.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>TERRACAP</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Function" functionName="CANCELAR" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Encerrar" key="CMD_ENCERRAR">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Default</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>TERRACAP</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_VTGERAREMPENHO.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>TERRACAP</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Function" functionName="ENCERRAR" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Gerar empenho" key="CMD_GERAREMPENHO">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Default</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>A.HANDLE = @CAMPO(HANDLE)</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>TERRACAP</SystemInstanceName>
+          <TargetEntityDefinitionName>CT_VTGERAREMPENHO.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>TERRACAP</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <ProcessDefinition xsi:type="Function" functionName="GERAREMPENHO" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Copiar" key="CMD_COPIAR">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="Function" functionName="COPIARWEB" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

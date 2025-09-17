@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOOBSERVACOES.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOOBSERVACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    if row.DeleteCommand != None:
+			row.DeleteCommand.Visible = Utils.VerificaPermissao("EXCLUIR_FATURAMENTO");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    registro = widget.Entity
+    
+    if registro == None:return
+
+    widget.View.Commands["GRP_DOCUMENTOSREFECIADOS"].Items["OBSERVACAOCOLETAENTREGA"].Visible = widget.Entity.ColetaEntregaVisible()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

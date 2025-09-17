@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_SERASAREMESSAS.CUSTOM.FORM</ViewName>
+  <EntityName>FN_SERASAREMESSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import ListItem
+    
+    registro = widget.Entity
+    if registro == None: return
+
+    registro.Fields["DIRETORIOARQUIVO"] = "c:\\\\"
+    status = registro.Fields["STATUS"]
+
+    comandoDeletar = widget.View.Commands["Delete"]
+    if comandoDeletar != None:
+        comandoDeletar.Visible = status.Value in(1,5)
+        
+    comandoEditar = widget.View.Commands["Edit"]
+    if comandoEditar != None:
+        comandoEditar.Visible = status.Value in(1,5)
+    
+    comandoSelecionarParcelas = widget.View.Commands["SelecionarParcelas"]
+    if comandoSelecionarParcelas != None:
+        comandoSelecionarParcelas.Visible = status.Value in(1,5)
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSelecionarParcelasExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSelecionarParcelasExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import UrlLinkDefinition
+    from Benner.Tecnologia.Common import Handle
+    
+    if entity == None: return
+    
+    paginaSelecaoParcelas = str(command.OutputDefinition.Url + "?key=" + entity.Fields["HANDLE"].Value.ToString())
+    command.OutputDefinition = UrlLinkDefinition(paginaSelecaoParcelas)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

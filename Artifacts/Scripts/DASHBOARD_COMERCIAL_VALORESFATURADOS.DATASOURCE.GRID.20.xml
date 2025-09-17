@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>DASHBOARD_COMERCIAL_VALORESFATURADOS.DATASOURCE.GRID</ViewName>
+  <EntityName>DASHBOARD_COMERCIAL_VALORESFATURADOS.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (entity.Fields["VALORFATURADO"] &lt; 0):
+        row.CssClass += " danger"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

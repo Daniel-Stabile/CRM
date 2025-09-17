@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_APURACOES.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>TR_APURACOES</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Padrão</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>TR_VTAPURACAOIMPOSTOS.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>A.IMPOSTO IN (@CAMPO(IMPOSTOS)) AND A.FILIAL IN (@CAMPO(FILIAL)) AND (A.MES BETWEEN @CAMPO(DATAINICIAL) AND @CAMPO(DATAFINAL))</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

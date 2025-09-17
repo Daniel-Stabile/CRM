@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOIMPOSTOS.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Corporativo.Definicoes.Financeiro import FNDocumentoImposto
+    
+    entity = widget.Entity
+    if entity == None: return
+    
+    widget.View.Commands["CMD_INFORMARTERCEIROS"].Visible = FNDocumentoImposto.ExibirPageRetencaoTerceiros(entity["IMPOSTO"].GetInt32(), entity["PESSOA"].GetInt32(), entity["DOCUMENTO"].GetInt32())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

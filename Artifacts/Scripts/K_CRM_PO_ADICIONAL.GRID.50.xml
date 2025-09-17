@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_ADICIONAL.GRID</ViewName>
+  <EntityName>K_CRM_PO_ADICIONAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    
+    entity = widget.ProviderWidget.Entity;
+    widget.View.Commands["CmdConclusao"].Visible = False;
+    
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["HANDLE"];
+        versao = entity.Fields["VERSAO"];
+        manual = entity.Fields["MANUAL"];
+        
+        crit = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.ADICIONAL IN (SELECT HANDLE FROM K_CRM_ADICIONAIS WHERE OBRIGATORIO = 'S')")
+        crit.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        crit.Parameters.Add(Parameter("VERSAO", versao));
+        consideracoes = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_ADICIONAL"), crit);
+        if None != consideracoes and consideracoes.Count &gt; 0:
+            sql = "SELECT HANDLE FROM K_CRM_ADICIONAIS WHERE OBRIGATORIO = 'S'";
+            ed = EntityDefinition.Create();
+            ed.EntitySource = QuerySource(sql);
+            criterio = Criteria();
+            adicionaisObrigatorios = Entity.GetMany(ed,criterio);
+            
+            if None != adicionaisObrigatorios and adicionaisObrigatorios.Count &gt; 0 and adicionaisObrigatorios.Count == consideracoes.Count:
+                widget.View.Commands["CmdConclusao"].Visible = True;
+                
+        widget.View.Commands["CmdAnterior"].Visible = not manual;
+        widget.View.Commands["CmdConclusao"].Visible = not manual;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

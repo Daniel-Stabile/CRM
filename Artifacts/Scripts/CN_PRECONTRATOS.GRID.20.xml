@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_PRECONTRATOS.GRID</ViewName>
+  <EntityName>CN_PRECONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    statusContrato = entity.Fields["STATUS"].Value
+     
+    if (statusContrato == 2 or statusContrato == 3 or statusContrato == 5):
+        if row.EditCommand != None: row.EditCommand.Visible = False
+        if row.DeleteCommand != None: row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PROJETOS.FORM</ViewName>
+  <EntityName>GN_PROJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Genericos import GNProjeto
+
+    view = widget.View
+    view.FieldDefinitions["NIVELSUPERIOR"].Visible = False
+
+    entity = widget.Entity
+    if entity == None: return
+    if entity["HANDLE"].GetInt64() == 0 : return
+
+    view.Commands["CMD_SPED"].Visible = GNProjeto.ExibirBotaoSped( entity["HANDLE"].GetInt64() );
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

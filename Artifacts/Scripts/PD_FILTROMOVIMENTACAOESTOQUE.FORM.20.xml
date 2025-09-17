@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_FILTROMOVIMENTACAOESTOQUE.FORM</ViewName>
+  <EntityName>PD_FILTROMOVIMENTACAOESTOQUE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCONSIDERACANCELADAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONSIDERACANCELADAValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDesconsiderarCanceladas)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCONSIDERAENTRADAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONSIDERAENTRADAValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDesconsiderarCanceladas)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDATAINICIALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDATAINICIALValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDataFinalMenor)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDATAFINALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDATAFINALValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDataFinalMenor)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

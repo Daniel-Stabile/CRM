@@ -1,0 +1,51 @@
+@{
+    int valorStatus = (@Model["STATUS"].GetInt32());
+    int sequenciaAlcada = (@Model["SEQUENCIAALCADA"].GetInt32());
+    int niveisAlcada = (@Model["NIVEISALCADA"].GetInt32());
+    string icon = "";
+    string bgColor = "";
+    string color = "";
+    string textoTitulo = @Model["STATUS"].GetString();
+}
+@{
+    switch (valorStatus)
+    {
+        case 1: //EM APROVAÇÃO
+            bgColor = "#A9D8E8";
+            color = "#003C6E";
+            icon = "fa fa-user-secret";
+            break;
+        case 2: //APROVAÇÃO
+            bgColor = "#E8F5E9 ";
+            color = "#33aa33";
+            icon = "fa fa-thumbs-up";
+            break;
+        case 3: //RECUSADA
+            bgColor = "#F8CECC";
+            color = "#660000";
+            icon = "fa fa-thumbs-down";
+            break;
+        case 4: //CANCELADO
+            bgColor = "#333344";
+            color = "#ffffff";
+            icon = "fa fa-close";
+            break;
+    }
+}
+<span
+    style="background-color: @bgColor; color: @color; padding: 1px 8px;border-radius: 6px !important;  white-space: nowrap;">
+    <i class="@icon" style="font-size:12px;"></i>
+    <span style="margin-left: 2px; font-size:11px; font-weight: 600; text-transform: uppercase;">
+        @textoTitulo
+    </span>
+    @if (valorStatus == 1 && niveisAlcada > 0)
+    {
+        <div style="margin-left: 2px; gap:2px;font-size:11px; font-weight: 600; text-transform: uppercase; display:
+    inline-flex;">
+            <b>@sequenciaAlcada</b>
+            <div>/</div>
+            <b>@niveisAlcada</b>
+        </div>
+    }
+
+</span>

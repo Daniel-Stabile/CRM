@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOACONTATOEMAIL.GRID</ViewName>
+  <EntityName>K_CRM_PESSOACONTATOEMAIL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    ehGestor = Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL")
+    
+    responsavel = entity.Fields["CONTATO"].Instance.Fields["PESSOA"].Instance.Fields["USUARIORESPONSAVEL"].Handle
+    
+    ehResponsavel = (usuario == responsavel)
+    
+    if row.GetCustomCommand("cmdEmail") != None:
+        row.GetCustomCommand("cmdEmail").Enabled = (ehGestor or ehResponsavel)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

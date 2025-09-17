@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONSULTAR_SOLICITACOESCAPA.GRID</ViewName>
+  <EntityName>CP_SOLICITACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    row.GetCellByName("VALORTOTAL").Text = str('%.2f' % entity.ValorTotalSolicitacao())
+
+    if entity.SolicitacaoRejeitada() :
+        row.GetCellByName("SITUACAO").Text = "Recusada"
+    elif entity.SolicitacaoPendente() :
+        row.GetCellByName("SITUACAO").Text = "Em atendimento"        
+    elif entity.SolicitacaoCancelada() :
+        row.GetCellByName("SITUACAO").Text = "Cancelada"
+    elif entity.SolicitacaoAtendida() :
+        row.GetCellByName("SITUACAO").Text = "Atendida"
+    elif entity.SolicitacaoAprovada() :
+        row.GetCellByName("SITUACAO").Text = "Aprovada"        
+    elif entity.SolicitacaoErroAtendimento() :
+        row.GetCellByName("SITUACAO").Text = "Atendimento divergente"        
+    elif entity.SolicitacaoLiberada() :
+        row.GetCellByName("SITUACAO").Text = "Aguard. aprovação"
+    else :        
+        row.GetCellByName("SITUACAO").Text = "Em digitação" 
+
+    row.GetCellByName("MOTIVOSTATUS").CssClass = "truncate"
+    motivostatus = entity["MOTIVOSTATUS"]
+    
+    if (motivostatus.GetDBValue() != None) and (row.GetCellByName("SITUACAO").Text == "Atendimento divergente"):
+        row.GetCellByName("MOTIVOSTATUS").Text = "&lt;div class='btn btn-xs btn-cicle blue'&gt;&lt;i class='fa fa-info-circle'&gt;&lt;/i&gt;&lt;/div&gt;"
+        row.GetCellByName("MOTIVOSTATUS").Align = "center"
+        row.GetCellByName("MOTIVOSTATUS").Tooltip = motivostatus.GetString()
+    else:
+        row.GetCellByName("MOTIVOSTATUS").Text = ""
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter    
+
+    args.WhereClause.Clear();
+    
+    if(not args.Entity["SITUACAO"].IsNull):
+        if (args.Entity["SITUACAO"].GetInt32() == 1) :
+            args.WhereClause.AddWhereClause("A.LIBERADA = 'N' AND A.STATUS = 1 ")
+        elif (args.Entity["SITUACAO"].GetInt32() == 2) :    
+            args.WhereClause.AddWhereClause("A.LIBERADA = 'S' AND A.STATUS = 1 ")
+        elif (args.Entity["SITUACAO"].GetInt32() == 3) :    
+            args.WhereClause.AddWhereClause("A.STATUS = 5 ")          
+        elif (args.Entity["SITUACAO"].GetInt32() == 4) :    
+            args.WhereClause.AddWhereClause("A.STATUS = 3")
+        elif (args.Entity["SITUACAO"].GetInt32() == 5) :    
+            args.WhereClause.AddWhereClause("A.STATUS = 4 ")               
+        elif (args.Entity["SITUACAO"].GetInt32() == 6) :    
+            args.WhereClause.AddWhereClause("A.STATUS = 6 ") 
+        elif (args.Entity["SITUACAO"].GetInt32() == 8) :    
+            args.WhereClause.AddWhereClause("A.STATUS = 2 ")             
+        elif (args.Entity["SITUACAO"].GetInt32() == 7) :    
+            args.WhereClause.AddWhereClause("A.STATUS = 7 ")             
+        else :
+            args.WhereClause.AddWhereClause("A.HANDLE = -1")
+    
+    if(not args.Entity["FILIAL"].IsNull):
+        args.WhereClause.AddWhereClause("A.FILIAL = :FILIAL ", Parameter("FILIAL", args.Entity["FILIAL"].GetInt64()))
+        
+    if(not args.Entity["DATAINCLUSAODE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.DATAINCLUSAO &gt;= :DE", Parameter("DE", args.Entity["DATAINCLUSAODE"].GetDateTime()))
+        
+    if(not args.Entity["DATAINCLUSAOATE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.DATAINCLUSAO &lt;= :ATE", Parameter("ATE", args.Entity["DATAINCLUSAOATE"].GetDateTime()))
+        
+        
+    if(not args.Entity["VALORTOTALDE"].IsNull):        
+        args.WhereClause.AddWhereClause("(SELECT SUM(VALORESTIMADO * QUANTIDADE) TOTAL FROM CP_SOLICITACAOITENS WHERE SOLICITACAO = A.HANDLE) &gt;= :DE", Parameter("DE", args.Entity["VALORTOTALDE"].GetDecimal()))
+        
+    if(not args.Entity["VALORTOTALATE"].IsNull):        
+        args.WhereClause.AddWhereClause("(SELECT SUM(VALORESTIMADO * QUANTIDADE) TOTAL FROM CP_SOLICITACAOITENS WHERE SOLICITACAO = A.HANDLE) &lt;= :ATE", Parameter("ATE", args.Entity["VALORTOTALATE"].GetDecimal()))        
+        
+        
+    if(not args.Entity["NRCAPA"].IsNull):        
+        args.WhereClause.AddWhereClause("A.NUMERO LIKE :NRCAPA ", Parameter("NRCAPA", args.Entity["NRCAPA"].GetInt64()))         
+        
+    if(not args.Entity["SOLICITANTE"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.SOLICITANTE IN ("+args.Entity["SOLICITANTE"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.SOLICITANTE IN ("+args.Entity["SOLICITANTE"].GetString().replace("|_|",",").replace("|_","")+")" 
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    
+    if not entity.SolicitacaoLiberada() and entity.SolicitacaoUsuario() : 
+        if entity.EhCatalogo() :
+            command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/CadastrarItemSolicitacaoCatalogo.aspx"            
+        else :            
+            command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/CadastrarItemSolicitacao.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACOES"
+        command.OutputDefinition.TargetEntityHandle = entity.Handle        
+    else :
+        command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/ConsultarCapaSolicitacao.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACOES"
+        command.OutputDefinition.TargetEntityHandle = entity.Handle 
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

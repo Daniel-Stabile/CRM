@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_GRUPOUSUARIOS.TEC.FORM</ViewName>
+  <EntityName>Z_GRUPOUSUARIOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnK_INTELIGENCIAMERCADOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnK_INTELIGENCIAMERCADOValueChanged(view, entity):
+    if entity.Fields["K_EXECUTIVOCONTAS"] == True:
+        entity.Fields["K_EXECUTIVOCONTAS"] = False;</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnK_EXECUTIVOCONTASValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnK_EXECUTIVOCONTASValueChanged(view, entity):
+    if entity.Fields["K_INTELIGENCIAMERCADO"] == True:
+        entity.Fields["K_INTELIGENCIAMERCADO"] = False;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

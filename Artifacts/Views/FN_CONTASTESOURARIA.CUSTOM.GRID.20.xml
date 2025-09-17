@@ -1,0 +1,501 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>FN_CONTASTESOURARIA.CUSTOM.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>FN_CONTASTESOURARIA</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="FN_CONTASTESOURARIA" name="FN_CONTASTESOURARIA.CUSTOM.GRID" title="FN_CONTASTESOURARIA" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" title="Tipo de conta" key="TIPOCONTA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>15%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="BANCO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>35%</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Conta" key="NOME">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>35%</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Número da conta" key="NUMEROCONTA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>15%</Width>
+        <searchable xsi:nil="true" />
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="FILIAL">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="Nova conta" key="New">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Conciliar" image="fa fa-calendar" color="btn-primary" key="T_CONCILIARMANUAL">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/aga/e/financeiro/OfficeBanking/ConciliarManual.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Importar Extrato" image="fa fa-level-down" color="btn-secondary" key="T_IMPORTAREXTRATO">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/aga/a/financeiro/OfficeBanking/ImportarExtrato.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>FN_CONCBANCIMPORTAREXTRATO</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </OutputDefinition>
+      </Command>
+      <Command title="Digitar extrato" image="fa fa-pencil" color="btn-secondary" key="T_DIGITAREXTRATO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/aga/a/financeiro/OfficeBanking/DigitarExtrato.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Conciliar" image="fa fa-calendar" color="btn-primary" key="R_CONCILIARMANUAL">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/aga/e/financeiro/OfficeBanking/ConciliarManual.aspx?cnt=@CAMPO(HANDLE)</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Importar Extrato" image="fa fa-level-down" color="btn-secondary" key="R_IMPORTAREXTRATO">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <OutputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/aga/a/financeiro/OfficeBanking/ImportarExtrato.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>A.CONTACORRENTE = @CAMPO(HANDLE)</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>FN_CONCBANCIMPORTAREXTRATO</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </OutputDefinition>
+      </Command>
+      <Command title="Digitar extrato" image="fa fa-pencil" color="btn-secondary" key="R_DIGITAREXTRATO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <OutputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/aga/a/financeiro/OfficeBanking/DigitarExtrato.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <WhereClause>
+            <Where>A.CONTACORRENTE = @CAMPO(HANDLE)</Where>
+            <Parameters />
+          </WhereClause>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>FN_FILTRODIGITAREXTRATO</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </OutputDefinition>
+      </Command>
+      <Command title="Conciliar Automático" image="fa fa-calendar-plus-o" color="btn-outline-primary" key="CMD_CONCILIARAUTOMATICO">
+        <visible>true</visible>
+        <showModal>true</showModal>
+        <modalSize>Large</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <InputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/DefaultDataInput.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>FN_VT_CONCILIACAOAUTOMATICA.CUSTOM.FORM</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>Insert</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </InputDefinition>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Desconciliar Automático" image="fa fa-calendar-minus-o" color="btn-outline-primary" key="GRP_DESCONCILIARAUTOMATICO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Data do Lançamento" image="fa fa-calendar" key="CMD_DATALANCAMENTO">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <InputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/DefaultDataInput.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName />
+              <TargetEntityDefinitionName>FN_VT_DESCONCILIACAOAUTOMATICA.CUSTOM.FORM</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </InputDefinition>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Data de Conciliação" image="fa fa-calendar-o" key="CMD_DATACONCILIACAO">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <InputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/DefaultDataInput.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName />
+              <TargetEntityDefinitionName>FN_VT_DESCONCILIACAOAUTOMATICA.CUSTOM.FORM</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </InputDefinition>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

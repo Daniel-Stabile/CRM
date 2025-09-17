@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Serviços" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Serviços" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_PR_ORDEMPRODUCAOSERVICOS.FORM" CanDelete="False" CanUpdate="False" CanInsert="False" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="CARGA_DE_ITENS_OP_SOLEITURA__SERVICOS_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_3856" Title="Ordens de compra" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_CP_ORDENSCOMPRA.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.HANDLE IN (SELECT ORDEMCOMPRA FROM PR_ORDEMPRODUCAOSERVICOS WHERE HANDLE =  @RASTRO(PR_ORDEMPRODUCAOSERVICOS))" FormUrl="~/aga/a/f/aga_t1529_at3856_hs7a7db21.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_ITENS_OP_SOLEITURA__SERVICOS_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_3864" Title="Requisições de compra" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_CP_REQUISICOESPAI.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.HANDLE IN (SELECT REQUISICAOCOMPRA FROM PR_ORDEMPRODUCAOSERVICOS WHERE HANDLE =  @RASTRO(PR_ORDEMPRODUCAOSERVICOS))" FormUrl="~/aga/a/f/aga_t2311_at3864_hs650e3992.aspx" UserDefinedDisableRowSelection="False" PageId="CARGA_DE_ITENS_OP_SOLEITURA__SERVICOS_FORM" Level="20" Order="15"  />
+        </div>
+    
+      </asp:Content>
+    

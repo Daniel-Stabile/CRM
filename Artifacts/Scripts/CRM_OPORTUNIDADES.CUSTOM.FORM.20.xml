@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_OPORTUNIDADES.CUSTOM.FORM</ViewName>
+  <EntityName>CRM_OPORTUNIDADES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(form):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import EntityBase
+    from System import String
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import TabItem
+    
+    entity = form.Entity
+    if entity == None: return
+
+    handleResponsavel = entity.Fields["RESPONSAVEL"].Handle
+    handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+    form.View.Commands["Edit"].Visible = (handleResponsavel == handleUsuario)
+    form.View.Commands["Delete"].Visible = (handleResponsavel == handleUsuario)
+    
+    if (entity.State != EntityState.Initialized):
+        pessoa = entity.Fields["PESSOA"].Instance
+        if (not pessoa is None):
+            if (pessoa.Fields["TIPO"].Value == 1 or pessoa.Fields["TIPO"].Value == 3):
+                form.View.FieldDefinitions["CONTATO"].Visible = False
+            else:
+                form.View.FieldDefinitions["CONTATO"].Visible = True
+                
+                
+    if (entity.State == EntityState.Initialized):
+        entity.Fields["RESPONSAVEL"] = EntityAssociation(Handle(str(identity.UserHandle)), EntityDefinition.GetByName("CORPORATIVO", "Z_GRUPOUSUARIOS"));
+        if (entity.Fields["ACAORELACIONAMENTO"].Handle.IsValid()):
+            acao = entity.Fields["ACAORELACIONAMENTO"].Instance
+            if (String.IsNullOrEmpty(entity.Fields["DESCRICAO"])):
+                entity.Fields["DESCRICAO"] = acao.Fields["DESCRICAO"]
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    
+    if (entity.Fields["FASEATUAL"].Handle != entity.OriginalFieldValues["FASEATUAL"].Handle):
+        criterio = Criteria()
+        criterio.AddWhereClause("A.TIPOOPORTUNIDADE = :TIPO", Parameter("TIPO", entity.Fields["TIPO"].Handle))
+        criterio.AddWhereClause("A.FASE = :FASE", Parameter("FASE", entity.Fields["FASEATUAL"].Handle))
+        faseFluxo = Entity.Get(EntityDefinition.GetByName("CRM_TIPOOPORTUNIDADEITENS"), criterio)
+        
+        if (faseFluxo.Fields["FASESUCESSO"] or faseFluxo.Fields["FASESEMSUCESSO"]):
+            command.RequestConfirmationBeforeExecute("Confirma o encerramento da oportunidade?")
+    
+        
+    
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnFLUXOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFLUXOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    criterio = Criteria()
+    sql = "SELECT FASE FROM CRM_FLUXOSOPORTUNIDADEITENS WHERE FLUXOOPORTUNIDADE = :FLUXO ORDER BY SEQUENCIA"
+    criterio.Parameters.Add(Parameter("FLUXO", entity.Fields["FLUXO"].Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    fluxos = Entity.GetMany(ed, criterio)
+    if (fluxos.Count &gt; 0):
+        entity.Fields["FASEATUAL"].Handle = Handle(fluxos[0].Fields["FASE"])
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPESSOAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESSOAValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (not entity.Fields["PESSOA"] is None):
+        pessoa = entity.Fields["PESSOA"].Instance
+        if (not pessoa is None):
+            if (not pessoa.Fields["TIPO"] is None):
+                if (pessoa.Fields["TIPO"].Value == 1 or pessoa.Fields["TIPO"].Value == 3):
+                    view.FieldDefinitions["CONTATO"].Visible = False
+                else:
+                    view.FieldDefinitions["CONTATO"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntitySource
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Entity
+    
+    if (entity.Fields["TIPO"].Handle.IsValid()):
+        sql = "SELECT FASE FROM CRM_TIPOOPORTUNIDADEITENS WHERE TIPOOPORTUNIDADE = :TIPO ORDER BY SEQUENCIA"
+        criterio = Criteria();
+        criterio.Parameters.Add(Parameter("TIPO", entity.Fields["TIPO"].Handle))
+        
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        faseTipo = Entity.GetFirstOrDefault(ed, criterio)
+        
+        if (not faseTipo is None):
+            entity.Fields["FASEATUAL"].Handle = Handle(faseTipo.Fields["FASE"])
+        else:
+            entity.Fields["FASEATUAL"].Handle = Handle()
+    else:
+        entity.Fields["FASEATUAL"].Handle = Handle()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityAssociation
+
+    if (entity.Fields["ACAORELACIONAMENTO"].Handle.IsValid()):
+        acao = entity.Fields["ACAORELACIONAMENTO"].Instance
+        if (not entity.Fields["DESCRICAO"] is None):
+            entity.Fields["DESCRICAO"] = acao.Fields["DESCRICAO"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

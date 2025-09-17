@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<TaskPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>EMITIR_BALANCOPATRIMONIAL</Id>
+  <Title>Emitir Demonstrativos contábeis</Title>
+  <Description>Permite emitir os demonstrativos contábeis</Description>
+  <Level>Benner</Level>
+  <Reports />
+  <Pages>
+    <string>AGA_A_CONTABIL_BALANCO_PATRIMONIAL</string>
+    <string>AGA_A_CONTABIL_DEMONSTRACOES_DFC</string>
+    <string>AGA_A_CONTABIL_DEMONSTRACOES_DLPA</string>
+    <string>AGA_A_CONTABIL_DEMONSTRACOES_DMPL</string>
+    <string>AGA_A_CONTABIL_DEMONSTRACOES_DRE</string>
+    <string>AGA_A_CONTABIL_DEMONSTRACOES_DVA</string>
+  </Pages>
+  <Components>
+    <string>Benner.Corporativo.Contabil.Demonstrativos.GeradorDemonstrativos|PROCESSARXLSDEMONSTRATIVO</string>
+    <string>Benner.Corporativo.Userinterface.ContabilComum.BalancoPatrimonial|XMLBALANCOPATRIMONIALPORFILTROS</string>
+  </Components>
+  <Apis />
+  <Operations>
+    <string>WEB_CT_DEMONSTRACOES|INSERT</string>
+    <string>WEB_CT_DEMONSTRACOES|VIEW</string>
+    <string>WEB_CT_EDICAO_ASSINATURA|DESFAZERALTERACOES</string>
+    <string>WEB_CT_EDICAO_ASSINATURA|INSERT</string>
+    <string>WEB_CT_EDICAO_ASSINATURA|SUGERIRASSINATURA</string>
+    <string>WEB_CT_EDICAO_ASSINATURA|VIEW</string>
+  </Operations>
+  <Process>
+    <string>1|Benner.Corporativo.Userinterface.ContabilComum.BalancoPatrimonial, Benner.Corporativo.Userinterface</string>
+  </Process>
+  <Tasks />
+  <FieldVisibility />
+</TaskPortable>

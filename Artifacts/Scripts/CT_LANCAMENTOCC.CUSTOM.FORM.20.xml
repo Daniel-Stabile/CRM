@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOCC.CUSTOM.FORM</ViewName>
+  <EntityName>CT_LANCAMENTOCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity;
+    if registro == None: return;
+    bloqueado = registro.Fields["BLOQUEADO"];
+    if bloqueado == None: return;
+    widget.View.Commands["Edit"].Visible = bloqueado;
+    widget.View.Commands["Delete"].Visible = bloqueado;
+    widget.View.Commands["New"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

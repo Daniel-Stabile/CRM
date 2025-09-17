@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_HISTORICO_ITEM_SOLICITACAO.GRID</ViewName>
+  <EntityName>CP_SOLICITACAOITEMHISTORICO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import BennerContext
+    row.GetCustomCommand("CMD_VISUALIZAROC").Enabled = (entity.Fields["ORDEMCOMPRAITEM"].Instance != None) &amp; (BennerContext.Authorization.CanAccessUrl("~/PortalInterno/e/OrdensCompra/Default.aspx"))
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

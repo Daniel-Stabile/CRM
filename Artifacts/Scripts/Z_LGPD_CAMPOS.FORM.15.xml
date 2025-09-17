@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_LGPD_CAMPOS.FORM</ViewName>
+  <EntityName>Z_LGPD_CAMPOS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    AjsutarVisibilidadeDicas(widget.View, widget.Entity)
+    
+def AjsutarVisibilidadeDicas(view, entity):
+    tabValue = int(-1)
+    if (entity &lt;&gt; None) :
+        tabValue = entity.Fields['ANONIMIZAR'].Value
+    if (view &lt;&gt; None) :
+        view.FieldDefinitions['DICAVALORFIXO'].Visible = tabValue == 3
+        view.FieldDefinitions['DICAEXPRESSAO'].Visible = tabValue == 4
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnANONIMIZARValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnANONIMIZARValueChanged(view, entity):
+    AjsutarVisibilidadeDicas(view, entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

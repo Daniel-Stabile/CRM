@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>OP_CLASSIFICACAOORCAMENTARIA_ATIVIDADE.CUSTOM.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>OP_CLASSIFICACAOORCAMENTARIA</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="OP_CLASSIFICACAOORCAMENTARIA" name="OP_CLASSIFICACAOORCAMENTARIA_ATIVIDADE.CUSTOM.GRID" title="OP_CLASSIFICACAOORCAMENTARIA" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition key="ANO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ATIVIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ACOESPROJETOS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ELEMENTODESPESA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <lookupResultFields>NOME</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Dotação inicial" key="DOTACAO_INICIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT COALESCE(P.VALORTOTAL,0) FROM OP_ACOESPROJETOS P WHERE A.ACOESPROJETOS = P.HANDLE</Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Dotação Anual" key="DOTACAO_ANUAL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>COALESCE(A.VALOR,0)</Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Total a reservar" key="TOTAL_RESERVAR">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression> SELECT   COALESCE(A.VALOR,0) - COALESCE(SUM(E.VALOR), 0)           FROM CT_PEDIDOSEMPENHOS E                INNER JOIN OP_ACOESPROJETOS P ON P.HANDLE = A.ACOESPROJETOS                LEFT JOIN CT_CONTASGERENCIAIS CG ON CG.HANDLE = E.CONTA                LEFT JOIN CT_VERSOESORCAMENTOS V ON V.HANDLE = E.VERSAO          WHERE E.ACOESPROJETOS = A.ACOESPROJETOS                AND ( CG.ORCAPROJETO = 'N' OR E.PROJETO = P.PROJETOGERENCIAL )                AND ( CG.ORCACENTROCUSTO = 'N' OR E.CENTROCUSTO = P.CENTROCUSTO )                AND P.CONTA = E.CONTA                AND ( @DATAPARTE(ANO, V.MESINICIAL)= @DATAPARTE(ANO, A.ANO )) </Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Total do empenho" key="TOTAL_EMPENHO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>   SELECT COALESCE(SUM(E.VALOR), 0)           FROM CT_PEDIDOSEMPENHOS E                INNER JOIN OP_ACOESPROJETOS P ON P.HANDLE = A.ACOESPROJETOS                LEFT JOIN CT_CONTASGERENCIAIS CG ON CG.HANDLE = E.CONTA                LEFT JOIN CT_VERSOESORCAMENTOS V ON V.HANDLE = E.VERSAO          WHERE E.ACOESPROJETOS = A.ACOESPROJETOS                AND ( CG.ORCAPROJETO = 'N' OR E.PROJETO = P.PROJETOGERENCIAL )                AND ( CG.ORCACENTROCUSTO = 'N' OR E.CENTROCUSTO = P.CENTROCUSTO )                AND P.CONTA = E.CONTA                AND ( @DATAPARTE(ANO, V.MESINICIAL)= @DATAPARTE(ANO, A.ANO ))</Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Saldo do empenho" key="SALDO_EMPENHO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression> SELECT  COALESCE(SUM(E.VALOR-E.VALORUTILIZADO-E.VALORENCERRADO), 0)           FROM CT_PEDIDOSEMPENHOS E                INNER JOIN OP_ACOESPROJETOS P ON P.HANDLE = A.ACOESPROJETOS                LEFT JOIN CT_CONTASGERENCIAIS CG ON CG.HANDLE = E.CONTA                LEFT JOIN CT_VERSOESORCAMENTOS V ON V.HANDLE = E.VERSAO          WHERE E.ACOESPROJETOS = A.ACOESPROJETOS                AND ( CG.ORCAPROJETO = 'N' OR E.PROJETO = P.PROJETOGERENCIAL )                AND ( CG.ORCACENTROCUSTO = 'N' OR E.CENTROCUSTO = P.CENTROCUSTO )                AND P.CONTA = E.CONTA                AND ( @DATAPARTE(ANO, V.MESINICIAL)= @DATAPARTE(ANO, A.ANO )) </Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Total pago" key="TOTAL_PAGO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>   SELECT  COALESCE(SUM(E.VALORUTILIZADO), 0)           FROM CT_PEDIDOSEMPENHOS E                INNER JOIN OP_ACOESPROJETOS P ON P.HANDLE = A.ACOESPROJETOS                LEFT JOIN CT_CONTASGERENCIAIS CG ON CG.HANDLE = E.CONTA                LEFT JOIN CT_VERSOESORCAMENTOS V ON V.HANDLE = E.VERSAO          WHERE E.ACOESPROJETOS = A.ACOESPROJETOS                AND ( CG.ORCAPROJETO = 'N' OR E.PROJETO = P.PROJETOGERENCIAL )                AND ( CG.ORCACENTROCUSTO = 'N' OR E.CENTROCUSTO = P.CENTROCUSTO )                AND P.CONTA = E.CONTA                AND ( @DATAPARTE(ANO, V.MESINICIAL)= @DATAPARTE(ANO, A.ANO )) </Expression>
+        <FieldType>Currency</FieldType>
+        <SystemInstanceName>TERRACAP</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="USUARIOINCLUIU">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="SEQUENCIALALCADA">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="STATUS">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Ver" key="View">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="View" />
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

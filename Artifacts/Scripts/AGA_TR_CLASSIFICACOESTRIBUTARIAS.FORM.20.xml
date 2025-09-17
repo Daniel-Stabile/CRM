@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_CLASSIFICACOESTRIBUTARIAS.FORM</ViewName>
+  <EntityName>TR_CLASSIFICACOESTRIBUTARIAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    
+    entity = widget.Entity
+    if entity == None or entity.State != EntityState.Read: return
+
+    widget.View.Commands["SPED"].Enabled = entity.PossuiInformacoesSPED(entity["HANDLE"].GetInt64())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

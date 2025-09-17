@@ -1,0 +1,209 @@
+﻿@{
+    //    var dados = @ViewData["Dados"];
+}
+<script src=@Url.Content("~/Content/js/BennerGrid.js")></script>
+<link href="@Url.Content("~/Content/css/BennerGrid.css")" rel="stylesheet" />
+<a onclick="RecontabilizarDocumentos()" name="btnRecontabilizar" class="btn blue btn-save command-action predef-action editable" title="Recontabilizar documentos selecionados"><i class="fa fa-check btn-action"></i> Recontabilizar documentos</a>
+<div class="table-scrollable" style="height: auto; max-height: 65vh; overflow: auto;">
+    <table id="tblDados"></table>
+</div>
+<input type="hidden" value="@ViewData["Dados"]" id="dadosJSON" />
+<input type="hidden" value="@ViewData["Movimentos"]" id="movimentosJSON" />
+
+<style>
+    #tblDados thead tr th {
+        border-top: 1px solid #4B77BE !important;
+        border-bottom: 1px solid #4B77BE !important;
+        font-size: 12px !important;
+        font-weight: 700;
+        color: #555;
+        padding-left: 6px;
+        z-index: 9;
+    }
+
+    #tblDados label span {
+        margin-top: -5px;
+    }
+
+    .center {
+        text-align: center !important;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (!prm.get_isInAsyncPostBack()) {
+            prm.add_endRequest(function (sender, args) {
+                if (ValidarJSON($('#dadosJSON').val())) {
+                    MontarTabelaJSON();
+                }
+            });
+        }
+    })
+
+    var itensMov = [];
+    var movimentos = {};
+    var colunasTipoMovimento = {};
+
+    function ValidarJSON(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    function MontarTabelaJSON() {
+
+        var dados = JSON.parse('' + $('#dadosJSON').val() + '');
+
+        $('#tblDados').BennerGrid({
+            header: [{ value: "DOC", field: "DOCUMENTODIGITADO" },
+            { value: "EMISSÃO", class: "center", field: "DATAEMISSAOFORMATADA" },
+            { value: "PESSOA", field: "NOMEPESSOA", class: "col-md-5 col-lg-5 col-sm-5" },
+            { value: "OPERAÇÃO", field: 'OPERACAO', class: "col-md-4 col-lg-4 col-sm-4" },
+            { value: "TP. DOC.", field: "TIPODOC" },
+            { value: "VALOR", class: "right", field: 'VALORNOMINAL', type: 'money' }],
+            body: dados.PACKEDCONTAINER.CONTENT.ROW,
+            caption: "",
+            key: false,
+            vincular: false
+        });
+
+        $('#tblDados tr').each(function (i, tr) {
+            if (i > 0) {
+                var col = $('<td/>');
+                col.append('<label class="boolean-control mt-checkbox mt-checkbox-outline"><input type="checkbox" id="chk_{0}" /><span></span></label>'.replace('{0}', i));
+                col.addClass('center');
+
+                $(tr).prepend(col);
+            }
+            else {
+
+                var col = $('<th/>');
+                col.append('<label class="boolean-control mt-checkbox mt-checkbox-outline"><input type="checkbox" id="chk_{0}" /><span></span></label>'.replace('{0}', i));
+                col.addClass('center');
+
+                $(tr).prepend(col);
+            }
+        });
+
+        $('#tblDados').tableHeadFixer({ 'left': 0, 'head': true });
+
+        $('#tblDados thead th input[type="checkbox"]').click(function (e) {
+
+            var checkado = $(this).is(':checked');
+            var table = $(e.target).closest('table');
+            $('td input:checkbox', table).prop('checked', checkado);
+
+        })
+    }
+
+    function ExibirDetalhes(handle, linhaIcone) {
+        var linha = $('[data-mestre="' + handle + '"]');
+        if ($(linhaIcone).hasClass("fa-minus")) {
+            $(linhaIcone).removeClass("fa-minus").addClass("fa-plus");
+            linha.hide();
+        } else {
+            $(linhaIcone).removeClass("fa-plus").addClass("fa-minus");
+            linha.show();
+        }
+    }
+
+    function BuscarMovimentoVinculado(linha) {
+        var itensObj = {};
+        $.each(movimentos.PACKEDCONTAINER.CONTENT, function (i, linhaMovimento) {
+            if (linha.HANDLE === linhaMovimento['DOCUMENTO']) {
+                var valorCampo;
+
+                for (var display in movimentos.PACKEDCONTAINER.DISPLAYLABEL) {
+                    itensObj = {};
+                    if (PodeAdicionar(display)) {
+                        itensObj.descricao = movimentos.PACKEDCONTAINER.DISPLAYLABEL[display];
+                        itensObj.valor = BuscarValorDisplayMovimento(display, linhaMovimento);
+                        itensObj.documento = linha.HANDLE;
+                        itensObj.display = display;
+
+                        colunaAtual = colunasTipoMovimento[display];
+
+                        if (colunaAtual.tipo == 'DateTime')
+                            itensObj.valor = FormataDateTime(linhaMovimento, itensObj.display);
+
+                        itensMov.push(itensObj);
+                    }
+                }
+            }
+        });
+        return itensMov;
+    }
+
+    function MontaArrayTiposDeDados(definicaoCampos, descricaoCampos) {
+        var colunasTeste = {}
+        //Monta o objeto colunas inserindo a descrição e o tipo do campo caso seja necessario fazer alguma conversão fica mais facil de acessar o tipo
+        var fieldsDef = definicaoCampos.split(";"); //dados.PACKEDCONTAINER.FIELDSDEF.split(";");
+        $.each(fieldsDef, function (i, defAtual) {
+            var _colDef = defAtual.split(':');
+
+            if (_colDef[0].indexOf(',') > -1) {
+
+                var colNomeformatada = _colDef[0].split(',');
+                for (var iNomeCol = 0; iNomeCol < colNomeformatada.length; iNomeCol++) {
+                    colunaDef = {};
+                    colunaDef.tipo = _colDef[1];
+                    colunaDef.descricao = BuscarDescricao(colNomeformatada[iNomeCol], descricaoCampos); //dados.PACKEDCONTAINER.DISPLAYLABEL);
+                    if (!colunasTeste[colNomeformatada[iNomeCol]])
+                        colunasTeste[colNomeformatada[iNomeCol]] = colunaDef;
+                }
+            }
+            else {
+                colunaDef = {};
+                colunaDef.tipo = _colDef[1]; // Pega a posição fixa do array pq do jeito que os splits foram montados o tipo sempre fica nessa posição
+                colunaDef.descricao = BuscarDescricao(_colDef[0], descricaoCampos);//dados.PACKEDCONTAINER.DISPLAYLABEL);
+                if (!colunasTeste[_colDef[0]])
+                    colunasTeste[_colDef[0]] = colunaDef;
+            }
+        });
+        return colunasTeste;
+    }
+
+    function BuscarValorDisplayMovimento(display, linhaMovimento) {
+        for (var valor in linhaMovimento) {
+            if (valor === display) {
+                return linhaMovimento[valor];
+            }
+        }
+    }
+
+    function FormataDateTime(linha, titulo) {
+        for (var tituloAux in linha) {
+            if (titulo + 'FORMATADA' == tituloAux) {
+                return linha[tituloAux];
+            }
+        }
+    }
+
+    function PodeAdicionar(nomeColuna) {
+        if ((nomeColuna != "HANDLE") && (nomeColuna != "STATUS") && (nomeColuna != "DOCTOAGLUTINADOR") && (nomeColuna != "DOCUMENTOORIGEM")
+            && (nomeColuna != "DATAEMISSAOFORMATADA") && (nomeColuna != "DATAVENCIMENTOFORMATADA") && (nomeColuna != "DATAENTRADAFORMATADA")
+            && (nomeColuna != "V.period;camb.period;acum.period;") && (nomeColuna != "DOCUMENTO") && (nomeColuna != "TIPODEMOVIMENTO") && (nomeColuna != "PESSOA")
+            && (nomeColuna != "TIPODOCUMENTO") && (nomeColuna != "PARCELA") && (nomeColuna != "Tipo doc.period;") && (nomeColuna != "Desp.period;bancárias")
+            && (nomeColuna != "V.period;camb.period;período") && (nomeColuna != "V.period;monet.period;período") && (nomeColuna != "OPERACAOCONTABIL")
+            && (nomeColuna != "V.period;monet.period;acum.period;") && (nomeColuna != "VCTOPRORROGADOFORMATADA") && (nomeColuna != "DATAFORMATADA")
+            && (nomeColuna != "VALORNOMINALMOEDA")
+        ) {
+            return true;
+        } else
+            return false;
+    }
+
+    function BuscarDescricao(nomeColuna, lista) {
+        for (var tituloColuna in lista) {
+            if (nomeColuna == tituloColuna) {
+                return lista[tituloColuna];
+            }
+        }
+        return '';
+    }
+</script>

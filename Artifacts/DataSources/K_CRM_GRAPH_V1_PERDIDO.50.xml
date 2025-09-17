@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_V1_PERDIDO</Identifier>
+  <Name>CRM_GRAPH_V1_PERDIDO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     CAST(CAST(LEFT(DATENAME(MONTH,A.DATAFECHAMENTO),3) AS VARCHAR) +'/'+ CAST(DATENAME(YEAR,A.DATAFECHAMENTO) AS VARCHAR) AS VARCHAR) MES,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(PERDE.VALOR)),0),2) PERDE,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(CANCELA.VALOR)),0),2) CANCELA,&#xD;&#xA;     ROUND(COALESCE(SUM(DISTINCT(SUSPENDE.VALOR)),0),2) SUSPENDE&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADESPROD C ON C.OPORTUNIDADE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     JOIN K_CRM_FASESOPORTUNIDADE AB ON AA.STATUSOPORTUNIDADE = AB.HANDLE&#xD;&#xA;     WHERE AB.PERDE = 'S'&#xD;&#xA;    ) PERDE ON PERDE.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     JOIN K_CRM_FASESOPORTUNIDADE AB ON AA.STATUSOPORTUNIDADE = AB.HANDLE&#xD;&#xA;     WHERE AB.CANCELA = 'S'&#xD;&#xA;    ) CANCELA ON CANCELA.HANDLE = A.HANDLE&#xD;&#xA;LEFT JOIN (&#xD;&#xA;     SELECT AA.HANDLE,AA.VALORTOTAL VALOR&#xD;&#xA;     FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;     JOIN K_CRM_FASESOPORTUNIDADE AB ON AA.STATUSOPORTUNIDADE = AB.HANDLE&#xD;&#xA;     WHERE AB.SUSPENDE = 'S'&#xD;&#xA;    ) SUSPENDE ON SUSPENDE.HANDLE = A.HANDLE&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY YEAR(A.DATAFECHAMENTO),&#xD;&#xA;MONTH(A.DATAFECHAMENTO),&#xD;&#xA;DATENAME(MONTH,A.DATAFECHAMENTO),&#xD;&#xA;DATENAME(YEAR,A.DATAFECHAMENTO)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="MES" From="A" Path="MES" />
+    <DecimalField Alias="PERDE" From="A" Path="PERDE" FieldDecimalsFormat="0" />
+    <DecimalField Alias="CANCELA" From="A" Path="CANCELA" FieldDecimalsFormat="0" />
+    <DecimalField Alias="SUSPENDE" From="A" Path="SUSPENDE" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

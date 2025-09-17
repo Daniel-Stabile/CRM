@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_INSERIRCONTASRECEBER.FORM</ViewName>
+  <EntityName>CLOUD_INSERIRCONTASRECEBER</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnRECEBIDOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRECEBIDOValueChanged(view, entity):
+    
+    valorParcela = 0
+    if (entity["PARCELAS"].GetInt32() &gt; 0):
+        valorParcela = entity["VALOR"].GetDecimal() / entity["PARCELAS"].GetInt32()
+    else:
+        valorParcela = entity["VALOR"].GetDecimal() 
+    valor = valorParcela + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDESCONTOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDESCONTOSValueChanged(view, entity):
+    
+    valorParcela = 0
+    if (entity["PARCELAS"].GetInt32() &gt; 0):
+        valorParcela = entity["VALOR"].GetDecimal() / entity["PARCELAS"].GetInt32()
+    else:
+        valorParcela = entity["VALOR"].GetDecimal() 
+    valor = valorParcela + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnJUROSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnJUROSValueChanged(view, entity):
+
+    valorParcela = 0
+    if (entity["PARCELAS"].GetInt32() &gt; 0):
+        valorParcela = entity["VALOR"].GetDecimal() / entity["PARCELAS"].GetInt32()
+    else:
+        valorParcela = entity["VALOR"].GetDecimal() 
+    valor = valorParcela + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnMULTAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMULTAValueChanged(view, entity):
+    
+    valorParcela = 0
+    if (entity["PARCELAS"].GetInt32() &gt; 0):
+        valorParcela = entity["VALOR"].GetDecimal() / entity["PARCELAS"].GetInt32()
+    else:
+        valorParcela = entity["VALOR"].GetDecimal() 
+    valor = valorParcela + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPARCELASValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPARCELASValueChanged(view, entity):
+    
+    valorParcela = 0
+    if (entity["PARCELAS"].GetInt32() &gt; 0):
+        valorParcela = entity["VALOR"].GetDecimal() / entity["PARCELAS"].GetInt32()
+    else:
+        valorParcela = entity["VALOR"].GetDecimal() 
+    valor = valorParcela + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORValueChanged(view, entity):
+    
+    valorParcela = 0
+    if (entity["PARCELAS"].GetInt32() &gt; 0):
+        valorParcela = entity["VALOR"].GetDecimal() / entity["PARCELAS"].GetInt32()
+    else:
+        valorParcela = entity["VALOR"].GetDecimal() 
+    valor = valorParcela + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

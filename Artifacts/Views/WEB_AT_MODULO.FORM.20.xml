@@ -1,0 +1,422 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_AT_MODULO.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_AT_MODULO</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="WEB_AT_MODULO" name="WEB_AT_MODULO.FORM" title="WEB_AT_MODULO" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage key="GERAL" inherited="true">
+        <visible xsi:nil="true" />
+        <Items />
+      </FormPage>
+    </Pages>
+    <Column>4</Column>
+    <FormCaptionPosition>Left</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions />
+    <Commands>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command xsi:type="CommandGroup" title="Bens" image="fa fa-building" color="blue-dark" key="GRP_BENS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="TotalizacaoSaldosIniciais" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Bens do imobilizado" key="CMD_BENS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t1255_at966_hs7ca0d4fc.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Bens a imobilizar" key="CMD_BENS_A_IMOBILIZAR">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t1598_at1442_hs5ea6fbd9.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Composições de bens" key="CMD_COMPOSICOES">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t1255_at6240_hsa6b39b3.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Componentes de composições de bens" key="CMD_COMPONENTES_COMPOSICOES">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t1255_at6241_hs60ff1eb1.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Movimentações" image="fa fa-exchange" color="blue-dark" key="GRP_MOVIMENTACOES">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Baixar bens" key="CMD_BAIXARBENS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/movimentacoes/baixarBens.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Transferir bens" key="CMD_TRANSFERIRBENS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/movimentacoes/transferirBens.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Interromper depreciação de bens" key="CMD_INTERRUPCAO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/movimentacoes/interromperDeprecBens.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Unir bens" key="CMD_UNIRBENS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/movimentacoes/unirBens.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Requisições de movimentações de bens" key="CMD_REQUISICOES_MOVIMENTACOES">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t5684_at8186_hs63e30951.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Consultar movimentações" key="CMD_MOVIMENTACOES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t1293_at1074_hs9cd74060.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Cálculos" image="fa fa-exchange" color="blue-dark" key="GRP_CALCULOS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Depreciação" key="CMD_CALCULODEPRECIACAO">
+            <visible>false</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/ativo/calculos/calcular.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName />
+              <TargetEntityDefinitionName>AT_VTCALCULARDEPRECIACAOBENS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO0603</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Recuperação ICMS" key="CMD_RECUPERACAOICMS">
+            <visible>false</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/recuperacaoImpostos/calcularCreditosICMS.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Recuperação PIS/COFINS" key="CMD_RECUPERACAOPISCOFINS">
+            <visible>false</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/recuperacaoImpostos/calcularCreditosPISCOFINS.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Inventários" image="fa fa-barcode" color="blue-dark" key="GRP_INVENTARIO">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Consultar inventários" key="CMD_INVENTARIOS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/g/aga_t1833_at1971_hs88cae5ff.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Iniciar inventário de bens" key="CMD_INVENTARIARBENS">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/inventarios/inventariarBens.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Importar dados do coletor" key="CMD_IMPORTARDADOSCOLETOR">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Reiniciar inventário" key="CMD_REINICIARINVENTARIO">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/ativo/inventarios/reiniciarInventario.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Efetivar transferências" key="CMD_EFETIVARTRANSFERENCIAS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Utilidades" image="fa fa-cogs" color="blue-dark" key="GRP_UTILIDADES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Totalização dos saldos iniciais" key="CMD_TOTALIZACAOSALDOSINICIAIS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <ProcessDefinition xsi:type="Function" functionName="TotalizacaoSaldosIniciais" />
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Aprovações" image="fa fa-check" color="blue-dark" key="GRP_APROVACOES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Requisições de movimentação do ativo" image="fa fa-gear" color="blue-dark" key="CMD_REQUISICAOAPROVACAO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/PortalInterno/e/Ativo/Transferencia/AprovarMovimentacoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

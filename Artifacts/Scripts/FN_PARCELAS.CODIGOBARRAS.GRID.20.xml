@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAS.CODIGOBARRAS.GRID</ViewName>
+  <EntityName>AGA_A_FN_PARCELAS_CODIGOBARRASAP.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("DATAVENCIMENTO").Text = entity.Fields["DATAVENCIMENTO"].ToString("dd/MM/yyyy");
+    row.GetCellByName("VCTOPRORROGADO").Text = entity.Fields["VCTOPRORROGADO"].ToString("dd/MM/yyyy");
+    row.GetCellByName("VALOR").Text = entity.Fields["VALOR"].ToString("C2");
+    row.GetCellByName("SALDO").Text = entity.Fields["SALDO"].ToString("C2");
+  
+    fields = ["PREVISAO", "PAGAMENTOELETRONICO"]
+    
+    for field in fields:
+        row.GetCellByName(field).Align = "center"
+        row.GetCellByName(field).TextColor = "#3CB371" if entity.Fields[field] == "S" else "#B22222"
+        row.GetCellByName(field).FontIcon = "fa fa-check" if entity.Fields[field] == "S" else "fa fa-times"
+        row.GetCellByName(field).Tooltip = "Sim" if entity.Fields[field] == "S" else "Não"
+        row.GetCellByName(field).Text = ""
+        
+        
+    row.GetCellByName("NOME").Text = entity["NOME"].GetString() + " - " + entity["CGCCPF"].GetString()
+    
+    #if entity.Fields["PREVISAO"] == "S":
+    #    row.GetCellByName("PREVISAO").Text = "Sim"
+    #else:
+    #    row.GetCellByName("PREVISAO").Text = "Não"
+        
+    #if entity.Fields["PAGAMENTOELETRONICO"] == "S":
+    #    row.GetCellByName("PAGAMENTOELETRONICO").Text = "Sim";
+    #else:
+    #    row.GetCellByName("PAGAMENTOELETRONICO").Text = "Não";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    pagamentoautomatizado = AuthorizationHelper.HasTask("MANTER_PAGAMENTOAUTOMATIZADO")
+    codigodebarras = AuthorizationHelper.HasTask("MANTER_CODIGODEBARRAS")
+    widget.View.Commands["CMD_PAGTOAUTO"].Visible = pagamentoautomatizado and codigodebarras
+    widget.View.Commands["CMD_ALTERAR"].Visible = AuthorizationHelper.HasTask("MANTER_CONTASAPAGAR")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

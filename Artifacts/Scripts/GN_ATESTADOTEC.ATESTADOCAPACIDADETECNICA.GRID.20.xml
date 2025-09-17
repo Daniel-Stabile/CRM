@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_ATESTADOTEC.ATESTADOCAPACIDADETECNICA.GRID</ViewName>
+  <EntityName>GN_ATESTADOTEC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible = entity.IsVisibleBTNEDITAR
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = entity.IsVisibleBTNEXCLUIR</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

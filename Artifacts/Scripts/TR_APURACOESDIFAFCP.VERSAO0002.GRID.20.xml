@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_APURACOESDIFAFCP.VERSAO0002.GRID</ViewName>
+  <EntityName>TR_APURACOESDIFAFCP</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity == None: return
+
+    #Preenchimento padrão
+    row.GetCellByName("TIPO").Text = row.GetCellByName("TIPO").Text[0];
+    row.GetCellByName("VALORSALDOCREDORANTERIOR").Text = "0,00";
+    row.GetCellByName("VALORDEBITOSDIFA").Text = "0,00";
+    row.GetCellByName("VALOROUTROSDEBITOS").Text = "0,00";
+    row.GetCellByName("VALORDEBITOSFCP").Text = "0,00";
+    row.GetCellByName("VALORCREDITOSDIFA").Text = "0,00";
+    row.GetCellByName("VALORCREDITOSFCP").Text = "0,00";
+    row.GetCellByName("VALOROUTROSCREDITOS").Text = "0,00";
+    row.GetCellByName("VALORSALDODEVEDORDIFA").Text = "0,00";
+    row.GetCellByName("VALORSALDODEVEDORFCP").Text = "0,00";
+    row.GetCellByName("VALORDEDUCOES").Text = "0,00";
+    row.GetCellByName("VALORARECOLHERDIFA").Text = "0,00";
+    row.GetCellByName("VALORARECOLHERFCP").Text = "0,00";
+    row.GetCellByName("VALORSALDOCREDORATRANSPORTAR").Text = "0,00";
+    row.GetCellByName("VALORDEBITOSESPECIAIS").Text = "0,00";
+    row.GetCellByName("VALORSALDOCREDORANTERIORFCP").Text = "0,00";
+    row.GetCellByName("VALOROUTROSDEBITOSFCP").Text = "0,00";
+    row.GetCellByName("VALOROUTROSCREDITOSFCP").Text = "0,00";
+    row.GetCellByName("VALORDEDUCOESFCP").Text = "0,00";
+    row.GetCellByName("VALORSALDOCREDORTRANSPORTARFCP").Text = "0,00";
+    row.GetCellByName("VALORDEBITOSESPECIAISFCP").Text = "0,00";
+    
+    #Formatação
+    if entity.Fields["VALORSALDOCREDORANTERIOR"] != None: row.GetCellByName("VALORSALDOCREDORANTERIOR").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDOCREDORANTERIOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEBITOSDIFA"] != None: row.GetCellByName("VALORDEBITOSDIFA").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEBITOSDIFA"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOROUTROSDEBITOS"] != None: row.GetCellByName("VALOROUTROSDEBITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOROUTROSDEBITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEBITOSFCP"] != None: row.GetCellByName("VALORDEBITOSFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEBITOSFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORCREDITOSDIFA"] != None: row.GetCellByName("VALORCREDITOSDIFA").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORCREDITOSDIFA"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORCREDITOSFCP"] != None: row.GetCellByName("VALORCREDITOSFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORCREDITOSFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOROUTROSCREDITOS"] != None: row.GetCellByName("VALOROUTROSCREDITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOROUTROSCREDITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDODEVEDORDIFA"] != None: row.GetCellByName("VALORSALDODEVEDORDIFA").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDODEVEDORDIFA"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDODEVEDORFCP"] != None: row.GetCellByName("VALORSALDODEVEDORFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDODEVEDORFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEDUCOES"] != None: row.GetCellByName("VALORDEDUCOES").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEDUCOES"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORARECOLHERDIFA"] != None: row.GetCellByName("VALORARECOLHERDIFA").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORARECOLHERDIFA"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORARECOLHERFCP"] != None: row.GetCellByName("VALORARECOLHERFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORARECOLHERFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDOCREDORATRANSPORTAR"] != None: 
+        row.GetCellByName("VALORSALDOCREDORATRANSPORTAR").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDOCREDORATRANSPORTAR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEBITOSESPECIAIS"] != None: row.GetCellByName("VALORDEBITOSESPECIAIS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEBITOSESPECIAIS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDOCREDORANTERIORFCP"] != None: 
+        row.GetCellByName("VALORSALDOCREDORANTERIORFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDOCREDORANTERIORFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOROUTROSDEBITOSFCP"] != None: row.GetCellByName("VALOROUTROSDEBITOSFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOROUTROSDEBITOSFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOROUTROSCREDITOSFCP"] != None: row.GetCellByName("VALOROUTROSCREDITOSFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOROUTROSCREDITOSFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEDUCOESFCP"] != None: row.GetCellByName("VALORDEDUCOESFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEDUCOESFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDOCREDORTRANSPORTARFCP"] != None: 
+        row.GetCellByName("VALORSALDOCREDORTRANSPORTARFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDOCREDORTRANSPORTARFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEBITOSESPECIAISFCP"] != None: row.GetCellByName("VALORDEBITOSESPECIAISFCP").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEBITOSESPECIAISFCP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    
+    #Estilos
+    row.GetCellByName("VALORARECOLHERDIFA").BackgroundColor = "#B0C4DE";
+    row.GetCellByName("VALORARECOLHERDIFA").CssClass = "font-weight: bold";
+    row.GetCellByName("VALORARECOLHERDIFA").Align = "right";
+    row.GetCellByName("VALORARECOLHERFCP").BackgroundColor = "#B0C4DE";
+    row.GetCellByName("VALORARECOLHERFCP").CssClass = "font-weight: bold";
+    row.GetCellByName("VALORARECOLHERFCP").Align = "right";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["CMD_EXCLUIR"].Visible = AuthorizationHelper.HasTask("EXCLUIR_APURACAODIFAL")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

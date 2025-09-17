@@ -1,0 +1,190 @@
+﻿<div id="tiposConsulta" class="row">
+
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <label>Tipo da consulta a ser realizada</label>
+        <div class="form-group">
+            <div class="mt-radio-inline">
+                <label class="mt-radio">
+                    <input type="radio" name="optionsRadios" value="1"> Balancetes
+                    <span></span>
+                </label>
+                <label class="mt-radio">
+                    <input type="radio" name="optionsRadios" value="2"> Gerenciais contábeis
+                    <span></span>
+                </label>
+            </div>
+        </div>
+        <hr />
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-10 col-lg-10 col-sm-10">
+
+        <div class="form-group">
+            <label for="selPerfis">Perfis <small>(Acesso rápido)</small>:</label>
+
+            <div class="input-group select2-bootstrap-prepend">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-select2-open="selPerfis">
+                        <span class="glyphicon glyphicon-list"></span>
+                    </button>
+                </span>
+                <select id="selPerfis" class="form-control select2" tabindex="-1" aria-hidden="true" style="width:100%">
+                    <option value="-1">Informe primeiramente o tipo da consulta</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-lg-2 col-sm-2">
+        <label>&nbsp;</label>
+        <button type="button" class="btn blue btn-outline" onclick="RedirecionarPorFiltro()" style="display:block"><i class="fa fa-arrow-right" aria-hidden="true"></i> Próximo passo</button>
+    </div>
+</div>
+
+<div class="hidden"><input type="hidden" value="teste" id="hdEscondido"/></div>
+
+<script type="text/javascript">
+    //Variáveis globais
+    var tipoConsulta, perfilUtilizar;
+
+    $(function () {
+        $("select").select2();
+        $('#portlet_CONSULTACUSTOMIZADA').hide();
+        $('#portlet_CONSULTAPORPERFIL').hide();
+        $('#ctl00_Main_RESULTADOCONSULTA_ctl04').hide();
+
+        $('input[type="radio"]').on('change', function () {
+            PerfilsPorTipoConsulta($(this).val());
+        })
+    });
+
+    function RedirecionarPorFiltro() {
+        if ($('input[name="optionsRadios"]:checked').val() == undefined) {
+            ExibirMensagem("Selecione um tipo de perfil.", TiposMensagem.Alerta, $("#tiposConsulta"));
+        }
+        else {
+            tipoConsulta = parseInt($('input[name="optionsRadios"]:checked').val());
+            perfilUtilizar = parseInt($('#selPerfis').val());
+        
+            App.blockUI({
+                target: $("#CONSULTASCONTBEIS"),
+                animate: true,
+                overlayColor: 'none'
+            });
+
+            setTimeout(function () {
+
+            
+                if (perfilUtilizar == 0) {//Executa Consulta customizada.
+               
+                    $("#portlet_CONSULTACUSTOMIZADA .portlet-body").load(Benner.Page.getApplicationPath() + 'ConsultasContabil/ConsultaCustomizada?tipoConsulta=' + tipoConsulta, function (i) {
+                        $('#portlet_CONSULTACUSTOMIZADA').fadeIn('slow');
+                        $("#CONSULTASCONTBEIS").hide();
+                        App.unblockUI($("#CONSULTASCONTBEIS"));
+                    })
+                }
+                else { // Executa consulta por perfil
+                    $("#portlet_CONSULTAPORPERFIL .portlet-body").load(Benner.Page.getApplicationPath() + 'ConsultasContabil/ConsultaSimples?tipoConsulta=' + tipoConsulta + '&hndPerfil=' + perfilUtilizar, function (i) {
+                    
+                        $('#portlet_CONSULTAPORPERFIL').fadeIn('slow')
+                        $("#CONSULTASCONTBEIS").hide();
+                        App.unblockUI($("#CONSULTASCONTBEIS"));
+                    })
+                }
+            }, 1000)
+        }
+    }
+
+    function PerfilsPorTipoConsulta(tipo) {
+
+        //Cache para perfis exita requisições demasiadas ao servidor, e, será utilizado para geração do balancete.
+        var pfCache = {};
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ConsultasContabil/PerfisConsulta',
+            data: {tipoConsulta: tipo},
+            cache: true,
+            beforeSend:function () {
+                App.blockUI({
+                    target: $("#portlet_CONSULTASCONTBEIS"),
+                    animate: true,
+                    overlayColor: 'none'
+                });
+            },
+            success: function (data) {
+                //Esvaziar a caixa de seleção atual.
+                $('#selPerfis').empty();
+
+                //Converter retorno do servidor em objeto JSON.
+                var perfis = JSON.parse(data);
+
+                //Adicionar opção de Selecione como padrão.
+                var opt = new Option('-- Consulta customizada --', '0', true, true);
+                $('#selPerfis').append(opt);
+
+                //Percorrer os perfis disponíveis e adiciona-los a caixa de seleção.
+                if (perfis !== undefined && perfis !== null) {
+                    $.each(perfis, function (i, pf) {
+
+                        opt = new Option(pf.NOME, pf.HANDLE, false, false);
+                        $('#selPerfis').append(opt);
+
+                        //Armazenamos o perfil atual em um cache para ser utilizado posteriormente na geração do balancete.
+                        pfCache[pf.HANDLE] = pf;
+                    });
+                }
+
+                //Exibimos as options adicionadas para que fiquem disponível ao usuário.
+                $('#selPerfis').select2().trigger('click');
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            },
+            complete: function () {
+                App.unblockUI($("#portlet_CONSULTASCONTBEIS"));
+            }
+        });
+    }
+
+    function RedirecionarParaTelaFiltro(elBloquear) {
+
+        App.blockUI({
+            target: elBloquear,
+            animate: true,
+            overlayColor: 'none'
+        });
+
+        setTimeout(function () {
+            window.location.assign('filtroconsultas.aspx');
+        }, 1000)
+    }
+
+    function OrganizarDados(dados) {
+
+        var primeiroObjeto = dados[0];
+        var colunasHeaders = [{ value: "COD.", field: "ESTRUTURA", style: "min-width:130px!important;width:130px!important" },
+                              { value: "DESCRIÇÃO", field: "NOME", style: "min-width:350px!important;border-right:2px solid #F2F5F8;width:130px!important" }];
+
+        var colunasAuxiliares = [{ value: "CONTAS CONTÁBEIS", colspan: 2, class:"center" }];
+
+        if (primeiroObjeto.SALDOANTERIOR !== undefined) {
+            colunasHeaders.push({ value: "ANTERIOR", field: "SALDOANTERIOR", type: 'money', class: "right", style: "min-width:130px;border-right:2px solid #F2F5F8" });
+            colunasAuxiliares.push({ value: "SALDO", class:"center" });
+        }
+
+        for (var prop in primeiroObjeto) {
+            if (prop.indexOf('/') > -1 && prop.indexOf('-') == -1) {
+                colunasHeaders.push({ value: "DÉBITOS", class: "right", field: ('DEB-' + prop), type: 'money', style: "border-right:1px solid #F2F5F8", onclick: "ExibirRazaoDaConta(this)", onmouseover: "SublinharTexto(this)", onmouseout: "RemoverSublinhado(this)" });
+                colunasHeaders.push({ value: "CRÉDITOS", class: "right", field: ('CRE-' + prop), type: 'money', style: "border-right:2px solid #F2F5F8", onclick: "ExibirRazaoDaConta(this)", onmouseover: "SublinharTexto(this)", onmouseout: "RemoverSublinhado(this)" });
+                colunasAuxiliares.push({ value: prop, colspan: 2, class: "center" })
+            }
+        }
+
+        colunasHeaders.push({ value: "ATUAL", field: "SALDO", scope: "col", type: 'money', class: "right", style: "border-right:1px solid #F2F5F8" });
+        colunasAuxiliares.push({ value: "SALDO", class: "center" });
+
+        return [dados, colunasHeaders, colunasAuxiliares];
+    }
+</script>

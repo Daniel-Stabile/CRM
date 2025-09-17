@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_CICLOOBJETIVOS.OBJETIVOS.GRID</ViewName>
+  <EntityName>GP_CICLOOBJETIVOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPPlanejamentosEstrategicos
+
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(entity.Handle)
+    planejamentoEmElaboracao = GPPlanejamentosEstrategicos.EhPlanejamentoEstrategicoEmElaboracao(entity.PlanejamentoEstrategicoHandle)
+    
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = cicloEmElaboracao and planejamentoEmElaboracao
+    if row.EditCommand != None:
+        row.EditCommand.Visible = cicloEmElaboracao and planejamentoEmElaboracao
+        
+    existeInconsistencia = GPCicloObjetivos.ExisteIndicadorInconsistente(entity.Handle)
+    
+    if existeInconsistencia:
+        row.GetCellByName("INCONSISTENCIA").FontIcon = "fa fa-warning"
+        row.GetCellByName("INCONSISTENCIA").TextColor = "rgb(255,165,0)"
+        row.GetCellByName("INCONSISTENCIA").Tooltip = "Métricas do indicador inconsistentes"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    if form == None : return
+    entidade = form.Entity
+    if entidade == None : return
+    if entidade.Fields["Agrupador"] == "S" : widget.Minimized = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

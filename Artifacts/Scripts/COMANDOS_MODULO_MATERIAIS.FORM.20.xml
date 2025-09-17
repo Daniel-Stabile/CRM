@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>COMANDOS_MODULO_MATERIAIS.FORM</ViewName>
+  <EntityName>PD_PRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnRECALCULO_DE_CUSTO_PADRAOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRECALCULO_DE_CUSTO_PADRAOExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRECEBIMENTO_FISICOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+def OnRECEBIMENTO_FISICOExecute(command, entity):
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnInventarioExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnInventarioExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnATENDIMENTO_FILIAISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnATENDIMENTO_FILIAISExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnAJUSTES_DE_ESTOQUEExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnAJUSTES_DE_ESTOQUEExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnATENDIMENTO_REQUISICOESExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnATENDIMENTO_REQUISICOESExecute(command, entity):
+    import clr
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

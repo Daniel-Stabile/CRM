@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_COTACAOENTREGA.ENTREGAESPECIFICA.GRID</ViewName>
+  <EntityName>CP_COTACAOENTREGA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_INFORMACAOALMOXARIFADOREQUISICAOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_INFORMACAOALMOXARIFADOREQUISICAOExecute(command, entity):
+    import clr
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoCotacao
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadcrumbHandles = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    requisicaoCotacaoHandle = breadcrumbHandles.Find(lambda found:found.EntityDefinitionName.Equals("CP_REQUISICAOCOTACOES"))
+    requisicaoCotacao = CPRequisicaoCotacao.Get(requisicaoCotacaoHandle.Handle)
+    
+    command.TransitoryVars.Add("HANDLEREQUISICAOPRODUTO", requisicaoCotacao.CotacaoHandle)
+    itemRequisicaoCotacao = breadcrumbHandles.Find(lambda found:found.EntityDefinitionName.Equals("CP_REQUISICAOCOTACOES"))   
+    
+    item = breadcrumbHandles.Find(lambda found:found.EntityDefinitionName.Equals("CP_REQUISICOES"))
+    command.TransitoryVars.Add("HANDLEREQUISICAO", item.Handle)
+    command.TransitoryVars.Add("HANDLECOTACAO", itemRequisicaoCotacao.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

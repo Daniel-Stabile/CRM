@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>EXCLUSAOCOMPENSACAO</Identifier>
+  <Name>Exclusão de compensação</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.HANDLE, B.PARCELADIGITADA, A.PESSOA, B.VALOR, D.NOME, B.VALORESBAIXADOS, B.VALORESCOMPENSADOS, A.EMPRESA, B.DATAVENCIMENTO, A.TIPODEMOVIMENTO, A.ENTRADASAIDA&#xD;&#xA;FROM GN_OPERACOES C, GN_PESSOAS D,  FN_DOCUMENTOS A, FN_PARCELAS B&#xD;&#xA;WHERE B.DOCUMENTO = A.HANDLE AND A.OPERACAO = C.HANDLE&#xD;&#xA;AND  C.CODIGOINTERNO &lt;&gt; 29&#xD;&#xA;AND  A.EHPREVISAO &lt;&gt; 'S'&#xD;&#xA;AND  (A.OPERACAOCANCELAMENTO =0 OR A.OPERACAOCANCELAMENTO IS NULL)&#xD;&#xA;AND  A.PESSOA=D.HANDLE&#xD;&#xA;&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="TIPODEMOVIMENTO" From="A" Path="TIPODEMOVIMENTO" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

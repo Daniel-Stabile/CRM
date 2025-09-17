@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>WEB_E_FINANCEIRO_ZOOMDEDOCUMENTOS_SALDODOCUMENTO</Identifier>
+  <Name>Saldo do documento</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       B.DOCUMENTO,&#xD;&#xA;       A.VALORNOMINAL,&#xD;&#xA;       SUM(CASE&#xD;&#xA;              WHEN (B.VALOR - B.VALORESBAIXADOS) IS NULL THEN 0&#xD;&#xA;              ELSE (B.VALOR - B.VALORESBAIXADOS) END) SALDO,&#xD;&#xA;       CASE&#xD;&#xA;           WHEN SUM(B.VALOR - B.VALORESBAIXADOS) IS NULL THEN 'LIQUIDADO'&#xD;&#xA;           ELSE 'VALOR LÍQUIDO'&#xD;&#xA;       END VALORLABEL&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;       LEFT JOIN FN_PARCELAS B ON A.HANDLE = B.DOCUMENTO&#xD;&#xA; GROUP BY A.HANDLE,&#xD;&#xA;       B.DOCUMENTO,&#xD;&#xA;       A.VALORNOMINAL,&#xD;&#xA;       A.ABRANGENCIA,&#xD;&#xA;       A.ENTRADASAIDA" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <DecimalField Alias="VALORNOMINAL" From="A" Path="VALORNOMINAL" FieldDecimalsFormat="0" />
+    <DecimalField Alias="SALDO" From="A" Path="SALDO" FieldDecimalsFormat="0" />
+    <Field Alias="VALORLABEL" From="A" Path="VALORLABEL" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

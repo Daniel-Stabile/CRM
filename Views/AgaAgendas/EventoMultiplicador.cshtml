@@ -1,0 +1,106 @@
+﻿@using Benner.Tecnologia.Common;
+@using Benner.Tecnologia.Wes.Components;
+@using System.Text;
+@{
+    var detalhesLocal = string.Empty;
+    var descricao = string.Empty;
+    var local = string.Empty;
+    var titulo = string.Empty;
+    var inicio = string.Empty;
+    var fim = string.Empty;
+
+    try { detalhesLocal = Encoding.Default.GetString(Convert.FromBase64String(Request["dL"])); } catch { }
+    try { descricao = Encoding.Default.GetString(Convert.FromBase64String(Request["d"])); } catch { }
+    try { local = Encoding.Default.GetString(Convert.FromBase64String(Request["l"])); } catch { }
+    try { titulo = Encoding.Default.GetString(Convert.FromBase64String(Request["t"])); } catch { }
+    try { inicio = Encoding.Default.GetString(Convert.FromBase64String(Request["s"])); } catch { }
+    try { fim = Encoding.Default.GetString(Convert.FromBase64String(Request["e"])); } catch { }
+
+    detalhesLocal = detalhesLocal == "null" || detalhesLocal == "undefined" ? "" : detalhesLocal;
+    descricao = descricao == "null" || descricao == "undefined" ? "" : descricao;
+    local = local == "null" || local == "undefined" ? "" : local;
+    titulo = titulo == "null" || titulo == "undefined" ? "" : titulo;
+    inicio = inicio == "null" || inicio == "undefined" ? "" : inicio;
+    fim = fim == "null" || fim == "undefined" ? "" : fim;
+    
+
+}
+<div class="form-body form-horizontal">
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">
+            <div class="label-form">
+                <div class="label-title">
+                    Título
+                </div>
+            </div>
+        </label><div class="col-md-10 col-sm-10 value">
+            <span>
+                <input type="text" readonly="readonly" class="form-control" value="@titulo" />
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">
+            <div class="label-form">
+                <div class="label-title">
+                    Descrição
+                </div>
+            </div>
+        </label><div class="col-md-10 col-sm-10 value">
+            <span>
+                <textarea rows="4" cols="60" readonly="readonly" class="form-control">@descricao</textarea>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">
+            <div class="label-form">
+                <div class="label-title">
+                    Local
+                </div>
+            </div>
+        </label><div class="col-md-10 col-sm-10 value">
+            <span>
+                <textarea rows="4" cols="60" readonly="readonly" class="form-control">@local</textarea>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">
+            <div class="label-form">
+                <div class="label-title">
+                    Detalhes do local
+                </div>
+            </div>
+        </label><div class="col-md-10 col-sm-10 value">
+            <span>
+                <textarea rows="4" cols="60" readonly="readonly" class="form-control">@detalhesLocal</textarea>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2">
+            <div class="label-form">
+                <div class="label-title">
+                    Início
+                </div>
+            </div>
+        </label><div class="col-md-4 col-sm-4 value">
+            <span>
+                <input type="text" readonly="readonly" class="form-control" value="@inicio" />
+            </span>
+        </div>
+        <label class="control-label col-md-2 col-sm-2">
+            <div class="label-form">
+                <div class="label-title">
+                    Fim
+                </div>
+            </div>
+        </label><div class="col-md-4 col-sm-4 value">
+            <span>
+                <input type="text" readonly="readonly" class="form-control" value="@fim" />
+            </span>
+        </div>
+    </div>
+</div>

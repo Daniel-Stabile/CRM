@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_PROCESSOS.GRID</ViewName>
+  <Level>Tecnologia</Level>
+  <EntityName>Z_PROCESSOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Filtro avançado</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="INICIO">
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>entre</Name>
+      <DatabaseOperator>BETWEEN</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="SITUACAO">
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ArrayOfListItem" />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>1=1 AND 1=1</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Processos de hoje</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="SITUACAO">
+    <TableName xsi:nil="true" />
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ArrayOfListItem" />
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2">
+    <TableName xsi:nil="true" />
+    <Value xsi:type="xsd:string">COALESCE(A.CRIADOEM,  A.INICIO) &gt;= @HOJE AND COALESCE(A.CRIADOEM,  A.INICIO) &lt; @HOJE+1</Value>
+    <Label xsi:nil="true" />
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>1=1 AND COALESCE(A.CRIADOEM,  A.INICIO) &gt;= @HOJE AND COALESCE(A.CRIADOEM,  A.INICIO) &lt; @HOJE+1</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

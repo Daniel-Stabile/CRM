@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>Q_PARCELASDEVCOMPENSADOS</Identifier>
+  <Name>Devoluções compensadas</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT &#xD;&#xA;       A.FILIAL,&#xD;&#xA;       A.MOEDA,&#xD;&#xA;       A.EMPRESA,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       A.ENTRADASAIDA,&#xD;&#xA;       A.DATAENTRADA,&#xD;&#xA;       A.TIPODOCUMENTO,&#xD;&#xA;       A.HANDLE DOCUMENTO,&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       A.PESSOA,&#xD;&#xA;       B.VALOR,&#xD;&#xA;       B.HANDLE,&#xD;&#xA;       B.REMESSA,&#xD;&#xA;       B.AP CHAVE,&#xD;&#xA;       B.VALORMOEDA,&#xD;&#xA;       B.DATAVENCIMENTO,&#xD;&#xA;       B.VALORESBAIXADOS,&#xD;&#xA;       B.VALORESCOMPENSADOS,&#xD;&#xA;       PESS.NOME NOMEPESSOA&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;       JOIN FN_PARCELAS B ON B.DOCUMENTO = A.HANDLE&#xD;&#xA;       JOIN GN_PESSOAS PESS on A.PESSOA = PESS.HANDLE&#xD;&#xA; WHERE B.DOCUMENTO = A.HANDLE&#xD;&#xA;       AND&#xD;&#xA;       (&#xD;&#xA;           B.DOCUMENTOSUSPENSO &lt;&gt; 'S'&#xD;&#xA;           OR B.DOCUMENTOSUSPENSO IS NULL&#xD;&#xA;       )&#xD;&#xA;       AND A.EHPREVISAO &lt;&gt; 'S'&#xD;&#xA;       AND B.HANDLE IN(SELECT C.PARCELABAIXA&#xD;&#xA;                         FROM FN_MOVIMENTACOES C&#xD;&#xA;                        WHERE C.PARCELABAIXA = B.HANDLE&#xD;&#xA;                      )&#xD;&#xA;       AND A.TIPODEMOVIMENTO = 3&#xD;&#xA; ORDER BY A.DATAENTRADA" />
+  <Fields>
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="NOMEPESSOA" From="A" Path="NOMEPESSOA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

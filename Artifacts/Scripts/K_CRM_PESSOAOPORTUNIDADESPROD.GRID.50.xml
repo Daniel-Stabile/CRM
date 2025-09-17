@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESPROD.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESPROD</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+#    from Benner.Tecnologia.Common import BennerIdentity
+#    from Benner.Tecnologia.Common import EntityBase
+#    from Benner.Tecnologia.Common import Entities
+#    from Benner.Tecnologia.Common import EntityDefinition
+#    from Benner.Tecnologia.Common import EntityState
+#    from Benner.Tecnologia.Common import Entity
+#    from Benner.Tecnologia.Common import Criteria
+#    from Benner.Tecnologia.Common import Parameter
+#    from Benner.Tecnologia.Common import GetMode
+#    from Benner.Tecnologia.Common import BennerIdentity
+   
+#    usuario = BennerIdentity.Current.UserHandle
+    
+#    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+#    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+#    ehResponsavel = entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle
+    
+#    if entity.Fields["ARQUITETOSOLUCAO"].Handle.IsValid():
+#        ehArquitetoResponsavel = entity.Fields["ARQUITETOSOLUCAO"].Handle
+#    else:
+#        ehArquitetoResponsavel = None
+    
+    #   Verifica se é a ultima versão
+    
+#    ultimaVersao = False
+    
+#    if entity.Fields["HANDLE"].IsValid():
+        
+#        criteria = Criteria("A.PRODUTO = :PRODUTO AND A.OPORTUNIDADE = :OPORTUNIDADE")
+#        criteria.Parameters.Add("OPORTUNIDADE", entity.Fields["OPORTUNIDADE"].Handle)
+#        criteria.Parameters.Add("PRODUTO", entity.Fields["PRODUTO"].Handle)
+#        criteria.SortExpression = "A.VERSAO DESC"
+        
+#        prod = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESPROD"), criteria)
+        
+#        ultimaVersao = (prod[0].Fields["VERSAO"] == entity.Fields["VERSAO"])
+    
+#    status  = int(entity.Fields["STATUS"].Value)
+    #tipo    = int(entity.Fields["ITEM"].Instance.Fields["TIPO"].Handle.Value)
+#    if row.GetCustomCommand("cmdAdicionarProdutos") != None:
+#        row.GetCustomCommand("cmdAdicionarProdutos").Enabled        = (status in [1,3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+#    if row.GetCustomCommand("cmdAtivaVertical") != None:
+#        row.GetCustomCommand("cmdAtivaVertical").Enabled        = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+#    if row.GetCustomCommand("cmdInativaVertical") != None:
+#        row.GetCustomCommand("cmdInativaVertical").Enabled      = (status in [1] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+#    if row.GetCustomCommand("cmdNovaVersao") != None:
+#        row.GetCustomCommand("cmdNovaVersao").Enabled           = (status in [1,2] and ultimaVersao == True  and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+#    if row.GetCustomCommand("cmdSolicitaArquiteto") != None:
+#        row.GetCustomCommand("cmdSolicitaArquiteto").Enabled    = (status in [1] and usuario == ehResponsavel)
+    
+#    if row.EditCommand != None and row.DeleteCommand != None:
+#        row.EditCommand.Visible                        = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+#        row.DeleteCommand.Visible                      = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+    
+    #if tipo in [3]:
+    #   row.GetCellByName("QUANTIDADE").Text = "-"
+    
+#    if status in [2]:
+ #       i = 0
+ #       while(row.Cells.Count &gt; i):
+#            row.GetCellByIndex(i).TextColor = "#BFBFBF"
+#            i += 1
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+#    from System.Threading import Thread
+#    from Benner.Tecnologia.Common import BennerIdentity
+#    usuario = BennerIdentity.Current.UserHandle
+#    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+#    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+#    ehResponsavel = widget.ProviderWidget.Entity.Fields["RESPONSAVEL"].Handle
+#    status = int(widget.ProviderWidget.Entity.Fields["STATUS"].Value)
+#    if widget.View.Commands["New"] != None:
+#        widget.View.Commands["New"].Visible = (status != 10 and usuario == ehResponsavel)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

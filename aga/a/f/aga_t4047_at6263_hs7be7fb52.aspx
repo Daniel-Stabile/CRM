@@ -1,0 +1,14 @@
+﻿<%@ Page Title="REG.G125: Movimentações dos itens" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="REG.G125: Movimentações dos itens" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_ED_CIAPITEMMOVIMENTACOES.FORM" CanDelete="False" CanUpdate="False" CanInsert="False" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="ED_CARGA_ABAIXO_G110__REGISTROG125_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_6264" Title="REG.G126: Outros créditos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_ED_CIAPITEMMOVOUTROSCREDITOS.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.MOVIMENTACAOCIAP = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t4048_at6264_hs941cc06f.aspx" UserDefinedDisableRowSelection="False" PageId="ED_CARGA_ABAIXO_G110__REGISTROG125_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_6265" Title="REG.G130: Documentos fiscais" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_ED_CIAPITEMMOVDOCSFISCAIS.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.MOVIMENTACAOCIAP = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t4046_at6265_hs9416c06e.aspx" UserDefinedDisableRowSelection="False" PageId="ED_CARGA_ABAIXO_G110__REGISTROG125_FORM" Level="20" Order="15"  />
+        </div>
+    
+      </asp:Content>
+    

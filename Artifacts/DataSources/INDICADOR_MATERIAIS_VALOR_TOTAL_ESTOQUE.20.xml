@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_VALOR_TOTAL_ESTOQUE</Identifier>
+  <Name>Indicadores materiais - Valor total estoque</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.VALORESTOQUEFINAL&#xA;    FROM PD_DWINDICADORREGISTROS A&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;WHERE @CRITERIOSELECAO" />
+  <Fields>
+    <DecimalField Alias="VALORESTOQUEFINAL" From="A" Path="VALORESTOQUEFINAL" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

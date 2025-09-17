@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R1070.GRID</ViewName>
+  <EntityName>REINF_R1070</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import ListItem
+    form = widget.ProviderWidget
+    entity = form.Entity
+    item = entity.Fields["REGISTRO"]
+    widget.Minimized = False
+    if entity != None:
+        if item != ListItem(1,"R-1070 - Tabela de processos administrativos/judiciais"):
+            widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

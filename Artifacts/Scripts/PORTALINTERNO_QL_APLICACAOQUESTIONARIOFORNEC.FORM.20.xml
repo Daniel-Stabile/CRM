@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTALINTERNO_QL_APLICACAOQUESTIONARIOFORNEC.FORM</ViewName>
+  <EntityName>QL_APLICACAOQUESTIONARIOFORNEC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity;
+    if(registro == None): return;
+    
+    justificar = bool(registro.Fields["QUESTOES"].Instance.Fields["PERMITEJUSTIFICARRESPOSTA"]);
+    if (not justificar):
+        widget.View.FieldDefinitions["JUSTIFICATIVA"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+    
+    status = int(registro.Fields["RESPOSTAFORNECEDOR"].Instance.Fields["STATUS"].Value);
+    
+    widget.View.Commands["Edit"].Visible = bool(bool(status == 3) or bool(status == 7));
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

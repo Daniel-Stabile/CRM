@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_PUBLICOALVO.CUSTOM.FORM</ViewName>
+  <EntityName>CRM_PUBLICOALVO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Web import HttpContext
+    from System.Web import HttpRequest
+    from System.Web import HttpResponse
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityAssociation
+    
+    
+    handle = HttpContext.Current.Session["HANDLEACAO"]
+    
+    if (handle is None):
+        HttpContext.Current.Response.Redirect("~/PortalCRM/a/CRM_ACOESRELACIONAMENTO/Grid.aspx")
+    
+    entity = widget.Entity
+    if (not entity is None):
+        entity.Fields["ACAORELACIONAMENTO"].Handle = handle
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

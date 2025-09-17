@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PLANEJAMENTOANEXOS.PLANEJAMENTO.FORM</ViewName>
+  <EntityName>GP_PLANEJAMENTOANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPPlanejamentosEstrategicos
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Wes.Components import WesBreadcrumbProvider
+    
+    statusPL = GPPlanejamentosEstrategicos.EhPlanejamentoEstrategicoEmElaboracao(widget.Entity.PlanejamentoEstrategicoHandle)
+    WesBreadcrumbProvider.UpdateCurrentTitle(widget.Entity.Fields["Descricao"])
+    
+    if widget.View.Commands["New"] != None: 
+        widget.View.Commands["New"].Visible = statusPL
+    if widget.View.Commands["Edit"] != None: 
+        widget.View.Commands["Edit"].Visible = statusPL
+    if widget.View.Commands["Delete"] != None: 
+        widget.View.Commands["Delete"].Visible = statusPL
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

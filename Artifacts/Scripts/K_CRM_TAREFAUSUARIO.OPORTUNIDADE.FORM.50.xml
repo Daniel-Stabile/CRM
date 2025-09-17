@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_TAREFAUSUARIO.OPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_TAREFAUSUARIO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnRESPOSTAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRESPOSTAValueChanged(view, entity):
+    
+    if entity.Fields["RESPOSTA"].Handle.IsValid():
+        view.FieldDefinitions["DESCRICAO"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveNewExecute(command, entity):
+    tarefa = int(entity.Fields["TAREFA"].Handle.Value)
+    #
+    #   VERIFICA SE É ALGUMA TAREFA DE TRANSFERENCIA
+    #
+    if tarefa in [33,19,142,20,141,3,27,23,8,38,26,14]:
+        command.RequestConfirmationBeforeExecute("Deseja realizar essa tarefa?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import RadioItem
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+
+    ehGestor = activeRole == "K_CRM_GESTOR_COMERCIAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL")
+    ehDiretor = activeRole == "K_CRM_DIRETOR_GERAL" #Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_GERAL")
+    ehAdmin = activeRole == "K_CRM_ADMIN" #Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN") 
+
+    usuario = BennerIdentity.Current.UserHandle
+    
+    if ehAdmin == False:
+        widget.Hidden = True;
+    else:
+        entity  = widget.Entity;
+        view    = widget.View
+        if entity == None or view == None : return;
+        
+        OnTAREFAValueChanged(view, entity);
+        
+        if entity.Fields["HANDLE"].IsValid():
+            status = int(entity.Fields["STATUS"].Value)
+            tipo = int(entity.Fields["TIPO"].Value)
+            responsavel = entity.Fields["RESPONSAVEL"].Handle
+            conta = int(entity.Fields["PESSOA"].Handle.Value)
+            #vertical = int(entity.Fields["VERTICAL"].Handle.Value)
+            view.FieldDefinitions["PESSOAEMAIL"].Visible        = False
+            view.FieldDefinitions["RESUMOATIVIDADE"].Visible    = tipo in [2]
+            view.FieldDefinitions["RESUMOATIVIDADE"].Required   = tipo in [2]
+            view.FieldDefinitions["DATAAGENDAMENTO"].Required   = tipo in [2]
+            view.FieldDefinitions["DATACONCLUSAO"].Visible      = tipo in [3]
+            view.FieldDefinitions["TAREFA"].Required            = True
+            
+        if entity.Fields["VERTICAL"].Handle.IsValid():
+            vertical = int(entity.Fields["VERTICAL"].Handle.Value)
+        else:
+            vertical = 0; 
+        
+        if not entity.Fields["HANDLE"].IsValid():
+            if int(entity.Fields["TIPO"].Value) in [1,2] :
+                view.FieldDefinitions["DESCRICAO"].Visible  = False
+                view.FieldDefinitions["RESPOSTA"].Visible   = False
+            view.FieldDefinitions["STATUS"].Visible = False
+        else:
+            view.FieldDefinitions["DESCRICAO"].Visible = True
+            view.FieldDefinitions["RESPOSTA"].Visible = True
+            view.FieldDefinitions["STATUS"].Visible = True
+            view.FieldDefinitions["DESCRICAO"].Visible = True
+            view.FieldDefinitions["RESUMOATIVIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            view.FieldDefinitions["TIPO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            view.FieldDefinitions["PESSOA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            view.FieldDefinitions["DATAAGENDAMENTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            view.FieldDefinitions["TAREFA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            view.FieldDefinitions["RESPONSAVEL"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        
+        if entity.Fields["HANDLE"].IsValid():
+            if entity.Fields["RESPOSTA"].Handle.IsValid():
+                widget.View.FieldDefinitions["DESCRICAO"].Visible = True
+            
+            if entity.Fields["DATACONCLUSAO"] != None:
+                widget.View.FieldDefinitions["DATACONCLUSAO"].Visible = True
+        
+            if status in [2,3] or (ehGestor == False and ehDiretor == False and usuario != responsavel ):
+                widget.View.Commands["Edit"].Visible = False
+                widget.View.Commands["New"].Visible = False
+                widget.View.Commands["CmdCancelar"].Visible = False
+                widget.View.Commands["CmdReagendar"].Visible = False
+        
+        if entity.Fields["HANDLE"].IsValid():
+            criteria = Criteria("A.HANDLE = :PESSOA")
+            criteria.Parameters.Add(Parameter("PESSOA", conta))
+            PessoaEntity = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_PESSOAS"), criteria)
+            
+            if entity.Fields["VERTICAL"].Handle.IsValid():
+                widget.View.Commands["cmdConsultarLeadVertical"].Visible = True;
+                widget.View.Commands["cmdConsultarLead"].Visible = False;
+            else:    
+                widget.View.Commands["cmdConsultarLeadVertical"].Visible = False;
+                widget.View.Commands["cmdConsultarLead"].Visible = True;
+                
+            if None != PessoaEntity:    
+                if PessoaEntity.Fields["SUBFASE"].Handle.IsValid():
+                    newcriteria = Criteria("A.PESSOA = :PESSOA AND A.VERTICAL = :VERTICAL")
+                    newcriteria.Parameters.Add(Parameter("PESSOA", conta))
+                    newcriteria.Parameters.Add(Parameter("VERTICAL", vertical))
+                    PessoaVerticalEntity = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_PESSOAVERTICAL"), newcriteria)
+                    
+                    if PessoaVerticalEntity == None:
+                        if status in [1]:
+                            if PessoaEntity.Fields["SUBFASE"].Instance.Fields["NOME"] == "A qualificar":
+                                widget.View.Commands["Edit"].Visible = False;
+                                widget.View.Commands["cmdQuestionario"].Visible = True;
+                                widget.View.Commands["cmdQuestionario2"].Visible = False;
+                            elif PessoaEntity.Fields["SUBFASE"].Instance.Fields["NOME"] == "Pré Qualificado":
+                                widget.View.Commands["Edit"].Visible = False;
+                                widget.View.Commands["cmdQuestionario"].Visible = False;
+                                widget.View.Commands["cmdQuestionario2"].Visible = False;
+                            else:
+                                widget.View.Commands["cmdQuestionario"].Visible = False;
+                                widget.View.Commands["cmdQuestionario2"].Visible = False;
+                    else:
+                        if PessoaVerticalEntity.Fields["SUBFASE"].Instance.Fields["NOME"] == "A qualificar":
+                            widget.View.Commands["Edit"].Visible = False;
+                            widget.View.Commands["cmdQuestionario"].Visible = True;
+                            widget.View.Commands["cmdQuestionario2"].Visible = False;
+                        elif PessoaVerticalEntity.Fields["SUBFASE"].Instance.Fields["NOME"] == "Pré Qualificado":
+                            widget.View.Commands["Edit"].Visible = False;
+                            widget.View.Commands["cmdQuestionario"].Visible = False;
+                            widget.View.Commands["cmdQuestionario2"].Visible = True;
+                        else:
+                            widget.View.Commands["cmdQuestionario"].Visible = False;
+                            widget.View.Commands["cmdQuestionario2"].Visible = False;
+                        
+        
+        if None != entity.Fields["TAREFA"]:                
+            if entity.Fields["TAREFA"].Handle.IsValid:
+                if None != entity.Fields["TAREFA"].Instance:
+                    tarefaDeOportunidade = bool(entity.Fields["TAREFA"].Instance.Fields["ALTERASTATUSOPORTUNIDADE"]);
+                    if tarefaDeOportunidade == True:
+                        entity.Visualization.Fields["TIPO"].ReadOnly = True;
+                        entity.Visualization.Fields["CONTATO"].Required = True;
+                        entity.Visualization.Fields["RESPOSTA"].Required = True;
+                        entity.Visualization.Fields["DESCRICAO"].Required = True;
+                        entity.Visualization.Fields["DATACONCLUSAO"].Required = True;
+                        entity.Fields["TIPO"] = RadioItem("3", "Realizado")
+                        tipo = int(entity.Fields["TIPO"].Value)
+                        view.FieldDefinitions["PESSOA"].Visible         = tipo not in [1]
+                        view.FieldDefinitions["TAREFA"].Visible         = tipo not in [1]
+                        view.FieldDefinitions["CODIGO"].Visible         = tipo not in [1]
+                        view.FieldDefinitions["RESPONSAVEL"].Visible    = tipo not in [1]
+                        view.Commands["Save"].Visible                   = tipo not in [1]
+                        view.Commands["SaveNew"].Visible                = tipo not in [1]
+                        view.FieldDefinitions["DATAAGENDAMENTO"].Visible = tipo in [2]
+                        view.FieldDefinitions["DATAAGENDAMENTO"].Required = tipo in [2]
+                        view.FieldDefinitions["DESCRICAO"].Visible = tipo in [3]
+                        view.FieldDefinitions["RESPOSTA"].Visible = tipo in [3]
+                        view.FieldDefinitions["DESCRICAO"].Required = tipo in [3]
+                        view.FieldDefinitions["RESPOSTA"].Required = tipo in [3]
+                        view.FieldDefinitions["RESUMOATIVIDADE"].Visible = tipo in [2]
+                        view.FieldDefinitions["RESUMOATIVIDADE"].Required = tipo in [2]
+                        #view.FieldDefinitions["DATACONCLUSAO"].Visible = tipo in [3]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import FieldDefinition
+    tipo = int(entity.Fields["TIPO"].Value)
+    
+    # SE FOR AUTOMATICA ESCONDE TODOS CAMPOS
+    view.FieldDefinitions["PESSOA"].Visible         = tipo not in [1]
+    view.FieldDefinitions["TAREFA"].Visible         = tipo not in [1]
+    view.FieldDefinitions["CODIGO"].Visible         = tipo not in [1]
+    view.FieldDefinitions["RESPONSAVEL"].Visible    = tipo not in [1]
+    view.Commands["Save"].Visible                   = tipo not in [1]
+    view.Commands["SaveNew"].Visible                = tipo not in [1]
+    
+    if tipo == 1:
+        entity.OutputMessage = "Não é possivel adicionar uma tarefa automática!!!"
+    if tipo != 1:
+        entity.OutputMessage = None
+        
+    
+    view.FieldDefinitions["DATAAGENDAMENTO"].Visible = tipo in [2]
+    view.FieldDefinitions["DATAAGENDAMENTO"].Required = tipo in [2]
+    
+    view.FieldDefinitions["DESCRICAO"].Visible = tipo in [3]
+    view.FieldDefinitions["RESPOSTA"].Visible = tipo in [3]
+    view.FieldDefinitions["DESCRICAO"].Required = tipo in [3]
+    view.FieldDefinitions["RESPOSTA"].Required = tipo in [3]
+    
+    view.FieldDefinitions["RESUMOATIVIDADE"].Visible = tipo in [2]
+    view.FieldDefinitions["RESUMOATIVIDADE"].Required = tipo in [2]
+    
+    view.FieldDefinitions["DATACONCLUSAO"].Visible = tipo in [3]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTAREFAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTAREFAValueChanged(view, entity):
+
+    entity.Visualization.Fields["MOTIVOPERDA"].Visible = False;
+    entity.Visualization.Fields["MOTIVOPERDA"].Required = False;
+    entity.Visualization.Fields["CONCORRENTE"].Visible = False;
+    entity.Visualization.Fields["CONCORRENTE"].Required = False;
+    
+    if None != entity.Fields["TAREFA"]:                
+        if entity.Fields["TAREFA"].Handle.IsValid:
+            if None != entity.Fields["TAREFA"].Instance:
+                tarefaDeOportunidade = bool(entity.Fields["TAREFA"].Instance.Fields["ALTERASTATUSOPORTUNIDADE"]);
+                if tarefaDeOportunidade == True:
+                    entity.Visualization.Fields["RESPOSTAOPORTUNIDADE"].Required = True;
+                    entity.Visualization.Fields["CONTATO"].Required = True;
+                    entity.Visualization.Fields["RESPOSTA"].Required = True;
+                    entity.Visualization.Fields["DESCRICAO"].Required = True;
+                    entity.Visualization.Fields["DATACONCLUSAO"].Required = True;
+                    entity.Visualization.Fields["STATUSPROXIMO"].ReadOnly = True;
+                    entity.Visualization.Fields["STATUSPROXIMO"].Visible = True;
+                    entity.Visualization.Fields["STATUSPROXIMO"].Required = True;
+                    entity.Fields["STATUSPROXIMO"].Handle = entity.Fields["TAREFA"].Instance.Fields["STATUSPROXIMO"].Handle;
+                    entity.Visualization.Fields["STATUSATUAL"].ReadOnly = True;
+                    entity.Visualization.Fields["STATUSATUAL"].Visible = True;
+                    entity.Visualization.Fields["STATUSATUAL"].Required = True;
+                    if entity.Fields["TAREFA"].Instance.Fields["STATUSPROXIMO"].Instance.Fields["NOME"] == "Perdido" or entity.Fields["TAREFA"].Instance.Fields["STATUSPROXIMO"].Instance.Fields["NOME"] == "Cancelado" or entity.Fields["TAREFA"].Instance.Fields["STATUSPROXIMO"].Instance.Fields["NOME"] == "Suspenso":
+                        entity.Visualization.Fields["MOTIVOPERDA"].Visible = True;
+                        entity.Visualization.Fields["MOTIVOPERDA"].Required = True;
+                        if entity.Fields["TAREFA"].Instance.Fields["STATUSPROXIMO"].Instance.Fields["NOME"] == "Perdido":
+                            entity.Visualization.Fields["CONCORRENTE"].Visible = True;
+                            entity.Visualization.Fields["CONCORRENTE"].Required = True;
+                else:
+                    VisualizacaoPadrao(view, entity)
+            else:
+                VisualizacaoPadrao(view, entity);
+        else:
+            VisualizacaoPadrao(view, entity);
+    else:
+        VisualizacaoPadrao(view, entity);
+                
+                
+def VisualizacaoPadrao(view, entity):
+    entity.Fields["TIPO"].Value = "3";
+    entity.Visualization.Fields["RESPOSTAOPORTUNIDADE"].Required = False;
+    entity.Visualization.Fields["CONTATO"].Required = False;
+    entity.Visualization.Fields["RESPOSTA"].Required = False;
+    entity.Visualization.Fields["DESCRICAO"].Required = False;
+    entity.Visualization.Fields["DATACONCLUSAO"].Required = False;
+    entity.Visualization.Fields["STATUSPROXIMO"].ReadOnly = False;
+    entity.Visualization.Fields["STATUSPROXIMO"].Visible = False;
+    entity.Visualization.Fields["STATUSPROXIMO"].Required = False;
+    entity.Visualization.Fields["STATUSATUAL"].ReadOnly = False;
+    entity.Visualization.Fields["STATUSATUAL"].Visible = False;
+    entity.Visualization.Fields["STATUSATUAL"].Required = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRESPOSTAOPORTUNIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRESPOSTAOPORTUNIDADEValueChanged(view, entity):
+     if None != entity.Fields["TAREFA"]:                
+        if entity.Fields["TAREFA"].Handle.IsValid:
+            if None != entity.Fields["TAREFA"].Instance:
+                tarefaDeOportunidade = bool(entity.Fields["TAREFA"].Instance.Fields["ALTERASTATUSOPORTUNIDADE"]);
+                if tarefaDeOportunidade == True:
+                    if None != entity.Fields["RESPOSTAOPORTUNIDADE"]:                
+                        if entity.Fields["RESPOSTAOPORTUNIDADE"].Handle.IsValid:
+                            if None != entity.Fields["RESPOSTAOPORTUNIDADE"].Instance:
+                                statusAtual = entity.Fields["RESPOSTAOPORTUNIDADE"].Instance.Fields["STATUSOPORTUNIDADE"].Handle;
+                                entity.Fields["STATUSATUAL"].Handle = statusAtual;
+                                
+                                faseOportunidade = entity.Fields["STATUSPROXIMO"].Instance;
+                                
+                                #entity.OutputMessage = faseOportunidade.Fields["PERDE"].ToString()
+                                
+                                if bool(faseOportunidade.Fields["PERDE"]) == True:
+                                    entity.Visualization.Fields["MOTIVOPERDA"].Visible = True;
+                                    entity.Visualization.Fields["MOTIVOPERDA"].Required = True;
+                                    entity.Visualization.Fields["CONCORRENTE"].Visible = True;
+                                    entity.Visualization.Fields["CONCORRENTE"].Required = True;
+                                #else:
+                                #    entity.Visualization.Fields["MOTIVOPERDA"].Visible = True;
+                                #    entity.Visualization.Fields["MOTIVOPERDA"].Required = True;
+                                #    entity.Visualization.Fields["CONCORRENTE"].Visible = True;
+                                #    entity.Visualization.Fields["CONCORRENTE"].Required = True;
+                                elif bool(faseOportunidade.Fields["SUSPENDE"]) == True or bool(faseOportunidade.Fields["CANCELA"]) == True:
+                                    entity.Visualization.Fields["MOTIVOPERDA"].Visible = True;
+                                    entity.Visualization.Fields["MOTIVOPERDA"].Required = True;
+                                    entity.Visualization.Fields["CONCORRENTE"].Visible = False;
+                                    entity.Visualization.Fields["CONCORRENTE"].Required = False;
+                                else:
+                                    entity.Visualization.Fields["MOTIVOPERDA"].Visible = False;
+                                    entity.Visualization.Fields["MOTIVOPERDA"].Required = False;
+                                    entity.Visualization.Fields["CONCORRENTE"].Visible = False;
+                                    entity.Visualization.Fields["CONCORRENTE"].Required = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

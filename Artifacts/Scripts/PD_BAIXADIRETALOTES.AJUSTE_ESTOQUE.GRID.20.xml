@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_BAIXADIRETALOTES.AJUSTE_ESTOQUE.GRID</ViewName>
+  <EntityName>PD_BAIXADIRETALOTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def ControlaVisibilidadeColunasGridLotes(widget, baixaDireta):
+    visibilidadeColunasGridLotes = baixaDireta.ControlarVisibilidadeColunasGridLotes()
+    
+    #entrada
+    widget.View.FieldDefinitions["DATAFABRICACAO"].Visible = visibilidadeColunasGridLotes.VisibilidadeDataFabricacao
+    widget.View.FieldDefinitions["DATAVALIDADE"].Visible = visibilidadeColunasGridLotes.VisibilidadeDataValidade
+    widget.View.FieldDefinitions["LOTEENTRADA"].Visible = visibilidadeColunasGridLotes.VisibilidadeLoteEntrada
+    
+    #saida/transferencia:
+    widget.View.FieldDefinitions["LOTE"].Visible = visibilidadeColunasGridLotes.VisibilidadeLote
+
+def Load(widget):
+    baixaDireta = widget.ProviderWidget.Entity
+    
+    if baixaDireta == None : 
+        widget.Hidden = True
+        return
+
+    if not baixaDireta.ProdutoControlaLote() :
+       widget.Hidden = True
+       
+    ControlaVisibilidadeColunasGridLotes(widget, baixaDireta)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

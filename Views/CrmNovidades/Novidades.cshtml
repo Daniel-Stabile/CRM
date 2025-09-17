@@ -1,0 +1,349 @@
+﻿<style>
+
+    .profile-sidebar-portlet {
+        padding: 30px 0 0 !important;
+    }
+
+    .profile-userpic img {
+        float: none;
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 13px;
+        font-weight: 800;
+        margin-bottom: 7px;
+    }
+
+    .profile-usermenu ul li a {
+        color: #93a3b5;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .profile-usermenu ul li.active a {
+        color: #5b9bd1;
+        background-color: #f6f9fb;
+        border-left: 2px solid #5b9bd1;
+        margin-left: -2px;
+    }
+
+    .profile-stat-title {
+        color: #7f90a4;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .profile-stat-text {
+        color: #5b9bd1;
+        font-size: 11px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .opc-em-atendimento {
+        opacity: 1
+    }
+
+    .opc-parado {
+        opacity: 0.5
+    }
+
+    .pie-chart {
+        position: relative;
+        display: inline-block;
+        width: 75px;
+        height: 75px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        padding-top: 27px;
+        padding-left: 5px;
+    }
+
+    .pie-chart canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .pie-chart span{
+        position: relative;
+        bottom: -30px;
+    }
+    .percent {
+        display: inline-block;
+        line-height: 75px;
+        z-index: 2;
+    }
+    .percent:after {
+        content: '%';
+        margin-left: 0.1em;
+        font-size: .8em;
+    }
+
+    .fade-enter-active{
+        transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+        opacity: 0;
+    }
+
+</style>
+<div id="viewNovidades" class="row">
+    <div  class="col-md-12">
+        @*<div class="col-md-12">
+            <div v-for="item in novidades" class="portlet box green-meadow">
+                <div class="portlet-title">
+                    <div class="caption">
+                        {{item.Titulo}} {{item.Data}}
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div v-html class="portlet-body">
+                    <span v-html="item.Descricao"></span>
+                    </br>
+                    <iframe width="420" height="315"
+                            src="https://www.youtube.com/embed/G5sRT6rhL5U"></iframe>
+                </div>
+            </div>
+        </div>*@
+
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div style="padding-top: 16px;">
+                    <span class="caption-subject bold font-green-sharp uppercase" style="font-size: 32px;padding-inline:16px"> Novidades</span>
+                </div>
+                <div class="portlet-title" style="padding-top:0px">
+                    <div class="caption">
+                        <i class="icon-directions font-green hide"></i>
+                        <span class="caption-subject bold font-dark uppercase"></span>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="cd-horizontal-timeline mt-timeline-horizontal loaded" data-spacing="60">
+                            <div class="timeline mt-timeline-square">
+                                <div class="events-wrapper">
+                                    <div class="events" :style="tamanhoTimeline+translateTimeline">
+                                        <ol>
+                                            <li v-for="(item,index) in novidades" v-on:click.prevent="SelecionaNovidade(item,index)">
+                                                <a data-date="16/01/2014" class="border-after-blue bg-after-blue " :class="{'selected':itemSelecionado.Handle == item.Handle,'older-event':itemSelecionado.Data > item.Data}" :style="PosicaoTimeline(index)">{{item.Data}}</a>
+                                            </li>
+                                        </ol>
+                                        <span class="filling-line bg-blue" aria-hidden="true" :style="PreencheBarra()"></span>
+                                    </div>
+                                    <!-- .events -->
+                                </div>
+                                <!-- .events-wrapper -->
+                                <ul class="cd-timeline-navigation mt-ht-nav-icon">
+                                    <li>
+                                        <a class="prev btn blue md-skip " :class="{'inactive': translateSelecionado == 0}" v-on:click="RetrocedeTimeline()">
+                                            <i class="fa fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="next btn blue md-skip " :class="{'inactive': translateSelecionado == novidades.length}" v-on:click="AvancaTimeline()">
+                                            <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- .cd-timeline-navigation -->
+                            </div>
+                            <!-- .timeline -->
+                            <div class="events-content" style="min-height: 320px;">
+                                <ol>
+                                    <li v-for="item in novidades" v-bind:data-date="item.Data" :class="{'selected':itemSelecionado.Handle == item.Handle}">
+                                        <div class="mt-title">
+                                            <h2 class="mt-content-title">{{item.Titulo}}</h2>
+                                        </div>
+                                        <div class="mt-author">
+                                            <div class="mt-avatar">
+                                                <img :src="item.Usuario.Imagem">
+                                            </div>
+                                            <div class="mt-author-name">
+                                                <a href="javascript:;" class="font-blue-madison">{{item.Usuario.Nome}}</a>
+                                            </div>
+                                            <div class="mt-author-datetime font-grey-mint">{{item.Data}}</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="mt-content border-grey-steel">
+                                            <p v-html="item.Descricao">
+                                            </p>
+                                            @*<iframe width="420"
+                                            height="315"
+                                            src="https://www.youtube.com/embed/G5sRT6rhL5U">
+                                    </iframe>*@
+                                            <div class="btn-group dropup pull-right">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <!-- .events-content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+    <script type="text/javascript">
+
+        new Vue({
+            el: "#viewNovidades",
+            data: {
+                novidades: [],
+                tileNumber: {},
+                initialized: false,
+                indexSelecionado: 0,
+                translateSelecionado: 0,
+                tamanhoTimeline: '',
+                translateTimeline: '',
+                itemSelecionado: {
+                    Handle: 1,
+                    Titulo: "Novidade 1",
+                    Descricao: "<p> Teeeesss <b>tttteeeeeee</b></p>",
+                    Data: "00:10 01/01/2020",
+                    LinkVideo: "https://www.youtube.com/watch?v=pVdurpCvUnY"
+                }
+            },
+            methods: {
+                showArea: function (number) {
+                    this.show = number;
+                },
+                ResultadoStyleTimeline: function () {
+                    var scope = this;
+                    //console.log('ResultadoStyleTimeline')
+
+                    scope.TamanhoTimeline()
+                    scope.EstiloTimeline()
+
+                    //console.log(scope.tamanhoTimeline)
+                    //console.log(scope.translateTimeline)
+                    return scope.tamanhoTimeline + scope.translateTimeline
+                },
+                TamanhoTimeline: function () {
+                    var scope = this;
+                    scope.tamanhoTimeline = 'width:' + (scope.novidades.length * 120 + 120) + 'px;'
+                },
+                EstiloTimeline: function () {
+
+                    var scope = this;
+                    
+                    var resultado = scope.translateSelecionado * 120 * -1
+
+                    scope.translateTimeline = 'transform: translateX(' + resultado + 'px);'
+                },
+                AvancaTimeline: function () {
+                    var scope = this;
+                    if (scope.translateSelecionado == scope.novidades.length)
+                        return;
+                    else
+                        scope.translateSelecionado += 1
+
+                    scope.EstiloTimeline()
+
+                    //console.log('AvancaTimeline')
+                    //console.log(scope.tamanhoTimeline)
+                    //console.log(scope.translateTimeline)
+                },
+                RetrocedeTimeline: function () {
+                    var scope = this;
+                    if (scope.translateSelecionado == 0)
+                        return;
+                    else
+                        scope.translateSelecionado -= 1
+
+
+                    scope.EstiloTimeline()
+                    
+                    //console.log('RetrocedeTimeline')
+                    //console.log(scope.tamanhoTimeline)
+                    //console.log(scope.translateTimeline)
+                },
+                PosicaoTimeline: function (index) {
+                    var scope = this;
+                    return 'left:' + (index + 1) * 120 + 'px'
+                },
+                SelecionaNovidade: function (item,index) {
+                    this.itemSelecionado = item;
+                    this.indexSelecionado = index;
+                },
+                PreencheBarra: function () {
+
+                    var barraTotal = this.novidades.length * 120 + 120
+                    var barraSelecionada = ((this.indexSelecionado + 1) * 120)+30
+
+                    var resultado = barraSelecionada / barraTotal
+
+                    return 'transform: scaleX(' + resultado + ')'
+                },
+                slide: function () {
+                    if (this.show + 1 > this.tabs.length)
+                        this.show = 1
+                    else
+                        this.show++
+
+                    setTimeout(this.slide, 15000)
+                },
+
+                showColor: function (tab, item) {
+                    return (item.Percentual < tab.RateRuim ? 'font-red-intense' : item.Percentual < tab.RateBom ? 'font-yellow-crusta' : 'font-green-jungle');
+                },
+
+                setLinkRankItem: function (link) {
+                    return Benner.WidgetCommandsBar.prepareModal(link, '', 'Large');
+                }
+            },
+            mounted: function () {
+                var scope = this;
+
+                //PortletRank Sla
+                $.ajax({
+                    type: 'GET',
+                    dataType: "json",
+                    url: Benner.Page.getApplicationPath() + "/CrmNovidades/GetNovidades",
+                    success: function (data) {
+                        var aux = []
+                        aux = JSON.parse(data);
+
+                        //console.log("GetNovidades")
+                        //console.log(aux)
+
+                        scope.novidades = aux;
+                        scope.indexSelecionado = scope.novidades.length - 1
+                        scope.itemSelecionado = scope.novidades[scope.novidades.length - 1]
+                        scope.translateSelecionado = scope.novidades.length - 1
+                        scope.TamanhoTimeline()
+                        scope.EstiloTimeline()
+                        //console.log(scope)
+                    }
+                });
+
+            }
+        })
+    </script>

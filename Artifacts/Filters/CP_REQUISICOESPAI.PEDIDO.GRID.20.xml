@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICOESPAI.PEDIDO.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>CP_REQUISICOESPAI</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Suprimentos</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DATAINCLUSAO">
+    <TableName>CP_REQUISICOESPAI</TableName>
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>entre</Name>
+      <DatabaseOperator>BETWEEN</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="REQUISICAOPAI">
+    <TableName>CP_REQUISICOES</TableName>
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>em</Name>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Requisição</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

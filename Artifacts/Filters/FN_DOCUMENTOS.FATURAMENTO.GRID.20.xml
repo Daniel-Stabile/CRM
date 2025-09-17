@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS.FATURAMENTO.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Pré-definido avançado</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="LOCALRETIRADACAIXAPOSTAL">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:string">1</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <VirtualTableFormView>CM_FILTROAVANCADOFATURAMENTO.CUSTOM.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Pré-definido carta de correção</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>CM_FILTROAVANCADOCARTACORRECAO.CUSTOM.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>((A.ABRANGENCIA = 'A') OR ((A.ABRANGENCIA = 'N') AND (A.TIPOREGISTRO = 11))) AND A.STATUS = 2 
+AND EXISTS (SELECT F.HANDLE FROM FILIAIS F,
+                                                                    TR_PARAMETROFILIAL TR,
+                                                                    FN_TIPOSDOCUMENTOS TP
+                       WHERE F.HANDLE = TR.FILIAL
+                            AND TP.HANDLE = A.TIPODOCUMENTO
+                            AND F.HANDLE = A.FILIAL
+                            AND ((TR.EMITENFE = 'S' AND TP.EHNFE = 'S' AND A.STATUSNFE = 6)
+                               OR ((TP.EHNFESERVICO &lt;&gt; 'S') AND ((TR.AMBIENTENFE NOT IN (1,2)) OR (TP.EHNFE &lt;&gt; 'S')))))
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Pré-definido padrão</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="PERCENTUALFIRMEZA">
+    <FieldDefinitionName>IntegerFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:long">1</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <VirtualTableFormView>CM_FILTROBASICOFATURAMENTO.CUSTOM.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

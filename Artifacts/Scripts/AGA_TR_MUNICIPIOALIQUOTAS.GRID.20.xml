@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_MUNICIPIOALIQUOTAS.GRID</ViewName>
+  <EntityName>TR_MUNICIPIOALIQUOTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+
+    form = widget.ProviderWidget
+    if (form == None) : return
+
+    entity = form.Entity
+    if (entity == None) : return
+    
+    widget.Hidden = not (entity["COMPETENCIA"].GetDBValue() == "M" and not entity.TransitoryVars["MUNICIPIOVISIBLE"])
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

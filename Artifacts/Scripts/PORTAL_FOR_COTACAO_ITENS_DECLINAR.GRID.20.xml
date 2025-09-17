@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_COTACAO_ITENS_DECLINAR.GRID</ViewName>
+  <EntityName>CP_WEB_ITENSCOTACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    row.GetCellByName("NUMEROREQUISICAO").Text = entity.ObterNumeroRequisicaoItem();
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_WEB_COTACOES.CONDICOESGERAIS_FORM</ViewName>
+  <EntityName>CP_WEB_COTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    pai = widget.ProviderWidget;
+    if pai == None: return
+    registro = pai.Entity;
+    if registro == None: return;
+    emCotacao = bool(registro.Fields["STATUS"].Value in [2,3]);
+    widget.View.Commands["Edit"].Visible = emCotacao;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOS.GLOSAMULTA.FN_PARCELAS.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoGlosaMulta
+    
+    widget.Hidden = widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.Handle.IsInvalid() or CNContratoGlosaMulta.EsconderWidgetParcelasBaixadas(widget.ProviderWidget.Entity.Handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>ITENSDEVOLVIDOS.CONSULTA.GRID</ViewName>
+  <EntityName>FATURAMENTO_ITENSDEVOLVIDOS.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("REPOSICAO").Align = "center"
+    row.GetCellByName("REPOSICAO").TextColor = "#3CB371" if entity.Fields["REPOSICAO"] == "S" else "#B22222"
+    row.GetCellByName("REPOSICAO").FontIcon = "fa fa-check" if entity.Fields["REPOSICAO"] == "S"  else "fa fa-times"
+    row.GetCellByName("DATAEMISSAO").Text = entity.Fields["DATAEMISSAO"].ToString("dd/MM/yyyy");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

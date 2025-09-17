@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_FN_EMAILPARAFORNECEDORES.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>WEB_FN_EMAILPARAFORNECEDORES</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Situação</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="SITUACAO">
+    <FieldDefinitionName>RadioFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="RadioItem">
+      <Text>Em aberto</Text>
+      <Value>A</Value>
+    </Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <VirtualTableFormView>FN_VT_PARCELAEMAIL.CUSTOM.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

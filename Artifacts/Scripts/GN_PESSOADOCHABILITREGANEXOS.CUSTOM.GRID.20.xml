@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOADOCHABILITREGANEXOS.CUSTOM.GRID</ViewName>
+  <EntityName>GN_PESSOADOCHABILITREGANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    editavel = (bool) (entity.Fields["REGISTRO"].Instance.Fields["STATUS"].Value in [1, 4]);
+    row.EditCommand.Enabled = editavel;
+    row.DeleteCommand.Enabled = editavel;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    pai = widget.ProviderWidget;
+    if pai == None: return
+    registro = pai.Entity;
+    if registro == None: return;
+    editavel = bool(registro.Fields["STATUS"].Value in [1,4]);
+    widget.View.Commands["New"].Visible = editavel;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

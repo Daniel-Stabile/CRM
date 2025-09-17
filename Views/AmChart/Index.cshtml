@@ -1,0 +1,83 @@
+﻿<h3>Gráfico</h3>
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        @for (var i = 0; i < ViewBag.ChartTypes.Count; i++)
+        {
+            if (i == 4)
+            {
+                break;
+            }
+
+            var chartType = ViewBag.ChartTypes[i];
+            <div class="col-md-3 col-sm-3 text-center chart-type" chart-value="@chartType.Value">
+                <img src="@chartType.ImageUrl" />
+                <label>@chartType.Name</label>
+                <br />
+            </div>
+        }
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @for (var i = 4; i < ViewBag.ChartTypes.Count; i++)
+        {
+            var chartType = ViewBag.ChartTypes[i];
+            <div class="col-md-3 col-sm-3 text-center chart-type" chart-value="@chartType.Value">
+                <img src="@chartType.ImageUrl" />
+                <label>@chartType.Name</label>
+                <br />
+            </div>
+        }
+    </div>
+
+</div>
+@if (ViewBag.Fields != null)
+{
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label name column-nowrap">
+                    <div class="label-form">
+                        <div class="label-title">
+                            Campo de legenda
+                        </div>
+                        <div class="label-title-required">
+                            <span class="required" aria-required="true"> * </span>
+                        </div>
+                    </div>
+                </label>
+                <div class="">
+                    <select class="form-control" id="label-field">
+                        @foreach (var field in ViewBag.Fields)
+                        {
+                            <option value="@field.Name">@field.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label name column-nowrap">
+                    <div class="label-form">
+                        <div class="label-title">
+                            Campo de valor
+                        </div>
+                        <div class="label-title-required">
+                            <span class="required" aria-required="true"> * </span>
+                        </div>
+                    </div>
+                </label>
+                <div class="">
+                    <select class="form-control" id="value-field">
+                        @foreach (var field in ViewBag.Fields)
+                        {
+                            <option value="@field.Name">@field.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Ajax.OnReadyScript("Benner.Development.initChartDevelopment()")

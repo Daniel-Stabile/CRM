@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_QTD_CONTAS_POR_SUBFASE</Identifier>
+  <Name>CRM - Gráfico Contas X Subfase</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NOME, SUM(A.QTD) QTD FROM (&#xD;&#xA;SELECT I.NOME, J.QTD FROM&#xD;&#xA;(SELECT SUBFASE, COUNT(SUBFASE) QTD FROM K_CRM_PESSOAS GROUP BY SUBFASE) J&#xD;&#xA;JOIN K_CRM_SUBFASES I ON I.HANDLE = J.SUBFASE&#xD;&#xA;GROUP BY I.NOME, J.QTD)&#xD;&#xA;A&#xD;&#xA;GROUP BY A.NOME" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="QTD" From="A" Path="QTD" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

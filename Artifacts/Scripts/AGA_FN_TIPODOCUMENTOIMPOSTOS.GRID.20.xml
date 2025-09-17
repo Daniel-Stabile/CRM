@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_FN_TIPODOCUMENTOIMPOSTOS.GRID</ViewName>
+  <EntityName>FN_TIPODOCUMENTOIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+
+    if (entity == None) : return
+
+    widgetID = str(widget.ID)
+
+    if ((widgetID == "WIDGET_1128") and (entity["EHRETENCAO"].GetBoolean()) or 
+        widgetID == "WIDGET_879"):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("IMPOSTO").Align = "left";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

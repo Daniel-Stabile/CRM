@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTALINTERNO_CP_REQUISICOESPAI.GRID</ViewName>
+  <EntityName>CP_REQUISICOESPAI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    status = (bool(entity.Fields["STATUS"].Value == 1) and bool(entity.Fields["LIBERADA"]));
+    EnableCommand(row.GetCustomCommand("CustomConfirmar"), status);
+    EnableCommand(row.GetCustomCommand("CustomRecusar"), status);
+    return;
+
+def EnableCommand(command, enabled):
+    if command == None: return;
+    command.Enabled = enabled;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

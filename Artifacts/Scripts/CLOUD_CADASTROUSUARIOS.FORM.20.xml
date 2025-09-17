@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_CADASTROUSUARIOS.FORM</ViewName>
+  <EntityName>CLOUD_CADASTROUSUARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnEMAILValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEMAILValueChanged(view, entity):
+    email = entity.Fields["EMAIL"]
+    if "@" in email:
+        entity.Fields["APELIDO"] = email.split("@")[0];
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

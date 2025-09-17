@@ -1,0 +1,15 @@
+﻿<%@ Page Title="Tarefa Usuário Oportunidade" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="K_TAREFAUSUARIOOPORTUNIDADE" Title="Tarefa Usuario Oportunidade" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="8" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_TAREFAUSUARIO.OPORTUNIDADE.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="K_PAGES_K_CRM_TAREFAUSUARIO_TAREFAOPORTUNIDADE" Level="50" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="K_CRITRIOSDESEJADOS" Title="Critérios Desejados" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="4" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_TAREFAUSUARIOOPORTUNIDADE" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="K_CRM_FASESOPORTUNIDADECRIT.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FASEOPORTUNIDADE IN (COALESCE(@CAMPO(STATUSPROXIMO),0))" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_TAREFAUSUARIO_TAREFAOPORTUNIDADE" Level="50" Order="20"  />
+        <wes:AjaxForm runat="server" ID="K_TAREFAUSURIOOPORTUNIDADE" Title="Tarefa Usuário Oportunidade" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="8" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_TAREFAUSUARIO.OPORTUNIDADE_GERAL.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="K_PAGES_K_CRM_TAREFAUSUARIO_TAREFAOPORTUNIDADE" Level="50" Order="30"  />
+        <wes:SimpleGrid runat="server" ID="K_CRITRIOSDESEJADOS_1" Title="Critérios Desejados" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="4" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_TAREFAUSURIOOPORTUNIDADE" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_FASESOPORTUNIDADECRIT.GERAL.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FASEOPORTUNIDADE IN (COALESCE(@CAMPO(STATUSPROXIMO),0))" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_TAREFAUSUARIO_TAREFAOPORTUNIDADE" Level="50" Order="40"  />
+        </div>
+    
+      </asp:Content>
+    

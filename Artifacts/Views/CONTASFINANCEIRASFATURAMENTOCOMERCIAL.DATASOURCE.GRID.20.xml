@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE" name="CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE.GRID" title="CONTASFINANCEIRASFATURAMENTOCOMERCIAL.DATASOURCE" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Conta" key="CUSTOM_636876461710984652">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>20%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    var creditoDebito = "Conta";    
+    var conta = Model.Fields["CONTA"];
+    var estrutura = Model.Fields["ESTRUTURACONTA"];
+}
+&lt;div class="row static-info grid-retencoes"&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelper(creditoDebito, estrutura + "-" + conta)
+    &lt;/div&gt;
+&lt;/div&gt;</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Natureza" key="CUSTOM_636876462058891619">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@if (Model.Fields["NATUREZA"] == "C")
+{
+    &lt;span class="badge badge-roundless col-md-12 badge-info"&gt;
+        Crédito
+    &lt;/span&gt;
+}
+else
+{
+    &lt;span class="badge badge-roundless col-md-12 badge-danger"&gt;
+        Débito
+    &lt;/span&gt;
+}</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="CC/Projeto" key="CUSTOM_636876462594314709">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>25%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    var centroCusto = Model.Fields["CENTROCUSTO"] != null ? Model.Fields["CENTROCUSTO"] : "N/A";
+    var projeto = Model.Fields["PROJETO"] != null ? Model.Fields["PROJETO"] : "N/A";
+    var estrutura = Model.Fields["ESTRUTURACC"];
+}
+&lt;div class="row static-info grid-retencoes"&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelper("Centro Custo", estrutura + "-" + centroCusto)
+    &lt;/div&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelper("Projeto", projeto)
+    &lt;/div&gt;
+&lt;/div&gt;</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Ação/Elemento" key="CUSTOM_ACAO_ELEMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>25%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    var acoesprojetos = Model.Fields["ACOESPROJETOS"] != null ? Model.Fields["ACOESPROJETOS"] : "N/A";
+    var elemento = Model.Fields["ELEMENTODESPESA"] != null ? Model.Fields["ELEMENTODESPESA"] : "N/A";
+}
+&lt;div class="row static-info grid-retencoes"&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelper("Ação Orçamentária", acoesprojetos)
+    &lt;/div&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelper("Elemento Despesa", elemento)
+    &lt;/div&gt;
+&lt;/div&gt;</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Lançamento item faturamento" key="LANCAMENTOITEMFAT" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Valores" key="CUSTOM_636876462194978705">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{
+    var valor = Model.Definition.FieldDefinitions["VALORLANCAMENTO"].ToUI(Model["VALORLANCAMENTO"].Value);
+    var valorCC = Model.Fields["VALORCC"] != null ? Model.Definition.FieldDefinitions["VALORCC"].ToUI(Model["VALORCC"].Value) : "N/A";
+    var percLancamento = Model.Fields["PERCLANCAMENTO"] != null ? Model.Fields["PERCLANCAMENTO"] + "%" : "N/A";
+    var percCC = Model.Fields["PERCCC"] != null ? Model.Fields["PERCCC"] + "%" : "N/A";
+    var classe = Model.Fields["NATUREZA"] == "C" ? "badge-info" : "badge-danger";   
+}
+&lt;div class="row static-info grid-retencoes"&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelperValores(classe,"Valor", valor)
+    &lt;/div&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelperValores("label-tesouraria-empty","Percentual", percLancamento)
+    &lt;/div&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelperValores(classe,"Valor CC", valorCC)
+    &lt;/div&gt;
+    &lt;div class="col-lg-12"&gt;
+        @CorporativoComercialHelper.LabelValueHelperValores("label-tesouraria-empty","Percentual CC", percCC)
+    &lt;/div&gt;
+&lt;/div&gt;</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="CONTA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="HANDLE" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility xsi:nil="true" />
+      </GridFieldDefinition>
+      <GridFieldDefinition key="NATUREZA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Handle CC" key="HANDLECC" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="PROJETO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Percentual lançamento" key="PERCLANCAMENTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor lançamento" key="VALORLANCAMENTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Estrutura conta" key="ESTRUTURACONTA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Centro custo" key="CENTROCUSTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="ACOESPROJETOS" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="ELEMENTODESPESA" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Estrutura CC" key="ESTRUTURACC" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Valor CC" key="VALORCC" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="DOCUMENTO" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Percentual CC" key="PERCCC" inherited="true">
+        <visible>false</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility>ToScript</visibility>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="" key="New" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Edit" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="SaveNew" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Delete" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="View" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal>true</showModal>
+        <modalSize>FullPage</modalSize>
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

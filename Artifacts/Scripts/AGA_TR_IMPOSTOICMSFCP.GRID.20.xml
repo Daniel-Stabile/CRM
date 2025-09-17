@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_IMPOSTOICMSFCP.GRID</ViewName>
+  <EntityName>TR_IMPOSTOICMSFCP</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    form = widget.ProviderWidget
+    entity = form.Entity
+
+    if (entity == None) : return
+
+    if ( (str(widget.ID) == "WIDGET_8036") and  ( entity["ICMS"].GetDBValue() == "S"  ) ):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+    
+    widget.View.Commands["CMD_ASSOCIARPRODUTOS"].Visible = AuthorizationHelper.HasTask("MANTER_IMPOSTOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

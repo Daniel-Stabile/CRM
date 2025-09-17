@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>EMAILPARACLIENTES</Identifier>
+  <Name>E-mail para clientes</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.DOCUMENTODIGITADO DOCUMENTO,&#xD;&#xA;       B.PESSOA,&#xD;&#xA;       A.HANDLE,&#xD;&#xA;       A.DATAVENCIMENTO VENCIMENTO,&#xD;&#xA;       A.VCTOPRORROGADO,&#xD;&#xA;       A.AP,&#xD;&#xA;       A.PARCELADIGITADA,&#xD;&#xA;       B.DATAEMISSAO EMISSAO,&#xD;&#xA;       A.VALOR,&#xD;&#xA;       A.VALORESBAIXADOS VALORBAIXADO,&#xD;&#xA;       C.NOME FORNECEDOR,&#xD;&#xA;       C.EMAIL,&#xD;&#xA;       C.EMAILCOBRANCA,&#xD;&#xA;       A.MORADIARIA,&#xD;&#xA;       A.NUMEROBANCO,&#xD;&#xA;       A.VALOR - A.VALORESBAIXADOS SALDO,&#xD;&#xA;       (CASE WHEN A.VALORESBAIXADOS &lt; A.VALOR THEN 'A'&#xD;&#xA;       WHEN (A.VALORESBAIXADOS = A.VALOR OR A.VALORESBAIXADOS &gt; 0) THEN 'P'&#xD;&#xA;       ELSE 'V' END) SITUACAO&#xD;&#xA;  FROM FN_PARCELAS A ,  FN_DOCUMENTOS B , GN_PESSOAS C&#xD;&#xA; WHERE A.DOCUMENTO = B.HANDLE&#xD;&#xA;   AND B.PESSOA = C.HANDLE&#xD;&#xA;   AND A.EMPRESA = @EMPRESA&#xD;&#xA;   AND (A.DOCUMENTOSUSPENSO &lt;&gt; 'S' OR  A.DOCUMENTOSUSPENSO IS NULL)&#xD;&#xA;   AND (A.PREVISAO &lt;&gt; 'S')&#xD;&#xA;   AND C.EHCLIENTE = 'S'&#xD;&#xA;   AND B.ENTRADASAIDA = 'S'&#xD;&#xA;   AND B.TIPODEMOVIMENTO &lt;&gt; 2&#xD;&#xA;   AND B.TIPODEMOVIMENTO &lt;&gt; 3&#xD;&#xA;   AND B.TIPODEMOVIMENTO &lt;&gt; 4" />
+  <Fields>
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="VENCIMENTO" From="A" Path="VENCIMENTO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="EMISSAO" From="A" Path="EMISSAO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORBAIXADO" From="A" Path="VALORBAIXADO" />
+    <Field Alias="FORNECEDOR" From="A" Path="FORNECEDOR" />
+    <Field Alias="EMAIL" From="A" Path="EMAIL" />
+    <Field Alias="EMAILCOBRANCA" From="A" Path="EMAILCOBRANCA" />
+    <Field Alias="MORADIARIA" From="A" Path="MORADIARIA" />
+    <Field Alias="NUMEROBANCO" From="A" Path="NUMEROBANCO" />
+    <Field Alias="SALDO" From="A" Path="SALDO" />
+    <Field Alias="SITUACAO" From="A" Path="SITUACAO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

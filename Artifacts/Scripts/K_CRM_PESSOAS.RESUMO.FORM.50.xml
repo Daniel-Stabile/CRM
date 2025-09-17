@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS.RESUMO.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    entity = widget.Entity
+    view = widget.View
+    if entity == None or view == None : return
+    
+    status = int(entity.Fields["INTEGRACAOEXACT"].Value);
+    fase = int(entity.Fields["FASE"].Handle.Value)
+    faseNome = entity.Fields["FASE"].Instance.Fields["NOME"]
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    subfaseNome = entity.Fields["SUBFASE"].Instance.Fields["NOME"]
+
+    usuario = BennerIdentity.Current.UserHandle
+    responsavel = entity.Fields["USUARIORESPONSAVEL"].Handle
+    executivo = entity.Fields["USUARIOEXECUTIVO"].Handle
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+    
+    view.Commands["cmdQualificar"].Visible = (faseNome == "Suspecção" and subfaseNome == "A qualificar" and usuario == responsavel);
+    view.Commands["CmdCategorizarLead"].Visible = entity.Fields["SUBFASE"].Instance.Fields["FASE"].Instance.Fields["NOME"] == "Cliente";
+    view.FieldDefinitions["CMPTELEFONE"].Visible = (entity.Fields["CMPTELEFONE"] != None)
+    
+    view.FieldDefinitions["CMPGRUPOEMPRESARIAL"].Visible = (entity.Fields["CMPGRUPOEMPRESARIAL"] != None)
+    
+    semaforoValue = '';
+    semaforoText = '';
+    nome = entity.Fields["NOME"].ToString();
+    
+    if entity.Fields["SUBFASE"].Handle.IsValid():
+        if entity.Fields["SUBFASE"].Instance.Fields["NOME"].ToString() != "A qualificar":
+            widget.View.Commands["cmdQuestionario"].Visible = False;
+        else:
+            if entity.Fields["SUBFASE"].Instance.Fields["NOME"].ToString() == "A qualificar" and (entity.Fields["USUARIORESPONSAVEL"].Handle.IsValid() or entity.Fields["USUARIOEXECUTIVO"].Handle.IsValid()):
+                widget.View.Commands["cmdQuestionario"].Visible = True;
+            else:
+                widget.View.Commands["cmdQuestionario"].Visible = False;
+                
+    criteria = Criteria("A.PERMITIROPORTUNIDADE = 'S' AND A.HANDLE = :SUBFASE", Parameter("SUBFASE", subfase))
+    aceitaOportunidade = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_SUBFASES"), criteria)
+        
+    if aceitaOportunidade != None:
+        widget.View.Commands["cmdOportunidades"].Visible = True;
+    else:
+        widget.View.Commands["cmdOportunidades"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

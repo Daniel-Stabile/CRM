@@ -1,0 +1,25 @@
+@{
+    bool sAgendado = Convert.ToBoolean(@Model.Fields["COLETAAGENDADA"]);
+    string sDescricao = Convert.ToString(@Model.Fields["DESCRICAO"]);
+    string sClass = "";
+    string sTitulo = "";
+    if (sAgendado)
+    {
+        sClass = "alert alert-info";
+        sTitulo = "Agendado!";
+    }
+    else
+    {
+        sClass = "alert alert-danger";
+        sTitulo = "Não agendado!";
+    }
+}
+
+<div class="portlet-body">
+    <div class="@sClass">
+        <strong>@sTitulo</strong>
+        <br/>
+        <br/>
+        <p>@Html.Raw(sDescricao)</p>
+    </div>
+</div>

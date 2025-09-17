@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADES.ADM.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OncmdAtualizaPropostaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OncmdAtualizaPropostaExecute(command, entity):
+    from System import DateTime
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    oportunidade = entity.Fields["HANDLE"];
+    total = 0
+    horas = 0
+    
+    if oportunidade.IsValid():
+        criteria = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE", Parameter("OPORTUNIDADE", oportunidade))
+        itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), criteria)
+        
+        if itens.Count &gt; 0:
+
+            for item in itens:
+                total += (item.Fields["ITEM"].Instance.Fields["VALOR"]*(100 - item.Fields["VALORDESCONTO"])/100)
+                horas += item.Fields["ITEM"].Instance.Fields["HORAS"]
+                
+        
+        entity.Fields["VALORTOTAL"] = total
+        entity.Fields["QDADEHRS"] = horas
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    #from Benner.Tecnologia.Common.Instrumentation import Logger
+    from System import DateTime
+    from System import Convert
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    from System.Threading import Thread
+
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+   
+    entity = widget.Entity
+    
+    if entity == None:return
+    
+    status = int(entity.Fields["STATUS"].Value)
+
+    if ehAdmin:
+        widget.Hidden = False;
+        widget.View.Commands["Edit"].Visible = False;
+        widget.View.Commands["Save"].Visible = False;
+        widget.View.Commands["CmdCustomEdit"].Visible = status not in [10];
+        widget.View.Commands["Delete"].Visible = status not in [10]
+    else:
+        widget.Hidden = True;
+        
+    if entity == None:return
+
+    #status = int(entity.Fields["STATUS"].Value)
+    #widget.View.Commands["Edit"].Visible = status not in [10]
+    #widget.View.Commands["Delete"].Visible = status not in [10]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

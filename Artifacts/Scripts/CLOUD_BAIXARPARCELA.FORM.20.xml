@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_BAIXARPARCELA.FORM</ViewName>
+  <EntityName>CLOUD_BAIXARPARCELA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDESCONTOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDESCONTOSValueChanged(view, entity):
+    
+    valor = entity["VALORPARCELA"].GetDecimal() + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnJUROSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnJUROSValueChanged(view, entity):
+    valor = entity["VALORPARCELA"].GetDecimal() + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+    
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnMULTAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMULTAValueChanged(view, entity):
+    valor = entity["VALORPARCELA"].GetDecimal() + entity["JUROS"].GetDecimal() + entity["MULTA"].GetDecimal() - entity["DESCONTOS"].GetDecimal()
+    entity["VALORTOTAL"].Value = valor
+    
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_GRUPOUSUARIOS.PARAMETROS.COMERCIAL.FORM</ViewName>
+  <EntityName>Z_GRUPOUSUARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    if entity["PERMITEALTEALTERARTRIBUTOS"].GetDBValue() == None:
+        entity["PERMITEALTEALTERARTRIBUTOS"].SetDBValue("N")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

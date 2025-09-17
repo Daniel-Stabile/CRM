@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_MOTIVOPERDA_MES</Identifier>
+  <Name>CRM_GRAPH_MOTIVOPERDA_MES</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     CAST(CAST(LEFT(DATENAME(MONTH,A.DATAFECHAMENTO),3) AS VARCHAR) +'/'+ CAST(DATENAME(YEAR,A.DATAFECHAMENTO) AS VARCHAR) AS VARCHAR) MES,&#xD;&#xA;     C.NOME+ &quot; - &quot;+CAST(COUNT(A.HANDLE) AS VARCHAR) TEXTO_TOTAL,&#xD;&#xA;     COUNT(A.HANDLE) TOTAL&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;JOIN K_CRM_FASESOPORTUNIDADE B ON A.STATUSOPORTUNIDADE = B.HANDLE&#xD;&#xA;JOIN K_CRM_MOTIVOPERDA C ON A.MOTIVOPERDA = C.HANDLE&#xD;&#xA;WHERE 1=1&#xD;&#xA;AND B.PERDE = 'S'&#xD;&#xA;AND A.DATAFECHAMENTO IS NOT NULL&#xD;&#xA;GROUP BY YEAR(A.DATAFECHAMENTO),&#xD;&#xA;MONTH(A.DATAFECHAMENTO),&#xD;&#xA;DATENAME(MONTH,A.DATAFECHAMENTO),&#xD;&#xA;DATENAME(YEAR,A.DATAFECHAMENTO),&#xD;&#xA;C.NOME&#xD;&#xA;order by YEAR(A.DATAFECHAMENTO),&#xD;&#xA;MONTH(A.DATAFECHAMENTO),&#xD;&#xA;C.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="MES" From="A" Path="MES" />
+    <Field Alias="TEXTO_TOTAL" From="A" Path="TEXTO_TOTAL" />
+    <Field Alias="TOTAL" From="A" Path="TOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

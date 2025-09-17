@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOS.GESTAO.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>GP_PROJETOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>GESTÃO</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <VirtualTableFormView>GP_VT_FILTRO_PROJETOS.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>(A.CENTROCUSTO= @~CAMPO(CENTROCUSTO) OR @~CAMPO(CENTROCUSTO) = -1) 
+AND (A.CATEGORIA = @~CAMPO(CATEGORIA) OR @~CAMPO(CATEGORIA) = -1)
+AND (A.TIPO = @~CAMPO(TIPO) OR @~CAMPO(TIPO) = -1)
+AND (A.PORTFOLIO = @~CAMPO(PORTFOLIO) OR @~CAMPO(PORTFOLIO) = -1)
+AND (A.GESTORPROJETO = @~CAMPO(GESTORDOPROJETO) OR @~CAMPO(GESTORDOPROJETO) = -1)
+AND (A.STATUS = @~CAMPO(STATUS) OR @~CAMPO(STATUS) = 4)
+
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

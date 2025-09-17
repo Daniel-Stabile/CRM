@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>QMOVIMENTACOESDEV</Identifier>
+  <Name>Movimentações</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       A.HANDLE CHAVE,&#xD;&#xA;       A.DOCUMENTO,&#xD;&#xA;       A.PARCELABAIXA,&#xD;&#xA;       A.DATA,&#xD;&#xA;       A.VALOR,&#xD;&#xA;       A.VALORMOEDA,&#xD;&#xA;       MO.ABREVIATURA MOEDA,&#xD;&#xA;       A.TIPOMOVIMENTO,&#xD;&#xA;       A.HISTORICO,&#xD;&#xA;       A.PARCELA,&#xD;&#xA;       A.MOVIMENTACAO,&#xD;&#xA;       B.PARCELADIGITADA,&#xD;&#xA;       D.NOME,&#xD;&#xA;       B.REMESSA,&#xD;&#xA;       B.HANDLE PARCELAHANDLE,&#xD;&#xA;       A.ORIGEMADIANTAMENTO,&#xD;&#xA;       C.EHPREVISAO,&#xD;&#xA;       A.AUTORIZACAOPAGAMENTO&#xD;&#xA;  FROM FN_MOVIMENTACOES A&#xD;&#xA;  JOIN FN_PARCELAS B ON (A.AUTORIZACAOPAGAMENTO = B.HANDLE)&#xD;&#xA;  JOIN FN_DOCUMENTOS C ON (B.DOCUMENTO = C.HANDLE)&#xD;&#xA;  JOIN GN_PESSOAS D ON (D.HANDLE = C.PESSOA)&#xD;&#xA;  LEFT JOIN GN_MOEDAS MO ON (MO.HANDLE = B.MOEDA)" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="PARCELABAIXA" From="A" Path="PARCELABAIXA" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="TIPOMOVIMENTO" From="A" Path="TIPOMOVIMENTO" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="PARCELA" From="A" Path="PARCELA" />
+    <Field Alias="MOVIMENTACAO" From="A" Path="MOVIMENTACAO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+    <Field Alias="PARCELAHANDLE" From="A" Path="PARCELAHANDLE" />
+    <Field Alias="ORIGEMADIANTAMENTO" From="A" Path="ORIGEMADIANTAMENTO" />
+    <Field Alias="EHPREVISAO" From="A" Path="EHPREVISAO" />
+    <Field Alias="AUTORIZACAOPAGAMENTO" From="A" Path="AUTORIZACAOPAGAMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

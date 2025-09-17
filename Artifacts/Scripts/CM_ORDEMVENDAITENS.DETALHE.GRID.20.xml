@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDEMVENDAITENS.DETALHE.GRID</ViewName>
+  <EntityName>CM_ORDEMVENDAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    ordemCompra = widget.ProviderWidget
+    if ordemCompra == None or ordemCompra.Entity == None: return
+    
+    emElaboracao = ordemCompra.Entity.EmElaboracao
+    
+    if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = emElaboracao
+    if widget.View.Commands["Edit"] != None: widget.View.Commands["Edit"].Visible = emElaboracao
+    if widget.View.Commands["Delete"] != None: widget.View.Commands["Delete"].Visible = emElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.GetCustomCommand("CMD_COMISSOES") != None: row.GetCustomCommand("CMD_COMISSOES").Enabled = entity.OrdemVendaInstance.EmElaboracao and entity.VisibilidadeComandoComissoes
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

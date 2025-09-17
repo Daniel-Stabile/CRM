@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONSULTA_ITENS_SIMPLIFICADA.GRID</ViewName>
+  <EntityName>PD_PRODUTOSPAI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter
+    
+    args.WhereClause.Clear();    
+ 
+    if(not args.Entity["NOME"].IsNull):
+        args.WhereClause.AddWhereClause("A.NOME LIKE :NOME", Parameter("NOME", "%"+args.Entity["NOME"].Value+"%"))
+        
+    if(not args.Entity["DESCRICAO"].IsNull):
+        args.WhereClause.AddWhereClause("A.DESCRICAO LIKE :DESCRICAO", Parameter("DESCRICAO", "%"+args.Entity["DESCRICAO"].Value+"%"))
+        
+    if(not args.Entity["CODIGO"].IsNull):
+        args.WhereClause.AddWhereClause("A.CODIGO LIKE :CODIGO", Parameter("CODIGO", args.Entity["CODIGO"].Value))
+        
+    if(not args.Entity["CODIGOREFERENCIA"].IsNull):
+        args.WhereClause.AddWhereClause("A.CODIGOREFERENCIA LIKE :CODIGOREFERENCIA", Parameter("CODIGOREFERENCIA", args.Entity["CODIGOREFERENCIA"].Value))
+        
+    if(not args.Entity["FAMILIA"].IsNull):
+        if (args.WhereClause.Where &lt;&gt; ""):
+            args.WhereClause.Where += " AND A.FAMILIA IN ("+args.Entity["FAMILIA"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.FAMILIA IN ("+args.Entity["FAMILIA"].GetString().replace("|_|",",").replace("|_","")+")"        
+ 
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

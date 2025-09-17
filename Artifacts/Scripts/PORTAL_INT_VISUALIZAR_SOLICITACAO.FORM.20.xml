@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_VISUALIZAR_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    valor = ""
+    
+    if widget.Entity["DDD"] != None :
+        valor = valor + "("+widget.Entity["DDD"].GetString()+") "
+        
+    if widget.Entity["TELEFONE"] != None :        
+        valor = valor + widget.Entity["TELEFONE"].GetString()
+        
+    if widget.Entity["RAMAL"] != None :        
+        valor = valor + " - Ramal: " + widget.Entity["RAMAL"].GetString()        
+
+    
+    widget.View.FieldDefinitions["CONTATO"].Value = valor
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

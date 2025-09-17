@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>ZSYSTEMMONITOR.DATASOURCE.GRID</ViewName>
+  <EntityName>ZSYSTEMMONITOR.DATASOURCE</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if entity == None: return
+
+    descricao = entity.Fields["DESCRICAO"]
+    tipo = entity.Fields["TIPO"]
+    row.GetCellByName("ACOES").Tooltip = "Copiar descrição para a área de transferência."
+    
+    if (not descricao is None and len(descricao) &gt; 30):
+        row.GetCellByName("DESCRICAO_CUSTOM").Tooltip = descricao
+        row.GetCellByName("DESCRICAO_CUSTOM").Text = descricao[:26]+"..."
+        
+    if (not tipo is None and len(tipo) &gt; 30):
+        row.GetCellByName("TIPO").Tooltip = tipo
+        row.GetCellByName("TIPO").Text = tipo[:26]+"..."</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

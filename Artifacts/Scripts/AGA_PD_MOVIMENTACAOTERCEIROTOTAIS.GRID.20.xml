@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_MOVIMENTACAOTERCEIROTOTAIS.GRID</ViewName>
+  <EntityName>PD_MOVIMENTACAOTERCEIROTOTAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.Hidden = True    
+    #import clr
+    #clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    #if widget.Breadcrumb.Parent.Entity.Handle == None: return
+    
+    #from Benner.Corporativo.Definicoes.Materiais import PDAlmoxarifado, PDAlmoxarifadoProduto
+    
+    #entidade = widget.ProviderWidget.Entity.Definition.Name
+    
+    #ehAlmoxarifado = entidade == PDAlmoxarifado.GetEntityDefinition().Name
+    #ehAlmoxarifadoProduto = entidade == PDAlmoxarifadoProduto.GetEntityDefinition().Name
+    
+    #if ehAlmoxarifado or ehAlmoxarifadoProduto:
+     #  handle = widget.Breadcrumb.Parent.Entity.Handle
+     #  widget.Hidden = not PDAlmoxarifado.EstoqueTerceirosESaldoInicialMostrarTab(handle, entidade)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

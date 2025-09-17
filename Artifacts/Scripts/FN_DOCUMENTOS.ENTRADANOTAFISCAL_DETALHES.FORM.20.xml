@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS.ENTRADANOTAFISCAL_DETALHES.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONTASFINANCEIRASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONTASFINANCEIRASExecute(command, documento):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciBCP
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = documento
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>import clr
+clr.AddReference("Benner.Corporativo.Definicoes")
+from Benner.Corporativo.Definicoes.Financeiro import FNDocumentoStatusListaItens
+
+def Load(widget):
+    if widget.Entity == None: return
+    widget.View.Commands["CMD_EDITAR"].Visible = widget.Entity.Status != FNDocumentoStatusListaItens.ItemEmitida and widget.Entity.Status != FNDocumentoStatusListaItens.ItemAguardandoServidor;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EDITARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EDITARExecute(command, entity):
+    if entity == None: return
+
+    entity.TransitoryData["HANDLEDOC"] = entity.Handle
+    #command.TransitoryData["HANDLEDOC"] = entity.Handle
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

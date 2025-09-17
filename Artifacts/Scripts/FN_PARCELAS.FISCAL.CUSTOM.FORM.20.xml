@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAS.FISCAL.CUSTOM.FORM</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LIBERARPARELAExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LIBERARPARELAExecute(command, entity):
+    if entity == None or entity.Handle.IsInvalid(): return
+
+    estaEmInspecaoQualidade = entity.Fields["ESTAEMINSPECAOQUALIDADE"]
+    if estaEmInspecaoQualidade == True:
+        command.RequestConfirmationBeforeExecute("Existem itens em inspeção de qualidade, deseja liberar?")
+    else:
+        command.RequestConfirmationBeforeExecute("Confirma liberação da parcela?")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_SUSPENDERPARCELAExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_SUSPENDERPARCELAExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    
+    remessa = entity.Fields["REMESSA"]
+    if remessa != None and remessa.Handle.IsValid():
+        command.RequestConfirmationBeforeExecute("Parcela está em remessa bancária e será retirada automaticamente da remessa. Confirma a suspensão da parcela?")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LIBERARPARCELAExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LIBERARPARCELAExecute(command, entity):
+    
+    if entity == None: return
+
+    if entity.Fields["ESTAEMINSPECAOQUALIDADE"] == True:
+        command.RequestConfirmationBeforeExecute("Existem itens em inspeção de qualidade, deseja liberar?")
+    else:
+        command.RequestConfirmationBeforeExecute("Confirma liberação da parcela?")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_SUSPENDERExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_SUSPENDERExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    
+    remessa = entity.Fields["REMESSA"]
+    if remessa != None and remessa.Handle.IsValid():
+        command.RequestConfirmationBeforeExecute("Parcela está em remessa bancária e será retirada automaticamente da remessa. Confirma a suspensão da parcela?")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LIBERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LIBERARExecute(command, entity):
+    if entity == None: return
+
+    if entity.Fields["ESTAEMINSPECAOQUALIDADE"] == True:
+        command.RequestConfirmationBeforeExecute("Existem itens em inspeção de qualidade, deseja liberar?")
+    else:
+        command.RequestConfirmationBeforeExecute("Confirma liberação da parcela?")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    
+    registro = widget.Entity
+    if registro == None:
+        return
+    
+    if (widget.Entity.State != EntityState.Initialized):
+        widget.View.Commands["BAIXA"].Visible = widget.Entity.PermiteBaixaDireta()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

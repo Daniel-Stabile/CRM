@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_IMPLANTACOES.IMPLANTACAODESALDO.GRID</ViewName>
+  <EntityName>PD_IMPLANTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.EditCommand != None:
+        row.EditCommand.Visible = entity.ImplantacaoNaoConfirmada
+        
+	if row.DeleteCommand != None:
+	    row.DeleteCommand.Visible = entity.ImplantacaoNaoConfirmada
+    
+    if row.GetCustomCommand("Confirmar") != None:
+        row.GetCustomCommand("Confirmar").Enabled = entity.PodeConfirmarImplantacao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

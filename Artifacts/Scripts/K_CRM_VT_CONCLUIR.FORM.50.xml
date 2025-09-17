@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_CONCLUIR.FORM</ViewName>
+  <EntityName>K_CRM_VT_CONCLUIR</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from System import DateTime
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    pessoa          = entity.Fields["PESSOA"].Handle;
+    handle          = entity.Fields["TAREFAUSUARIO"].Handle;
+    tarefa          = entity.Fields["TAREFA"].Handle;
+    resposta        = entity.Fields["RESPOSTA"].Handle;
+    descricao       = entity.Fields["DESCRICAO"];
+    responsavel     = entity.Fields["RESPONSAVEL"].Handle;
+    
+    if resposta.IsValid():
+        criteria = Criteria("A.HANDLE = :HANDLE", Parameter("HANDLE", handle))
+        ent = Entity.Get(EntityDefinition.GetByName("K_CRM_TAREFAUSUARIO"), criteria, GetMode.Edit)
+        
+        ent.Fields["RESPOSTA"].Handle = resposta
+        ent.Fields["DESCRICAO"] = descricao
+        ent.Fields["STATUS"].Value = 2
+        ent.Fields["DATACONCLUSAO"] = DateTime.Now
+        ent.Fields["DATAULTIMAALTERACAO"] = DateTime.Now
+        ent.Fields["USUARIOCONCLUSAO"].Handle = usuario
+        ent.Save()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    entity = widget.Entity;
+    
+    if entity == None:
+        return;
+        
+    if entity.Fields["RESPOSTA"].Handle.IsValid():
+        entity.Fields["DESCRICAO"] = entity.Fields["RESPOSTA"].Instance.Fields["DESCRICAO"];
+    else:
+        entity.Fields["DESCRICAO"] = "";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRESPOSTAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRESPOSTAValueChanged(view, entity):
+    a = 1;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

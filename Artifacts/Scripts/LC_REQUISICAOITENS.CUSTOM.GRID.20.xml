@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>LC_REQUISICAOITENS.CUSTOM.GRID</ViewName>
+  <EntityName>LC_REQUISICAOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARORDEMCOMPRAExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_GERARORDEMCOMPRAExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_CONTRATOS"))    
+    command.TransitoryVars.Add("HANDLECONTRATO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

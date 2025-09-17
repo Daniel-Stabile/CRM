@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_SQLCRMTESTE</Identifier>
+  <Name>sqlcrmteste</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.FASEEXACT,COUNT(A.HANDLE) AS QTDE,COUNT(A.HANDLE) AS QTDE1,COUNT(A.HANDLE) AS QTDE2&#xD;&#xA;FROM  K_CRM_PESSOAS A&#xD;&#xA;WHERE A.FASEEXACT IS NOT NULL&#xD;&#xA;GROUP BY A.FASEEXACT&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="FASEEXACT" From="A" Path="FASEEXACT" />
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+    <Field Alias="QTDE1" From="A" Path="QTDE1" />
+    <Field Alias="QTDE2" From="A" Path="QTDE2" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

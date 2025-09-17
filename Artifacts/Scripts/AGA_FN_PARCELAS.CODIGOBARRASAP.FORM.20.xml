@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_FN_PARCELAS.CODIGOBARRASAP.FORM</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    if entity.Fields["CODIGOBARRAS"] != "":
+        entity.CodigoBarrasChanged()
+    if entity.Fields["LINHADIGITAVELCPA"] != "":
+        entity.LinhaDigitavelCPAChanged()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_APONTAMENTOOBJETOS.FORM</ViewName>
+  <EntityName>CN_APONTAMENTOOBJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNApontamentoObjeto
+    Apontamento = CNApontamentoObjeto
+    
+    handleApontamento = widget.Entity["APONTAMENTO"].GetInt64()
+    
+    if handleApontamento != None:
+        widget.View.Commands["Delete"].Visible = Apontamento.PodeEditarExcluir(handleApontamento)
+        widget.View.Commands["Edit"].Visible = Apontamento.PodeEditarExcluir(handleApontamento)
+        widget.View.Commands["New"].Visible = Apontamento.PodeEditarExcluir(handleApontamento)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

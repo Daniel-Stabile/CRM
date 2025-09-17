@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONTAS_PAGAR_APROVACAODETALHECONTA.GRID</ViewName>
+  <EntityName>FN_LANCAMENTOCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition    
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter  
+    
+
+    conta = Entity.GetFirstOrDefault(EntityDefinition.GetByName("FN_CONTAS"), Criteria("A.HANDLE = (SELECT CONTA FROM FN_LANCAMENTOS WHERE HANDLE = :CONTA)",Parameter("CONTA",entity.Fields["LANCAMENTO"].Handle)))           
+    
+    if conta &lt;&gt; None :
+        row.GetCellByName("CUSTOM_CONTA").Text = conta.Fields["ESTRUTURA"] + " - " + conta.Fields["NOME"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

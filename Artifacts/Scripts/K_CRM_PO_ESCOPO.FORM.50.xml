@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_ESCOPO.FORM</ViewName>
+  <EntityName>K_CRM_PO_ESCOPO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    if (widget.Entity == None):
+        return;
+        
+    widget.View.FieldDefinitions["PRODUTO"].Visible = widget.Entity.Fields["PRODUTO"].Handle.IsValid();
+    widget.View.FieldDefinitions["TIPORECURSO"].Visible = widget.Entity.Fields["TIPORECURSO"].Handle.IsValid();
+    
+    widget.View.FieldDefinitions["PRODUTOCONTRATO"].Visible = widget.Entity.Fields["PRODUTOCONTRATO"] != None;
+    widget.View.FieldDefinitions["NUMEROCONTRATO"].Visible = widget.Entity.Fields["NUMEROCONTRATO"] != None;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

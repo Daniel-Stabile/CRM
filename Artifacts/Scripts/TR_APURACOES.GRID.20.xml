@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_APURACOES.GRID</ViewName>
+  <EntityName>TR_APURACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    registro = entity
+    if registro == None: return
+
+    row.GetCustomCommand("CMD_DEBITOSESPECIAIS").Enabled = registro.ControlarBotaoDebitosEspeciais();
+    
+    #Zerando valores
+    row.GetCellByName("IMPOSTORECOLHER").Text = "0,00";
+    row.GetCellByName("SALDOANTERIOR").Text = "0,00";
+    row.GetCellByName("SALDOCREDORMESATUAL").Text = "0,00";
+    row.GetCellByName("CREDITOS").Text = "0,00";
+    row.GetCellByName("DEBITOS").Text = "0,00";
+    row.GetCellByName("TTRUBRICADEV").Text = "0,00";
+    row.GetCellByName("TTRUBRICACRE").Text = "0,00";
+    row.GetCellByName("VALORINCENTIVO").Text = "0,00";
+    row.GetCellByName("VALORAJUSTESDEBITOSDOC").Text = "0,00";
+    row.GetCellByName("VALORAJUSTESCREDITOSDOC").Text = "0,00";
+    row.GetCellByName("VALORDEDUCOESDOC").Text = "0,00";
+    row.GetCellByName("VALOREXTEMPORANEO").Text = "0,00"
+    
+    #Formatação dos valores
+    if entity.Fields["IMPOSTORECOLHER"] != None: row.GetCellByName("IMPOSTORECOLHER").Text = str(str(str("{:,.2f}".format(entity.Fields["IMPOSTORECOLHER"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["SALDOANTERIOR"] != None: row.GetCellByName("SALDOANTERIOR").Text = str(str(str("{:,.2f}".format(entity.Fields["SALDOANTERIOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["SALDOCREDORMESATUAL"] != None: row.GetCellByName("SALDOCREDORMESATUAL").Text = str(str(str("{:,.2f}".format(entity.Fields["SALDOCREDORMESATUAL"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORIMPOSTO"] != None: row.GetCellByName("VALORIMPOSTO").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORIMPOSTO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["CREDITOS"] != None: row.GetCellByName("CREDITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["CREDITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["DEBITOS"] != None: row.GetCellByName("DEBITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["DEBITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TTRUBRICADEV"] != None: row.GetCellByName("TTRUBRICADEV").Text = str(str(str("{:,.2f}".format(entity.Fields["TTRUBRICADEV"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TTRUBRICACRE"] != None: row.GetCellByName("TTRUBRICACRE").Text = str(str(str("{:,.2f}".format(entity.Fields["TTRUBRICACRE"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORINCENTIVO"] != None: row.GetCellByName("VALORINCENTIVO").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORINCENTIVO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORAJUSTESDEBITOSDOC"] != None: row.GetCellByName("VALORAJUSTESDEBITOSDOC").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORAJUSTESDEBITOSDOC"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORAJUSTESCREDITOSDOC"] != None: row.GetCellByName("VALORAJUSTESCREDITOSDOC").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORAJUSTESCREDITOSDOC"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEDUCOESDOC"] != None: row.GetCellByName("VALORDEDUCOESDOC").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEDUCOESDOC"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOREXTEMPORANEO"] != None: row.GetCellByName("VALOREXTEMPORANEO").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOREXTEMPORANEO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["CMD_EXCLUIR"].Visible = AuthorizationHelper.HasTask("EXCLUIR_APURACAO_IMPOSTOSRETIDOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

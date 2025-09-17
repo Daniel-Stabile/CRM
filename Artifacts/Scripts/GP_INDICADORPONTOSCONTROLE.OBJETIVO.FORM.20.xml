@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_INDICADORPONTOSCONTROLE.OBJETIVO.FORM</ViewName>
+  <EntityName>GP_INDICADORPONTOSCONTROLE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPPlanejamentosEstrategicos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPIndicadorPontosControle
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType    
+
+    objetivo = widget.Entity.Fields["INDICADOR"].Instance.Fields["OBJETIVO"].Handle
+
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(objetivo)
+    
+    widget.View.Commands["New"].Visible = cicloEmElaboracao
+    widget.View.Commands["Edit"].Visible = cicloEmElaboracao
+    widget.View.Commands["Delete"].Visible = cicloEmElaboracao
+    
+    possuiProjeto = (widget.Entity.Fields["INDICADOR"].Instance.Fields["PROJETO"].Instance != None)
+    
+    widget.View.Commands["CMD_CALCULARMEDICAO"].Visible = possuiProjeto
+    widget.View.FieldDefinitions["PROJETO"].Visible = possuiProjeto
+    
+    if possuiProjeto:
+        widget.View.FieldDefinitions["PROJETO"].Value = widget.Entity.Fields["INDICADOR"].Instance.Fields["PROJETO"].Instance.Fields["NOME"]
+        
+    # Verificação divergência de valor #
+    indicador = widget.Entity.Fields["INDICADOR"].Instance
+    handlePonto = widget.Entity.Fields["HANDLE"] if widget.Entity.Fields["HANDLE"].IsValid() else 0
+    meta = widget.Entity.Fields["META"] if widget.Entity.Fields["META"] != None else 0
+    valorInicial = widget.Entity.Fields["VALORINICIAL"] if widget.Entity.Fields["VALORINICIAL"] != None else 0
+
+    existeDivergencia = GPIndicadorPontosControle.ExisteDivergenciaItemSimples(indicador, handlePonto, meta, valorInicial)
+    
+    widget.MessagePanel.Visible = False
+    
+    if (existeDivergencia):
+        widget.MessagePanel.ShowMessage("Aviso: Divergência no valor da meta ou do valor inicial dos pontos de controle em relação à meta ou valor inicial do indicador, soma dos pontos de controle deve ser igual ao valor definido no indicador", MessageType.Information)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

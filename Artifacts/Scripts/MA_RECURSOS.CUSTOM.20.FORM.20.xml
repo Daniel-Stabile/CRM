@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MA_RECURSOS.CUSTOM.20.FORM</ViewName>
+  <EntityName>MA_RECURSOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    # proveniente da Macro: Public Sub TABLE_BeforePost(CanContinue As Boolean) 
+    if entity.Desgastemaximo &gt; entity.HodometroVirada:
+	    raise CancelledOperationException("Campo 'Desgaste máx. permitido' Não pode ser maior do que campo 'Limite marcador'")
+	    
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Criteria    
+        
+    if entity.Codigo.strip() != "":
+        criterio = Criteria()
+        sql = "SELECT COUNT(HANDLE) NUM FROM MA_RECURSOS WHERE  CODIGO = :CODIGO"
+        criterio.Parameters.Add(Parameter("CODIGO", entity.Codigo))
+        
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        num = Entity.GetFirstOrDefault(ed, criterio)
+
+        if num.Fields["NUM"] &gt; 0:
+            raise CancelledOperationException("Já existe um veículo cadastrado com o mesmo código!")
+            
+    if entity.PlacaNumero.strip() != "":
+        criterio = Criteria()
+        sql = "SELECT COUNT(HANDLE) NUM FROM MA_RECURSOS WHERE PLACANUMERO = :PLACANUMERO"
+        criterio.Parameters.Add(Parameter("PLACANUMERO", entity.PlacaNumero))
+        edPlaca = EntityDefinition.Create()
+        edPlaca.EntitySource = QuerySource(sql)
+        numPlaca = Entity.GetFirstOrDefault(edPlaca, criterio)
+
+        if numPlaca.Fields["NUM"] &gt; 0:
+            raise CancelledOperationException("Já existe um veículo cadastrado com a mesma placa!")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_TRANFERELEAD.FORM</ViewName>
+  <EntityName>K_CRM_VT_TRANFERELEAD</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    responsavel = entity.Fields["NOVORESPONSAVEL"].Handle;
+    handle = entity.Fields["PESSOA"].Handle;
+    
+    if responsavel.IsValid():
+        criteria = Criteria("A.HANDLE = :HANDLE", Parameter("HANDLE", handle))
+        ent = Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAS"), criteria, GetMode.Edit)
+        
+        ent.Fields["USUARIORESPONSAVEL"].Handle = responsavel
+        ent.Save()
+        
+        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

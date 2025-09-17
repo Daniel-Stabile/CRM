@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRA.FORM</ViewName>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    ordemCompra = widget.Entity
+    if ordemCompra == None: return
+    
+    if ordemCompra.Handle.IsValid():
+        ErpEnvironment.AtribuirSessionVar("HANDLE_OC_ATUAL_WEB", ordemCompra.Handle.ToString())
+        
+    if widget.View.Commands["Edit"] &lt;&gt; None: widget.View.Commands["Edit"].Visible = ordemCompra.PodeAlterar
+    if widget.View.Commands["Delete"] &lt;&gt; None: widget.View.Commands["Delete"].Visible = ordemCompra.PodeExcluir
+    if widget.View.Commands["MAPA_ANALISE_COTACOES"] &lt;&gt; None: widget.View.Commands["MAPA_ANALISE_COTACOES"].Visible = ordemCompra.VisibilidadeComandoMapaAnaliseCotacoes</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

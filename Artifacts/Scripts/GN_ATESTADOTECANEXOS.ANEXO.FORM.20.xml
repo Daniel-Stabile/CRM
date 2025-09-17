@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_ATESTADOTECANEXOS.ANEXO.FORM</ViewName>
+  <EntityName>GN_ATESTADOTECANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity.Atestado.Instance
+    if registro == None: return
+    
+    if (widget.View.Commands["New"] != None):
+		widget.View.Commands["New"].Visible = registro.IsVisibleBTNINCLUIR
+
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = registro.IsVisibleBTNEDITAR
+
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = registro.IsVisibleBTNEXCLUIR</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

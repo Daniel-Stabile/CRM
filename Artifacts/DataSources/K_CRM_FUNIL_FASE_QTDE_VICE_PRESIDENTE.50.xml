@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_FUNIL_FASE_QTDE_VICE_PRESIDENTE</Identifier>
+  <Name>CRM_FUNIL_FASE_QTDE_VICE_PRESIDENTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NOME FASE,COUNT(A.NOME) QTDEFASES&#xD;&#xA;FROM K_CRM_FASES A&#xD;&#xA;JOIN K_CRM_PESSOAS B ON B.FASE = A.HANDLE&#xD;&#xA;GROUP BY A.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="FASE" From="A" Path="FASE" />
+    <Field Alias="QTDEFASES" From="A" Path="QTDEFASES" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

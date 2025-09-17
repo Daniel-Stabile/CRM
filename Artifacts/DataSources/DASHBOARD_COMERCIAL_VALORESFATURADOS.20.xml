@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>DASHBOARD_COMERCIAL_VALORESFATURADOS</Identifier>
+  <Name>Dashboard Comercial - Valores faturados</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(PES.NOME) QTD,&#xD;&#xA;       PES.NOME,&#xD;&#xA;       PES.CGCCPF CNPJ,&#xD;&#xA;       ITEM.TIPO,&#xD;&#xA;       ITEM.DASHBOARD,&#xD;&#xA;       SUM(CASE WHEN (OP.CODIGOINTERNO IN (11, 12)) THEN ITEM.VALOR * -1 ELSE ITEM.VALOR END) VALORFATURADO,&#xD;&#xA;       CASE WHEN (OP.CODIGOINTERNO IN (11, 12)) THEN 'DEV' ELSE 'NORMAL' END TIPONF&#xD;&#xA;  FROM CM_DWDASHBOARDCOMERCIALITENS ITEM&#xD;&#xA;  JOIN GN_PESSOAS PES ON(PES.HANDLE = ITEM.PESSOA)&#xD;&#xA;  JOIN FN_DOCUMENTOS DOC ON DOC.HANDLE = ITEM.NOTAFISCAL&#xD;&#xA;  JOIN GN_OPERACOES OP ON OP.HANDLE = DOC.OPERACAO&#xD;&#xA; WHERE ITEM.TIPO = 1&#xD;&#xA;   AND ITEM.EMPRESA = @EMPRESA&#xD;&#xA; GROUP BY PES.NOME,&#xD;&#xA;       PES.CGCCPF,&#xD;&#xA;       ITEM.DASHBOARD,&#xD;&#xA;       ITEM.TIPO,&#xD;&#xA;       OP.CODIGOINTERNO" />
+  <Fields>
+    <Field Alias="QTD" From="A" Path="QTD" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="CNPJ" From="A" Path="CNPJ" />
+    <Field Alias="TIPO" From="A" Path="TIPO" />
+    <Field Alias="DASHBOARD" From="A" Path="DASHBOARD" />
+    <Field Alias="VALORFATURADO" From="A" Path="VALORFATURADO" />
+    <Field Alias="TIPONF" From="A" Path="TIPONF" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

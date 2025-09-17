@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_ELEMENTODESPESA.FORM</ViewName>
+  <EntityName>OP_ELEMENTODESPESA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnIDENTIFICARESULTADOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnIDENTIFICARESULTADOValueChanged(view, entity):
+    
+    entity.Fields["CODIGO"] = "";
+    
+    try:
+        lookup = entity.Fields["CATEGORIAECONOMICA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    try:
+        lookup = entity.Fields["GRUPONATUREZA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")        
+        
+    try:
+        lookup = entity.Fields["MODALIDADEAPLICACAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                
+        
+    try:
+        lookup = entity.Fields["DESPESA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                        
+
+    try:
+        lookup = entity.Fields["SUBELEMENTO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    string = entity.Fields["CODIGO"];
+    entity.Fields["CODIGO"] = string[0:len(string)-1];
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

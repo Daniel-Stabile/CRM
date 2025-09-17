@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASVERTICAL_ARQ.FORM</ViewName>
+  <EntityName>K_CRM_METASVERTICAL_ARQ</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    sql = "SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL_ARQ A JOIN K_CRM_METASVERTICAL B ON B.HANDLE = A.METAVERTICAL WHERE B.HANDLE = :METAVERTICAL GROUP BY B.VALORMETA";
+    crit = Criteria()
+    crit.Parameters.Add(Parameter("METAVERTICAL", widget.Entity.Fields["METAVERTICAL"].Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    saldo = Entity.GetFirstOrDefault(ed, crit)
+    
+    if saldo == None:
+        sql = "SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL WHERE HANDLE = :METAVERTICAL";
+        crit = Criteria()
+        crit.Parameters.Add(Parameter("METAVERTICAL", widget.Entity.Fields["METAVERTICAL"].Handle))
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        saldo = Entity.GetFirstOrDefault(ed, crit)
+        widget.View.FieldDefinitions["SALDO"].Value = saldo.Fields["SALDO"].ToString();
+    elif saldo.Fields["SALDO"] != None:
+        widget.View.FieldDefinitions["SALDO"].Value = saldo.Fields["SALDO"].ToString();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERIODOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERIODOValueChanged(view, entity):
+    entity.Fields["ARQUITETO"].Handle.Value = -1
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_2FALIBERACOES.GRID</ViewName>
+  <Level>Tecnologia</Level>
+  <EntityName>Z_2FALIBERACOES</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Ativos</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <TableName xsi:nil="true" />
+    <Value xsi:type="xsd:string">A.VALIDADE &gt;= @HOJE</Value>
+    <Label xsi:nil="true" />
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.VALIDADE &gt;= @HOJE</Where>
+  <Parameters />
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

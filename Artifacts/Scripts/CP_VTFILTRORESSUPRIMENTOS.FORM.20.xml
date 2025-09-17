@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_VTFILTRORESSUPRIMENTOS.FORM</ViewName>
+  <EntityName>CP_VTFILTRORESSUPRIMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["REQUISICAO"].Visible = AuthorizationHelper.HasTask("MANTERORDEMCOMPRA")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

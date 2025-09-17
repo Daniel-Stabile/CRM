@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>FN_VT_BAIXARAPIDA.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>FN_VT_BAIXARAPIDA</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="FN_VT_BAIXARAPIDA" name="FN_VT_BAIXARAPIDA.CUSTOM.FORM" title="FN_VT_BAIXARAPIDA" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageGroup" key="GROUP_636844429058796835" caption="Documento">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup>Fixed</stateGroup>
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="CONTATESOURARIA">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="OPERACAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="OPERACAOVALIDA">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="DOCUMENTO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="DATAEMISSAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="DATAVENCIMENTO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="CALCJUROS">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="CALCMULTA">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="HISTORICO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col12</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GROUP_636844430394590485" caption="Gerar múltiplos documentos">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup>Fixed</stateGroup>
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="MULTIPLOSPESSOA">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="MULTIPLOSVENCIMENTO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="MULTIPLOSDOCDIGITADO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="NAOALTERARNUMERACAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="MULTIPLOSNUMEROINICIAL">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="SEPARADOR">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col2</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="NATUREZA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col1</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="CONTATESOURARIA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupResultFields>NOME,NUMEROCONTA,DIGITOVERIFICADOR</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAEMISSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAVENCIMENTO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="HISTORICO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <lines>4</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="DOCUMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="OPERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="OPERACAOVALIDA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="MULTIPLOSDOCDIGITADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="MULTIPLOSPESSOA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="MULTIPLOSVENCIMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="NAOALTERARNUMERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="MULTIPLOSNUMEROINICIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="SEPARADOR">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="CALCJUROS">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="CALCMULTA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="NATUREZA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Ok" key="Save">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

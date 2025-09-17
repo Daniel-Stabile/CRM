@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_CLI_PEDIDOS.GRID</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCustomLocalEntregaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCustomLocalEntregaExecute(command, entity):
+    # recuperando o pepido atraves do campo lookup
+    pedido = entity;
+    abrangencia = "CAPA";
+    handle = entity["HANDLE"].GetInt32();
+    atual = entity["DESTINATARIOPADRAO"].GetInt32();
+   
+    command.OutputDefinition.Parameters["ABRANGENCIA"] = abrangencia;
+    command.OutputDefinition.Parameters["STATUS"] = pedido["STATUS"].GetInt32();
+    command.OutputDefinition.Parameters["CLIENTE"] = pedido["CLIENTE"].GetInt32();
+    command.OutputDefinition.Parameters["PEDIDO"] = pedido["HANDLE"].GetInt32();
+    command.OutputDefinition.Parameters["ATUAL"] = atual;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

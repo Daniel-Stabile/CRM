@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Associação de itens ao pré-recebimento - Entrada de nota fiscal" Language="C#" Inherits="Benner.Corporativo.Wes.WebApp.aga.a.materiais.entradaDeNotaFiscal.AssociarItensAoPreRecebimento" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="ASSOCIAODEITENSAOPRRECEBIMENTO" Title="Associação de itens ao pré-recebimento" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Fixed" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="CP_PRERECEBIMENTONFES.ASSOCIAR_ITENS_ENTRADA_NOTA_FISCAL.FORM" FormMode="View" IncludeRecordInRecentItems="False" UserDefinedCommandsVisible="True" PageId="AGA_A_MATERIAIS_ENTRADADENOTAFISCAL_ASSOCIARITENSAOPRERECEBIMENTO" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="ITENSPENDENTES" Title="Itens pendentes" Subtitle="Clique no item pendente abaixo para associar as informações necessárias:" PortletCssClass="" PortletLayout="Default" BootstrapCols="6" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="ASSOCIAODEITENSAOPRRECEBIMENTO" ChromeState="Fixed" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="CP_PRERECEBIMENTONFEITENS.ASSOCIAR_ITENS_ENTRADA_NOTA_FISCAL.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="20" SystemFilterOnly="False" DisplayRowCommand="False" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.PRERECEBIMENTO = @CAMPO(HANDLE) AND A.PRODUTO IS NULL AND A.VARIACAO IS NULL" ShowExport="False" UserDefinedDisableRowSelection="False" PageId="AGA_A_MATERIAIS_ENTRADADENOTAFISCAL_ASSOCIARITENSAOPRERECEBIMENTO" Level="20" Order="20"  />
+        <wes:AjaxForm runat="server" ID="ASSOCIARPRODUTO" Title="Associar produto" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="6" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="ITENSPENDENTES" ChromeState="Normal" CanDelete="False" CanUpdate="True" CanInsert="False" EntityViewName="CP_PRERECEBIMENTONFEITENS.ASSOCIAR_ITENS_ENTRADA_NOTA_FISCAL.FORM" FormMode="None" IncludeRecordInRecentItems="False" UserDefinedCommandsVisible="True" PageId="AGA_A_MATERIAIS_ENTRADADENOTAFISCAL_ASSOCIARITENSAOPRERECEBIMENTO" Level="20" Order="30"  />
+        </div>
+    
+      </asp:Content>
+    

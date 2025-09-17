@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_HBREMESSAS.CUSTOM.GRID</ViewName>
+  <EntityName>GN_HBREMESSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    fields = ["ARQUIVOGERADO", "CONFIRMACAO1", "CONFIRMACAO2"]
+    
+    for field in fields:
+        row.GetCellByName("CUSTOM_" + field).Align = "center"
+        row.GetCellByName("CUSTOM_" + field).TextColor = "#3CB371" if entity.Fields[field] else "#B22222"
+        row.GetCellByName("CUSTOM_" + field).FontIcon = "fa fa-check" if entity.Fields[field] else "fa fa-times"
+        
+    row.GetCellByName("TOTALTITULOS").Align = "center"    
+
+    if row.DeleteCommand != None:
+		row.DeleteCommand.Visible = (entity["TOTALTITULOS"].GetInt32() == 0)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

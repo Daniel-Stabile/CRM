@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS.SDR_V3.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+    
+    widget.Hidden = not (activeRole == "K_CRM_SDR_V2" or activeRole == "K_CRM_BDR_SINCK") #(Thread.CurrentPrincipal.IsInRole("K_CRM_SDR_V2") or Thread.CurrentPrincipal.IsInRole("K_CRM_BDR_SINCK"))
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    fase = int(entity.Fields["FASE"].Handle.Value)
+    faseNome = entity.Fields["FASE"].Instance.Fields["NOME"]
+    faseCor = entity.Fields["FASE"].Instance.Fields["COR"]
+    faseLegenda = entity.Fields["FASE"].Instance.Fields["LEGENDAGRID"]
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    subfaseNome = entity.Fields["SUBFASE"].Instance.Fields["NOME"]
+    usuario = BennerIdentity.Current.UserHandle
+    
+    if row.GetCustomCommand("cmdAtividadesPendentes") != None:
+        row.GetCustomCommand("cmdAtividadesPendentes").Enabled = faseNome != "Ex cliente" #(fase not in [11] );
+        
+    if row.GetCustomCommand("cmdQualificar") != None:
+        row.GetCustomCommand("cmdQualificar").Enabled = (usuario == responsavel and faseNome == "Suspecção" and subfaseNome == "A qualificar" );
+    
+    row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center;background-color:"+faseCor+"' class='label'&gt;"+ faseLegenda +"&lt;/span&gt;"
+        
+    if entity.Fields["TIPO"] != None:    
+        if int(entity.Fields["TIPO"].Value) in [2]:
+            i = 0
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#95a5a6"
+                i += 1
+    
+    if entity.Fields["SITUACAORECEITA"] != None:    
+        if int(entity.Fields["SITUACAORECEITA"].Value) in [2]:
+            i = 0
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#f03434"
+                i += 1
+                
+    if subfaseNome != "A qualificar":
+        if row.GetCustomCommand("cmdQuestionario") != None:
+            row.GetCustomCommand("cmdQuestionario").Enabled = False;
+        if row.GetCustomCommand("cmdConsultarVerticais") != None:
+            row.GetCustomCommand("cmdConsultarVerticais").Enabled = True;
+    elif subfaseNome == "A qualificar" and (identity.Branch.Value == entity.Fields["FILIAL"].Handle.Value): #entity.Fields["USUARIORESPONSAVEL"].Handle == usuario or entity.Fields["USUARIOEXECUTIVO"].Handle == usuario):
+        if row.GetCustomCommand("cmdQuestionario") != None:
+            row.GetCustomCommand("cmdQuestionario").Enabled = True;
+        if row.GetCustomCommand("cmdConsultarVerticais") != None:
+            row.GetCustomCommand("cmdConsultarVerticais").Enabled = False;
+    else:
+        if row.GetCustomCommand("cmdQuestionario") != None:
+            row.GetCustomCommand("cmdQuestionario").Enabled = False;
+        if row.GetCustomCommand("cmdConsultarVerticais") != None:
+            row.GetCustomCommand("cmdConsultarVerticais").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

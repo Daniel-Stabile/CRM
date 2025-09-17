@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_OPORTUNIDADES_GESTOR_COMERCIAL</Identifier>
+  <Name>Oportunidades - Gestor Comercial</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COALESCE(SUM(A.VALORTOTAL+A.RECORRENTE+A.VALORSAAS),SUM(A.VALORTOTAL+A.RECORRENTE+A.VALORSAAS),0) REALIZADAS,&#xD;&#xA;(SELECT COALESCE(SUM(VALORTOTAL+RECORRENTE+VALORSAAS),SUM(VALORTOTAL+RECORRENTE+VALORSAAS),0)&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE STATUS = 9&#xD;&#xA;AND FILIAL = @FILIAL&#xD;&#xA;AND MONTH(DATAFECHAMENTO) = MONTH(A.DATAFECHAMENTO)) PERDIDAS,&#xD;&#xA;(SELECT COALESCE(SUM(VALORTOTAL+RECORRENTE+VALORSAAS),SUM(VALORTOTAL+RECORRENTE+VALORSAAS),0)&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE STATUS = 10&#xD;&#xA;AND FILIAL = @FILIAL&#xD;&#xA;AND MONTH(DATAFECHAMENTO) = MONTH(A.DATAFECHAMENTO)) GANHAS,&#xD;&#xA;CASE MONTH(DATAFECHAMENTO)&#xD;&#xA;    WHEN 1 THEN 'JAN'&#xD;&#xA;    WHEN 2 THEN 'FEV'&#xD;&#xA;    WHEN 3 THEN 'MAR'&#xD;&#xA;    WHEN 4 THEN 'ABR'&#xD;&#xA;    WHEN 5 THEN 'MAI'&#xD;&#xA;    WHEN 6 THEN 'JUN'&#xD;&#xA;    WHEN 7 THEN 'JUL'&#xD;&#xA;    WHEN 8 THEN 'AGO'&#xD;&#xA;    WHEN 9 THEN 'SET'&#xD;&#xA;    WHEN 10 THEN 'OUT'&#xD;&#xA;    WHEN 11 THEN 'NOV'&#xD;&#xA;    WHEN 12 THEN 'DEZ'&#xD;&#xA;END  + '/' + CAST(YEAR(DATAFECHAMENTO) AS VARCHAR) AS DATAFECHAMENTO&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;WHERE MONTH(A.DATAFECHAMENTO) &lt;= MONTH(GETDATE())&#xD;&#xA;AND DATEDIFF(MONTH,A.DATAINCLUSAO,GETDATE()) &lt;=3&#xD;&#xA;AND A.FILIAL = @FILIAL and A.EMPRESA = @EMPRESA&#xD;&#xA;GROUP BY MONTH(DATAFECHAMENTO), YEAR(DATAFECHAMENTO)&#xD;&#xA;&#xD;&#xA;" />
+  <Fields>
+    <DecimalField Alias="REALIZADAS" From="A" Path="REALIZADAS" FieldDecimalsFormat="0" />
+    <DecimalField Alias="PERDIDAS" From="A" Path="PERDIDAS" FieldDecimalsFormat="0" />
+    <DecimalField Alias="GANHAS" From="A" Path="GANHAS" FieldDecimalsFormat="0" />
+    <Field Alias="DATAFECHAMENTO" From="A" Path="DATAFECHAMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

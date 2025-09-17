@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_AGENDAMENTOS.FORM</ViewName>
+  <EntityName>Z_AGENDAMENTOS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    #Obtendo a página do formulário através de sua chave ("GERAL")
+    paginaDoFormulario = widget.View.Pages["GERAL"] 
+ 
+    #Obtendo o componente Tab
+    tabPage = paginaDoFormulario.Items["PERIODICIDADE"]
+ 
+    #Obtendo o página de um campo Tab através da chave ("1")
+    tabItem = tabPage.Pages["5"]
+ 
+    #Alterando propriedades do TabItem
+    tabItem.Visible = False
+    
+    entity = widget.Entity
+    if entity == None: return
+    widget.View.Commands["CMD_PARAMETROS"].Visible = (entity["TIPO"].GetInt32() == 1 or entity["TIPO"].GetInt32() == 4 or entity["TIPO"].GetInt32() == 7)
+    widget.View.Commands["CMD_DEPENDENTES"].Visible = entity["TIPO"].GetInt32() == 1 
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

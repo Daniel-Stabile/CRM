@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_META_ANUAL_V1</Identifier>
+  <Name>CRM_META_ANUAL_V1</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;    SUM(A.VALOR) VENDIDOS,&#xD;&#xA;   (&#xD;&#xA;   SELECT SUM(B.VALOR)&#xD;&#xA;   FROM K_CRM_METAS B&#xD;&#xA;   WHERE YEAR(B.DATA) = YEAR(GETDATE())&#xD;&#xA;   ) META&#xD;&#xA;FROM K_CRM_METASVENDAS A&#xD;&#xA;WHERE YEAR(A.DATA) = YEAR(GETDATE())&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="VENDIDOS" From="A" Path="VENDIDOS" />
+    <Field Alias="META" From="A" Path="META" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

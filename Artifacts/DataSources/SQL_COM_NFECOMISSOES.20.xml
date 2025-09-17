@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>SQL_COM_NFECOMISSOES</Identifier>
+  <Name>Comissões</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT DOC.HANDLE, PES.NOME AGENTEVENDAS, TIPOMOVIMENTO, DATA, BASECALCULO,PERCENTUAL, VALOR, DOC.DOCUMENTO&#xD;&#xA;  FROM FN_DOCUMENTOCOMISSOES DOC&#xD;&#xA;  JOIN GN_PESSOAS PES ON PES.HANDLE = DOC.AGENTEVENDAS&#xD;&#xA; WHERE PARCELA IS NULL" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="AGENTEVENDAS" From="A" Path="AGENTEVENDAS" />
+    <Field Alias="TIPOMOVIMENTO" From="A" Path="TIPOMOVIMENTO" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="BASECALCULO" From="A" Path="BASECALCULO" />
+    <Field Alias="PERCENTUAL" From="A" Path="PERCENTUAL" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

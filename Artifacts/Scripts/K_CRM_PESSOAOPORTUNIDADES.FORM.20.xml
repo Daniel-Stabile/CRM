@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADES.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System import DateTime
+    from System import Convert
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    entity = widget.Entity
+    
+    if entity == None:return
+    
+    #if entity.Fields["ORIGEM"] == None:return
+    #temItemPendente = False
+    #temItemAtivo = False
+    
+    #if entity.Fields["HANDLE"].IsValid():
+    #    oportunidade = entity.Fields["HANDLE"]
+    #    criteria = Criteria("A.STATUS = 1 AND A.OPORTUNIDADE = :OPORTUNIDADE", Parameter("OPORTUNIDADE", oportunidade))
+    #    active = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), criteria)
+        
+    #    criteriaWaiting = Criteria("A.STATUS = 3 AND A.OPORTUNIDADE = :OPORTUNIDADE", Parameter("OPORTUNIDADE", oportunidade))
+    #    waiting = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), criteriaWaiting)
+    #    temItemPendente = (waiting.Count &gt; 0)
+    #    temItemAtivo    = (active.Count &gt; 0)
+
+    #tipo = int(entity.Fields["ORIGEM"].Value)
+    status = int(entity.Fields["STATUS"].Value)
+    
+    #entity.Visualization.Fields["RESUMO"].Visible       = tipo in [8]
+    #entity.Visualization.Fields["DESCRICAO"].Visible    = tipo in [8]
+    #entity.Visualization.Fields["SOLICITANTE"].Visible  = tipo in [8]
+    
+    widget.View.Commands["Edit"].Visible = status not in [10]
+    widget.View.Commands["Delete"].Visible = status not in [10]
+    #widget.View.Commands["cmdPrevisao"].Visible = temItemPendente
+    #widget.View.Commands["cmdProposta"].Visible = temItemAtivo</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

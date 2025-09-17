@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>GN_ENTRADAS</Identifier>
+  <Name>Entradas</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT RECEBIMENTOS.TIPO,&#xD;&#xA;       RECEBIMENTOS.STATUS,&#xD;&#xA;       PESSOA.NOME,&#xD;&#xA;       RECEBIMENTOS.SERIE,&#xD;&#xA;       RECEBIMENTOS.DOCUMENTODIGITADO,&#xD;&#xA;       RECEBIMENTOS.DATAENTRADA,&#xD;&#xA;       RECEBIMENTOS.VALORTOTAL,&#xD;&#xA;       OPERACAO.NOME OPERACAO,&#xD;&#xA;       MODELOS.CODIGO MODELO,&#xD;&#xA;       RECEBIMENTOS.HANDLE&#xD;&#xA;  FROM (SELECT 2 TIPO,&#xD;&#xA;                          STATUS, &#xD;&#xA;                          FORNECEDOR PESSOA,&#xD;&#xA;                          FILIAL,&#xD;&#xA;                          NUMERONOTAFISCAL DOCUMENTODIGITADO,&#xD;&#xA;                          DATAENTRADA,&#xD;&#xA;                          VALORTOTAL,&#xD;&#xA;                          OPERACAO,&#xD;&#xA;                          SERIENOTAFISCAL SERIE,&#xD;&#xA;                          MODELO,&#xD;&#xA;                          HANDLE HANDLE&#xD;&#xA;                     FROM CP_RECEBIMENTOFISICOPAI&#xD;&#xA;                    UNION ALL SELECT 3 TIPO,&#xD;&#xA;                                     STATUS,&#xD;&#xA;                                     PESSOA,&#xD;&#xA;                                     FILIAL,&#xD;&#xA;                                     DOCUMENTODIGITADO,&#xD;&#xA;                                     DATAENTRADA,&#xD;&#xA;                                     VALORNOMINAL VALORTOTAL,&#xD;&#xA;                                     OPERACAO,&#xD;&#xA;                                     SERIE,&#xD;&#xA;                                     MODELO,&#xD;&#xA;                                     HANDLE HANDLE&#xD;&#xA;                                FROM FN_DOCUMENTOS WHERE ABRANGENCIA = 'R') RECEBIMENTOS JOIN GN_PESSOAS PESSOA ON PESSOA.HANDLE = RECEBIMENTOS.PESSOA LEFT JOIN GN_OPERACOES OPERACAO ON OPERACAO.HANDLE = RECEBIMENTOS.OPERACAO&#xD;&#xA;                                LEFT JOIN TR_MODELOSFISCAIS MODELOS ON MODELOS.HANDLE = RECEBIMENTOS.MODELO" />
+  <Fields>
+    <Field Alias="TIPO" From="A" Path="TIPO" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="SERIE" From="A" Path="SERIE" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="VALORTOTAL" From="A" Path="VALORTOTAL" />
+    <Field Alias="OPERACAO" From="A" Path="OPERACAO" />
+    <Field Alias="MODELO" From="A" Path="MODELO" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

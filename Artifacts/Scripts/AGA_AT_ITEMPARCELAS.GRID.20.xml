@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_ITEMPARCELAS.GRID</ViewName>
+  <EntityName>AT_ITEMPARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_BENSDOIMOBILIZADO")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+
+    def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+            if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+            
+  
+    RemovePrefixoMoedas("VALOR", entity, row)
+    RemovePrefixoMoedas("VALORORIGINAL", entity, row)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

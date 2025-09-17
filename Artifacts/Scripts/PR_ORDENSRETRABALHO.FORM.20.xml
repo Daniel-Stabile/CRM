@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_ORDENSRETRABALHO.FORM</ViewName>
+  <EntityName>PR_ORDENSRETRABALHO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    EntidadeOR = widget.Entity
+    if EntidadeOR == None:
+        return
+    Liberada = EntidadeOR.Fields["LIBERADA"]
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = False
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = False
+    
+    if widget.View.Commands["CMD_GERENCIAR_APONTAMENTOS"] != None:
+        widget.View.Commands["CMD_GERENCIAR_APONTAMENTOS"].Visible = False
+        
+    if (EntidadeOR.Fields["STATUS"].Value == 1):
+        if widget.View.Commands["Edit"] != None:
+            widget.View.Commands["Edit"].Visible = True
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = True
+            
+    if (EntidadeOR.Fields["STATUS"].Value in (2,3)):
+            if widget.View.Commands["CMD_GERENCIAR_APONTAMENTOS"] != None:
+                widget.View.Commands["CMD_GERENCIAR_APONTAMENTOS"].Visible = True
+        
+    if(Liberada):
+        if widget.View.Commands["Edit"] != None:
+            widget.View.Commands["Edit"].Visible = False
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

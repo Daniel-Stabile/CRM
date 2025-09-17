@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GC_CLIENTES.FORM</ViewName>
+  <EntityName>GC_CLIENTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None: return
+    
+    cliente = widget.ProviderWidget.Entity
+    
+    if cliente == None: return
+
+    widget.Hidden = not cliente.VisibilidadeGestaoDeCobrancaControlePorEmpresa
+    widget.View.Commands["New"].Visible = widget.Entity == None
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

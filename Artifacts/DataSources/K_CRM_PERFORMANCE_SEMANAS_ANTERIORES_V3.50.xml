@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_PERFORMANCE_SEMANAS_ANTERIORES_V3</Identifier>
+  <Name>CRM_PERFORMANCE_SEMANAS_ANTERIORES_V3</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;    B.NOME AS NOME,&#xD;&#xA;    C.TRIMESTRE,&#xD;&#xA;    C.SEMANA,&#xD;&#xA;    (&#xD;&#xA;    SELECT&#xD;&#xA;        ROUND(SUM(&#xD;&#xA;            ROUND(&#xD;&#xA;              (CAST(DD.REALIZADO AS FLOAT) * 100 )/CAST(DD.META AS FLOAT),&#xD;&#xA;            2)&#xD;&#xA;        )/COUNT(DD.HANDLE),2) AS TOTAL&#xD;&#xA;    FROM K_CRM_PERFORMANCEITEM DD&#xD;&#xA;    WHERE DD.PERFORMANCESEMANA = C.HANDLE&#xD;&#xA;    ) AS PORCENTAGEM&#xD;&#xA;FROM K_CRM_PERFORMANCEANO A&#xD;&#xA;JOIN Z_GRUPOUSUARIOS B ON B.HANDLE = A.USUARIO&#xD;&#xA;JOIN K_CRM_PERFORMANCESEMANA C ON A.HANDLE = C.PERFORMANCEANO&#xD;&#xA;WHERE A.USUARIO = 142 AND GETDATE() &gt; C.DATAFIM AND C.DATAINICIO &gt; DATEADD(MONTH,DATEDIFF(MONTH,0,GETDATE())-3,0)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="TRIMESTRE" From="A" Path="TRIMESTRE" />
+    <Field Alias="SEMANA" From="A" Path="SEMANA" />
+    <Field Alias="PORCENTAGEM" From="A" Path="PORCENTAGEM" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

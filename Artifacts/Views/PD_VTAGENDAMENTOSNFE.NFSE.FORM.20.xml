@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PD_VTAGENDAMENTOSNFE.NFSE.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>PD_VTAGENDAMENTOSNFE</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="PD_VTAGENDAMENTOSNFE" name="PD_VTAGENDAMENTOSNFE.NFSE.FORM" title="Geral" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="BUSCARSEFAZ">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="BUSCANFSE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageTab" key="PERIODICIDADE">
+            <Pages>
+              <FormPage caption="Uma vez" key="1">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="HORA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Diário" key="2">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="HORA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Semanal" key="3">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DIASSEMANA">
+                    <layout>TwoColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="HORA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Mensal" key="4">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="MESESANO">
+                    <layout>TwoColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DIA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col1</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="HORA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Intervalo" key="6">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="INTERVALO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+            </Pages>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="GRPSERVIDOR" caption="Servidor">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="EXECSERVIDOR">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="NOMESERVIDOR">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col11</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column>4</Column>
+    <FormCaptionPosition>Left</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition key="BUSCARSEFAZ">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="BUSCANFSE">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="PERIODICIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data" key="DATA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Hora" key="HORA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Dias da semana" key="DIASSEMANA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Meses do ano" key="MESESANO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Dia" key="DIA">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Intervalo" key="INTERVALO">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Executar no servidor" key="EXECSERVIDOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Nome do servidor" key="NOMESERVIDOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Servidor" key="GRPSERVIDOR">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Agendar" image="fa fa-calendar-plus-o" color="btn-primary" key="Save">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Parar" image="fa fa-calendar-minus-o" color="red" key="CMD_EXCLUIR">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

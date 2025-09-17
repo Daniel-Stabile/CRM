@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_CATALOGOSFORNECIMENTO.CATALOGO.FORM</ViewName>
+  <EntityName>CP_CATALOGOSFORNECIMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.View.Commands["CMD_CONFIRMAR"].Visible = widget.Entity.EhCOnfirmar()
+    widget.View.Commands["CMD_LIBERAR"].Visible = widget.Entity.EstaEmCadastro()
+    widget.View.Commands["CMD_RECUSAR"].Visible = widget.Entity.EhCOnfirmar()
+    widget.View.Commands["CMD_ASSOCIARFILIAL"].Visible = widget.Entity.EstaEmCadastro()
+    widget.View.Commands["CMD_CANCELAR"].Visible = widget.Entity.EhVencido() or widget.Entity.EhConfirmado()
+    widget.View.Commands["Edit"].Visible = widget.Entity.EstaEmCadastro()
+    widget.View.Commands["Delete"].Visible = widget.View.Commands["Edit"].Visible
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

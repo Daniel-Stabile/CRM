@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_PERFOMANCE_LAST_WEEK</Identifier>
+  <Name>CRM_PERFOMANCE_LAST_WEEK</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     E.NOME,&#xD;&#xA;     D.META,&#xD;&#xA;     D.REALIZADO&#xD;&#xA;FROM K_CRM_PERFORMANCEANO A&#xD;&#xA;JOIN Z_GRUPOUSUARIOS B ON B.HANDLE = A.USUARIO&#xD;&#xA;JOIN K_CRM_PERFORMANCESEMANA C ON A.HANDLE = C.PERFORMANCEANO&#xD;&#xA;JOIN K_CRM_PERFORMANCEITEM D ON C.HANDLE = D.PERFORMANCESEMANA&#xD;&#xA;JOIN K_CRM_PERFORMANCETIPO E ON E.HANDLE = D.TIPO&#xD;&#xA;WHERE A.USUARIO = @USUARIO&#xD;&#xA;AND DATEADD(WEEK,-1,GETDATE())  BETWEEN C.DATAINICIO AND C.DATAFIM&#xD;&#xA;AND YEAR(GETDATE()) = YEAR(A.ANO)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="META" From="A" Path="META" />
+    <Field Alias="REALIZADO" From="A" Path="REALIZADO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

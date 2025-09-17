@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESPRUSU.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESPRUSU</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    if widget.ProviderWidget.Entity == None:return;
+    
+    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    ehResponsavel = widget.ProviderWidget.Entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle
+    statusOportunidade = int(widget.ProviderWidget.Entity.Fields["OPORTUNIDADE"].Instance.Fields["STATUS"].Value)
+    tipoUsuario = int(widget.ProviderWidget.Entity.Fields["PRODUTO"].Instance.Fields["TIPOUSUARIO"].Value)
+    
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = (statusOportunidade != 10 and usuario == ehResponsavel  and tipoUsuario == 2)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

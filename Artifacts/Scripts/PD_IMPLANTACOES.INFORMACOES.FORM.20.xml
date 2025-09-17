@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_IMPLANTACOES.INFORMACOES.FORM</ViewName>
+  <EntityName>PD_IMPLANTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    implantacao = widget.Entity
+    if implantacao == None: return
+    widget.View.Commands["SugerirItens"].Visible = implantacao.ImplantacaoNaoConfirmada
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>REQUISICOES</Identifier>
+  <Name>Requisições</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT REQ.HANDLE,&#xA;       REQ.NUMERO NUMEROREQUISICAOITEM,&#xA;       REQ.PRODUTO,&#xA;       REQ.QUANTIDADE,&#xA;       REQ.VALOR,&#xA;       REQ.UNIDADE,&#xA;       REQ.FAMILIA,&#xA;       REQ.EMPRESA,&#xA;       REQ.FILIAL,&#xA;       REQ.VARIACAO,&#xA;       REQ.TIPOMOVIMENTACAO,&#xA;       REQ.ALMOXARIFADO,&#xA;       REQ.CENTROCUSTO,&#xA;       REQ.PROJETO,&#xA;       REQ.STATUS,&#xA;       REQ.COMPRADOR,&#xA;       REQ.CONTAFINANCEIRA,&#xA;       REQ.ESPECIFICACAOITEM,&#xA;       REQ.REQUISITANTE,&#xA;       REQ.TIPO,&#xA;       REQPAI.HANDLE REQUISICAOPAI,&#xA;       REQPAI.NUMERO NUMEROREQUISICAOPAI,&#xA;       REQPAI.OBSERVACOESGERAIS,&#xA;       REQPAI.TERMOREFERENCIA,&#xA;       PRD.NOME,&#xA;       PRD.CODIGOREFERENCIA,&#xA;       PRD.PRODUTOPAI,&#xA;       UM.ABREVIATURA,&#xA;       VAR.CONJUNTOVARIACOES,&#xA;       FAT.NOME NOMETIPOMOVIMENTACAO,&#xA;       (SELECT REQUISICOES&#xA;          FROM CP_REQUISICAOPRODUTOS&#xA;         WHERE HANDLE IN ( SELECT MIN(REQUISICAOPRODUTO)&#xA;                             FROM CP_REQUISICAOAGRUPADAS&#xA;                            WHERE REQUISICAOHANDLE = REQ.HANDLE )&#xA;       ) REQUISICOES&#xA;  FROM CP_REQUISICOES REQ&#xA;  JOIN CP_REQUISICOESPAI REQPAI ON REQPAI.HANDLE = REQ.REQUISICAOPAI&#xA;  JOIN PD_PRODUTOS       PRD    ON PRD.HANDLE = REQ.PRODUTO&#xA;  JOIN CM_UNIDADESMEDIDA UM     ON UM.HANDLE = REQ.UNIDADE&#xA;  JOIN PD_PRODUTOVARIACOESMESTRE VAR ON VAR.HANDLE = REQ.VARIACAO&#xA;  JOIN CM_OPERACOESFATURAMENTO FAT ON FAT.HANDLE = REQ.TIPOMOVIMENTACAO" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="NUMEROREQUISICAOITEM" From="A" Path="NUMEROREQUISICAOITEM" />
+    <Field Alias="PRODUTO" From="A" Path="PRODUTO" />
+    <DecimalField Alias="QUANTIDADE" From="A" Path="QUANTIDADE" FieldDecimalsFormat="4" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="4" />
+    <Field Alias="UNIDADE" From="A" Path="UNIDADE" />
+    <Field Alias="FAMILIA" From="A" Path="FAMILIA" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="VARIACAO" From="A" Path="VARIACAO" />
+    <Field Alias="TIPOMOVIMENTACAO" From="A" Path="TIPOMOVIMENTACAO" />
+    <Field Alias="ALMOXARIFADO" From="A" Path="ALMOXARIFADO" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="COMPRADOR" From="A" Path="COMPRADOR" />
+    <Field Alias="CONTAFINANCEIRA" From="A" Path="CONTAFINANCEIRA" />
+    <Field Alias="ESPECIFICACAOITEM" From="A" Path="ESPECIFICACAOITEM" />
+    <Field Alias="REQUISITANTE" From="A" Path="REQUISITANTE" />
+    <Field Alias="TIPO" From="A" Path="TIPO" />
+    <Field Alias="REQUISICAOPAI" From="A" Path="REQUISICAOPAI" />
+    <Field Alias="NUMEROREQUISICAOPAI" From="A" Path="NUMEROREQUISICAOPAI" />
+    <Field Alias="OBSERVACOESGERAIS" From="A" Path="OBSERVACOESGERAIS" />
+    <Field Alias="TERMOREFERENCIA" From="A" Path="TERMOREFERENCIA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="CODIGOREFERENCIA" From="A" Path="CODIGOREFERENCIA" />
+    <Field Alias="PRODUTOPAI" From="A" Path="PRODUTOPAI" />
+    <Field Alias="ABREVIATURA" From="A" Path="ABREVIATURA" />
+    <Field Alias="CONJUNTOVARIACOES" From="A" Path="CONJUNTOVARIACOES" />
+    <Field Alias="NOMETIPOMOVIMENTACAO" From="A" Path="NOMETIPOMOVIMENTACAO" />
+    <Field Alias="REQUISICOES" From="A" Path="REQUISICOES" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

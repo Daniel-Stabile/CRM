@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTASFINANCEIRASFATURAMENTOCOMERCIAL</Identifier>
+  <Name>Contas financeiras faturamento comercial</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE HANDLE,&#xD;&#xA;       A.NATUREZA,&#xD;&#xA;       A.DOCUMENTO,&#xD;&#xA;       A.LANCAMENTOITEMFAT,&#xD;&#xA;       A.PERCENTUAL PERCLANCAMENTO,&#xD;&#xA;       B.HANDLE HANDLECC,&#xD;&#xA;       AB.NOME CONTA,&#xD;&#xA;       AB.ESTRUTURA ESTRUTURACONTA,&#xD;&#xA;       A.VALOR VALORLANCAMENTO,&#xD;&#xA;       C.NOME CENTROCUSTO,&#xD;&#xA;       C.ESTRUTURA ESTRUTURACC,&#xD;&#xA;       D.NOME PROJETO,&#xD;&#xA;       B.VALOR VALORCC,&#xD;&#xA;       B.PERCENTUAL PERCCC,&#xD;&#xA;       OP.NOME ACOESPROJETOS,&#xD;&#xA;       (CASE WHEN B.HANDLE IS NULL THEN A.ELEMENTODESPESA ELSE B.ELEMENTODESPESA END) ELEMENTODESPESA&#xD;&#xA;  FROM FN_LANCAMENTOS A&#xD;&#xA;       LEFT JOIN FN_CONTAS AB ON (AB.HANDLE = A.CONTA)&#xD;&#xA;       LEFT JOIN FN_LANCAMENTOCC B ON (B.LANCAMENTO = A.HANDLE)&#xD;&#xA;       LEFT JOIN CT_CC C ON (C.HANDLE = B.CENTROCUSTO)&#xD;&#xA;       LEFT JOIN GN_PROJETOS D ON (D.HANDLE = B.PROJETO)&#xD;&#xA;       LEFT JOIN OP_ACOESPROJETOS OP ON (OP.HANDLE = A.ACOESPROJETOS OR OP.HANDLE = B.ACOESPROJETOS)&#xD;&#xA; WHERE A.PARCELA IS NULL" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="NATUREZA" From="A" Path="NATUREZA" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="LANCAMENTOITEMFAT" From="A" Path="LANCAMENTOITEMFAT" />
+    <DecimalField Alias="PERCLANCAMENTO" From="A" Path="PERCLANCAMENTO" FieldDecimalsFormat="0" />
+    <Field Alias="HANDLECC" From="A" Path="HANDLECC" />
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="ESTRUTURACONTA" From="A" Path="ESTRUTURACONTA" />
+    <DecimalField Alias="VALORLANCAMENTO" From="A" Path="VALORLANCAMENTO" FieldDecimalsFormat="0" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="ESTRUTURACC" From="A" Path="ESTRUTURACC" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <DecimalField Alias="VALORCC" From="A" Path="VALORCC" FieldDecimalsFormat="0" />
+    <DecimalField Alias="PERCCC" From="A" Path="PERCCC" FieldDecimalsFormat="0" />
+    <Field Alias="ACOESPROJETOS" From="A" Path="ACOESPROJETOS" />
+    <Field Alias="ELEMENTODESPESA" From="A" Path="ELEMENTODESPESA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

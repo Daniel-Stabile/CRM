@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_CONTASGERENCIAIS.GRID</ViewName>
+  <EntityName>CT_CONTASGERENCIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+    
+    
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    if (entity == None) : return
+    
+    if ((str(widget.ID) == "WIDGET_6426") and entity["ULTIMONIVEL"].GetDBValue() == "N"):
+        widget.Hidden = True
+    
+    
+    
+    widget.View.Commands["CMD_INCLUIRABAIXO"].Enabled = AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")
+    
+    widget.View.Commands["CMD_PRIMEIRONIVEL"].Enabled = AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")
+    widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_GTESTADOTRIBUTOSMARGEM.ORIGEMDESTINO2.GRID</ViewName>
+  <EntityName>TR_GTESTADOTRIBUTOSMARGEM</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_GRUPOTRIBUTACAO")    
+    widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_GRUPOTRIBUTACAO")
+    widget.View.Commands["Delete"].Visible = AuthorizationHelper.HasTask("EXCLUIR_GRUPOTRIBUTACAO")    
+    
+    form = widget.ProviderWidget
+    if (form == None) : return
+    
+    entity = form.Entity
+    if (entity == None) : return
+    
+    widget.Hidden = not ((entity["TIPOBASECALCULO"].GetDBValue() == 2 or entity["TIPOBASECALCULO"].GetDBValue() == 1) and (entity["TIPOMARGEM"].GetDBValue() == "F"))
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

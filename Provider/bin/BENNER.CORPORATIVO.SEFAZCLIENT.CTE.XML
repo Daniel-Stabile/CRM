@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CTe>
+  <Observacoes>
+
+    SERVIÇOS ATIVOS
+
+    CteCancelamento: Esse serviço é responsavel pelo recepção do Cancelamento.
+    CteConsultaCadastro: Esse serviço é responsavel pela consulta do cadastro de contribuintes do ICMS da unidade federada incluído o SUFRAMA, que regula as operações na Zona Franca de Manaus.
+    CteConsultaProtocolo: Esse serviço é responsavel pela consulta dos eventos autorizados, por exemplo, o cancelamento.
+    CteInutilizacao: Esse serviço é responsavel pela funcionalidade de inutilização de número de NFe e tem a finalidade de permitir que o emissor comunique à SEFAZ, até o décimo dia do mês subsequente, os números de NF-e que não serão utilizados em razão de ter ocorrido uma quebra de sequência da numeração da NF-e. A inutilização de número só é possível caso a numeração ainda não tenha sido utilizada em nenhuma NF-e (autorizada, cancelada ou denegada). Importante destacar que a inutilização do número tem caráter de denúncia espontânea do contribuinte de irregularidades de quebra de sequência de numeração, podendo o fisco não reconhecer o pedido nos casos de dolo, fraude ou simulação apurados.
+    CteRecepcao: Esse serviço é responsavel pela autorização dos Lotes para a versão 2.00.
+    CteRecepcaoEvento:	Esse serviço é responsavel pelo recepção dos eventos EPEC, Carta de Correção e Cancelamento.
+    CteRetRecepcao:  Esse serviço é responsavel pela consulta do resultado do lote enviado na recepção para a versão 2.00.
+    CteStatusServico: Esse serviço é responsavel por verificar se Web Services está disponível para o ambiente Normal e na SVC. No caso de indisponibilidade do ambiente normal de autorização da SEFAZ de origem da circunscrição do contribuinte, a aplicação da empresa consultará este Web Service e identificará a oportunidade de trocar seu ambiente normal de autorização para utilização da SVCXX.
+
+    SERVIÇOS DESATIVADOS
+    Nenhum;
+
+    TIPO DE EMISSÃO
+    1 - Emissão Normal - (não em contingência);
+    4 - Contingência EPEC - (Evento Prévio de Emissão em Contingência);
+    5 - Contingência FSDA - (Impressão do DANFE em formulário de segurança);
+    7 - Autorização pela SVC-RS - (SEFAZ Virtual de Contingência do RS);
+    8 - Autorização pela SVC-SP - (SEFAZ Virtual de Contingência do SP);
+    -> Neste XML, colocamos o tipo 8 para utilizar os endereços do tipo 1 (normal), haja vista que o portal da sefaz não possui mais os endereços dos SVC´s p/ CTe´s
+       E testando no cliente Rede Ancora, a consulta (UF: GO), de um CTe emitido em contingência (tpEmiss = 8) funcionou desta forma.
+
+  </Observacoes>
+  <Servicos RootSoapAction="http://www.portalfiscal.inf.br/cte/wsdl/CTeConsultaV4" Versao="4.00">
+    <TipoEmissao Valores="1, 5, 7, 8" Descricao="Emissão Normal">
+		<!-- Sefaz Mato Grosso - (MT) -->
+		<Webservice Autorizador="MT" Estados="MT">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="https://www.sefaz.mt.gov.br/cte/qrcode" Homologacao="https://homologacao.sefaz.mt.gov.br/cte/qrcode" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://cte.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4" Homologacao="https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://cte.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4" Homologacao="https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4" Homologacao="https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://cte.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4" Homologacao="https://homologacao.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4" Homologacao="https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4" Homologacao="https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4" />
+		</Webservice>
+		<!-- Sefaz Mato Grosso do Sul - (MS) -->
+		<Webservice Autorizador="MS" Estados="MS">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="http://www.dfe.ms.gov.br/cte/qrcode" Homologacao="https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://producao.cte.ms.gov.br/ws/CTeStatusServicoV4" Homologacao="https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://producao.cte.ms.gov.br/ws/CTeConsultaV4" Homologacao="https://homologacao.cte.ms.gov.br/ws/CTeConsultaV4" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://producao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4" Homologacao="https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="https://producao.cte.ms.gov.br/ws/CTeRecepcaoSincV4" Homologacao="https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoSincV4" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://producao.cte.ms.gov.br/ws/CTeRecepcaoGTVeV4" Homologacao="https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoGTVeV4" />
+		</Webservice>
+		<!-- Sef Minas Gerais - (MG) -->
+		<Webservice Autorizador="MG" Estados="MG">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml" Homologacao="https://homologacao.cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4" Homologacao="https://hcte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/cte/services/CTeConsultaV4" Homologacao="https://hcte.fazenda.mg.gov.br/cte/services/CTeConsultaV4" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4" Homologacao="https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4" Homologacao="https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4" Homologacao="https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4" Homologacao="https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4" />
+		</Webservice>
+		<!-- Sefa Paraná - (PR) -->
+		<Webservice Autorizador="PR" Estados="PR">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="http://www.fazenda.pr.gov.br/cte/qrcode" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://cte.fazenda.pr.gov.br/cte4/CTeConsultaV4" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeConsultaV4" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4" Homologacao="https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4" />
+		</Webservice>
+		<!-- Sefaz Rio Grande do Sul - (RS) -->
+		<Webservice Autorizador="RS" Estados="RS">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="https://dfe-portal.svrs.rs.gov.br/cte/qrCode" Homologacao="https://dfe-portal.svrs.rs.gov.br/cte/qrCode" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx" />
+		</Webservice>
+		<!-- Sefaz São Paulo - (SP) -->
+		<Webservice Autorizador="SP" Estados="SP">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx" Homologacao="	https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="	https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx" />
+		</Webservice>
+		<!-- Sefaz Virtual Rio Grande do Sul - (SVRS) -->
+		<Webservice Autorizador="SVRS" Estados="AC, AL, AM, BA, CE, DF, ES, GO, MA, PA, PB, PI, RJ, RN, RO, SC, SE, TO">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="https://dfe-portal.svrs.rs.gov.br/cte/qrCode" Homologacao="https://homologacao.cte-homologacao.svrs.rs.gov.br/cte/qrCode" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx" />
+		</Webservice>
+		<!-- Sefaz Virtual São Paulo - (SVSP) -->
+		<Webservice Autorizador="SVSP" Estados="AP, PE, RR">
+			<Servico Nome="qrcode" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode" Homologacao="https://homologacao.cte.fazenda.sp.gov.br/cte/qrCode" />
+			<Servico Nome="CteStatusServicoV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx" />
+			<Servico Nome="CteConsultaV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx" />
+			<Servico Nome="CteRecepcaoEventoV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx" />
+			<Servico Nome="CTeRecepcaoOSV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx" />
+			<Servico Nome="CTeRecepcaoSincV4" VersaoUrl="" Producao="	https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx" />
+			<Servico Nome="CTeRecepcaoGTVeV4" VersaoUrl="" Producao="https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx" />
+		</Webservice>
+		<!-- Ambiente Nacional do CTe - (AN) -->
+		<Webservice Autorizador="AN" Estados="AN">
+			<Servico Nome="CTeDistribuicaoDFe" Versao="1.00" Producao="https://www.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx" Homologacao="https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx" />
+		</Webservice>    
+	</TipoEmissao>
+    <TipoEmissao Valores="4" Descricao="Contingência SVC-RS e SVC-SP">
+      <Webservice Autorizador="SVC-SP" Estados="AC, AL, AM, BA, CE, DF, ES, GO, MA, MG, PA, PB, PI, RJ, RN, RO, RS, SC, SE, TO, PR">
+        <Servico Nome="CteRecepcao" Producao="https://nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcao.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcao.asmx" SoapAction="CteRecepcao" />
+        <Servico Nome="CteRetRecepcao" Producao="https://nfe.fazenda.sp.gov.br/cteWEB/services/CteRetRecepcao.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteRetRecepcao.asmx" SoapAction="CteRetRecepcao" />
+        <Servico Nome="CteCancelamento" Producao="https://nfe.fazenda.sp.gov.br/cteWEB/services/CteCancelamento.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteCancelamento.asmx" SoapAction="CteCancelamento" />
+        <Servico Nome="CteConsulta" Producao="https://nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx" SoapAction="CteConsulta" />
+        <Servico Nome="CteStatusServico" Producao="https://nfe.fazenda.sp.gov.br/cteWEB/services/CteStatusServico.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteStatusServico.asmx" SoapAction="CteStatusServico" />
+		<Servico Nome="CteConsultaProtocolo" Producao="https://nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx" Homologacao="https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx"	SoapAction="CteConsultaProtocolo"/>	
+      </Webservice>
+      <Webservice Autorizador="SVC-RS" Estados="MS, MT, SP, AP, PE, RR">
+        <Servico Nome="CteRecepcao" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx" SoapAction="CteRecepcao" />
+        <Servico Nome="CteRetRecepcao" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx" SoapAction="cteRetRecepcao" />
+        <Servico Nome="CteInutilizacao" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx" SoapAction="cteinutilizacao" />
+        <Servico Nome="CteConsulta" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx" SoapAction="CteConsulta" />
+        <Servico Nome="CteStatusServico" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx" SoapAction="CteStatusServico" />
+        <Servico Nome="CteRecepcaoEvento" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx" SoapAction="cterecepcaoevento" />
+	    <Servico Nome="CteConsultaProtocolo" VersaoUrl="" Producao="https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx" Homologacao="https://cte-homologacao.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx" SoapAction="CteConsulta" />
+      </Webservice>
+    </TipoEmissao>
+  </Servicos>
+</CTe>

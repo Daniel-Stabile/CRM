@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_TIPOSCONTRATOS.CONTRATOPERFIL.GRID</ViewName>
+  <EntityName>CN_TIPOSCONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    if entity.Tipo.Index == 1:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6250_hsd3c5b988.aspx"
+    elif entity.Tipo.Index == 2:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6252_hs3e54287d.aspx"
+    elif entity.Tipo.Index == 3:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6251_hs2b28b491.aspx"
+    elif entity.Tipo.Index == 4:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6252_hs3e984187d.aspx"    
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEditExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEditExecute(command, entity):
+    if entity.Tipo.Index == 1:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6250_hsd3c5b988.aspx"
+    elif entity.Tipo.Index == 2:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6252_hs3e54287d.aspx"
+    elif entity.Tipo.Index == 3:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6251_hs2b28b491.aspx"
+    elif entity.Tipo.Index == 4:
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t1906_at6252_hs3e984187d.aspx"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    from Benner.Tecnologia.Common import BennerContext
+    
+    podeVer = clr.Reference[bool]()
+    podeInserir = clr.Reference[bool]()
+    podeEditar = clr.Reference[bool]()
+    podeExcluir = clr.Reference[bool]()
+    
+    BennerContext.Authorization.GetDefaultOperationPermission(widget.View, podeVer, podeInserir, podeEditar, podeExcluir)
+    
+    widget.View.Commands["Novo"].Visible = podeInserir.Value
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

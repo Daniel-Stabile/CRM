@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ZPROCESSOS_EXECUCOES</Identifier>
+  <Name>Processos execuções</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NOME PROCESSO, &#xA;    COUNT(A.HANDLE) EXECUCOES,&#xA;    SUM(CASE WHEN A.SITUACAO = 1 OR A.SITUACAO = 6 THEN 1 ELSE 0 END) PENDENTES,&#xA;    SUM(CASE WHEN A.SITUACAO = 2 OR A.SITUACAO = 3 THEN 1 ELSE 0 END) CANCELADOS,&#xA;    SUM(CASE WHEN A.SITUACAO = 5 THEN 1 ELSE 0 END) COMSUCESSO,&#xA;    SUM(CASE WHEN A.SITUACAO = 4 THEN 1 ELSE 0 END) COMERRO&#xA;FROM Z_PROCESSOS A&#xA;WHERE @CRITERIOSELECAO&#xA;GROUP BY A.NOME&#xA;ORDER BY 2 DESC" />
+  <Fields>
+    <Field Alias="PROCESSO" From="A" Path="PROCESSO" />
+    <Field Alias="EXECUCOES" From="A" Path="EXECUCOES" />
+    <Field Alias="PENDENTES" From="A" Path="PENDENTES" />
+    <Field Alias="CANCELADOS" From="A" Path="CANCELADOS" />
+    <Field Alias="COMSUCESSO" From="A" Path="COMSUCESSO" />
+    <Field Alias="COMERRO" From="A" Path="COMERRO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Tecnologia</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,63 @@
+﻿@{
+    int valorStatus = (@Model["STATUS"].GetInt32());
+    string icon = "";
+    string bgColor = "";
+    string color = "";
+    string textoTitulo = @Model["STATUS"].GetString();
+}
+@{
+    switch (valorStatus)
+    {
+        case 1: //CADASTRADA
+            bgColor = "#dddddd";
+            color = "#333344";
+            icon = "fa fa-file";
+            break;
+        case 2: //EM PLANEJAMENTO
+            bgColor = "#FCEBBF";
+            color = "#555544";
+            icon = "fa fa-lightbulb-o";
+            break;
+        case 3: //EM APROVAÇÃO LEGISLATIVA
+            bgColor = "#FCEBBF";
+            color = "#555544";
+            icon = "fa fa-gavel";
+            break;
+        case 4: //EM APROVAÇÃO
+            bgColor = "#A9D8E8";
+            color = "#003C6E";
+            icon = "fa fa-user-secret";
+            break;
+        case 5: //CONFIRMADA
+            bgColor = "#E8F5E9 ";
+            color = "#33aa33";
+            icon = "fa fa-thumbs-up";
+            break;
+
+        case 6: //RECUSADA
+            bgColor = "#F8CECC";
+            color = "#660000";
+            icon = "fa fa-thumbs-down";
+            break;
+
+        case 7: //CANCELADO
+            bgColor = "#333344";
+            color = "#ffffff";
+            icon = "fa fa-close";
+            break;
+
+        case 8: //CONCLUÍDO
+            bgColor = "#BFE5BF";
+            color = "#33aa33";
+            icon = "fa fa-check";
+            break;
+
+    }
+}
+<span
+    style="background-color: @bgColor; color: @color; padding: 1px 8px;border-radius: 6px !important;  white-space: nowrap;">
+    <i class="@icon" style="font-size:12px;"></i>
+    <span style="margin-left: 2px; font-size:11px; font-weight: 600; text-transform: uppercase;">
+        @textoTitulo
+    </span>
+</span>

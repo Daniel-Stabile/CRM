@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_ALOCACOES.COOPERATIVAS.FORM</ViewName>
+  <EntityName>CT_ALOCACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    if entity == None: return
+    
+    view.FieldDefinitions["ALOCAPROJETO"].Visible = str(entity.Fields["TIPO"].Value) == 'A'
+    if str(entity.Fields["TIPO"].Value) != 'A':
+        entity.Fields["ALOCAPROJETO"] = False
+        
+    view.FieldDefinitions["UTILIZATAXAENCERRAMENTO"].Visible = str(entity.Fields["TIPO"].Value) == 'C'
+    entity.Fields["UTILIZATAXAENCERRAMENTO"] = str(entity.Fields["TIPO"].Value) == 'C'
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    OnTIPOValueChanged(widget.View, widget.Entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

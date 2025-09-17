@@ -1,0 +1,51 @@
+﻿
+<%@ ServiceHost Language="C#" 
+    Service="RecebimentoFisicoViagemServiceService" 
+    Factory="Benner.Tecnologia.EnterpriseServiceLibrary.DynamicServiceHostFactory" %>
+
+using System;
+using System.ComponentModel;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Description;
+using System.ServiceModel.Web;
+using Benner.Tecnologia.Common;
+using Benner.Tecnologia.Common.EnterpriseServiceLibrary;
+using Benner.Tecnologia.EnterpriseServiceLibrary;
+
+
+[ServiceContract]
+[DynamicHost(
+    AllowedBindings = BindingType.BasicHttp | BindingType.WebHttp, 
+    BasicHttpAddress = "", 
+    BasicHttpsConfigurationName = "", 
+    WebHttpAddress = "api",
+    WebHttpsConfigurationName = "")]
+public interface IRecebimentoFisicoViagemServiceService
+{
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("IntegrarRecebimentoFisico")]
+    Benner.Corporativo.WebServices.Layouts.Materiais.Integracao.IntegrarRecebimentoFisicoViagemResponse IntegrarRecebimentoFisico(Benner.Corporativo.WebServices.Layouts.Materiais.Integracao.IntegrarRecebimentoFisicoViagemRequest prRequest);
+
+}
+
+
+public class RecebimentoFisicoViagemServiceService : ServiceBase, IRecebimentoFisicoViagemServiceService
+{
+
+    public Benner.Corporativo.WebServices.Layouts.Materiais.Integracao.IntegrarRecebimentoFisicoViagemResponse IntegrarRecebimentoFisico(Benner.Corporativo.WebServices.Layouts.Materiais.Integracao.IntegrarRecebimentoFisicoViagemRequest prRequest)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.RecebimentoFisicoViagemService, Benner.Corporativo.Viagens",
+            "IntegrarRecebimentoFisico",
+            prRequest);
+
+        return (Benner.Corporativo.WebServices.Layouts.Materiais.Integracao.IntegrarRecebimentoFisicoViagemResponse)result;
+    }
+
+}
+

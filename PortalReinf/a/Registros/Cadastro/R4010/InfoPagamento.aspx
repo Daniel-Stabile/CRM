@@ -1,0 +1,54 @@
+﻿<%@ Page Title="Informações Relativas ao Rendimento Pago/Creditado" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+    <wes:AjaxForm runat="server" ID="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" Title="Informações relativas ao rendimento pago/creditado" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_R4010INFORENDIMENTOPGTO.FORM" FormMode="View" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="10"  />
+      <div class="col-md-12"><div class="portlet light">
+    <div class="tabbable-line">
+      <ul class="nav nav-tabs">
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="INFORMAESRELATIVASSDEDUESDORENDIMENTOTRIBUTVEL" class="active"><a data-toggle="tab" href="#tabINFORMAESRELATIVASSDEDUESDORENDIMENTOTRIBUTVEL"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Informações Relativas às Deduções do Rendimento Tributável")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="RENDIMENTOSISENTOSOUNOTRIBUTVEIS"><a data-toggle="tab" href="#tabRENDIMENTOSISENTOSOUNOTRIBUTVEIS"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Rendimentos Isentos ou não Tributáveis")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="INFORMAESDEPROCESSOSRELACIONADOSANORETENODETRIBUTOS"><a data-toggle="tab" href="#tabINFORMAESDEPROCESSOSRELACIONADOSANORETENODETRIBUTOS"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Informações de Processos Relacionados a não Retenção de Tributos")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="INFORMAESCOMPLEMENTARESRELATIVOSARENDIMENTOSRECEBIDOSACUMULADAMENTERRA"><a data-toggle="tab" href="#tabINFORMAESCOMPLEMENTARESRELATIVOSARENDIMENTOSRECEBIDOSACUMULADAMENTERRA"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Informações Complementares Relativos a Rendimentos Recebidos Acumuladamente-RRA")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="INFORMAESCOMPLEMENTARESDECORRENTESDEDECISOJUDICIAL"><a data-toggle="tab" href="#tabINFORMAESCOMPLEMENTARESDECORRENTESDEDECISOJUDICIAL"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Informações Complementares Decorrentes de Decisão Judicial")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="INFORMAESRELATIVASAPAGAMENTOSARESIDENTEFISCALNOEXTERIOR"><a data-toggle="tab" href="#tabINFORMAESRELATIVASAPAGAMENTOSARESIDENTEFISCALNOEXTERIOR"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Informações Relativas a Pagamentos a Residente Fiscal no Exterior")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="DOCUMENTOS"><a data-toggle="tab" href="#tabDOCUMENTOS"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Documentos")%></a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabINFORMAESRELATIVASSDEDUESDORENDIMENTOTRIBUTVEL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="INFORMAESRELATIVASSDEDUESDORENDIMENTOTRIBUTVEL" Title="Informações Relativas às Deduções do Rendimento Tributável" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_R4010RENDIMENTTRIBUTAVEL.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO = @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/R4010/RendimentoTributavel.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="20"  /></div>
+        </div>
+        <div class="tab-pane" id="tabRENDIMENTOSISENTOSOUNOTRIBUTVEIS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="RENDIMENTOSISENTOSOUNOTRIBUTVEIS" Title="Rendimentos Isentos ou não Tributáveis" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_R4010RENDIMENTOISENTO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO = @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/R4010/RendimentoIsento.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="30"  /></div>
+        </div>
+        <div class="tab-pane" id="tabINFORMAESDEPROCESSOSRELACIONADOSANORETENODETRIBUTOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="INFORMAESDEPROCESSOSRELACIONADOSANORETENODETRIBUTOS" Title="Informações de Processos Relacionados a não Retenção de Tributos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_R4010PROCESSOSEMRETENCAO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO = @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/R4010/ProcessoSemRetencao.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="40"  /></div>
+        </div>
+        <div class="tab-pane" id="tabINFORMAESCOMPLEMENTARESRELATIVOSARENDIMENTOSRECEBIDOSACUMULADAMENTERRA">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="INFORMAESCOMPLEMENTARESRELATIVOSARENDIMENTOSRECEBIDOSACUMULADAMENTERRA" Title="Informações Complementares Relativos a Rendimentos Recebidos Acumuladamente-RRA" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_R4010INFORRA.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO = @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/R4010/InfoRRA.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="50"  /></div>
+        </div>
+        <div class="tab-pane" id="tabINFORMAESCOMPLEMENTARESDECORRENTESDEDECISOJUDICIAL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="INFORMAESCOMPLEMENTARESDECORRENTESDEDECISOJUDICIAL" Title="Informações Complementares Decorrentes de Decisão Judicial" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_INFOPROCESSOJUDICIAL.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO = @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/InfoProcessoJudicial.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="60"  /></div>
+        </div>
+        <div class="tab-pane" id="tabINFORMAESRELATIVASAPAGAMENTOSARESIDENTEFISCALNOEXTERIOR">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="INFORMAESRELATIVASAPAGAMENTOSARESIDENTEFISCALNOEXTERIOR" Title="Informações Relativas a Pagamentos a Residente Fiscal no Exterior" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="REINF_R4010PAGAMENTOEXTERIOR.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO = @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/R4010/PagamentoExterior.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="70"  /></div>
+        </div>
+        <div class="tab-pane" id="tabDOCUMENTOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="DOCUMENTOS" Title="Documentos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORMAESRELATIVASAORENDIMENTOPAGOCREDITADO" ChromeState="Minimized" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_R4010INFOPAGAMENTODOC.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.R4010INFORENDIMENTOPGTO= @CAMPO(HANDLE)" FormUrl="~/PortalReinf/a/Registros/Cadastro/R4010/InfoPagamentoDoc.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R4010_INFOPGTO" Level="20" Order="80"  /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+      </asp:Content>
+    

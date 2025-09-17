@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOSRAPIDOS.CUSTOM.GRID</ViewName>
+  <EntityName>CN_CONTRATOSRAPIDOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    situacao = entity.Fields["STATUS"].Value
+
+    if situacao == 1 :
+        row.GetCellByName("STATUS").Text = "&lt;div class='label label-sm label-info'&gt;" + "Cadastrado" +"&lt;/div&gt;"
+    elif situacao == 3 :
+        row.GetCellByName("STATUS").Text =  "&lt;div class='label label-sm label-danger'&gt;"+ "Processado ERRO" +"&lt;/div&gt;"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ConcluirExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ConcluirExecute(command, entity):
+    contrato =  entity.Fields["CONTRATO"].Instance
+    tipoContratoEntity = contrato.Fields["TIPOCONTRATO"].Instance
+    tpContrato = tipoContratoEntity.Fields["TIPO"].ToString()
+    
+    if tpContrato == "Compra":
+        command.OutputDefinition.Url = "~/aga/a/contratos/ContratoCompraForm.aspx"
+        
+    if tpContrato == "Convênio Híbrido":
+        command.OutputDefinition.Url = "~/aga/a/contratos/ContratoConvenioForm.aspx"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

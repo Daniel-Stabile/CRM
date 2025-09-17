@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TS_EXTRATOBANCARIO.NAOCONCILIADOS.GRID</ViewName>
+  <EntityName>TS_EXTRATOBANCARIO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import CurrencyFieldDefinition
+        
+    natureza = entity["NATUREZA"].Value.Value;
+    valorCell = row.GetCellByName("VALOR");
+    currency = CurrencyFieldDefinition();
+    
+    if entity["NATUREZA"].GetDBValue() != None:
+        cor = "text-primary"
+        if entity["NATUREZA"].GetDBValue() == "D":
+            cor = "text-danger"
+        
+        row.GetCellByName("NATUREZA").Text = "&lt;div class='" + cor + "' style='width: 21px'&gt;" + entity["NATUREZA"].GetDBValue() + "&lt;/div&gt;"
+        row.GetCellByName("NATUREZA").Tooltip = entity["NATUREZA"].GetString()
+        row.GetCellByName("NATUREZA").Align = "center"
+    
+    if natureza == "C":
+        valorCell.TextColor = "#4B77BE"
+        valorCell.Text = currency.ToUI(entity["VALOR"].GetDecimal())
+        
+    elif natureza == "D":
+        valorCell.TextColor = "#E43A45"
+        valorCell.Text = currency.ToUI(entity["VALOR"].GetDecimal() * -1)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

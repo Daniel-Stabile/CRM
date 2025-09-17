@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_VTCALCULARDEPRECIACAOBENS.FORM</ViewName>
+  <EntityName>AT_VTCALCULARDEPRECIACAOBENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.Corporativo.Definicoes.Ativo import ATVTCalcularDepreciacaoBensCalculoTabItens
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    if (entity.Calculo == ATVTCalcularDepreciacaoBensCalculoTabItens.ItemExcluir and not AuthorizationHelper.HasTask("ATIVO_EXCLUIR_RECUPERACAOPISCOFINS") ):
+        raise CancelledOperationException("O usuário não tem permissão de excluir")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_CHAMADOS.ADMIN.FORM</ViewName>
+  <EntityName>K_CRM_CHAMADOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from System import DateTime
+    from System import Convert
+    from System import Math
+
+    entity = widget.Entity;
+    view = widget.View;
+    
+    if (entity == None): return;
+    
+    #widget.MessagePanel.ShowMessage("Teste " + ((int)(Math.Abs((DateTime.Now - Convert.ToDateTime(entity.Fields["DATAALTERACAO"])).TotalDays))).ToString(), MessageType.Warning)
+    
+    view.Commands["CmdAtender"].Visible = False;
+    view.Commands["CmdResponder"].Visible = False;
+    view.Commands["CmdSubirNivel2"].Visible = False;
+    
+    if entity.IsEditing:
+        view.FieldDefinitions["RESPOSTA"].Visible = True;
+    else:
+        view.FieldDefinitions["RESPOSTA"].Visible = False;
+    
+    if (entity.Fields["STATUS"] == ListItem(1, "Aberto") or entity.Fields["STATUS"] == ListItem(2, "Em Andamento")) and entity.Fields["NIVEL"] == ListItem(1, "N1"):
+        view.Commands["CmdSubirNivel2"].Visible = True;
+    
+    if(entity.Fields["STATUS"] == ListItem(1, "Aberto")):
+        view.Commands["CmdAtender"].Visible = True;
+    
+    if(entity.Fields["STATUS"] == ListItem(2, "Em Andamento")):
+        view.Commands["CmdResponder"].Visible = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

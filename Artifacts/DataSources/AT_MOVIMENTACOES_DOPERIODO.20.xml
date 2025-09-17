@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>AT_MOVIMENTACOES_DOPERIODO</Identifier>
+  <Name>Movimentações do período</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE, A.DATA, A.MOVIMENTACAO, A.VALOR&#xA;FROM AT_ITEMMOVIMENTACOES A &#xA;WHERE A.EMPRESA = @EMPRESA&#xA;AND A.DATA BETWEEN @MES[1] AND @MES[2]" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="MOVIMENTACAO" From="A" Path="MOVIMENTACAO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

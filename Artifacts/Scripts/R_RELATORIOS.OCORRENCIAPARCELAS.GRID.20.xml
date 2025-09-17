@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>R_RELATORIOS.OCORRENCIAPARCELAS.GRID</ViewName>
+  <EntityName>R_RELATORIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>import clr
+clr.AddReference("Benner.Corporativo.Wes.WebApp")
+from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+from Benner.Corporativo.Wes.WebApp.Common import ReportUtilsERP
+
+def Load(widget):
+    # Deve ter pelo menos uma linha de código para se fazer uma definição de função
+    nada = ""
+    
+def ConfigureReportCommand(command, entity):
+    # Esta função é utilizada pelos comandos de Emissão e Exportação do relatório
+
+    try:
+        ReportUtilsERP.ConfigureReportCommand(command, entity)
+    except Exception, e:
+        raise CancelledOperationException(e.__str__())    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EMITIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EMITIRExecute(command, Entity):
+    ConfigureReportCommand(command, Entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

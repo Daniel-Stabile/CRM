@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_LANCAMENTOCC.FISCAL.CUSTOM.GRID</ViewName>
+  <EntityName>FN_LANCAMENTOCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("CUSTOM_CENTRODECUSTO").Text = entity.Fields["PATH_636301146316318914"] + " - " + entity.Fields["PATH_636301147004262571"]
+    
+    if (str(entity.Fields["PROJETO"]) != ""):
+        row.GetCellByName("CUSTOM_PROJETO").Text = entity.Fields["PATH_636312233850762045"] + " - " + str(entity.Fields["PROJETO"])
+    
+    row.GetCellByName("CUSTOM_PERCENTUAL").Text = str("%0.2f" % entity.Fields["PERCENTUAL"]).replace(".",",")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+
+    widget.View.FieldDefinitions["ACOESPROJETOS"].Visible = Utils.EhOrcamentoPublicoComControleAcao()
+    widget.View.FieldDefinitions["ELEMENTODESPESA"].Visible = Utils.EhOrcamentoPublicoComControleAcao()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

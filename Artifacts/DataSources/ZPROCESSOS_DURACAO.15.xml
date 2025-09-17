@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ZPROCESSOS_DURACAO</Identifier>
+  <Name>Processos duração</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NOME PROCESSO, &#xA;    SUM(@DIFDATAHORA(SEGUNDOS, A.INICIO, A.FIM)) DURACAO,&#xA;    SUM(CPU) TEMPO_CPU&#xA;FROM Z_PROCESSOS A&#xA;WHERE @CRITERIOSELECAO&#xA;GROUP BY A.NOME&#xA;ORDER BY SUM(CPU) DESC, DURACAO DESC" />
+  <Fields>
+    <Field Alias="PROCESSO" From="A" Path="PROCESSO" />
+    <Field Alias="DURACAO" From="A" Path="DURACAO" />
+    <DecimalField Alias="TEMPO_CPU" From="A" Path="TEMPO_CPU" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Tecnologia</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

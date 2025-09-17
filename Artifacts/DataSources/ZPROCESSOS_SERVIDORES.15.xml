@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ZPROCESSOS_SERVIDORES</Identifier>
+  <Name>Processos por Servidor</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CASE WHEN LOG.SERVIDORPROVIDER IS NOT NULL THEN LOG.SERVIDORPROVIDER ELSE A.HOST END SERVIDOR, &#xA;       COUNT(A.HANDLE) TOTAL, &#xA;       SUM(CASE WHEN LOG.AGENDAMENTO IS NOT NULL THEN 1 ELSE 0 END) AGENDAMENTOS, &#xA;       SUM(CASE WHEN A.IDENTIFICACAOTAREFA IS NOT NULL THEN 1 ELSE 0 END) BTL, &#xA;       SUM(CASE WHEN A.IDENTIFICACAOTAREFA IS NULL AND LOG.AGENDAMENTO IS NULL THEN 1 ELSE 0 END) OUTROS &#xA;FROM Z_PROCESSOS A &#xA;LEFT JOIN Z_AGENDAMENTOLOG LOG ON LOG.HANDLE = A.AGENDAMENTOLOG &#xA;WHERE (A.HOST IS NOT NULL OR LOG.SERVIDORPROVIDER IS NOT NULL) AND (A.SITUACAO &lt;&gt; 6) AND @CRITERIOSELECAO&#xA;GROUP BY CASE WHEN LOG.SERVIDORPROVIDER IS NOT NULL THEN LOG.SERVIDORPROVIDER ELSE A.HOST END&#xA;ORDER BY 2" />
+  <Fields>
+    <Field Alias="SERVIDOR" From="A" Path="SERVIDOR" />
+    <Field Alias="TOTAL" From="A" Path="TOTAL" />
+    <Field Alias="AGENDAMENTOS" From="A" Path="AGENDAMENTOS" />
+    <Field Alias="BTL" From="A" Path="BTL" />
+    <Field Alias="OUTROS" From="A" Path="OUTROS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Tecnologia</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

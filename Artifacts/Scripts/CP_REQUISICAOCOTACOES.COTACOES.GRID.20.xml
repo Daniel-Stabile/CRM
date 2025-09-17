@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOCOTACOES.COTACOES.GRID</ViewName>
+  <EntityName>CP_REQUISICAOCOTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    itemCotacao = widget.ProviderWidget.Entity
+    
+    if itemCotacao == None: return
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoCotacao
+    
+    widget.View.Commands["New"].Visible = CPRequisicaoCotacao.PodeIncluirCotacao(itemCotacao.Handle.Value, itemCotacao.FilialHandle)
+    widget.View.Commands["CMD_VERIFICAR_ENTREGAS_PAGAMENTOS"].Visible = CPRequisicaoCotacao.PodeVerificarEntregaPagamentosCotacao(itemCotacao.Handle.Value)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoCotacao
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible = CPRequisicaoCotacao.PodeAlterarCotacao(entity.Fields["STATUS"].Value, entity.Fields["STATUSDIGITARODADA"].Value, entity.Fields["COTACAO"].Handle.Value)
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = CPRequisicaoCotacao.PodeExcluirCotacao(entity.Fields["STATUS"].Value, entity.Fields["STATUSDIGITARODADA"].Value, entity.Fields["COTACAO"].Handle.Value, entity.FilialHandle)
+
+    comandoEntregasEspecifica = row.GetCustomCommand("CMD_ENTREGAESPECIFICAAGRUPADA")
+    comandoPagamentos = row.GetCustomCommand("CMD_PAGAMENTOS")
+    
+    status = entity.Fields["STATUS"].Value;
+    
+    if comandoPagamentos != None: 
+        comandoPagamentos.Enabled = status == 1
+    
+    if status == 2 or status ==  3 or status == 4 or status == 5 or entity.EnabledComandoEntregasEspecificas():
+        comandoEntregasEspecifica.Enabled = False
+    else:
+        comandoEntregasEspecifica.Enabled = True
+        
+    if entity.EhCotacaoPortalFornecedores:
+        row.EditCommand.Visible = False
+        row.DeleteCommand.Visible = False
+        comandoEntregasEspecifica.Enabled = False
+        comandoPagamentos.Enabled = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoCotacao
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if CPRequisicaoCotacao.TemPedidosEmpenhoEmConfirmacao():
+        raise CancelledOperationException("Existem pedidos de empenho a confirmar/recusar.")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

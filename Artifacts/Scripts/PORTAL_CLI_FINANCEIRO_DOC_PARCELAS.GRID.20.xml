@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_CLI_FINANCEIRO_DOC_PARCELAS.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    saldo = entity.Fields["VALOR"] - entity.Fields["VALORESBAIXADOS"];
+    row.GetCellByName("CUSTOM_SALDO").Text = saldo.ToString("C2");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

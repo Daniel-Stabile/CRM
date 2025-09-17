@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ALMOXARIFADOVARIACOES.SALDOS_ESTOQUE.GRID</ViewName>
+  <EntityName>PD_ALMOXARIFADOVARIACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget != None:
+        produto = widget.ProviderWidget.Entity
+    
+    if produto == None : 
+        widget.Hidden = True
+        return
+
+    if not produto.ControlaVariacao() :
+       widget.Hidden = True</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.GetCustomCommand("CMD_LOTES") != None:
+        row.GetCustomCommand("CMD_LOTES").Enabled = entity.ControlaLotes()</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

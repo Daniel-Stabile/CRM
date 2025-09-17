@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ORDEMSERVICOS.GRID</ViewName>
+  <EntityName>MF_ORDEMSERVICOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    def InitializeRow(entity, row):
+        if (entity == None): return  # Nota: '== None' pode ser substituído por 'is None'
+
+        situacao = entity.Fields["STATUS"].Value;
+
+        if situacao == 1:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-info'&gt; Cadastrado &lt;/span&gt;"
+        elif situacao == 2:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-warning'&gt; Em aprovação &lt;/span&gt;"
+        elif situacao == 3:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-success'&gt; Aprovado &lt;/span&gt;"
+        elif situacao == 4:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-danger'&gt; Cancelado &lt;/span&gt;"
+        elif situacao == 5:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-success'&gt; Encerrado &lt;/span&gt;"
+        elif situacao == 6:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-warning'&gt; Recusado &lt;/span&gt;"
+        elif situacao == 7:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-info'&gt; Aguardando pagamento &lt;/span&gt;"
+        elif situacao == 8:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-info'&gt; Em preparação para pagamento &lt;/span&gt;"
+        elif situacao == 9:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-warning'&gt; Verificando dados inconsistentes &lt;/span&gt;"
+        elif situacao == 10:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-info'&gt; Em prestação de contas &lt;/span&gt;"
+        elif situacao == 11:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-success'&gt; Pagamento efetuado &lt;/span&gt;"
+        elif situacao == 12:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-info'&gt; Aguardando integração &lt;/span&gt;"
+        elif situacao == 13:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-info'&gt; Aguardando comprovação &lt;/span&gt;"
+        elif situacao == 14:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-success'&gt; Pagamento liquidado &lt;/span&gt;"
+        elif situacao == 15:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-warning'&gt; Recusa comprovação de pagamento &lt;/span&gt;"
+        elif situacao == 16:
+            row.GetCellByName("STATUS").Text = "&lt;span class='label label-warning'&gt; Em conferência de adiantamentos &lt;/span&gt;"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ORDEMSERVICOMULTAS.NOVAORDEM.GRID</ViewName>
+  <EntityName>MF_ORDEMSERVICOMULTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    if form == None: return
+    entity = form.Entity
+    if entity == None: return
+    
+    tipoOrdem = entity.Fields["TIPOORDEMMANUTENCAO"].ToString()
+    
+    if tipoOrdem != "Pagamento de multas":
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

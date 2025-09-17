@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>REINF_AUDITORIAS.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>REINF_AUDITORIAS</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="REINF_AUDITORIAS" name="REINF_AUDITORIAS.CUSTOM.FORM" title="REINF_AUDITORIAS" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="DESCRICAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="TIPO">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ORIGEM">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col8</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageTab" key="SITUACAO">
+            <Pages>
+              <FormPage caption="Pendente" key="1">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATAMINIMAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Pronto para envio" key="2">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATASITUACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAMINIMAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Erro envio/retorno lote" key="3">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATASITUACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="ERRO">
+                    <layout>TwoColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAMINIMAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Enviado - Aguardando aprovação" key="4">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATASITUACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="PROTOCOLOENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col7</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Erro aprovação" key="5">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATASITUACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="ERRO">
+                    <layout>TwoColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAMINIMAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="DATAENVIO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col2</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Aprovado" key="6">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="DATASITUACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col4</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="RECIBOENTREGA">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col7</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="RECIBORETIFICACAO">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col7</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Enviando" key="7">
+                <visible>true</visible>
+                <Items />
+              </FormPage>
+            </Pages>
+            <bootstrapCols xsi:nil="true" />
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="INFORMACOESLEIAUTE" caption="Informações do leiaute">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="VERSAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col7</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="IDENTIFICACAOAMBIENTE">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col3</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="LEIAUTE">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col8</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="INCLUSAO" caption="Inclusão">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="DATAINCLUSAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col4</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="USUARIOINCLUSAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col7</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageGroup" key="ALTERACAO" caption="Alteração">
+            <visible>true</visible>
+            <bootstrapCols>Col12</bootstrapCols>
+            <stateGroup xsi:nil="true" />
+            <Items>
+              <FormPageItem xsi:type="FormPageField" key="DATAALTERACAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col4</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="USUARIOALTERACAO">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col7</bootstrapCols>
+              </FormPageItem>
+            </Items>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="XML" key="XML">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="XML">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="XML Retornio" key="XMLRETORNO">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="XMLRETORNO">
+            <layout>TwoColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="DESCRICAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="TIPO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="ORIGEM">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="SITUACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAMINIMAENVIO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAENVIO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATASITUACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="ERRO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>5</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="PROTOCOLOENVIO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="RECIBOENTREGA">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="RECIBORETIFICACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="VERSAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="IDENTIFICACAOAMBIENTE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="LEIAUTE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="USUARIOINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="USUARIOALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="XML">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>20</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="XMLRETORNO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>20</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="R1000">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode xsi:nil="true" />
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <SearchOnEnter xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="INFORMACOESLEIAUTE">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="INCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition key="ALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>Q_TODASPARCELASADTO</Identifier>
+  <Name>Todas as parcelas de adiantamento</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.PESSOA,&#xA;       A.HANDLE,&#xA;       A.ENTRADASAIDA,&#xA;       A.DATAENTRADA, &#xA;       A.DOCUMENTODIGITADO, &#xA;       A.TIPODEMOVIMENTO,&#xA;&#x9;   D.ABREVIATURA MOEDA, &#xA;&#x9;   B.VALOR, &#xA;&#x9;   B.EMABERTO,&#xA;&#x9;   B.VALORESBAIXADOS, &#xA;&#x9;   B.VCTOPRORROGADO,&#xA;&#x9;   B.DATAVENCIMENTO, &#xA;&#x9;   B.VALORMOEDA, &#xA;&#x9;   C.CODIGOINTERNO,&#xA;&#x9;   F.NOME TIPODOCUMENTO, &#xA;       E.NOME FILIAL, &#xA;&#x9;   A.DATAEMISSAO, &#xA;&#x9;   B.HANDLE HANDLE_PARCELA, &#xA;&#x9;   B.VALORESCOMPENSADOS, &#xA;&#x9;   B.REMESSA&#xA;  FROM FN_DOCUMENTOS A&#xA;       INNER JOIN FN_PARCELAS  B ON(B.DOCUMENTO = A.HANDLE)&#xA;&#x9;    LEFT JOIN GN_OPERACOES C ON(C.HANDLE = A.OPERACAO)&#xA;&#x9;&#x9;LEFT JOIN GN_MOEDAS    D ON(D.HANDLE = A.MOEDA)&#xA;&#x9;&#x9;LEFT JOIN FILIAIS      E ON(E.HANDLE = A.FILIAL)&#xA;&#x9;&#x9;LEFT JOIN FN_TIPOSDOCUMENTOS F ON(F.HANDLE = A.TIPODOCUMENTO)&#xA; WHERE A.TIPODEMOVIMENTO = 2 &#xA;   AND A.EHPREVISAO &lt;&gt; 'S' &#xA;       AND (B.DOCUMENTOSUSPENSO &lt;&gt; 'S' OR  B.DOCUMENTOSUSPENSO IS NULL) " />
+  <Fields>
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <DateField Alias="DATAENTRADA" From="A" Path="DATAENTRADA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="TIPODEMOVIMENTO" From="A" Path="TIPODEMOVIMENTO" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="EMABERTO" From="A" Path="EMABERTO" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <DateField Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="CODIGOINTERNO" From="A" Path="CODIGOINTERNO" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <DateField Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="HANDLE_PARCELA" From="A" Path="HANDLE_PARCELA" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

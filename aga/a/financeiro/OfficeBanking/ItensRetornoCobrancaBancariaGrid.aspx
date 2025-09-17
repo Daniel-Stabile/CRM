@@ -1,0 +1,15 @@
+﻿<%@ Page Title="Itens do Retorno" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="RETORNO" Title="Retorno" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="GN_HBRETORNOS.COBRANCA_BANCARIA.FORM" FormMode="View" IncludeRecordInRecentItems="False" UserDefinedCommandsVisible="False" PageId="AGA_A_FINANCEIRO_OFFICEBANKING_ITENSRETORNOCOBRANCABANCARIAGRID" Level="20" Order="2"  />
+        <wes:Tile runat="server" ID="TTULOSBAIXADOS" Title="Títulos baixados" Subtitle="" PortletCssClass="" PortletLayout="None" BootstrapCols="6" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="RETORNO" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="GN_HBITEMRETORNO.COBRANCABANCARIA.GRID" CompanyFilterMode="OnlyCompany" TotalValue="AP" Value="AP" Description="Títulos baixados" Icon="fa fa-times" Color="blue" ValueAggregation="Count" TileType="Progress" PageId="AGA_A_FINANCEIRO_OFFICEBANKING_ITENSRETORNOCOBRANCABANCARIAGRID" Level="20" Order="5"  />
+        <wes:Tile runat="server" ID="VALORESBAIXADOS" Title="Valores baixados" Subtitle="" PortletCssClass="" PortletLayout="None" BootstrapCols="6" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="RETORNO" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="GN_HBITEMRETORNO.COBRANCABANCARIA.GRID" CompanyFilterMode="OnlyCompany" ValueFormat="C" Value="VLRBAIXA" Description="Valores baixados" Icon="fa fa-dollar" Color="green" ValueAggregation="Sum" TileType="Flat" PageId="AGA_A_FINANCEIRO_OFFICEBANKING_ITENSRETORNOCOBRANCABANCARIAGRID" Level="20" Order="8"  />
+        <wes:SimpleGrid runat="server" ID="ITENSDORETORNO" Title="Itens" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="RETORNO" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="GN_HBITEMRETORNO.COBRANCABANCARIA.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="AGA_A_FINANCEIRO_OFFICEBANKING_ITENSRETORNOCOBRANCABANCARIAGRID" Level="20" Order="10"  />
+        </div>
+    
+      </asp:Content>
+    

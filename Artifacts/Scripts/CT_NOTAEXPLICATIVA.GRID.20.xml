@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_NOTAEXPLICATIVA.GRID</ViewName>
+  <EntityName>CT_NOTAEXPLICATIVA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+    
+    widget.Hidden = True
+    
+    if (entity == None) : return
+    
+    widget.Hidden = True
+    if ((entity["TRAD_EMITEDEMONSTRATIVO"].GetString() == "BP - Balanço Patrimonial") or (entity["TRAD_EMITEDEMONSTRATIVO"].GetString() == "DRE - Demonstração do Resultado do Exercício") or (entity["TRAD_EMITEDEMONSTRATIVO"].GetString() == "DLPA - Demonstração de Lucros ou Prejuízos Acumulados") or (entity["TRAD_EMITEDEMONSTRATIVO"].GetString() == "DMPL - Demonstração das Mutações do Patrimônio Líquido")) and (entity["ULTIMONIVEL"].GetDBValue() == "S"):
+        widget.Hidden = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

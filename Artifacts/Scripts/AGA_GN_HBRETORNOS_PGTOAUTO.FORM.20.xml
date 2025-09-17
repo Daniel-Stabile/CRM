@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_HBRETORNOS_PGTOAUTO.FORM</ViewName>
+  <EntityName>GN_HBRETORNOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    
+    entity = widget.Entity
+    fieldTipo = entity.Fields["TIPO"]
+    fieldOperacao = entity.Fields["UTILIZAROPERACAOVALIDA"]
+    if(entity == None): return
+    
+    if(fieldTipo != None) : entity.Fields["TIPO"].Value = "P"
+    widget.View.Commands["CMD_SALVAR"].Visible = widget.Entity.State == EntityState.Editing
+    widget.View.Commands["CMD_CANCELAR"].Visible = widget.Entity.State == EntityState.Editing
+    
+    if (widget.Entity.State == EntityState.Read) :
+       widget.View.FieldDefinitions["LOGPROCESSO"].Visible = True
+    elif (widget.Entity.State == EntityState.Initialized) :
+        if (fieldOperacao != None) :
+            if (entity.Fields["UTILIZAROPERACAOVALIDA"].Value == "") :
+                entity.Fields["UTILIZAROPERACAOVALIDA"].Value = "C"</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

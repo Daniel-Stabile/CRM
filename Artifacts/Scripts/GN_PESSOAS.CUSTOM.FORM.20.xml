@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.CUSTOM.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOCRMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOCRMValueChanged(view, entity):
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (entity.Fields["TIPOCRM"] != None):
+        if entity.Fields["TIPOCRM"].Value == 1 or entity.Fields["TIPOCRM"].Value == 4:
+            entity.Fields["TIPO"] = None
+            entity.Fields["INATIVO"] = True
+            view.FieldDefinitions["NUMEROLOG"].Required = False
+            view.FieldDefinitions["TIPO"].Required = False
+            view.FieldDefinitions["CGCCPF"].Required = False
+            view.FieldDefinitions["INSCRICAOESTADUAL"].Required = False
+            view.FieldDefinitions["EMAIL"].Required = False
+            view.FieldDefinitions["LOGRADOURO"].Required = False
+            view.FieldDefinitions["BAIRRO"].Required = False
+            view.FieldDefinitions["MUNICIPIO"].Required = False
+            view.FieldDefinitions["PAIS"].Required = False
+            view.FieldDefinitions["ESTADO"].Required = False
+            view.FieldDefinitions["CEP"].Required = False
+        elif entity.Fields["TIPOCRM"].Value == 2:
+            entity.Fields["INATIVO"] = False
+            entity.Fields["EHCLIENTE"] = True
+            view.FieldDefinitions["NUMEROLOG"].Required = True
+            view.FieldDefinitions["TIPO"].Required = True
+            view.FieldDefinitions["CGCCPF"].Required = True
+            view.FieldDefinitions["INSCRICAOESTADUAL"].Required = True
+            view.FieldDefinitions["EMAIL"].Required = True
+            view.FieldDefinitions["LOGRADOURO"].Required = True
+            view.FieldDefinitions["BAIRRO"].Required = True
+            view.FieldDefinitions["MUNICIPIO"].Required = True
+            view.FieldDefinitions["PAIS"].Required = True
+            view.FieldDefinitions["ESTADO"].Required = True
+            view.FieldDefinitions["CEP"].Required = True
+        elif entity.Fields["TIPOCRM"].Value == 3:
+            entity.Fields["INATIVO"] = False
+            entity.Fields["EHCLIENTE"] = True
+            view.FieldDefinitions["NUMEROLOG"].Required = True
+            view.FieldDefinitions["TIPO"].Required = True
+            view.FieldDefinitions["CGCCPF"].Required = True
+            view.FieldDefinitions["INSCRICAOESTADUAL"].Required = True
+            view.FieldDefinitions["EMAIL"].Required = True
+            view.FieldDefinitions["LOGRADOURO"].Required = True
+            view.FieldDefinitions["BAIRRO"].Required = True
+            view.FieldDefinitions["MUNICIPIO"].Required = True
+            view.FieldDefinitions["PAIS"].Required = True
+            view.FieldDefinitions["ESTADO"].Required = True
+            view.FieldDefinitions["CEP"].Required = True
+        else:
+            entity.Fields["INATIVO"] = False;
+            view.FieldDefinitions["NUMEROLOG"].Required = True
+            view.FieldDefinitions["TIPO"].Required = True
+            view.FieldDefinitions["CGCCPF"].Required = True
+            view.FieldDefinitions["INSCRICAOESTADUAL"].Required = True
+            view.FieldDefinitions["EMAIL"].Required = True
+            view.FieldDefinitions["LOGRADOURO"].Required = True
+            view.FieldDefinitions["BAIRRO"].Required = True
+            view.FieldDefinitions["MUNICIPIO"].Required = True
+            view.FieldDefinitions["PAIS"].Required = True
+            view.FieldDefinitions["ESTADO"].Required = True
+            view.FieldDefinitions["CEP"].Required = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEHESTUDANTEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEHESTUDANTEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import TabItem
+    if (entity.Fields["EHESTUDANTE"] == True):
+        entity.Fields["TIPO"] = TabItem(1, "Pessoa Física");
+        
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    entity.Fields["APELIDO"] = entity.Fields["NOME"]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEditExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEditExecute(command, entity):
+    entity.Fields["APELIDO"] = entity.Fields["NOME"]
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    
+    entity = widget.Entity
+    view = widget.View
+    if (not entity is None):
+        if (entity.State == EntityState.Initialized):
+            entity.Fields["EHCLIENTE"] = True
+        
+        if (entity.Fields["TIPOCRM"] != None):
+            if entity.Fields["TIPOCRM"].Value == 1 or entity.Fields["TIPOCRM"].Value == 4:
+                view.FieldDefinitions["NUMEROLOG"].Required = False
+                view.FieldDefinitions["TIPO"].Required = False
+                view.FieldDefinitions["CGCCPF"].Required = False
+                view.FieldDefinitions["INSCRICAOESTADUAL"].Required = False
+                view.FieldDefinitions["EMAIL"].Required = False
+                view.FieldDefinitions["LOGRADOURO"].Required = False
+                view.FieldDefinitions["BAIRRO"].Required = False
+                view.FieldDefinitions["MUNICIPIO"].Required = False
+                view.FieldDefinitions["PAIS"].Required = False
+                view.FieldDefinitions["ESTADO"].Required = False
+                view.FieldDefinitions["CEP"].Required = False
+            elif entity.Fields["TIPOCRM"].Value == 2:
+                view.FieldDefinitions["NUMEROLOG"].Required = True
+                view.FieldDefinitions["TIPO"].Required = True
+                view.FieldDefinitions["CGCCPF"].Required = True
+                view.FieldDefinitions["INSCRICAOESTADUAL"].Required = True
+                view.FieldDefinitions["EMAIL"].Required = True
+                view.FieldDefinitions["LOGRADOURO"].Required = True
+                view.FieldDefinitions["BAIRRO"].Required = True
+                view.FieldDefinitions["MUNICIPIO"].Required = True
+                view.FieldDefinitions["PAIS"].Required = True
+                view.FieldDefinitions["ESTADO"].Required = True
+                view.FieldDefinitions["CEP"].Required = True
+            elif entity.Fields["TIPOCRM"].Value == 3:
+                view.FieldDefinitions["NUMEROLOG"].Required = True
+                view.FieldDefinitions["TIPO"].Required = True
+                view.FieldDefinitions["CGCCPF"].Required = True
+                view.FieldDefinitions["INSCRICAOESTADUAL"].Required = True
+                view.FieldDefinitions["EMAIL"].Required = True
+                view.FieldDefinitions["LOGRADOURO"].Required = True
+                view.FieldDefinitions["BAIRRO"].Required = True
+                view.FieldDefinitions["MUNICIPIO"].Required = True
+                view.FieldDefinitions["PAIS"].Required = True
+                view.FieldDefinitions["ESTADO"].Required = True
+                view.FieldDefinitions["CEP"].Required = True
+            else:
+                view.FieldDefinitions["NUMEROLOG"].Required = True
+                view.FieldDefinitions["TIPO"].Required = True
+                view.FieldDefinitions["CGCCPF"].Required = True
+                view.FieldDefinitions["INSCRICAOESTADUAL"].Required = True
+                view.FieldDefinitions["EMAIL"].Required = True
+                view.FieldDefinitions["LOGRADOURO"].Required = True
+                view.FieldDefinitions["BAIRRO"].Required = True
+                view.FieldDefinitions["MUNICIPIO"].Required = True
+                view.FieldDefinitions["PAIS"].Required = True
+                view.FieldDefinitions["ESTADO"].Required = True
+                view.FieldDefinitions["CEP"].Required = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

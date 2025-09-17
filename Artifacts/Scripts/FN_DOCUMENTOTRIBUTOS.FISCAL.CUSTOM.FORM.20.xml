@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOTRIBUTOS.FISCAL.CUSTOM.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOTRIBUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    
+    if widget.Entity == None: return
+    registro = widget.Entity
+    if (registro.State == EntityState.Read):
+        botaoPISCOFINSVisible = registro.BotaoPisCofinsVisible()
+        if (not botaoPISCOFINSVisible):
+            widget.View.Commands["CMD_PISCOFINS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOASEMAFOROITEM.GRID</ViewName>
+  <EntityName>K_CRM_PESSOASEMAFOROITEM</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import DateTime
+    
+    status = int(entity.Fields["STATUS"].Value)
+    text = str(entity.Fields["STATUS"].Text)
+    
+    if entity.Fields["PRAZO"] != None:
+        if entity.Fields["PRAZO"] &lt; DateTime.Now and status not in [3]:
+            i = 0
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#E35B5A"
+                i += 1
+    
+    if status in [1]:
+        row.GetCellByName("STATUS").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-blue'&gt;"+text+"&lt;/span&gt;"
+        
+    if status in [2]:
+        row.GetCellByName("STATUS").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-yellow-crusta'&gt;"+text+"&lt;/span&gt;"
+        
+    if status in [3]:
+        row.GetCellByName("STATUS").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-green-jungle'&gt;"+text+"&lt;/span&gt;"
+     
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

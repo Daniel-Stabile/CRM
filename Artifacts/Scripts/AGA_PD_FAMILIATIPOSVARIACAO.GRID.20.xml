@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_FAMILIATIPOSVARIACAO.GRID</ViewName>
+  <EntityName>PD_FAMILIATIPOSVARIACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None: return;
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    from Benner.Corporativo.Definicoes.Materiais import PDFamiliaProduto
+    
+    entidade = widget.ProviderWidget.Entity
+    tabela = entidade.Definition.Name
+    
+    if tabela == PDFamiliaProduto.GetEntityDefinition().Name:
+        ehUltimoNivel = widget.ProviderWidget.Entity.UltimoNivel
+        widget.Hidden = not ehUltimoNivel
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

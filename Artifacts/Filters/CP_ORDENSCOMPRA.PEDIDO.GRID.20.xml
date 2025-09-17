@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRA.PEDIDO.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Padrão</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2 E 3</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DATADAORDEM">
+    <TableName>CP_ORDENSCOMPRA</TableName>
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>entre</Name>
+      <DatabaseOperator>BETWEEN</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Data</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="ORDEMCOMPRA">
+    <TableName>CT_PEDIDOSEMPENHOS</TableName>
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>em</Name>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Ordem compra</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="3" FieldName="FORNECEDOR">
+    <TableName>CP_ORDENSCOMPRA</TableName>
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>em</Name>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Fornecedor</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <VirtualTableFormView>CT_VT_FILTROORDEMCOMPRA.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>A.FORNECEDOR IN (@CAMPO(FORNECEDOR))</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

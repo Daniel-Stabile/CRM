@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_GRUPOUSUARIOS.GERENCIARUSUARIOS.FORM</ViewName>
+  <EntityName>Z_GRUPOUSUARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_SalvarExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_SalvarExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes import ZGrupoUsuariosUtil
+    
+    grupoUsuarios = ZGrupoUsuariosUtil()
+    
+    if entity.Handle.IsValid() and entity.Fields["INATIVO"]:
+        grupoUsuarios.VerificarAlteracaoParaInativado(entity.Handle)
+
+    if grupoUsuarios.ExigirConfirmacao:
+        command.RequestConfirmationBeforeExecute(grupoUsuarios.MensagemConfirmacao)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

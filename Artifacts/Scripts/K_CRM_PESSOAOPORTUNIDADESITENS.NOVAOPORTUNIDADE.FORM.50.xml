@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESITENS.NOVAOPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESITENS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORDESCONTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORDESCONTOValueChanged(view, entity):
+    
+    item        = entity.Fields["ITEM"].Handle;
+    desconto    = entity.Fields["VALORDESCONTO"];
+    valor       = entity.Fields["VALOR"];
+    quantidade  = entity.Fields["QUANTIDADE"];
+    
+    if item.IsValid():
+        entity.Fields["VALORFINAL"] = quantidade*(valor*(100 - desconto)/100)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORDESCONTOLUMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORDESCONTOLUMValueChanged(view, entity):
+    
+    item        = entity.Fields["ITEM"].Handle;
+    desconto    = entity.Fields["VALORDESCONTOLUM"];
+    valor       = entity.Fields["VALORLUM"];
+    quantidade  = entity.Fields["QUANTIDADE"];
+    
+    if item.IsValid():
+        entity.Fields["VALORFINALLUM"] = quantidade*( valor*(100 - desconto)/100)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntityDefinition   
+    from Benner.Tecnologia.Common import Entity
+
+    entity = widget.Entity;
+
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["OPORTUNIDADE"].Handle;
+        versao = entity.Fields["VERSAO"]; 
+        critProposta = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.TIPO = 2");
+        critProposta.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        critProposta.Parameters.Add(Parameter("VERSAO", versao));
+        proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), critProposta);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntityDefinition   
+    from Benner.Tecnologia.Common import Entity
+    
+    #widget.MessagePanel.ShowMessage(widget.ProviderWidget.Entity.Fields["OPORTUNIDADE"].Instance.Fields["PESSOA"].Instance.Fields["NOME"].ToString(), MessageType.Information)
+    
+    #entity = widget.Entity;
+    
+    #if None != entity: 
+    #    return;
+        
+    #widget.View.Commands["New"].Visible = False;  
+
+    #if entity.Fields["OPORTUNIDADE"].Handle.IsValid():
+    #    oportunidade = entity.Fields["OPORTUNIDADE"];
+    #    versao = entity.Fields["VERSAO"]; 
+    #    critProposta = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.TIPO = 2");
+    #    critProposta.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+    #    critProposta.Parameters.Add(Parameter("VERSAO", versao));
+    #    proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), critProposta);
+    #    if None != proposta:
+    #        if proposta.Count &gt; 0:
+                #widget.MessagePanel.ShowMessage("Não é possivel incluir itens em uma oportunidade que ja teve proposta impressa", MessageType.Warning)
+    #            return;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnMERCADORIAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMERCADORIAValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntityDefinition   
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import QuerySource
+    
+    produto = entity.Fields["PRODUTO"];
+    
+    #sql = "SELECT HANDLE FROM K_CRM_PESSOAOPORTUNIDADESITENS WHERE PRODUTO = :PRODUTO";
+    #crit = Criteria();
+    #crit.Parameters.Add("PRODUTO", produto.Handle.Value);
+    #entityDefinition = EntityDefinition.Create();
+    #entityDefinition.EntitySource = QuerySource(sql);
+    #itens = Entity.GetMany(entityDefinition, crit);
+    crit = Criteria("A.PRODUTO = :PRODUTO AND A.VERSAO = :VERSAO");
+    crit.Parameters.Add(Parameter("PRODUTO", produto.Handle.Value));
+    crit.Parameters.Add(Parameter("VERSAO", entity.Versao));
+    itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), crit);
+    
+    if itens.Count &gt; 0:
+        for item in itens:
+            if entity.Mercadoria.Instance.Item.Instance.Venda.Instance.Nome == item.Mercadoria.Instance.Item.Instance.Venda.Instance.Nome:
+            #if item.Mercadoria.Instance.Item.Instance.Venda.Instance.Nome == "Qtd. Usuarios":
+                entity.Fields["QUANTIDADE"] = item.Quantidade;
+                entity["QUANTIDADE"].ReadOnly = True;
+                break;
+            elif entity.Fields["MERCADORIA"] != None and entity.Fields["MERCADORIA"].Handle.IsValid:
+                query = "SELECT USUARIOSMIN FROM K_CRM_TABELASPRECO WHERE HANDLE IN (SELECT TABELAPRECO FROM K_CRM_TABELASPRECOITENS WHERE HANDLE IN (:MERCADORIA))";
+                criterio = Criteria();
+                criterio.Parameters.Add(Parameter("MERCADORIA", entity.Fields["MERCADORIA"].Handle.Value.ToString()))
+                ed = EntityDefinition.Create()
+                ed.EntitySource = QuerySource(query)
+                minimousuarios = Entity.GetFirstOrDefault(ed, criterio);
+                if minimousuarios.Fields["USUARIOSMIN"] != None:
+                    entity.Fields["QUANTIDADE"] = minimousuarios.Fields["USUARIOSMIN"];
+    else:
+        if entity.Fields["MERCADORIA"] != None:
+            if entity.Fields["MERCADORIA"].Handle.IsValid:
+                query = "SELECT USUARIOSMIN FROM K_CRM_TABELASPRECO WHERE HANDLE IN (SELECT TABELAPRECO FROM K_CRM_TABELASPRECOITENS WHERE HANDLE IN (:MERCADORIA))";
+                criterio = Criteria();
+                criterio.Parameters.Add(Parameter("MERCADORIA", entity.Fields["MERCADORIA"].Handle.Value.ToString()))
+                ed = EntityDefinition.Create()
+                ed.EntitySource = QuerySource(query)
+                minimousuarios = Entity.GetFirstOrDefault(ed, criterio);
+                if minimousuarios.Fields["USUARIOSMIN"] != None:
+                    entity.Fields["QUANTIDADE"] = minimousuarios.Fields["USUARIOSMIN"];
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

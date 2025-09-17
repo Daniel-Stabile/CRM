@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_RECEBIMENTOFISICO.FORM</ViewName>
+  <EntityName>CP_RECEBIMENTOFISICO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.Entity.Handle.IsInvalid()): return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRecebimentoFisico
+    
+    handlePai = widget.Entity["RECEBIMENTOFISICOPAI"].GetInt64()
+    podeAlterar = CPRecebimentoFisico.TipoPaiPermiteAlteracao(handlePai) and CPRecebimentoFisico.StatusPaiPermiteAlteracao(handlePai)
+    podeUtilizarRateio = CPRecebimentoFisico.VisibilidadeBotaoRateio(handlePai)
+    podeInserir = CPRecebimentoFisico.TipoPaiPermiteInsercao(handlePai) and CPRecebimentoFisico.StatusPaiPermiteAlteracao(handlePai)
+    
+    widget.View.Commands["NEW"].Visible = podeInserir
+    widget.View.Commands["EDIT"].Visible = podeAlterar
+    widget.View.Commands["DELETE"].Visible = podeAlterar
+    widget.View.Commands["SaveNew"].Visible = podeInserir
+    
+    widget.View.Commands["CMD_RATEIO"].Visible = podeUtilizarRateio
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_ACOESRELACIONAMENTO.FORM</ViewName>
+  <EntityName>CRM_ACOESRELACIONAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_INSERIRPESSOASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_INSERIRPESSOASExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from System.Collections import Hashtable
+    from System.Web import HttpContext
+    from System.Web import HttpRequest
+    from System.Web import HttpResponse
+    
+    if (entity.Fields["STATUS"].Value != 1):
+        raise CancelledOperationException("O status da ação não permite alteração !")
+    
+    HttpContext.Current.Session["HANDLEACAO"] = entity.Handle
+    #HttpContext.Current.Response.Redirect("~/PortalCRM/e/CRM_ACOESRELACIONAMENTO/SelecaoPessoas.aspx")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import BennerContext
+    
+    entity = widget.Entity
+    
+    if (not entity is None):
+        handleResponsavel = entity.Fields["RESPONSAVEL"].Handle
+        handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+        widget.View.Commands["CMD_INSERIRPESSOAS"].Visible = (entity.Fields["STATUS"].Value == 1 and handleResponsavel == handleUsuario)
+        widget.View.Commands["CMD_EXECUTAR"].Visible = (entity.Fields["STATUS"].Value == 1 and handleResponsavel == handleUsuario)
+        widget.View.Commands["CMD_CANCELAR"].Visible = ((entity.Fields["STATUS"].Value == 1 or entity.Fields["STATUS"].Value == 2) and handleResponsavel == handleUsuario)
+        widget.View.Commands["Edit"].Visible = (entity.Fields["STATUS"].Value == 1 and handleResponsavel == handleUsuario)
+        widget.View.Commands["Delete"].Visible = (entity.Fields["STATUS"].Value == 1 and handleResponsavel == handleUsuario)
+        if (entity.State == EntityState.Initialized):
+            entity.Fields["RESPONSAVEL"].Handle = handleUsuario
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXECUTARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXECUTARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma execução da Ação de Relacionamento?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    
+    if (entity.Fields["STATUS"].Value == 2 and entity.Fields["STATUS"].Value != entity.OriginalFieldValues["STATUS"].Value):
+        command.RequestConfirmationBeforeExecute("Confirma a execução da Ação de Relacionamento?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveNewExecute(command, entity):
+    OnSaveExecute(command, entity)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEditExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEditExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (entity.Fields["STATUS"].Value != 1):
+        raise CancelledOperationException("Status da ação de relacionamento não permite edição!")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (entity.Fields["STATUS"].Value != 1):
+        raise CancelledOperationException("Status da ação de relacionamento não permite edição!")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma o cancelamento da Ação de Relacionamento?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

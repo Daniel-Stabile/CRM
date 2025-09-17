@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_EMPENHOS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>CT_EMPENHOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Status</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="STATUS">
+    <TableName>CT_EMPENHOS</TableName>
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ArrayOfListItem">
+      <ListItem>
+        <Value>1</Value>
+        <Text>Cadastrado</Text>
+      </ListItem>
+      <ListItem>
+        <Value>2</Value>
+        <Text>Parcialmente encerrado</Text>
+      </ListItem>
+      <ListItem>
+        <Value>3</Value>
+        <Text>Encerrado</Text>
+      </ListItem>
+      <ListItem>
+        <Value>4</Value>
+        <Text>Cancelado</Text>
+      </ListItem>
+    </Value>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>(A.STATUS IN ('1', '2', '3', '4'))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

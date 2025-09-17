@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_CLI_FINANCEIRO_NOTAFISCAL_PARCELAS.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    saldo = entity.Fields["VALOR"] - entity.Fields["VALORESBAIXADOS"];
+    row.GetCellByName("CUSTOM_SALDO").Text = saldo.ToString("C2");
+    
+    if((entity.Fields["NUMEROBANCO"] == None and entity.Fields["ARQUIVOBLOQUETO"] == None) or saldo &lt;= 0):
+        if row.GetCustomCommand("CMD_IMPRIMIR") &lt;&gt; None:
+            row.GetCustomCommand("CMD_IMPRIMIR").Enabled = False;
+        if row.GetCustomCommand("CMD_ENVIAREMAIL") &lt;&gt; None:            
+            row.GetCustomCommand("CMD_ENVIAREMAIL").Enabled = False;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

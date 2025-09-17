@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TS_EXTRATOBANCARIO.DIGITAREXTRATO.GRID</ViewName>
+  <EntityName>TS_EXTRATOBANCARIO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("System.Web")
+    from System.Web.UI.WebControls import HyperLink
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    
+    if entity == None: return
+
+    if entity["NATUREZA"].GetDBValue() != None:
+        cor = "text-primary"
+        if entity["NATUREZA"].GetDBValue() == "D":
+            cor = "text-danger"
+        
+        row.GetCellByName("NATUREZA").Text = "&lt;div class='" + cor + "' style='width: 21px'&gt;" + entity["NATUREZA"].GetDBValue() + "&lt;/div&gt;"
+        row.GetCellByName("NATUREZA").Tooltip = entity["NATUREZA"].GetString()
+        row.GetCellByName("NATUREZA").Align = "center"  
+
+    if (entity["CONCILIADO"].GetBoolean() and  row.EditCommand &lt;&gt; None):
+        row.EditCommand.Attributes.Add("disabled", "disabled");
+        row.EditCommand.Attributes.Add("href", "#");
+        row.EditCommand.ToolTip = "Não é possível editar, pois o lançamento já está conciliado."
+        
+    if (entity["CONCILIACAO"].GetInt64() &gt; 0 and  row.DeleteCommand &lt;&gt; None):
+        row.DeleteCommand.Attributes.Add("disabled", "disabled");
+        row.DeleteCommand.Attributes.Add("href", "#");
+        row.DeleteCommand.Attributes.Add("onclick", "#");
+        row.DeleteCommand.ToolTip = "Não é possível excluir um extrato bancário conciliado."
+    
+    tipoConciliacao = ""
+    if entity["AUTOMATICOMANUAL"].GetDBValue() == "X":
+        tipoConciliacao = "Automático"
+    elif entity["AUTOMATICOMANUAL"].GetDBValue() == "S":
+        tipoConciliacao = "Sistema"                
+    elif entity["AUTOMATICOMANUAL"].GetDBValue() == "M":
+        tipoConciliacao = "Manual"
+    row.GetCellByName("AUTOMATICOMANUAL").Text = tipoConciliacao</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

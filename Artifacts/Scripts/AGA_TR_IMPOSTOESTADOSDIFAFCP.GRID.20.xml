@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_IMPOSTOESTADOSDIFAFCP.GRID</ViewName>
+  <EntityName>TR_IMPOSTOESTADOSDIFAFCP</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+ 
+    if (entity == None) : return
+ 
+    if ((str(widget.ID) == "WIDGET_311_8057") and entity["ICMSDIFAFCP"].GetDBValue() == "N"):
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+    if entity == None: return
+
+    if entity.ExistemRegistrosFilhosFormulas():
+        command.RequestConfirmationBeforeExecute("Existem fórmulas vinculadas a esta configuração que serão excluídas. Deseja continuar?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

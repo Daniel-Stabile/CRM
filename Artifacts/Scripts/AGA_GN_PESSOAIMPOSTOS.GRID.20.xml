@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PESSOAIMPOSTOS.GRID</ViewName>
+  <EntityName>GN_PESSOAIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    row.EditCommand.Visible = Utils.VerificaPermissao("MANTERFORNECEDOR", "MODULO_CONTRATOS", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+    row.DeleteCommand.Visible = Utils.VerificaPermissao("EXCLUIRFORNECEDOR", "MODULO_CONTRATOS", "EXCLUIR_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    widget.View.Commands["New"].Visible = Utils.VerificaPermissao("MANTERFORNECEDOR", "MODULO_CONTRATOS", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

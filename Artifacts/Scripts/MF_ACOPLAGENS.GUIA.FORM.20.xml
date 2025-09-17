@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ACOPLAGENS.GUIA.FORM</ViewName>
+  <EntityName>MF_ACOPLAGENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.Entity == None):
+        return
+    
+    if widget.Entity.Fields["ACOPLADO"]:
+        widget.View.Commands["CMD_ACOPLARVEICULO"].Visible = False
+    elif widget.Entity.Fields["DESACOPLADO"]:
+        widget.View.Commands["CMD_ACOPLARVEICULO"].Visible = False
+        widget.View.Commands["CMD_DESACOPLARVEICULO"].Visible = False
+    else:
+        widget.View.Commands["CMD_VOLTARVEICULO"].Visible = False
+        widget.View.Commands["CMD_DESACOPLARVEICULO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

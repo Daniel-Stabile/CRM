@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>FX_CENARIO_POR_PERIODO</Identifier>
+  <Name>FX_CENARIO_POR_PERIODO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CENARIO.TITULOCOLUNA,&#xD;&#xA;       CENARIO.DATA,&#xD;&#xA;       CENARIO.CONTAGERENCIAL,&#xD;&#xA;       SUM(CENARIO.VALOR) VALOR&#xD;&#xA;  FROM FX_CENARIO CENARIO&#xD;&#xA; WHERE CENARIO.FLUXO = 123&#xD;&#xA; GROUP BY CENARIO.TITULOCOLUNA,&#xD;&#xA;          CENARIO.DATA,&#xD;&#xA;          CENARIO.CONTAGERENCIAL&#xD;&#xA; ORDER BY CENARIO.DATA&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="TITULOCOLUNA" From="A" Path="TITULOCOLUNA" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="CONTAGERENCIAL" From="A" Path="CONTAGERENCIAL" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

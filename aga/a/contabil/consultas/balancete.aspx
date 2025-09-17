@@ -1,0 +1,13 @@
+﻿<%@ Page Title="Balancete de verificação" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:ActionView runat="server" ID="BALANCETEDEVERIFICAO" Title="Balancete de verificação" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Fixed" Controller="Consultascontabil" Action="Balancete" PageId="AGA_A_CONTABIL_CONSULTAS_BALANCETES" Level="20" Order="10"  />
+        <wes:HtmlPanel runat="server" ID="RESULTADO" Title="RESULTADO" Subtitle="" PortletCssClass="" PortletLayout="None" BootstrapCols="12" FontIcon="fa fa-table" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" HtmlBase64="PGRpdiBjbGFzcz0icG9ydGxldCBsaWdodCI+CiAgICA8ZGl2IGNsYXNzPSJwb3J0bGV0LXRpdGxlIj4KICAgICAgICA8ZGl2IGNsYXNzPSJjYXB0aW9uIGNvbGxhcHNpYmxlIj4KICAgICAgICAgICAgPGkgY2xhc3M9ImZhIGZhLXRhYmxlIGZvbnQtZ3JlZW4tc2hhcnAiPjwvaT48c3BhbiBjbGFzcz0iY2FwdGlvbi1zdWJqZWN0IGZvbnQtZ3JlZW4tc2hhcnAgYm9sZCB1cHBlcmNhc2UiPkRFTU9OU1RSQVRJVk8gQkFMQU5DRVRFIERFIFZFUklGSUNBw4fDg088L3NwYW4+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0idG9vbHMiPjwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImFjdGlvbnMiPgogICAgICAgICAgICA8YSBocmVmPSIjIiBvbmNsaWNrPSJSZWRpcmVjaW9uYXJQYXJhRmlsdHJvcygpIiBjbGFzcz0iYnRuIGJ0bi1jaXJjbGUgYnRuLWRlZmF1bHQiIHRpdGxlPSJWb2x0YXIgcGFyYSB0ZWxhIGRlIGZpbHRyb3MiPjxpIGNsYXNzPSJmYSBmYS1hcnJvdy1sZWZ0Ij48L2k+IFZvbHRhciA8L2E+CiAgICAgICAgICAgIDxhIGhyZWY9IiMiIG9uY2xpY2s9IkV4cG9ydGFyUGxhbmlsaGEoJCgnI3RibEJhbGFuY2V0ZScpWzBdLCAnQmFsYW5jZXRlIGRlIHZlcmlmaWNhw6fDo28nLCAnQkFMQU5DRVRFJyk7IiBjbGFzcz0iYnRuIGJ0bi1jaXJjbGUgYnRuLWRlZmF1bHQiIHRpdGxlPSJFeHBvcnRhciBwYXJhIHBsYW5pbGhhIGRvIGV4Y2VsIj48aSBjbGFzcz0iZmEgZmEtZmlsZS1leGNlbC1vIj48L2k+IEV4cG9ydGFyIDwvYT48YSBjbGFzcz0iYnRuIGJ0bi1jaXJjbGUgYnRuLWljb24tb25seSBidG4tZGVmYXVsdCBmdWxsc2NyZWVuIiBocmVmPSJqYXZhc2NyaXB0OkFqdXN0YXJEaXYodGhpcykiIG9uY2xpY2s9IkFqdXN0YXJEaXYodGhpcykiIHRpdGxlPSJFeGliaXIgdGVsYSBjaGVpYSI+IDwvYT4KICAgICAgICA8L2Rpdj4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0icG9ydGxldC1ib2R5IGZvcm0iPgogICAgICAgIDxkaXYgY2xhc3M9InRhYmxlLXNjcm9sbGFibGUiIHN0eWxlPSJoZWlnaHQ6NzB2aCI+CiAgICAgICAgPHRhYmxlIGlkPSJ0YmxCYWxhbmNldGUiPjwvdGFibGU+CiAgICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KPC9kaXY+Cg==" PageId="AGA_A_CONTABIL_CONSULTAS_BALANCETES" Level="20" Order="20"  />
+        </div>
+    
+      </asp:Content>
+    

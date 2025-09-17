@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOPAIANEXOS.GRPACOES.ANEXOS.GRID</ViewName>
+  <EntityName>CP_REQUISICAOPAIANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    command.TransitoryVars.Add("Insercao", True)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    provider = widget.ProviderWidget
+    if provider == None: return
+    entity = provider.Entity
+    if entity == None: return
+    
+    podeInserirEditarExcluirAnexos = entity.PodeInserirEditarExcluirAnexos()
+    widget.View.Commands["New"].Visible = podeInserirEditarExcluirAnexos
+    widget.View.Commands["Edit"].Visible = podeInserirEditarExcluirAnexos
+    widget.View.Commands["Delete"].Visible = podeInserirEditarExcluirAnexos</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

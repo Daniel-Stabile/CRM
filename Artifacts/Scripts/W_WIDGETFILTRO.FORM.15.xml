@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>W_WIDGETFILTRO.FORM</ViewName>
+  <EntityName>W_WIDGETFILTRO</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnENTIDADEVISAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnENTIDADEVISAOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import Handle
+    
+    if entity == None: return
+    entity.Fields["FILTROPADRAO"].Handle.Value = -1
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

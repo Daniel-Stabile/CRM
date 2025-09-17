@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>APROVACAO_AP_CONTRATOS</Identifier>
+  <Name>Aprovação AP Contratos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT DISTINCT (CASE WHEN C.NUMERO IS NULL THEN CAST(D.NUMERO AS VARCHAR(50)) ELSE C.NUMERO END) NUMEROCONTRATOOC,&#xD;&#xA;       C.DATAINICIO,&#xD;&#xA;       C.DATAFIM&#xD;&#xA;  FROM CP_RECEBIMENTOFISICO A&#xD;&#xA;       INNER JOIN FN_DOCUMENTOS B ON (B.RECEBIMENTOFISICO = A.RECEBIMENTOFISICOPAI)&#xD;&#xA;       LEFT JOIN CN_CONTRATOS C ON (C.HANDLE = A.CONTRATO)&#xD;&#xA;       LEFT JOIN CP_ORDENSCOMPRA D ON (D.HANDLE = A.ORDEMCOMPRA)&#xD;&#xA; WHERE B.HANDLE = COALESCE(CAST('@~SESSAO(APROVACAO.AP.CONTRATOS.HANDLE)' AS INTEGER), 0)&#xD;&#xA; ORDER BY 1 " />
+  <Fields>
+    <Field Alias="NUMEROCONTRATOOC" From="A" Path="NUMEROCONTRATOOC" />
+    <DateField Alias="DATAINICIO" From="A" Path="DATAINICIO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAFIM" From="A" Path="DATAFIM" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

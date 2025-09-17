@@ -1,0 +1,16 @@
+﻿@model List<Benner.Tecnologia.Common.EntityBase>
+
+
+@foreach (var livro in Model)
+{
+    var nota = int.Parse(livro.Fields["NOTA"].ToString());
+
+    for (int i = 0; i < nota; i++)
+    {
+        @Html.Raw("<i class=\"fa fa-star\"></i> ")
+    }
+
+    <br/>
+    @Html.DisplayFor(model => livro.Fields["REVIEW"])
+    <br/><br/>
+}

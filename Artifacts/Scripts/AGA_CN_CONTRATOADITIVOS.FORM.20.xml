@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOADITIVOS.FORM</ViewName>
+  <EntityName>CN_CONTRATOADITIVOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LIBERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LIBERARExecute(command, entity):
+    if (entity.VerificarSeTemProrrogacaoAditivo()):
+        command.RequestConfirmationBeforeExecute("O aditivo possui prorrogação e adição de itens, o que caracteriza uma renovação de contrato, porém esta opção não foi habilitada no aditivo. Deseja continuar?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoAditivo
+    
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity
+    if registro == None: return
+            
+    contratoAprovado = CNContratoAditivo.ContratoAprovado(long(registro.Fields["CONTRATO"].Handle.Value))
+    
+    widget.View.Commands["New"].Visible = contratoAprovado
+    widget.View.Commands["Edit"].Visible = contratoAprovado
+    widget.View.Commands["Delete"].Visible = contratoAprovado
+        
+    if (contratoAprovado):
+        status = int(registro.Fields["STATUS"].Value)
+        statusEmElaboracao = 1
+        if status != statusEmElaboracao:
+            widget.View.Commands["Edit"].Visible = False
+            widget.View.Commands["Delete"].Visible = False
+
+    agrupamentoFuncoes = widget.View.Commands["GRP_FUNCOES"]
+    if agrupamentoFuncoes != None and agrupamentoFuncoes.Items["AcompanharAssinaturasDigitais"] != None:
+         agrupamentoFuncoes.Items["AcompanharAssinaturasDigitais"].Visible = registro.ExibirComandoAcompanharAssinaturasDigitais</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

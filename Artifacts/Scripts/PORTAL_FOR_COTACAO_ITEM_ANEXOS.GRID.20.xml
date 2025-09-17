@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_COTACAO_ITEM_ANEXOS.GRID</ViewName>
+  <EntityName>CP_WEB_DOCUMENTOSCOTACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if entity == None :
+        return
+    
+    
+    if entity.HabilitarComandos() :
+        row.EditCommand.Visible = True
+        row.DeleteCommand.Visible = True
+    else :        
+        row.EditCommand.Visible = False
+        row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    if widget.Entity == None :
+        return
+    
+    if widget.Entity.HabilitarComandos() :
+        widget.View.Commands["New"].Visible = True
+    else :        
+        widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

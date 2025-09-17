@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_INDICADORPONTOSCONTROLE.INDICADORES.FORM</ViewName>
+  <EntityName>GP_INDICADORPONTOSCONTROLE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPPlanejamentosEstrategicos
+
+    objetivo = widget.Entity.Fields["INDICADOR"].Instance.Fields["OBJETIVO"].Handle
+
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(objetivo)
+    
+    widget.View.Commands["New"].Visible = cicloEmElaboracao
+    widget.View.Commands["Edit"].Visible = cicloEmElaboracao
+    widget.View.Commands["Delete"].Visible = cicloEmElaboracao
+    
+    possuiProjeto = (widget.Entity.Fields["INDICADOR"].Instance.Fields["PROJETO"].Instance != None)
+    
+    widget.View.Commands["CMD_CALCULARMEDICAO"].Visible = possuiProjeto
+    widget.View.FieldDefinitions["PROJETO"].Visible = possuiProjeto
+    
+    if possuiProjeto:
+        widget.View.FieldDefinitions["PROJETO"].Value = widget.Entity.Fields["INDICADOR"].Instance.Fields["PROJETO"].Instance.Fields["NOME"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

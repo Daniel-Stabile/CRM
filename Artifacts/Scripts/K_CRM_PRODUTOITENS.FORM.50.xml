@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PRODUTOITENS.FORM</ViewName>
+  <EntityName>K_CRM_PRODUTOITENS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    from System import Convert
+    
+    if entity ==None:return
+    if not entity.Fields["TIPO"].Handle.IsValid():return
+    tipo = int(entity.Fields["TIPO"].Handle.Value)
+    produtoItensTipo = entity.Fields["TIPO"].Instance.Fields["NOME"]
+    
+    view.FieldDefinitions["HORAS"].Visible = produtoItensTipo == "Módulo Opcional" #tipo in [3]
+    view.FieldDefinitions["HORAS"].Required = produtoItensTipo == "Módulo Opcional" #tipo in [3]
+    view.FieldDefinitions["VALOR"].Visible = (produtoItensTipo == "Módulo" or produtoItensTipo == "Pacote" or produtoItensTipo == "Módulo Legal") #tipo in [1,2,4]
+    view.FieldDefinitions["VALOR"].Required = (produtoItensTipo == "Módulo" or produtoItensTipo == "Pacote" or produtoItensTipo == "Módulo Legal") #tipo in [1,2,4]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    view = widget.View
+    entity = widget.Entity
+    if entity ==None:return
+    #if not entity.Fields["TIPO"].Handle.IsValid():return
+    #tipo = int(entity.Fields["TIPO"].Handle.Value)
+    
+    #view.FieldDefinitions["HORAS"].Visible = tipo in [3]
+    #view.FieldDefinitions["HORAS"].Required = tipo in [3]
+    #view.FieldDefinitions["VALOR"].Visible = tipo in [1,2,4]
+    #view.FieldDefinitions["VALOR"].Required = tipo in [1,2,4]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

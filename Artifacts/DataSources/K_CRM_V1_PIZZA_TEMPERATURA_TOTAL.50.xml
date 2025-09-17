@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_PIZZA_TEMPERATURA_TOTAL</Identifier>
+  <Name>CRM_V1_PIZZA_TEMPERATURA_TOTAL</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     CASE&#xD;&#xA;       WHEN A.TEMPERATURA = 1 THEN 'NEUTRO'&#xD;&#xA;       WHEN A.TEMPERATURA = 2 THEN 'FIRME'&#xD;&#xA;       WHEN A.TEMPERATURA = 3 THEN 'RISCO'&#xD;&#xA;     END TEMPERATURA,&#xD;&#xA;     CASE&#xD;&#xA;       WHEN A.TEMPERATURA = 1 THEN '#2c82c9'&#xD;&#xA;       WHEN A.TEMPERATURA = 2 THEN '#26c281'&#xD;&#xA;       WHEN A.TEMPERATURA = 3 THEN '#f03434'&#xD;&#xA;     END COR,&#xD;&#xA;     COUNT(HANDLE) TOTAL&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY A.TEMPERATURA&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="TEMPERATURA" From="A" Path="TEMPERATURA" />
+    <Field Alias="COR" From="A" Path="COR" />
+    <Field Alias="TOTAL" From="A" Path="TOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_FINANCEIRO_DOCUMENTOS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Em aberto</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.EMABERTO = 'S'</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.EMABERTO = 'S'</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Em aberto e por período</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2 E 3 E 4</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.EMABERTO = 'S'</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="DATAEMISSAO">
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>maior ou igual</Name>
+      <DatabaseOperator>&gt;=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="3" FieldName="DATAEMISSAO">
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>menor ou igual</Name>
+      <DatabaseOperator>&lt;=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="4" FieldName="DOCUMENTODIGITADO">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>contém</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>%{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.EMABERTO = 'S' AND 1=1 AND 1=1 AND 1=1</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Liquidado</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.EMABERTO = 'N'</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.EMABERTO = 'N'</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Liquidado e por período</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2 E 3 E 4</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DATAEMISSAO">
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>maior ou igual</Name>
+      <DatabaseOperator>&gt;=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="DATAEMISSAO">
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>menor ou igual</Name>
+      <DatabaseOperator>&lt;=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="3">
+    <Value xsi:type="xsd:string">A.EMABERTO = 'N'</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>true</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="4" FieldName="DOCUMENTODIGITADO">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>contém</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>%{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>1=1 AND 1=1 AND A.EMABERTO = 'N' AND 1=1</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

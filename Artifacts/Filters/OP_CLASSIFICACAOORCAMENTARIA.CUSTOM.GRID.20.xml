@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_CLASSIFICACAOORCAMENTARIA.CUSTOM.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>OP_CLASSIFICACAOORCAMENTARIA</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Filtro Padrão</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="CATEGORIA">
+    <TableName>OP_PROJETOS</TableName>
+    <FieldDefinitionName>ListFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ArrayOfListItem">
+      <ListItem>
+        <Value>1</Value>
+        <Text>Projetos</Text>
+      </ListItem>
+      <ListItem>
+        <Value>2</Value>
+        <Text>Atividades</Text>
+      </ListItem>
+      <ListItem>
+        <Value>3</Value>
+        <Text>Operação Especial</Text>
+      </ListItem>
+    </Value>
+    <Label>Tipo</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>((A.PROJETO IN(SELECT B.HANDLE FROM OP_PROJETOS B WHERE ((B.CATEGORIA IN (1, 2, 3))))))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

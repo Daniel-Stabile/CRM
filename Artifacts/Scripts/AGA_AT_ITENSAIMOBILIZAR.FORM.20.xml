@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_ITENSAIMOBILIZAR.FORM</ViewName>
+  <EntityName>AT_ITENSAIMOBILIZAR</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    widget.View.Commands["CMD_IMOBILIZAR"].Visible = AuthorizationHelper.HasTask("MANTER_BENSAIMOBILIZAR")
+    
+    entity = widget.Entity
+    RemovePrefixoMoedas("ICMSNORMALNF", entity)
+    RemovePrefixoMoedas("ICMSDIFERENCIALNF", entity)
+    RemovePrefixoMoedas("ICMSNORMALFRETE", entity)
+    RemovePrefixoMoedas("ICMSDIFERENCIALFRETE", entity)
+    RemovePrefixoMoedas("ICMSST", entity)
+    RemovePrefixoMoedas("VALORICMS", entity)
+    
+def RemovePrefixoMoedas(nomeCampo, entidade):
+    if entidade == None: return
+    entidade.Fields[nomeCampo] = str(str(str("{:,.2f}".format(entidade[nomeCampo].GetDecimal())).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

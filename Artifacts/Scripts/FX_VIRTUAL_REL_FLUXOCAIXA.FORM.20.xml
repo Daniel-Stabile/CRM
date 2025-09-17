@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_VIRTUAL_REL_FLUXOCAIXA.FORM</ViewName>
+  <EntityName>FX_VIRTUAL_REL_FLUXOCAIXA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFLUXOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFLUXOValueChanged(view, entity):
+
+    fluxo = entity.Fields["FLUXO"].Instance
+    if fluxo == None: return
+
+    entity.Fields["DATAINICIO"] = fluxo.Fields["DATAINICIO"]
+    entity.Fields["DATAFIM"] = fluxo.Fields["DATAFIM"] 
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOFLUXOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOFLUXOValueChanged(view, entity):
+
+    if entity == None: 
+        return
+    
+    entity.Fields["FLUXO"].Instance = None
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_TAREFAS.GRID</ViewName>
+  <EntityName>Z_TAREFAS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFILTROFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFILTROFilter(args):
+    args.WhereClause.Parameters[0].Value = "%"+ args.WhereClause.Parameters[0].Value +"%"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

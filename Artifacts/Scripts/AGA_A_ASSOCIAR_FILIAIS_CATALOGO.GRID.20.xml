@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_A_ASSOCIAR_FILIAIS_CATALOGO.GRID</ViewName>
+  <EntityName>FILIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnAssociarExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnAssociarExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CP_CATALOGOSFORNECIMENTO"))    
+    command.TransitoryVars.Add("HANDLECATALOGO", item.Handle)    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

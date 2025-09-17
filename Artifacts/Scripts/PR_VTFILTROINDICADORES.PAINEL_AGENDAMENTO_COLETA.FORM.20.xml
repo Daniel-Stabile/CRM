@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_VTFILTROINDICADORES.PAINEL_AGENDAMENTO_COLETA.FORM</ViewName>
+  <EntityName>PR_VTFILTROINDICADORES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ABRIRPAGINAINDICADORESPRODUCAOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ABRIRPAGINAINDICADORESPRODUCAOExecute(command, entity):
+    import clr
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")
+        #</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

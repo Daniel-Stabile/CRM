@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_VERSOESORCAMENTOS.INICIARVERSAO.FORM</ViewName>
+  <EntityName>CT_VERSOESORCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CORRIGIRENCERRADOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CORRIGIRENCERRADOSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma correção do valor encerrado dos pedidos de empenho com situação de encerrado mas com valor em aberto?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELAMANUAISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELAMANUAISExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma cancelamento/encerramento dos pedidos manuais?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELASALDOENCERRADASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELASALDOENCERRADASExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma encerramento dos saldos não utilizados dos pedidos de empenho originados de requisições de suprimentos cujas Ordens de compra estejam encerradas?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARENCERRARSALDOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARENCERRARSALDOSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma encerramento dos saldos não utilizados dos pedidos de empenho originados de requisições de suprimentos cujas Ordens de compra estejam com status de confirmadas ou recebendo?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARPEDIDOSOCExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARPEDIDOSOCExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma cancelamento/encerramento dos pedidos de empenho originados de requisições de suprimentos encerradas cujas Ordens de compra estejam com status de canceladas?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARENCERRARPEDIDOSGERADOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARENCERRARPEDIDOSGERADOSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma cancelamento/encerramento dos pedidos de empenho originados de Ordens de compra que estejam com status de canceladas?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARPEDIDOSFOLHAExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARPEDIDOSFOLHAExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma cancelamento/encerramento dos pedidos de folha de pagamento?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARACRESCIMOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARACRESCIMOSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma cancelamento/encerramento dos pedidos de acréscimos?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARAQUISICAOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARAQUISICAOExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma cancelamento/encerramento dos pedidos de requisições de aquisições?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

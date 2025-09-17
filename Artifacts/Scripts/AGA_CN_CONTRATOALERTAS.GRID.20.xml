@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOALERTAS.GRID</ViewName>
+  <EntityName>CN_CONTRATOALERTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    if widget.ProviderWidget &lt;&gt; None and (widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+        
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    widget.View.Commands["CMD_NOVO"].Visible = AuthorizationHelper.PodeInserirEntidade(widget.View.EntityDefinition.Name)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

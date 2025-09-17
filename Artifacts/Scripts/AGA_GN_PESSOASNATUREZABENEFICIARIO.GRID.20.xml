@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PESSOASNATUREZABENEFICIARIO.GRID</ViewName>
+  <EntityName>GN_PESSOASNATUREZABENEFICIARIO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None: return
+    
+    cliente = widget.ProviderWidget.Entity
+    
+    if cliente == None: return
+
+    widget.Hidden = not cliente.VisibilidadeDirfBeneficiarioResidenteExterior
+    
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    widget.View.Commands["New"].Visible = Utils.VerificaPermissao("MANTERFORNECEDOR", "MODULO_CONTRATOS", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    row.EditCommand.Visible = Utils.VerificaPermissao("MANTERFORNECEDOR");
+    row.DeleteCommand.Visible = Utils.VerificaPermissao("EXCLUIRFORNECEDOR");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

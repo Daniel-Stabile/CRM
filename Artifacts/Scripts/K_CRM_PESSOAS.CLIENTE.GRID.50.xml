@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS.CLIENTE.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    # ======= FASES ===========
+    #   fase 1 = Suspecção, 
+    #   fase 2 = Prospecção, 
+    #   fase 3 = Oportunidade,  
+    #   fase 4 = Negociação,
+    #   fase 5 = Cliente,
+    # ======= END FASES =======
+    
+    # ======= STATUS ===========
+    #   status 1 = Não integrado, 
+    #   status 2 = Integrado
+    # ======= END FASES =======
+    
+    status = int(entity.Fields["INTEGRACAOEXACT"].Value);
+    faseNome = entity.Fields["FASE"].Instance.Fields["NOME"]
+    fase = int(entity.Fields["FASE"].Handle.Value)
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    
+    usuario = BennerIdentity.Current.UserHandle
+    responsavel = entity.Fields["USUARIORESPONSAVEL"].Handle
+    
+    if fase in [1]:
+        row.GetCellByName("FASE").Text = "&lt;span class='label bg-purple-wisteria'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    if fase in [2]:
+        row.GetCellByName("FASE").Text = "&lt;span class='label bg-yellow-casablanca'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    if fase in [3]:
+        row.GetCellByName("FASE").Text = "&lt;span class='label bg-blue-sharp'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    if fase in [4]:
+        row.GetCellByName("FASE").Text = "&lt;span class='label bg-red-intense'&gt;"+faseNome+"&lt;/span&gt;"  
+        
+    if fase in [5]:
+        row.GetCellByName("FASE").Text = "&lt;span class='label bg-green-haze'&gt;"+faseNome+"&lt;/span&gt;"     
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

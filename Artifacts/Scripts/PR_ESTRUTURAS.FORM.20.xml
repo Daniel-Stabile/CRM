@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_ESTRUTURAS.FORM</ViewName>
+  <EntityName>PR_ESTRUTURAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import BennerContext
+    if BennerContext.Security.GetCurrentBranch(BennerContext.Administration.DefaultSystemInstanceName) == None:
+        raise CancelledOperationException("Selecione uma filial antes de continuar.")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

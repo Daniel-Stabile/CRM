@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_META_ANUAL_VICE_PRESIDENTE</Identifier>
+  <Name>CRM_META_ANUAL_VICE_PRESIDENTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALORMETA) PLANEJADO,&#xD;&#xA;(SELECT COALESCE(SUM(VALORTOTAL+RECORRENTE+VALORSAAS),0)&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE YEAR(DATAFECHAMENTO) = YEAR(GETDATE())&#xD;&#xA;AND STATUS = 10) REALIZADO&#xD;&#xA;FROM K_CRM_METAS A&#xD;&#xA;WHERE YEAR(GETDATE()) = YEAR(GETDATE())" />
+  <Fields>
+    <DecimalField Alias="PLANEJADO" From="A" Path="PLANEJADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="REALIZADO" From="A" Path="REALIZADO" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

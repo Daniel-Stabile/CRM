@@ -1,0 +1,44 @@
+﻿<%@ Page Title="Informações relativas a totalizadores pela natureza do rendimento e código de receita" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+    <wes:AjaxForm runat="server" ID="INFORELATIVASATOTALIZADORESPELANATUREZADORENDIMENTOECDIGODERECEITA" Title="Info. relativas a totalizadores pela natureza do rendimento e código de receita" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_INFORMACOESBASETRIBUTOS.CUSTOM.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="REINF_REGISTRO_R9015_INFORMACAO_NATRENDIMENTO_CR" Level="20" Order="10"  />
+      <div class="col-md-12"><div class="portlet light">
+    <div class="tabbable-line">
+      <ul class="nav nav-tabs">
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSMENSAL" class="active"><a data-toggle="tab" href="#tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSMENSAL"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Totalizador das bases de cálculo , apuração e retenção dos tributos Mensal")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSQUINZENAL"><a data-toggle="tab" href="#tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSQUINZENAL"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Totalizador das bases de cálculo , apuração e retenção dos tributos Quinzenal")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDECENDIAL"><a data-toggle="tab" href="#tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDECENDIAL"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Totalizador das bases de cálculo, apuração e retenção dos tributos Decendial")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSSEMANAL"><a data-toggle="tab" href="#tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSSEMANAL"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Totalizador das bases de cálculo, apuração e retenção dos tributos Semanal")%></a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDIRIO"><a data-toggle="tab" href="#tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDIRIO"><%= Benner.Tecnologia.Wes.Components.LanguageTranslator.Translate(@"Totalizador das bases de cálculo, apuração e retenção dos tributos Diário")%></a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSMENSAL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSMENSAL" Title="Totalizador das bases de cálculo , apuração e retenção dos tributos Mensal" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORELATIVASATOTALIZADORESPELANATUREZADORENDIMENTOECDIGODERECEITA" ChromeState="Fixed" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_TOTALIZADORAPURACAOMEN.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="(A.INFORMACAONATRENDCODIGORECEITA= @CAMPO(HANDLE))" FormUrl="~/PortalReinf/a/Registros/R9015/TotalizadorMensal.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R9015_INFORMACAO_NATRENDIMENTO_CR" Level="20" Order="20"  /></div>
+        </div>
+        <div class="tab-pane" id="tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSQUINZENAL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSQUINZENAL" Title="Totalizador das bases de cálculo , apuração e retenção dos tributos Quinzenal" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORELATIVASATOTALIZADORESPELANATUREZADORENDIMENTOECDIGODERECEITA" ChromeState="Minimized" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_TOTALIZADORAPURACAOQUI.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="(A.INFORMACAONATRENDCODIGORECEITA= @CAMPO(HANDLE))" FormUrl="~/PortalReinf/a/Registros/R9015/TotalizadorQuinzenal.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R9015_INFORMACAO_NATRENDIMENTO_CR" Level="20" Order="30"  /></div>
+        </div>
+        <div class="tab-pane" id="tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDECENDIAL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDECENDIAL" Title="Totalizador das bases de cálculo, apuração e retenção dos tributos Decendial" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="" ChromeState="Minimized" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_TOTALIZADORAPURACAODEC.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="(A.INFORMACAONATRENDCODIGORECEITA= @CAMPO(HANDLE))" FormUrl="~/PortalReinf/a/Registros/R9015/TotalizadorDecendial.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R9015_INFORMACAO_NATRENDIMENTO_CR" Level="20" Order="40"  /></div>
+        </div>
+        <div class="tab-pane" id="tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSSEMANAL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSSEMANAL" Title="Totalizador das bases de cálculo, apuração e retenção dos tributos Semanal" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORELATIVASATOTALIZADORESPELANATUREZADORENDIMENTOECDIGODERECEITA" ChromeState="Minimized" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_TOTALIZADORAPURACAOSEM.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="(A.INFORMACAONATRENDCODIGORECEITA= @CAMPO(HANDLE))" FormUrl="~/PortalReinf/a/Registros/R9015/TotalizadorSemanal.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R9015_INFORMACAO_NATRENDIMENTO_CR" Level="20" Order="50"  /></div>
+        </div>
+        <div class="tab-pane" id="tabTOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDIRIO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TOTALIZADORDASBASESDECLCULOAPURAOERETENODOSTRIBUTOSDIRIO" Title="Totalizador das bases de cálculo, apuração e retenção dos tributos Diário" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="INFORELATIVASATOTALIZADORESPELANATUREZADORENDIMENTOECDIGODERECEITA" ChromeState="Minimized" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="REINF_TOTALIZADORAPURACAODIA.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="(A.INFORMACAONATRENDCODIGORECEITA= @CAMPO(HANDLE))" FormUrl="~/PortalReinf/a/Registros/R9015/TotalizadorDiario.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="REINF_REGISTRO_R9015_INFORMACAO_NATRENDIMENTO_CR" Level="20" Order="60"  /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+      </asp:Content>
+    

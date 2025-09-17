@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONSULTA_ITENS_SIMPLIFICADA.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>PD_PRODUTOSPAI</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Incluídos nos últimos 30 dias</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.DATAINCLUSAO &gt;= (@HOJE - 30)</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.DATAINCLUSAO &gt;= (@HOJE - 30)</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Pesquisar por</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2 E 3 E 4 E 5 E 6</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="CODIGO">
+    <FieldDefinitionName>IntegerFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>maior ou igual</Name>
+      <DatabaseOperator>&gt;=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="CODIGO">
+    <FieldDefinitionName>IntegerFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>menor ou igual</Name>
+      <DatabaseOperator>&lt;=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+  <FilterCondition Index="3" FieldName="CODIGOREFERENCIA">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>contém</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>%{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+  <FilterCondition Index="4" FieldName="FAMILIA">
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+  </FilterCondition>
+  <FilterCondition Index="5" FieldName="NOME">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>contém</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>%{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+  <FilterCondition Index="6" FieldName="DESCRICAO">
+    <FieldDefinitionName>TextFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>não vazio</Name>
+      <DatabaseOperator>IS NOT NULL</DatabaseOperator>
+      <IsFunction>true</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <VirtualTableFormView>PORTAL_INT_CONSULTAITENS_FILTRO.FORM</VirtualTableFormView>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

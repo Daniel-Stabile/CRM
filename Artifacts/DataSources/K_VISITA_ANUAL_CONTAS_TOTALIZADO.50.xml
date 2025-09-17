@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_VISITA_ANUAL_CONTAS_TOTALIZADO</Identifier>
+  <Name>VISITA_ANUAL_CONTAS_TOTALIZADO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(A.HANDLE) VISITAS&#xD;&#xA;FROM K_CRM_TAREFAUSUARIO A&#xD;&#xA;JOIN K_CRM_PESSOAS B ON A.PESSOA = B.HANDLE&#xD;&#xA;WHERE YEAR(A.DATACONCLUSAO) = YEAR(GETDATE())&#xD;&#xA;AND B.FASE NOT IN (1,6)&#xD;&#xA;AND A.RESPOSTA NOT IN (75)&#xD;&#xA;AND A.TAREFA IN (146,249,247,28)&#xD;&#xA;AND B.FILIAL IN (3,11,15,16,17)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="VISITAS" From="A" Path="VISITAS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

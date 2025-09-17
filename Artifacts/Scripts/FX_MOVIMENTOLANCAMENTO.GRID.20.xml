@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_MOVIMENTOLANCAMENTO.GRID</ViewName>
+  <EntityName>FX_MOVIMENTOLANCAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    if entity.Fields["NATUREZA"].Value == 'C':
+        row.GetCellByName("VALOR").TextColor = "Green"
+    else:
+        row.GetCellByName("VALOR").TextColor = "Red"
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

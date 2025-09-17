@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_ACURACIDADE_INVENTARIO_GERAL</Identifier>
+  <Name>Indicadores materiais - Acuracidade de inventário geral</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT (CASE&#xA;            WHEN SUM(A.QTDECONTAGEMESTOQUESISTEMA) = 0 THEN 0&#xA;            WHEN SUM(A.QTDECONTAGEMESTOQUESISTEMA) &gt; 0 THEN (SUM(A.QTDECONTAGEMESTOQUEFISICO)/SUM(A.QTDECONTAGEMESTOQUESISTEMA) * 100)&#xA;        END) PERCENTUALACURACIDADE,&#xA;        'Acuracidade' ACURACIDADE,&#xA;        PD_DWINDICADORES.EMPRESA,&#xA;        PD_DWINDICADORES.COMPETENCIA&#xA;    FROM PD_DWINDICADORREGISTROS A&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;GROUP BY PD_DWINDICADORES.EMPRESA, PD_DWINDICADORES.COMPETENCIA&#xA;UNION ALL&#xA;SELECT (CASE&#xA;            WHEN SUM(A.QTDECONTAGEMESTOQUESISTEMA) = 0 THEN 0&#xA;            WHEN SUM(A.QTDECONTAGEMESTOQUESISTEMA) &gt; 0 THEN (100 - (SUM(A.QTDECONTAGEMESTOQUEFISICO)/SUM(A.QTDECONTAGEMESTOQUESISTEMA) * 100))&#xA;        END) PERCENTUALACURACIDADE,&#xA;        '' ACURACIDADE,&#xA;        PD_DWINDICADORES.EMPRESA,&#xA;        PD_DWINDICADORES.COMPETENCIA&#xA;    FROM PD_DWINDICADORREGISTROS A&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;GROUP BY PD_DWINDICADORES.EMPRESA, PD_DWINDICADORES.COMPETENCIA" />
+  <Fields>
+    <DecimalField Alias="PERCENTUALACURACIDADE" From="A" Path="PERCENTUALACURACIDADE" FieldDecimalsFormat="0" />
+    <Field Alias="ACURACIDADE" From="A" Path="ACURACIDADE" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <DateField Alias="COMPETENCIA" From="A" Path="COMPETENCIA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_CATALOGOFORNECIMENTOITENS.CUSTOM.FORM</ViewName>
+  <EntityName>CP_CATALOGOFORNECIMENTOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+
+    entity = widget.Entity
+     
+    if entity.EhConfirmar() == True:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        
+    if entity.EhConfirmado() == True:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        
+    if entity.EhVencido() == True:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        
+    if entity.EhCancelado() == True:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

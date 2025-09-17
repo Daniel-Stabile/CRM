@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTONFE.RECFISCAL.FORM</ViewName>
+  <EntityName>FN_DOCUMENTONFE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    if (form == None) : return
+    
+    entity = form.Entity
+    if (entity == None) : return
+    
+    tipo = entity.DefinirTipoNfe(entity)
+    widget.Hidden = not (tipo == 1 or tipo == 3 or tipo == 4)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS.NOVACONTA.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import FieldDefinition
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import EntityDefinition
+    
+    if entity.Fields["RAMOATIVIDADE"].Handle.IsValid():
+        entity.Fields["RAMOATIVIDADE"].Handle = entity.Fields["RAMOATIVIDADE"].Handle
+    else:
+        entity.Fields["RAMOATIVIDADE"].Handle = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_RAMOATIVIDADE"), Criteria("A.NOME = 'Vazio'")).Handle #Handle("16");</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

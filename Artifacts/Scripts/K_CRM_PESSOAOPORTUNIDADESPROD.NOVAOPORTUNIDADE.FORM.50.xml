@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESPROD.NOVAOPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESPROD</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTABELAPRECOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTABELAPRECOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from System.Threading import Thread
+    
+    if entity == None or entity.Fields["TABELAPRECO"].Instance == None:
+        return;
+        
+    #if entity.Fields["TABELAPRECO"].Instance.Fields["USUARIOSMIN"] &gt; 0:
+    #    entity.Fields["QUANTIDADE"] = entity.Fields["TABELAPRECO"].Instance.Fields["USUARIOSMIN"];
+      
+    if entity.Fields["TABELAPRECO"].Handle.IsValid():
+        sql = "SELECT * FROM K_CRM_TABELASPRECO WHERE HANDLE = " + entity.Fields["TABELAPRECO"].Handle.Value.ToString();
+        dadosTabela = Entity.GetFirstOrDefault(EntityDefinition.FromQuery(sql), Criteria.Empty);
+        if dadosTabela != None:
+            view.FieldDefinitions["USUARIOSMIN"].Value = dadosTabela.Fields["USUARIOSMIN"].ToString();
+            view.FieldDefinitions["DATAINICIOTAB"].Value = dadosTabela.Fields["DATAINICIO"].ToString("dd/MM/yyyy");
+            view.FieldDefinitions["DATAFIMTAB"].Value = dadosTabela.Fields["DATAFIM"].ToString("dd/MM/yyyy");
+            
+            if dadosTabela.Fields["USUARIOSMAX"] != None:
+                view.FieldDefinitions["USUARIOSMAX"].Value = dadosTabela.Fields["USUARIOSMAX"].ToString();
+        else:
+            view.FieldDefinitions["USUARIOSMIN"].Value = "";
+            view.FieldDefinitions["DATAINICIOTAB"].Value = "";
+            view.FieldDefinitions["DATAFIMTAB"].Value = "";
+            view.FieldDefinitions["USUARIOSMAX"].Value = "";
+    else:
+        view.FieldDefinitions["USUARIOSMIN"].Value = "";
+        view.FieldDefinitions["DATAINICIOTAB"].Value = "";
+        view.FieldDefinitions["DATAFIMTAB"].Value = "";
+        view.FieldDefinitions["USUARIOSMAX"].Value = "";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntityDefinition   
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import QuerySource
+    
+    view = widget.View;
+    entity = widget.Entity;
+    
+    if entity == None or entity.Handle.IsInvalid():
+        return;
+        
+    oportunidade = entity.Fields["OPORTUNIDADE"];
+    versao = entity.Fields["VERSAO"];
+    opInstance = Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADES"), oportunidade.Handle);
+    Prod =  Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESPROD"), entity.Handle)
+    
+    critItens = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.PRODUTO IN (:PRODUTO)");
+    critItens.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade.Handle));
+    critItens.Parameters.Add(Parameter("VERSAO", versao));
+    critItens.Parameters.Add(Parameter("PRODUTO", entity.Handle));
+    itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), critItens);
+        
+    if itens.Count &gt; 0:
+        entity["PRODUTO"].ReadOnly = True;
+        entity["TABELAPRECO"].ReadOnly = True;
+
+    criterio = Criteria()
+    sql = "SELECT TOP 1 * FROM K_CRM_PO_DESCONTOS A WHERE A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.NIVELAPROVACAO &gt;= 1 AND A.NIVELAPROVACAO &lt;= 5 AND A.DATAAPROVACAO &gt;= (SELECT MAX(DATAAPROVACAO) FROM K_CRM_PO_DESCONTOS AS D2 WHERE A.OPORTUNIDADE = D2.OPORTUNIDADE AND A.VERSAO = D2.VERSAO AND D2.NIVELAPROVACAO = 1) ORDER BY NIVELAPROVACAO DESC";
+    criterio.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade.Handle));
+    criterio.Parameters.Add(Parameter("VERSAO", versao));
+    ed = EntityDefinition.Create();
+    ed.EntitySource = QuerySource(sql);
+    desconto = Entity.GetFirstOrDefault(ed, criterio);
+    if None != desconto and desconto.Fields["STATUS"] not in [3,5] and None != widget.View.Commands["EDIT"] and None != widget.View.Commands["NEW"]:
+        widget.View.Commands["EDIT"].Visible = False;
+        widget.View.Commands["NEW"].Visible = False;
+        
+    if opInstance.Ativo == True:
+        widget.View.Commands["EDIT"].Visible = False;
+        widget.View.Commands["NEW"].Visible = False;
+    
+    if entity.Fields["POSSUIEMPRESAADICIONAL"] == True:
+        view.FieldDefinitions["EMPRESAADICIONAL"].Visible = True;
+        view.FieldDefinitions["EMPRESAADICIONAL"].Required = True;
+        if Prod.Fields["EMPRESAADICIONAL"] == 0:
+            entity.Fields["EMPRESAADICIONAL"] = 1;
+        else:
+            entity.Fields["EMPRESAADICIONAL"] = Prod.Fields["EMPRESAADICIONAL"];
+    else:
+        view.FieldDefinitions["EMPRESAADICIONAL"].Visible = False;
+        view.FieldDefinitions["EMPRESAADICIONAL"].Required = False;
+        entity.Fields["EMPRESAADICIONAL"] = 0;
+        
+    if entity.Fields["TABELAPRECO"].Handle.IsValid():
+        sql = "SELECT * FROM K_CRM_TABELASPRECO WHERE HANDLE = " + entity.Fields["TABELAPRECO"].Handle.Value.ToString();
+        dadosTabela = Entity.GetFirstOrDefault(EntityDefinition.FromQuery(sql), Criteria.Empty);
+        if dadosTabela != None:
+            widget.View.FieldDefinitions["USUARIOSMIN"].Value = dadosTabela.Fields["USUARIOSMIN"].ToString();
+            widget.View.FieldDefinitions["DATAINICIOTAB"].Value = dadosTabela.Fields["DATAINICIO"].ToString("dd/MM/yyyy");
+            widget.View.FieldDefinitions["DATAFIMTAB"].Value = dadosTabela.Fields["DATAFIM"].ToString("dd/MM/yyyy");
+            
+            if dadosTabela.Fields["USUARIOSMAX"] != None:
+                widget.View.FieldDefinitions["USUARIOSMAX"].Value = dadosTabela.Fields["USUARIOSMAX"].ToString();
+        else:
+            widget.View.FieldDefinitions["USUARIOSMIN"].Value = "";
+            widget.View.FieldDefinitions["DATAINICIOTAB"].Value = "";
+            widget.View.FieldDefinitions["DATAFIMTAB"].Value = "";
+            widget.View.FieldDefinitions["USUARIOSMAX"].Value = "";
+    else:
+        widget.View.FieldDefinitions["USUARIOSMIN"].Value = "";
+        widget.View.FieldDefinitions["DATAINICIOTAB"].Value = "";
+        widget.View.FieldDefinitions["DATAFIMTAB"].Value = "";
+        widget.View.FieldDefinitions["USUARIOSMAX"].Value = "";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPOSSUIEMPRESAADICIONALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPOSSUIEMPRESAADICIONALValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

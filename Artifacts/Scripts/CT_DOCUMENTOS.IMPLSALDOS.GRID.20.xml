@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_DOCUMENTOS.IMPLSALDOS.GRID</ViewName>
+  <EntityName>CT_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import BennerContext
+    
+    if entity == None: return;
+    
+    podeConfirmar = BennerContext.BusinessComponent.Call("Benner.Corporativo.Contabil.ImplantacaoSaldo.ImplantacaoSaldo, Benner.Corporativo.Contabil", "VerificarPodeConfirmarDocumento", entity.Handle.Value);
+    podeBloquear = BennerContext.BusinessComponent.Call("Benner.Corporativo.Contabil.ImplantacaoSaldo.ImplantacaoSaldo, Benner.Corporativo.Contabil", "VerificarPodeBloquearDocumento", entity.Handle.Value);
+    
+    row.GetCustomCommand("CMD_CONFIRMAR").Enabled = bool(podeConfirmar) == True
+    row.GetCustomCommand("CMD_BLOQUEAR").Enabled = bool(podeBloquear) == True
+    
+    if bool(entity.Fields["BLOQUEADO"]) == True:
+        row.GetCellByName("BLOQUEADO").Align = "center"
+        row.GetCellByName("BLOQUEADO").FontIcon = "fa fa-lock"
+        row.GetCellByName("BLOQUEADO").TextColor = "red"
+    else:
+        row.GetCellByName("BLOQUEADO").Align = "center"
+        row.GetCellByName("BLOQUEADO").FontIcon = "fa fa-unlock"
+        row.GetCellByName("BLOQUEADO").TextColor = "green"    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["CMD_CONFIRMAR"].Enabled = AuthorizationHelper.HasTask("MANTER_IMPL_SALDOS")
+    widget.View.Commands["CMD_BLOQUEAR"].Enabled = AuthorizationHelper.HasTask("MANTER_IMPL_SALDOS")
+    widget.View.Commands["CMD_EXCLUIRDOCUMENTO"].Enabled = AuthorizationHelper.HasTask("EXCLUIR_IMPL_SALDOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_METAS_FUNIL_STATUS</Identifier>
+  <Name>METAS_FUNIL_STATUS</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     CASE STATUS&#xD;&#xA;        WHEN 1 THEN 'EM ELABORAÇÃO'&#xD;&#xA;        WHEN 2 THEN 'NEGOCIAÇÃO'&#xD;&#xA;        WHEN 6 THEN 'SUSPECT'&#xD;&#xA;        WHEN 7 THEN 'PREVIA DE VALORES'&#xD;&#xA;        WHEN 8 THEN 'PROPOSTA'&#xD;&#xA;        WHEN 10 THEN 'FECHADO'&#xD;&#xA;     END AS STATUS,&#xD;&#xA;     SUM(VALORTOTAL) VALOR,&#xD;&#xA;     CASE STATUS&#xD;&#xA;        WHEN 1 THEN '#5C9BD1'&#xD;&#xA;        WHEN 2 THEN '#F4D03F'&#xD;&#xA;        WHEN 6 THEN '#9B59B6'&#xD;&#xA;        WHEN 7 THEN '#BFBFBF'&#xD;&#xA;        WHEN 8 THEN '#F3C200'&#xD;&#xA;        WHEN 10 THEN '#26C281'&#xD;&#xA;    END AS COR&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE MONTH(DATAFECHAMENTO) = MONTH(GETDATE())&#xD;&#xA;GROUP BY STATUS&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+    <Field Alias="COR" From="A" Path="COR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

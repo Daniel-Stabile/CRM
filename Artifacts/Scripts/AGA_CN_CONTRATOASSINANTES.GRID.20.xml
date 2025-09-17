@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOASSINANTES.GRID</ViewName>
+  <EntityName>CN_CONTRATOASSINANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    if widget.ProviderWidget &lt;&gt; None and (widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    widget.Hidden = CNContrato.AssinantesContratoMostrarTab(widget.Breadcrumb.Parent.Entity.Handle)
+    podeInserir = AuthorizationHelper.PodeInserirEntidade(widget.View.EntityDefinition.Name)
+    breadcrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    contrato = breadcrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_CONTRATOS"))
+    
+    if (not contrato.IsNull()):
+        podeAlterar = CNContrato.PodeAlterarFilialFormulario(contrato.Handle.Value)
+        widget.View.Commands["CMD_NOVO"].Visible = podeAlterar and podeInserir
+        widget.View.Commands["Edit"].Visible = podeAlterar
+        widget.View.Commands["Delete"].Visible = podeAlterar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

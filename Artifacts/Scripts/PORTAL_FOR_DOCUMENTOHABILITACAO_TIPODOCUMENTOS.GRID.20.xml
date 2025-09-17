@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_DOCUMENTOHABILITACAO_TIPODOCUMENTOS.GRID</ViewName>
+  <EntityName>LC_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    if (widget.View.Commands["CMD_EXIGIRDOCUMENTO"] != None):
+        widget.View.Commands["CMD_EXIGIRDOCUMENTO"].Visible = AuthorizationHelper.HasTask("EXCLUIR_CATEGORIADOCUMENTOS") or AuthorizationHelper.HasTask("MANTER_CATEGORIADOCUMENTOS")
+        
+    if (widget.View.Commands["CMD_DISPENSARDOCUMENTO"] != None):
+        widget.View.Commands["CMD_DISPENSARDOCUMENTO"].Visible = AuthorizationHelper.HasTask("EXCLUIR_CATEGORIADOCUMENTOS") or AuthorizationHelper.HasTask("MANTER_CATEGORIADOCUMENTOS")
+        
+    if (widget.View.Commands["CMD_EXCLUIRREGISTRO"] != None):
+        widget.View.Commands["CMD_EXCLUIRREGISTRO"].Visible = AuthorizationHelper.HasTask("EXCLUIR_CATEGORIADOCUMENTOS") or AuthorizationHelper.HasTask("MANTER_CATEGORIADOCUMENTOS")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

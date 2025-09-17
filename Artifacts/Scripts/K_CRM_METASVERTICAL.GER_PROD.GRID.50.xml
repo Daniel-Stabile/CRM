@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASVERTICAL.GER_PROD.GRID</ViewName>
+  <EntityName>K_CRM_METASVERTICAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+    
+    ehGeremteProduto = activeRole == "K_CRM_GERENTE_PRODUTOS"
+    
+    if (ehGeremteProduto):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    sql = "SELECT CASE WHEN (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL_ARQ A JOIN K_CRM_METASVERTICAL B ON B.HANDLE = A.METAVERTICAL WHERE B.HANDLE =  :METAVERTICAL GROUP BY B.VALORMETA) IS NULL THEN (SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL WHERE HANDLE =  :METAVERTICAL) ELSE (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL_ARQ A JOIN K_CRM_METASVERTICAL B ON B.HANDLE = A.METAVERTICAL WHERE B.HANDLE = :METAVERTICAL GROUP BY B.VALORMETA) END SALDO";
+    crit = Criteria()
+    crit.Parameters.Add(Parameter("METAVERTICAL", entity.Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    saldo = Entity.GetFirstOrDefault(ed, crit)
+    
+    if saldo == None:
+        row.GetCellByName("SALDO").Text = "R$ 0,00";
+    elif saldo.Fields["SALDO"] != None:
+        row.GetCellByName("SALDO").Text =saldo.Fields["SALDO"].ToString()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_COTACAO_ITENS.GRID</ViewName>
+  <EntityName>CP_WEB_ITENSCOTACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    pai = widget.ProviderWidget;
+    if pai == None: return
+    registro = pai.Entity;
+    if registro == None: return;
+    emCotacao = bool(registro.Fields["STATUS"].Value in [1]);
+    widget.View.Commands["CustomEdicaoRapida"].Visible = emCotacao;
+    
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if row.EditCommand == None: return
+
+    row.GetCellByName("NUMEROREQUISICAO").Text = entity.ObterNumeroRequisicaoItem();
+    row.EditCommand.Visible = (entity["STATUS"].GetInt64() == 1 and (not entity["EHCANCELADO"].GetBoolean()))
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

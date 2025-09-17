@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDENSVENDA.CONSULTA.GRID</ViewName>
+  <EntityName>CM_ORDENSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LANCFINExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LANCFINExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from  Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    
+    link = FormLinkDefinition()
+    link.Url = "~/aga/e/financeiro/ContasFinanceiras/ContasFinanceiras.aspx"
+    
+    command.OutputDefinition = link
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciOVI
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LANCAMENTOSFINANCEIROSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>import clr
+clr.AddReference("Benner.Corporativo.Definicoes")
+from  Benner.Tecnologia.Common.Components import FormLinkDefinition
+from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+def OnCMD_LANCAMENTOSFINANCEIROSExecute(command, entity):
+    
+    link = FormLinkDefinition()
+    link.Url = "~/aga/e/financeiro/ContasFinanceiras/ContasFinanceiras.aspx"
+    
+    command.OutputDefinition = link
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciOVI
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

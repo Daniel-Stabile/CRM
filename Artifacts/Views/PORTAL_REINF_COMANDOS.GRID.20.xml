@@ -1,0 +1,576 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PORTAL_REINF_COMANDOS.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>REINF_EVENTOS</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="REINF_EVENTOS" name="PORTAL_REINF_COMANDOS.GRID" title="REINF_EVENTOS" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition title="Código (sem utilização)" key="CODIGO" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable xsi:nil="true" />
+        <visibility xsi:nil="true" />
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="" key="New" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Edit" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="SaveNew" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Delete" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="View" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command xsi:type="CommandGroup" title="Cargas de Movimentações" color="btn-primary" key="GRP_CARGAMOVIMENTACAO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Carga de Movimentações eventos R-2000" image="fa fa-flash" key="CMD_SINCRONIZARR2000">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/CargaMovimentacao.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_SINCRONIZACAO</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Carga de Movimentações eventos R-4000      " image="fa fa-flash" key="CMD_SINCRONIZARR4000">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/CargaMovimentacao/SerieR4000.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_SINCRONIZACAOR4000</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Enviar Eventos" image="fa fa-cloud" color="btn-secondary" key="GRP_ENVIAREVENTOS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Enviar evento - R-2000" image="fa fa-cloud" key="CMD_ENVIAREVENTOS_R2000">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Enviar evento - R-4000" image="fa fa-cloud" key="CMD_ENVIAREVENTOS_R4000">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Enviar eventos - todos" image="fa fa-cloud" key="CMD_ENVIAREVENTOS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command title="Inclusões Manuais" image="fa fa-edit" color="btn-primary" key="CMD_INCLUSAOMANUAL">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/PortalReinf/a/Principal/InclusoesManuais.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Totalizadores" image="fa fa-book" color="btn-outline-primary" key="CMD_TOTALIZADORES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/PortalReinf/a/Registros/Totalizadores.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Tabelas do REINF" image="fa fa-list" color="btn-outline-primary" key="CMD_TABELASREINF">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/PortalReinf/a/Principal/Tabelas.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Fechar Período" image="fa fa-lock" color="btn-secondary" key="GRP_FECHAMENTO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Evento R-2099" key="CMD_FECHARPERIODOSERIE2000">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <InputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/FecharPeriodo.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_COPETENCIAWIDGET.FORM</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </InputDefinition>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Evento R-4099" key="CMD_FECHARPERIODOSERIE4000">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <InputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/FecharReabrirPeriodo/R4099.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_COPETENCIAWIDGET.FORM</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </InputDefinition>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Reabrir Período" image="fa fa-unlock" color="btn-outline-primary" key="GRP_REABERTURA">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Evento R-2098" key="CMD_REABRIRPERIODOSERIE2000">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <InputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/ReabrirPeriodo.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_COPETENCIAWIDGET.FORM</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </InputDefinition>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Evento R-4099" key="CMD_REABRIRPERIODOSERIE4000">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <InputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/FecharReabrirPeriodo/R4099.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_COPETENCIAWIDGET.FORM</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </InputDefinition>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command title="Limpar base" image="fa fa-eraser" color="btn-outline-primary" key="CMD_LIMPARBASE">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="LimparBase" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Integrações" image="fa fa-exchange" color="btn-outline-primary" key="GRP_INTEGRACOES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Web service" image="fa fa-globe" key="CMD_INTEGRACAO_WS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/Integracoes/Integracoes.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_FELIPE_0603_REINF</SystemInstanceName>
+              <TargetEntityDefinitionName>REINF_INTEGRACAOXML</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>View</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Arquivo XML" image="fa fa-file-code-o" key="CMD_INTEGRACAO_ARQUIVO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/PortalReinf/a/Principal/Integracoes/IntegracaoArquivoXMLGrid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName />
+              <TargetEntityDefinitionName>REINF_INTEGRACAOARQUIVO</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_FELIPE_0603_REINF</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

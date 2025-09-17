@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>RESUMO_GRID_CT_LANCAMENTOS_CC_ADTO</Identifier>
+  <Name>Grid resumo lançamentos adiantamentos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       A.LANCAMENTO,&#xD;&#xA;       C.NOME PROJETO,&#xD;&#xA;       @CONCATENAR(@CONCATENAR(B.ESTRUTURA,' - '), B.NOME) CENTROCUSTO,&#xD;&#xA;       A.VALOR,&#xD;&#xA;       A.PERCENTUAL,&#xD;&#xA;       A.DOCUMENTO,&#xD;&#xA;       A.VALORMOEDA1,&#xD;&#xA;       A.VALORMOEDA2,&#xD;&#xA;       A.NATUREZA&#xD;&#xA;  FROM CT_LANCAMENTOCC A&#xD;&#xA;  JOIN CT_CC B ON (B.HANDLE = A.CENTROCUSTO)&#xD;&#xA;  LEFT JOIN GN_PROJETOS C ON (A.PROJETO = C.HANDLE)&#xD;&#xA;  ORDER BY A.HANDLE DESC&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="LANCAMENTO" From="A" Path="LANCAMENTO" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="PERCENTUAL" From="A" Path="PERCENTUAL" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="VALORMOEDA1" From="A" Path="VALORMOEDA1" />
+    <Field Alias="VALORMOEDA2" From="A" Path="VALORMOEDA2" />
+    <Field Alias="NATUREZA" From="A" Path="NATUREZA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

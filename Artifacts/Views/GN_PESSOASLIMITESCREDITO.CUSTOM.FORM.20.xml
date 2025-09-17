@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>GN_PESSOASLIMITESCREDITO.CUSTOM.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>GN_PESSOASLIMITESCREDITO</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="GN_PESSOASLIMITESCREDITO" name="GN_PESSOASLIMITESCREDITO.CUSTOM.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Limite de crédito" key="PAGINALIMITECREDITO">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="PESSOA">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VENCIMENTOLIMITE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="APROVADORLIMITE">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageTab" key="LIMITECREDITO">
+            <Pages>
+              <FormPage caption="Próprio" key="1">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="VALORLIMITE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col3</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Outro cliente" key="2">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="PESSOALIMITE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col6</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Grupo empresarial" key="3">
+                <visible>true</visible>
+                <Items />
+              </FormPage>
+            </Pages>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageTab" key="LIMITECREDITOCEDENTE">
+            <Pages>
+              <FormPage caption="Próprio" key="1">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="VALORLIMITECEDENTE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col3</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Outro" key="2">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="PESSOALIMITECEDENTE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col6</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="LIMITEHERDADOCEDENTE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col6</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+              <FormPage caption="Suspenso" key="3">
+                <visible>true</visible>
+                <Items>
+                  <FormPageItem xsi:type="FormPageField" key="MOTIVOSUSPENSAOCEDENTE">
+                    <layout>OneColumn</layout>
+                    <bootstrapCols>Col6</bootstrapCols>
+                  </FormPageItem>
+                  <FormPageItem xsi:type="FormPageField" key="COMENTARIOSUSPENSAOCEDENTE">
+                    <layout>TwoColumn</layout>
+                    <bootstrapCols>Col12</bootstrapCols>
+                  </FormPageItem>
+                </Items>
+              </FormPage>
+            </Pages>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+      <FormPage caption="Auditoria" key="AUDITORIA">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="USUARIOINCLUIU">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAINCLUSAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col4</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="USUARIOALTEROU">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="DATAALTERACAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col4</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Pessoa" key="PESSOA">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data vencimento limite" key="VENCIMENTOLIMITE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Limite aprovado por" key="APROVADORLIMITE">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition key="LIMITECREDITO">
+        <visible>true</visible>
+        <DataAccessLevel>Insert</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Valor limite" key="VALORLIMITE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Pessoa limite" key="PESSOALIMITE">
+        <visible>true</visible>
+        <DataAccessLevel>Insert</DataAccessLevel>
+        <Required>true</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Limite de crédito cedente" key="LIMITECREDITOCEDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Valor limite" key="VALORLIMITECEDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Pessoa limite" key="PESSOALIMITECEDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Limite herdado" key="LIMITEHERDADOCEDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Motivo da suspensão" key="MOTIVOSUSPENSAOCEDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Comentário suspensão" key="COMENTARIOSUSPENSAOCEDENTE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <lines>3</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Incluído por" key="USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data da inclusão" key="DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Alterado por" key="USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Data da alteração" key="DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle xsi:nil="true" />
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Novo" key="New">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="New" />
+      </Command>
+      <Command title="Editar" key="Edit">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Edit" />
+      </Command>
+      <Command title="Excluir" key="Delete">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Delete" />
+      </Command>
+      <Command title="Salvar" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Salvar/Novo" key="SaveNew">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="SaveNew" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

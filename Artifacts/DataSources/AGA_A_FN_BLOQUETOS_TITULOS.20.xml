@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>AGA_A_FN_BLOQUETOS_TITULOS</Identifier>
+  <Name>Títulos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE, A.DOCUMENTO, A.DATAVENCIMENTO, A.EMPRESA, A.VCTOPRORROGADO, A.PARCELADIGITADA, A.AP, A.VALOR, A.VALORESBAIXADOS, B.DOCUMENTODIGITADO, B.DATAEMISSAO, B.PESSOA, C.NOME, B.ENTRADASAIDA,&#xD;&#xA;       B.TIPODEMOVIMENTO, DATAENTRADA, A.TIPOCOBRANCA, H.NOME COBRANCANOME,B.FILIAL, A.EMABERTO,A.PREVISAO, B.OPERACAOCANCELAMENTO, A.TEMRETENCAONABAIXA, A.DATAREJEICAO, A.DOCUMENTOSUSPENSO,&#xD;&#xA;       BLOQUETOEMITIDO, A.BANCO, A.CONTATESOURARIA, A.HBCARTEIRA, '0' TOTALREGISTROS&#xD;&#xA;  FROM FN_PARCELAS A&#xD;&#xA;  JOIN FN_DOCUMENTOS B ON (A.DOCUMENTO = B.HANDLE)&#xD;&#xA;  JOIN GN_PESSOAS C ON (B.PESSOA = C.HANDLE)&#xD;&#xA;  LEFT JOIN FN_TIPOSCOBRANCAS H ON H.HANDLE = A.TIPOCOBRANCA&#xD;&#xA; WHERE (A.EMABERTO = 'S')&#xD;&#xA;   AND (A.PREVISAO &lt;&gt; 'S')&#xD;&#xA;   AND (B.OPERACAOCANCELAMENTO IS NULL)&#xD;&#xA;   AND (A.TEMRETENCAONABAIXA = 'N')&#xD;&#xA;   AND (A.VALOR &gt; 0)&#xD;&#xA;   AND (A.DATAREJEICAO IS NULL)&#xD;&#xA;   AND (A.DOCUMENTOSUSPENSO = 'N')&#xD;&#xA;   AND (A.EMPRESA = @EMPRESA)&#xD;&#xA;   AND ((H.NAOGERABOLETO IS NULL) OR (H.NAOGERABOLETO = 'N'))&#xD;&#xA;   " />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <DateField Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <DateField Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" FieldDecimalsFormat="0" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <DateField Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="TIPODEMOVIMENTO" From="A" Path="TIPODEMOVIMENTO" />
+    <DateField Alias="DATAENTRADA" From="A" Path="DATAENTRADA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="TIPOCOBRANCA" From="A" Path="TIPOCOBRANCA" />
+    <Field Alias="COBRANCANOME" From="A" Path="COBRANCANOME" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="EMABERTO" From="A" Path="EMABERTO" />
+    <Field Alias="PREVISAO" From="A" Path="PREVISAO" />
+    <Field Alias="OPERACAOCANCELAMENTO" From="A" Path="OPERACAOCANCELAMENTO" />
+    <Field Alias="TEMRETENCAONABAIXA" From="A" Path="TEMRETENCAONABAIXA" />
+    <DateField Alias="DATAREJEICAO" From="A" Path="DATAREJEICAO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="DOCUMENTOSUSPENSO" From="A" Path="DOCUMENTOSUSPENSO" />
+    <Field Alias="BLOQUETOEMITIDO" From="A" Path="BLOQUETOEMITIDO" />
+    <Field Alias="BANCO" From="A" Path="BANCO" />
+    <Field Alias="CONTATESOURARIA" From="A" Path="CONTATESOURARIA" />
+    <Field Alias="HBCARTEIRA" From="A" Path="HBCARTEIRA" />
+    <Field Alias="TOTALREGISTROS" From="A" Path="TOTALREGISTROS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

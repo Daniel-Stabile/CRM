@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_AGENDA_PORTARIARELATORIOS_KMRODADO.GRID</ViewName>
+  <Level>Vertical</Level>
+  <EntityName>MF_AGENDA</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Anual</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_FILTROPORTARIAREL_KM_ANO.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>A.NUMERO IN (SELECT HANDLE FROM MF_AGENDA WHERE  DATASAIDA  &gt;=
+ (@CAMPO(ANOINICIAL) - 1)
+AND DATARETORNO  &lt;=  (@CAMPO(ANOFINAL)+365)
+)
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Mensal</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_FILTROPORTARIARELATORIOS_KM.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>A.NUMERO IN (SELECT HANDLE FROM MF_AGENDA WHERE A.DATASAIDA
+ &gt;=
+ @CAMPO(MESINICIAL) AND A.DATARETORNO
+ &lt;
+ @ADICIONARDIAS(@CAMPO(MESFINAL), 30) )
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Semanal</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_FILTROPORTARIAREL_KM_SEMANA.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>A.NUMERO IN (SELECT HANDLE FROM MF_AGENDA WHERE A.DATAINICIAL &gt;= @CAMPO(DATAINICIAL)  AND A.DATARETORNO
+ &lt;=
+ (@CAMPO(DATAINICIAL) +7))
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

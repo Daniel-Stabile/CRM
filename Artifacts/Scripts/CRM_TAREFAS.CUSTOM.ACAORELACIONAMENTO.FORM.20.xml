@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_TAREFAS.CUSTOM.ACAORELACIONAMENTO.FORM</ViewName>
+  <EntityName>CRM_TAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSTATUSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSTATUSValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    if entity.Fields["STATUS"].Value == 2:
+        view.FieldDefinitions["OBSERVACOES"].Visible = True
+        view.FieldDefinitions["OBSERVACOES"].Required = True
+    else:
+        view.FieldDefinitions["OBSERVACOES"].Visible = False
+        view.FieldDefinitions["OBSERVACOES"].Required = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(form):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    entity = form.Entity
+    if entity == None: return
+    
+    if entity.Fields["RESPONSAVEL"].ToString() == "":
+        entity.Fields["RESPONSAVEL"] = EntityAssociation(Handle(str(identity.UserHandle)), EntityDefinition.GetByName("CORPORATIVO", "Z_GRUPOUSUARIOS"));
+    
+    if (entity.Fields["ACAORELACIONAMENTO"].Handle.IsValid()):
+        acao = entity.Fields["ACAORELACIONAMENTO"].Instance
+        handleResponsavel = acao.Fields["RESPONSAVEL"].Handle
+        handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+        #form.View.Commands["CMD_ENVIAR"].Visible = acao.Fields["STATUS"].Value == 1 and entity.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel
+        form.View.Commands["CMD_CANCELAR"].Visible = entity.Fields["STATUS"].Value == 2 and handleUsuario == handleResponsavel
+        form.View.Commands["Edit"].Visible = acao.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel
+        form.View.Commands["Delete"].Visible = acao.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel
+        form.View.Commands["New"].Visible = acao.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel
+
+    if entity.Fields["STATUS"] != None:
+        form.View.FieldDefinitions["OBSERVACOES"].Visible = (entity.Fields["STATUS"].Value == 4 or entity.Fields["STATUS"].Value == 5)
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    
+    if (not entity.Fields["TIPORESPONSAVEL"] is None):
+        if (entity.Fields["TIPORESPONSAVEL"].Value == 2):
+            entity.Fields["RESPONSAVEL"].Handle = Handle()
+        elif (entity.Fields["TIPORESPONSAVEL"].Value == 1):
+            entity.Fields["PAPEL"].Handle = Handle()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTAREFAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTAREFAValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import TabItem
+    
+    if (entity.Fields["TAREFA"].Handle.IsValid()):
+        entity.Fields["EXIGIRAVALIACAO"] = entity.Fields["TAREFA"].Instance.Fields["EXIGIRAVALIACAO"]
+        entity.Fields["EXIGIRARQUIVO"] = entity.Fields["TAREFA"].Instance.Fields["EXIGIRARQUIVO"]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_REPLICARPUBLICOALVOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_REPLICARPUBLICOALVOExecute(command, entity):
+    command.RequestConfirmation("Deseja replicar a tarefa para o Público Alvo da Ação de Relacionamento?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEXIGIRAVALIACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEXIGIRAVALIACAOValueChanged(view, entity):
+    view.FieldDefinitions["AVALIACAO"].Required = entity.Fields["EXIGIRAVALIACAO"].Value == 2
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

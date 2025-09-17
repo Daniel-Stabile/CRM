@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PR_ORDEMDESMONTAGEMAPONTITENS.FORM</ViewName>
+  <EntityName>PR_ORDEMDESMONTAGEMAPONTITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if entity == None: return
+    HandleOP = widget.Entity.Fields["APONTAMENTO"].Instance.Fields["ORDEMDESMONTAGEM"].Instance.Fields["ORDEMPRODUCAO"].Instance
+    StatusAP = widget.Entity.Fields["APONTAMENTO"].Instance.Fields["STATUS"].Value
+    
+    if(widget.View.Commands["Edit"] != None):
+        widget.View.Commands["Edit"].Visible = False
+    if(widget.View.Commands["Delete"] != None):
+        widget.View.Commands["Delete"].Visible = False
+    if(widget.View.Commands["New"] != None):
+        widget.View.Commands["New"].Visible = False
+
+    if(HandleOP == None and StatusAP == 1):
+        if(widget.View.Commands["Edit"] != None):
+            widget.View.Commands["Edit"].Visible = True
+        if(widget.View.Commands["Delete"] != None):
+            widget.View.Commands["Delete"].Visible = True
+        if(widget.View.Commands["New"] != None):
+            widget.View.Commands["New"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

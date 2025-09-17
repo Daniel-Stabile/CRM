@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_ITEMCIAPMOVIMENTACOES.GRID</ViewName>
+  <EntityName>AT_ITEMCIAPMOVIMENTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_BENSDOIMOBILIZADO")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import GridLinkDefinition
+    from Benner.Tecnologia.Common import WhereClause
+
+    link = GridLinkDefinition()
+    link.Url = "~/aga/a/f/aga_t3995_at6460_hsfc7364df.aspx"
+    link.TargetSystemInstanceName = entity.Definition.EntitySource.SystemInstanceName
+    link.TargetEntityDefinitionName = "AT_ITEMCIAPMOVDOCFISCAIS"
+    link.WhereClause = WhereClause("A.ITEMCIAPMOVIMENTACAO = " + str(entity.Handle))
+    command.OutputDefinition = link</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

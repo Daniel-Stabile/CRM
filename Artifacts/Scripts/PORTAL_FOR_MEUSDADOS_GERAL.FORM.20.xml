@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_MEUSDADOS_GERAL.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnISENTOINSCRICAOESTADUALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnISENTOINSCRICAOESTADUALValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if entity.Fields["ISENTOINSCRICAOESTADUAL"] == True :
+        view.FieldDefinitions["INSCRICAOESTADUAL"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        entity.Fields["INSCRICAOESTADUAL"] = "ISENTO"
+    else :
+        view.FieldDefinitions["INSCRICAOESTADUAL"].DataAccessLevel = FieldDefinition.AccessLevel.Edit  
+        entity.Fields["INSCRICAOESTADUAL"] = ""
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnISENTOINSCRICAOSUBSTITUTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnISENTOINSCRICAOSUBSTITUTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if entity.Fields["ISENTOINSCRICAOSUBSTITUTO"] == True :
+        view.FieldDefinitions["INSCRICAOESTADUALSUBSTITUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        entity.Fields["INSCRICAOESTADUALSUBSTITUTO"] = "ISENTO"
+    else :
+        view.FieldDefinitions["INSCRICAOESTADUALSUBSTITUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit  
+        entity.Fields["INSCRICAOESTADUALSUBSTITUTO"] = ""
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Wes.Components.Scripting import CommandsPanelProxy
+    
+    if widget.Entity == None: return
+    
+    if not widget.GetType().Equals(CommandsPanelProxy) :
+    
+        if widget.Entity.Fields["ISENTOINSCRICAOESTADUAL"] == True :
+            widget.View.FieldDefinitions["INSCRICAOESTADUAL"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.Entity.Fields["INSCRICAOESTADUAL"] = "ISENTO"
+        else :
+            widget.View.FieldDefinitions["INSCRICAOESTADUAL"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            
+        if widget.Entity.Fields["ISENTOINSCRICAOSUBSTITUTO"] == True :
+            widget.View.FieldDefinitions["INSCRICAOESTADUALSUBSTITUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.Entity.Fields["INSCRICAOESTADUALSUBSTITUTO"] = "ISENTO"
+        else :
+            widget.View.FieldDefinitions["INSCRICAOESTADUALSUBSTITUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

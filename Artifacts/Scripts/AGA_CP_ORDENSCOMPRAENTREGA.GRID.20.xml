@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_ORDENSCOMPRAENTREGA.GRID</ViewName>
+  <EntityName>CP_ORDENSCOMPRAENTREGA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_SELECIONAR_TOTALExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_SELECIONAR_TOTALExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CP_RECEBIMENTOFISICOPAI"))
+    command.TransitoryVars.Add("HANDLERFP", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_SELECIONAR_PARCIALExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_SELECIONAR_PARCIALExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CP_RECEBIMENTOFISICOPAI"))
+    command.TransitoryVars.Add("HANDLERFP", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

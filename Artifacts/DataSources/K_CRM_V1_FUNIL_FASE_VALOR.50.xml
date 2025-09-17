@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_FUNIL_FASE_VALOR</Identifier>
+  <Name>CRM_V1_FUNIL_FASE_VALOR</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="&#xD;&#xA;SELECT B.ORDEM, (' ' + CONVERT(VARCHAR,COUNT(A.HANDLE)) +&#xD;&#xA;         ' - ' +&#xD;&#xA;         B.NOME +&#xD;&#xA;         ' : '+&#xD;&#xA;         REPLACE(&#xD;&#xA;           REPLACE(&#xD;&#xA;              REPLACE(&#xD;&#xA;                 convert(varchar,cast(CAST(SUM(DISTINCT(VALORTOTAL)) as decimal) as money), 1),&#xD;&#xA;              '.','|'),&#xD;&#xA;           ',','.'),&#xD;&#xA;         '|',',')) NOME,&#xD;&#xA;        ROUND(SUM(DISTINCT(VALORTOTAL)),2) VALOR,&#xD;&#xA;        A.STATUSOPORTUNIDADE STATUS&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADESPROD C ON C.OPORTUNIDADE = A.HANDLE&#xD;&#xA;JOIN K_CRM_FASESOPORTUNIDADE B ON A.STATUSOPORTUNIDADE = B.HANDLE&#xD;&#xA;WHERE A.STATUS IN (1,2,14)&#xD;&#xA;AND @CRITERIOSELECAO&#xD;&#xA;GROUP BY B.ORDEM, B.NOME, A.STATUSOPORTUNIDADE&#xD;&#xA;ORDER BY B.ORDEM ASC" />
+  <Fields>
+    <Field Alias="ORDEM" From="A" Path="ORDEM" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

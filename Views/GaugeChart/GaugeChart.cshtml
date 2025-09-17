@@ -1,0 +1,372 @@
+@using Benner.Tecnologia.Business;
+@using Benner.Tecnologia.Common;
+@using Benner.Corporativo.DataContracts.GestaoProjetos
+@using System.Runtime;
+@model DadosDesempenhoResponse
+
+@{
+    var dados = Model;
+
+    var divid = Guid.NewGuid();
+}
+
+<!-- Styles -->
+<style>
+.chartContainer {
+    width: 100%;
+    height: 500px;
+}
+
+.containerChart{
+    margin: 0;
+    position: relative;
+    padding: 20px 0 0;
+}
+
+.divTitulo{
+    position: relative;
+    display: flex;
+    font-size: 24px;
+    padding: 15px 0px;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.divSubtitulo{
+    position: relative;
+    display: flex;
+    padding: 0px 20px;
+    font-size: 19px;
+}
+
+.divDescricao{
+    position: relative;
+    display: flex;
+    padding: 0px 20px;
+    font-size: 15px;
+    max-height: 150px;
+    word-break: break-all;
+}
+
+.divResponsavel{
+    position: relative;
+    display: flex;
+    padding: 0px 20px;
+    font-size: 15px;
+    max-height: 150px;
+    word-break: break-all;
+}
+
+.divImagem{
+    position: absolute;
+    display: flex;
+    right: 0;
+}
+
+.divImagem img {
+    width: 80px;
+    weight: 80px;
+}
+
+.divTile{
+    position: relative;
+    display: flex;
+    font-size: 21px;
+    justify-content: flex-end;
+    padding: 0px 20px 20px 20px;
+}
+
+.divTituloTile{
+    display: flex;
+    position: absolute;
+    width: 297px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.divDesempenhoTile{
+    display: flex;
+    position: absolute;
+    top: 55px;
+    width: 297px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerPeriodoPeso{
+    display: flex;
+    padding: 0px 20px;
+    justify-content: space-between;
+}
+
+.divPeriodoCiclo{
+    position: relative;
+    font-size: 19px;
+}
+
+.divPeso{
+    position: relative;
+    font-size: 19px;
+}
+
+.containerTable{
+    display : flex;
+    padding: 0px 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+table.tableTile {
+    width: 35%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+
+td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+td.tdTile {
+    border: none;
+}
+  .campo {
+    font-weight: bold;
+  }
+
+  .campoAcumulado {
+    font-weight: bold;
+    background-color: #f0f0f0;
+  }
+
+  td:empty {
+    background-color: #f0f0f0;
+  }
+
+  td.campo:nth-child(2), td:nth-child(4) {
+    width: 20%;
+  }
+
+#ctl00_Main_DESEMPENHO_UpdatePanel > div.containerChart > div.chartContainer > div > svg > g > g:nth-child(2) > g:nth-child(2) > g > g:nth-child(3){
+    display: none;
+}
+
+</style>
+
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+
+<input hidden value="@dados.GaugeDados" id="gaugeDados-@divid" />
+<input hidden value="@dados.MinimoGrafico" id="minimoGauge-@divid" />
+<input hidden value="@dados.MaximoGrafico" id="maximoGauge-@divid" />
+<input hidden value="@dados.Imagem" id="imagem-@divid" />
+
+<script>
+am4core.ready(function() {
+
+    var chartMin = parseFloat(document.getElementById('minimoGauge-@divid').value);
+    var chartMax = parseFloat(document.getElementById('maximoGauge-@divid').value);
+
+    var jsonChartDefinition = document.getElementById('gaugeDados-@divid').value;
+    var dados =  JSON.parse(jsonChartDefinition);  
+
+/**
+    Pesquisa escala correspondente ao desempenho
+*/
+    function lookUpGrade(desempenho, escalas) {
+        for (var i = 0; i < escalas.length; i++) {
+            if (
+                escalas[i].FaixaInicial < desempenho &&
+                escalas[i].FaixaFinal >= desempenho
+            ) {
+            return escalas[i];
+            }
+        }
+        return null;
+    }
+
+    // create chart
+    var chart = am4core.create("chartGauge-@divid", am4charts.GaugeChart);
+    chart.hiddenState.properties.opacity = 0;
+    chart.fontSize = 11;
+    chart.innerRadius = am4core.percent(80);
+    chart.resizable = true;
+
+/**
+    Valores intervalos
+*/
+    var axis = chart.xAxes.push(new am4charts.ValueAxis());
+    axis.min = chartMin;
+    axis.max = chartMax;
+    axis.strictMinMax = true;
+    axis.renderer.radius = am4core.percent(80);
+    axis.renderer.inside = true;
+    axis.renderer.line.strokeOpacity = 0.1;
+    axis.renderer.ticks.template.disabled = false;
+    axis.renderer.ticks.template.strokeOpacity = 1;
+    axis.renderer.ticks.template.strokeWidth = 0.5;
+    axis.renderer.ticks.template.length = 5;
+    axis.renderer.grid.template.disabled = true;
+    axis.renderer.labels.template.radius = am4core.percent(15);
+    axis.renderer.labels.template.fontSize = "0.9em";
+
+/**
+    Intervalo escalas
+ */
+    var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
+    axis2.min = chartMin;
+    axis2.max = chartMax;
+    axis2.strictMinMax = true;
+    axis2.renderer.labels.template.disabled = true;
+    axis2.renderer.ticks.template.disabled = true;
+    axis2.renderer.grid.template.disabled = false;
+    axis2.renderer.grid.template.opacity = 0.5;
+    axis2.renderer.labels.template.bent = true;
+    axis2.renderer.labels.template.fill = am4core.color("#000");
+    axis2.renderer.labels.template.fontWeight = "bold";
+    axis2.renderer.labels.template.fillOpacity = 0.3;
+
+/**
+    Escalas
+*/
+    for (let escala of dados.Escalas) {
+        var range = axis2.axisRanges.create();
+        range.axisFill.fill = am4core.color(escala.Cor);
+        range.axisFill.fillOpacity = 0.8;
+        range.axisFill.zIndex = -1;
+        range.value = escala.FaixaInicial > chartMin ? escala.FaixaInicial : chartMin;
+        range.endValue = escala.FaixaFinal < chartMax ? escala.FaixaFinal : chartMax;
+        range.grid.strokeOpacity = 0;
+        range.stroke = am4core.color(escala.Cor).lighten(-0.1);
+        range.label.inside = true;
+        range.label.text = escala.Nome.toUpperCase();
+        range.label.inside = true;
+        range.label.location = 0.5;
+        range.label.inside = true;
+        range.label.radius = am4core.percent(10);
+        range.label.paddingBottom = -5; // ~half font size
+        range.label.fontSize = "0.9em";
+    }
+    var matchingGrade = lookUpGrade(dados.Desempenho, dados.Escalas);
+
+/**
+    Label desempenho
+*/
+    var label = chart.radarContainer.createChild(am4core.Label);
+    label.isMeasured = false;
+    label.fontSize = "6em";
+    label.x = am4core.percent(50);
+    label.paddingBottom = 15;
+    label.horizontalCenter = "middle";
+    label.verticalCenter = "bottom";
+    label.text = dados.Desempenho.toFixed(1);
+    label.fill = am4core.color(matchingGrade.Cor);
+
+/**
+    Label nome escala
+ */
+    var label2 = chart.radarContainer.createChild(am4core.Label);
+    label2.isMeasured = false;
+    label2.fontSize = "2em";
+    label2.horizontalCenter = "middle";
+    label2.verticalCenter = "bottom";
+    label2.text = matchingGrade.Nome.toUpperCase();
+    label2.fill = am4core.color(matchingGrade.Cor);
+
+/**
+    Ponteiro
+ */
+    var hand = chart.hands.push(new am4charts.ClockHand());
+    hand.axis = axis2;
+    hand.innerRadius = am4core.percent(55);
+    hand.startWidth = 8;
+    hand.pin.disabled = true;
+    hand.value = dados.Desempenho;
+    hand.fill = am4core.color("#444");
+    hand.stroke = am4core.color("#000");
+
+function exibirImagem() {
+  var base64String = document.getElementById('imagem-@divid').value;
+  var imagem = document.createElement("img");
+
+  imagem.src = "data:image/" + "jpeg" + ";base64," + base64String;
+
+  var divImagem = document.getElementById("divImagem-@divid");
+    divImagem.appendChild(imagem); 
+};
+
+    exibirImagem();
+
+});
+
+</script>
+
+<!-- HTML -->
+
+<div class="divTitulo">@dados.TituloGeral</div>
+<div class="divSubtitulo">@dados.Subtitulo</div>
+
+<div class="divResponsavel">@dados.Responsavel</div>
+<div class="divDescricao">@dados.Descricao</div>
+
+<div class="containerPeriodoPeso" >
+    <div class="divPeriodoCiclo">@dados.PeriodoCiclo</div>
+    <div class="divPeso">@dados.Peso</div>
+</div>
+
+<div class="containerChart">
+    <div id="divImagem-@divid" class="divImagem"></div>
+    <div id="chartGauge-@divid" class="chartContainer"></div>
+</div>
+
+<div class="divTile">
+<table class="tableTile">
+    <tr class="trTile">
+        <td class="tdTile">@dados.TituloTile</td>
+    </tr>
+    <tr class="trTile">
+        <td class="tdTile">@dados.DesempenhoTile</td>
+    </tr>
+</table>
+</div>
+
+<div class="containerTable">
+<table>
+    <tr>
+        <td class="campo">@(dados.Origem == 0 ? "Objetivos" : "Indicadores")</td>
+        <td class="campo">Desempenho</td>
+    </tr>
+
+@{
+    var qry = new Query(string.Format(@"SELECT NOME, DESEMPENHO FROM {0} WHERE {1} = :PHANDLE AND CICLO = :CICLO", 
+                (@dados.Origem == 0 ? "GP_CICLOOBJETIVOS" : "GP_OBJETIVOINDICADORES"), 
+                (@dados.Origem == 0 ? "PERSPECTIVA" : "OBJETIVO")), 
+              new Parameter("PHANDLE", (@dados.HandlePesquisa)),
+              new Parameter("CICLO", @dados.Ciclo)
+            ).Execute();
+
+    foreach (var dadosQry in qry)
+    {
+      <tr>
+        <td>@(dadosQry["NOME"].GetString())</td>
+        <td>@(dadosQry["DESEMPENHO"].GetString())%</td>
+      </tr>
+    }
+}
+</table>
+
+<script>
+    if(@dados.Origem < 0 || @dados.Origem > 1)
+        document.querySelector('.containerTable').style.display = 'none';
+
+    if(@dados.Origem === 2)
+        document.querySelector('.divTile').style.display = 'none';
+</script>
+
+</div>

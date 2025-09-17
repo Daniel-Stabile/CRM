@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_PLANOVERSOES.GRID</ViewName>
+  <EntityName>CT_PLANOVERSOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    command.OutputDefinition = FormLinkDefinition()
+    command.OutputDefinition.TargetSystemInstanceName = entity.Definition.EntitySource.SystemInstanceName;
+    command.OutputDefinition.TargetEntityDefinitionName = "CT_PLANOVERSOES";
+    command.OutputDefinition.TargetEntityHandle = entity.Handle;
+    command.OutputDefinition.Url = "~/aga/e/Contabil/cadastros/ContaContabil.aspx";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_CONTASCONTABEIS")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_CONTASCONTABEIS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_CONTASCONTABEIS")
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

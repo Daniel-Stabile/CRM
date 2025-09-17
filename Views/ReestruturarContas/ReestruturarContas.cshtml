@@ -1,0 +1,178 @@
+﻿<style type="text/css">
+    .nav-pills, .nav-pills li, .nav-pills a {
+        cursor: default;
+    }
+</style>
+<div class="portlet-body form">
+    <div class="form-wizard">
+        <div class="form-body">
+            <div class="row">
+
+                <div class="col-md-8 col-lg-8 col-sm-8 right">
+                    <a href="javascript:SalvarAlteracoes()" id="btnSalvarAlteracoes" class="btn blue">
+                        <i class="fa fa-check btn-action"></i> Salvar Alterações
+                    </a>
+                    <a href="javascript:DesfazerAlteracoes()" id="btnDesfazerAlteracoes" class="btn red">
+                        <i class="fa fa-minus btn-action"></i> Desfazer Alterações
+                    </a>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="ContasContabeis">
+                    <hr />
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="alert alert-danger hidden" id="lnMsgError">
+                            <strong>Atenção!</strong><p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="ContasContabeis">
+                    <label>Disponíveis para seleção</label>
+                    <div id="CONTAS"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var empresaCorrente = '@Benner.Tecnologia.Common.Company.Current.Handle';
+
+    $(function () {
+        GerarLinhas();
+    });
+
+    function SalvarAlteracoes() {
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ReestruturarContas/SalvarAlteracoes',
+            data: {},
+            cache: false,
+            beforeSend: function () { },
+            success: function (data) {
+                if (!ValidarJSON(data)) {
+                    $('#lnMsgError').find('p').empty().append(data);
+                    $('#lnMsgError').removeClass('hidden');
+                }
+                else {
+                    $('#lnMsgError').addClass('hidden');
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error);
+            },
+            complete: function () { }
+        });
+    }
+
+    function DesfazerAlteracoes() {
+        window.location.assign("ReestruturarConta.aspx");
+    }
+
+
+    function ReestruturarItem(id, pai) {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: Benner.Page.getApplicationPath() + 'ReestruturarContas/ReestruturarItem',
+            data: { Handle: id, HandlePai: pai },
+            cache: true,
+            beforeSend: function () { },
+            success: function (data) { AtualizarLinhas(); },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+    }
+
+    function AtualizarLinhas() {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ReestruturarContas/AtualizarListaContas',
+            data: {},
+            cache: true,
+            beforeSend: function () { },
+            success: function (data) {
+                var Jsonsaida = data.replaceAll('&quot;', '"')
+
+                var objjson = JSON.parse(Jsonsaida)
+
+                $('#CONTAS').jstree(true).settings.core.data = objjson;
+                $('#CONTAS').jstree(true).refresh();
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+    }
+
+    function ValidarJSON(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    function GerarLinhas() {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ReestruturarContas/Contas',
+            data: { Filtro: "EMPRESA = " + empresaCorrente },
+            cache: true,
+            beforeSend: function () { },
+            success: function (data) {
+                if (!ValidarJSON(data)) {
+                    $('#lnMsgError').find('p').empty().append(data);
+                    $('#lnMsgError').removeClass('hidden');
+                    ExibirCampoNomePerfil(false);
+                }
+                else {
+                    $('#lnMsgError').addClass('hidden');
+                    var Jsonsaida = data.replaceAll('&quot;', '"')
+
+                    var objjson = JSON.parse(Jsonsaida)
+                    $("#CONTAS").jstree({
+                        plugins: ["wholerow", "types", "dnd"],
+                        core: {
+                            themes: {
+                                responsive: !1
+                            },
+                            check_callback: function (op, node, par, pos, more) {
+                                var ref = $("#CONTAS").jstree(true);
+
+                                if (more.core === true) {
+                                    console.log(op, node, par, pos, more, '')
+                                    ReestruturarItem(node.id, par.id);
+                                }
+                            },
+                            data: objjson
+                        },
+                        types: {
+                            default: {
+                                icon: "fa fa-bars"
+                            },
+                        }
+                    }).bind(
+                    "select_node.jstree", function (evt, data) {
+
+                        if (data.node.id == parseInt($('#CONTAS').val())) {
+                            $("#CONTAS").jstree("uncheck_node", data.node.id);
+                        }
+                    }
+                );
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+    }
+
+</script>

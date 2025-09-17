@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_QUESTIONARIO.GRID</ViewName>
+  <EntityName>QL_RESPOSTASFORNECEDOR</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    exibirnota = bool(entity.Fields["EXIBIRNOTA"]);
+    AprovadoOuReprovado = bool(entity.Fields["STATUS"].Value in [5,6]);
+    if not exibirnota or not AprovadoOuReprovado:
+        row.GetCellByName("CUSTOM_PONTUACAOMAXIMA").Text = ""
+    else: 
+        row.GetCellByName("CUSTOM_PONTUACAOMAXIMA").Text = str(entity.QuantidadeMaximaDePontos())
+        row.GetCellByName("CUSTOM_PONTUACAOMAXIMA").Align = "right";        
+      
+        
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

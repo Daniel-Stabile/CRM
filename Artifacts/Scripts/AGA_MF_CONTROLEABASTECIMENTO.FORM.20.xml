@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_MF_CONTROLEABASTECIMENTO.FORM</ViewName>
+  <EntityName>MF_CONTROLEABASTECIMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    registro = widget.Entity
+    
+    if(registro.Fields["STATUS"].Value == 1):
+        widget.View.Commands["CMD_AbrirUnidade"].Visible = True
+        widget.View.Commands["CMD_FecharUnidade"].Visible = False
+        widget.View.Commands["CMD_ReAbrirUnidade"].Visible = False
+        widget.View.Commands["CMD_Voltar"].Visible = False
+        
+    if(registro.Fields["STATUS"].Value == 2):
+        widget.View.Commands["CMD_Voltar"].Visible = True
+        widget.View.Commands["CMD_FecharUnidade"].Visible = True
+        widget.View.Commands["CMD_AbrirUnidade"].Visible = False
+        widget.View.Commands["CMD_ReAbrirUnidade"].Visible = False
+        
+    if(registro.Fields["STATUS"].Value == 3):
+        widget.View.Commands["CMD_AbrirUnidade"].Visible = False
+        widget.View.Commands["CMD_Voltar"].Visible = False
+        widget.View.Commands["CMD_FecharUnidade"].Visible = False
+        widget.View.Commands["CMD_ReAbrirUnidade"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICOES.ITENS.FORM</ViewName>
+  <EntityName>CP_REQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import CompanyFilterMode
+    #raise Exception(widget.View.FieldDefinitions["ALMOXARIFADOORIGEM"].FieldDefinition.CompanyFilterMode.ToString())
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicao
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    breadcrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    requisicaoPai = breadcrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CP_REQUISICOESPAI"))
+    
+    widget.View.FieldDefinitions["CUSTOM_VALORTOTALESTIMADO"].Value = widget.Entity.ValorTotalEstimadoCalculado.ToString("N2")
+
+    if requisicaoPai.Handle == None: return
+
+    podeAlterar = CPRequisicao.PodeAlterar(requisicaoPai.Handle.Value)
+    
+    widget.View.Commands["New"].Visible = podeAlterar
+    widget.View.Commands["Edit"].Visible = podeAlterar
+    widget.View.Commands["Delete"].Visible = podeAlterar</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_RATEIOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_RATEIOExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciSUP
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = False</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnQUANTIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnQUANTIDADEValueChanged(view, entity):
+    UmMaisUm = 2 #está linha foi adicionada para desencadear um postback e não deve ser removida.</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORValueChanged(view, entity):
+    UmMaisUm = 2 #está linha foi adicionada para desencadear um postback e não deve ser removida.</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

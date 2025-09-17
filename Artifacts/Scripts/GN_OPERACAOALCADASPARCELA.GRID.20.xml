@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_OPERACAOALCADASPARCELA.GRID</ViewName>
+  <EntityName>GN_OPERACAOALCADASPARCELA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Company
+    from Benner.Tecnologia.Common import Handle
+    
+    sql = ("SELECT LIBERARPARCELAVIAAPROVACAO FROM FN_PARAMETROS WHERE EMPRESA = :pEMPRESA")
+    EntDef = EntityDefinition()
+    EntDef.EntitySource = QuerySource(sql)
+    parametro = Criteria()
+    parametro.Parameters.Add("pEMPRESA", Company.Current.Handle)
+    
+    resultado = Entity.GetFirstOrDefault(EntDef,parametro)
+    
+    form = widget.ProviderWidget
+    entity = form.Entity
+    if entity != None and resultado != None:
+        if resultado.Fields["LIBERARPARCELAVIAAPROVACAO"] == 1:
+            widget.Hidden = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

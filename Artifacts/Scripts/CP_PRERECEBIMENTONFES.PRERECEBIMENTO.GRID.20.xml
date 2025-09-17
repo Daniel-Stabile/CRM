@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_PRERECEBIMENTONFES.PRERECEBIMENTO.GRID</ViewName>
+  <EntityName>CP_PRERECEBIMENTONFES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None:
+        return
+    
+    if entity["STATUS"].GetInt32() != 4:
+        if row.GetCustomCommand("CMD_GERARRECEBIMENTOFISICO") != None:
+            row.GetCustomCommand("CMD_GERARRECEBIMENTOFISICO").Enabled = False
+
+    row.GetCellByName("OBSERVACOES").CssClass = "truncate"
+    observacao = entity["OBSERVACOES"]
+    
+    row.GetCellByName("OBSERVACOES").Text = "&lt;div class='btn btn-xs btn-cicle blue'&gt;&lt;i class='fa fa-info-circle'&gt;&lt;/i&gt;&lt;/div&gt;"
+    row.GetCellByName("OBSERVACOES").Align = "center"
+    row.GetCellByName("OBSERVACOES").Tooltip = "Sem observação"
+    
+    if observacao.GetDBValue() != None:
+        row.GetCellByName("OBSERVACOES").Tooltip = observacao.GetString()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPPreRecebimentoNfe
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    widget.View.Commands["GRP_MDE"].Visible = False #CPPreRecebimentoNfe.TemMde()
+    
+    cmdImportaXMLNFSe =  widget.View.Commands["GRP_FUNCOES"].Items["CMD_IMPORTARXMLNFSE"]
+    
+ 
+    if cmdImportaXMLNFSe == None: return 
+    
+    cmdImportaXMLNFSe.Visible = CPPreRecebimentoNfe.UsaNFSe()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

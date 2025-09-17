@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>Q_TODASPARCELASDEV</Identifier>
+  <Name>Todas as parcelas de devolução</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.PESSOA,&#xA;       A.EMABERTO,&#xA;&#x9;   A.ENTRADASAIDA,&#xA;&#x9;   A.DATAENTRADA, &#xA;       A.DOCUMENTODIGITADO, &#xA;&#x9;   A.FILIAL, &#xA;&#x9;   A.DATAEMISSAO, &#xA;&#x9;   B.DATAVENCIMENTO,&#xA;       B.VCTOPRORROGADO,       &#xA;&#x9;   B.VALOR, &#xA;&#x9;   B.VALORESBAIXADOS, &#xA;&#x9;   B.VALORMOEDA, &#xA;&#x9;   B.HANDLE HANDLE_PARCELA, &#xA;&#x9;   B.VALORESCOMPENSADOS,&#xA;       C.CODIGOINTERNO,&#xA;       D.ABREVIATURA MOEDA, &#xA;&#x9;   E.NOME FILIAL_NOME, &#xA;&#x9;   F.NOME TIPODOCUMENTO       &#xA;  FROM FN_DOCUMENTOS A&#xA;&#x9;   INNER JOIN FN_PARCELAS        B ON (B.DOCUMENTO = A.HANDLE)&#xA;&#x9;   INNER JOIN GN_OPERACOES       C ON (C.HANDLE = A.OPERACAO)&#xA;&#x9;    LEFT JOIN GN_MOEDAS          D ON (D.HANDLE = A.MOEDA)&#xA;&#x9;    LEFT JOIN FILIAIS            E ON (E.HANDLE = A.FILIAL)&#xA;&#x9;&#x9;LEFT JOIN FN_TIPOSDOCUMENTOS F ON (F.HANDLE = A.TIPODOCUMENTO)&#xA; WHERE A.TIPODEMOVIMENTO = 3  &#xA;   AND A.EHPREVISAO &lt;&gt; 'S'  &#xA;   AND (B.DOCUMENTOSUSPENSO &lt;&gt; 'S' OR  B.DOCUMENTOSUSPENSO IS NULL) " />
+  <Fields>
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="EMABERTO" From="A" Path="EMABERTO" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="HANDLE_PARCELA" From="A" Path="HANDLE_PARCELA" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="CODIGOINTERNO" From="A" Path="CODIGOINTERNO" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="FILIAL_NOME" From="A" Path="FILIAL_NOME" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

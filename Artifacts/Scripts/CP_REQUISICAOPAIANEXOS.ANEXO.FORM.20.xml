@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOPAIANEXOS.ANEXO.FORM</ViewName>
+  <EntityName>CP_REQUISICAOPAIANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoPai
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    breadcrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    requisicaoPai = breadcrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CP_REQUISICOESPAI"))
+    
+    status = CPRequisicaoPai.BuscarStatus(requisicaoPai.Handle.Value)
+
+    if status == 2 or status == 4 or status == 5:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

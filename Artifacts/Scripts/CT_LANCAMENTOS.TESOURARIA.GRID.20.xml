@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOS.TESOURARIA.GRID</ViewName>
+  <EntityName>CT_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONTABILIZARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONTABILIZARExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("TS_LANCAMENTOS"))    
+    command.TransitoryVars.Add("TS_LANCAMENTOSHANDLE", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRExecute(command, entity):
+    
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    command.RequestConfirmationBeforeExecute("Deseja realmente excluir as contabilizações ?")
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("TS_LANCAMENTOS"))    
+    command.TransitoryVars.Add("TS_LANCAMENTOSHANDLE", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("TS_LANCAMENTOS"))
+    
+    widget.View.Commands["CMD_CONTABILIZAR"].Visible = False
+    widget.View.Commands["CMD_EXCLUIR"].Visible = False
+    
+    if(item.Handle != None):
+      widget.View.Commands["CMD_CONTABILIZAR"].Visible = True
+      widget.View.Commands["CMD_EXCLUIR"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_ACAOANDAMENTOS_ATIVIDADE.CUSTOM.GRID</ViewName>
+  <EntityName>OP_ACAOANDAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    if row.EditCommand != None: row.EditCommand.Visible = entity.PodeAlterar
+    if row.DeleteCommand != None: row.DeleteCommand.Visible = entity.PodeExcluir
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

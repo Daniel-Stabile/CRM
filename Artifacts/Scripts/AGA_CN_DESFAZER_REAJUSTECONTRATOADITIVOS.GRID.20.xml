@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_DESFAZER_REAJUSTECONTRATOADITIVOS.GRID</ViewName>
+  <EntityName>CN_REAJUSTECONTRATOADITIVOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFILTROFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFILTROFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter
+
+    if(not args.Entity["COMPETENCIA"].IsNull):        
+        args.WhereClause.AddWhereClause("A1.COMPETENCIA = :COMPETENCIA ", Parameter("COMPETENCIA", args.Entity["COMPETENCIA"].GetDateTime()))
+        
+    if(not args.Entity["INCLUSAO"].IsNull):        
+        args.WhereClause.AddWhereClause("A1.DATAINCLUSAO = :DATAINCLUSAO ", Parameter("DATAINCLUSAO", args.Entity["INCLUSAO"].GetDateTime()))            
+    
+    if(not args.Entity["CLIENTES"].IsNull):
+        args.WhereClause.Where += " AND A4.HANDLE IN ("+args.Entity["CLIENTES"].GetString().replace("|_|",",").replace("|_","")+")"
+        
+    if(not args.Entity["CONTRATOS"].IsNull):
+        args.WhereClause.Where += " AND A3.HANDLE IN ("+args.Entity["CONTRATOS"].GetString().replace("|_|",",").replace("|_","")+")"        
+
+    args.WhereClause.Where += " AND A.REAJUSTE IN (SELECT RECONT.HANDLE FROM CN_REAJUSTECONTRATOS RECONT WHERE A.REAJUSTE = RECONT.HANDLE AND RECONT.USUARIOINCLUIU = @USUARIO) "
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

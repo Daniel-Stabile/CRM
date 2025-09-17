@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_RESPONSAVEISUNIDADE.CUSTOM.GRID</ViewName>
+  <EntityName>OP_RESPONSAVEISUNIDADE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity["ATIVO"].GetString() == "N" :
+        row.GetCellByName("VIGENCIA").Text = "&lt;div class='label label-sm' style='background-color: #bbbbbb !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-times-circle'&gt;&lt;/i&gt;&lt;b  style='padding-left: 5px'&gt;Fora de Vigência&lt;/b&gt;&lt;/div&gt;";
+        row.GetCellByName("VIGENCIA").Tooltip ="Fora de Vigência"
+    else:
+        row.GetCellByName("VIGENCIA").Text = "&lt;div class='label label-sm' style='background-color: #1BBC9B !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-check-circle'&gt;&lt;/i&gt;&lt;b style='padding-left: 5px'&gt;Em Vigência&lt;/b&gt;&lt;/div&gt;";
+        row.GetCellByName("VIGENCIA").Tooltip ="Em Vigência"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

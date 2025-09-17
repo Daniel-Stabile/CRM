@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>Q_PARCELASDEVPAGOS</Identifier>
+  <Name>Parcelas de devoluções</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;       A.ENTRADASAIDA,&#xD;&#xA;       A.DATAENTRADA,&#xD;&#xA;       A.EMPRESA,&#xD;&#xA;       A.PESSOA,&#xD;&#xA;       TD.NOME TIPODOCUMENTO,&#xD;&#xA;       A.FILIAL,&#xD;&#xA;       F.NOME FILIALNOME,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       A.HANDLE DOCUMENTO,&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       M.ABREVIATURA MOEDA,&#xD;&#xA;       B.DATALIQUIDACAO DATALIQUIDACAO,&#xD;&#xA;       B.VCTOPRORROGADO,&#xD;&#xA;       B.PARCELADIGITADA,&#xD;&#xA;       B.AP CHAVE,&#xD;&#xA;       B.VALOR,&#xD;&#xA;       B.VALORESBAIXADOS,&#xD;&#xA;       B.VALORDESAGIO,&#xD;&#xA;       B.VALORMOEDA,&#xD;&#xA;       B.DATAVENCIMENTO,&#xD;&#xA;       B.HANDLE,&#xD;&#xA;       B.VALORESCOMPENSADOS,&#xD;&#xA;       B.VALORESBAIXADOSMOEDA,&#xD;&#xA;       B.VALORESCOMPENSADOSMOEDA,&#xD;&#xA;       C.NOME&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;       INNER JOIN FN_PARCELAS B ON (B.DOCUMENTO = A.HANDLE)&#xD;&#xA;       INNER JOIN GN_OPERACOES C ON (C.HANDLE = A.OPERACAO)&#xD;&#xA;       JOIN FN_TIPOSDOCUMENTOS TD ON (TD.HANDLE = A.TIPODOCUMENTO)&#xD;&#xA;       JOIN GN_MOEDAS M ON M.HANDLE = A.MOEDA&#xD;&#xA;       JOIN FILIAIS F ON F.HANDLE = A.FILIAL&#xD;&#xA; WHERE  C.CODIGOINTERNO &lt;&gt; 29&#xD;&#xA;       AND A.EHPREVISAO &lt;&gt; 'S'&#xD;&#xA;       AND A.OPERACAOCANCELAMENTO IS NULL&#xD;&#xA;       AND&#xD;&#xA;       (&#xD;&#xA;           B.DOCUMENTOSUSPENSO &lt;&gt; 'S'&#xD;&#xA;           OR B.DOCUMENTOSUSPENSO IS NULL&#xD;&#xA;       )&#xD;&#xA;       AND&#xD;&#xA;       (&#xD;&#xA;           B.EMABERTO = 'S'&#xD;&#xA;       )&#xD;&#xA;       AND&#xD;&#xA;       (&#xD;&#xA;           (&#xD;&#xA;               ROUND(B.VALORESCOMPENSADOS, 2) &lt; B.VALORESBAIXADOS&#xD;&#xA;           )&#xD;&#xA;           OR B.VALORESCOMPENSADOS IS NULL&#xD;&#xA;           OR B.VALORESCOMPENSADOS = 0&#xD;&#xA;       )&#xD;&#xA;       AND B.PERMUTA &lt;&gt; 'S'&#xD;&#xA;       AND A.TIPODEMOVIMENTO = 3&#xD;&#xA; ORDER BY A.DATAENTRADA" />
+  <Fields>
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="FILIALNOME" From="A" Path="FILIALNOME" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="DATALIQUIDACAO" From="A" Path="DATALIQUIDACAO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORDESAGIO" From="A" Path="VALORDESAGIO" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="VALORESBAIXADOSMOEDA" From="A" Path="VALORESBAIXADOSMOEDA" />
+    <Field Alias="VALORESCOMPENSADOSMOEDA" From="A" Path="VALORESCOMPENSADOSMOEDA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

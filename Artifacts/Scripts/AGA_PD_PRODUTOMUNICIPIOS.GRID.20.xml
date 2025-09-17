@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_PRODUTOMUNICIPIOS.GRID</ViewName>
+  <EntityName>PD_PRODUTOMUNICIPIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Materiais import PDProduto
+    
+    widget.Hidden = PDProduto.ControlarCargaMunicipio(widget.Breadcrumb.Parent.Entity.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

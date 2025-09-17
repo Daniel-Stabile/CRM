@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R4010RENDIMENTOISENTO.GRID</ViewName>
+  <EntityName>REINF_R4010RENDIMENTOISENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    row.GetCellByName("VLRISENTO").Text = "0,00";
+ 
+    #Formatação dos valores
+    if entity.Fields["VLRISENTO"] != None: row.GetCellByName("VLRISENTO").Text = str(str(str("{:,.2f}".format(entity.Fields["VLRISENTO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

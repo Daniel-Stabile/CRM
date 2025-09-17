@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOIMPOSTOS.RETENCOES.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_637103996069748458Execute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_637103996069748458Execute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    systemName = entity.Definition.EntitySource.SystemInstanceName
+    entityDefinition = EntityDefinition.GetByName(systemName, "FN_DOCUMENTOTRIBUTOS")
+    parameters = NameValueDictionary()
+    parameters.Add("DOCUMENTOHANDLE", str(entity["DOCUMENTO"].GetInt32()))
+    function.Call(entityDefinition, "Confirmar2", parameters)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Corporativo.Definicoes.Financeiro import FNDocumentoImposto
+    
+    entity = widget.Entity
+    if entity == None: return
+    
+    widget.View.Commands["CMD_INFORMARTERCEIROS"].Visible = FNDocumentoImposto.ExibirPageRetencaoTerceiros(entity["IMPOSTO"].GetInt32(), entity["PESSOA"].GetInt32(), entity["DOCUMENTO"].GetInt32())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

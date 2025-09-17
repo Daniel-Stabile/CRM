@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_DUPLICARECURSOS.FORM</ViewName>
+  <EntityName>K_CRM_VT_DUPLICARECURSOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import Entity
+    
+    entity = widget.Entity;
+    nova = entity.Fields["MESMOPERIODO"];
+    
+    if nova == True:
+        entity["NOVAVIGENCIA"].Visible = False;
+    else:
+        entity["NOVAVIGENCIA"].Visible = True;
+    
+    widget.MessagePanel.ShowMessage("A clonagem excluirá qualquer registro anterior dentro deste periodo de vigência nas filiais de destino.",MessageType.Information)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnMESMOPERIODOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMESMOPERIODOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import Entity
+    
+    nova = entity.Fields["MESMOPERIODO"];
+    
+    if nova == True:
+        entity["NOVAVIGENCIA"].Visible = False;
+    else:
+        entity["NOVAVIGENCIA"].Visible = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

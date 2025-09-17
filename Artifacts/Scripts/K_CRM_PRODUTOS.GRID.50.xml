@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PRODUTOS.GRID</ViewName>
+  <EntityName>K_CRM_PRODUTOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if entity == None:return;
+    
+    tipoUsuario = int(entity.Fields["TIPOUSUARIO"].Value)
+    
+    if row.GetCustomCommand("cmdTiposUsuarios") != None: 
+        row.GetCustomCommand("cmdTiposUsuarios").Enabled = (tipoUsuario in [2])
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

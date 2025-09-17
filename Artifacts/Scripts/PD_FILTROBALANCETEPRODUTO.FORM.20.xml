@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_FILTROBALANCETEPRODUTO.FORM</ViewName>
+  <EntityName>PD_FILTROBALANCETEPRODUTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCONSIDERACANCELADAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONSIDERACANCELADAValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDesconsiderarCanceladas)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCONSIDERAENTRADAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONSIDERAENTRADAValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDesconsiderarCanceladas)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnIMPFAMILIAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnIMPFAMILIAValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemClassificacaoFamilia)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnIMPFAMPAIValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnIMPFAMPAIValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemClassificacaoFamilia)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

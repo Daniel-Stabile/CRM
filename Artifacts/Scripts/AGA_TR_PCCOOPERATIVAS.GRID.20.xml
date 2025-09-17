@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_PCCOOPERATIVAS.GRID</ViewName>
+  <EntityName>TR_PCCOOPERATIVAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    if (form == None) : return
+    
+    entity = form.Entity
+    if (entity == None) : return
+    
+    widget.Hidden = not ((entity["PIS"].GetDBValue() == "S" or entity["COFINS"].GetDBValue() == "S") and entity["EHRETENCAO"].GetDBValue() == "N")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_ANUAL_TESTE</Identifier>
+  <Name>ANUAL_TESTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT * FROM K_CRM_METASDIRETORES" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="Z_GRUPO" From="A" Path="Z_GRUPO" />
+    <Field Alias="METAUNIDADE" From="A" Path="METAUNIDADE" />
+    <Field Alias="DIRETOR" From="A" Path="DIRETOR" />
+    <DecimalField Alias="VALORMETA" From="A" Path="VALORMETA" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORFATURAMENTO" From="A" Path="VALORFATURAMENTO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="REVENDAVALORMETA" From="A" Path="REVENDAVALORMETA" FieldDecimalsFormat="0" />
+    <DecimalField Alias="REVENDAVALORFATURAMENTO" From="A" Path="REVENDAVALORFATURAMENTO" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

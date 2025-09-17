@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_CLASSIFICACAOMETAS.QUANTITATIVA.GRID</ViewName>
+  <EntityName>OP_CLASSIFICACAOMETAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.ProviderWidget.Entity
+    widget.Hidden = entity["CLASSIFICACAO"].GetInt32() != 2
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_WFPROCESSOS.GRID</ViewName>
+  <Level>Tecnologia</Level>
+  <EntityName>Z_WFPROCESSOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Por identificação</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1" FieldName="IDENTIFICACAO">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>inicia com</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

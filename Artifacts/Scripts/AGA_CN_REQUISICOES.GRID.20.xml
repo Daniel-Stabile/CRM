@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_REQUISICOES.GRID</ViewName>
+  <EntityName>CN_REQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    statusRequisicao = entity.Fields["STATUS"].Value
+    statusCadastrada = 1    
+    if (statusRequisicao &gt; statusCadastrada): 
+        if row.EditCommand != None:
+            row.EditCommand.Visible = False
+        if row.DeleteCommand != None:    
+            row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

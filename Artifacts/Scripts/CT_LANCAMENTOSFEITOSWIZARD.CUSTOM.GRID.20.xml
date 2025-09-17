@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOSFEITOSWIZARD.CUSTOM.GRID</ViewName>
+  <EntityName>CT_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    entityDefinition = EntityDefinition.GetByName("CT_LANCAMENTOS");
+    funcao = function.Call(entityDefinition, "VerificarLancamentoContraPartida", entity);
+    if (bool(funcao.Vars["FOIEXCLUIDO"])):
+        return;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

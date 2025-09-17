@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_CLASSIFICACAOORCAMENTARIA_OPERACAO.CUSTOM.FORM</ViewName>
+  <EntityName>OP_CLASSIFICACAOORCAMENTARIA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnACOESPROJETOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnACOESPROJETOSValueChanged(view, entity):
+    
+    entity.Fields["VALOR"] = 0;
+    
+    try:
+        lookup = entity.Fields["ACOESPROJETOS"];
+        entity.Fields["VALOR"] = lookup.Instance.Fields["VALORANO"];
+    except:
+        print("An exception occurred")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    entity = widget.Entity
+    if entity == None: return
+    
+    if widget.View.Commands["Edit"] &lt;&gt; None: widget.View.Commands["Edit"].Visible = entity.PodeAlterar
+    if widget.View.Commands["Delete"] &lt;&gt; None: widget.View.Commands["Delete"].Visible = entity.PodeExcluir
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

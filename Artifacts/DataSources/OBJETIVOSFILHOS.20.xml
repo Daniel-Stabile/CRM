@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>OBJETIVOSFILHOS</Identifier>
+  <Name>Mapa-Estratégico-Objetivos-Filhos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="    Select &#xA;        A.HANDLE,&#xA;        A.OBJETIVOPAI,&#xA;    &#x9;A.NOME,&#xA;&#x9;&#x9;GP_CICLOESCALAS.IMAGEM,&#xA;    &#x9;A.DESEMPENHO,&#xA;    &#x9;A.PESO,&#xA;    &#x9;(SELECT NOME FROM Z_GRUPOUSUARIOS WHERE Z_GRUPOUSUARIOS.HANDLE = A.RESPONSAVEL) RESPONSAVEL,&#xA;    &#x9;(SELECT AGRUPADOR FROM GP_CICLOOBJETIVOS WHERE HANDLE = A.OBJETIVOPAI) EhAgrupador&#xA;    from GP_CICLOOBJETIVOS A&#xA;    left join GP_PLANEJAMENTOCICLOS  ON GP_PLANEJAMENTOCICLOS.HANDLE = A.CICLO&#xA;&#x9;left join GP_CICLOESCALAS on GP_CICLOESCALAS.CICLO = GP_PLANEJAMENTOCICLOS.HANDLE AND A.DESEMPENHO BETWEEN GP_CICLOESCALAS.FAIXAINICIAL AND GP_CICLOESCALAS.FAIXAFINAL&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="OBJETIVOPAI" From="A" Path="OBJETIVOPAI" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="IMAGEM" From="A" Path="IMAGEM" />
+    <DecimalField Alias="DESEMPENHO" From="A" Path="DESEMPENHO" FieldDecimalsFormat="2" />
+    <Field Alias="PESO" From="A" Path="PESO" />
+    <Field Alias="RESPONSAVEL" From="A" Path="RESPONSAVEL" />
+    <Field Alias="EHAGRUPADOR" From="A" Path="EHAGRUPADOR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICOES.ATENDIMENTOREQUISICAO.GRID</ViewName>
+  <EntityName>CP_REQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+    if row.GetCustomCommand("Estornar") != None: row.GetCustomCommand("Estornar").Enabled = entity.PodeEstornarDevolver()
+    if row.GetCustomCommand("CMD_DEVOLVER") != None: row.GetCustomCommand("CMD_DEVOLVER").Enabled = entity.PodeEstornarDevolver() and not entity.ControlaLote()
+    if row.GetCustomCommand("CMD_DEVOLVERLOTE") != None: row.GetCustomCommand("CMD_DEVOLVERLOTE").Enabled = entity.PodeEstornarDevolver() and entity.ControlaLote()
+    if row.GetCustomCommand("InserirLotes") != None: row.GetCustomCommand("InserirLotes").Enabled = entity.ControlaLote()
+    if row.GetCustomCommand("CMD_GERARREQUISICAO") != None: row.GetCustomCommand("CMD_GERARREQUISICAO").Enabled = entity.VisibilidadeComandoGerarRequisicao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

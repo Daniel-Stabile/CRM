@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_FINANCEIRO_DOCUMENTOS.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    saldo = entity.Fields["VALORLIQUIDO"] - entity.Fields["VALORESBAIXADOS"];
+    row.GetCellByName("CUSTOM_SALDO").Text = saldo.ToString("C2");
+    row.GetCellByName("CUSTOM_SALDO").Align = "right";
+    row.GetCellByName("DATAEMISSAO").Text = entity.Fields["DATAEMISSAO"].ToString("dd/MM/yyyy");
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

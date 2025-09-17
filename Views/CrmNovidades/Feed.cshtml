@@ -1,0 +1,122 @@
+﻿@{
+    Benner.Tecnologia.Common.Components.FormLinkDefinition link = new Benner.Tecnologia.Common.Components.FormLinkDefinition();
+    link.Parameters.Add("PaginaAnterior", Model.PageIndex - 1);
+    link.Url = "/Pages/K_CRM_NOVIDADES/Novidades.aspx";
+
+    var urlAnterior = Benner.Tecnologia.Wes.Components.UriBuilder.Create(link);
+
+    Benner.Tecnologia.Common.Components.FormLinkDefinition link2 = new Benner.Tecnologia.Common.Components.FormLinkDefinition();
+    link2.Parameters.Add("ProximaPagina", Model.PageIndex + 1);
+    link2.Url = "/Pages/K_CRM_NOVIDADES/Novidades.aspx";
+
+    var urlSeguinte = Benner.Tecnologia.Wes.Components.UriBuilder.Create(link2);
+}
+<div class="portlet light">
+    <div class="portlet-body">
+        <div class="mt-element-list">
+            <div class="mt-list-head list-news font-white bg-green">
+                <div class="list-head-title-container">
+                    <h3 class="list-title">Novidades, alterações e demais notificações</h3>
+                </div>
+            </div>
+            <div class="mt-list-container list-news">
+                <div class="view-root mounted">
+                    <div>
+                        <ul>
+                            @foreach (var noticia in Model.Items)
+                            {
+                                <li class="mt-list-item">
+                                    <div class="list-datetime bold uppercase font-green">
+                                        @noticia.Data
+                                        @if (noticia.Fixada == true)
+                                        {
+                                            <span class="label label-info pull-right">
+                                                Fixada
+                                            </span>
+                                        }
+                                    </div>
+                                    <div class="list-item-content">
+                                        <div style="overflow: auto;padding: 5px;background-color: #f5f8fd">
+                                            <h3>@noticia.Titulo</h3>
+                                            <p>
+                                                @Html.Raw(noticia.Descricao)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        @if (Model.MorePages == true)
+                        {
+                            <div class="center" style="text-align: center; width: 100%;">
+                                <ul class="pagination">
+
+                                    <li class="@Model.BtnAnterior paginate_button previous ">
+                                        @if(Model.BtnAnterior == "disabled")
+                                        {
+                                            <a >
+                                                <i class="fa fa-angle-left">
+                                                </i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@urlAnterior">
+                                                <i class="fa fa-angle-left">
+                                                </i>
+                                            </a>
+                                        }                     
+                                    </li>
+                                    <li class="@Model.BtnProximo paginate_button next">
+                                        @if (Model.BtnProximo == "disabled")
+                                        {
+                                            <a>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@urlSeguinte">
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script>
+
+    function paginaAnterior() {
+        location.href = "@url";
+    }
+    function proximaPagina(){
+        location.href = "@url";
+    }
+</script>*@
+@* <script id="template-novidade" type="text/x-template">
+        <li class="mt-list-item">
+            <div class="list-datetime bold uppercase font-green">{{textoDataPublicacao}} <span v-if="fixada" class="label label-info pull-right">Fixada</span></div>
+            <div class="list-item-content">
+                <div class="conteudo-novidade" v-html="textoHTML"></div>
+            </div>
+        </li>
+    </script>
+    <script type="text/x-template" id="template-novidades">
+        <div>
+            <ul>
+                <novidade v-for="(novidade, i) in data" v-bind="novidade" :key="i"></novidade>
+            </ul>
+            <div class="center" style="text-align: center; width: 100%">
+                <ul class="pagination">
+                    <li :class="{disabled: !_hasPreviousPage}"><a v-on:click="_fetchPreviousPage"><i class="fa fa-angle-left"></i></a></li>
+                    <li :class="{disabled: !_hasNextPage}"><a v-on:click="_fetchNextPage"><i class="fa fa-angle-right"> </i></a></li>
+                </ul>
+            </div>
+        </div>
+    </script> *@

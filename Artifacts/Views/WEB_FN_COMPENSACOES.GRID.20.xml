@@ -1,0 +1,482 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_FN_COMPENSACOES.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_FN_COMPENSACOES</EntityName>
+  <Type>Grid</Type>
+  <Version>10</Version>
+  <GridDefinition entityDefinitionName="WEB_FN_COMPENSACOES" name="WEB_FN_COMPENSACOES.GRID" title="WEB_FN_COMPENSACOES" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions />
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="" key="New" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Edit" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="SaveNew" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Delete" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="View" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command xsi:type="CommandGroup" title="Compensação Automática" image="fa fa-check" color="green-meadow" key="GRP_Automatica">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Adiantamento clientes" image="fa fa-user-plus" key="CMD_ADIANTAMENTOCLIENTEAUTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/CompensacaoAutomatica.aspx?comp=A&amp;tipo=C</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.CLIENTEFORNECEDOR=1 AND A.ADIANTAMENTODEVOLUCAO=1</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_FN_COMPENSACAOAUTOMATICA</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Adiantamento fornecedores" image="fa fa-truck" key="CMD_ADIANTAMENTOFORNECEDORAUTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/CompensacaoAutomatica.aspx?comp=A&amp;tipo=F</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.CLIENTEFORNECEDOR=2 AND A.ADIANTAMENTODEVOLUCAO=1</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_FN_COMPENSACAOAUTOMATICA</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Devoluções clientes" image="fa fa-user-times" key="CMD_DEVOLUCAOCLIENTEAUTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/CompensacaoAutomatica.aspx?comp=D&amp;tipo=C</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.CLIENTEFORNECEDOR=1 AND A.ADIANTAMENTODEVOLUCAO=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_FN_COMPENSACAOAUTOMATICA</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Devoluções fornecedores" image="fa fa-truck" key="CMD_DEVOLUCAOFORNECEDORAUTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/CompensacaoAutomatica.aspx?comp=D&amp;tipo=F</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.CLIENTEFORNECEDOR=2 AND A.ADIANTAMENTODEVOLUCAO=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_FN_COMPENSACAOAUTOMATICA</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Excluir compensação" image="fa fa-minus" color="red" key="GRP_EXCLUSAO">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Adiantamento clientes" image="fa fa-user-plus" key="CMD_ADIANTAMENTOCLIENTESEXC">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/Exclusao.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>EXCLUSAOCOMPENSACAO.DATASOURCE</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Adiantamento fornecedores" image="fa fa-truck" key="CMD_ADIANTAMENTOFORNECEDOREXC">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/Exclusao.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>EXCLUSAOCOMPENSACAO.DATASOURCE</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Devoluções clientes" image="fa fa-user-times" key="CMD_DEVOLUCAOCLIENTESEXC">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/Exclusao.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>EXCLUSAOCOMPENSACAO.DATASOURCE</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Devoluções fornecedores" image="fa fa-truck" key="CMD_DEVOLUCAOFORNECEDORESEXC">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/compensacoes/Exclusao.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>EXCLUSAOCOMPENSACAO.DATASOURCE</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Compensação manual" image="fa fa-check" color="blue" key="GRP_MANUAL">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Adiantamento clientes" image="fa fa-user-plus" key="CMD_ADIANTAMENTOCLIENTE">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/AdiantamentoClienteFornecedor.aspx?tipo=C</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHCLIENTE = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Adiantamento fornecedores" image="fa fa-truck" key="CMD_ADTOFORNECEDOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/AdiantamentoClienteFornecedor.aspx?tipo=F</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHFORNECEDOR = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Devolução clientes" image="fa fa-user-times" key="CMD_DEVOLUCAOCLIENTEFORNECEDOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/DevolucoesClienteFornecedor.aspx?tipo=C</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHCLIENTE = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Devolução fornecedores" image="fa fa-truck" key="CMD_DEVFORNECEDORES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/DevolucoesClienteFornecedor.aspx?tipo=F</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHFORNECEDOR = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

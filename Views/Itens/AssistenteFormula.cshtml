@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "AssistenteFormula";
+}
+@using Benner.Tecnologia.Common
+@using System.Collections.Generic
+@model List<EntityBase>
+
+<style>
+    td, th {
+        padding: 10px;
+    }
+</style>
+
+<script>
+    function LimparFormula() {
+        document.getElementById('formula').value = '';
+    }
+
+    function Preencher(valor) {
+        document.getElementById('formula').value += valor.value;
+    }
+
+    function PreencherCampo(nome, legenda) {
+        document.getElementById('nome').value = nome;
+        document.getElementById('legenda').value = legenda;
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="portlet light">
+            <div class="col-md-6">
+                <div class="portlet portlet-body">
+                    <div class="col-sm-10">
+                        <input type="text" value="@ViewBag.Formula" class="form-control form-group-lg" placeholder="Fórmula" id="formula" name="formula" required autofocus>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-warning" type="button" onclick="LimparFormula()">Limpar</button>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h4 class="portlet-title">Campos de CM_ITENS</h4>
+                        <select id="CAMPOSITEM" class="form-control" data-selectsplitter-firstselect-selector size="18" multiple>
+                            @foreach (var campo in Model)
+                            {
+                                <option value="{@campo.Fields["NOME"].ToString()}" ondblclick="Preencher(this)" onclick="PreencherCampo('@campo.Fields["NOME"].ToString()', '@campo.Fields["LEGENDAFORMULARIO"].ToString()')">@campo.Fields["NOME"].ToString()</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h4 class="portlet-title">Cálculos</h4>
+                        <div class="row portlet">
+                            <input type="button" value="1" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="2" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="3" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="4" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="5" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="(" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                        </div>
+
+                        <div class="row portlet">
+                            <input type="button" value="6" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="7" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="8" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="9" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value="0" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                            <input type="button" value=")" class="btn btn-primary btn-lg" onclick="Preencher(this)" />
+                        </div>
+
+                        <div class="row portlet">
+                            <button type="button" value="+" class="btn btn-primary btn-lg" onclick="Preencher(this)">+</button>
+                            <button type="button" value="-" class="btn btn-primary btn-lg" onclick="Preencher(this)">-</button>
+                            <button type="button" value="*" class="btn btn-primary btn-lg" onclick="Preencher(this)">×</button>
+                            <button type="button" value="/" class="btn btn-primary btn-lg" onclick="Preencher(this)">÷</button>
+                            <button type="button" value="." class="btn btn-primary btn-lg" onclick="Preencher(this)">.</button>
+                        </div>
+
+                        <h4 class="portlet-title">Detalhes</h4>
+                        <div class="col-lg-4 col-md-12 col-sm-8">
+                            <div class="form-group">
+                                <label class="control-label name column-nowrap">
+                                    <div class="label-form">
+                                        <div class="label-title">
+                                            Campo
+                                        </div>
+                                    </div>
+                                </label><span data-type="string"><input id="nome" type="text" value="" maxlength="10" readonly="readonly" class="form-control "></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-8">
+                            <div class="form-group">
+                                <label class="control-label name column-nowrap">
+                                    <div class="label-form">
+                                        <div class="label-title">
+                                            Legenda
+                                        </div>
+                                    </div>
+                                </label><span data-type="string"><input id="legenda" type="text" value="" maxlength="10" readonly="readonly" class="form-control "></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.ActionLinkWes("Salvar", "SalvarFormula", new { handle = ViewBag.Operacao }, new { @id = "formula", @class = "btn btn-primary", @style = "color:white" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

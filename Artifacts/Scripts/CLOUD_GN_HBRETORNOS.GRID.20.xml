@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_GN_HBRETORNOS.GRID</ViewName>
+  <EntityName>GN_HBRETORNOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import WhereClause
+    
+    command.OutputDefinition.Url = "~/defaultdatainput.aspx"
+    command.OutputDefinition.TargetEntityDefinitionName = "CLOUD_INSERIRRETORNOBANCARIO.FORM"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import String
+    from Benner.Tecnologia.Common import ListItem
+    
+    if entity == None: return
+    if entity["STATUS"].IsNull: return
+
+    status = entity.Fields["STATUS"]
+    if status.Value in [1]:
+        row.GetCellByName("STATUS").Text = String.Format("&lt;span class=\"label label-default\"&gt; {0} &lt;/span&gt;", entity["STATUS"].GetString())
+    elif status.Value in [2,3]:
+        row.GetCellByName("STATUS").Text = String.Format("&lt;span class=\"label label-warning\"&gt; {0} &lt;/span&gt;", entity["STATUS"].GetString())
+    elif status.Value in [4]:
+        row.GetCellByName("STATUS").Text = String.Format("&lt;span class=\"label label-success\"&gt; {0} &lt;/span&gt;", entity["STATUS"].GetString())
+    elif status.Value in [5,6]:
+        row.GetCellByName("STATUS").Text = String.Format("&lt;span class=\"label label-danger\"&gt; {0} &lt;/span&gt;", entity["STATUS"].GetString())
+
+    row.GetCustomCommand("CMD_PROCESSAR_COBRANCA").Enabled = (status.Value in [1,5,6]);
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

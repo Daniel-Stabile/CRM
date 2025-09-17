@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESDOC.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESDOC</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import BennerPrincipal
+
+    ehAdmin = BennerPrincipal.Current.ActiveRole == "K_CRM_ADMIN";
+    usuario = BennerIdentity.Current.UserHandle
+    responsavel = widget.Entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle
+    faseOportunidade = widget.Entity.Fields["OPORTUNIDADE"].Instance.Fields["STATUSOPORTUNIDADE"].Instance.Fields["NOME"];
+    
+    editavel = faseOportunidade != "Ganho" and faseOportunidade != "Contrato Assinado" and (usuario == responsavel or ehAdmin);
+    
+    widget.View.Commands["Edit"].Visible = editavel;
+    widget.View.Commands["New"].Visible = editavel;
+    widget.View.Commands["Delete"].Visible = editavel;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

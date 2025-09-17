@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_FILTROP2073.FORM</ViewName>
+  <EntityName>CT_FILTROP2073</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    if (entity["DESPESASMES"].GetInt32() == 0):
+        raise CancelledOperationException("Cancelada a geração, informe um valor maior que zero para o total das despesas do mês!")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

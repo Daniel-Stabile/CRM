@@ -1,0 +1,39 @@
+﻿@helper LabelForm(dynamic model, string labelHeader, string labelKey, int size)
+{
+    @DefaultLabelForm(labelHeader, model[labelKey].GetString(), size, string.Empty);
+}
+
+@helper DefaultLabelForm(string labelHeader, string labelValue, int size, string icon)
+{
+    <style>
+        .header {
+            letter-spacing: 0px;
+        }
+
+        .child {
+            letter-spacing: 1px;
+        }
+    </style>
+    <div class="col-md-@size">
+        <h4><strong class="header">@labelHeader</strong>
+        @if(icon != string.Empty)
+        {
+            <i class="fa @icon"></i>
+        }
+        </h4>
+        <p class="child">@labelValue</p>
+    </div>
+}
+
+@helper LabelHeader(dynamic model, string label)
+{
+    <div class="col-md-12">
+        <h4 style="text-align:center;"><strong>@model[label].GetString()</strong></h4>
+    </div>
+}
+
+@helper LabelDate(string header, string value, int size, string format)
+{
+    @DefaultLabelForm(header, value, size, "fa-calendar-o")
+}
+

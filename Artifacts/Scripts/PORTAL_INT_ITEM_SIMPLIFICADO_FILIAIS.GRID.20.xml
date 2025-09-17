@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ITEM_SIMPLIFICADO_FILIAIS.GRID</ViewName>
+  <EntityName>PD_PRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Parameter
+    
+    if (row.GetCustomCommand("CMD_636682778485315819") == None): return 
+    criterio = Criteria()
+    sql = "SELECT X.HANDLE FROM PD_PRODUTOSPAI X  INNER JOIN PD_PRODUTOS W ON W.PRODUTOPAI = X.HANDLE  INNER JOIN CP_CATALOGOFORNECIMENTOITENS Z ON Z.PRODUTOPAI = X.HANDLE  INNER JOIN CP_CATALOGOFORNECIMENTOFILIAIS R ON R.CATALOGOFORNECIMENTO = Z.CATALOGOFORNECIMENTO AND R.FILIAL = W.FILIAL  INNER JOIN CP_CATALOGOSFORNECIMENTO V ON V.HANDLE = R.CATALOGOFORNECIMENTO  WHERE W.HANDLE = :HANDLEPRODUTO    AND W.FILIAL = :HANDLEFILIAL "    
+    criterio.Parameters.Add(Parameter("HANDLEPRODUTO", entity.Fields["HANDLE"].Value))
+    criterio.Parameters.Add(Parameter("HANDLEFILIAL", entity.Fields["FILIAL"].Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    row.GetCustomCommand("CMD_636682778485315819").Enabled = (Entity.GetFirstOrDefault(ed, criterio) != None)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

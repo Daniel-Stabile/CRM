@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.ACOMPANHAMENTOCLIENTE.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>import clr
+
+def Load(widget):
+    from Benner.Tecnologia.Wes.Components import WesBreadcrumbProvider
+
+    entity = widget.Entity
+    if entity == None:
+        return WesBreadcrumbProvider.UpdateCurrentTitle(entity["CODIGO"].GetString() + " - " + entity["NOME"].GetString())
+
+    habititaCamposOcorrencias = defineVisibilidadeCamposOcorrencias(widget)
+
+    widget.View.FieldDefinitions["CUSTOM_637127121060407244"].Visible = habititaCamposOcorrencias
+    widget.View.FieldDefinitions["CUSTOM_637842253223302568"].Visible = habititaCamposOcorrencias
+
+
+def defineVisibilidadeCamposOcorrencias(widget):
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+
+    usuarioMantemConsultaEOcorrencia = AuthorizationHelper.HasTask("MANTER_CONSULTADECLIENTES") and AuthorizationHelper.HasTask("MANTER_OCORRENCIA_PESSOA")
+    usuarioVisualizaConsultaEMantemOcorrencia = AuthorizationHelper.HasTask("VISUALIZAR_CONSULTADECLIENTES") and AuthorizationHelper.HasTask("MANTER_OCORRENCIA_PESSOA")
+
+    # Nova condição para o para o papel Comercial / Contratos - SMS 1801938
+    usuarioModuloComercial = AuthorizationHelper.HasTask("MODULO_COMERCIAL")
+    usuarioModuloContratos = AuthorizationHelper.HasTask("MODULO_CONTRATOS")
+    usuarioModuloFinanceiro = AuthorizationHelper.HasTask("MODULO_FINANCEIRO")
+
+    return (
+        usuarioMantemConsultaEOcorrencia
+        or usuarioVisualizaConsultaEMantemOcorrencia
+        or usuarioModuloComercial or usuarioModuloContratos or usuarioModuloFinanceiro
+    )</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

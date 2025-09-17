@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_META_MENSAL_USUARIO</Identifier>
+  <Name>CRM_META_MENSAL_USUARIO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALORMETA) PLANEJADO,&#xD;&#xA;(SELECT COALESCE(SUM(VALORTOTAL+RECORRENTE+VALORSAAS),0)&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE MONTH(DATAFECHAMENTO) = MONTH(GETDATE())&#xD;&#xA;AND YEAR(DATAFECHAMENTO) = YEAR(GETDATE())&#xD;&#xA;AND STATUS = 10&#xD;&#xA;AND RESPONSAVEL = @USUARIO) REALIZADO&#xD;&#xA;FROM K_CRM_METASPERIODOS A&#xD;&#xA;JOIN K_CRM_METASUSUARIOS B ON A.METAUSUARIO = B.HANDLE&#xD;&#xA;WHERE MONTH(A.DATA) = MONTH(GETDATE())&#xD;&#xA;AND YEAR(A.DATA) = YEAR(GETDATE())&#xD;&#xA;AND B.HANDLE = @USUARIO&#xD;&#xA;" />
+  <Fields>
+    <DecimalField Alias="PLANEJADO" From="A" Path="PLANEJADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="REALIZADO" From="A" Path="REALIZADO" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

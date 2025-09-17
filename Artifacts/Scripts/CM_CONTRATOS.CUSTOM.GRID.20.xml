@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_CONTRATOS.CUSTOM.GRID</ViewName>
+  <EntityName>CM_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.EditCommand != None: 
+        row.EditCommand.Visible = entity.Fields["STATUSPROPOSTA"].Value == 1 and  entity.Fields["LIBERADOCONFIRMACAO"] == False
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = entity.Fields["STATUSPROPOSTA"].Value == 1 and  entity.Fields["LIBERADOCONFIRMACAO"] == False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

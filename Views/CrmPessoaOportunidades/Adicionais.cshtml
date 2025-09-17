@@ -1,0 +1,367 @@
+﻿<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+@if (null != Model)
+{
+    <div class="col-md-12 col-sm-12">
+        <div class="">
+            <a id="" onclick="Voltar()" class="btn command-action custom-action default" style="">
+                <i id="" class="fa fa-chevron-circle-left btn-action" href=""></i> Voltar
+            </a>
+            @*<a id="" onclick="AtualizaAdicionais()" class="btn command-action custom-action btn command-action green-jungle" style="display: inline-block;">
+            <i id="" class="fa fa-refresh" href=""></i> Atualizar
+        </a>*@
+            @if (Model.OportunidadeAtiva == false)
+            {
+                <a id="BtnEditarCondPgto" onclick="EditarCondPgto()" class="btn command-action custom-action blue" style="display: inline-block;">
+                    <i id="" class="fa fa-pencil btn-action" href=""></i> Editar
+                </a>
+            }
+            <div id="BtnSalvarCondPgto" onclick="SalvarCondPgto()" class="btn command-action custom-action blue" style="display: none;">
+                <i id="" class="fa fa-check btn-action" href=""></i> Salvar
+            </div>
+            <div id="BtnCancelarCondPgto" onclick="CancelarCondPgto()" class="btn command-action custom-action default" style="display: none;">
+                <i id="" class="fa fa-times btn-action" href=""></i> Cancelar
+            </div>
+            <a id="" onclick="GoConclusao()" class="btn command-action custom-action blue" style=""><i class="fa fa-chevron-circle-right btn-action"></i> Próximo</a>
+        </div>
+        <div class="form-group">
+            <h3>Cliente: @Model.NomeEmpresa</h3>
+            <h4>Oportunidade: @Model.CondicoesPagamento.CodigoOportunidade - Versão: @Model.CondicoesPagamento.Versao</h4>
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title" title="Consideracoes">
+                        Considerações adicionais/Customizações
+                    </div>
+                    <div class="label-title-required">
+                        <span class="required" aria-required="true"> * </span>
+                    </div>
+                </div>
+            </label>
+            <span data-field="Consideracoes" data-label="Considerações adicionais/Customizações" data-type="text">
+                <textarea disabled name="" placeholder="Informe as considerações sobre essa proposta." rows="3" cols="60" id="txtConsideracoes" class="form-control " maxlength="1000000"></textarea>
+            </span>
+            <br />
+            @{
+                if (Model.Modalidade.MostraLu)
+                {
+                    <label class="control-label name column-nowrap">
+                        <div class="label-form">
+                            <div class="label-title" title="CondPagLu">
+                                Condições de Pagamento LU
+                            </div>
+                            <div class="label-title-required">
+                                <span class="required" aria-required="true"> * </span>
+                            </div>
+                        </div>
+                    </label>
+                    <span data-field="CondPagLu" data-label="Condições de Pagamento LU" data-type="text">
+                        <textarea disabled name="" rows="3" cols="60" id="txtCondPagLu" class="form-control " maxlength="1000000"></textarea>
+                    </span>
+                    <br />
+                }
+                if (Model.Modalidade.MostraLum)
+                {
+                    <label class="control-label name column-nowrap">
+                        <div class="label-form">
+                            <div class="label-title" title="CondPagLum">
+                                Condições de Pagamento LUM
+                            </div>
+                            <div class="label-title-required">
+                                <span class="required" aria-required="true"> * </span>
+                            </div>
+                        </div>
+                    </label>
+                    <span data-field="CondPagLum" data-label="Condições de Pagamento LUM" data-type="text">
+                        <textarea disabled name="" rows="3" cols="60" id="txtCondPagLum" class="form-control " maxlength="1000000"></textarea>
+                    </span>
+                    <br />
+                }
+                if (Model.Modalidade.MostraLocacao)
+                {
+                    <label class="control-label name column-nowrap">
+                        <div class="label-form">
+                            <div class="label-title" title="CondPagLocacao">
+                                Condições de Pagamento Locação
+                            </div>
+                            <div class="label-title-required">
+                                <span class="required" aria-required="true"> * </span>
+                            </div>
+                        </div>
+                    </label>
+                    <span data-field="CondPagLocacao" data-label="Condições de Pagamento Locação" data-type="text">
+                        <textarea disabled name="" rows="3" cols="60" id="txtCondPagLocacao" class="form-control " maxlength="1000000"></textarea>
+                    </span>
+                    <br />
+                }
+                if (Model.Modalidade.MostraServico)
+                {
+                    <label class="control-label name column-nowrap">
+                        <div class="label-form">
+                            <div class="label-title" title="CondPagServico">
+                                Condições de Pagamento Serviço
+                            </div>
+                            <div class="label-title-required">
+                                <span class="required" aria-required="true"> * </span>
+                            </div>
+                        </div>
+                    </label>
+                    <span data-field="CondPagServico" data-label="Condições de Pagamento Servico" data-type="text">
+                        <textarea disabled name="" rows="3" cols="60" id="txtCondPagServico" class="form-control " maxlength="1000000"></textarea>
+                    </span>
+                    <br />
+                }
+                if (Model.Modalidade.MostraSaas)
+                {
+                    <label class="control-label name column-nowrap">
+                        <div class="label-form">
+                            <div class="label-title" title="CondPagSaas">
+                                Condições de Pagamento SAAS
+                            </div>
+                            <div class="label-title-required">
+                                <span class="required" aria-required="true"> * </span>
+                            </div>
+                        </div>
+                    </label>
+                    <span data-field="CondPagSaas" data-label="Condições de Pagamento SAAS" data-type="text">
+                        <textarea disabled name="" rows="3" cols="60" id="txtCondPagSaas" class="form-control " maxlength="1000000"></textarea>
+                    </span>
+                    <br />
+                }
+                if (Model.Modalidade.MostraBpo)
+                {
+                    <label class="control-label name column-nowrap">
+                        <div class="label-form">
+                            <div class="label-title" title="CondPagBpo">
+                                Condições de Pagamento BPO
+                            </div>
+                            <div class="label-title-required">
+                                <span class="required" aria-required="true"> * </span>
+                            </div>
+                        </div>
+                    </label>
+                    <span data-field="CondPagBpo" data-label="Condições de Pagamento BPO" data-type="text">
+                        <textarea disabled name="" rows="3" cols="60" id="txtCondPagBpo" class="form-control " maxlength="1000000"></textarea>
+                    </span>
+                    <br />
+                }
+            }
+        </div>
+    </div>
+    <script type="text/javascript">
+    //debugger;
+    function EditarCondPgto() {
+        var BtnEditarCondPgto = document.getElementById("BtnEditarCondPgto");
+        var BtnSalvarCondPgto = document.getElementById("BtnSalvarCondPgto");
+        var BtnCancelarCondPgto = document.getElementById("BtnCancelarCondPgto");
+        var txtConsideracoes = document.getElementById("txtConsideracoes");
+
+        BtnEditarCondPgto.style = "display: none;";
+        BtnSalvarCondPgto.style = "display: inline-block;";
+        BtnCancelarCondPgto.style = "display: inline-block;";
+        txtConsideracoes.disabled = false;
+
+        if (document.getElementById("txtCondPagLu")) {
+            var txtCondPagLu = document.getElementById("txtCondPagLu");
+            txtCondPagLu.disabled = false;
+        }
+        if (document.getElementById("txtCondPagLum")) {
+            var txtCondPagLum = document.getElementById("txtCondPagLum");
+            txtCondPagLum.disabled = false;
+        }
+        if (document.getElementById("txtCondPagLocacao")) {
+            var txtCondPagLocacao = document.getElementById("txtCondPagLocacao");
+            txtCondPagLocacao.disabled = false;
+        }
+        if (document.getElementById("txtCondPagServico")) {
+            var txtCondPagServico = document.getElementById("txtCondPagServico");
+            txtCondPagServico.disabled = false;
+        }
+        if (document.getElementById("txtCondPagSaas")) {
+            var txtCondPagSaas = document.getElementById("txtCondPagSaas");
+            txtCondPagSaas.disabled = false;
+        }
+        if (document.getElementById("txtCondPagBpo")) {
+            var txtCondPagBpo = document.getElementById("txtCondPagBpo");
+            txtCondPagBpo.disabled = false;
+        }
+    }
+
+    function CancelarCondPgto() {
+        PreencherValores();
+        DesabilitarCampos();
+    }
+
+    function SalvarCondPgto() {
+        var CondPagLu = "";
+        var CondPagLum = "";
+        var CondPagLoc = "";
+        var CondPagServ = "";
+        var CondPagSaas = "";
+        var CondPagBpo = "";
+        var Observacao = "";
+
+        var txtConsideracoes = document.getElementById("txtConsideracoes");
+        Observacao = txtConsideracoes.value;
+
+        if (document.getElementById("txtCondPagLu")) {
+            var txtCondPagLu = document.getElementById("txtCondPagLu");
+            CondPagLu = txtCondPagLu.value;
+        }
+        if (document.getElementById("txtCondPagLum")) {
+            var txtCondPagLum = document.getElementById("txtCondPagLum");
+            CondPagLum = txtCondPagLum.value;
+        }
+        if (document.getElementById("txtCondPagLocacao")) {
+            var txtCondPagLocacao = document.getElementById("txtCondPagLocacao");
+            CondPagLoc = txtCondPagLocacao.value;
+        }
+        if (document.getElementById("txtCondPagServico")) {
+            var txtCondPagServico = document.getElementById("txtCondPagServico");
+            CondPagServ = txtCondPagServico.value;
+        }
+        if (document.getElementById("txtCondPagSaas")) {
+            var txtCondPagSaas = document.getElementById("txtCondPagSaas");
+            CondPagSaas = txtCondPagSaas.value;
+        }
+        if (document.getElementById("txtCondPagBpo")) {
+            var txtCondPagBpo = document.getElementById("txtCondPagBpo");
+            CondPagBpo = txtCondPagBpo.value;
+        }
+
+        var dadosEnvio = {
+            "CondPagLu": CondPagLu,
+            "CondPagLum": CondPagLum,
+            "CondPagLoc": CondPagLoc,
+            "CondPagServ": CondPagServ,
+            "CondPagSaas": CondPagSaas,
+            "CondPagBpo": CondPagBpo,
+            "Observacao": Observacao,
+            "CodigoOportunidade": @Model.CondicoesPagamento.CodigoOportunidade,
+            "Versao": @Model.CondicoesPagamento.Versao
+        };
+
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/postCondicoesPgto",
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(dadosEnvio),
+        };
+
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+            //console.log(result);
+
+            if (result.code == 400 || result.code == 404) {
+                toastr.error(result.message);
+            }
+            else {
+                toastr.success(result.message);
+
+            }
+        });
+
+        DesabilitarCampos();
+
+        __doPostBack('ctl00$Main$K_FECHAMENTO', 'CrmPessoaOportunidades$Conclusao${ }');
+    }
+
+    function DesabilitarCampos() {
+        var BtnEditarCondPgto = document.getElementById("BtnEditarCondPgto");
+        var BtnSalvarCondPgto = document.getElementById("BtnSalvarCondPgto");
+        var BtnCancelarCondPgto = document.getElementById("BtnCancelarCondPgto");
+        var txtConsideracoes = document.getElementById("txtConsideracoes");
+
+        BtnEditarCondPgto.style = "display: inline-block;";
+        BtnSalvarCondPgto.style = "display: none;";
+        BtnCancelarCondPgto.style = "display: none;";
+        txtConsideracoes.disabled = true;
+
+        if (document.getElementById("txtCondPagLu")) {
+            var txtCondPagLu = document.getElementById("txtCondPagLu");
+            txtCondPagLu.disabled = true;
+        }
+        if (document.getElementById("txtCondPagLum")) {
+            var txtCondPagLum = document.getElementById("txtCondPagLum");
+            txtCondPagLum.disabled = true;
+        }
+        if (document.getElementById("txtCondPagLocacao")) {
+            var txtCondPagLocacao = document.getElementById("txtCondPagLocacao");
+            txtCondPagLocacao.disabled = true;
+        }
+        if (document.getElementById("txtCondPagServico")) {
+            var txtCondPagServico = document.getElementById("txtCondPagServico");
+            txtCondPagServico.disabled = true;
+        }
+        if (document.getElementById("txtCondPagSaas")) {
+            var txtCondPagSaas = document.getElementById("txtCondPagSaas");
+            txtCondPagSaas.disabled = true;
+        }
+        if (document.getElementById("txtCondPagBpo")) {
+            var txtCondPagBpo = document.getElementById("txtCondPagBpo");
+            txtCondPagBpo.disabled = true;
+        }
+    }
+
+    function PreencherValores() {
+        //debugger;
+        var txtConsideracoes = document.getElementById("txtConsideracoes");
+        var editar = document.getElementById("BtnEditarCondPgto");
+
+
+        txtConsideracoes.value = "@Html.Raw(Model.CondicoesPagamento.Observacao.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+
+        if (document.getElementById("txtCondPagLu")) {
+            var txtCondPagLu = document.getElementById("txtCondPagLu");
+            txtCondPagLu.innerText = "";
+            txtCondPagLu.innerText = "@Html.Raw(Model.CondicoesPagamento.CondPagLu.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+        }
+        if (document.getElementById("txtCondPagLum")) {
+            var txtCondPagLum = document.getElementById("txtCondPagLum");
+            txtCondPagLum.innerText = "";
+            txtCondPagLum.innerText = "@Html.Raw(Model.CondicoesPagamento.CondPagLum.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+        }
+        if (document.getElementById("txtCondPagLocacao")) {
+            var txtCondPagLocacao = document.getElementById("txtCondPagLocacao");
+            txtCondPagLocacao.innerText = "";
+            txtCondPagLocacao.innerText = "@Html.Raw(Model.CondicoesPagamento.CondPagLoc.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+        }
+        if (document.getElementById("txtCondPagServico")) {
+            var txtCondPagServico = document.getElementById("txtCondPagServico");
+            txtCondPagServico.innerText = "";
+            txtCondPagServico.innerText = "@Html.Raw(Model.CondicoesPagamento.CondPagServ.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+        }
+        if (document.getElementById("txtCondPagSaas")) {
+            var txtCondPagSaas = document.getElementById("txtCondPagSaas");
+            txtCondPagSaas.innerText = "";
+            txtCondPagSaas.innerText = "@Html.Raw(Model.CondicoesPagamento.CondPagSaas.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+        }
+        if (document.getElementById("txtCondPagBpo")) {
+            var txtCondPagBpo = document.getElementById("txtCondPagBpo");
+            txtCondPagBpo.innerText = "";
+            txtCondPagBpo.innerText = "@Html.Raw(Model.CondicoesPagamento.CondPagBpo.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+        }
+
+        var bloqueado = "@Model.Bloqueado";
+        if (bloqueado == "True") {
+            editar.style = "display: none";
+        }
+        else {
+            editar.style = "display: inline-block;"
+        }
+    }
+
+    function AtualizaAdicionais() {
+        if (localStorage.getItem('current_Step')) {
+            localStorage.setItem("current_Step", 6);
+            window.location.reload(1);
+        }
+    }
+    </script>
+    @Ajax.OnReadyScript("PreencherValores();")
+}
+

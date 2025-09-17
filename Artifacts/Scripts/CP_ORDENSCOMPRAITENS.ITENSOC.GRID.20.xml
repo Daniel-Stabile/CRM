@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRAITENS.ITENSOC.GRID</ViewName>
+  <EntityName>CP_ORDENSCOMPRAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None or widget.ProviderWidget.Entity == None: return
+
+    capaOrdemCompra = widget.ProviderWidget.Entity
+    
+    emCadastro = capaOrdemCompra.EstaEmCadastro()
+    
+    widget.View.Commands["New"].Visible  = emCadastro
+    widget.View.Commands["Edit"].Visible = emCadastro
+    widget.View.Commands["Delete"].Visible = emCadastro
+    widget.View.Commands["CMD_GERARENTREGAS"].Visible = emCadastro
+    widget.View.Commands["CMD_EXCLUIRTODASENTREGAS"].Visible = emCadastro
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

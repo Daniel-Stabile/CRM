@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_TR_PARAMETROFILIAL.CONFIGNOTAFISCAL.FORM</ViewName>
+  <EntityName>TR_PARAMETROFILIAL</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if entity == None:
+        return
+    
+    widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_VoltarExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_VoltarExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import UrlLinkDefinition
+    
+    command.OutputDefinition = UrlLinkDefinition("~/Erp/a/vendas/nfs/Grid.aspx");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

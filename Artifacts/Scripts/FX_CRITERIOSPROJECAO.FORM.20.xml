@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_CRITERIOSPROJECAO.FORM</ViewName>
+  <EntityName>FX_CRITERIOSPROJECAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja realmente excluir esta projeção?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnOPCAOTAXAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnOPCAOTAXAValueChanged(view, entity):
+	from Benner.Tecnologia.Common import FieldDefinition
+	if (entity.Fields["OPCAOTAXA"] == None):
+		view.FieldDefinitions["TAXA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+		view.FieldDefinitions["INDICEFINANCEIRO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+		entity.Fields["TAXA"] = None
+		entity.Fields["INDICEFINANCEIRO"].Instance = None
+	elif (int(entity.Fields["OPCAOTAXA"].Value) == 2):
+		view.FieldDefinitions["TAXA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+		view.FieldDefinitions["TAXA"].Required = True
+		view.FieldDefinitions["INDICEFINANCEIRO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+		view.FieldDefinitions["INDICEFINANCEIRO"].Required = False
+		entity.Fields["INDICEFINANCEIRO"].Instance = None
+	else :
+		view.FieldDefinitions["TAXA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+		view.FieldDefinitions["INDICEFINANCEIRO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+		view.FieldDefinitions["INDICEFINANCEIRO"].Required = True
+		view.FieldDefinitions["TAXA"].Required = False
+		entity.Fields["TAXA"] = None
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    
+    registro = widget.Entity
+    if registro != None: 
+        widget.View.Commands["CMD_636816281590409965"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

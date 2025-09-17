@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FILTROESTOQUE.FORM</ViewName>
+  <EntityName>VT_FN_FILTRORECURSOPARTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common import ListItem
+def Load(widget):
+    entity = widget.Entity
+    entity.Fields["DESTINO"] = ListItem(3, "Estoque")
+    entity.Fields["FILTRO"] = False
+    
+    widget.View.FieldDefinitions["FILTRO"].Visible = False
+    widget.View.FieldDefinitions["DESTINO"].Visible = False
+    
+    if(entity.Fields["DESTINO"] != ListItem(1, "Veiculo")):
+        widget.View.FieldDefinitions["MARCADOR"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

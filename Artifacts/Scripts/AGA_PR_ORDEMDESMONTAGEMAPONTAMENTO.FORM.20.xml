@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PR_ORDEMDESMONTAGEMAPONTAMENTO.FORM</ViewName>
+  <EntityName>PR_ORDEMDESMONTAGEMAPONTAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    entity = widget.Entity
+    if entity == None: return
+    
+    StatusOD = widget.Entity.Fields["ORDEMDESMONTAGEM"].Instance.Fields["STATUS"].Value
+    if(widget.View.Commands["New"] != None):
+        widget.View.Commands["New"].Visible = False
+    if(widget.View.Commands["Edit"] != None):
+        widget.View.Commands["Edit"].Visible = False
+    if(widget.View.Commands["Delete"] != None):
+        widget.View.Commands["Delete"].Visible = False
+    if(widget.Entity.Fields["STATUS"].Value == 1 and (StatusOD == 2 or StatusOD == 3)):
+        if(widget.View.Commands["Edit"] != None):
+            widget.View.Commands["Edit"].Visible = True
+        if(widget.View.Commands["Delete"] != None):
+            widget.View.Commands["Delete"].Visible = True
+
+    if(StatusOD == 2 or StatusOD == 3):
+        if(widget.View.Commands["New"] != None):
+            widget.View.Commands["New"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

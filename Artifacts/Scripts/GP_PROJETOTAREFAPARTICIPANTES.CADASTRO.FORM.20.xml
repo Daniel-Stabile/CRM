@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFAPARTICIPANTES.CADASTRO.FORM</ViewName>
+  <EntityName>GP_PROJETOTAREFAPARTICIPANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    widget.View.Commands["New"].Visible = (not widget.Entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid())
+    widget.View.Commands["Edit"].Visible = (not widget.Entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid())
+    widget.View.Commands["Delete"].Visible = (not widget.Entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

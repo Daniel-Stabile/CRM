@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_WEB_DOCUMENTOSCOTACAO.COTACOES_GRID</ViewName>
+  <EntityName>CP_WEB_DOCUMENTOSCOTACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    return;
+    emCotacao = (entity.Fields["COTACAO"].Instance.Fields["STATUS"].Value in [2,3]);
+    row.EditCommand.Visible = emCotacao;
+    row.DeleteCommand.Visible = emCotacao;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    pai = widget.ProviderWidget;
+    if pai == None: return
+    registro = pai.Entity;
+    if registro == None: return;
+    emCotacao = bool(registro.Fields["STATUS"].Value in [2,3]);
+    widget.View.Commands["New"].Visible = emCotacao;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

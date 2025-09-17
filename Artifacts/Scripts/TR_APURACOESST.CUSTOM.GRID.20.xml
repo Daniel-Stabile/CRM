@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_APURACOESST.CUSTOM.GRID</ViewName>
+  <EntityName>TR_APURACOESST</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["CMD_EXCLUIR"].Visible = AuthorizationHelper.HasTask("EXCLUIR_APURACAOST")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity == None: return
+
+    #Preenchimento padrã
+    row.GetCellByName("VALORSALDOANTERIOR").Text = "0,00";
+    #row.GetCellByName("VALORICMSPROPRIO").Text = "0,00";
+    row.GetCellByName("VALORAJUSTECREDITOS").Text = "0,00";
+    row.GetCellByName("VALORAJUSTEDEBITOS").Text = "0,00";
+    row.GetCellByName("VALORDEVOLUCOES").Text = "0,00";
+    row.GetCellByName("VALOROUTROSDEBITOS").Text = "0,00";
+    row.GetCellByName("VALORRESSARCIMENTOS").Text = "0,00";
+    row.GetCellByName("VALORSALDODEVEDOR").Text = "0,00";
+    row.GetCellByName("VALORSALDOCREDOR").Text = "0,00";
+    row.GetCellByName("VALORDEDUCOES").Text = "0,00";
+    row.GetCellByName("VALORIMPOSTORECOLHER").Text = "0,00";
+    row.GetCellByName("VALORDEBITOSESPECIAIS").Text = "0,00";
+    row.GetCellByName("BASECALCULOICMSST").Text = "0,00";
+    row.GetCellByName("BASECALCULODEVOLUCOES").Text = "0,00";
+    #row.GetCellByName("VALORPRODUTOS").Text = "0,00";
+    #row.GetCellByName("VALORIPI").Text = "0,00";
+    #row.GetCellByName("VALORDESPESASACESSORIAS").Text = "0,00";
+    #row.GetCellByName("BASECALCULOICMSPROPRIO").Text = "0,00";
+    row.GetCellByName("VALORRETENSAO").Text = "1,00";
+
+    #Formatação
+    if entity.Fields["VALORSALDOANTERIOR"] != None: row.GetCellByName("VALORSALDOANTERIOR").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDOANTERIOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["VALORICMSPROPRIO"] != None: row.GetCellByName("VALORICMSPROPRIO").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORICMSPROPRIO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORAJUSTECREDITOS"] != None: row.GetCellByName("VALORAJUSTECREDITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORAJUSTECREDITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORAJUSTEDEBITOS"] != None: row.GetCellByName("VALORAJUSTEDEBITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORAJUSTEDEBITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEVOLUCOES"] != None: row.GetCellByName("VALORDEVOLUCOES").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEVOLUCOES"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOROUTROSDEBITOS"] != None: row.GetCellByName("VALOROUTROSDEBITOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOROUTROSDEBITOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORRESSARCIMENTOS"] != None: row.GetCellByName("VALORRESSARCIMENTOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORRESSARCIMENTOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDODEVEDOR"] != None: row.GetCellByName("VALORSALDODEVEDOR").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDODEVEDOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORSALDOCREDOR"] != None: row.GetCellByName("VALORSALDOCREDOR").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORSALDOCREDOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEDUCOES"] != None: row.GetCellByName("VALORDEDUCOES").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEDUCOES"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORIMPOSTORECOLHER"] != None: row.GetCellByName("VALORIMPOSTORECOLHER").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORIMPOSTORECOLHER"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORDEBITOSESPECIAIS"] != None: 
+        row.GetCellByName("VALORDEBITOSESPECIAIS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDEBITOSESPECIAIS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["BASECALCULOICMSST"] != None: row.GetCellByName("BASECALCULOICMSST").Text = str(str(str("{:,.2f}".format(entity.Fields["BASECALCULOICMSST"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["BASECALCULODEVOLUCOES"] != None: 
+        row.GetCellByName("BASECALCULODEVOLUCOES").Text = str(str(str("{:,.2f}".format(entity.Fields["BASECALCULODEVOLUCOES"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["VALORPRODUTOS"] != None: row.GetCellByName("VALORPRODUTOS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORPRODUTOS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");    row.GetCellByName("VALORIMPOSTORECOLHER").Align = "right";
+	
+    #if entity.Fields["VALORIPI"] != None: row.GetCellByName("VALORIPI").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORIPI"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["VALORDESPESASACESSORIAS"] != None: row.GetCellByName("VALORDESPESASACESSORIAS").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORDESPESASACESSORIAS"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["BASECALCULOICMSPROPRIO"] != None: row.GetCellByName("BASECALCULOICMSPROPRIO").Text = str(str(str("{:,.2f}".format(entity.Fields["BASECALCULOICMSPROPRIO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORRETENSAO"] != None: row.GetCellByName("VALORRETENSAO").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORRETENSAO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+        
+    #Estilos
+    row.GetCellByName("VALORIMPOSTORECOLHER").BackgroundColor = "#B0C4DE";
+    row.GetCellByName("VALORIMPOSTORECOLHER").CssClass = "font-weight: bold";
+    row.GetCellByName("VALORIMPOSTORECOLHER").Align = "right";
+    row.GetCellByName("CODIGORECEITA").Align = "center";
+    row.GetCellByName("CODIGOOBRIGACAO").Align = "center";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

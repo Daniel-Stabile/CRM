@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_OBJETIVO.GRID</ViewName>
+  <EntityName>OP_OBJETIVO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity["INATIVO"].GetString() == "S" :
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm' style='background-color: #bbbbbb !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-eye-slash'&gt;&lt;/i&gt;&lt;/div&gt;";
+        row.GetCellByName("SITUACAO").Tooltip ="Inativo"
+    else:
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm' style='background-color: #1BBC9B !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-eye'&gt;&lt;/i&gt;&lt;/div&gt;";
+        row.GetCellByName("SITUACAO").Tooltip ="Ativo"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

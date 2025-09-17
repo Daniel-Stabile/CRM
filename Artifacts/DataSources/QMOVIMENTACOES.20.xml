@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>QMOVIMENTACOES</Identifier>
+  <Name>Movimentações</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       A.HANDLE CHAVE,&#xD;&#xA;       C.DOCUMENTODIGITADO DOCUMENTO,&#xD;&#xA;       A.PARCELABAIXA,&#xD;&#xA;       A.DATA,&#xD;&#xA;       A.VALOR,&#xD;&#xA;       A.VALORMOEDA,&#xD;&#xA;       E.ABREVIATURA MOEDA,&#xD;&#xA;       A.TIPOMOVIMENTO,&#xD;&#xA;       A.HISTORICO,&#xD;&#xA;       A.PARCELA,&#xD;&#xA;       A.MOVIMENTACAO,&#xD;&#xA;       B.PARCELADIGITADA,&#xD;&#xA;       D.NOME,&#xD;&#xA;       B.REMESSA,&#xD;&#xA;       B.HANDLE PARCELAHANDLE,&#xD;&#xA;       A.ORIGEMADIANTAMENTO,&#xD;&#xA;       A.AUTORIZACAOPAGAMENTO,&#xD;&#xA;       C.EHPREVISAO,&#xD;&#xA;       (SELECT DOC.DOCUMENTODIGITADO&#xD;&#xA;        FROM FN_MOVIMENTACOES MOV&#xD;&#xA;        JOIN FN_PARCELAS PAR ON (MOV.AUTORIZACAOPAGAMENTO = PAR.HANDLE)&#xD;&#xA;        JOIN fn_documentos DOC ON (PAR.documento = DOC.handle)&#xD;&#xA;        WHERE MOV.TIPOMOVIMENTO IN (3,17,19) AND MOV.MOVIMENTACAO = A.HANDLE) DOCUMENTO_COMPENSADO,&#xD;&#xA;       CASE&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 1&#xD;&#xA;            THEN 'Pagamento'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 2&#xD;&#xA;            THEN 'Devolução'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 3&#xD;&#xA;            THEN 'Adiantamento'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 4&#xD;&#xA;            THEN 'Lucros e perdas'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 5&#xD;&#xA;            THEN 'Aglutinação'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 6&#xD;&#xA;            THEN 'Outros'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 7&#xD;&#xA;            THEN 'Ocorrência'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 8&#xD;&#xA;            THEN 'Baixa leitura de arquivo'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 9&#xD;&#xA;            THEN 'Estomo baixa'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 10&#xD;&#xA;            THEN 'Entrada de contas a pagar'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 11&#xD;&#xA;            THEN 'Emissão de contas a receber'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 12&#xD;&#xA;            THEN 'Suspenção'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 13&#xD;&#xA;            THEN 'Liberação'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 14&#xD;&#xA;            THEN 'Recebimento'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 15&#xD;&#xA;            THEN 'Cancelamento'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 16&#xD;&#xA;            THEN 'Baixa por contrato'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 17&#xD;&#xA;            THEN 'Devolução adiantamento em dinheiro'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 18&#xD;&#xA;            THEN 'Reembolso de notas de devolução em dinheiro'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 19&#xD;&#xA;            THEN 'Cancelamento de saldo de adiantamento'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 20&#xD;&#xA;            THEN 'Baixa por NDC'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 21&#xD;&#xA;            THEN 'Código reservado para Unesco'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 22&#xD;&#xA;            THEN 'Estorno de baixa de lucros e perdas'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 23&#xD;&#xA;            THEN 'Recebimento de lucros e perdas'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 24&#xD;&#xA;            THEN 'Preparação de parcelas em atraso'&#xD;&#xA;        WHEN A.TIPOMOVIMENTO = 25&#xD;&#xA;            THEN 'Documento caução'&#xD;&#xA;        END TIPOMOVIMENTO_DE_MOVIMENTO&#xD;&#xA;  FROM FN_MOVIMENTACOES A&#xD;&#xA;  JOIN FN_PARCELAS B ON (A.AUTORIZACAOPAGAMENTO = B.HANDLE)&#xD;&#xA;  JOIN FN_DOCUMENTOS C ON (B.DOCUMENTO = C.HANDLE)&#xD;&#xA;  JOIN GN_PESSOAS D ON (D.HANDLE = C.PESSOA)&#xD;&#xA;  LEFT JOIN GN_MOEDAS E ON B.MOEDA = E.HANDLE" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="PARCELABAIXA" From="A" Path="PARCELABAIXA" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="TIPOMOVIMENTO" From="A" Path="TIPOMOVIMENTO" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="PARCELA" From="A" Path="PARCELA" />
+    <Field Alias="MOVIMENTACAO" From="A" Path="MOVIMENTACAO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+    <Field Alias="PARCELAHANDLE" From="A" Path="PARCELAHANDLE" />
+    <Field Alias="ORIGEMADIANTAMENTO" From="A" Path="ORIGEMADIANTAMENTO" />
+    <Field Alias="AUTORIZACAOPAGAMENTO" From="A" Path="AUTORIZACAOPAGAMENTO" />
+    <Field Alias="EHPREVISAO" From="A" Path="EHPREVISAO" />
+    <Field Alias="DOCUMENTO_COMPENSADO" From="A" Path="DOCUMENTO_COMPENSADO" />
+    <Field Alias="TIPOMOVIMENTO_DE_MOVIMENTO" From="A" Path="TIPOMOVIMENTO_DE_MOVIMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

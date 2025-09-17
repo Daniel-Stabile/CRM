@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTRATOS_FATURAMENTO_PREVISTO_FATURAR</Identifier>
+  <Name>Indicadores contratos faturamento - Valor previsto faturar</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CN_DWINDICADORVALORES.VALOR AS VALOR_PREVISTO &#xA;  FROM CN_DWINDICADORVALORES &#xA;  JOIN CN_DWINDICADORES ON (CN_DWINDICADORES.HANDLE = CN_DWINDICADORVALORES.COLETA AND CN_DWINDICADORES.TIPOCOLETA = 1)&#xA; WHERE CN_DWINDICADORVALORES.TIPO = 1 AND CN_DWINDICADORES.COLETAPARCIAL = 'N' AND @CRITERIOSELECAO" />
+  <Fields>
+    <Field Alias="VALOR_PREVISTO" From="A" Path="VALOR_PREVISTO" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

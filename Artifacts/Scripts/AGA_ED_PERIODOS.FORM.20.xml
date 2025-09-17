@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_ED_PERIODOS.FORM</ViewName>
+  <EntityName>ED_PERIODOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+
+    if(entity.Fields["TIPOESCRITURACAO"].Value == 2):
+        command.RequestConfirmationBeforeExecute("A exclusão deste Período resultará na exclusão dos seus respectivos históricos e Livros Auxiliares. Deseja Continuar?")
+    else:
+        command.RequestConfirmationBeforeExecute("A exclusão deste Período resultará na exclusão dos seus respectivos históricos. Deseja Continuar?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_SUBSTITUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_SUBSTITUIRExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a substituição do arquivo digital da ECD?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_GERARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma emissão do arquivo digital?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ALTERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ALTERARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a alteração/Retificação?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    ItemAguardandoGeracao = 1
+    ItemEmRetificacao = 3
+    ItemSubstituido = 9
+    
+    widget.View.Commands["GRP_COMANDOS"].Items["CMD_GERAR"].Visible = AuthorizationHelper.HasTask("MANTER_SPEDFISCAL_MAGNETICO") and widget.Entity["SITUACAO"].GetInt32() in [ItemAguardandoGeracao, ItemEmRetificacao, ItemSubstituido]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

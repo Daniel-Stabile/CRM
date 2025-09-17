@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_OPORTUNIDADECONTATOS.CUSTOM.GRID</ViewName>
+  <EntityName>CRM_OPORTUNIDADECONTATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import Handle
+    
+    oportunidade = widget.ProviderWidget.Entity
+    
+    if (not oportunidade is None):
+        if (oportunidade.Fields["PESSOA"].Handle.IsValid()):
+            pessoa = oportunidade.Fields["PESSOA"].Instance
+            
+            widget.View.Commands["New"].Visible = pessoa.Fields["TIPO"].Value == 2 or pessoa.Fields["TIPO"].Value == 4
+            
+            widget.Hidden = pessoa.Fields["TIPO"].Value != 2 and pessoa.Fields["TIPO"].Value != 4
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

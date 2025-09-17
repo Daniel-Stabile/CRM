@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_TQ_GERACAOFINANCEIROFISCAL.FINANCEIRO.GRID</ViewName>
+  <EntityName>TQ_GERACAOFINANCEIROFISCAL</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPADRAOFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPADRAOFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter 
+    args.WhereClause.Clear();
+    
+    if(not args.Entity["DATAINICIAL"].IsNull):
+        args.WhereClause.AddWhereClause("A.DATAPROCESSAMENTO &gt;= :DATAINICIAL", Parameter("DATAINICIAL", args.Entity["DATAINICIAL"].Value))
+    if(not args.Entity["DATAFINAL"].IsNull):
+        args.WhereClause.AddWhereClause("A.DATAPROCESSAMENTO &lt;= :DATAFINAL", Parameter("DATAFINAL", args.Entity["DATAFINAL"].Value))
+    if(not args.Entity["USUARIOS"].IsNull):
+        args.WhereClause.AddWhereClause("A.USUARIO IN ( " + ", ".join(map(str, args.Entity["USUARIOS"].Value.ToHandleList())) + " )" )
+    if(not args.Entity["FILIAIS"].IsNull):
+        args.WhereClause.AddWhereClause("A.FILIAIS IN ( " + ", ".join(map(str, args.Entity["FILIAIS"].Value.ToHandleList())) + " )" )
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

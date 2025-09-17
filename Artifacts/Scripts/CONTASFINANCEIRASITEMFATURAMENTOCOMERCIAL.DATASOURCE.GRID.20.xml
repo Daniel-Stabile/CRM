@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CONTASFINANCEIRASITEMFATURAMENTOCOMERCIAL.DATASOURCE.GRID</ViewName>
+  <EntityName>CONTASFINANCEIRASITEMFATURAMENTOCOMERCIAL.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    from Benner.Corporativo.Definicoes.Comercial import CMItem
+    
+    documento = entity.Fields["LANCAMENTOITEMFAT"]
+        
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciFATRAT
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = CMItem.Get(documento)
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

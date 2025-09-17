@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_LEADPORFASE</Identifier>
+  <Name>Lead por fase</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(A.HANDLE) QTDE,B.HANDLE, B.NOME AS FASE&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;JOIN K_CRM_FASES B ON B.HANDLE = A.FASE&#xD;&#xA;GROUP BY B.NOME,B.HANDLE " />
+  <Fields>
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="FASE" From="A" Path="FASE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

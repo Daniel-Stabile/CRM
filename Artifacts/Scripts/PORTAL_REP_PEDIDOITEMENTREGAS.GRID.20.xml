@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_PEDIDOITEMENTREGAS.GRID</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDAITEMENTREGA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    pai = widget.ProviderWidget;
+    if pai == None: return
+    registro = pai.Entity;
+    if registro == None: return;
+    concluido = bool(registro.Fields["PEDIDOVENDA"].Instance.Fields["STATUS"].Value &gt; 1);
+    widget.View.Commands["CustomAlterar"].Visible = not concluido;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnJPLocalEntregaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnJPLocalEntregaExecute(command, entity):
+    
+    # recuperando o pepdido (e item) atraves do campo lookup no item (ver com Dirceu se pode)
+    pedido = entity.Fields["PEDIDOVENDA"].Instance;
+    item = entity.Fields["PEDIDOITEM"].Instance;
+    abrangencia = "ENTREGA";
+    handle = entity["HANDLE"].GetInt32();
+    atual = entity["DESTINATARIO"].GetInt32();
+   
+    command.OutputDefinition.Parameters["ABRANGENCIA"] = abrangencia;
+    command.OutputDefinition.Parameters["ENTREGA"] = handle;
+    command.OutputDefinition.Parameters["STATUS"] = pedido["STATUS"].GetInt32();
+    command.OutputDefinition.Parameters["CLIENTE"] = pedido["CLIENTE"].GetInt32();
+    command.OutputDefinition.Parameters["PEDIDO"] = pedido["HANDLE"].GetInt32();
+    command.OutputDefinition.Parameters["ATUAL"] = atual;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCustomLocalEntregaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCustomLocalEntregaExecute(command, entity):
+    # recuperando o pepdido (e item) atraves do campo lookup no item (ver com Dirceu se pode)
+    pedido = entity.Fields["PEDIDOVENDA"].Instance;
+    item = entity.Fields["PEDIDOITEM"].Instance;
+    abrangencia = "ENTREGA";
+    handle = entity["HANDLE"].GetInt32();
+    atual = entity["DESTINATARIO"].GetInt32();
+   
+    command.OutputDefinition.Parameters["ABRANGENCIA"] = abrangencia;
+    command.OutputDefinition.Parameters["ENTREGA"] = handle;
+    command.OutputDefinition.Parameters["STATUS"] = pedido["STATUS"].GetInt32();
+    command.OutputDefinition.Parameters["CLIENTE"] = pedido["CLIENTE"].GetInt32();
+    command.OutputDefinition.Parameters["PEDIDO"] = pedido["HANDLE"].GetInt32();
+    command.OutputDefinition.Parameters["ATUAL"] = atual;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

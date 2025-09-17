@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_QTDE_EMPRESAS_AUTOGERADAS_FILIAL_VICE_PRESIDENTE</Identifier>
+  <Name>CRM_QTDE_EMPRESAS_AUTOGERADAS_FILIAL_VICE_PRESIDENTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) QTDEEMPAUTOGERADAS&#xD;&#xA;FROM K_CRM_PESSOAS&#xD;&#xA;WHERE USUARIOEXECUTIVO IS NOT NULL&#xD;&#xA;AND USUARIORESPONSAVEL IS NULL&#xD;&#xA;AND FILIAL = @FILIAL &#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QTDEEMPAUTOGERADAS" From="A" Path="QTDEEMPAUTOGERADAS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

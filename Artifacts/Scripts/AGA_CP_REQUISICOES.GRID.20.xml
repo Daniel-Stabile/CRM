@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_REQUISICOES.GRID</ViewName>
+  <EntityName>CP_REQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityState
+    
+    form = widget.ProviderWidget
+    if form == None: return
+    registro = form.Entity
+    if registro == None: return
+    
+    handle = registro.Fields["HANDLE"].Value
+    widget.Hidden = CNContratoObjeto.RequisicoesCompraOcultarTab(handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

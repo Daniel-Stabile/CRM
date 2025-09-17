@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>OP_CLASSIFICACAOORCAMENTARIA_CONTROLEDEEXECUCAO</Identifier>
+  <Name>Controle de Execução</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT &#xA;A.*,&#xA;(A.ORCADO + A.AJUSTES) TOTAL_AUTORIZADO,&#xA;(A.EMPENHADO - A.REALIZADO - A.RECEBIDO_OU_PAGO) SALDO_EMPENHO,&#xA;(A.ORCADO + A.AJUSTES - A.RESERVADO - A.EMPENHADO) SALDO_A_RESERVAR&#xA;FROM (&#xA;SELECT &#xA;    A.ORCADO,&#xA;    (A.AJUSTES_POSITIVO - A.AJUSTES_NEGATIVO) AJUSTES,&#xA;    (A.REALIZADO_POSITIVO - A.REALIZADO_NEGATIVO) REALIZADO,&#xA;    (A.RESERVADO_POSITIVO - A.RESERVADO_NEGATIVO) RESERVADO,&#xA;    (A.EMPENHADO_POSITIVO - A.EMPENHADO_NEGATIVO) EMPENHADO,&#xA;    A.RECEBIDO_OU_PAGO&#xA;FROM (&#xA;SELECT&#xA;    SUM(CASE WHEN ORIGEM = 'A' THEN ABS(VALOR) ELSE 0 END) AS ORCADO,&#xA;    SUM(CASE WHEN ORIGEM IN ('C','E','1','6') THEN ABS(VALOR) ELSE 0 END) AS AJUSTES_POSITIVO,&#xA;    SUM(CASE WHEN ORIGEM = 'F' THEN ABS(VALOR) ELSE 0 END) AS REALIZADO_POSITIVO,&#xA;    SUM(CASE WHEN ORIGEM IN ('B','D','Q','5')  THEN ABS(VALOR) ELSE 0 END) AS AJUSTES_NEGATIVO,&#xA;    SUM(CASE WHEN ORIGEM = 'N' THEN ABS(VALOR) ELSE 0 END) AS RESERVADO_POSITIVO,&#xA;    SUM(CASE WHEN ORIGEM = 'T' THEN ABS(VALOR)  ELSE 0 END) AS RESERVADO_NEGATIVO,&#xA;    SUM(CASE WHEN ORIGEM = 'P' THEN ABS(VALOR) ELSE 0 END) AS EMPENHADO_POSITIVO,&#xA;    SUM(CASE WHEN ORIGEM = 'X' THEN ABS(VALOR)   ELSE 0 END) AS EMPENHADO_NEGATIVO,&#xA;    SUM(CASE WHEN ORIGEM IN ('M','R','3') THEN ABS(VALOR) ELSE 0 END) AS RECEBIDO_OU_PAGO,&#xA;    SUM(CASE WHEN ORIGEM IN ('M','R','3') THEN ABS(VALOR) ELSE 0 END) AS REALIZADO_NEGATIVO&#xA;FROM &#xA;    CT_ORCAMENTOTOTAIS A WHERE @CRITERIOSELECAO AND A.CLASSIFICACAOORCAMENTARIA IS NOT NULL ) A ) A" />
+  <Fields>
+    <DecimalField Alias="ORCADO" From="A" Path="ORCADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="AJUSTES" From="A" Path="AJUSTES" FieldDecimalsFormat="0" />
+    <DecimalField Alias="REALIZADO" From="A" Path="REALIZADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="RESERVADO" From="A" Path="RESERVADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="EMPENHADO" From="A" Path="EMPENHADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="RECEBIDO_OU_PAGO" From="A" Path="RECEBIDO_OU_PAGO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="TOTAL_AUTORIZADO" From="A" Path="TOTAL_AUTORIZADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="SALDO_EMPENHO" From="A" Path="SALDO_EMPENHO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="SALDO_A_RESERVAR" From="A" Path="SALDO_A_RESERVAR" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

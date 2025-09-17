@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>W_WIDGETTILE.FORM</ViewName>
+  <EntityName>W_WIDGETTILE</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOTILEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOTILEValueChanged(view, entity):
+    return;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORAGREGACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORAGREGACAOValueChanged(view, entity):
+    aggregation = entity["VALORAGREGACAO"].Value
+    if aggregation != None:
+        entity["VALORTOTALAGREGACAO"].Value = aggregation.Text
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    
+    if entity != None:
+        aggregation = entity["VALORAGREGACAO"].Value
+        if aggregation != None:
+            entity["VALORTOTALAGREGACAO"].Value = aggregation.Text
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

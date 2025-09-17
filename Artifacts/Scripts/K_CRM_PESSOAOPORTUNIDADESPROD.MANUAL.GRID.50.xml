@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESPROD.MANUAL.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESPROD</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+   
+    usuario = BennerIdentity.Current.UserHandle;
+    ehResponsavel = entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle;
+    
+    if entity.Fields["ARQUITETOSOLUCAO"].Handle.IsValid():
+        ehArquitetoResponsavel = entity.Fields["ARQUITETOSOLUCAO"].Handle;
+    else:
+        ehArquitetoResponsavel = None;
+        
+    status  = int(entity.Fields["STATUS"].Value);
+    row.GetCustomCommand("cmdNovaVersao").Enabled = False;
+    row.GetCustomCommand("cmdAtivaVertical").Enabled = False;
+    
+    if (usuario != ehResponsavel and usuario != ehArquitetoResponsavel) and row.EditCommand != None and row.DeleteCommand != None:
+        row.EditCommand.Visible = False;
+        row.DeleteCommand.Visible = False;
+        #row.GetCustomCommand("cmdNovaVersao").Enabled = False;
+        #row.GetCustomCommand("cmdAtivaVertical").Enabled = False;
+    
+    if row.EditCommand != None and row.DeleteCommand != None:
+        row.EditCommand.Visible                        = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+        row.DeleteCommand.Visible                      = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+    if (status in [1] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel)):
+        A = 1;
+        #row.GetCustomCommand("cmdNovaVersao").Enabled = True;
+        #row.GetCustomCommand("cmdAtivaVertical").Enabled = False;
+    if status not in [3]:
+        if row.EditCommand != None:
+            row.EditCommand.Visible = False;
+        if row.DeleteCommand != None:
+            row.DeleteCommand.Visible = False;
+
+    if status in [2]:
+       i = 0
+       while(row.Cells.Count &gt; i):
+            row.GetCellByIndex(i).TextColor = "#BFBFBF"
+            i += 1
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    usuario = BennerIdentity.Current.UserHandle
+    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    ehResponsavel = widget.ProviderWidget.Entity.Fields["RESPONSAVEL"].Handle
+    status = int(widget.ProviderWidget.Entity.Fields["STATUS"].Value)
+    faseOportunidade = widget.ProviderWidget.Entity.Fields["STATUSOPORTUNIDADE"].Instance.Fields["NOME"]
+    oportunidadeAtiva = widget.ProviderWidget.Entity.Fields["ATIVO"]
+    
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = ((faseOportunidade == "Negociação" or faseOportunidade == "Pregão / Leilão" or faseOportunidade == "Habilitação / Adjudicação" or faseOportunidade == "Proposta")  and oportunidadeAtiva == False) and (usuario == ehResponsavel or BennerPrincipal.Current.ActiveRole == "K_CRM_ADMIN")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

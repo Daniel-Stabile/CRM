@@ -1,0 +1,97 @@
+﻿<script src="@Url.Content("~/scripts/handsontable/handsontable.full.js")"></script>
+<link rel="stylesheet" media="screen" href="~/Content/css/handsontable.full.css">
+<script src="~/Content/aga/js/complete.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/numericjs/numeric.js"></script>
+
+<div id="tblSimulacaoContabil" class="widget-body-projecao" style="height: calc(100vh - 170px); width: auto; overflow: hidden;" data-originalstyle="height: calc(100vh - 170px); width: auto; overflow: hidden;"></div>
+
+<script type="text/javascript">
+    var DadosSimulacao = @Html.Raw(ViewBag.DadosSimulacao);
+
+    $(function () {
+        MontarHandsomeTable();
+    })
+
+    function EsconderComponente(componente) {
+        var item = $(componente);
+        if (item.length > 0)
+            item.hide();
+    }
+
+    function MontarHandsomeTable() {
+        var container = document.getElementById('tblSimulacaoContabil');
+
+        var hot = new Handsontable(container, DadosSimulacao);
+    }
+
+    function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        td.style.fontWeight = 'bold';
+        td.style.color = 'black';
+    }
+
+    function firstRowRendererVoidCells(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        td.style.background = '#EEE';
+    }
+
+    function firstColRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        if (col < 1) {
+            td.style.textAlign = 'left';
+        }
+        if (col == 0 && row == 0) {
+            td.style.background = '#EEE';
+        }
+        td.style.fontWeight = 'bold';
+        td.style.color = 'black';
+    }
+</script>
+
+<style type="text/css">
+    .htCore tbody tr {
+        text-align: right;
+    }
+
+    .handsontable .currentRow {
+        background-color: #E7E8EF;
+    }
+
+    .handsontable .currentCol {
+        background-color: #E7E8EF;
+    }
+
+    .handsontableInput, .handsontable .handsontable:not(.ht_master) table {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .htDimmed {
+        text-overflow: ellipsis;
+    }
+
+    td {
+        min-width: 65px;
+    }
+
+    .handsontable tr th {
+        background: #DEDEDE;
+        border-color: #CCCCCC;
+    }
+
+    .comandoGrid {
+        padding: 0px 10px;
+        font-size: 13px;
+        color: #4C87B9;
+        font-weight: 700;
+    }
+
+        .comandoGrid:hover {
+            color: #F2784B;
+        }
+
+    .widget-body-projecao {
+        overflow: auto;
+    }
+</style>

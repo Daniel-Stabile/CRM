@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_RECEBIMENTOFISICOLOTE.LOTES.GRID</ViewName>
+  <EntityName>CP_RECEBIMENTOFISICOLOTE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRecebimentoFisico
+    
+    itemRecebimento = widget.ProviderWidget.Entity
+    
+    if (itemRecebimento == None or itemRecebimento.IsCreating): return
+
+    controlaLote = itemRecebimento.ProdutoInstance.Lote
+    if not controlaLote:
+        widget.Hidden = True
+        return
+
+    statusCadastrado = 1
+    statusDivergente = 2
+    statusLiberado = 5
+    statusItem = itemRecebimento["STATUS"].GetInt32()
+    
+    tipoRetornoNotaDeFaturamento = 3
+    tipoRetornoItem = itemRecebimento["TIPORETORNOITEM"].GetInt32()
+    tipoDevolucaoDeClientes = 4
+    tipoTransferenciaDeFilial = 3
+    tipoPai = CPRecebimentoFisico.TipoPai(itemRecebimento["RECEBIMENTOFISICOPAI"].GetInt64())
+    
+    podeAlterar = (statusItem == statusCadastrado or statusItem == statusDivergente or statusItem == statusLiberado) and (tipoRetornoItem != tipoRetornoNotaDeFaturamento) and (tipoPai != tipoDevolucaoDeClientes) and (tipoPai != tipoTransferenciaDeFilial)
+    
+    widget.View.Commands["NEW"].Visible = podeAlterar
+    widget.View.Commands["EDIT"].Visible = podeAlterar
+    widget.View.Commands["DELETE"].Visible = podeAlterar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

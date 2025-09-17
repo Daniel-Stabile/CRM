@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_APROVAR_CATALOGOS.GRID</ViewName>
+  <EntityName>CP_CATALOGOSFORNECIMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter    
+
+    args.WhereClause.Clear();
+    
+    if(not args.Entity["CODIGO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLE IN (SELECT ITEM.CATALOGOFORNECIMENTO FROM CP_CATALOGOFORNECIMENTOITENS ITEM WHERE ITEM.PRODUTOPAI IN (SELECT PROD.HANDLE FROM PD_PRODUTOSPAI PROD WHERE PROD.CODIGO = :CODIGO))", Parameter("CODIGO", args.Entity["CODIGO"].GetInt64()))            
+        
+    if(not args.Entity["CODIGOREFERENCIA"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLE IN (SELECT ITEM.CATALOGOFORNECIMENTO FROM CP_CATALOGOFORNECIMENTOITENS ITEM WHERE ITEM.PRODUTOPAI IN (SELECT PROD.HANDLE FROM PD_PRODUTOSPAI PROD WHERE PROD.CODIGOREFERENCIA = :CODIGO))", Parameter("CODIGO", args.Entity["CODIGOREFERENCIA"].GetString()))
+
+    if(not args.Entity["NOME"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLE IN (SELECT ITEM.CATALOGOFORNECIMENTO FROM CP_CATALOGOFORNECIMENTOITENS ITEM WHERE ITEM.PRODUTOPAI IN (SELECT PROD.HANDLE FROM PD_PRODUTOSPAI PROD WHERE PROD.NOME LIKE '%"+ args.Entity["NOME"].GetString() + "%'))")
+        
+    if(not args.Entity["INICIO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.INICIOVIGENCIA = :DE", Parameter("DE", args.Entity["INICIO"].GetDateTime()))
+        
+    if(not args.Entity["FINAL"].IsNull):        
+        args.WhereClause.AddWhereClause("A.FINALVIGENCIA = :ATE", Parameter("ATE", args.Entity["FINAL"].GetDateTime()))        
+
+    if(not args.Entity["NUMERO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.NUMERO LIKE '%"+ args.Entity["NUMERO"].GetString() + "%'")
+        
+    if(not args.Entity["DESCRICAO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.DESCRICAO LIKE '%"+ args.Entity["DESCRICAO"].GetString() + "%'")
+        
+    if(not args.Entity["FORNECEDOR"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.FORNECEDOR IN ("+args.Entity["FORNECEDOR"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.FORNECEDOR IN ("+args.Entity["FORNECEDOR"].GetString().replace("|_|",",").replace("|_","")+")"         
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

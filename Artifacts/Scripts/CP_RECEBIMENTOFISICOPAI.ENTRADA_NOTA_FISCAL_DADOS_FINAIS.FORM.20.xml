@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_RECEBIMENTOFISICOPAI.ENTRADA_NOTA_FISCAL_DADOS_FINAIS.FORM</ViewName>
+  <EntityName>CP_RECEBIMENTOFISICOPAI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    recebimentoPai = widget.Entity
+    if recebimentoPai == None: return
+
+    widget.View.Commands["EDIT"].Visible = recebimentoPai.PodeAlterar
+    widget.View.Commands["DELETE"].Visible = recebimentoPai.PodeExcluir
+    
+    statusOk = 3
+    widget.View.Commands["CMD_RECEBIMENTO_FISCAL"].Visible = (recebimentoPai.Status.Index == statusOk) and recebimentoPai.PodeVerComandoRecebimentoFiscal()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

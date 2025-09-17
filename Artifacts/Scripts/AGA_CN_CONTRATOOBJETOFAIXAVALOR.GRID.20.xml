@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOOBJETOFAIXAVALOR.GRID</ViewName>
+  <EntityName>CN_CONTRATOOBJETOFAIXAVALOR</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    tabela = widget.ProviderWidget.Entity.Definition.ToString()
+    handle = widget.Breadcrumb.Parent.Entity.Handle
+    
+    if (tabela == "CN_ADITIVOOBJETOS"):
+        from Benner.Corporativo.Definicoes.Contratos import CNAditivoObjeto
+        widget.Hidden = CNAditivoObjeto.FaixaValoresMostrarTab(handle)
+    elif (tabela == "CN_CONTRATOOBJETOS"):
+        from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+        widget.Hidden = CNContratoObjeto.ValorPorFaixaMostrarTab(handle)
+    else:
+        from Benner.Corporativo.Definicoes.Contratos import CNAditivoNovosObjeto
+        widget.Hidden = CNAditivoNovosObjeto.FaixaValoresMostrarTab(handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>WEB_CONSULTA_CONTRATOSFATURAMENTO_G</Identifier>
+  <Name>Contratos de faturamento</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CASE WHEN STATUS = 1 AND LIBERADO &lt;&gt; 'S' THEN 'Em liberação'&#xD;&#xA;            WHEN STATUS = 1 AND LIBERADO = 'S' THEN 'Em aprovação'&#xD;&#xA;            WHEN STATUS = 2 THEN 'Aprovado'&#xD;&#xA;            WHEN STATUS = 3 THEN 'Encerrado'&#xD;&#xA;            WHEN STATUS = 4 OR STATUS = 7 THEN 'Cancelado'&#xD;&#xA;            WHEN STATUS = 5 THEN 'Suspenso'&#xD;&#xA;            WHEN STATUS = 6 THEN 'Recusado'&#xD;&#xA;       END STATUS,&#xD;&#xA;        SUM(VALORTOTAL) VALOR,&#xD;&#xA;        COUNT(STATUS) QTD,&#xD;&#xA;       CASE WHEN STATUS = 1 AND LIBERADO &lt;&gt; 'S' THEN '../../a/g/aga_t1907_at3869_hsa00525c2.aspx'&#xD;&#xA;            WHEN STATUS = 1 AND LIBERADO = 'S' THEN '../../a/g/aga_t1907_at3870_hs6ebf6376.aspx'&#xD;&#xA;            WHEN STATUS = 2 THEN '../../a/g/aga_t1907_at3871_hs15d513b4.aspx'&#xD;&#xA;            WHEN STATUS = 3 THEN '../../a/g/aga_t1907_at3874_hs6850fe05.aspx'&#xD;&#xA;            WHEN STATUS = 4 OR STATUS = 7 THEN '../../a/g/aga_t1907_at3872_hsa10731b7.aspx'&#xD;&#xA;            WHEN STATUS = 5 THEN '../../a/g/aga_t1907_at3877_hsfebffc56.aspx'&#xD;&#xA;            WHEN STATUS = 6 THEN '../../a/g/aga_t1907_at3878_hse327e048.aspx'&#xD;&#xA;       END URL&#xD;&#xA;FROM CN_CONTRATOS&#xD;&#xA;WHERE (TIPOCONTRATO IN(SELECT X.HANDLE FROM CN_TIPOSCONTRATOS X WHERE X.HANDLE = TIPOCONTRATO AND X.TIPO = 2  AND X.EHCONTRATOCONVENIO = 'N'  )) AND @CRITERIOSELECAO&#xD;&#xA;GROUP BY CASE WHEN STATUS = 1 AND LIBERADO &lt;&gt; 'S' THEN 'Em liberação'&#xD;&#xA;            WHEN STATUS = 1 AND LIBERADO = 'S' THEN 'Em aprovação'&#xD;&#xA;            WHEN STATUS = 2 THEN 'Aprovado'&#xD;&#xA;            WHEN STATUS = 3 THEN 'Encerrado'&#xD;&#xA;            WHEN STATUS = 4 OR STATUS = 7 THEN 'Cancelado'&#xD;&#xA;            WHEN STATUS = 5 THEN 'Suspenso'&#xD;&#xA;            WHEN STATUS = 6 THEN 'Recusado'&#xD;&#xA;       END,&#xD;&#xA;       CASE WHEN STATUS = 1 AND LIBERADO &lt;&gt; 'S' THEN '../../a/g/aga_t1907_at3869_hsa00525c2.aspx'&#xD;&#xA;            WHEN STATUS = 1 AND LIBERADO = 'S' THEN '../../a/g/aga_t1907_at3870_hs6ebf6376.aspx'&#xD;&#xA;            WHEN STATUS = 2 THEN '../../a/g/aga_t1907_at3871_hs15d513b4.aspx'&#xD;&#xA;            WHEN STATUS = 3 THEN '../../a/g/aga_t1907_at3874_hs6850fe05.aspx'&#xD;&#xA;            WHEN STATUS = 4 OR STATUS = 7 THEN '../../a/g/aga_t1907_at3872_hsa10731b7.aspx'&#xD;&#xA;            WHEN STATUS = 5 THEN '../../a/g/aga_t1907_at3877_hsfebffc56.aspx'&#xD;&#xA;            WHEN STATUS = 6 THEN '../../a/g/aga_t1907_at3878_hse327e048.aspx'&#xD;&#xA;       END&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="QTD" From="A" Path="QTD" />
+    <Field Alias="URL" From="A" Path="URL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

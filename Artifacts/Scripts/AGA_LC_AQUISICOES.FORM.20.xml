@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_LC_AQUISICOES.FORM</ViewName>
+  <EntityName>LC_AQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    if registro == None:
+        return
+
+    status = int(registro.Fields["STATUS"].Value)
+
+    widget.View.Commands["CMD_RELATORIO"].Visible = status == 3
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

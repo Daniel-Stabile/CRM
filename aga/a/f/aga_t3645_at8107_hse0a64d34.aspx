@@ -1,0 +1,206 @@
+﻿<%@ Page Title="Integrações - Tipos integrações - WS" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="portlet light">
+  <div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <ul class="nav nav-tabs tabs-left">
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="FORMULARIO" class="active"><a data-toggle="tab" href="#tabFORMULARIO">Integrações - Tipos integrações - WS</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="APONTAMENTOOBJETOS"><a data-toggle="tab" href="#tabAPONTAMENTOOBJETOS">Apontamento objetos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="APROPRIACAOWS"><a data-toggle="tab" href="#tabAPROPRIACAOWS">Apropriações</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="APROPRIACOES"><a data-toggle="tab" href="#tabAPROPRIACOES">Apropriações</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="BOLETOS"><a data-toggle="tab" href="#tabBOLETOS">Boletos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="CONTABILLANCAMENTOCC"><a data-toggle="tab" href="#tabCONTABILLANCAMENTOCC">Centro de custo</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="LANCAMENTOFINANCEIROCC"><a data-toggle="tab" href="#tabLANCAMENTOFINANCEIROCC">Centros de custos financeiros</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="COMISSAO"><a data-toggle="tab" href="#tabCOMISSAO">Comissões</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="COMISSOESWS"><a data-toggle="tab" href="#tabCOMISSOESWS">Comissões</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="DOCUMENTOSREFERENCIADOS"><a data-toggle="tab" href="#tabDOCUMENTOSREFERENCIADOS">Documentos referenciados</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="ENTREGASWS"><a data-toggle="tab" href="#tabENTREGASWS">Entregas</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="ENTREGASADITIVO"><a data-toggle="tab" href="#tabENTREGASADITIVO">Entregas do aditivo</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="NOTAFISCALITENSWS"><a data-toggle="tab" href="#tabNOTAFISCALITENSWS">Itens da nota fiscal</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="ITENSADITIVO"><a data-toggle="tab" href="#tabITENSADITIVO">Itens do aditivo</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="ITENSCUPOMFISCAL"><a data-toggle="tab" href="#tabITENSCUPOMFISCAL">Itens do cupom fiscal</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="ITENSSPED"><a data-toggle="tab" href="#tabITENSSPED">Itens SPED</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="CONTRATOOBJETOSWS"><a data-toggle="tab" href="#tabCONTRATOOBJETOSWS">Itens/objetos do contrato</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="LANCAMENTOFINANCEIROCCWS"><a data-toggle="tab" href="#tabLANCAMENTOFINANCEIROCCWS">Lançamentos centro de custo/projeto</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="LANCAMENTOSFINANCEIROSINATIVOS"><a data-toggle="tab" href="#tabLANCAMENTOSFINANCEIROSINATIVOS">Lancamentos financeiros - inativos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="LANCAMENTOFINANCEIRO"><a data-toggle="tab" href="#tabLANCAMENTOFINANCEIRO">Lançamentos financeiros</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="LANCAMENTOSFINANCEIROSWS"><a data-toggle="tab" href="#tabLANCAMENTOSFINANCEIROSWS">Lançamentos financeiros</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="LANCAMENTOSFINANCEIROSATIVOS"><a data-toggle="tab" href="#tabLANCAMENTOSFINANCEIROSATIVOS">Lançamentos financeiros - ativos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="ENTREGALOTES"><a data-toggle="tab" href="#tabENTREGALOTES">Lotes de entrega</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="MENSAGENS"><a data-toggle="tab" href="#tabMENSAGENS">Mensagens padrão</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="BAIXASTESOURARIAWS"><a data-toggle="tab" href="#tabBAIXASTESOURARIAWS">Movimentos baixa tesouraria</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="NOTAFISCALELETRONICA"><a data-toggle="tab" href="#tabNOTAFISCALELETRONICA">Notas fiscais eletrônicas</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="NOVOSITENSADITIVO"><a data-toggle="tab" href="#tabNOVOSITENSADITIVO">Novos itens do aditivo</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="OBSERVACOES"><a data-toggle="tab" href="#tabOBSERVACOES">Observações</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="OBSERVACOESWS"><a data-toggle="tab" href="#tabOBSERVACOESWS">Observações</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="DOCLANCAMENTOOBSERVACOES"><a data-toggle="tab" href="#tabDOCLANCAMENTOOBSERVACOES">Observações lançamentos fiscais</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="DOCLANCAMENTOOBSERVACOESAJUSTES"><a data-toggle="tab" href="#tabDOCLANCAMENTOOBSERVACOESAJUSTES">Observações lançamentos fiscais ajustes</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="PARCELASFINANCEIRAS"><a data-toggle="tab" href="#tabPARCELASFINANCEIRAS">Parcelas financeiras</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="PARTIDAS"><a data-toggle="tab" href="#tabPARTIDAS">Partidas</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="RECEBIMENTOSWS"><a data-toggle="tab" href="#tabRECEBIMENTOSWS">Recebimentos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="RETENCOESIMPOSTOS"><a data-toggle="tab" href="#tabRETENCOESIMPOSTOS">Retenções de impostos</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TABELASADICIONAIS"><a data-toggle="tab" href="#tabTABELASADICIONAIS">Tabelas adicionais</a></li>
+        <li onclick="Benner.Page.changeSelectedTab(this)" data-widget-id="TRIBUTOSDOCUMENTO"><a data-toggle="tab" href="#tabTRIBUTOSDOCUMENTO">Tributos</a></li>
+      </ul>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-9">
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabFORMULARIO">
+                    <div class="row">
+    <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Integrações - Tipos integrações - WS" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="" ChromeState="Fixed" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="AGA_FN_ESTRUTURAINTEGRACAO.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form' and A.TIPO = 5" UserDefinedCommandsVisible="True" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="1"  /></div>
+        </div>
+        <div class="tab-pane" id="tabAPONTAMENTOOBJETOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="APONTAMENTOOBJETOS" Title="Apontamento objetos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSAPONTAMENTOOBJ.APONTAMENTOOBJWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5485_at7968_hs76e8c67b.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="5"  /></div>
+        </div>
+        <div class="tab-pane" id="tabAPROPRIACAOWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="APROPRIACAOWS" Title="Apropriações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSAPROPRIACOES.APROPRIACAOWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5428_at7902_hs1d7c5da3.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="10"  /></div>
+        </div>
+        <div class="tab-pane" id="tabAPROPRIACOES">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="APROPRIACOES" Title="Apropriações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.APROPRIACOES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 16 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7826_hs1c5c7471.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="15"  /></div>
+        </div>
+        <div class="tab-pane" id="tabBOLETOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="BOLETOS" Title="Boletos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.BOLETOS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 19 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7828_hsde42d768.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="20"  /></div>
+        </div>
+        <div class="tab-pane" id="tabCONTABILLANCAMENTOCC">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="CONTABILLANCAMENTOCC" Title="Centro de custo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURACONTABILLANCTOCC.CONTABILLANCAMENTOCC.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/adm/tiposintegracoes/centrodecusto.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="25"  /></div>
+        </div>
+        <div class="tab-pane" id="tabLANCAMENTOFINANCEIROCC">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="LANCAMENTOFINANCEIROCC" Title="Centros de custos financeiros" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.LANCAMENTOFINANCEIROCC.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 12 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7822_hs279aaf2f.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="30"  /></div>
+        </div>
+        <div class="tab-pane" id="tabCOMISSAO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="COMISSAO" Title="Comissões" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.COMISSAO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 24 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7846_hs1e7a5296.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="35"  /></div>
+        </div>
+        <div class="tab-pane" id="tabCOMISSOESWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="COMISSOESWS" Title="Comissões" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSCOMISSOES.COMISSOESWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5420_at7903_hsb2d01ae8.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="40"  /></div>
+        </div>
+        <div class="tab-pane" id="tabDOCUMENTOSREFERENCIADOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="DOCUMENTOSREFERENCIADOS" Title="Documentos referenciados" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSDOCREF.DOCUMENTOSREFERENCIADOS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5788_at8386_hs7c7b1d44.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="45"  /></div>
+        </div>
+        <div class="tab-pane" id="tabENTREGASWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="ENTREGASWS" Title="Entregas" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSENTREGAS.ENTREGASWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5423_at7906_hs475d66d1.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="50"  /></div>
+        </div>
+        <div class="tab-pane" id="tabENTREGASADITIVO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="ENTREGASADITIVO" Title="Entregas do aditivo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.ENTREGASADITIVO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.TIPO = 22 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7844_hsde424f54.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="55"  /></div>
+        </div>
+        <div class="tab-pane" id="tabNOTAFISCALITENSWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="NOTAFISCALITENSWS" Title="Itens da nota fiscal" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSNOTAFISCALITENS.NOTAFISCALITENSWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5422_at7905_hsf24b3e98.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="60"  /></div>
+        </div>
+        <div class="tab-pane" id="tabITENSADITIVO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="ITENSADITIVO" Title="Itens do aditivo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.ITENSADITIVO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 21 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7843_hs88034b6.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="65"  /></div>
+        </div>
+        <div class="tab-pane" id="tabITENSCUPOMFISCAL">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="ITENSCUPOMFISCAL" Title="Itens do cupom fiscal" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAOFILHOS.ITENSCUPOMFISCAL.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 3 AND A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/adm/tiposintegracoes/itensdocupomfiscal.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="70"  /></div>
+        </div>
+        <div class="tab-pane" id="tabITENSSPED">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="ITENSSPED" Title="Itens SPED" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.ITENSSPED.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 15 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7825_hsfd3e88f2.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="75"  /></div>
+        </div>
+        <div class="tab-pane" id="tabCONTRATOOBJETOSWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="CONTRATOOBJETOSWS" Title="Itens/objetos do contrato" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSCONTRATOOBJETOS.CONTRATOOBJETOSWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5469_at7956_hs762519f0.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="80"  /></div>
+        </div>
+        <div class="tab-pane" id="tabLANCAMENTOFINANCEIROCCWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="LANCAMENTOFINANCEIROCCWS" Title="Lançamentos centro de custo/projeto" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSLANCAMENTOCC.LANCAMENTOFINANCEIROCCWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5426_at7909_hsb881934e.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="85"  /></div>
+        </div>
+        <div class="tab-pane" id="tabLANCAMENTOSFINANCEIROSINATIVOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="LANCAMENTOSFINANCEIROSINATIVOS" Title="Lancamentos financeiros - inativos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAOLAN.LANCAMENTOSFINANCEIROSINATIVOS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAO = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3646_at7389_hs137bebb1.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="90"  /></div>
+        </div>
+        <div class="tab-pane" id="tabLANCAMENTOFINANCEIRO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="LANCAMENTOFINANCEIRO" Title="Lançamentos financeiros" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.LANCAMENTOFINANCEIRO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 11 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7820_hscd41f895.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="95"  /></div>
+        </div>
+        <div class="tab-pane" id="tabLANCAMENTOSFINANCEIROSWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="LANCAMENTOSFINANCEIROSWS" Title="Lançamentos financeiros" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSLANCAMENTOS.LANCAMENTOSFINANCEIROSWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5425_at7908_hsc4553d4d.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="100"  /></div>
+        </div>
+        <div class="tab-pane" id="tabLANCAMENTOSFINANCEIROSATIVOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="LANCAMENTOSFINANCEIROSATIVOS" Title="Lançamentos financeiros - ativos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAOLAN.LANCAMENTOSFINANCEIROSATIVOS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAO = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3646_at7390_hsb7f5bdc1.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="105"  /></div>
+        </div>
+        <div class="tab-pane" id="tabENTREGALOTES">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="ENTREGALOTES" Title="Lotes de entrega" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSENTREGALOTES.ENTREGALOTES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5424_at7907_hs35be1f4e.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="110"  /></div>
+        </div>
+        <div class="tab-pane" id="tabMENSAGENS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="MENSAGENS" Title="Mensagens padrão" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAOMSG.MENSAGENS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPOINTEGRACAO = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5046_at7387_hs2f6b7b3f.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="115"  /></div>
+        </div>
+        <div class="tab-pane" id="tabBAIXASTESOURARIAWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="BAIXASTESOURARIAWS" Title="Movimentos baixa tesouraria" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSMOVBAIXATES.BAIXASTESOURARIAWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5451_at7952_hs5d9e2608.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="120"  /></div>
+        </div>
+        <div class="tab-pane" id="tabNOTAFISCALELETRONICA">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="NOTAFISCALELETRONICA" Title="Notas fiscais eletrônicas" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.NOTAFISCALELETRONICA.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 13 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7823_hsa3296d8d.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="125"  /></div>
+        </div>
+        <div class="tab-pane" id="tabNOVOSITENSADITIVO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="NOVOSITENSADITIVO" Title="Novos itens do aditivo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.NOVOSITENSADITIVO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 23 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7845_hs6b1d449e.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="130"  /></div>
+        </div>
+        <div class="tab-pane" id="tabOBSERVACOES">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="OBSERVACOES" Title="Observações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.OBSERVACOES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 18 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7829_hs34036b3b.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="135"  /></div>
+        </div>
+        <div class="tab-pane" id="tabOBSERVACOESWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="OBSERVACOESWS" Title="Observações" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSOBSERVACOES.OBSERVACOESWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5421_at7904_hs7360d934.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="140"  /></div>
+        </div>
+        <div class="tab-pane" id="tabDOCLANCAMENTOOBSERVACOES">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="DOCLANCAMENTOOBSERVACOES" Title="Observações lançamentos fiscais" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSDOCLANCOBS.DOCLANCAMENTOOBSERVACOES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/adm/tiposintegracoes/observacoeslancamentosfiscais.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="145"  /></div>
+        </div>
+        <div class="tab-pane" id="tabDOCLANCAMENTOOBSERVACOESAJUSTES">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="DOCLANCAMENTOOBSERVACOESAJUSTES" Title="Observações lançamentos fiscais ajustes" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSDOCLANCOBSAJUSTE.DOCLANCAMENTOOBSERVACOESAJUSTES.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="150"  /></div>
+        </div>
+        <div class="tab-pane" id="tabPARCELASFINANCEIRAS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="PARCELASFINANCEIRAS" Title="Parcelas financeiras" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.PARCELASFINANCEIRAS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 10 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7819_hs20570a46.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="155"  /></div>
+        </div>
+        <div class="tab-pane" id="tabPARTIDAS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="PARTIDAS" Title="Partidas" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURACONTABILLANCAMENTO.CONTABILLANCAMENTO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/adm/tiposintegracoes/partidas.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="160"  /></div>
+        </div>
+        <div class="tab-pane" id="tabRECEBIMENTOSWS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="RECEBIMENTOSWS" Title="Recebimentos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAWSRECEBIMENTOS.RECEBIMENTOSWS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.ESTRUTURAINTEGRACAOPAI = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t5427_at7910_hs1c321cb7.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="165"  /></div>
+        </div>
+        <div class="tab-pane" id="tabRETENCOESIMPOSTOS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="RETENCOESIMPOSTOS" Title="Retenções de impostos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.RETENCOESIMPOSTOS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 17 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7827_hscf54c4e8.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="175"  /></div>
+        </div>
+        <div class="tab-pane" id="tabTABELASADICIONAIS">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TABELASADICIONAIS" Title="Tabelas adicionais" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAOTABELAS.TABELASADICIONAIS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" FormUrl="~/aga/a/adm/tiposintegracoes/tabelasadicionais.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="180"  /></div>
+        </div>
+        <div class="tab-pane" id="tabTRIBUTOSDOCUMENTO">
+                    <div class="row">
+    <wes:SimpleGrid runat="server" ID="TRIBUTOSDOCUMENTO" Title="Tributos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Minimized" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="FN_ESTRUTURAINTEGRACAO.TRIBUTOSDOCUMENTO.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.TIPO = 14 AND A.CODIGOMOVTOTESOURARIA = @CAMPO(HANDLE)" FormUrl="~/aga/a/f/aga_t3645_at7824_hs2fd6266e.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="ADM_CARGA_INTEGRACOES__TIPOS_INTEGRACOES_WS_FORM" Level="20" Order="190"  /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      </asp:Content>
+    

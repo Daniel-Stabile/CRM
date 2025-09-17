@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_META_PRODUTO_DIRETOR_GERAL</Identifier>
+  <Name>CRM_META_PRODUTO_DIRETOR_GERAL</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT C.NOME PRODTIPO, SUM(B.VALOR) VALORPRODTIPO&#xD;&#xA;FROM K_CRM_METASUNIDADES A&#xD;&#xA;JOIN K_CRM_METASUNIDADESTIPOS B ON A.HANDLE = B.METAUNIDADE&#xD;&#xA;JOIN K_CRM_PRODUTOTIPOS C ON B.TIPO = C.HANDLE&#xD;&#xA;JOIN K_CRM_METAS D ON D.HANDLE = A.META&#xD;&#xA;WHERE YEAR(D.DATA) = YEAR(GETDATE())&#xD;&#xA;GROUP BY C.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="PRODTIPO" From="A" Path="PRODTIPO" />
+    <Field Alias="VALORPRODTIPO" From="A" Path="VALORPRODTIPO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

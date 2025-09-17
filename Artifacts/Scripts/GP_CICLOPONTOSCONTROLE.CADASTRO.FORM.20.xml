@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_CICLOPONTOSCONTROLE.CADASTRO.FORM</ViewName>
+  <EntityName>GP_CICLOPONTOSCONTROLE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPPlanejamentoCiclos
+    from Benner.Tecnologia.Wes.Components import WesBreadcrumbProvider
+    from Benner.Tecnologia.Common import EntityState
+    
+    statusCiclo = GPPlanejamentoCiclos.VerificaStatus(widget.Entity.CicloHandle)
+    WesBreadcrumbProvider.UpdateCurrentTitle(widget.Entity.Fields["Nome"])
+    
+    if widget.View.Commands["New"] != None: 
+        widget.View.Commands["New"].Visible = statusCiclo
+    if widget.View.Commands["Edit"] != None: 
+        widget.View.Commands["Edit"].Visible = statusCiclo
+    if widget.View.Commands["Delete"] != None: 
+        widget.View.Commands["Delete"].Visible = statusCiclo
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

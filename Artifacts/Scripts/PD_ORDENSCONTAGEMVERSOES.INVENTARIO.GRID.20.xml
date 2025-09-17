@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ORDENSCONTAGEMVERSOES.INVENTARIO.GRID</ViewName>
+  <EntityName>PD_ORDENSCONTAGEMVERSOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = entity.PodeExcluir
+	if row.EditCommand != None:
+	    row.EditCommand.Visible = entity.VersaoEOrdemEstaoConfirmadas
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    registro = widget.Entity
+    if registro == None: return
+
+    if registro.Fields["STATUS"].Value != 2:
+        widget.View.Commands["RelatorioContagemManual"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

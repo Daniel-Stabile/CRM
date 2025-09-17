@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_ITEMCALCULOS.GRID</ViewName>
+  <EntityName>AT_ITEMCALCULOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_ESPECIESBENS") or AuthorizationHelper.HasTask("EXCLUIR_BENSDOIMOBILIZADO")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_ESPECIESBENS") or AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_ESPECIESBENS") or AuthorizationHelper.HasTask("MANTER_BENSDOIMOBILIZADO")
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+        if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+        
+  
+    RemovePrefixoMoedas("VALORDEPRECIACAO", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMULADA", entity, row)
+    RemovePrefixoMoedas("VALORATUALIZADO", entity, row)
+    RemovePrefixoMoedas("VALORENTRADA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMULADAENTRADA", entity, row)
+    RemovePrefixoMoedas("VALORSAIDA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMULADASAIDA", entity, row)
+    RemovePrefixoMoedas("VALORUNIENTRADA", entity, row)
+    RemovePrefixoMoedas("VALORUNISAIDA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMUNIENTRADA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMULADASAIDA", entity, row)
+    RemovePrefixoMoedas("VALORDESENTRADA", entity, row)
+    RemovePrefixoMoedas("VALORDESSAIDA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMDESENTRADA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMDESSAIDA", entity, row)
+    RemovePrefixoMoedas("DEPRECIACAOACUMULADABAIXA", entity, row)
+    RemovePrefixoMoedas("VALORBAIXA", entity, row)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

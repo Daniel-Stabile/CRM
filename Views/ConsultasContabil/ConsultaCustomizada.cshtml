@@ -1,0 +1,1519 @@
+﻿
+<style type="text/css">
+    .nav-pills, .nav-pills li, .nav-pills a {
+        cursor: default;
+    }
+
+    .right {
+        text-align: right !important
+    }
+</style>
+
+<div class="portlet light" id="form_wizard">
+    <div class="portlet-body form">
+        <div class="form-wizard">
+            <div class="form-body">
+
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <ul class="nav nav-pills nav-justified steps">
+                            <li><a data-toggle="tab" class="step" href="#tab1"><span class="number">1</span><span class="desc"><i class="fa fa-check"></i>Filtros</span></a></li>
+                            <li><a data-toggle="tab" class="step" href="#tab2"><span class="number">2</span><span class="desc"><i class="fa fa-check"></i>Exibição</span></a></li>
+                            <li><a data-toggle="tab" class="step" href="#tab3"><span class="number">3</span><span class="desc"><i class="fa fa-check"></i>Resultado</span></a></li>
+                        </ul>
+                        <div id="bar" class="progress progress-striped" role="progressbar">
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="wizardConsulta" class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        <div class="panel-group accordion" id="acdFiltros">
+                                            @*      1° PASSO: FILTROS       *@
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#acdFiltros" href="#pnlEmpresas"> Empresas</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlEmpresas" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <div class="md-checkbox has-info margin-top-20">
+                                                                    <input type="checkbox" id="chkAllEmpresas" class="md-check" onclick="SelecionarTodasEmpresas(this)">
+                                                                    <label for="chkAllEmpresas">
+                                                                        <span class="inc"></span>
+                                                                        <span class="check"></span>
+                                                                        <span class="box"></span> Selecionar todas empresas e filiais
+                                                                    </label>
+                                                                </div>
+                                                                <hr />
+                                                                <label>Disponíveis para seleção</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12" id="EMPRESAS"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*      2° PASSO: CONTAS       *@
+                                            <div class="panel panel-default" id="PnlSupContas">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#acdFiltros" href="#pnlContas"> Contas </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlContas" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12">
+                                                                        <div class="mt-radio-inline">
+                                                                            <label class="mt-radio" id="lblRdbContabeis">
+                                                                                <input type="radio" id="rdbContabeis" onclick="ExibirCamposPorRadio(this, true)" name="CONTAS" data-filho="ContasContabeis" data-table="CT_PLANOVERSOES" data-jstree="CONTAS"> Contábeis
+                                                                                <span></span>
+                                                                            </label>
+                                                                            <label class="mt-radio" id="lblRdbGerenciais">
+                                                                                <input type="radio" id="rdbGerenciais" onclick="ExibirCamposPorRadio(this, true)" name="CONTAS" data-filho="ContasContabeis" data-table="CT_PLANOSGERENCIAIS" data-jstree="CONTAS"> Gerenciais
+                                                                                <span></span>
+                                                                            </label>
+                                                                            <label class="mt-radio" data-op="Gerenciais">
+                                                                                <input type="radio" id="rdbIgnorar" onclick="ExibirCamposPorRadio(this, false)" name="CONTAS" data-filho="ContasContabeis" data-jstree="CONTAS"> Ignorar
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="ContasContabeis">
+                                                                <hr />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="ContasContabeis">
+                                                                <div class="row">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                        <label for="txtMascaraCONTAS">Máscara</label>
+                                                                        <input type="text" maxlength="30" id="txtMascaraCONTAS" class="form-control" />
+                                                                    </div>
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                        <label for="slContasContabeisPlano">Plano</label>
+                                                                        <select id="slContasContabeisPlano" data-action="Contas" onchange="BuscarItensTreeView(this)">
+                                                                            <option value="-1">Selecione</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="ContasContabeis">
+                                                                <hr />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="ContasContabeis">
+                                                                <label id="lblCONTAS">Selecione um plano</label>
+                                                                <div id="CONTAS"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*      3° PASSO: CENTRO DE CUSTOS       *@
+                                            <div class="panel panel-default" id="PnlSupCc">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#acdFiltros" href="#pnlCentroCustos"> Centro de custos </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlCentroCustos" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <div class="mt-radio-inline">
+                                                                    <label class="mt-radio" for="rdbCCContabeis" id="lblRdbCCContabeis">
+                                                                        <input type="radio" id="rdbCCContabeis" onclick="BuscarPlanoPadrao(this, ':D')" data-filho="CentroCustos" name="CCCONTASCONTABEIS" data-jstree="CENTROCUSTO"> Padrão
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-radio" for="rdbCCGerenciais" id="lblRdbCCGerenciais">
+                                                                        <input type="radio" id="rdbCCGerenciais" onclick="ExibirCamposPorRadio(this, true)" data-filho="CentroCustos" data-table="CT_PLANOSCCGERENCIAIS" name="CCCONTASCONTABEIS" data-jstree="CENTROCUSTO"> Gerencial
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-radio" for="rdbCCIgnorar" data-op="Gerenciais">
+                                                                        <input type="radio" id="rdbCCIgnorar" onclick="ExibirCamposPorRadio(this, false)" data-filho="CentroCustos" name="CCCONTASCONTABEIS" data-jstree="CENTROCUSTO"> Ignorar
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="CentroCustos">
+                                                                <hr />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="CentroCustos">
+                                                                <div class="row">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                        <label>Máscara</label>
+                                                                        <input type="text" maxlength="30" id="txtMascaraCENTROCUSTO" class="form-control" />
+                                                                    </div>
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                        <label>Plano</label>
+                                                                        <select id="slCentroCustosPlano" data-action="CentroCusto" onchange="BuscarItensTreeView(this)">
+                                                                            <option value="-1">Selecione.</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="CentroCustos">
+                                                                <hr />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="CentroCustos">
+                                                                <label id="lblCENTROCUSTO">Disponíveis para seleção</label>
+                                                                <div id="CENTROCUSTO"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*      4° PASSO: PROJETOS       *@
+                                            <div class="panel panel-default" id="PnlSupProjetos">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#acdFiltros" href="#pnlProjetos"> Projetos </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlProjetos" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                    <div class="mt-radio-inline">
+                                                                        <label class="mt-radio" for="rdbPRJContabeis" id="lblRdbPRJContabeis">
+                                                                            <input type="radio" id="rdbPRJContabeis" onclick="BuscarPlanoPadrao(this, 'Projetos')" data-filho="Projetos" name="PRJCONTASCONTABEIS" data-jstree="PROJETOS"> Padrão
+                                                                            <span></span>
+                                                                        </label>
+                                                                        <label class="mt-radio" for="rdbPRJGerenciais" id="lblRdbPRJGerenciais">
+                                                                            <input type="radio" id="rdbPRJGerenciais" onclick="ExibirCamposPorRadio(this, true)" data-filho="Projetos" data-table="CT_PLANOSPROJETOSGERENCIAIS" name="PRJCONTASCONTABEIS" data-jstree="PROJETOS"> Gerencial
+                                                                            <span></span>
+                                                                        </label>
+                                                                        <label class="mt-radio" for="rdbPRJIgnorar" data-op="Gerenciais">
+                                                                            <input type="radio" id="rdbPRJIgnorar" onclick="ExibirCamposPorRadio(this, false)" data-filho="Projetos" name="PRJCONTASCONTABEIS" data-jstree="PROJETOS"> Ignorar
+                                                                            <span></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="Projetos">
+                                                                <hr />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="Projetos">
+
+                                                                <div class="row">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                        <label>Máscara</label>
+                                                                        <input type="text" maxlength="30" id="txtMascaraPROJETOS" class="form-control" />
+                                                                    </div>
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                        <label>Plano</label>
+                                                                        <select id="slProjetosPlano" data-action="Projetos" onchange="BuscarItensTreeView(this)">
+                                                                            <option value="-1">Selecione</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="Projetos">
+                                                                <hr />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" data-mestre="Projetos">
+                                                                <label id="lblPROJETOS" for="PROJETOS">Disponíveis para seleção</label>
+                                                                <div id="PROJETOS"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="panel-group accordion" id="acdExibicao">
+                                            @*      1° PASSO: Períodos       *@
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#acdExibicao" href="#pnlPeriodos"> Períodos </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlPeriodos" class="panel-collapse collapse in">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+
+                                                            <div class="col-md-12">
+                                                                <div class="mt-radio-inline">
+                                                                    <label class="mt-radio">
+                                                                        <input type="radio" name="TipoPeriodo" id="rdbMensal" checked="checked" value="1">Mensal
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-radio">
+                                                                        <input type="radio" name="TipoPeriodo" id="rdbTrimestral" value="2">Trimestral
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-radio">
+                                                                        <input type="radio" name="TipoPeriodo" id="rdbSemestral" value="3">Semestral
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-radio">
+                                                                        <input type="radio" name="TipoPeriodo" id="rdbAnual" value="4">Anual
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+                                                                <hr />
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+
+                                                                <div class="form-group">
+                                                                    <label for="DataInicial">Data inicial:</label>
+                                                                    <input type="text" class="form-control datepicker" maxlength="10 " data-date-format="mm/yyyy" id="DataInicial" placeholder="mm/aaaa" value="@(new DateTime(DateTime.Now.Year, 1,1).ToString("MM/yyyy"))">
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+
+                                                                <div class="form-group">
+                                                                    <label for="DataFinal">Data final:</label>
+                                                                    <input type="text" class="form-control datepicker" maxlength="10 " data-date-format="mm/yyyy" id="DataFinal" placeholder="mm/aaaa" value="@DateTime.Now.ToString("MM/yyyy")">
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*      2° PASSO: Abrângências       *@
+                                            <div class="panel panel-default" data-op="Gerenciais">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a id="linkAbrangencias" class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#acdExibicao" href="#pnlAbrangencias"> Abrangências </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlAbrangencias" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+
+                                                                <div class="mt-checkbox-list">
+                                                                    <label class="mt-checkbox" for="ABRFECGERENCIAL">
+                                                                        <input type="checkbox" id="ABRFECGERENCIAL" value="S"> Fechamentos gerenciais
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="ABRFECNORMAL">
+                                                                        <input type="checkbox" id="ABRFECNORMAL" value="S"> Fechamentos normais
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="ABRANTERIORES">
+                                                                        <input type="checkbox" id="ABRANTERIORES" value="S"> Anteriores
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+
+                                                                <div class="mt-checkbox-list">
+                                                                    <label class="mt-checkbox" for="ABRLANCGERENCIAL">
+                                                                        <input type="checkbox" id="ABRLANCGERENCIAL" value="S"> Lançamentos gerenciais
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="ABRLANCNORMAL">
+                                                                        <input type="checkbox" id="ABRLANCNORMAL" value="S"> Lançamentos normais
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="ABRPOSTERIORES">
+                                                                        <input type="checkbox" id="ABRPOSTERIORES" value="S"> Posteriores
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*      3° PASSO: Modos de exibição gerenciais       *@
+                                            <div class="panel panel-default" data-op="Gerenciais">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" id="linkExibicaoGerencial" data-toggle="collapse" data-parent="#acdExibicao" href="#pnlModoExibicaoGerencial"> Modos de exibição </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlModoExibicaoGerencial" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                                                <p>Linhas</p>
+                                                                <div id="APRESENTACAOLINHAS"></div>
+                                                            </div>
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                                                <p>Colunas</p>
+                                                                <select id="APRESENTACAOCOLUNAS" class="form-control" style="width:100%" onchange="RemoverDasLinhas(this); AlterarResultadoColunas(this); /*ControlarAnterioresEPosteriores();*/">
+                                                                    <option value="-1" disabled="disabled" selected="selected">-- Selecione --</option>
+                                                                    @*<option value="1">Filiais</option>
+                                                                        <option value="2">Contas</option>
+                                                                        <option value="3">Centro Custos</option>
+                                                                        <option value="4">Projeto</option>
+                                                                        <option value="5">Data</option>*@
+                                                                </select>
+                                                                <div class="form-group hidden" id="ColunaResultado">
+                                                                    <div class="col-md-12">
+                                                                        <div class="mt-radio-inline">
+                                                                            <label class="mt-radio">
+                                                                                <input type="radio" value="E" id="rdbEstrutura" name="ResultadoColunas" checked="checked"> Estrutura
+                                                                                <span></span>
+                                                                            </label>
+                                                                            <label class="mt-radio">
+                                                                                <input type="radio" value="N" id="rdbNome" name="ResultadoColunas"> Nome
+                                                                                <span></span>
+                                                                            </label>
+                                                                            <label class="mt-radio">
+                                                                                <input type="radio" value="R" id="rdbReduzido" name="ResultadoColunas"> Reduzido
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*      3° PASSO: Modos de exibição balancete       *@
+                                            <div class="panel panel-default" data-op="Balancete">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#acdExibicao" href="#pnlModoExibicaoBalancete"> Modos de exibição </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="pnlModoExibicaoBalancete" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                                                <div class="mt-checkbox-list" style="padding-bottom: 0px">
+                                                                    <label class="mt-checkbox" for="Abertura">
+                                                                        <input type="checkbox" id="Abertura" onclick="AberturaClick(this.checked)"> Abertura
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="Debitoecredito">
+                                                                        <input type="checkbox" id="Debitoecredito" checked="checked"> Débitos e créditos
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="Saldomes">
+                                                                        <input type="checkbox" id="Saldomes"> Saldo do mês
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="ExibirSemCC">
+                                                                        <input type="checkbox" checked id="ExibirSemCC"> Exibir lançamentos sem centro de custos vinculados
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="ExibirLctoSemProjeto">
+                                                                        <input type="checkbox" checked id="ExibirLctoSemProjeto"> Exibir lançamentos sem projetos vinculados
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="AntesDoZeramento">
+                                                                        <input type="checkbox" id="AntesDoZeramento" onclick="ControlarDataZeramentos(this.checked)"> Antes do zeramento
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 col-lg-6 col-sm-6">
+
+                                                                <div class="mt-checkbox-list" style="padding-bottom: 0px">
+                                                                    <label class="mt-checkbox" for="SaldoAnteriorAtual">
+                                                                        <input type="checkbox" id="SaldoAnteriorAtual" onclick="SaldoAnteriorAtualClick(this.checked)"> Saldo anterior e atual
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="Somentetotais">
+                                                                        <input type="checkbox" id="Somentetotais" disabled onclick="SomentetotaisClick(this.checked)"> Somente totais
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <label class="mt-checkbox" for="Valoresmilhares">
+                                                                        <input type="checkbox" id="Valoresmilhares" value="S"> Valores em milhares
+                                                                        <span></span>
+                                                                    </label>
+                                                                    <div class="form-group row" style="margin-bottom: 5px">
+                                                                        <label class="control-label col-md-4">
+                                                                            <div class="label-form">
+                                                                                <div class="label-title">
+                                                                                    Ignorar posteriores a
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                        <div class="col-md-8 value">
+                                                                            <input type="text" class="form-control datepicker" maxlength="10" data-date-format="mm/yyyy" id="DataZeramento" placeholder="mm/aaaa" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-2">
+                                                                <div class="label-form">
+                                                                    <div class="label-title">
+                                                                        Máscara totalização
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <div class="col-md-4 value">
+                                                                <input type="text" class="form-control" maxlength="100" id="MascaraTotalizacao">
+                                                            </div>
+                                                            <label class="control-label col-md-2">
+                                                                <div class="label-form">
+                                                                    <div class="label-title">
+                                                                        Máscara impressão
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <div class="col-md-4 value">
+                                                                <input type="text" class="form-control" maxlength="100" id="MascaraImpressao">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab3">
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="alert alert-warning hidden" id="lnMsgError">
+                                            <strong>Atenção, não foi possível processar sua solicitação, motivo:</strong><p></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="md-checkbox has-success hidden" id="chkSalvarPerfil">
+                            <input type="checkbox" id="chkSalvar" class="md-check" onclick="ExibirCampoNomePerfil(this.checked)">
+                            <label for="chkSalvar">
+                                <span class="inc"></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Salvar filtros como perfil para consultas futuras.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-8 right">
+                        <a id="Previous" class="btn grey button-previous">
+                            <i class="fa fa-arrow-circle-left btn-action"></i> Anterior
+                        </a>
+                        <a id="next" class="btn grey button-next">
+                            <i class="fa fa-arrow-circle-right btn-action"></i> Próximo
+                        </a>
+                        <a href="javascript:GerarConsultaCustomizada()" id="btnGerarDemonstrativo" class="btn blue hidden">
+                            <i class="fa fa-check btn-action"></i> Efetuar consulta
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row hidden" id="linNomePerfil">
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="Nome">Nome do perfil:</label>
+                            <input type="text" class="form-control" id="NOMEPERFIL" placeholder="Ex: Perfil balancete completo">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var empresaCorrente = '@Benner.Tecnologia.Common.Company.Current.Handle';
+    var ehBalancete = (parseInt($('input[name="optionsRadios"]:checked').val()) == 1);
+
+    $(function () {
+        $('#form_wizard').bootstrapWizard({
+            'nextSelector': '.button-next', 'previousSelector': '.button-previous',
+            onTabClick: function (tab, navigation, index, clickedIndex) {
+                return false;
+            },
+            onNext: function (tab, navigation, index) {
+                if (ehBalancete) {
+                    GerarMascaraTotalizacao();
+                }
+                if (index == 1) {
+                    GerarLinhasColunas();
+                    $('#btnGerarDemonstrativo').removeClass('hidden').show();
+                    $('#next').hide();
+                    $('#chkSalvarPerfil').removeClass('hidden').show();
+                    ExibirCampoNomePerfil($('#chkSalvar').is(':checked'));
+                }
+                else if (index > 1) {
+
+                    $('#btnGerarDemonstrativo').hide();
+                    $('#chkSalvarPerfil').hide();
+                    
+                }
+            },
+            onPrevious: function (tab, navigation, index) {
+                if (index < 0) {
+                    RedirecionarParaTelaFiltro($("#portlet_CONSULTACUSTOMIZADA"))
+                }
+                if (index < 1) {
+                    $('#next').show();
+                    $('#btnGerarDemonstrativo').hide();
+                    $('#chkSalvarPerfil').hide();
+                    ExibirCampoNomePerfil(false);
+                }
+                else if (index < 2) {
+                    $('#btnGerarDemonstrativo').removeClass('hidden').show();
+                    $('#next').hide();
+                    $('#chkSalvarPerfil').removeClass('hidden').show();
+                }
+            },
+            onTabShow: function (tab, navigation, index) {
+                var total = navigation.find('li').length;
+                var current = index + 1;
+                var $percent = (current / total) * 100;
+
+                $('#Previous').removeAttr('disabled')
+                $('#Previous').removeClass('disabled')
+                $('#next').removeAttr('disabled')
+                $('#next').removeClass('disabled')
+
+                $('#form_wizard').find('.progress-bar').css({
+                    width: $percent + '%'
+                });
+            }
+        });
+
+
+        selectCurrentStep = function () {
+            var currentStep = $("#CurrentStep").val();
+            $('[href="#tab' + currentStep + '"]').tab('show');
+        };
+
+        $("select").select2();
+
+        GerarEmpresas();
+        ExibirEsconderCamposPorTipoConsulta(parseInt($('input[name="optionsRadios"]:checked').val()));
+        SelecionaEmpresaCorrente();
+        //Benner.Date.init();
+
+        //Exibir ou ocultar os checkbox conforme selecionado.
+        $('[data-filho]').each(function (i, cmp) {
+            if (cmp.checked)
+                $(cmp).trigger('click');
+        });
+
+        $('#CONTAS').on('refresh.jstree', function () {
+
+            $('#CONTAS').jstree("check_all");
+        });
+
+        $('#PROJETOS').on('refresh.jstree', function () {
+            $('#PROJETOS').jstree("check_all");
+        });
+
+        $('#CENTROCUSTO').on('refresh.jstree', function () {
+            $('#CENTROCUSTO').jstree("check_all");
+        });
+    });
+
+    function AberturaClick(checked) {
+        var saldoAnteriorAtual = document.getElementById("SaldoAnteriorAtual");
+        var somenteTotais = document.getElementById("Somentetotais");
+        somenteTotais.disabled = checked;
+        somenteTotais.checked = false;
+        SomentetotaisClick(false);
+
+        saldoAnteriorAtual.disabled = checked;
+        saldoAnteriorAtual.checked = false;
+        SaldoAnteriorAtualClick(false);
+    }
+
+    function SaldoAnteriorAtualClick(checked) {
+        var somenteTotais = document.getElementById("Somentetotais");
+        somenteTotais.disabled = !checked;
+    }
+
+    function SomentetotaisClick(checked) {
+        var debitoCredito = document.getElementById("Debitoecredito");
+        var saldoMes = document.getElementById("Saldomes");
+        var saldoAnteriorAtual = document.getElementById("SaldoAnteriorAtual");
+
+        saldoAnteriorAtual.disabled = checked;
+        debitoCredito.disabled = checked
+        debitoCredito.checked = !checked;
+        saldoMes.disabled = checked;
+        saldoMes.checked = false;
+    }
+
+    function ControlarDataZeramentos(mostrarDataZeramentos) {
+        if (mostrarDataZeramentos)
+            $('#DataZeramento').prop('disabled', false);
+        else {
+            $('#DataZeramento').val('');
+            $('#DataZeramento').prop('disabled', true);
+        }
+    }
+
+    function ControlarAnterioresEPosteriores() {
+        var cbLinhaData = $("#DATA");
+        var selCol = $("#APRESENTACAOCOLUNAS");
+
+        var anteriores = $("ABRANTERIORES");
+        var posteriores = $("ABRPOSTERIORES");
+
+        if (selCol.val() == 5 || cbLinhaData.attr('aria-selected') == "true"){
+            anteriores.removeClass("hidden");
+            posteriores.removeClass("hidden");
+        }
+        else {
+            anteriores.addClass("hidden");
+            posteriores.addClass("hidden");
+        }
+    };
+
+    function GerarMascaraTotalizacao() {
+        var obj = MontarObjetoPorFiltros();
+
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ConsultasContabil/GerarMascaraTotalizacao',
+            data: obj,
+            cache: true,
+            success: function (data) {
+                $('#MascaraTotalizacao').val(data);
+                $('#MascaraImpressao').val(data);
+            },
+            error: function (xhr, textStatus, error) {
+                ExibirMensagem(error, TiposMensagem.Erro, $('#form_wizard'));
+            }
+        });
+    }
+
+    var ExibirFiliais;
+    $('#EMPRESAS').on('changed.jstree', function (e, data) {
+        var empresas = $('#EMPRESAS').jstree(true).get_node($('#EMPRESAS')).children;
+
+        $.each(empresas, function (i, cmp) {
+
+            var Filiais = $('#EMPRESAS').jstree(true).get_node($('#' + cmp)).children;
+
+            var selecionados = 0;
+            var objAtual;
+            $.each(Filiais, function (pos, fil) {
+                if (data.selected.indexOf(fil) > -1) {
+                    selecionados = selecionados + 1;
+                }
+            })
+
+            if (selecionados > 1) {
+                selecionados = 0;
+                ExibirFiliais = true;
+                return false;
+            }
+            else
+                ExibirFiliais = false;
+        })
+
+        var EmpresasSelecionadas = BuscarEmpresasSelecionados(true);
+        if (EmpresasSelecionadas) {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                url: Benner.Page.getApplicationPath() + 'ConsultasContabil/EmpresaChecked',
+                data: { HandleEmpresasSelecionadas: EmpresasSelecionadas },
+                cache: true,
+                beforeSend: function () { },
+                success: function (data) {
+                    HabilitaDesabilitaCampos(JSON.parse(data));
+                    $("#next").show();
+                },
+                error: function (xhr, textStatus, error) {
+                    ExibirMensagem(error, TiposMensagem.Erro, $('#form_wizard'));
+                }
+            });
+        } else {
+            $("#next").hide();
+            $("#PnlSupContas").hide();
+            $("#PnlSupCc").hide();
+            $("#PnlSupProjetos").hide();
+        }
+    })
+
+    $('#APRESENTACAOLINHAS').on('changed.jstree', function (e, data) {
+        if (data.selected.indexOf($('#APRESENTACAOCOLUNAS').val()) > -1) {
+            $("#APRESENTACAOLINHAS").jstree("uncheck_node", $('#APRESENTACAOCOLUNAS').val());
+        }
+    });
+
+    function HabilitaDesabilitaCampos(json) {
+
+        SetaCampo('PnlSupContas', json.contasPanel);
+        SetaCampo('lblRdbContabeis', json.ContasContabeisRadio);
+        SetaCampo('lblRdbGerenciais', json.ContasGerenciaisRadio);
+
+        SetaCampo('PnlSupCc', json.CCPanel);
+        SetaCampo('lblRdbCCContabeis', json.CCPadraoRadio);
+        SetaCampo('lblRdbCCGerenciais', json.CCGerencialRadio);
+
+        SetaCampo('PnlSupProjetos', json.ProjetosPanel);
+        SetaCampo('lblRdbPRJGerenciais', json.ProjetosPadraoRadio);
+        SetaCampo('lblRdbPRJContabeis', json.ProjetosGerencialRadio);
+
+        //ExibirCamposPorRadio($("#rdbIgnorar"), false);
+        //ExibirCamposPorRadio($("#rdbCCIgnorar"), false);
+        //ExibirCamposPorRadio($("#rdbPRJIgnorar"), false);
+
+        //$('input:radio[name=CONTAS]')[2].checked = true;
+        //$('input:radio[name=PRJCONTASCONTABEIS]')[2].checked = true;
+        //$('input:radio[name=CCCONTASCONTABEIS]')[2].checked = true;
+
+         function SetaCampo(campo, disponivel) {
+            if (disponivel == 'True')
+                $('#' + campo).show();
+            else
+                $('#' + campo).hide();
+        }
+    }
+
+    function GerarEmpresas() {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ConsultasContabil/Empresas',
+            cache: true,
+            success: function (data) {
+                var Jsonsaida = data.replaceAll('&quot;', '"')
+
+                var objjson = JSON.parse(Jsonsaida)
+                $("#EMPRESAS").jstree({
+                    plugins: ["wholerow", "checkbox", "types"],
+                    core: {
+                        themes: {
+                            responsive: !1
+                        },
+                        data: objjson
+                    },
+                    types: {
+                        default: {
+                            icon: "fa fa-industry"
+                        }
+                    }
+                })
+            },
+            error: function (xhr, textStatus, error) {
+                ExibirMensagem(error, TiposMensagem.Erro, $('#form_wizard'));
+            }
+        });
+    }
+
+    function GerarTree(idElemento) {
+        $("#" + idElemento).jstree({
+            plugins: ["wholerow", "checkbox", "types"],
+            core: {
+                themes: {
+                    responsive: !1
+                },
+                data: []
+            },
+            types: {
+                "default": {
+                    icon: "fa fa-folder icon-state-warning icon-lg"
+                },
+                file: {
+                    icon: "fa fa-file icon-state-warning icon-lg"
+                }
+            }
+        })
+    }
+
+    function GerarLinhasColunas() {
+
+        var numeroEmpresaSelecionada = JSON.parse("[" + BuscarEmpresasSelecionados(true) + "]").length;
+        var data = [];
+        $("#APRESENTACAOCOLUNAS").empty();
+
+
+        if (VerificaSeTemMaisDeUmaFilialSelecionadaPorEmpresa()) {
+            data[data.length] = {
+                id: "FILIAL",
+                text: "Filiais"
+            }
+            if (numeroEmpresaSelecionada <= 1){
+                var $option = '<option value="FILIAL">Filiais</option>'
+                $("#APRESENTACAOCOLUNAS").append($option);
+            }
+        }
+
+        if ($("#PnlSupContas").attr("style") == undefined || !$("#PnlSupContas").attr("style").includes('display: none')) {
+            if (!$('#rdbIgnorar').is(':checked')) {
+                data[data.length] = {
+                    id: "CONTA",
+                    text: "Contas"
+                }
+                var $option = '<option value="CONTA">Contas</option>'
+                $("#APRESENTACAOCOLUNAS").append($option);
+            }
+        }
+
+        if ($("#PnlSupCc").attr("style") == undefined || !$("#PnlSupCc").attr("style").includes('display: none')) {
+            if (!$('#rdbCCIgnorar').is(':checked')) {
+                data[data.length] = {
+                    id: "CC",
+                    text: "Centro Custos"
+                }
+                var $option = '<option value="CC">Centro Custos</option>'
+                $("#APRESENTACAOCOLUNAS").append($option);
+            }
+        }
+
+        if ($("#PnlSupProjetos").attr("style") == undefined || !$("#PnlSupProjetos").attr("style").includes('display: none')) {
+            if (!$('#rdbPRJIgnorar').is(':checked')) {
+                data[data.length] = {
+                    id: "PROJETO",
+                    text: "Projetos"
+                }
+                var $option = '<option value="PROJETO">Projetos</option>'
+                $("#APRESENTACAOCOLUNAS").append($option);
+            }
+        }
+
+        if (numeroEmpresaSelecionada > 0) {
+            data[data.length] = {
+                id: "DATA",
+                text: "Datas"
+            }
+            var $option = '<option value="DATA" selected="selected">Datas</option>'
+            $("#APRESENTACAOCOLUNAS").append($option);
+        }
+
+        //$("#APRESENTACAOLINHAS").jstree("destroy");
+        var apresentacaoLinhas = $('#APRESENTACAOLINHAS').jstree(true);
+        if (apresentacaoLinhas) {
+            $('#APRESENTACAOLINHAS').jstree(true).settings.core.data = data;
+            $('#APRESENTACAOLINHAS').jstree(true).refresh();
+        }
+        else {
+            $("#APRESENTACAOLINHAS").jstree({
+                plugins: ["wholerow", "checkbox", "types"],
+                core: {
+                    themes: {
+                        responsive: !1
+                    },
+                    check_callback: true,
+                    data: data,
+                },
+                types: {
+                    default: {
+                        icon: "fa fa-bars"
+                    }
+                }
+            }).bind("select_node.jstree", function (evt, data) {
+                if (data.node.id == parseInt($('#APRESENTACAOCOLUNAS').val())) {
+                    $("#APRESENTACAOLINHAS").jstree("uncheck_node", data.node.id);
+                }
+            }
+                );
+        }
+
+
+    }
+
+    function VerificaSeTemMaisDeUmaFilialSelecionadaPorEmpresa() {
+        var empresasSelecionadas = MontaArrayEmpresasFiliais();
+        var retorno = false;
+
+        $.each(empresasSelecionadas, function (i, empresa) {
+            if (empresa.Filiais.length > 1) {
+                retorno = true;
+                return false;
+            }
+        })
+        return retorno;
+    }
+
+    function ExibirCamposPorRadio(cmp, exibir) {
+        var attrFilhos = $(cmp).attr('data-filho');
+        var seletor = '[data-mestre=' + attrFilhos + ']';
+
+        if (exibir) {
+            LimparContasMascara($(cmp).data('jstree'));
+
+            var seletorDropdown = '#sl' + attrFilhos + 'Plano';
+            var nometabela = $(cmp).attr('data-table');
+
+            if (nometabela !== undefined && nometabela != '') {
+
+                $(seletorDropdown).parent().show();
+                $.ajax({
+                    type: "GET",
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    url: Benner.Page.getApplicationPath() + 'ConsultasContabil/BuscarPlanosPorFiltros',
+                    data: { nomeTabela: nometabela },
+                    cache: true,
+                    beforeSend: function () {  },
+                    success: function (data) {
+
+                        //Esvaziar a caixa de seleção atual.
+                        $(seletorDropdown).empty();
+
+                        //Percorrer os perfis disponíveis e adiciona-los a caixa de seleção.
+                        if (data !== undefined && data.length > 0) {
+                            $.each(data, function (i, option) {
+                                opt = new Option(option.NOME, option.HANDLE.Value, false, (data.length == 1 ? true: false));
+                                $(seletorDropdown).append(opt);
+                            });
+                        }
+
+                        $(seletorDropdown).trigger('change');
+
+                    },
+                    error: function (xhr, textStatus, error) {
+                        ExibirMensagem(error, TiposMensagem.Erro, $('#form_wizard'));
+                    }
+                });
+            }
+            $(seletor).show();
+        }
+        else
+            $(seletor).hide();
+    }
+
+    function LimparContasMascara(nomeTabSelecionada) {
+
+        var jstree = $("#" + nomeTabSelecionada).jstree(true);
+        if (jstree) {
+            //jstree.destroy();
+            $("#txtMascara" + nomeTabSelecionada).val("");
+            $("#lbl" + nomeTabSelecionada).text("Selecione um plano");
+        }
+    }
+
+    function BuscarItensTreeView(sl) {
+
+        var action = $(sl).attr('data-action');
+        var w = 'EMPRESA = {0} AND HANDLE <> 0 ';
+        var hnd = $(sl).val();
+        var t = '';
+
+        switch (action) {
+            case 'Contas':
+                $("#lblCONTAS").text("Disponíveis para seleção");
+                if ($('#pnlContas input[type="radio"]:checked').attr('id') == 'rdbGerenciais') {
+                    w += ' AND PLANO = ' + hnd;
+                    t = 'CT_CONTASGERENCIAIS';
+                    nomeTabelaMascara = $("#rdbGerenciais").attr('data-table');                    
+                }
+                else {
+                    w += ' AND VERSAO = ' + hnd;
+                    t = 'CT_CONTAS';
+                    nomeTabelaMascara = $("#rdbContabeis").attr('data-table');
+                }                
+                break;
+            case 'Projetos':
+                $("#lblPROJETOS").text("Disponíveis para seleção");
+                if ($('#pnlProjetos input[type="radio"]:checked').attr('id') == 'rdbPRJGerenciais') {
+                    w += ' AND TIPO = ' + hnd;
+                    t = 'CT_PROJETOSGERENCIAIS';
+                    nomeTabelaMascara = $("#rdbPRJGerenciais").attr('data-table');
+                }
+                else {
+                    t = 'GN_PROJETOS';
+                }
+                break;
+            default:
+                $("#lblCENTROCUSTO").text("Disponíveis para seleção");
+                if ($('#pnlCentroCustos input[type="radio"]:checked').attr('id') == 'rdbCCGerenciais') {
+                    w += ' AND TIPO = ' + hnd;
+                    t = 'CT_CCGERENCIAIS';
+                    nomeTabelaMascara = $("#rdbGerenciais").attr('data-table');
+                }
+                else {
+                    t = 'CT_CC';
+                }
+                break;
+        }
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ConsultasContabil/' + action,
+            data: { Filtro: w, tbl: t, planoPadrao: false, handleConta: hnd, tblMascara: nomeTabelaMascara },
+            cache: true,
+            beforeSend: function () { GerarTree("CONTAS"); GerarTree("PROJETOS"); GerarTree("CENTROCUSTO") },
+            success: function (data) {
+                switch (action) {
+                    case 'Contas':
+                        $("#txtMascaraCONTAS").val(JSON.parse(data).mascara);
+                        $('#CONTAS').jstree(true).settings.core.data = JSON.parse(data).tree;
+                        $('#CONTAS').jstree(true).refresh();
+                        $('#CONTAS').jstree("close_all")
+                        break;
+                    case 'Projetos':
+                        $("#txtMascaraPROJETOS").val(JSON.parse(data).mascara);
+                        $('#PROJETOS').jstree(true).settings.core.data = JSON.parse(data).tree;
+                        $('#PROJETOS').jstree(true).refresh();
+                        $('#PROJETOS').jstree("close_all")
+                        break;
+                    default:
+                        $("#txtMascaraCENTROCUSTO").val(JSON.parse(data).mascara);
+                        $('#CENTROCUSTO').jstree(true).settings.core.data = JSON.parse(data).tree;                 
+                        $('#CENTROCUSTO').jstree("deselect_all");
+                        $('#CENTROCUSTO').jstree(true).refresh();
+                        $('#CENTROCUSTO').jstree("close_all")
+                        break;                        
+                }                
+            },
+            error: function (xhr, textStatus, error) {
+                ExibirMensagem(error, TiposMensagem.Erro, $('#form_wizard'));
+            }
+        });
+    }
+
+    function BuscarPlanoPadrao(cmp, mod) {
+        var action, w = ('EMPRESA = {0} AND HANDLE <> 0 '), t;
+        if (mod === "Projetos") {
+            action = "Projetos";
+            t = "GN_PROJETOS";
+        }
+        else {
+            action = "CentroCusto";
+            t = "CT_CC";
+        }
+        var nomeTabSelecionada = $(cmp).data('jstree')
+        LimparContasMascara(nomeTabSelecionada);
+        GerarTree("PROJETOS");
+        GerarTree("CENTROCUSTO");
+        $("#lbl" + nomeTabSelecionada).text("Disponíveis para seleção");        
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            url: Benner.Page.getApplicationPath() + 'ConsultasContabil/' + action,
+            data: { Filtro: w, tbl: t, planoPadrao : true, itensSelecionados: true },
+            cache: true,
+            success: function (data) {
+                var jData = JSON.parse(data);
+
+                if (action == 'Projetos') {
+                    $('#PROJETOS').jstree(true).settings.core.data = jData.tree;
+                    $('#PROJETOS').jstree(true).refresh();
+                    $("#txtMascaraPROJETOS").val(jData.mascara);
+                }
+                else {
+                    $('#CENTROCUSTO').jstree(true).settings.core.data = jData.tree;
+                    $('#CENTROCUSTO').jstree(true).refresh();
+                    $("#txtMascaraCENTROCUSTO").val(jData.mascara);
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                ExibirMensagem(error, TiposMensagem.Erro, $('#form_wizard'));
+            }
+        });
+
+        var attrFilhos = $(cmp).attr('data-filho');
+        var seletor = '[data-mestre=' + attrFilhos + ']';
+        var $filhos = $(seletor);
+
+        var seletorDropdown = '#sl' + attrFilhos + 'Plano';
+        $(seletorDropdown).parent().hide();
+        $filhos.show();
+
+    }
+
+    function SelecionarTodasEmpresas(chk) {
+
+        if (chk.checked) {
+            $('#EMPRESAS').jstree("check_all");
+        }
+        else {
+            $('#EMPRESAS').jstree("deselect_all");
+        }
+
+    }
+
+    function AlterarResultadoColunas(sel) {
+        var colSel = $(sel).val();
+        var colunaResultado = $("#ColunaResultado");
+        switch (colSel) {
+            case "2":
+                colunaResultado.removeClass("hidden");
+                break;
+            case "3":
+                colunaResultado.removeClass("hidden");
+                break;
+            case "4":
+                colunaResultado.removeClass("hidden");
+                break;
+            default:
+                colunaResultado.addClass("hidden");
+                break;
+        }
+    }
+
+    function RemoverDasLinhas(sel) {
+        var colSel = $(sel).val();
+        $.each($("#APRESENTACAOLINHAS").jstree('get_selected'), function (i, cmp) {
+            if (cmp !== colSel)
+                $("#APRESENTACAOLINHAS").jstree("select_node", cmp);
+            else
+                $("#APRESENTACAOLINHAS").jstree("uncheck_node", colSel);
+        })
+    }    
+
+    function GerarConsultaCustomizada() {        
+        if (!$('#ABRLANCGERENCIAL').is(':checked') && !$('#ABRLANCNORMAL').is(':checked') && !ehBalancete) {
+            ExibirMensagem("Selecione ao menos um tipo de lançamento.", TiposMensagem.Alerta, $('#wizardConsulta'));
+
+            if (!$('#pnlAbrangencias').hasClass('in')) {
+                $('#linkAbrangencias').click();
+            }
+        }
+        else if (ehBalancete && !$("#Debitoecredito").is(":checked") && !$("#Saldomes").is(":checked") && !$("#Somentetotais").is(":checked")) {
+            ExibirMensagem("Selecione ao menos uma das opções: Débitos e Créditos | Saldo mês | Somente totais.", TiposMensagem.Alerta, $('#wizardConsulta'));            
+        }            
+        else if (ehBalancete || BuscarLinhasSelecionados('DATA') || BuscarLinhasSelecionados('CC') || BuscarLinhasSelecionados('CONTA') || BuscarLinhasSelecionados('FILIAL') || BuscarLinhasSelecionados('PROJETO')) {
+            var objConsulta = MontarObjetoPorFiltros();
+
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                url: Benner.Page.getApplicationPath() + 'ConsultasContabil/GerarConsultaCustomizada',
+                data: objConsulta,
+                cache: false,
+                beforeSend: function () {
+
+                    App.blockUI({
+                        target: $('#portlet_CONSULTACUSTOMIZADA'),
+                        animate: true,
+                        overlayColor: 'none'
+                    });
+                    $("#CONSULTACUSTOMIZADA").find('.alert').remove();
+                    //EsconderMensagem($('#CONSULTAPORPERFIL'));
+
+                },
+                success: function (data) {
+                    if (data != 'Sucesso')
+                        ExibirMensagem(data, TiposMensagem.Alerta, $('#wizardConsulta'));
+                    else
+                        Benner.AsyncProcesses.initAjax();
+                },
+                error: function (xhr, textStatus, error) {
+                    ExibirMensagem(error, TiposMensagem.Erro, $('#wizardConsulta'));
+                },
+                complete: function () {
+                    App.unblockUI($("#portlet_CONSULTACUSTOMIZADA"));
+                }
+            });
+        }
+        else {
+            ExibirMensagem("É necessário selecionar pelo menos uma coluna nos modos de exibição.", TiposMensagem.Alerta, $('#wizardConsulta'));
+
+            if (!$('#pnlModoExibicaoGerencial').hasClass('in')) {
+                $('#linkExibicaoGerencial').click();
+            }
+        }
+
+    }
+
+    function MontarObjetoPorFiltros() {
+        var obj = {
+            Fields: {
+                CompetenciaInicial: $('#DataInicial').val(),
+                CompetenciaFinal: $('#DataFinal').val(),
+                Abertura: $('#Abertura').is(':checked'),
+                AbrangenciaAnalitico: false,
+                AbrangenciaFechamentoGerencial: $('#ABRFECGERENCIAL').is(':checked'),
+                AbrangenciaFechamentoNormal: $('#ABRFECNORMAL').is(':checked'),
+                AbrangenciaLancamentoGerencial: $('#ABRLANCGERENCIAL').is(':checked'),
+                AbrangenciaLancamentoNormal: $('#ABRLANCNORMAL').is(':checked'),
+                Anteriores: $('#AntesDoZeramento').is(':checked'),
+                Anteszeramento: parseInt($('input[name="optionsRadios"]:checked').val()) == 1 ? $('#AntesDoZeramento').is(':checked') : $('#ABRANTERIORES').is(':checked'),
+                EhCCGerencial: $('#pnlCentroCustos input[type="radio"]:checked').attr('id') == 'rdbCCGerenciais',
+                //CentroCustos: BuscarCentroDeCustosSelecionados(),
+                Colunas: $('#APRESENTACAOCOLUNAS').val(),
+                //Contas: BuscarContasSelecionados(),
+                EhContaGerencial: $('#pnlContas input[type="radio"]:checked').attr('id') == 'rdbGerenciais',
+                EhPadraoBalancete: $('#EhPadraoBalancete').is(':checked'),
+                DataZeramento: $('#DataZeramento').val(),
+                Debitoecredito: $('#Debitoecredito').is(':checked'),
+                Empresas: BuscarEmpresasSelecionados(true),
+                ExibirSemCC: $('#ExibirSemCC').is(':checked'),
+                ExibirLctoSemProjeto: $('#ExibirLctoSemProjeto').is(':checked'),
+                Filiais: BuscarEmpresasSelecionados(false),
+                LinhaCentroCustos: BuscarLinhasSelecionados('CC'),
+                LinhasContas: BuscarLinhasSelecionados('CONTA'),
+                Lindata: BuscarLinhasSelecionados('DATA'),
+                LinhasFiliais: BuscarLinhasSelecionados('FILIAL'),
+                LinhasProjeto: BuscarLinhasSelecionados('PROJETO'),
+                MascaraParaCentroCustos: $('#txtMascaraCENTROCUSTO').val(),
+                Mascaraconta: $('#txtMascaraCONTAS').val(),
+                MascaraImpressao: $('#MascaraImpressao').val(),
+                MascaraProjetos: $('#txtMascaraPROJETOS').val(),
+                MascaraTotalizacao: $('#MascaraTotalizacao').val(),
+                Moeda: $('#MOEDA').val(),
+                Nome: $('#NOMEPERFIL').val(),
+                //PlanoCentroCustos: $('#slCentroCustosPlano').val(),
+                //PlanoContas: $('#slContasContabeisPlano').val(),
+                //PlanoProjetos: $('#slProjetosPlano').val(),
+                Posteriores: $('#ABRPOSTERIORES').is(':checked'),
+                //Projetos: BuscarProjetosSelecionados(),
+                EhProjetosGerencial: $('#pnlProjetos input[type="radio"]:checked').attr('id') == 'rdbPRJGerenciais',
+                ResultadoColuna: $('input[name="ResultadoColunas"]:checked').val(),
+                SaldoAnteriorAtual: $('#SaldoAnteriorAtual').is(':checked'),
+                Saldomes: $('#Saldomes').is(':checked'),
+                Somentetotais: $('#Somentetotais').is(':checked'),
+                Tipo: parseInt($('input[name="optionsRadios"]:checked').val()),
+                TipoPeriodo: BuscarTipoPeriodo(),
+                Valoresmilhares: $('#Valoresmilhares').is(':checked')
+            }
+        }
+
+        //Contas
+        var ContasSelecionadas = !$('#rdbIgnorar').is(':checked') ? BuscarContasSelecionados() : "";
+        var PlanoContasSelecionado = $('#slContasContabeisPlano').val();
+
+        if (obj.Fields.EhContaGerencial) {
+            obj.Fields.Contasgerenciais = ContasSelecionadas;
+            obj.Fields.PlanoContas = PlanoContasSelecionado;
+        }
+        else {
+            obj.Fields.Contas = ContasSelecionadas;
+            obj.Fields.PlanoContabil = PlanoContasSelecionado;
+        }
+
+        //Centros de custo
+        var CCSelecionados = !$('#rdbCCIgnorar').is(':checked') ? BuscarCentroDeCustosSelecionados() : "";
+        var PlanoContasSelecionado = $('#slCentroCustosPlano').val();
+
+        if (obj.Fields.EhCCGerencial) {
+            obj.Fields.CCGerenciais = CCSelecionados;
+            obj.Fields.PlanoCentroCustos = PlanoContasSelecionado;
+        }
+        else
+            obj.Fields.CentroCustos = CCSelecionados;
+
+        //Projetos
+        var ProjetosSelecionados = !$('#rdbPRJIgnorar').is(':checked') && ExibeProjeto() ? BuscarProjetosSelecionados() : "";
+        var PlanoProjetosSelecionado = $('#slProjetosPlano').val();
+
+        if (obj.Fields.EhProjetosGerencial) {
+            obj.Fields.PrjGerenciais = ProjetosSelecionados;
+            obj.Fields.PlanoProjetos = PlanoProjetosSelecionado;
+        }
+        else
+            obj.Fields.Projetos = ProjetosSelecionados;
+
+  
+        return JSON.stringify(obj);
+    }
+
+    function BuscarCentroDeCustosSelecionados() {
+        var centroCusto = $('#CENTROCUSTO').jstree('get_selected');
+        if (Array.isArray(centroCusto)) {
+            return centroCusto.join(',');
+        }
+        return -1;
+
+    }
+	
+	function ExibeProjeto() {
+		var pnlSupProjetos = document.getElementById("PnlSupProjetos");
+	 
+		if (pnlSupProjetos) {
+			var estilo = pnlSupProjetos.style.display;
+			if (!estilo || estilo === "none") {
+				return false;
+			}
+		}
+		return true;
+	}	
+
+    function BuscarEmpresasSelecionados(somenteEmpresas) {
+
+        var empresas = MontaArrayEmpresasFiliais();
+
+        if (somenteEmpresas) {
+            //Busca empresas
+            var empresaFim = [];
+            $.each(empresas, function (i, empresa) {
+                empresaFim.push(parseInt(empresa.Nome))
+            })
+            return empresaFim.join(',');
+        } else {
+            //busca filiais
+            var filiaisFim = [];
+            $.each(empresas, function (i, empresa) {
+                $.each(empresa.Filiais, function (i, filial) {
+                    filiaisFim.push(parseInt(filial.Nome))
+                })
+            })
+            return filiaisFim.join(',');
+        }
+    }
+
+    function MontaArrayEmpresasFiliais() {
+
+        var todasEmpresasFiliais = $('#EMPRESAS').jstree(true).get_json('#', { 'flat': true })
+        var empresasFiliaisSelecionadas = $('#EMPRESAS').jstree('get_selected');
+        var todasFiliaisSelecionadas = [];
+        
+        $.each(empresasFiliaisSelecionadas, function (i, empresaFilialSelecionada) {
+
+            if (empresaFilialSelecionada.indexOf('FIL') > -1) {
+
+                $.each(todasEmpresasFiliais, function (i, empresaFilial) {
+                    if (empresaFilial.id == empresaFilialSelecionada) {
+                        //ação que deve ser feita quando achar a filial determinada
+                        todasFiliaisSelecionadas[todasFiliaisSelecionadas.length] = empresaFilial;
+                        return false;
+                    }
+                })
+            }
+        })
+
+        var empresas = [];
+        if (todasFiliaisSelecionadas.length > 0) {
+            var ultimaEmpresas = "";
+            var filais = [];
+            $.each(todasFiliaisSelecionadas, function (i, filialSelecionada) {
+
+                if (ultimaEmpresas == "") {
+                    ultimaEmpresas = filialSelecionada.parent;
+                } else {
+                    if (ultimaEmpresas != filialSelecionada.parent) {
+                        empresas[empresas.length] = { Nome: ultimaEmpresas, Filiais: filais }
+                        ultimaEmpresas = filialSelecionada.parent;
+                        filais = [];
+                    }
+                }
+                filais[filais.length] = { Nome: filialSelecionada.id };
+            })
+            empresas[empresas.length] = { Nome: ultimaEmpresas, Filiais: filais }
+        }
+
+        return empresas;
+    }
+
+    function BuscarProjetosSelecionados() {
+
+        var Projetos = $('#PROJETOS').jstree('get_selected')
+        if (Array.isArray(Projetos)) {
+            return Projetos.join(',');
+        }
+        return -1;
+
+    }
+
+    function BuscarContasSelecionados() {
+        var Contas = $('#CONTAS').jstree('get_selected')
+        if (Array.isArray(Contas)) {
+            return Contas.join(',');
+        }
+        return -1;
+    }
+
+    function BuscarLinhasSelecionados(sel) {
+        var Linhas = $('#APRESENTACAOLINHAS').jstree('get_selected');
+        if (!ehBalancete) {
+            var pos = Linhas.indexOf(sel);
+            if (pos > -1)
+                return true;
+            else
+                return false;
+        }
+    }
+
+    function ExibirEsconderCamposPorTipoConsulta(tipo) {
+        if (ehBalancete) {
+            $('[data-op="Balancete"]').show();
+            $('[data-op="Gerenciais"]').hide();
+            $('#rdbContabeis').attr('checked', true);
+            $('#rdbCCContabeis').attr('checked', true);
+            $('#rdbPRJContabeis').attr('checked', true);
+        }
+        else {
+            $('[data-op="Balancete"]').hide();
+            $('[data-op="Gerenciais"]').show();
+            $('#rdbIgnorar').attr('checked', true);
+            $('#rdbCCIgnorar').attr('checked', true);
+            $('#rdbPRJIgnorar').attr('checked', true);
+        }
+    }
+
+    function ExibirCampoNomePerfil(chk) {
+        if (chk) {
+            $('#linNomePerfil').removeClass('hidden').show();
+            if (ehBalancete)
+                $('#linEhPadraoBalancete').removeClass('hidden').show();
+        }
+        else {
+            $('#linNomePerfil').addClass('hidden').hide();
+            if (ehBalancete)
+                $('#linEhPadraoBalancete').addClass('hidden').hide();
+        }
+
+    }
+
+    function RedirecionaParaFiltros() {
+        window.location.assign('filtroconsultas.aspx');
+    }
+
+    function SelecionaEmpresaCorrente() {
+        setTimeout(function () {
+            $("#EMPRESAS").jstree("select_node", (empresaCorrente + 'EMP'));
+        }, 1000);
+
+    }
+
+    function BuscarTipoPeriodo() {
+        var tp = parseInt($('input[name="TipoPeriodo"]:checked').val());
+        if (isNaN(tp)) {
+            tp = 1;
+        }
+        return tp;
+    }
+</script> 

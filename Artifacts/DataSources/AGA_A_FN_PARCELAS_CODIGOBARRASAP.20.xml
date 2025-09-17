@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>AGA_A_FN_PARCELAS_CODIGOBARRASAP</Identifier>
+  <Name>Código de barras da AP</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT PARC.HANDLE,&#xD;&#xA;       PARC.DATAVENCIMENTO,&#xD;&#xA;       PARC.VCTOPRORROGADO,&#xD;&#xA;       PARC.AP,&#xD;&#xA;       PARC.PARCELADIGITADA,&#xD;&#xA;       PARC.VALOR,&#xD;&#xA;       PARC.VALORESBAIXADOS,&#xD;&#xA;       PARC.MORADIARIA,&#xD;&#xA;       PARC.PREVISAO,&#xD;&#xA;       PARC.PAGAMENTOELETRONICO,&#xD;&#xA;       PARC.DESCONTOCONDICIONAL,&#xD;&#xA;       PARC.DATALIMITEDESCONTOCONDICIONAL,&#xD;&#xA;       PARC.PERCENTUALMULTA,&#xD;&#xA;       PARC.DATALIMITEMULTA,&#xD;&#xA;       PARC.HISTORICO,&#xD;&#xA;       PARC.CODIGOBARRAS,&#xD;&#xA;       PARC.CONTACORRENTE,&#xD;&#xA;       PARC.DV,&#xD;&#xA;       (PARC.VALOR - PARC.VALORESBAIXADOS) SALDO,&#xD;&#xA;       PARC.FILIAL,&#xD;&#xA;       DOC.DOCUMENTODIGITADO, DOC.PESSOA,&#xD;&#xA;       PES.NOME,&#xD;&#xA;       PES.CGCCPF,&#xD;&#xA;       FPAG.HANDLE HANDLEFORMALIQUIDACAO,&#xD;&#xA;       FPAG.NOME FORMALIQUIDACAO,&#xD;&#xA;       BANC.NOME BANCO,&#xD;&#xA;       AGEN.CODIGO AGENCIA,&#xD;&#xA;       AGEN.DIGITOVERIFICADOR,&#xD;&#xA;       DOC.DATAEMISSAO,&#xD;&#xA;       DOC.DATAENTRADA,&#xD;&#xA;       PARC.REMESSA&#xD;&#xA;  FROM FN_PARCELAS PARC&#xD;&#xA;       JOIN FN_DOCUMENTOS DOC ON DOC.HANDLE = PARC.DOCUMENTO&#xD;&#xA;       JOIN GN_PESSOAS PES ON PES.HANDLE = DOC.PESSOA&#xD;&#xA;       LEFT JOIN GN_BANCOS BANC ON BANC.HANDLE = PARC.BANCO&#xD;&#xA;       LEFT JOIN GN_BANCOAGENCIAS AGEN ON AGEN.HANDLE = PARC.AGENCIA&#xD;&#xA;       LEFT JOIN FN_FORMASPAGAMENTO FPAG ON FPAG.HANDLE = PARC.FORMALIQUIDACAO&#xD;&#xA; WHERE DOC.EMPRESA = @EMPRESA&#xD;&#xA;       AND&#xD;&#xA;       (&#xD;&#xA;           (&#xD;&#xA;               DOC.ENTRADASAIDA = 'E'&#xD;&#xA;               AND DOC.TIPODEMOVIMENTO IN (1, 2)&#xD;&#xA;           )&#xD;&#xA;           OR&#xD;&#xA;           (&#xD;&#xA;               DOC.ENTRADASAIDA = 'S'&#xD;&#xA;               AND DOC.TIPODEMOVIMENTO = 3&#xD;&#xA;           )&#xD;&#xA;       )&#xD;&#xA;       AND PARC.VALOR &gt; PARC.VALORESBAIXADOS&#xD;&#xA;       AND PARC.DOCUMENTOSUSPENSO = 'N'" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="MORADIARIA" From="A" Path="MORADIARIA" />
+    <Field Alias="PREVISAO" From="A" Path="PREVISAO" />
+    <Field Alias="PAGAMENTOELETRONICO" From="A" Path="PAGAMENTOELETRONICO" />
+    <Field Alias="DESCONTOCONDICIONAL" From="A" Path="DESCONTOCONDICIONAL" />
+    <Field Alias="DATALIMITEDESCONTOCONDICIONAL" From="A" Path="DATALIMITEDESCONTOCONDICIONAL" />
+    <Field Alias="PERCENTUALMULTA" From="A" Path="PERCENTUALMULTA" />
+    <Field Alias="DATALIMITEMULTA" From="A" Path="DATALIMITEMULTA" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="CODIGOBARRAS" From="A" Path="CODIGOBARRAS" />
+    <Field Alias="CONTACORRENTE" From="A" Path="CONTACORRENTE" />
+    <Field Alias="DV" From="A" Path="DV" />
+    <Field Alias="SALDO" From="A" Path="SALDO" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="CGCCPF" From="A" Path="CGCCPF" />
+    <Field Alias="HANDLEFORMALIQUIDACAO" From="A" Path="HANDLEFORMALIQUIDACAO" />
+    <Field Alias="FORMALIQUIDACAO" From="A" Path="FORMALIQUIDACAO" />
+    <Field Alias="BANCO" From="A" Path="BANCO" />
+    <Field Alias="AGENCIA" From="A" Path="AGENCIA" />
+    <Field Alias="DIGITOVERIFICADOR" From="A" Path="DIGITOVERIFICADOR" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADES.ARQUITETO.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    
+    usuario = BennerIdentity.Current.UserHandle
+    status  = int(entity.Fields["STATUS"].Value)
+    statusoportunidade  = int(entity.Fields["STATUSOPORTUNIDADE"].Handle.Value)
+    responsavel = entity.Fields["RESPONSAVEL"].Handle
+    ehGestor = Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL")
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+    modalidade  = int(entity.Fields["MODALIDADE"].Handle.IsValid())
+    faseOportunidade = entity.Fields["STATUSOPORTUNIDADE"].Instance.Fields["NOME"];
+    
+    if entity.Fields["MANUAL"] == True:
+        row.GetCustomCommand("cmdEditarOportunidade").Enabled = False;
+    else:
+        row.GetCustomCommand("cmdEditarOportunidadeManual").Enabled = False;
+
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["HANDLE"];
+        versao = entity.Fields["VERSAO"];
+        crit = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.TIPO=2");
+        crit.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        crit.Parameters.Add(Parameter("VERSAO", versao));
+        proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), crit);
+        if faseOportunidade == "Negociação" or faseOportunidade == "Pregão / Leilão" or faseOportunidade == "Habilitação / Adjudicação" or faseOportunidade == "Proposta":#statusoportunidade in [4,12,13,22]:
+            if None != proposta:
+                if proposta.Count &gt; 0:
+                    row.GetCustomCommand("cmdSolicitarDesconto").Enabled = False;
+        else:
+            row.GetCustomCommand("cmdEditarOportunidade").Enabled = False;
+            row.GetCustomCommand("cmdEditarOportunidadeManual").Enabled = False;
+            row.GetCustomCommand("cmdSolicitarDesconto").Enabled = False;
+                    
+        if usuario != responsavel:
+            row.GetCustomCommand("cmdEditarOportunidade").Enabled = False;
+            row.GetCustomCommand("cmdEditarOportunidadeManual").Enabled = False;
+            row.GetCustomCommand("cmdSolicitarDesconto").Enabled = False;
+    
+    if row.GetCustomCommand("cmdAlteraChance") != None:
+        row.GetCustomCommand("cmdAlteraChance").Enabled = (ehGestor or ehAdmin or (usuario == entity.Fields["RESPONSAVEL"].Handle and status not in [3,5,9,10]))
+    if row.GetCustomCommand("cmdAlteraStatus") != None: 
+        row.GetCustomCommand("cmdAlteraStatus").Enabled = (ehGestor or ehAdmin or (usuario == entity.Fields["RESPONSAVEL"].Handle and status not in [3,5,9,10]))
+    
+    if entity.Fields["TEMPERATURA"] == None: return;
+    
+    temperatura = int(entity.Fields["TEMPERATURA"].Value)
+    temperaturaNome = entity.Fields["TEMPERATURA"].Text
+    
+    if temperatura in [1]:
+        row.GetCellByName("TEMPERATURA").Text = "&lt;span class='label bg-blue-madison col-sm-12' style='height:25px;text-align:center;padding-top:5px' &gt;"+temperaturaNome+"&lt;/span&gt;"
+    if temperatura in [2]:
+        row.GetCellByName("TEMPERATURA").Text = "&lt;span class='label bg-green-jungle col-sm-12' style='height:25px;text-align:center;padding-top:5px'&gt;"+temperaturaNome+"&lt;/span&gt;"
+    if temperatura in [3,4]:
+        row.GetCellByName("TEMPERATURA").Text = "&lt;span class='label bg-red-intense col-sm-12' style='height:25px;text-align:center;padding-top:5px'&gt;"+temperaturaNome+"&lt;/span&gt;"
+        
+    if entity.Ativo == True:
+        row.GetCustomCommand("cmdEditarOportunidade").Enabled = False;
+        row.GetCustomCommand("cmdEditarOportunidadeManual").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+    
+    ehArquiteto = activeRole == "K_CRM_ARQUITETO_SOLUCOES" #Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+
+    if ehArquiteto:
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

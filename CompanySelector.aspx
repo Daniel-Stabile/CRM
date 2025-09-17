@@ -1,0 +1,44 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Benner.Tecnologia.Wes.Components.WebApp.CompanySelectorPage" %>
+
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components.WebControls" TagPrefix="wes" %>
+
+<asp:Content ID="ContentMain" ContentPlaceHolderID="Main" runat="Server">
+    <style>
+        .select2-container .select2-selection--single .select2-selection__clear {
+            position: relative;
+            visibility: hidden;
+        }
+    </style>
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <asp:Label runat="server" ID="lblTitulo" CssClass="caption-subject font-green-sharp bold uppercase" />
+            </div>
+            <div class="tools"></div>
+            <div class="actions"></div>
+        </div>
+        <div class="portlet-body form">
+            <div class="form-actions nobg no-border commands-bar fluid top">
+                <asp:LinkButton runat="server" ID="btnChangeCompany" Text="Salvar" CssClass="btn blue command-action predef-action" OnClick="ChangeCompany" />
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <wes:MessagePanel ID="messagePanel" runat="server"></wes:MessagePanel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" onload="load()">
+                        <asp:Label runat="server" ID="lblEmpresa" CssClass="control-label"></asp:Label>
+                        <asp:Panel runat="server" ID="companyLookupContainer"></asp:Panel>
+                    </div>
+                    <div class="form-group" onload="load()">
+                        <asp:Label runat="server" ID="lblFilial" CssClass="control-label"></asp:Label>
+                        <asp:Panel runat="server" ID="branchLookupContainer"></asp:Panel>
+                    </div>
+                    <asp:CheckBox ID="ckbSelectAllBranches" runat="server" AutoPostBack="true" OnCheckedChanged="SelectAllBranches" />
+                </div>
+            </div>
+        </div>       
+    </div>
+</asp:Content>

@@ -1,0 +1,142 @@
+﻿<div style="width:100%;">
+    <!-- BEGIN Portlet PORTLET-->
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-calendar font-green-sharp"></i>
+                <span class="caption-subject bold font-green-sharp uppercase"> Calendário </span>
+                <span class="caption-helper">agendamentos</span>
+            </div>
+            <div class="inputs">
+                <div class="portlet-input input-inline input-small">
+                    <div class="input-icon right">
+                        <i class="icon-magnifier"></i>
+                        <input id="filter-name" type="text" class="form-control input-circle" placeholder="Título..." onkeyup="applyFilters()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; ">
+                <div class="scroller" style=" overflow hidden; width auto;" data-initialized="1">
+                    <div id='calendarioAtividades'>
+                        <br />
+                        <div style="width:40px;height:20px;background-color:#f03434;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Agendado (Atrasado)</span>
+                        <div style="width:40px;height:20px;background-color:#3498db;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Agendado</span>
+                        <div style="width:40px;height:20px;background-color:#26c281;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Concluido</span>
+                        <div style="width:40px;height:20px;background-color:#95a5a6;float:left;margin-left:10px"></div> <span style="float:left;margin-left:5px">Cancelado</span>
+                    </div>
+                </div><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 130.719px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+
+    var listObj = [];
+    var newData = [];
+
+    $(function () {
+        
+
+        $('#calendarioAtividades').fullCalendar({
+            locale: "pt-br",
+            header: {
+                center: "month,agendaWeek,listDay"
+            },
+            defaultView: "month",
+            buttonText: {
+                today: 'Hoje',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Dia'
+            },
+            eventClick: function (event) {
+                console.log(event)
+                console.log("dentro crm");
+                $.ajax({
+                    type: 'GET',
+                    dataType: "json",
+                    url: Benner.Page.getApplicationPath() + "CrmTarefaUsuario/GetTarefaUsuario?id=" + event.id,
+                }).done(function (data) {
+                    Benner.WidgetCommandsBar.prepareModal(data.url, '', 'Large');
+                });  
+            },
+            viewRender: function (view, element) {
+                console.log("View Render")
+                var month = $('#calendarioAtividades').fullCalendar('getDate').month();
+                var year = $('#calendarioAtividades').fullCalendar('getDate').year();
+
+                GetAtendimentoMes(month+1,year)
+            }
+        });
+
+        function GetAtendimentoMes(month,year) {
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: Benner.Page.getApplicationPath() + "CalendarioCrm/AtividadesUsuarioMes?mes=" + month + "&ano=" + year + "&usuario=0",
+                success: function (data) {
+
+                    $.parseJSON(data).forEach(function (object) {
+                        if (listObj.filter(function (obj) { return obj.id === object.id }).length == 0) {
+                            listObj.push(object)
+                        }
+                    })
+
+                    $('#calendarioAtividades').fullCalendar('removeEvents');
+                    $('#calendarioAtividades').fullCalendar('addEventSource', listObj);
+                    $('#calendarioAtividades').fullCalendar('rerenderEvents');
+
+                },
+                error: function (data) {
+                    console.log("Error")
+                    console.log(data)
+
+                }
+            });
+        }
+
+       
+    });
+
+    function lowercase(string) {
+        if (string != undefined)
+            return string.toLocaleLowerCase();
+        else
+            return "";
+    }
+
+    function contains(string, value) {
+        return string.indexOf(value) !== -1;
+    }
+
+    function getFilteredData() {
+        var funcionario = lowercase(document.getElementById("filter-name").value);
+
+        var newData = [];
+
+        for (var i = 0; i < listObj.length; i++) {
+
+            var dataPoint = listObj[i];
+
+            if (contains(lowercase(dataPoint.title), funcionario)) {
+                newData.push(dataPoint);
+            }
+        }
+
+        return newData;
+    }
+
+    function applyFilters() {
+        var data = getFilteredData();
+
+        $('#calendarioAtividades').fullCalendar('removeEvents');
+        $('#calendarioAtividades').fullCalendar('addEventSource', data);
+        $('#calendarioAtividades').fullCalendar('rerenderEvents');
+    }
+</script>
+
+

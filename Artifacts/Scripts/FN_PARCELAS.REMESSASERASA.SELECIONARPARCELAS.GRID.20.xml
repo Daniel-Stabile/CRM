@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAS.REMESSASERASA.SELECIONARPARCELAS.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import DateTime
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    from Benner.Tecnologia.Common import BennerContext
+    
+    if entity == None: return
+    
+    colunaStatusRetorno = row.GetCellByName("SQL_STATUSRETORNO")
+    colunaCodigoOperacao = row.GetCellByName("SQL_CODIGOOPERACAO")
+    
+    if (colunaCodigoOperacao == None) or (colunaStatusRetorno == None): return
+
+    vencimentoProrrogado = entity.Fields["VCTOPRORROGADO"]
+    row.GetCellByName("CUSTOM_636715845428476802").Text = str((DateTime.Today - vencimentoProrrogado).Days)
+    
+    parametros = NameValueDictionary()
+    parametros.Add("CodigoOperacao", colunaCodigoOperacao.Text)
+    parametros.Add("StatusRetorno", colunaStatusRetorno.Text)
+    
+    entityDefinition = EntityDefinition.GetByName(BennerContext.Administration.DefaultSystemInstanceName, "FN_SERASAPARCELAS");
+    codigoOperacao = function.Call(entityDefinition, "ObterCodigoStatusParcela", parametros)
+    
+    if codigoOperacao == 2:
+        colunaCodigoOperacao.Text = "Exclusão SERASA"
+    else:
+       colunaCodigoOperacao.Text = "Inclusão SERASA"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

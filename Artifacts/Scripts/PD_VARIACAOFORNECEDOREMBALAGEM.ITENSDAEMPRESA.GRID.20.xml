@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_VARIACAOFORNECEDOREMBALAGEM.ITENSDAEMPRESA.GRID</ViewName>
+  <EntityName>PD_VARIACAOFORNECEDOREMBALAGEM</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    permissaoManterItensEmpresa = AuthorizationHelper.HasTask("MANTER_ITENSEMPRESA")
+    
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = permissaoManterItensEmpresa
+    if widget.View.Commands["Save"] != None:
+        widget.View.Commands["Save"].Visible = permissaoManterItensEmpresa
+    if widget.View.Commands["Cancel"] != None:
+        widget.View.Commands["Cancel"].Visible = permissaoManterItensEmpresa    
+
+    if not permissaoManterItensEmpresa:
+        widget.View.FieldDefinitions["NOME"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["UNIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["TIPOCODIGOBARRAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["CODIGOBARRAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

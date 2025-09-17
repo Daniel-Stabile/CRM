@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAS.FISCAL.CUSTOM.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Company
+    from Benner.Tecnologia.Common import Handle
+    from System import String
+    
+    if entity.Fields["DOCUMENTOSUSPENSO"] == True:
+        row.GetCellByName("CUSTOM_DOCUMENTOSUSPENSO").FontIcon = "icon-close"
+        row.GetCellByName("CUSTOM_DOCUMENTOSUSPENSO").TextColor ="#D91E18"
+        row.GetCellByName("CUSTOM_DOCUMENTOSUSPENSO").Tooltip ="Suspensa"
+    else:
+        row.GetCellByName("CUSTOM_DOCUMENTOSUSPENSO").FontIcon = "icon-check"
+        row.GetCellByName("CUSTOM_DOCUMENTOSUSPENSO").TextColor ="#26C281"
+        row.GetCellByName("CUSTOM_DOCUMENTOSUSPENSO").Tooltip ="Liberada"
+    
+    sql = ("SELECT MOEDAPADRAO FROM GN_PARAMETROS WHERE EMPRESA = :pEMPRESA")
+    EntDef = EntityDefinition()
+    EntDef.EntitySource = QuerySource(sql)
+    parametro = Criteria()
+    parametro.Parameters.Add("pEMPRESA", Company.Current.Handle)
+    
+    resultado = Entity.GetFirstOrDefault(EntDef,parametro)
+    
+    if (entity.Fields["MOEDA"].Handle == Handle(resultado.Fields["MOEDAPADRAO"])):
+        valorSaldo = entity.Fields["VALOR"] - entity.Fields["VALORESBAIXADOS"]
+        row.GetCellByName("CUSTOM_SALDO").Text = str("R$ %0.2f" % valorSaldo).replace(".",",")
+    else:
+        sqlMoeda = ("SELECT ABREVIATURA FROM GN_MOEDAS WHERE HANDLE = :pMOEDA")
+        EntDef1 = EntityDefinition()
+        EntiDef1.EntitySource = QuerySource(sqlMoeda)
+        param = Criteria()
+        param.Parameters.Add("pMOEDA", entity.Fields["MOEDA"].Handle)
+        resultMoeda = Entity.GetFirstOrDefault(EntiDef1, param)
+        
+        valorSaldo = entity.Fields["VALORMOEDA"] - entity.Fields["VALORESBAIXADOSMOEDA"]
+        row.GetCellByName("CUSTOM_SALDO").Text = resultMoeda.Fields["ABREVIATURA"] + " " + str(valorSaldo)
+        
+    if (valorSaldo == 0):
+        row.GetCellByName("CUSTOM_STATUS").Text = "Liquidada"
+    elif (entity.Fields["VALOR"] != valorSaldo):
+        row.GetCellByName("CUSTOM_STATUS").Text = "Parcial"
+    else:
+        row.GetCellByName("CUSTOM_STATUS").Text = "Aberta"
+    
+    documento = entity.Fields["DOCUMENTO"].Instance
+    if row.GetCustomCommand("BAIXA") != None:    
+        row.GetCustomCommand("BAIXA").Enabled = not documento.EstaBloqueado()
+    #if row.GetCustomCommand("CMD_BAIXAS") != None:    
+    #     row.GetCustomCommand("CMD_BAIXAS").Enabled = entity.TemBaixa()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

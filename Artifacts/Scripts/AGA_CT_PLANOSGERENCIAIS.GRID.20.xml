@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_PLANOSGERENCIAIS.GRID</ViewName>
+  <EntityName>CT_PLANOSGERENCIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARCONTASFINANCEIROExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARCONTASFINANCEIROExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "QuantidadePlanosFinanceirosDaEmpresa");
+    if (funcao.Vars["QUANTIDADE"] &gt; 1):
+        command.InputDefinition = CommandsUtility.InputFactory.Create("~/DefaultDataInput.aspx", "CORPORATIVO", "CT_SELECIONARPLANOASSOCIACAO.CUSTOM.FORM", "");
+    else:
+        command.TransitoryVars["PLANO"] = function.Call(entityDefinition, "PlanoFinanceiroDaEmpresa").Vars["HANDLE"];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARCONTASGERENCIAISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARCONTASGERENCIAISExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "ControlaPlanoGerencial", entity);
+    if (bool(funcao.Vars["PRECISAENTRADADEDADOS"])):
+        command.InputDefinition = CommandsUtility.InputFactory.Create("~/DefaultDataInput.aspx", "CORPORATIVO", "CT_SELECIONARPLANOASSOCIACAO.CUSTOM.FORM", funcao.Vars["WHEREENTRADADEDADOS"].ToString());
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARLANCAMENTOSCOTABEISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARLANCAMENTOSCOTABEISExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "VerificaSeOPlanoEmiteDemonstrativo", entity);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARCONTASCONTABEISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARCONTASCONTABEISExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "QuantidadePlanosContabeisDaEmpresa");
+    if (funcao.Vars["QUANTIDADE"] &gt; 1):
+        command.InputDefinition = CommandsUtility.InputFactory.Create("~/DefaultDataInput.aspx", "CORPORATIVO", "CT_SELECIONARPLANOCONTABIL.CUSTOM.FORM", "");
+    else:
+        command.TransitoryVars["PLANO"] = function.Call(entityDefinition, "PlanoContabilDaEmpresa").Vars["HANDLE"];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    command.OutputDefinition = FormLinkDefinition()
+    command.OutputDefinition.TargetSystemInstanceName = BennerContext.Administration.DefaultSystemInstanceName
+    command.OutputDefinition.TargetEntityDefinitionName = "CT_PLANOSGERENCIAIS";
+    command.OutputDefinition.TargetEntityHandle = entity.Handle;
+    command.OutputDefinition.Url = "~/aga/e/Contabil/cadastros/ContaGerencial.aspx";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    widget.View.FieldDefinitions["EMPRESA"].Visible = False
+    
+    widget.View.Commands["Delete"].Visible = AuthorizationHelper.HasTask("EXCLUIR_DEMONSTRACOESCONTABEIS") or AuthorizationHelper.HasTask("EXCLUIR_CONTASGERENCIAIS")
+    widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_DEMONSTRACOESCONTABEIS") or AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_DEMONSTRACOESCONTABEIS") or AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    
+    if entity == None: return
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "DefinirVisibilidadesComandosWeb", entity);
+    
+    for comando in funcao.Vars["COMANDOS"]:
+        if row.GetCustomCommand(comando.Key) != None:
+            row.GetCustomCommand(comando.Key).Enabled = comando.Value
+            
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    if row.GetCustomCommand(comando.Key) != None:
+        row.GetCustomCommand("CMD_ASSOCIARUSUARIOS").Enabled = AuthorizationHelper.HasTask("MANTER_DEMONSTRACOESCONTABEIS") or AuthorizationHelper.HasTask("MANTER_CONTASGERENCIAIS")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

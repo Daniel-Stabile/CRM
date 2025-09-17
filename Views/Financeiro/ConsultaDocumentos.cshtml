@@ -1,0 +1,28 @@
+﻿@{
+    string operacaoCancelamento = Convert.ToString(@Model.Fields["OPERACAOCANCELAMENTO"]);
+    string classeCSS = "";
+    string textoTitulo = "";
+    if (operacaoCancelamento != "")
+    {
+        classeCSS = "label label-sm label-danger";
+        textoTitulo = "Cancelado";
+    }
+    else if ( (@Model.Fields["ENTRADASAIDA"] == "I") || (@Model.Fields["ENTRADASAIDA"] == "O") )
+    {
+        classeCSS = "label label-sm label-default";
+        textoTitulo = "Bloqueado";
+    }
+    else if (@Model.Fields["VALORLIQUIDO"] > @Model.Fields["VALORESBAIXADOS"])
+    {
+        classeCSS = "label label-sm label-primary";
+        textoTitulo = "Em aberto";
+    }
+    else
+    {
+        classeCSS = "label label-sm label-success";
+        textoTitulo = "Liquidado";
+    }
+}
+<div class="@classeCSS">
+    @textoTitulo
+</div>

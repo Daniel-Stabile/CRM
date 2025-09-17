@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOIMPOSTOS.CUSTOM.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja excluir?")
+    command.TransitoryVars["HANDLE"] = entity.Fields["HANDLE"].Value
+    command.TransitoryVars["DOCUMENTOHANDLE"] = entity.Fields["DOCUMENTO"].Handle.Value
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_INFORMARTERCEIROSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_INFORMARTERCEIROSExecute(command, entity):
+    entity.TransitoryVars["HANDLEIMPOSTO"] = entity.Fields["HANDLE"].Value
+    command.TransitoryVars["HANDLEIMPOSTO"] = entity.Fields["HANDLE"].Value
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from  Benner.Corporativo.Definicoes.Financeiro import FNDocumentoImposto
+    
+    registro = widget.Entity
+    if registro == None: return
+    imposto = int(registro.Fields["IMPOSTO"].Handle.Value)
+    pessoa = int(registro.Fields["PESSOA"].Handle.Value)
+    documento = int(registro.Fields["DOCUMENTO"].Handle.Value)
+    
+    exibirComandos = FNDocumentoImposto.ExibirComandos(documento)
+    
+    widget.View.Pages["ADICIONAL"].Visible = FNDocumentoImposto.ExibirPageAdicional(imposto,pessoa)
+    widget.View.Pages["RRADIRF"].Visible = FNDocumentoImposto.ExibirPageRRADIRF(imposto)
+    widget.View.Commands["Edit"].Visible = exibirComandos
+    widget.View.Commands["CMD_EXCLUIR"].Visible = exibirComandos
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

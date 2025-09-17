@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_CONTAS.GRID</ViewName>
+  <EntityName>CT_CONTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_VERIFICARQUANTIDADEDEPLANOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_VERIFICARQUANTIDADEDEPLANOSExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_CONTAS");
+    funcaoQuantidade = function.Call(entityDefinition, "VerificarQuantidadeDePlanos");
+    if (funcaoQuantidade.Vars["EHPLANOUNICO"] == "S"):
+        funcaoPlano = function.Call(entityDefinition, "TrazUnicoPlano");
+        command.OutputDefinition = FormLinkDefinition()
+        command.OutputDefinition.TargetSystemInstanceName = "CORPORATIVO"
+        command.OutputDefinition.TargetEntityDefinitionName = "CT_PLANOVERSOES";
+        command.OutputDefinition.TargetEntityHandle = funcaoPlano.Vars["PLANO"];
+        command.OutputDefinition.Url = "~/aga/a/f/aga_t3305_at5359_hsfec1cbd6.aspx";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

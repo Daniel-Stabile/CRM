@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_ASSOCIALAYOUTDVA.GRID</ViewName>
+  <EntityName>CT_ASSOCIALAYOUTDVA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    form = widget.ProviderWidget
+    entity = form.Entity
+    entAux = widget.Entity
+    
+    if (entity == None) : return
+    
+    if entity["TIPOLAYOUT"].GetDBValue() != 2:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

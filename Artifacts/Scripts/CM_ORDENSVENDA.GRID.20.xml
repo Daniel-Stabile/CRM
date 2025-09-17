@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDENSVENDA.GRID</ViewName>
+  <EntityName>CM_ORDENSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LANCFINExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LANCFINExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from  Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    
+    link = FormLinkDefinition()
+    link.Url = "~/aga/e/financeiro/ContasFinanceiras/ContasFinanceiras.aspx"
+    
+    command.OutputDefinition = link
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciOVI
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("System.Web")
+    from System.Web.UI.WebControls import HyperLink
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    
+    if entity == None: return
+    
+    entityDefinition = EntityDefinition.GetByName("CM_ORDENSVENDA");
+    funcao = function.Call(entityDefinition, "DefinirVisibilidadesComandosWeb", entity);
+   
+    for comando in funcao.Vars["COMANDOS"]:
+        if row.GetCustomCommand(comando.Key) &lt;&gt; None :
+            row.GetCustomCommand(comando.Key).Enabled = comando.Value</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LANCAMENTOSFINANCEIROSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>import clr
+clr.AddReference("Benner.Corporativo.Definicoes")
+from  Benner.Tecnologia.Common.Components import FormLinkDefinition
+from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+def OnCMD_LANCAMENTOSFINANCEIROSExecute(command, entity):
+    
+    link = FormLinkDefinition()
+    link.Url = "~/aga/e/financeiro/ContasFinanceiras/ContasFinanceiras.aspx"
+    
+    command.OutputDefinition = link
+    command.OutputDefinition.TargetEntityDefinitionName = "FN_LANCAMENTOS";
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciOVI
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

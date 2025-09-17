@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R4010DEDUCOESSUSPENSA.GRID</ViewName>
+  <EntityName>REINF_R4010DEDUCOESSUSPENSA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    row.GetCellByName("VLRDEDSUSP").Text = "0,00";
+ 
+    
+    if entity.Fields["VLRDEDSUSP"] != None: row.GetCellByName("VLRDEDSUSP").Text = str(str(str("{:,.2f}".format(entity.Fields["VLRDEDSUSP"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

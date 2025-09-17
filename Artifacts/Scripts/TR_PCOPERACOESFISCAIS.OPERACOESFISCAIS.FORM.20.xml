@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCOPERACOESFISCAIS.OPERACOESFISCAIS.FORM</ViewName>
+  <EntityName>TR_PCOPERACOESFISCAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    entidade = widget.Entity
+    if entidade == None:
+        return
+    
+    widget.View.Commands["Edit"].Visible  = (entidade["DOCUMENTOFINANCEIRO"].IsNull and entidade["LANCAMENTOTESOURARIA"].IsNull)
+    widget.View.Commands["Delete"].Visible  = (entidade["DOCUMENTOFINANCEIRO"].IsNull and entidade["LANCAMENTOTESOURARIA"].IsNull)
+    
+    RemovePrefixoMoedas("VALOROPERACAO", entidade)
+    RemovePrefixoMoedas("BASECALCULOPIS", entidade)
+    RemovePrefixoMoedas("VALORPIS", entidade)
+    RemovePrefixoMoedas("BASECALCULOCOFINS", entidade)
+    RemovePrefixoMoedas("VALORCOFINS", entidade)
+
+def RemovePrefixoMoedas(nomeCampo, entidade):
+    if entidade == None: return
+    entidade.Fields[nomeCampo] = str(str(str("{:,.2f}".format(entidade[nomeCampo].GetDecimal())).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

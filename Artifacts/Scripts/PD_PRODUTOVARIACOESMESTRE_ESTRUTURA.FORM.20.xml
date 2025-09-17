@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_PRODUTOVARIACOESMESTRE_ESTRUTURA.FORM</ViewName>
+  <EntityName>PD_PRODUTOVARIACOESMESTRE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entidade = widget.Entity
+    if(entidade.Fields["CODIGOREFERENCIA"].Instance.Fields["TEMVARIACAO"] == False):
+        widget.View.FieldDefinitions["CODIGOREFERENCIAVARIACAO"].Visible = False
+        widget.View.FieldDefinitions["CONJUNTOVARIACOES"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

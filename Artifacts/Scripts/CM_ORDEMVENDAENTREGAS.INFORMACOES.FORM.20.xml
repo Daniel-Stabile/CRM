@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDEMVENDAENTREGAS.INFORMACOES.FORM</ViewName>
+  <EntityName>CM_ORDEMVENDAENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+        
+    operacaoAtualizaEstoque = widget.Entity.OperacaoAtualizaEstoque()
+    
+    widget.View.Commands["CMD_ATENDER"].Title = "Reservar" if operacaoAtualizaEstoque else "Atender"
+    widget.View.Commands["CMD_ATENDER_LOTES"].Title = "Reservar lotes" if operacaoAtualizaEstoque else "Atender lotes"
+    
+    produtoControlaLote = widget.Entity.ItemInstance.ProdutoInstance.Lote
+    
+    atendidaTotal = widget.Entity.SaldoAAtenderCalculado == 0
+    atendidaParcialOuTotal = (widget.Entity.QuantidadeCalculada &gt; widget.Entity.SaldoAAtenderCalculado)
+    
+    widget.View.Commands["CMD_ATENDER_LOTES"].Visible = produtoControlaLote and not atendidaTotal
+    widget.View.Commands["CMD_ATENDER"].Visible = not atendidaTotal and not produtoControlaLote
+
+    widget.View.FieldDefinitions["CUSTOM_QUANTIDADE"].Value = widget.Entity.QuantidadeCalculada.ToString("N4")
+    widget.View.FieldDefinitions["CUSTOM_CALCQTDEATENDIDA"].Value = widget.Entity.QuantidadeAtendidaCalculada.ToString("N4")
+    widget.View.FieldDefinitions["CUSTOM_QUANTIDADEFATURADA"].Value = widget.Entity.QuantidadeFaturadaCalculada.ToString("N4")
+    widget.View.FieldDefinitions["CUSTOM_SALDOATENDER"].Value = widget.Entity.SaldoAAtenderCalculado.ToString("N4")
+    
+    almoxarifadoNulo = widget.Entity.Almoxarifado.Instance == None
+    widget.View.FieldDefinitions["CUSTOM_ALMOXARIFADO"].Visible = almoxarifadoNulo
+    widget.View.FieldDefinitions["ALMOXARIFADO"].Visible = not almoxarifadoNulo
+    
+    if almoxarifadoNulo:
+        widget.View.FieldDefinitions["CUSTOM_ALMOXARIFADO"].Value = widget.Entity.NomeAlmoxarifado
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja realmente cancelar " + ("a reserva" if entity.OperacaoAtualizaEstoque() else "o atendimento") + " deste item?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

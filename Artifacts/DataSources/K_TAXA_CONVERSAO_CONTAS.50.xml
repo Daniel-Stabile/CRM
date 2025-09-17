@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_TAXA_CONVERSAO_CONTAS</Identifier>
+  <Name>TAXA_CONVERSAO_CONTAS</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALORTOTAL+ A.RECORRENTE+ A.VALORSAAS+ A.VALORBPO) REALIZADAS,&#xD;&#xA;(SELECT SUM(VALORTOTAL+RECORRENTE+VALORSAAS +VALORBPO) FROM K_CRM_PESSOAOPORTUNIDADES WHERE STATUS = 9 AND FILIAL IN (3,11,15,16,17)) PERDIDAS,&#xD;&#xA;(SELECT SUM(VALORTOTAL+RECORRENTE+VALORSAAS+VALORBPO) FROM K_CRM_PESSOAOPORTUNIDADES WHERE STATUS = 10 AND FILIAL IN (3,11,15,16,17)) GANHAS,&#xD;&#xA;CASE MONTH(A.DATAFECHAMENTO)&#xD;&#xA;    WHEN 1 THEN 'Jan' &#xD;&#xA;    WHEN 2 THEN 'Fev'&#xD;&#xA;    WHEN 3 THEN 'Mar'&#xD;&#xA;    WHEN 4 THEN 'Abr'&#xD;&#xA;    WHEN 5 THEN 'Mai'&#xD;&#xA;    WHEN 6 THEN 'Jun'&#xD;&#xA;    WHEN 7 THEN 'Jul'&#xD;&#xA;    WHEN 8 THEN 'Ago' &#xD;&#xA;    WHEN 9 THEN 'Set' &#xD;&#xA;    WHEN 10 THEN 'Out'&#xD;&#xA;    WHEN 11 THEN 'Nov'&#xD;&#xA;    WHEN 12 THEN 'Dez'&#xD;&#xA;END  + '/' + CAST(YEAR(A.DATAFECHAMENTO) AS VARCHAR) AS DATAFECHAMENTO&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;WHERE MONTH(A.DATAFECHAMENTO) &lt;= MONTH(GETDATE())&#xD;&#xA;AND DATEDIFF(MONTH,A.DATAINCLUSAO,GETDATE()) &lt;=3&#xD;&#xA;AND A.FILIAL IN (3,11,15,16,17)&#xD;&#xA;GROUP BY MONTH(A.DATAFECHAMENTO), YEAR(A.DATAFECHAMENTO)&#xD;&#xA;" />
+  <Fields>
+    <DecimalField Alias="REALIZADAS" From="A" Path="REALIZADAS" FieldDecimalsFormat="0" />
+    <DecimalField Alias="PERDIDAS" From="A" Path="PERDIDAS" FieldDecimalsFormat="0" />
+    <DecimalField Alias="GANHAS" From="A" Path="GANHAS" FieldDecimalsFormat="0" />
+    <Field Alias="DATAFECHAMENTO" From="A" Path="DATAFECHAMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ZPROCESSOS_EXECUTADOS</Identifier>
+  <Name>Processos executados</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT NOME,&#xA;       CRIADOEM,&#xA;       INICIO,&#xA;       FIM,&#xA;       VALORINICIAL,&#xA;       VALORFINAL,        &#xA;       CPU TEMPO_CPU,&#xA;       SITUACAO,&#xA;       HOST,&#xA;       AGENDAMENTOLOG LOG_AGENDAMENTO&#xA; FROM Z_PROCESSOS&#xA;WHERE INICIO &gt;= @ADICIONARMESES(@HOJE, -1)&#xA;ORDER BY INICIO DESC" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DateField Alias="CRIADOEM" From="A" Path="CRIADOEM" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="INICIO" From="A" Path="INICIO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="FIM" From="A" Path="FIM" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="VALORINICIAL" From="A" Path="VALORINICIAL" />
+    <Field Alias="VALORFINAL" From="A" Path="VALORFINAL" />
+    <DecimalField Alias="TEMPO_CPU" From="A" Path="TEMPO_CPU" FieldDecimalsFormat="0" />
+    <Field Alias="SITUACAO" From="A" Path="SITUACAO" />
+    <Field Alias="HOST" From="A" Path="HOST" />
+    <Field Alias="LOG_AGENDAMENTO" From="A" Path="LOG_AGENDAMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Tecnologia</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

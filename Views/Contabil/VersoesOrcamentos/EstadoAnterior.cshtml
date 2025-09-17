@@ -1,0 +1,38 @@
+﻿@{
+    string estadoAnterior = (@Model["ESTADOANTERIOR"].GetString());
+    string icon = "";
+    string bgColor = "";
+    string color = "";
+    string textoTitulo = "";
+}
+@{
+    switch (estadoAnterior)
+    {
+        case "Em Execução": //EXECUCAO
+            bgColor = "#A9D8E8";
+            color = "#003C6E";
+            icon = "fa fa-play-circle";
+            textoTitulo = "Execução";
+            break;
+        case "Em Elaboração": //ELABORACAO
+            bgColor = "#FCEBBF";
+            color = "#555544";
+            icon = "fa fa-lightbulb-o";
+            textoTitulo = "Elaboração";
+            break;
+        default: //CONFIRMADA
+            bgColor = "#dddddd";
+            color = "#555566";
+            icon = "fa fa-question-circle";
+            textoTitulo = "Indefinido";
+            break;
+
+    }
+}
+<span
+    style="background-color: @bgColor; color: @color; padding: 2px 8px;border-radius: 6px !important;  white-space: nowrap;">
+    <i class="@icon" style="font-size:12px;"></i>
+    <span style="margin-left: 2px; font-size:11px; font-weight: 600; text-transform: uppercase;">
+        @textoTitulo
+    </span>
+</span>

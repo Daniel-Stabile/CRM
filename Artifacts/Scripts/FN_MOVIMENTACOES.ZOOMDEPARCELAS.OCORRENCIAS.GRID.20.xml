@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_MOVIMENTACOES.ZOOMDEPARCELAS.OCORRENCIAS.GRID</ViewName>
+  <EntityName>FN_MOVIMENTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    
+    tipoMovimento = entity.Fields["TIPOMOVIMENTO"]
+    
+    if tipoMovimento == None:
+        raise CancelledOperationException("Não foi implementado o cadastro para o tipo de movimento selecionado.")
+        
+    if tipoMovimento.Value == 7:
+        DefinirDestinoOcorrencia(command, entity)
+        return
+        
+    raise CancelledOperationException("Não foi implementado o cadastro para o tipo de movimento " + tipoMovimento.Text + ".")
+        
+def DefinirDestinoOcorrencia(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import BennerContext
+    
+    command.OutputDefinition = FormLinkDefinition()
+    command.OutputDefinition.TargetSystemInstanceName = BennerContext.Administration.DefaultSystemInstanceName
+    command.OutputDefinition.TargetEntityDefinitionName = "FN_MOVIMENTACOES"
+    command.OutputDefinition.TargetEntityHandle = entity.Handle
+    command.OutputDefinition.Url = "~/ERP/Financeiro/OcorrenciaParcelas/Form.aspx"
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEditExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEditExecute(command, entity):
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+
+    tipoMovimento = entity.Fields["TIPOMOVIMENTO"]
+    
+    if tipoMovimento == None:
+        raise CancelledOperationException("Não foi implementado o cadastro para o tipo de movimento selecionado.")
+        
+    if tipoMovimento.Value == 7:
+        DefinirDestinoOcorrencia(command, entity)
+        return
+        
+    raise CancelledOperationException("Não foi implementado o cadastro para o tipo de movimento " + tipoMovimento.Text + ".")
+        
+def DefinirDestinoOcorrencia(command, entity):
+    from Benner.Tecnologia.Common.Components import *
+    from Benner.Tecnologia.Common import BennerContext
+    
+    command.OutputDefinition = FormLinkDefinition()
+    command.OutputDefinition.TargetSystemInstanceName = BennerContext.Administration.DefaultSystemInstanceName
+    command.OutputDefinition.TargetEntityDefinitionName = "FN_MOVIMENTACOES"
+    command.OutputDefinition.TargetEntityHandle = entity.Handle
+    command.OutputDefinition.Url = "~/ERP/Financeiro/OcorrenciaParcelas/Form.aspx"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

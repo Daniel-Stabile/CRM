@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_OBJETOENTREGAS.FORM</ViewName>
+  <EntityName>CN_OBJETOENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+    objeto = widget.Entity.ObjetoInstance 
+    contratoEmElaboracao = objeto.ContratoEmElaboracao(objeto.ContratoHandle)
+    widget.View.Commands["Edit"].Visible = contratoEmElaboracao
+    widget.View.Commands["Delete"].Visible = contratoEmElaboracao
+    widget.View.Commands["New"].Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

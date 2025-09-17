@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_PEDIDOITEM.EDIT.FORM</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnQUANTIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnQUANTIDADEValueChanged(view, entity):
+    AtualizarValorTotal(entity);
+    AtualizarValorAcrescimo(entity);
+    AtualizarValorDesconto(entity);
+    AtualizarValorLiquido(entity);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def AtualizarValorAcrescimo(entity):
+    entity["VALORACRESCIMO"].Value = entity["PERCENTUALACRESCIMO"].GetDecimal() * entity["VALORTOTAL"].GetDecimal() / 100;
+
+def AtualizarValorDesconto(entity):
+    entity["VALORDESCONTO"].Value = entity["PERCENTUALDESCONTO"].GetDecimal() * entity["VALORTOTAL"].GetDecimal() / 100;
+
+def AtualizarValorLiquido(entity):
+    entity["VALORLIQUIDO"].Value = entity["VALORTOTAL"].GetDecimal() - entity["VALORDESCONTO"].GetDecimal() + entity["VALORACRESCIMO"].GetDecimal();
+
+def AtualizarValorTotal(entity):
+    entity["VALORTOTAL"].Value = entity["VALORUNITARIO"].GetDecimal() * entity["QUANTIDADE"].GetDecimal();
+
+def Load(widget):
+    # só para não dar erro de compilação
+    bla = 1;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERCENTUALDESCONTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERCENTUALDESCONTOValueChanged(view, entity):
+    AtualizarValorDesconto(entity);
+    AtualizarValorLiquido(entity);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERCENTUALACRESCIMOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERCENTUALACRESCIMOValueChanged(view, entity):
+    AtualizarValorAcrescimo(entity);
+    AtualizarValorLiquido(entity);
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

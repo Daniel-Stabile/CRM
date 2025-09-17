@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDENSVENDA.AUDITORIA.FORM</ViewName>
+  <EntityName>CM_ORDENSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    from Benner.Tecnologia.Common import EntityState
+    
+    entity = widget.Entity
+    if entity == None: return
+
+    if (entity.State == EntityState.Initialized) : return
+    
+    entityDefinition = EntityDefinition.GetByName("CM_ORDENSVENDA");
+    funcao = function.Call(entityDefinition, "DefinirVisibilidadesComandosWeb", entity);
+    
+    for comando in funcao.Vars["COMANDOS"]:
+        widget.View.Commands["GRP_COMANDOS"].Items[comando.Key].Visible = comando.Value</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LANCAMENTOSFINANCEIROSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LANCAMENTOSFINANCEIROSExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from  Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    link = FormLinkDefinition()
+    link.Url = "~/aga/e/financeiro/ContasFinanceiras/ContasFinanceiras.aspx"
+    command.OutputDefinition = link
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciOVI
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

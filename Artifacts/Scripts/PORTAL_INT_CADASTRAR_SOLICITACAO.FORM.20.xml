@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CADASTRAR_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+
+    if entity.EhCatalogo() :
+        command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/CadastrarItemSolicitacaoCatalogo.aspx" 
+        command.OutputDefinition.TargetFormMode = command.OutputDefinition.FormMode.View
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACOES"             
+        command.OutputDefinition.WhereClause.Where = "A.HANDLE = @CAMPO(HANDLE) "        
+        
+    elif entity.EhRegularizacao() :          
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACAOREGULARIZACAO"        
+        command.OutputDefinition.Url = "~/PortalInterno/a/Suprimentos/Solicitacao/InfosRegularizacaoCapa.aspx"
+        command.OutputDefinition.TargetFormMode = command.OutputDefinition.FormMode.EditElseInsert
+        command.OutputDefinition.WhereClause.Where = "A.SOLICITACAO = @CAMPO(HANDLE) "
+        
+    else :        
+        command.OutputDefinition.Url = "~/PortalInterno/e/Suprimentos/Solicitacao/CadastrarItemSolicitacao.aspx"        
+        command.OutputDefinition.TargetFormMode = command.OutputDefinition.FormMode.View
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_SOLICITACOES"             
+        command.OutputDefinition.WhereClause.Where = "A.HANDLE = @CAMPO(HANDLE) " 
+        
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition  
+    
+    if (widget.Entity.ParametroCatalogo()) :
+        widget.View.FieldDefinitions["MODALIDADE"].Visible = True
+    else :
+        widget.View.FieldDefinitions["MODALIDADE"].Visible = False
+
+    if (widget.Entity.MostrarCampoTipo()):
+        widget.View.FieldDefinitions["TIPO"].Visible = True
+        widget.View.Pages[0].Items["TIPO"].Pages["1"].Visible = widget.Entity.HabilitarRegularizacaoNegociavel()
+        widget.View.Pages[0].Items["TIPO"].Pages["2"].Visible = widget.Entity.HabilitarRegularizacaoNaoNegociavel()
+        widget.View.Pages[0].Items["TIPO"].Pages["3"].Visible = widget.Entity.HabilitarRegularizacaoPequenasCompras()
+        widget.View.Pages[0].Items["TIPO"].Pages["4"].Visible = widget.Entity.HabilitarRegularizacaoImobilizado()
+    else:
+        widget.View.FieldDefinitions["TIPO"].Visible = False
+
+    if (widget.Entity.MostrarCampoAlcada()) :
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].Visible = True
+    else :
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].Visible = False
+        
+    if widget.Entity.HabilitarCampoAlcada() :
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].Required = True
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].Required = False
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    
+    if widget.Entity.HabilitarMostrarAlcadaFaixaValor() :
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].Visible = True
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].Required = False
+        widget.View.FieldDefinitions["GRUPOASSINATURAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        
+    if widget.Entity.MostrarHabilitarCampoConfirmante() :
+        widget.View.FieldDefinitions["CONFIRMANTE"].Required = True
+        widget.View.FieldDefinitions["CONFIRMANTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["CONFIRMANTE"].Visible = True        
+    else :
+        widget.View.FieldDefinitions["CONFIRMANTE"].Required = False
+        widget.View.FieldDefinitions["CONFIRMANTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read         
+        widget.View.FieldDefinitions["CONFIRMANTE"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnFILIALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFILIALValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition 
+    
+    if (entity.ParametroCatalogo()) :
+        view.FieldDefinitions["MODALIDADE"].Visible = True
+    else :
+        view.FieldDefinitions["MODALIDADE"].Visible = False    
+
+    if (entity.MostrarCampoAlcada()) :
+        view.FieldDefinitions["GRUPOASSINATURAS"].Visible = True
+    else :
+        view.FieldDefinitions["GRUPOASSINATURAS"].Visible = False
+
+    if entity.HabilitarCampoAlcada() :
+        view.FieldDefinitions["GRUPOASSINATURAS"].Required = True
+        view.FieldDefinitions["GRUPOASSINATURAS"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :
+        view.FieldDefinitions["GRUPOASSINATURAS"].Required = False
+        view.FieldDefinitions["GRUPOASSINATURAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read 
+
+    if entity.HabilitarMostrarAlcadaFaixaValor() :
+        view.FieldDefinitions["GRUPOASSINATURAS"].Visible = True
+        view.FieldDefinitions["GRUPOASSINATURAS"].Required = False
+        view.FieldDefinitions["GRUPOASSINATURAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    
+    if entity.MostrarHabilitarCampoConfirmante() :
+        view.FieldDefinitions["CONFIRMANTE"].Required = True
+        view.FieldDefinitions["CONFIRMANTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["CONFIRMANTE"].Visible = True        
+    else :
+        view.FieldDefinitions["CONFIRMANTE"].Required = False
+        view.FieldDefinitions["CONFIRMANTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read         
+        view.FieldDefinitions["CONFIRMANTE"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnMODALIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMODALIDADEValueChanged(view, entity):
+    if (entity.MostrarCampoTipo()):
+        view.FieldDefinitions["TIPO"].Visible = True
+        view.Pages[0].Items["TIPO"].Pages["1"].Visible = entity.HabilitarRegularizacaoNegociavel()
+        view.Pages[0].Items["TIPO"].Pages["2"].Visible = entity.HabilitarRegularizacaoNaoNegociavel()
+        view.Pages[0].Items["TIPO"].Pages["3"].Visible = entity.HabilitarRegularizacaoPequenasCompras()
+    else:
+        view.FieldDefinitions["TIPO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

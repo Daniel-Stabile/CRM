@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>QPARCELASADTOCOMPENSADOS</Identifier>
+  <Name>Compensados</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT  B.AP CHAVE, A.HANDLE HNDLDOCUMENTO,&#xD;&#xA;A.HANDLE DOCUMENTO,&#xD;&#xA;       A.DATAENTRADA,&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       MOEDA.ABREVIATURA MOEDA,&#xD;&#xA;       B.VALOR,&#xD;&#xA;       B.VALORESBAIXADOS,&#xD;&#xA;       B.VALORMOEDA,&#xD;&#xA;       A.TIPODOCUMENTO,&#xD;&#xA;       B.DATAVENCIMENTO,&#xD;&#xA;       A.EMPRESA,&#xD;&#xA;       FILIAL.NOME FILIAL,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       B.HANDLE,&#xD;&#xA;       B.VALORESCOMPENSADOS,&#xD;&#xA;       B.REMESSA,&#xD;&#xA;       A.PESSOA&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;   INNER JOIN FN_PARCELAS B ON (B.DOCUMENTO = A.HANDLE)&#xD;&#xA;   LEFT JOIN GN_MOEDAS MOEDA ON MOEDA.HANDLE = A.MOEDA&#xD;&#xA;   JOIN FILIAIS FILIAL ON FILIAL.HANDLE = A.FILIAL&#xD;&#xA;    ORDER BY A.DATAENTRADA &#xD;&#xA;       " />
+  <Fields>
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="HNDLDOCUMENTO" From="A" Path="HNDLDOCUMENTO" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="VALORESCOMPENSADOS" From="A" Path="VALORESCOMPENSADOS" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

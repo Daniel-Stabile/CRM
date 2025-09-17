@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_FECHAMENTOSCONVENIO.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>FN_FECHAMENTOSCONVENIO</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Filtro</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>FN_FILTROAGLUTINACAO.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>SELECT A.HANDLE,
+       F.NOME FILIAL,
+       E.NOME EMPRESA,
+       B.NOME PESSOA,
+       A.DATAINICIO,
+       A.DATAFINAL,
+       A.DOCUMENTOGERADO,
+       A.NUMEROBLOQUETO,
+       A.VALOR,
+       A.DATAVENCIMENTO,
+       A.OPERACAOVENDA,
+       A.DATAINCLUSAO,
+       A.DATAAGLUTINACAO,
+       A.DATAEMISSAO
+  FROM FN_FECHAMENTOSCONVENIO A
+  LEFT JOIN GN_PESSOAS B ON A.PESSOA = B.HANDLE
+  LEFT JOIN EMPRESAS E ON A.EMPRESA = E.HANDLE
+  LEFT JOIN FILIAIS F ON A.EMPRESA = F.HANDLE
+ WHERE 
+       A.STATUS IN (1, 2)
+       AND A.FILIAL IN (@CAMPO(FILIAIS)) 
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

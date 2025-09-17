@@ -1,0 +1,1802 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>WEB_FN_MODULO.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>WEB_FN_MODULO</EntityName>
+  <Type>Formulário</Type>
+  <Version>14</Version>
+  <FormDefinition entityDefinitionName="WEB_FN_MODULO" name="WEB_FN_MODULO.FORM" title="WEB_FN_MODULO" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage key="GERAL" inherited="true">
+        <visible xsi:nil="true" />
+        <Items />
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition xsi:nil="true" />
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions />
+    <Commands>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command xsi:type="CommandGroup" title="Movimentações" color="blue-dark" key="GRP_MOVIMENTACOES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Contas a pagar rápido" key="CMD_RAPIDOPAGAR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/contaspagar/NovoRapido.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EMPRESA = @EMPRESA</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>FN_DOCUMENTOSRAPIDOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Contas a pagar rápido (Log)" key="CMD_CPARAPIDOLOG">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/contaspagar/Rapido.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Contas a pagar" key="CMD_CONTASPAGAR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/e/financeiro/consultadocumentos/ContasPagar.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Contas a receber" key="CMD_CONTASRECEBER">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/e/financeiro/consultadocumentos/ContasReceber.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Tesouraria" key="CMD_TESOURARIA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/e/financeiro/tesouraria/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Office banking" color="blue-dark" key="GRP_OFFICEBANKING">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Pagamento automatizado" key="CMD_PAGAMENTOAUTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/OfficeBanking/PagamentoAutomatizado.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Retorno pagto automatizado" key="CMD_RETORNOPAGTOAUTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/RetornoPagtoAuto/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_HBRETORNOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>View</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Cobrança bancária" key="CMD_COBRANCABANCARIA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/cobrancabancaria/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_FN_COBRANCABANCARIA</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>View</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Retorno cobrança bancária" key="CMD_RETORNOCOBRANCABANCARIA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/OfficeBanking/RetornoCobrancaBancariaGrid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_HBRETORNOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Conciliação bancária" key="CMD_CONCILIACAOBANCARIA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/OfficeBanking/ConciliacaoBancaria.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Boletos bancários" key="CMD_BLOQUETOSBANCARIOS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/Officebanking/Bloquetos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Varredura do sacado eletrônico" image="fa fa-bank" key="CMD_VARREDURASACADO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/e/financeiro/OfficeBanking/VarreduraSacadoEletronico.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command title="Compensações" color="blue-dark" key="CMD_COMPENSACOES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="FormLinkDefinition">
+          <Url>~/aga/a/financeiro/compensacoes/Inicio.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+          <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+          <TargetEntityDefinitionName>WEB_FN_COMPENSACOES</TargetEntityDefinitionName>
+          <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+          <WhereClauseParameters />
+          <ParentEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </ParentEntityHandle>
+          <Criteria>
+            <StartRowIndex>0</StartRowIndex>
+            <MaximumRows>0</MaximumRows>
+            <SortExpression />
+            <GroupExpression />
+            <Where />
+            <LookupResultBehavior>Default</LookupResultBehavior>
+            <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+            <Parameters />
+            <AutoGenerateParameters>false</AutoGenerateParameters>
+          </Criteria>
+          <GridEntityViewName />
+          <TargetEntityHandle>
+            <NullableValue xsi:nil="true" />
+          </TargetEntityHandle>
+          <TargetFormMode>View</TargetFormMode>
+          <IsStructuredTable>false</IsStructuredTable>
+          <StructuredFieldName />
+          <StructuredTableParentNode />
+          <UseTargetDefinitionName>false</UseTargetDefinitionName>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Processos documento/parcela" color="blue-dark" key="GRP_PROCESSOSDOCUMENTOPARCELA">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command xsi:type="CommandGroup" title="Renegociar" key="GRP_RENEGOCIAR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+            <Items>
+              <Command title="Contas a pagar" key="CMD_RENEGOCIARCONTASPAGAR">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/e/financeiro/Renegociacao/RenegociacaoContasPagar.aspx?intent=CPA</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+              <Command title="Contas a receber" key="CMD_RENEGOCIARCONTASRECEBER">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/e/financeiro/Renegociacao/RenegociacaoContasReceber.aspx?intent=CRE</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+            </Items>
+          </Command>
+          <Command title="Código de barras" key="CMD_CODIGOBARRAS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/CodigoBarras/Lancamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command xsi:type="CommandGroup" title="Ocorrência parcelas" key="GRP_OCORRENCIASPARCELAS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+            <Items>
+              <Command title="Contas a pagar" key="CMD_OCORRENCIACPA">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/e/financeiro/OcorrenciaParcelasCpa.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+              <Command title="Contas a receber" key="CMD_OCORRENCIASCRE">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/e/financeiro/OcorrenciaParcelasCre.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+            </Items>
+          </Command>
+          <Command title="Aglutinar documentos" key="CMD_AGLUTINADORDOCSFINANCEIRO">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/aglutinardocumentos/GridAglutinar.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Liberar/bloquear documentos" key="CMD_LIBERARBLOQUEARDOCUMENTOS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Prorrogação de duplicatas" key="CMD_PRORROGACAODUPLICATAS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command xsi:type="CommandGroup" title="Aglutinador de documentos" key="GRP_AGLUTINADOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+            <Items>
+              <Command title="Contas a pagar" key="CMD_AGLUTINADORCPA">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode xsi:nil="true" />
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/Erp/Financeiro/AglutinadorCPA/Geral.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+              <Command title="Contas a receber" key="CMD_AGLUTINADORCRE">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode xsi:nil="true" />
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/Erp/Financeiro/AglutinadorCRE/Geral.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+            </Items>
+          </Command>
+          <Command xsi:type="CommandGroup" title="Suspender parcelas" key="GRP_SUSPENDERPARCELA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+            <Items>
+              <Command title="Contas a pagar" key="CMD_SUSPENDERPARCELASCPA">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/a/financeiro/suspenderparcelas/GridContasAPagar.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+              <Command title="Contas a receber" key="CMD_SUSPENDERCRE">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/a/financeiro/suspenderparcelas/Grid.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+            </Items>
+          </Command>
+          <Command xsi:type="CommandGroup" title="Liberar parcelas" key="GRP_LIBERARPARCELAS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+            <Items>
+              <Command title="Contas a pagar" key="CMD_LIBERARRCELASCPA">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/a/financeiro/liberarparcelas/GridLiberarContasAPagar.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+              <Command title="Contas a receber" key="CMD_LIBERAPARCELAS">
+                <visible>true</visible>
+                <showModal>false</showModal>
+                <modalSize xsi:nil="true" />
+                <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+                <runInEditMode>false</runInEditMode>
+                <context>Table</context>
+                <OutputDefinition xsi:type="UrlLinkDefinition">
+                  <Url>~/aga/a/financeiro/liberarparcelas/GridLiberar.aspx</Url>
+                  <IsModalPage>false</IsModalPage>
+                  <IsModalNavigation>false</IsModalNavigation>
+                </OutputDefinition>
+              </Command>
+            </Items>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Adiantamentos" color="blue-dark" key="GRP_ADIANTAMENTO">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Adiantamento cliente/fornecedor" key="CMD_ADIANTAMENTOCLIENTEFORNECEDOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/ADiantamentoClienteFornecedor.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Adto. automático clientes" key="CMD_ADTOAUTOCLIENTES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Adto. automático fornecedores" key="CMD_ADTOAUTOFORNECEDORES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Adiantamento fornecedor" key="CMD_ADIANTAMENTOFORNECEDOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/AdiantamentoFornecedor.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHFORNECEDOR = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Adiantamento cliente" key="CMD_ADIANTAMENTOCLIENTE">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/AdiantamentoCliente.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHCLIENTE = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Devoluções" color="blue-dark" key="GRP_DEVOLUCOES">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Devolução cliente/fornecedor" key="CMD_DEVOLUCAOCLIENTEFORNECEDOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/DevolucoesClienteFornecedor.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Dev. automática clientes" key="CMD_DEVAUTOCLIENTES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Dev. automática fornecedores" key="CMD_DEVAUTOFORNECEDORES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Devolução fornecedor" key="CMD_DEVOLUCAOFORNECEDOR">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/DevolucoesFornecedor.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHFORNECEDOR = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Devolução cliente" key="CMD_DEVOLUCAOCLIENTE">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/Financeiro/DevolucoesCliente.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.EHCLIENTE = 'S'</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>GN_PESSOAS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Utilidades" color="blue-dark" key="GRP_UTILIDADES">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Variação cambial" key="CMD_VARIACAOCAMBIAL">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Default</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/variacaocambial/Calcular.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Lançamentos com CPMF" key="CMD_LANCAMENTOSCPMF">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/cpmf/Filter.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="E-mail para fornecedores" key="CMD_EMAILFORNECEDORES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/emailparafornecedor/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="E-mail para clientes" key="CMD_EMAILCLIENTES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/emailparacliente/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Bloquear/liberar tesouraria" key="CMD_BLOQUEARLIBERARTESOURARIA">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/liberarbloquearlancamentostesouraria/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Fechamento impostos" key="CMD_FECHAMENTOIMPOSTOS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/fechamentoimpostos/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Fechamento período" key="CMD_FECHAMENTOPERIODO">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/fechamentoperiodoimpostos/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Processos" color="blue-dark" key="GRP_PROCESSOS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Fluxo de caixa" key="CMD_FLUXOCAIXA">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Comissões" key="CMD_COMISSOES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/Erp/Financeiro/Comissao/Geral.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Interfaces" key="CMD_INTERFACES">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Recebimento fiscal" image="fa fa-pencil" key="CMD_RECEBIMENTOFISCAL">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/materiais/recebimentos/recebimentosGrid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Encontro de contas" image="fa fa-balance-scale" key="CMD_ENCONTROCONTAS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/Processos/EncontroContas.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Controle de cheques" color="blue-dark" key="GRP_CONTROLECHEQUES">
+        <visible>false</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Emissão de cheques" key="CMD_EMISSAOCHEQUES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Cheques pré-datados" key="CMD_CHEQUESPREDATADOS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Cadastro de cheques" key="CMD_CADASTROCHEQUES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Conferência de cheques" key="CMD_CONFERENCIACHEQUES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Gerar lotes de cheques" key="CMD_GERARLOTESCHEQUES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+          <Command title="Administração de cheques" key="CMD_ADMCHEQUES">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Consultas" color="blue-dark" key="GRP_CONSULTAS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Consulta de documentos" key="CMD_CONSULTADOCUMENTOS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/consultadocumentos/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Análise de crédito" key="CMD_ANALISECREDITO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/ERP/Financeiro/AnaliseCredito/Geral.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Análise de crédito cedente" key="CMD_ANALISECREDITOCEDENTE">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Remessa SERASA" key="CMD_REMESSASERASA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/ERP/Financeiro/RemessaSerasa/Geral.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Consulta de documentos" key="CMD_CONSULTADOCS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/e/financeiro/ConsultaDocs.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Remessa Correios" key="CMD_REMESSACORREIOS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/ERP/Financeiro/RemessaCorreios/Geral.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command title="Gerenciais" color="blue-dark" key="CMD_GERENCIAIS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="UrlLinkDefinition">
+          <Url>~/aga/e/financeiro/gerenciais.aspx</Url>
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Processos no servidor" color="blue-dark" key="GRP_PROCESSOSSERVIDOR">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Análise crédito" key="CMD_ANALISECREDITOSERVIDOR">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO=2 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Recebimento fiscal" key="CMD_RECEBIMENTOFISCALSERVIDOR">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO=3 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Declaração de débito" key="CMD_DECLARACAODEBITO">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO=4 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Índices financeiros" key="CMD_INDICESFINANCEIROS">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO = 5 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Financeiro/fiscal" key="CMD_FINANCEIROFISCAL">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/financeiro/financeirofiscal/monitor.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>TQ_GERACAOFINANCEIROFISCAL</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>View</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Retorno cobrança bancária" key="CMD_AGENDAMENTO_RETORNOCOBRANCABANCARIA">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO=9 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Remessa de pagamento automática" key="CMD_AGENDAMENTO_REMESSAPGTOAUTO">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO = 10 AND A.ORIGEM = 2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Importação de extratos automática" key="CMD_IMPORTAREXTRATOSAGENDAMENTO">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/aga/a/financeiro/OfficeBanking/AgendamentosConciliacaoBancaria.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>FN_CONCBANCAGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Fluxo de caixa" key="CMD_FLUXOCAIXAAGENDAMENTO">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO = 13 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_MASTER_DEV</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Usuário portal cliente" image="fa fa-users" key="CMD_USUARIOPORTALCLIENTE">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO = 16 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORP_MASTER_DEV</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+          <Command title="Usuário portal cliente" image="fa fa-users" key="CMD_USUARIOPORTALCLIENTE">
+            <visible>true</visible>
+            <showModal>true</showModal>
+            <modalSize>Large</modalSize>
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode>false</runInEditMode>
+            <context>Table</context>
+            <OutputDefinition xsi:type="FormLinkDefinition">
+              <Url>~/aga/a/genericos/agendamentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <WhereClause>
+                <Where>A.TIPO = 14 AND A.ORIGEM=2</Where>
+                <Parameters />
+              </WhereClause>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>WEB_GN_AGENDAMENTOS</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <Criteria>
+                <StartRowIndex>0</StartRowIndex>
+                <MaximumRows>0</MaximumRows>
+                <SortExpression />
+                <GroupExpression />
+                <Where />
+                <LookupResultBehavior>Default</LookupResultBehavior>
+                <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
+                <Parameters />
+                <AutoGenerateParameters>false</AutoGenerateParameters>
+              </Criteria>
+              <GridEntityViewName />
+              <TargetEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </TargetEntityHandle>
+              <TargetFormMode>Insert</TargetFormMode>
+              <IsStructuredTable>false</IsStructuredTable>
+              <StructuredFieldName />
+              <StructuredTableParentNode />
+              <UseTargetDefinitionName>false</UseTargetDefinitionName>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Notas débito/crédito" color="blue-dark" key="GRP_NOTASDEBITOCREDITO">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Lançamentos manuais de NDC" key="CMD_LANCAMENTOSMANUAISNDC">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="GridLinkDefinition">
+              <Url>~/Erp/Financeiro/NotasDC/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+              <SystemInstanceName>CORPORATIVO</SystemInstanceName>
+              <TargetEntityDefinitionName>FN_LANCAMENTOSNDC</TargetEntityDefinitionName>
+              <TargetSystemInstanceName>CORPORATIVO</TargetSystemInstanceName>
+              <WhereClauseParameters />
+              <ParentEntityHandle>
+                <NullableValue xsi:nil="true" />
+              </ParentEntityHandle>
+              <DefaultFilterName />
+            </OutputDefinition>
+          </Command>
+          <Command title="Apuração juros/multa" key="CMD_APURACAOJUROSMULTAS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Gerar documentos" key="CMD_GERARDOCUMENTOS">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/Erp/Financeiro/NotasDC/GerarDocumentos.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Reembolsos factoring" key="CMD_REEMBOLSOSFACTORING">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Consulta lançamentos NDC" key="CMD_CONSULTALANCAMENTOSNDC">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Reembolsos despesas" key="CMD_REEMBOLSODESPESAS">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="LocalLinkDefinition">
+              <Url />
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+        </Items>
+      </Command>
+      <Command xsi:type="CommandGroup" title="Aviso de cobrança" color="blue-dark" key="GRP_AVISOCOBRANCA">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode xsi:nil="true" />
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+        <Items>
+          <Command title="Aviso de cobrança" key="CMD_AVISOCOBRANCA">
+            <visible>true</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+            <OutputDefinition xsi:type="UrlLinkDefinition">
+              <Url>~/aga/a/financeiro/avisodecobranca/Grid.aspx</Url>
+              <IsModalPage>false</IsModalPage>
+              <IsModalNavigation>false</IsModalNavigation>
+            </OutputDefinition>
+          </Command>
+          <Command title="Reaviso de cobrança" key="CMD_REAVISOCOBRANA">
+            <visible>false</visible>
+            <showModal>false</showModal>
+            <modalSize xsi:nil="true" />
+            <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+            <runInEditMode xsi:nil="true" />
+            <context>Table</context>
+          </Command>
+        </Items>
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

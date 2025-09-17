@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_ADICIONAL.FORM</ViewName>
+  <EntityName>K_CRM_PO_ADICIONAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnADICIONALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnADICIONALValueChanged(view, entity):
+    if entity == None:
+        return;
+        
+    if entity.Fields["ADICIONAL"].Instance.Fields["NOME"] == "Forma de Pagamento":
+        entity.Fields["DESCRICAO"] = "A forma de pagamento dessa proposta será a vista mediante pagamento de boleto.";
+    else:
+        entity.Fields["DESCRICAO"] = "";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

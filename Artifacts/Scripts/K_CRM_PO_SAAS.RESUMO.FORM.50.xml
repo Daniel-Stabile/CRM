@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_SAAS.RESUMO.FORM</ViewName>
+  <EntityName>K_CRM_PO_SAAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    pEntity = widget.ProviderWidget.Entity;
+    
+    if pEntity != None:
+        if pEntity.GetEntityDefinition().Name == "K_CRM_PESSOAOPORTUNIDADESPROD":
+            oportunidadeEntity = widget.ProviderWidget.ProviderWidget.Entity;
+            if oportunidadeEntity.Fields["MODALIDADE"].Handle.IsValid():
+                modalidade = oportunidadeEntity.Fields["MODALIDADE"].Instance;
+            
+                if None != modalidade:
+                    if modalidade.Fields["SAAS"] == False:
+                        widget.Hidden = True;
+                    else:
+                        widget.Hidden = False;
+        else:
+            crit = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO");
+            crit.Parameters.Add(Parameter("OPORTUNIDADE", pEntity.Handle.Value));
+            crit.Parameters.Add(Parameter("VERSAO", pEntity.Versao));
+            produtos = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESPROD"), crit);
+            
+            if produtos.Count &gt; 1:
+                widget.Hidden = True;
+            else:
+                entity = widget.Entity;
+                if None != entity:
+                    if entity.Fields["HANDLE"].IsValid():
+                        widget.View.Commands["New"].Visible = False;
+                    else:
+                        widget.View.Commands["New"].Visible = True;
+                    
+                if pEntity.Fields["MODALIDADE"].Handle.IsValid():
+                    modalidade = pEntity.Fields["MODALIDADE"].Instance;
+            
+                    if None != modalidade:
+                        if modalidade.Fields["SAAS"] == False:
+                            widget.Hidden = True;
+                        else:
+                            widget.Hidden = False;
+            
+        #oportunidade = entity.Fields["HANDLE"];
+        #criteria = Criteria("A.HANDLE IN (SELECT MODALIDADE FROM K_CRM_PESSOAOPORTUNIDADES WHERE HANDLE = :OPORTUNIDADE)", Parameter("OPORTUNIDADE", oportunidade));
+        #modalidade = Entity.Get(EntityDefinition.GetByName("K_CRM_MODALIDADES"), criteria);
+        
+        #if None != modalidade:
+        #    #if modalidade.Fields["HANDLE"].IsValid():
+        #        #if modalidade.Fields["SAAS"] == True:
+        #            #widget.View.Commands["cmdAdicionarSaas"].Visible = True;
+        #        else:
+        #            widget.View.Commands["cmdAdicionarSaas"].Visible = False;
+        #        if modalidade.Fields["ESCOPO"] == True:
+        #            widget.View.Commands["cmdAdicionarEscopo"].Visible = True;
+        #        else:
+        #            widget.View.Commands["cmdAdicionarEscopo"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

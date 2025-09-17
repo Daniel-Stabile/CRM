@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>PR_APONTAMENTOS_PENDENTES</Identifier>
+  <Name>Consulta Apontamentos Pendentes</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) AS QUANTIDADE FROM PR_ORDEMPRODUCAOAPONTAMENTOS&#xD;&#xA;WHERE STATUS IN( 1,3)&#xD;&#xA;AND ORDEMPRODUCAO IN (SELECT HANDLE FROM PR_ORDENSPRODUCAO A&#xD;&#xA;WHERE (A.EMPRESA = @EMPRESA) AND (A.FILIAL = @FILIAL) AND STATUS IN (2,4) )" />
+  <Fields>
+    <Field Alias="QUANTIDADE" From="A" Path="QUANTIDADE" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

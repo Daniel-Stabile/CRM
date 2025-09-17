@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_FILTRO_SUSPENDERPARCELA.FORM</ViewName>
+  <EntityName>FN_FILTRO_SUSPENDERPARCELA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityAssociation
+    
+    registro = widget.Entity
+    if registro == None:return
+
+    parcela = registro.Fields["PARCELA"]
+    if parcela == None or parcela.Handle.IsInvalid(): return
+    
+    remessa = parcela.Instance.Fields["REMESSA"]
+    if (remessa == None or remessa.Handle.IsInvalid()):
+        widget.View.FieldDefinitions["MOTIVOBORDERO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

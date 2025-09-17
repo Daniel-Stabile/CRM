@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_VIRTUAL_LANCAMENTOS.FORM</ViewName>
+  <EntityName>FX_VIRTUAL_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	from Benner.Tecnologia.Common import Entity
+	from Benner.Tecnologia.Common import FieldDefinition
+	from Benner.Tecnologia.Common import Handle
+	from Benner.Tecnologia.Common import EntityState
+	from Benner.Tecnologia.Common import RadioItem
+
+	entity = widget.Entity
+	view = widget.View
+	
+	if (entity.Fields["FORMACALCULOMULTA"] is not None):
+		if (int(entity.Fields["FORMACALCULOMULTA"].Value) == 1):
+			view.FieldDefinitions["VALORMULTA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+			view.FieldDefinitions["PERCENTUALMULTA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+		else :
+			view.FieldDefinitions["VALORMULTA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+			view.FieldDefinitions["PERCENTUALMULTA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	
+	if (entity.Fields["FORMACALCULOJUROSDIA"] is not None):
+		if (int(entity.Fields["FORMACALCULOJUROSDIA"].Value) == 1):
+			view.FieldDefinitions["VALORJUROSDIA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+			view.FieldDefinitions["PERCENTUALJUROSDIA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+		else :
+			view.FieldDefinitions["VALORJUROSDIA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+			view.FieldDefinitions["PERCENTUALJUROSDIA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	
+	if not entity.Fields["HANDLE"].IsValid(): return
+	
+	if (entity.Fields["ORIGEM"].Value == "P") :
+		entity.Fields["NATUREZA"] = RadioItem("D", "Débito")
+		view.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+
+	if (entity.Fields["ORIGEM"].Value == "R") :
+		entity.Fields["NATUREZA"] = RadioItem("C", "Crédito")
+		view.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+
+	if (entity.Fields["ORIGEM"].Value == "T") :
+		entity.Fields["NATUREZA"] = None
+		view.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnORIGEMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnORIGEMValueChanged(view, entity):
+	from Benner.Tecnologia.Common import RadioItem
+	from Benner.Tecnologia.Common import FieldDefinition
+	
+	if (entity.Fields["ORIGEM"].Value == "P") :
+		entity.Fields["NATUREZA"] = RadioItem("D", "Débito")
+		view.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+
+	if (entity.Fields["ORIGEM"].Value == "R") :
+		entity.Fields["NATUREZA"] = RadioItem("C", "Crédito")
+		view.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+
+	if (entity.Fields["ORIGEM"].Value == "T") :
+		entity.Fields["NATUREZA"] = None
+		view.FieldDefinitions["NATUREZA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERIODICIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERIODICIDADEValueChanged(view, entity):
+	from Benner.Tecnologia.Common import FieldDefinition
+	if (entity.Fields["PERIODICIDADE"] == None):
+		view.FieldDefinitions["QUANTIDADEOCORRENCIAS"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+	else :
+		view.FieldDefinitions["QUANTIDADEOCORRENCIAS"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+		view.FieldDefinitions["QUANTIDADEOCORRENCIAS"].Required = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

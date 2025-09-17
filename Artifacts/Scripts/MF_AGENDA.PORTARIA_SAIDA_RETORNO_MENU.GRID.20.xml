@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_AGENDA.PORTARIA_SAIDA_RETORNO_MENU.GRID</ViewName>
+  <EntityName>MF_AGENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if (entity.Fields["STATUS"] != None):
+		if (entity.Fields["STATUS"].Value == 1):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='label-roxo letra-roxo '&gt; Cadastrado &lt;/span&gt;"
+		elif (entity.Fields["STATUS"].Value == 2):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='letra-amarelo label-amarelo'&gt; Aguardando confirmação &lt;/span&gt;"
+		elif (entity.Fields["STATUS"].Value == 3):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='letra-amarelo label-amarelo'&gt; Aguardando saída &lt;/span&gt;"
+		elif (entity.Fields["STATUS"].Value == 4):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='letra-amarelo label-amarelo'&gt; Aguardando retorno &lt;/span&gt;"
+		elif (entity.Fields["STATUS"].Value == 5):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='letra-azul label-azul'&gt; Encerrada &lt;/span&gt;"
+		elif (entity.Fields["STATUS"].Value == 6):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='letra-vermelho label-vermelho'&gt; Cancelada &lt;/span&gt;"
+		elif (entity.Fields["STATUS"].Value == 7):
+			row.GetCellByName("CUSTOM_STATUSS").Text = "&lt;span class='letra-vermelho label-vermelho'&gt; Recusada &lt;/span&gt;"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

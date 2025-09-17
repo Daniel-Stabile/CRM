@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOGLOSASMULTAS.GRID</ViewName>
+  <EntityName>CN_CONTRATOGLOSASMULTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    widgetContrato = widget.ProviderWidget
+    if widgetContrato == None: return
+    if widgetContrato &lt;&gt; None and (widgetContrato.Entity == None or widgetContrato.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+    
+    contrato = widgetContrato.Entity
+    if contrato == None: return
+
+    widget.Hidden = contrato.VisibilidadeCargaGlosasMultas()
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = CNContrato.PodeIncluirGlosasMultas(widget.ProviderWidget.Entity.Handle)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoGlosaMulta
+    
+    handle = entity.Handle
+    
+    if row.EditCommand != None: row.EditCommand.Visible = CNContratoGlosaMulta.PodeEditarExcluirGlosaMulta(handle)
+    if row.DeleteCommand != None: row.DeleteCommand.Visible = CNContratoGlosaMulta.PodeEditarExcluirGlosaMulta(handle)
+    if row.GetCustomCommand("CMD_CONFIRMAR") != None: row.GetCustomCommand("CMD_CONFIRMAR").Enabled = CNContratoGlosaMulta.PodeConfirmarGlosaMulta(handle)
+    if row.GetCustomCommand("CMD_CANCELAR") != None: row.GetCustomCommand("CMD_CANCELAR").Enabled = CNContratoGlosaMulta.PodeCancelarGlosaMulta(handle)
+    if row.GetCustomCommand("CMD_LANCFINANCEIRO") != None: row.GetCustomCommand("CMD_LANCFINANCEIRO").Enabled = CNContratoGlosaMulta.PodeGerarLancamentosFinanceiros(handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

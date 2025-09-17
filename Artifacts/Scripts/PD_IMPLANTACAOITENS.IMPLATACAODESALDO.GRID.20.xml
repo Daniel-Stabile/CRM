@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_IMPLANTACAOITENS.IMPLATACAODESALDO.GRID</ViewName>
+  <EntityName>PD_IMPLANTACAOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.EditCommand != None:
+        row.EditCommand.Visible = entity.DocumentoInstance.ImplantacaoNaoConfirmada
+        
+	if row.DeleteCommand != None:
+	    row.DeleteCommand.Visible = entity.DocumentoInstance.ImplantacaoNaoConfirmada
+
+    if row.GetCustomCommand("Lotes") != None:
+        row.GetCustomCommand("Lotes").Enabled = entity.ProdutoInstance.Lote
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    implantacao = widget.ProviderWidget.Entity
+    if implantacao == None: return
+    
+    widget.View.Commands["New"].Visible = implantacao.ImplantacaoNaoConfirmada
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

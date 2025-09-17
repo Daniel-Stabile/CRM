@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADES.RESUMO.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OncmdAtualizaPropostaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OncmdAtualizaPropostaExecute(command, entity):
+    from System import DateTime
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    oportunidade = entity.Fields["HANDLE"];
+    total = 0
+    horas = 0
+    
+    if oportunidade.IsValid():
+        criteria = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE", Parameter("OPORTUNIDADE", oportunidade))
+        itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), criteria)
+        
+        if itens.Count &gt; 0:
+
+            for item in itens:
+                total += (item.Fields["ITEM"].Instance.Fields["VALOR"]*(100 - item.Fields["VALORDESCONTO"])/100)
+                horas += item.Fields["ITEM"].Instance.Fields["HORAS"]
+                
+        
+        entity.Fields["VALORTOTAL"] = total
+        entity.Fields["QDADEHRS"] = horas
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System import DateTime
+    from System import Convert
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import QuerySource
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+
+    ehArquiteto = BennerPrincipal.Current.ActiveRole == "K_CRM_ARQUITETO_SOLUCOES"
+    ehAdmin = BennerPrincipal.Current.ActiveRole == "K_CRM_ADMIN";
+    entity = widget.Entity
+    view = widget.View
+    usuario = BennerIdentity.Current.UserHandle
+    responsavel = widget.Entity.Fields["RESPONSAVEL"].Handle
+    status  = int(entity.Fields["STATUS"].Value)
+    statusoportunidade  = int(entity.Fields["STATUSOPORTUNIDADE"].Handle.Value)
+    faseOportunidade = entity.Fields["STATUSOPORTUNIDADE"].Instance.Fields["NOME"];
+    
+    if entity.Fields["FILIAL"].Handle.IsValid() :
+        
+        criterioSql = Criteria()
+        
+        sql = "SELECT K_EHREVENDA FROM FILIAIS WHERE HANDLE = :HANDLE"
+        criterioSql.Parameters.Add(Parameter("HANDLE", entity.Fields["FILIAL"].Handle))
+        edSql = EntityDefinition.Create()
+        edSql.EntitySource = QuerySource(sql)
+        revenda = Entity.GetMany(edSql, criterioSql);
+        
+        if revenda[0].Fields["K_EHREVENDA"] == "S":
+            view.FieldDefinitions["VALORREVENDA"].Visible = True
+
+        else:
+            view.FieldDefinitions["VALORREVENDA"].Visible = False;
+    
+    if widget.View.Commands["cmdEditarOportunidadeManual"] != None:
+        widget.View.Commands["cmdEditarOportunidadeManual"].Visible = True;
+    if widget.View.Commands["cmdEditarOportunidade"] != None:
+        widget.View.Commands["cmdEditarOportunidade"].Visible = True;
+
+    if entity.Fields["MANUAL"] == True:
+        if widget.View.Commands["cmdEditarOportunidade"] != None:
+            widget.View.Commands["cmdEditarOportunidade"].Visible = False;
+    else:
+        if widget.View.Commands["cmdEditarOportunidadeManual"] != None:
+            widget.View.Commands["cmdEditarOportunidadeManual"].Visible = False;
+            
+    if entity == None:return
+
+    oportunidade = entity.Fields["HANDLE"];
+    versao = entity.Fields["VERSAO"];
+    crit = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO");
+    crit.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+    crit.Parameters.Add(Parameter("VERSAO", versao));
+
+    if usuario != responsavel:
+        widget.View.Commands["cmdEditarOportunidade"].Visible = False;
+        widget.View.Commands["cmdEditarOportunidadeManual"].Visible = False;
+        widget.View.Commands["cmdSolicitarDesconto"].Visible = False;
+    
+    crit3 = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.TIPO = 2");       
+    crit3.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+    crit3.Parameters.Add(Parameter("VERSAO", versao));
+    
+    crit4 = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.TIPO = 1");       
+    crit4.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+    crit4.Parameters.Add(Parameter("VERSAO", versao));
+    
+    proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), crit3);
+    minuta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), crit4);
+    if faseOportunidade == "Negociação" or faseOportunidade == "Pregão / Leilão" or faseOportunidade == "Habilitação / Adjudicação" or faseOportunidade == "Proposta":
+        if None != proposta:
+            if proposta.Count &gt; 0:
+                widget.View.Commands["cmdProposta"].Visible = False;
+                widget.View.Commands["cmdReProposta"].Visible = True;
+            elif proposta.Count == 0:
+                widget.View.Commands["cmdProposta"].Visible = True;
+                widget.View.Commands["cmdReProposta"].Visible = False;
+            if minuta.Count &gt; 0:
+                widget.View.Commands["cmdMinuta"].Visible = False;
+                widget.View.Commands["cmdReMinuta"].Visible = True;
+            elif minuta.Count == 0:
+                widget.View.Commands["cmdMinuta"].Visible = True;
+                widget.View.Commands["cmdReMinuta"].Visible = False;
+        if faseOportunidade != "Negociação" and faseOportunidade != "Habilitação / Adjudicação": 
+            widget.View.Commands["cmdSolicitarDesconto"].Visible = False;
+    else:
+        widget.View.Commands["cmdProposta"].Visible = False;
+        widget.View.Commands["cmdReProposta"].Visible = False;
+        widget.View.Commands["cmdEditarOportunidade"].Visible = False;
+        widget.View.Commands["cmdEditarOportunidadeManual"].Visible = False;
+        widget.View.Commands["cmdSolicitarDesconto"].Visible = False;
+        
+    widget.View.Commands["cmdInsereArquivo"].Visible = faseOportunidade != "Ganho" and faseOportunidade != "Contrato Assinado" and (usuario == responsavel or ehAdmin or ehArquiteto);
+    
+    widget.View.Commands["Edit"].Visible = status not in [10]
+    widget.View.Commands["Delete"].Visible = status not in [10]
+    
+    if entity.Ativo == True:
+        widget.View.Commands["cmdEditarOportunidadeManual"].Visible = False;
+        widget.View.Commands["cmdEditarOportunidade"].Visible = False;
+        widget.View.Commands["cmdNovaVersao"].Visible = True;
+    else:
+        widget.View.Commands["cmdNovaVersao"].Visible = False;
+        
+        
+    if (ehArquiteto):
+        widget.View.Commands["cmdNovaVersao"].Visible = False;
+        widget.View.Commands["cmdProposta"].Visible = False;
+        widget.View.Commands["cmdMinuta"].Visible = False;
+        
+        
+        
+        
+    if ehAdmin and entity.Ativo == False and (faseOportunidade == "Negociação" or faseOportunidade == "Pregão / Leilão" or faseOportunidade == "Habilitação / Adjudicação" or faseOportunidade == "Proposta"): 
+        widget.View.Commands["cmdEditarOportunidadeManual"].Visible = True;
+        
+    if entity.Ativo == True:
+        widget.View.Commands["CmdAtivarOportunidadeRaw"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

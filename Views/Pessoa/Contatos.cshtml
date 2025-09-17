@@ -1,0 +1,35 @@
+@using Benner.Tecnologia.Common
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th>
+                <i class="fa fa-book"></i> Nome
+            </th>
+            <th>
+                <i class="fa fa-user"></i> Cargo
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (@ViewBag.Contatos != null) 
+        {
+            foreach (var entity in @ViewBag.Contatos)
+            {
+                EntityBase contato = entity as EntityBase;
+                <tr>
+                    <td> @contato.Fields["CONTATO"] </td>
+                    <td> @contato.Fields["CARGO"] </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="3">@ViewBag.MsgSemRegistro</td></tr>
+        }
+        <!--<td>
+              <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
+                <i class="fa fa-share"></i> Visualizar
+              </a>
+            </td> -->
+    </tbody>
+</table>

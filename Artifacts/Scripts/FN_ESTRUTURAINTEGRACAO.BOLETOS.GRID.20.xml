@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_ESTRUTURAINTEGRACAO.BOLETOS.GRID</ViewName>
+  <EntityName>FN_ESTRUTURAINTEGRACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Integracao import FNEstruturaIntegracao
+    
+    handle = widget.Breadcrumb.Parent.Entity.Handle
+    widget.Hidden = not widget.ProviderWidget.Entity.VisibilidadeWidgetBOLETOS(handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

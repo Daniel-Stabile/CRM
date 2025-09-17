@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_GRUPOALCADAS.FORM</ViewName>
+  <EntityName>CP_GRUPOALCADAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    entity["TIPOCONTRATODIVISOES"].Visible = entity["TIPO"].GetInt32() == 6
+    entity["EHALCADAPROJETO"].Visible = entity["TIPO"].GetInt32() == 1
+    entity["ALCADAVALORLIBERARPROXIMONIVEL"].Visible = entity["TIPO"].GetInt32() == 14
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    entity["TIPOCONTRATODIVISOES"].Visible = entity["TIPO"].GetInt32() == 6
+    entity["EHALCADAPROJETO"].Visible = entity["TIPO"].GetInt32() == 1
+    entity["ALCADAVALORLIBERARPROXIMONIVEL"].Visible = entity["TIPO"].GetInt32() == 14
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

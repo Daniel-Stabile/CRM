@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ZSYSTEMMONITOR</Identifier>
+  <Name>Logs do monitoramento</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT * &#xD;&#xA;  FROM Z_SYSTEMMONITOR " />
+  <Fields>
+    <Field Alias="Z_GRUPO" From="A" Path="Z_GRUPO" />
+    <DateField Alias="DATA" From="A" Path="DATA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="HOST" From="A" Path="HOST" />
+    <Field Alias="DESCRICAO" From="A" Path="DESCRICAO" />
+    <Field Alias="APLICACAO" From="A" Path="APLICACAO" />
+    <Field Alias="USUARIO" From="A" Path="USUARIO" />
+    <Field Alias="TIPO" From="A" Path="TIPO" />
+    <Field Alias="TEMPOSEGUNDOS" From="A" Path="TEMPOSEGUNDOS" />
+    <Field Alias="AGRUPADOR" From="A" Path="AGRUPADOR" />
+    <Field Alias="MODULO" From="A" Path="MODULO" />
+    <Field Alias="SUGESTAO" From="A" Path="SUGESTAO" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Tecnologia</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

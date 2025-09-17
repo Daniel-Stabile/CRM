@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>RECEBIMENTOSFISCAISGRID</Identifier>
+  <Name>Recebimentos fiscais</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       A.FILIAL,&#xD;&#xA;       A.EMPRESA,&#xD;&#xA;       A.STATUS,&#xD;&#xA;       A.PESSOA,&#xD;&#xA;       P.NOME NOMEPESSOA,&#xD;&#xA;       -- CNPJ?&#xD;&#xA;       F.NOME NOMEFILIAL,&#xD;&#xA;       -- CNPJ&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       O.NOME NOMEOPERACAO,&#xD;&#xA;       A.TIPODOCUMENTO,&#xD;&#xA;       A.SERIE,&#xD;&#xA;       A.MODELO,&#xD;&#xA;       A.DATAENTRADA,&#xD;&#xA;       A.VALORNOMINAL,&#xD;&#xA;       A.VALORLIQUIDO,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       A.OPERACAO,&#xD;&#xA;       A.VALORLIQUIDOMOEDA,&#xD;&#xA;       A.VALORNOMINALMOEDA,&#xD;&#xA;       A.HISTORICO,&#xD;&#xA;       A.VALORESBAIXADOS,&#xD;&#xA;       A.VALORESBAIXADOSMOEDA,&#xD;&#xA;       A.DOCUMENTOCONTABIL,&#xD;&#xA;       A.ABRANGENCIA,&#xD;&#xA;       A.CONTABILIZADO,&#xD;&#xA;       A.USUARIOINCLUIU,&#xD;&#xA;       A.DATAINCLUSAO,&#xD;&#xA;       A.USUARIOALTEROU,&#xD;&#xA;       A.DATAALTERACAO,&#xD;&#xA;       A.DATACONFIRMACAO,&#xD;&#xA;       A.USUARIOCONFIRMOU,&#xD;&#xA;       A.ULTIMOBLOQUEIO,&#xD;&#xA;       A.USUARIOULTIMOBLOQUEIO,&#xD;&#xA;       A.ULTIMACONFIRMACAO,&#xD;&#xA;       A.USUARIOULTIMACONFIRMACAO,&#xD;&#xA;       A.OPERACAOCANCELAMENTO,&#xD;&#xA;       A.EHPREVISAO,&#xD;&#xA;       A.GRUPOASSINATURAS,&#xD;&#xA;       A.STATUSAPROVACAO,&#xD;&#xA;       A.NUMEROPEDIDO,&#xD;&#xA;       DOCUMENTODIGITADOSAUDE,&#xD;&#xA;       A.DATAULTIMALIQ,&#xD;&#xA;       A.EFETUANDOINTEGRACAO,&#xD;&#xA;       M.CODIGOSPED,&#xD;&#xA;       M.CODIGO CODIGOMODELO&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;       JOIN GN_PESSOAS P ON (P.HANDLE = A.PESSOA)&#xD;&#xA;       JOIN FILIAIS F ON (F.HANDLE = A.FILIAL)&#xD;&#xA;       JOIN GN_OPERACOES O ON (O.HANDLE = A.OPERACAO)&#xD;&#xA;       LEFT OUTER JOIN TR_MODELOSFISCAIS M ON (M.HANDLE = A.MODELO)&#xD;&#xA;&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="NOMEPESSOA" From="A" Path="NOMEPESSOA" />
+    <Field Alias="NOMEFILIAL" From="A" Path="NOMEFILIAL" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="NOMEOPERACAO" From="A" Path="NOMEOPERACAO" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="SERIE" From="A" Path="SERIE" />
+    <Field Alias="MODELO" From="A" Path="MODELO" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="VALORNOMINAL" From="A" Path="VALORNOMINAL" />
+    <Field Alias="VALORLIQUIDO" From="A" Path="VALORLIQUIDO" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="OPERACAO" From="A" Path="OPERACAO" />
+    <Field Alias="VALORLIQUIDOMOEDA" From="A" Path="VALORLIQUIDOMOEDA" />
+    <Field Alias="VALORNOMINALMOEDA" From="A" Path="VALORNOMINALMOEDA" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORESBAIXADOSMOEDA" From="A" Path="VALORESBAIXADOSMOEDA" />
+    <Field Alias="DOCUMENTOCONTABIL" From="A" Path="DOCUMENTOCONTABIL" />
+    <Field Alias="ABRANGENCIA" From="A" Path="ABRANGENCIA" />
+    <Field Alias="CONTABILIZADO" From="A" Path="CONTABILIZADO" />
+    <Field Alias="USUARIOINCLUIU" From="A" Path="USUARIOINCLUIU" />
+    <Field Alias="DATAINCLUSAO" From="A" Path="DATAINCLUSAO" />
+    <Field Alias="USUARIOALTEROU" From="A" Path="USUARIOALTEROU" />
+    <Field Alias="DATAALTERACAO" From="A" Path="DATAALTERACAO" />
+    <Field Alias="DATACONFIRMACAO" From="A" Path="DATACONFIRMACAO" />
+    <Field Alias="USUARIOCONFIRMOU" From="A" Path="USUARIOCONFIRMOU" />
+    <Field Alias="ULTIMOBLOQUEIO" From="A" Path="ULTIMOBLOQUEIO" />
+    <Field Alias="USUARIOULTIMOBLOQUEIO" From="A" Path="USUARIOULTIMOBLOQUEIO" />
+    <Field Alias="ULTIMACONFIRMACAO" From="A" Path="ULTIMACONFIRMACAO" />
+    <Field Alias="USUARIOULTIMACONFIRMACAO" From="A" Path="USUARIOULTIMACONFIRMACAO" />
+    <Field Alias="OPERACAOCANCELAMENTO" From="A" Path="OPERACAOCANCELAMENTO" />
+    <Field Alias="EHPREVISAO" From="A" Path="EHPREVISAO" />
+    <Field Alias="GRUPOASSINATURAS" From="A" Path="GRUPOASSINATURAS" />
+    <Field Alias="STATUSAPROVACAO" From="A" Path="STATUSAPROVACAO" />
+    <Field Alias="NUMEROPEDIDO" From="A" Path="NUMEROPEDIDO" />
+    <Field Alias="DOCUMENTODIGITADOSAUDE" From="A" Path="DOCUMENTODIGITADOSAUDE" />
+    <Field Alias="DATAULTIMALIQ" From="A" Path="DATAULTIMALIQ" />
+    <Field Alias="EFETUANDOINTEGRACAO" From="A" Path="EFETUANDOINTEGRACAO" />
+    <Field Alias="CODIGOSPED" From="A" Path="CODIGOSPED" />
+    <Field Alias="CODIGOMODELO" From="A" Path="CODIGOMODELO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

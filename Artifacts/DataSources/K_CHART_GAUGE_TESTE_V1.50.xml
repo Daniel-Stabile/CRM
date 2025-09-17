@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CHART_GAUGE_TESTE_V1</Identifier>
+  <Name>CHART_GAUGE_TESTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="select  'rotulo' rotulo,&#xD;&#xA;        sum(VALORTOTAL) valor1,&#xD;&#xA;        sum(VALORTOTAL) valor2&#xD;&#xA;from K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="ROTULO" From="A" Path="ROTULO" />
+    <DecimalField Alias="VALOR1" From="A" Path="VALOR1" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALOR2" From="A" Path="VALOR2" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

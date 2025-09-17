@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_CLI_PEDIDOLOCALENTREGA.FORM</ViewName>
+  <EntityName>CM_ORDENSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCUSTOMALTERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCUSTOMALTERARExecute(command, entity):
+    from Benner.Tecnologia.Common.Components import LinkDefinition
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Entity
+    link = command.OutputDefinition
+    link.Parameters["ABRANGENCIA"] = "CAPA"
+    link.Parameters["ENTREGA"] = 0
+    
+    
+    definition = EntityDefinition.GetByName("CM_WEB_PEDIDOSVENDA")
+    criterio = Criteria()
+    criterio.Where = "A.ORDEMVENDA = " + str(entity.Handle.Value)
+    registro = Entity.Get(definition, criterio)
+    
+    link.Parameters["STATUS"] = int(registro.Fields["STATUS"].Value)
+    link.Parameters["CLIENTE"] = int(registro.Fields["CLIENTE"].Handle.Value)
+    link.Parameters["PEDIDO"] = int(registro.Fields["HANDLE"].Value)
+    link.Parameters["ATUAL"] = int(registro.Fields["DESTINATARIOPADRAO"].Handle.Value)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

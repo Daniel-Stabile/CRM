@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ORDENS_COMPRA_APROVAR.FORM</ViewName>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnRecusarExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRecusarExecute(command, entity):
+    entity.TransitoryVars["HANDLE"] = entity["HANDLE"].Value
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    ordemCompra = widget.Entity
+    if ordemCompra == None: return
+    
+    if widget.View.Commands["MAPA_ANALISE_COTACOES"] &lt;&gt; None: widget.View.Commands["MAPA_ANALISE_COTACOES"].Visible = ordemCompra.VisibilidadeComandoMapaAnaliseCotacoes</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

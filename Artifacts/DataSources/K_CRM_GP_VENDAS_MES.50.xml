@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GP_VENDAS_MES</Identifier>
+  <Name>CRM_GP_VENDAS_MES</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.NOME,SUM(A.VALOR) TOTAL&#xD;&#xA;FROM K_CRM_METASVENDAS A&#xD;&#xA;JOIN Z_GRUPOUSUARIOS B ON A.USUARIO = B.HANDLE&#xD;&#xA;WHERE MONTH(A.DATA) = MONTH(GETDATE())&#xD;&#xA;GROUP BY B.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DecimalField Alias="TOTAL" From="A" Path="TOTAL" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FX_LANCAMENTORAPIDO.FORM</ViewName>
+  <EntityName>FX_LANCAMENTORAPIDO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    from Benner.Tecnologia.Common import EntityState
+    from System import DateTime
+    if widget.Entity != None:
+        if widget.Entity.State != EntityState.Read :
+            if (widget.Entity.Fields["DATAVENCIMENTO"] == None):
+                widget.Entity.Fields["DATAVENCIMENTO"] = DateTime.Today
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCONTAFINANCEIRAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONTAFINANCEIRAValueChanged(view, entity):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Handle   
+    from Benner.Tecnologia.Common import RadioItem
+    
+    if entity.Fields["CONTAFINANCEIRA"].Handle.IsValid() :
+    
+        criterioConta = Criteria()
+        
+        sqlConta = "SELECT NATUREZA FROM FN_CONTAS WHERE HANDLE = :HANDLE "
+        criterioConta.Parameters.Add(Parameter("HANDLE", entity.Fields["CONTAFINANCEIRA"].Handle))
+        edConta = EntityDefinition.Create()
+        edConta.EntitySource = QuerySource(sqlConta)
+        conta = Entity.GetMany(edConta, criterioConta)
+       
+        if (conta[0].Fields["NATUREZA"] == "C"):
+            entity.Fields["NATUREZA"] = RadioItem("C", "Crédito") 
+            
+        if (conta[0].Fields["NATUREZA"] == "D"):
+            entity.Fields["NATUREZA"] = RadioItem("D", "Débito")  
+        
+        if (conta[0].Fields["NATUREZA"] == "A"):
+            entity.Fields["NATUREZA"] = None
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

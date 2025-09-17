@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTRATOS_FATURAMENTO_FALTA_FATURAR</Identifier>
+  <Name>Indicadores contratos faturamento - Valor falta faturar</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CN_DWINDICADORVALORES.VALOR AS TOTAL_FALTAFATURAR &#xA;  FROM CN_DWINDICADORVALORES &#xA;  JOIN CN_DWINDICADORES ON (CN_DWINDICADORES.HANDLE = CN_DWINDICADORVALORES.COLETA AND CN_DWINDICADORES.TIPOCOLETA = 1)&#xA; WHERE CN_DWINDICADORVALORES.TIPO = 3 AND @CRITERIOSELECAO" />
+  <Fields>
+    <Field Alias="TOTAL_FALTAFATURAR" From="A" Path="TOTAL_FALTAFATURAR" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

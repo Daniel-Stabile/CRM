@@ -1,0 +1,51 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div class="portlet solid bordered grey-cararra">
+            <div class="portlet-body">
+                <div id="graficoUltimos12Meses" class="chart">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var ProcessarGrafico = function () {
+        var filtroAplicado = $('#FILTROAPLICADO').val() === "True";
+
+        if (filtroAplicado)
+            popularGrafico($('#DADOSGRAFICO').val());
+        else
+            jogarMensagemSemFiltro();
+    }
+		
+	var grafico;
+	
+    var jogarMensagemSemFiltro = function () {
+		
+		if (grafico)
+			grafico.dispose();
+			
+		grafico = CorpComponents.AmCharts.CriarBaseGraficoXY("graficoUltimos12Meses", {}, "mes");
+        let label = grafico.createChild(am4core.Label);
+		label.text = "Aplique um filtro para visualizar os dados.";
+		label.fontSize = 14;
+		label.horizontalCenter = "middle";
+		label.x = am4core.percent(50);
+		label.verticalCenter = "center";
+		label.y = 0;
+        grafico.legend.visible = false;
+    }
+
+    var popularGrafico = function (jsonDadosGrafico) {
+		
+		if (grafico)
+				grafico.dispose();
+				
+		grafico = CorpComponents.AmCharts.CriarBaseGraficoXY("graficoUltimos12Meses", JSON.parse(jsonDadosGrafico), "mes");
+		CorpComponents.AmCharts.CriarLinha(grafico, "valor_total_previsto", "Total previsto", "mes");
+		CorpComponents.AmCharts.CriarLinha(grafico, "valor_faturado", "Total faturado", "mes");
+		CorpComponents.AmCharts.CriarLinha(grafico, "fat_medio_contrato", "Fat. médio por contrato", "mes");
+		CorpComponents.AmCharts.CriarLinha(grafico, "faturado_periodo_anterior", "Total fat. período anterior", "mes");
+    }
+</script>

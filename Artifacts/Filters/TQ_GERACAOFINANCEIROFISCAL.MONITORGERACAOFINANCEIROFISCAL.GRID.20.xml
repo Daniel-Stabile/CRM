@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TQ_GERACAOFINANCEIROFISCAL.MONITORGERACAOFINANCEIROFISCAL.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>TQ_GERACAOFINANCEIROFISCAL</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Padrão</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2 E 3</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="FILIAL">
+    <TableName>FN_DOCUMENTOS</TableName>
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>em</Name>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Filial</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="APELIDO">
+    <TableName>Z_GRUPOUSUARIOS</TableName>
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>contém</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>%{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <Label>Usuario</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="3" FieldName="DATAPROCESSAMENTO">
+    <TableName>TQ_GERACAOFINANCEIROFISCAL</TableName>
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>entre</Name>
+      <DatabaseOperator>BETWEEN</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Data</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ALMOXARIFES.GRID</ViewName>
+  <EntityName>PD_ALMOXARIFES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.Hidden = False
+    if (widget.ProviderWidget.Entity.Fields["NIVELSUPERIOR"].Instance != None):
+        if (widget.ProviderWidget.Entity.NivelSuperior.Handle.Value &gt; 0):
+            widget.Hidden = not widget.ProviderWidget.Entity.UltimoNivel
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PLANEJAMENTOANEXOS.CICLOS.GRID</ViewName>
+  <EntityName>GP_PLANEJAMENTOANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.ProviderWidget.Entity
+    if widget.View.Commands["New"] != None and widget.ProviderWidget.Entity.Fields["STATUS"].Value != 1:
+        widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    grid = row.Grid
+    if grid == None: return
+    form = grid.ProviderWidget
+    if form == None: return
+    status = form.Entity.Fields["STATUS"].Value
+    if status != 1:
+        row.EditCommand.Visible = False
+        row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

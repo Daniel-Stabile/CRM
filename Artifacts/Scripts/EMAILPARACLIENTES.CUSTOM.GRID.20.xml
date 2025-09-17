@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>EMAILPARACLIENTES.CUSTOM.GRID</ViewName>
+  <EntityName>EMAILPARACLIENTES.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    row.GetCellByName("EMISSAO").Text = entity.Fields["EMISSAO"].ToString("dd/MM/yyyy")
+    row.GetCellByName("VENCIMENTO").Text = entity.Fields["VENCIMENTO"].ToString("dd/MM/yyyy")
+    row.GetCellByName("VCTOPRORROGADO").Text = entity.Fields["VCTOPRORROGADO"].ToString("dd/MM/yyyy")
+    
+    row.GetCellByName("VALOR").Text = entity.Fields["VALOR"].ToString("C2")
+    row.GetCellByName("VALORBAIXADO").Text = entity.Fields["VALORBAIXADO"].ToString("C2")
+    row.GetCellByName("SALDO").Text = entity.Fields["SALDO"].ToString("C2")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

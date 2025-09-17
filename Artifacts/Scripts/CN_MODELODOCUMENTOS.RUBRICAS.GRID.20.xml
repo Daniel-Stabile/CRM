@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_MODELODOCUMENTOS.RUBRICAS.GRID</ViewName>
+  <EntityName>CN_MODELODOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("DOCUMENTO").Text = "&lt;span&gt;&lt;i class='fa fa-arrow-circle-down font-green-sharp'&gt;&lt;/i&gt; " + row.GetCellByName("DOCUMENTO").Text + "&lt;/span&gt;";</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

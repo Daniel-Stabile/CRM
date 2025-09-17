@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_V1_BARRA_OPORTUNIDADE_VALORFINAL.DATASOURCE.GRID</ViewName>
+  <Level>Cliente</Level>
+  <EntityName>K_CRM_V1_BARRA_OPORTUNIDADE_VALORFINAL.DATASOURCE</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Por Data</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>K_VT_INTERVALO_DATA.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>D.DATAFECHAMENTO BETWEEN @CAMPO(DATAINICIO) AND @CAMPO(DATAFIM)</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

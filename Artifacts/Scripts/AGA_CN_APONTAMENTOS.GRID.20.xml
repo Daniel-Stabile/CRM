@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_APONTAMENTOS.GRID</ViewName>
+  <EntityName>CN_APONTAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    contratoEmElaboracao = entity.ContratoEmElaboracao(entity.Fields["CONTRATO"].Handle.Value)
+    
+    if (not contratoEmElaboracao):
+        statusAditivo = int(entity.Fields["STATUS"].Value)
+        statusCadastrado = 1    
+        if (statusAditivo &gt; statusCadastrado):
+            if row.EditCommand != None: row.EditCommand.Visible = False
+            if row.DeleteCommand != None: row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    registro = widget.ProviderWidget
+    if registro == None: return
+    
+    handleBreadCrumbContrato = widget.Breadcrumb.Parent.Entity.Handle
+    
+    if handleBreadCrumbContrato == None: return
+    
+    contrato = CNContrato.GetFirstOrDefault(handleBreadCrumbContrato.Value)
+    
+    if contrato == None: return
+
+    permissaoApontamentos = contrato.IncluiEditaExcluiApontamentos
+    
+    if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = permissaoApontamentos
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

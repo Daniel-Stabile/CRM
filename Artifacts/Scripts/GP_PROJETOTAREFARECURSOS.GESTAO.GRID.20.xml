@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFARECURSOS.GESTAO.GRID</ViewName>
+  <EntityName>GP_PROJETOTAREFARECURSOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    from Benner.Tecnologia.Common import BennerContext
+    projetoEntity = GPProjetos.Get(widget.ProviderWidget.Entity.ProjetoHandle)
+    usuarioEhGestor = BennerContext.Security.GetLoggedUserHandle() ==projetoEntity.GestorProjetoHandle
+    entity = widget.ProviderWidget.Entity
+    if (entity != None and entity.Fields["TAREFAAGRUPADORA"]): widget.Hidden = True
+    
+    status = 0;
+    if widget.ProviderWidget.Entity.Fields["STATUS"] != None: 
+        status = widget.ProviderWidget.Entity.Fields["STATUS"].Value;
+    
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = (status != 3 and not widget.ProviderWidget.Entity.Fields["PROJETOLINHABASE"].Handle.IsValid()) and usuarioEhGestor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    from Benner.Tecnologia.Common import BennerContext
+    projetoEntity = GPProjetos.Get(entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETO"].Instance.Handle)
+    usuarioEhGestor = BennerContext.Security.GetLoggedUserHandle() ==projetoEntity.GestorProjetoHandle
+    
+    tarefaConcluida = GPProjetoTarefas.TarefaConcluida(entity.ProjetoHandle)
+    
+    if row.EditCommand != None: 
+        row.EditCommand.Visible = not tarefaConcluida and not entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid() and usuarioEhGestor
+    
+    if row.DeleteCommand != None: 
+        row.DeleteCommand.Visible = not tarefaConcluida and not entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid() and usuarioEhGestor
+    
+    if row.ViewCommand != None: 
+        row.ViewCommand.Visible = usuarioEhGestor
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

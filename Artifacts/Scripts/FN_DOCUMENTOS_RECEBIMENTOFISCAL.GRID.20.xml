@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS_RECEBIMENTOFISCAL.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+    
+    row.GetCustomCommand("CMD_LOG").Enabled = entity.Log != None
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_ORCAMENTOAPROVACOES_VISAOGERAL.GRID</ViewName>
+  <EntityName>CT_ORCAMENTOAPROVACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    ehAprovador = entity.EhAprovador()
+    status = entity.Status.Index
+
+    if (row.GetCustomCommand("CMD_APROVAR")): row.GetCustomCommand("CMD_APROVAR").Enabled = ehAprovador and status == 1
+    if (row.GetCustomCommand("CMD_RECUSAR")): row.GetCustomCommand("CMD_RECUSAR").Enabled = ehAprovador and status == 1
+    if (row.GetCustomCommand("CMD_CANCELAR")): row.GetCustomCommand("CMD_CANCELAR").Enabled = ehAprovador and (status == 1 or status == 3)
+    if (row.GetCustomCommand("CMD_LIBERAR")): row.GetCustomCommand("CMD_LIBERAR").Enabled = status == 3
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

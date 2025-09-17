@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CADASTRAR_ITEM_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACAOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFINALIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFINALIDADEValueChanged(view, entity):
+
+    entity.LimparProdutoVariacao()
+    #view.FieldDefinitions["PRODUTO"].Where = entity.SelecaoEspecialItem()
+    #view.FieldDefinitions["FAMILIA"].Where = entity.SelecaoEspecialFamilia()
+    
+    alterou = entity.VerificarSeAlterouFinalidade();
+    
+    if (alterou) :
+        entity.Fields["PRODUTO"].Handle = None
+        entity.Fields["FAMILIA"].Handle = None
+        entity.Fields["VARIACAO"].Handle = None
+        entity.Fields["UNIDADE"].Handle = None
+        entity.Fields["VALORESTIMADO"] = 0
+
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnFAMILIAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFAMILIAValueChanged(view, entity):
+    view.FieldDefinitions["PRODUTO"].Where = entity.SelecaoEspecialItem()
+    entity.LimparProdutoVariacao()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPRODUTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPRODUTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition 
+    
+    entity.SugerirUnidadeMedida()
+    entity.PreencherFamilia()
+    controleVariacao = entity.ProdutoControlaVariacao()
+    entity.PreencherVariacaoDefault()
+    entity.SugerirValorUnitario()
+    entity.PreencherSlaAtendimento()
+    
+    if (controleVariacao) :
+        view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :
+        view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    
+    entity.Fields["ESPECIFICACAODOITEM"] = entity.ObterEspecificacaoDoItem()
+    entity.Fields["DESCRICAODOITEM"] = entity.ObterDescricaoDoItem()</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCENTROCUSTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCENTROCUSTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition    
+
+    view.FieldDefinitions["PROJETO"].Required = entity.ExigirProjeto()
+
+    if entity["PROJETO"].GetInt32() &gt; 0:
+        view.FieldDefinitions["CENTROCUSTO"].Required = True
+    else :       
+        view.FieldDefinitions["CENTROCUSTO"].Required = False
+        
+    if entity["CENTROCUSTO"].GetInt32() &gt; 0:
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :       
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read         
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORESTIMADOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORESTIMADOValueChanged(view, entity):
+    if entity["QUANTIDADE"].GetInt64() &gt; 0 and entity["VALORESTIMADO"].GetDecimal() :
+        view.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % entity.ValorTotalItem())        
+    else :
+        view.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % 0)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnQUANTIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnQUANTIDADEValueChanged(view, entity):
+    if entity["QUANTIDADE"].GetInt64() &gt; 0 and entity["VALORESTIMADO"].GetDecimal() :
+        view.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % entity.ValorTotalItem())        
+    else :
+        view.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % 0)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition    
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPSolicitacaoItem
+    
+    # Controle da FINALIDADE quando IMOBILIZADO - SMS 2204196
+        # Para esse caso, se já possui item lançado deve utilizar a mesma finalidade para todos
+        # caso seja o primeiro item, o .Where recebe o filtro para atender a SMS
+    solicitacaoImobilizadoPossuiItens = widget.Entity.SolicitacaoImobilizadoPossuiItens()
+    
+    if solicitacaoImobilizadoPossuiItens:
+        widget.View.FieldDefinitions["FINALIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    else:
+        widget.View.FieldDefinitions["FINALIDADE"].Where = widget.Entity.FiltraFinalidadePelaSolicitacao()
+    # Fim do controla da FINALIDADE quando IMOBILIZADO - SMS 2204196
+    
+    if widget.Entity["QUANTIDADE"].GetDecimal() &gt; 0 and widget.Entity["VALORESTIMADO"].GetDecimal() &gt; 0 :
+        widget.View.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % widget.Entity.ValorTotalItem())
+    else :
+        widget.View.FieldDefinitions["VALORTOTAL"].Value = str('%.2f' % 0)
+        
+    #widget.View.FieldDefinitions["FINALIDADE"].Where = widget.Entity.SelecaoEspecialFinalidade() 
+    #widget.View.FieldDefinitions["CENTROCUSTO"].Where = widget.Entity.SelecaoEspecialCC() 
+    #widget.View.FieldDefinitions["PROJETO"].Where = widget.Entity.SelecaoEspecialProjeto()
+    
+    #if not widget.Entity.FinalidadeValida() :
+    #    widget.MessagePanel.ShowMessage("Você não tem autorização para selecionar esta finalidade, selecione outra.", MessageType.Warning)    
+    
+    if not widget.Entity.FinalidadeAtiva() :
+        widget.MessagePanel.ShowMessage("A finalidade selecionada está inativa, por favor selecione outra.", MessageType.Warning)
+        
+    if not widget.Entity.FinalidadeValidaFilial() :
+        widget.MessagePanel.ShowMessage("A filial informada não está autorizada a utilizar esta finalidade, por favor selecione outra.", MessageType.Warning)        
+    
+    if not widget.Entity.EhRegularizacao() :
+        widget.View.Commands["REGULARIZACAO"].Visible = False
+        
+    #if widget.Entity["PROJETO"].GetInt32() &gt; 0:
+    #    widget.View.FieldDefinitions["CENTROCUSTO"].Required = True
+    #else :       
+    #    widget.View.FieldDefinitions["CENTROCUSTO"].Required = False
+        
+    if widget.Entity["CENTROCUSTO"].GetInt32() &gt; 0:
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :       
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read       
+        
+    if widget.Entity.ProdutoControlaVariacao() :
+        widget.View.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :
+        widget.View.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read    
+
+    if widget.Entity.EhCatalogo() :
+        widget.View.Commands["SaveNew"].Visible = False
+        widget.View.Commands["New"].Visible = False        
+        widget.View.FieldDefinitions["FINALIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["PRODUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        if widget.Entity["CENTROCUSTO"].GetInt32() &gt; 0:
+            widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit        
+        #widget.View.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["FAMILIA"].DataAccessLevel = FieldDefinition.AccessLevel.Read        
+        widget.View.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["UNIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["VALORESTIMADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["DATANECESSIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        widget.View.FieldDefinitions["INFORMACOESCOMPRADOR"].DataAccessLevel = FieldDefinition.AccessLevel.Edit          
+    else :        
+    
+        if widget.Entity["FINALIDADE"].GetInt32() &gt; 0 :        
+            widget.View.FieldDefinitions["PRODUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            if widget.Entity["CENTROCUSTO"].GetInt32() &gt; 0:
+                widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            #widget.View.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            widget.View.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            widget.View.FieldDefinitions["FAMILIA"].DataAccessLevel = FieldDefinition.AccessLevel.Edit        
+            widget.View.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            widget.View.FieldDefinitions["UNIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            widget.View.FieldDefinitions["VALORESTIMADO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            widget.View.FieldDefinitions["DATANECESSIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            widget.View.FieldDefinitions["INFORMACOESCOMPRADOR"].DataAccessLevel = FieldDefinition.AccessLevel.Edit 
+        else :   
+            widget.View.FieldDefinitions["PRODUTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["FAMILIA"].DataAccessLevel = FieldDefinition.AccessLevel.Read        
+            widget.View.FieldDefinitions["QUANTIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["UNIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["VALORESTIMADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["DATANECESSIDADE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            widget.View.FieldDefinitions["INFORMACOESCOMPRADOR"].DataAccessLevel = FieldDefinition.AccessLevel.Read  
+            
+    widget.View.FieldDefinitions["PRODUTO"].Where = widget.Entity.SelecaoEspecialItem()
+    widget.View.FieldDefinitions["FAMILIA"].Where = widget.Entity.SelecaoEspecialFamilia()            
+            
+    if widget.Entity.TemRateio():
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["CENTROCUSTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read              
+    handlePai = widget.Entity["SOLICITACAO"].GetInt64()
+    
+    widget.View.Commands["RATEIO"].Visible = CPSolicitacaoItem.VisibilidadeRateio(handlePai)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPROJETOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPROJETOValueChanged(view, entity):
+
+    if entity["PROJETO"].GetInt32() &gt; 0:
+        view.FieldDefinitions["CENTROCUSTO"].Required = True
+    else :       
+        view.FieldDefinitions["CENTROCUSTO"].Required = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

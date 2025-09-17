@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_VTCALCULOPISCOFINS.FORM</ViewName>
+  <EntityName>AT_VTCALCULOPISCOFINS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    from Benner.Corporativo.Definicoes.Ativo import ATVTCalculoPisCofinsCalcularTabItens
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    if (entity.Calcular == ATVTCalculoPisCofinsCalcularTabItens.ItemExcluir and not AuthorizationHelper.HasTask("ATIVO_EXCLUIR_RECUPERACAOPISCOFINS") ):
+        raise CancelledOperationException("O usuário não tem permissão de excluir")
+    if (entity.Calcular == ATVTCalculoPisCofinsCalcularTabItens.ItemExcluir):
+        command.RequestConfirmationBeforeExecute("Os créditos dessa data serão excluídos. Deseja continuar ??")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    registro = widget.Entity
+    
+    widget.View.FieldDefinitions["CALCULAR"].Visible = AuthorizationHelper.HasTask("VISUALIZAR_FATORESCREDITOICMS")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCALCULARValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCALCULARValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    raise CancelledOperationException("Usuário não possui acesso ao(s) módulo(s) deste papel.")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

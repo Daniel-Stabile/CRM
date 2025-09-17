@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_NOTAFISCALSERVICO.NFS.FORM</ViewName>
+  <EntityName>CLOUD_NOTAFISCALSERVICO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnEHPESSOAFISICAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEHPESSOAFISICAValueChanged(view, entity):
+    if True == (entity.Fields["EHPESSOAFISICA"]) : 
+        view.FieldDefinitions["CPFCNPJ"].Title = "CPF";
+        view.FieldDefinitions["TELEFONE"].Visible = True;
+        view.FieldDefinitions["RG"].Visible = True;
+        view.FieldDefinitions["EMAIL"].Visible = True;
+        view.FieldDefinitions["ENDERECO"].Visible = True;
+        view.FieldDefinitions["NUMERO"].Visible = True;
+        view.FieldDefinitions["COMPLEMENTO"].Visible = True;
+        view.FieldDefinitions["BAIRRO"].Visible = True;
+        view.FieldDefinitions["CIDADE"].Visible = True;
+    if False == (entity.Fields["EHPESSOAFISICA"]) : 
+        view.FieldDefinitions["CPFCNPJ"].Title = "CNPJ";
+        view.FieldDefinitions["TELEFONE"].Visible = False;
+        view.FieldDefinitions["RG"].Visible = False;
+        view.FieldDefinitions["EMAIL"].Visible = False;
+        view.FieldDefinitions["ENDERECO"].Visible = False;
+        view.FieldDefinitions["NUMERO"].Visible = False;
+        view.FieldDefinitions["COMPLEMENTO"].Visible = False;
+        view.FieldDefinitions["BAIRRO"].Visible = False;
+        view.FieldDefinitions["CIDADE"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

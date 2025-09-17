@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TS_LANCAMENTOS.CUSTOM.GRID</ViewName>
+  <EntityName>TS_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    #Se for Diretor, deve ter permissão para Manter e Visualizar, porém somente visualiza
+    permissaoVisualizarDiretor = (AuthorizationHelper.HasTask("VISUALIZAR_TESOURARIA") and AuthorizationHelper.HasTask("MANTERMOVIMENTACOESTESOURARIA"))
+    if (permissaoVisualizarDiretor):
+        if (widget.View.Commands["CMD_TRANSFERENCIA"] != None):
+            widget.View.Commands["CMD_TRANSFERENCIA"].Visible = False
+        if (widget.View.Commands["CMD_BAIXARAPIDA"] != None):
+            widget.View.Commands["CMD_BAIXARAPIDA"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+    
+    campoValor = row.GetCellByName("VALORLANCAMENTO")
+    campoNatureza = row.GetCellByName("NATUREZA")
+    if (str(entity["NATUREZALANCAMENTO"].GetDBValue()) == "D"):
+        campoValor.TextColor = "#E43A45"
+        campoNatureza.TextColor = "#E43A45"
+    else:
+        campoValor.TextColor = "#4C87B9"
+        campoNatureza.TextColor = "#4C87B9"
+        
+    campoValor.Align = "right"
+    campoNatureza.Align = "center"</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnAVANCADOFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnAVANCADOFilter(args):
+    from System.Collections.Generic import List
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter 
+    args.WhereClause.Clear();
+    
+    if(not args.Entity["EMISSAODE"].IsNull):
+        args.WhereClause.AddWhereClause("A.DATAEMISSAO &gt;= :EMISSAODE", Parameter("EMISSAODE", args.Entity["EMISSAODE"].Value))
+    if(not args.Entity["EMISSAOATE"].IsNull):
+        args.WhereClause.AddWhereClause("A.DATAEMISSAO &lt;= :EMISSAOATE", Parameter("EMISSAOATE", args.Entity["EMISSAOATE"].Value))</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

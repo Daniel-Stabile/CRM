@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_ACAOPESSOAS.CUSTOM.GRID</ViewName>
+  <EntityName>CRM_ACAOPESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_REMOVERTODOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_REMOVERTODOSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja excluir todas as pessoas desta ação relacionamento?")
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    
+    acaoRelacionamento = widget.ProviderWidget.Entity
+    if (not acaoRelacionamento is None):
+        handleResponsavel = acaoRelacionamento.Fields["RESPONSAVEL"].Handle
+        handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+        widget.View.Commands["Edit"].Visible = (acaoRelacionamento.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel)
+        widget.View.Commands["Delete"].Visible = (acaoRelacionamento.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel)
+        widget.View.Commands["New"].Visible = (acaoRelacionamento.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel)
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

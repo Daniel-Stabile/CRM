@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>LANCAMENTOS_ADTO_CLI_FORN.DATASOURCE.GRID</ViewName>
+  <EntityName>LANCAMENTOS_ADTO_CLI_FORN.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("COMPETENCIA").Text = entity.Fields["COMPETENCIA"].ToString("dd/MM/yyyy");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

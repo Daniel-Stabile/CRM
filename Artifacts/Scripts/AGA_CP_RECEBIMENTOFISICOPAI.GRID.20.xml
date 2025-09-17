@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_RECEBIMENTOFISICOPAI.GRID</ViewName>
+  <EntityName>CP_RECEBIMENTOFISICOPAI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    statusCadastrado = 1
+    statusDivergente = 2
+    statusLiberado = 5
+    statusCancelado = 4
+    status = entity["STATUS"].GetInt32()
+    
+    tipo = entity["TIPO"].GetInt32()
+    tipoComOrdemCompra = 1
+    tipoDevolucaoDeCliente = 4
+    tipoNotaFiscalDeRetorno = 5
+    tipoTransferenciaDeFilial = 3
+    tipoItemSemOrdemDeCompra = 2
+    tipoComContratoCompra = 6
+    
+    podeAlterar = ((tipo == tipoComOrdemCompra or tipo == tipoDevolucaoDeCliente or tipo == tipoNotaFiscalDeRetorno or tipo == tipoTransferenciaDeFilial or tipo == tipoItemSemOrdemDeCompra or tipo == tipoComContratoCompra) and (status == statusCadastrado or status == statusDivergente or status == statusLiberado))
+    podeExcluir = ((tipo == tipoComOrdemCompra or tipo == tipoDevolucaoDeCliente or tipo == tipoNotaFiscalDeRetorno or tipo == tipoTransferenciaDeFilial or tipo == tipoItemSemOrdemDeCompra or tipo == tipoComContratoCompra) and (status == statusCadastrado or status == statusDivergente or status == statusLiberado or status == statusCancelado))
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible = podeAlterar
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = podeExcluir
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

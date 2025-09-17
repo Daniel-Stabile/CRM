@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PR_ORDENSDESMONTAGEM.FORM</ViewName>
+  <EntityName>PR_ORDENSDESMONTAGEM</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    EntidadeOD = widget.Entity
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = False
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = False
+    if (EntidadeOD.Fields["STATUS"].Value == 1):
+        if widget.View.Commands["Edit"] != None:
+            widget.View.Commands["Edit"].Visible = True
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = True
+        if(EntidadeOD.Fields["LIBERADA"]):
+            if widget.View.Commands["Edit"] != None:
+		        widget.View.Commands["Edit"].Visible = False
+            if widget.View.Commands["Delete"] != None:
+                    widget.View.Commands["Delete"].Visible = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS.FATURAMENTO.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONTASFINANCEIRASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONTASFINANCEIRASExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] =  FNLancamentoCodigoInterno.ciFAT
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = True    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_BLOQUETOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_BLOQUETOExecute(command, entity):
+    command.OutputDefinition.Parameters["DOCUMENTO"] = entity.Fields["DOCUMENTOORIGEM"].Handle
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_REABRIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_REABRIRExecute(command, entity):
+     command.RequestConfirmationBeforeExecute("Deseja reabrir esta nota fiscal para edição?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnGNREExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnGNREExecute(command, entity):
+    from Benner.Tecnologia.Common.BennerVariables import BennerVarsFactory
+    BennerVarsFactory().CreateSessionVars().SetSessionVar("P2511FILTRO", str(entity.Handle))
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_COPIARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_COPIARExecute(command, entity):
+        command.RequestConfirmationBeforeExecute("Confirma cópia de nota?")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

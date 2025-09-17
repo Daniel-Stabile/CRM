@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>OCORRENCIAS_CONTABILIZACAO_SERVIDOR</Identifier>
+  <Name>Ocorrências de contabilização no servidor</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT C.HANDLE, C.HANDLEORIGEM, C.LOG, C.DATAINCLUSAO, C.DATAPROCESSAMENTO, USU.NOME USUARIONOME,        &#xD;&#xA;DOC.DOCUMENTODIGITADO DOCUMENTODIGITADO, TES.HANDLE CHAVETESOURARIA ,MUT.CONTRATO NUMEROCONTRATO,        &#xD;&#xA;FAC.NUMEROPROCESSO NUMEROPROCESSO, PARC.AP AP, MOV.NUMERODOCUMENTO NUMERODOCUMENTO, C.ORIGEM, C.EMPRESA, C.USUARIO &#xD;&#xA;FROM TQ_CONTABILIZACOES C  &#xD;&#xA;INNER JOIN  Z_GRUPOUSUARIOS USU ON USU.HANDLE = C.USUARIO  &#xD;&#xA;LEFT  JOIN  FN_DOCUMENTOS DOC ON DOC.HANDLE = C.HANDLEORIGEM  AND (C.ORIGEM = 1 OR C.ORIGEM = 2 OR C.ORIGEM = 3 OR C.ORIGEM = 4) &#xD;&#xA;LEFT  JOIN  TS_LANCAMENTOS TES ON TES.HANDLE = C.HANDLEORIGEM  AND C.ORIGEM = 5 &#xD;&#xA;LEFT  JOIN  CO_LANCAMENTOS MUT ON MUT.HANDLE = C.HANDLEORIGEM  AND C.ORIGEM = 6 &#xD;&#xA;LEFT  JOIN  FC_PROCESSOS FAC ON FAC.HANDLE = C.HANDLEORIGEM  AND C.ORIGEM = 8 &#xD;&#xA;LEFT  JOIN  FN_MOVIMENTACOES MOV ON MOV.HANDLE = C.HANDLEORIGEM  AND (C.ORIGEM = 11 OR C.ORIGEM = 12) &#xD;&#xA;LEFT  JOIN  FN_PARCELAS PARC ON PARC.HANDLE = MOV.PARCELA  &#xD;&#xA;WHERE C.STATUS = 2  &#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="HANDLEORIGEM" From="A" Path="HANDLEORIGEM" />
+    <Field Alias="LOG" From="A" Path="LOG" />
+    <Field Alias="DATAINCLUSAO" From="A" Path="DATAINCLUSAO" />
+    <Field Alias="DATAPROCESSAMENTO" From="A" Path="DATAPROCESSAMENTO" />
+    <Field Alias="USUARIONOME" From="A" Path="USUARIONOME" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="CHAVETESOURARIA" From="A" Path="CHAVETESOURARIA" />
+    <Field Alias="NUMEROCONTRATO" From="A" Path="NUMEROCONTRATO" />
+    <Field Alias="NUMEROPROCESSO" From="A" Path="NUMEROPROCESSO" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="NUMERODOCUMENTO" From="A" Path="NUMERODOCUMENTO" />
+    <Field Alias="ORIGEM" From="A" Path="ORIGEM" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="USUARIO" From="A" Path="USUARIO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

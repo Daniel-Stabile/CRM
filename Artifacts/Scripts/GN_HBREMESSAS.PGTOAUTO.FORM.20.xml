@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_HBREMESSAS.PGTOAUTO.FORM</ViewName>
+  <EntityName>GN_HBREMESSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    registro = widget.Entity
+    if registro == None: return
+    if registro.State == EntityState.Initialized:
+        widget.View.FieldDefinitions["TOTALTITULOS"].Visible = False;
+        widget.View.FieldDefinitions["VALORTOTAL"].Visible = False;
+        widget.View.FieldDefinitions["VALORLIQUIDOTOTAL"].Visible = False;
+        widget.View.FieldDefinitions["ARQUIVOGERADO"].Visible = False;
+        widget.View.FieldDefinitions["DATA"].Visible = False;
+    else:
+        widget.View.FieldDefinitions["TOTALTITULOS"].Visible = True;
+        widget.View.FieldDefinitions["VALORTOTAL"].Visible = True;
+        widget.View.FieldDefinitions["VALORLIQUIDOTOTAL"].Visible = True;
+        widget.View.FieldDefinitions["ARQUIVOGERADO"].Visible = True;
+        widget.View.FieldDefinitions["DATA"].Visible = True;
+        
+    if(widget.View.Commands["Delete"] != None):
+        widget.View.Commands["Delete"].Visible = registro["TOTALTITULOS"].GetInt32() == 0 or registro["ARQUIVOGERADO"].GetString() != "True"
+        
+    if(widget.View.Commands["Edit"] != None):
+        widget.View.Commands["Edit"].Visible = registro["TOTALTITULOS"].GetInt32() == 0 or registro["ARQUIVOGERADO"].GetString() != "True"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

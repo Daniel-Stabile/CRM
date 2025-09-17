@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_OPERACAOCONTABILLANCAMENTOS.FORM</ViewName>
+  <EntityName>GN_OPERACAOCONTABILLANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["Delete"].Visible = AuthorizationHelper.HasTask("EXCLUIR_OPERACOESCONTABEIS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_OPERACOESCONTABEIS")
+    widget.View.Commands["Edit"].Visible = AuthorizationHelper.HasTask("MANTER_OPERACOESCONTABEIS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

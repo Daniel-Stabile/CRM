@@ -1,0 +1,44 @@
+
+<div id="PAINELCOMANDOS">
+    <a id="SALVARORCAMENTO" onclick="Salvar()" class="btn command-action custom-action blue" style=""><i class="fa fa-check btn-action"></i> Salvar</a>
+    <a id="EXPORTARORCAMENTO" onclick="Exportar()" class="btn command-action custom-action yellow-casablanca" style=""><i class="fa fa-upload btn-action"></i> Exportar</a>
+    <a id="IMPORTARORCAMENTO" onclick="Importar('@ViewBag.UrlImportar')" class="btn command-action custom-action green-meadow" style=""><i class="fa fa-download btn-action"></i> Importar</a>
+</div>
+   
+    <div id="ERRO_CONTAINER" class="alert alert-danger" style="display: none;">
+        <button class="close" data-dismiss="alert"></button>
+        <span id="ERRO_MENSAGEM">A busca trouxe muitos registros, refine seu filtro.</span>
+    </div>
+
+<div id="containerOrcamento"
+     class="widget-body-projecao"
+     style="height: calc(100vh - 240px); width: auto; overflow: hidden;"
+     data-originalstyle="height: calc(100vh - 240px); width: auto; overflow: hidden;">
+</div>
+
+<script>
+    
+    // funções que são chamadas durante a montagem do Json
+    function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        td.style.fontWeight = 'bold';
+        td.style.color = 'black';
+    }
+
+    function firstRowRendererVoidCells(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        td.style.background = '#EEE';
+    }
+
+    function firstColRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        if (col < 1) {
+            td.style.textAlign = 'left';
+        }
+        if (col == 0 && row == 0) {
+            td.style.background = '#EEE';
+        }
+        td.style.fontWeight = 'bold';
+        td.style.color = 'black';
+    }
+</script>

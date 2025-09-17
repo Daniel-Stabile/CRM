@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_RETRABALHOAPONTITEMLOTES.CUSTOM.GRID</ViewName>
+  <EntityName>PR_RETRABALHOAPONTITEMLOTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Business import Query
+    mestre = widget.ProviderWidget
+    if mestre != None:
+        entidadeMestre = mestre.Entity
+        if entidadeMestre != None :
+            sqlProduto = Query("SELECT LOTE,TEMVARIACAO FROM PD_PRODUTOS WHERE HANDLE = "+str(entidadeMestre["PRODUTO"].GetInt64())+"");
+            sqlApontamento = Query("SELECT STATUS FROM PR_ORDEMRETRABALHOAPONTAMENTO WHERE HANDLE IN (SELECT APONTAMENTO FROM PR_ORDEMRETRABALHOAPONTITENS WHERE HANDLE =  "+str(entidadeMestre["HANDLE"].GetInt64())+")");
+            resultadoProduto = sqlProduto.Execute()
+            resultadoApontamento = sqlApontamento.Execute()
+    
+            if widget.View.Commands["Edit"] != None:
+                widget.View.Commands["Edit"].Visible = False
+            if widget.View.Commands["Delete"] != None:
+                widget.View.Commands["Delete"].Visible = False
+            if widget.View.Commands["New"] != None:
+                widget.View.Commands["New"].Visible = False
+            if(resultadoApontamento.Count &gt; 0):
+                if(resultadoApontamento[0]["STATUS"].GetInt64() == 1):
+                    if(resultadoProduto != None):
+                        if(resultadoProduto[0]["LOTE"].GetBoolean()):
+                            if widget.View.Commands["Edit"] != None:
+                                widget.View.Commands["Edit"].Visible = True
+                            if widget.View.Commands["Delete"] != None:
+                                widget.View.Commands["Delete"].Visible = True
+                            if widget.View.Commands["New"] != None:
+                                widget.View.Commands["New"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

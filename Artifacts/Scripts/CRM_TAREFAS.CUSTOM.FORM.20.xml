@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_TAREFAS.CUSTOM.FORM</ViewName>
+  <EntityName>CRM_TAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSTATUSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSTATUSValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    if entity.Fields["STATUS"].Value == 2:
+        view.FieldDefinitions["OBSERVACOES"].Visible = True
+        view.FieldDefinitions["OBSERVACOES"].Required = True
+    else:
+        view.FieldDefinitions["OBSERVACOES"].Visible = False
+        view.FieldDefinitions["OBSERVACOES"].Required = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(form):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityState
+    
+    entity = form.Entity
+    if entity == None: return
+    if (entity.State == EntityState.Initialized):
+        entity.Fields["RESPONSAVEL"] = EntityAssociation(Handle(str(identity.UserHandle)), EntityDefinition.GetByName("CORPORATIVO", "Z_GRUPOUSUARIOS"));
+    if entity.Fields["STATUS"] != None:
+        form.View.Commands["CMD_ENVIAR"].Visible = entity.Fields["STATUS"].Value == 1
+        form.View.Commands["CMD_CANCELAR"].Visible = not (entity.Fields["STATUS"].Value == 3 or entity.Fields["STATUS"].Value == 4 or entity.Fields["STATUS"].Value == 5)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    
+    if (entity.Fields["TIPORESPONSAVEL"] != None and entity.Fields["TIPORESPONSAVEL"].Value == 2):
+        entity.Fields["RESPONSAVEL"].Handle = Handle()
+    elif (entity.Fields["TIPORESPONSAVEL"] != None and entity.Fields["TIPORESPONSAVEL"].Value == 1):
+        entity.Fields["PAPEL"].Handle = Handle()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma o cancelamento da tarefa?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

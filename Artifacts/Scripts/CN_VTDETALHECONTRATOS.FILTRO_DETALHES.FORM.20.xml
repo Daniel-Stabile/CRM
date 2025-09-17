@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_VTDETALHECONTRATOS.FILTRO_DETALHES.FORM</ViewName>
+  <EntityName>CN_VTDETALHECONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNVTDetalheContratoContextoListaItens
+    widget.Entity.Contexto = CNVTDetalheContratoContextoListaItens.ItemFiltroDetalhes</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

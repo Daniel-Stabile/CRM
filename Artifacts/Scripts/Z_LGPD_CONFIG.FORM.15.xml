@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_LGPD_CONFIG.FORM</ViewName>
+  <EntityName>Z_LGPD_CONFIG</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOLOGValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOLOGValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if (entity.Fields["TIPOLOG"] == None) : return
+
+    accessLevel = FieldDefinition.AccessLevel.Edit
+    required = True
+
+
+    if (entity.Fields["TIPOLOG"].Value == 1) :
+        accessLevel = FieldDefinition.AccessLevel.Read
+        required = False
+        
+    view.FieldDefinitions["FLUENTDHOST"].DataAccessLevel = accessLevel
+    view.FieldDefinitions["FLUENTDPORT"].DataAccessLevel = accessLevel
+    view.FieldDefinitions["FLUENTDTAG"].DataAccessLevel = accessLevel
+    
+    view.FieldDefinitions["FLUENTDHOST"].Required = required
+    view.FieldDefinitions["FLUENTDPORT"].Required = required
+    view.FieldDefinitions["FLUENTDTAG"].Required = required
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+
+def Load(widget):
+    if (widget.Entity == None) :
+        return
+    
+    if (widget.View.Commands["SaveNew"] != None and widget.View.Commands["SaveNew"].Visible == True) :
+        raise CancelledOperationException("O comando Salvar/Novo não pode ser visível.") 
+    
+    if (widget.Entity.Fields["HANDLE"].IsValid() and widget.View.Commands["New"] != None) :
+		widget.View.Commands["New"].Visible = False
+		
+    OnTIPOLOGValueChanged(widget.View, widget.Entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

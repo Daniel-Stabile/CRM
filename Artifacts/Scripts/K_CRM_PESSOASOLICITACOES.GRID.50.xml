@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOASOLICITACOES.GRID</ViewName>
+  <EntityName>K_CRM_PESSOASOLICITACOES</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import CompanyFilterMode
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    if entity == None:return
+    status              = int(entity.Fields["STATUS"].Value)
+    
+    if row.GetCustomCommand("cmdAceitarSolicitacao") != None:
+        row.GetCustomCommand("cmdAceitarSolicitacao").Enabled = ( status in [1] );
+    
+    if row.GetCustomCommand("cmdRecusarSolicitacao") != None:
+        row.GetCustomCommand("cmdRecusarSolicitacao").Enabled = ( status in [1] );
+        
+#    if row.GetCellByName("SUBFASE").Text == "21":
+#        row.GetCustomCommand("cmdCriaVertical").Enabled = False
+        
+    crit = Criteria("A.PESSOA = :PESSOA")
+    crit.Parameters.Add(Parameter("PESSOA", entity.Fields["PESSOA"].Handle.Value))
+    crit.CompanyFilterMode = CompanyFilterMode.OnlyCompany;
+    existeVertical = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAVERTICAL"), crit)
+    
+    criteria = Criteria("A.HANDLE = :PESSOA")
+    criteria.Parameters.Add(Parameter("PESSOA", entity.Fields["PESSOA"].Handle.Value))
+    criteria.CompanyFilterMode = CompanyFilterMode.OnlyCompany;
+    existeConta = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_PESSOAS"), criteria)
+    
+    if existeVertical.Count &gt; 0:
+        row.GetCustomCommand("cmdConsultarVerticais").Enabled = True
+    else:
+        row.GetCustomCommand("cmdConsultarVerticais").Enabled = False
+        
+    if row.GetCellByName("SOLICITACAO").Text == "Integração Exact Sales!":
+        row.GetCellByName("SOLICITACAO").Text = "&lt;span style='background-color: gold; padding: 4px;'&gt;Integração Exact Sales!&lt;/span&gt;";
+        
+    try:
+        crit2 = Criteria("A.PESSOA = :PESSOA AND A.VERTICAL = :VERTICAL")
+        crit2.Parameters.Add(Parameter("PESSOA", entity.Fields["PESSOA"].Handle.Value))
+        crit2.Parameters.Add(Parameter("VERTICAL", entity.Fields["VERTICAL"].Handle.Value))
+        crit2.CompanyFilterMode = CompanyFilterMode.OnlyCompany;
+        verticalExpecifica = Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAVERTICAL"), crit2)
+        if existeConta != None:
+            if existeConta.Fields["SUBFASE"].Instance.Fields["NOME"] == "A qualificar" or verticalExpecifica.Handle.IsValid():
+                row.GetCustomCommand("cmdCriaVertical").Enabled = False
+    except Exception, e:
+            if existeConta != None:
+                if existeConta.Fields["SUBFASE"].Instance.Fields["NOME"] == "A qualificar":
+                    row.GetCustomCommand("cmdCriaVertical").Enabled = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

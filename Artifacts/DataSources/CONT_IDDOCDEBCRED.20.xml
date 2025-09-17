@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONT_IDDOCDEBCRED</Identifier>
+  <Name>Indicador de documentos com diferença de crédito e débito</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE QTD FROM CT_DOCUMENTOS A&#xD;&#xA;JOIN EMPRESAS E ON E.HANDLE = A.EMPRESA&#xD;&#xA;WHERE A.EMPRESA = @EMPRESA&#xD;&#xA;AND ROUND( (SELECT SUM(D.VALOR) FROM CT_LANCAMENTOS D WHERE D.DOCUMENTO = A.HANDLE AND D.NATUREZA = 'D') ,2)&#xD;&#xA;&lt;&gt; ROUND( (SELECT SUM(C.VALOR) FROM CT_LANCAMENTOS C WHERE C.DOCUMENTO = A.HANDLE AND C.NATUREZA = 'C') ,2)&#xD;&#xA;AND A.DATA BETWEEN E.CONTABILIDADE AND @HOJE&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QTD" From="A" Path="QTD" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

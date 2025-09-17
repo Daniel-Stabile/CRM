@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>AGA_A_FN_PARCELAREMESSAS_VALORLIQUIDOINCLUIDO</Identifier>
+  <Name>Valor líquido já incluído na remessa</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT VALORLIQUIDOTOTAL, HANDLE&#xA;FROM GN_HBREMESSAS&#xA;" />
+  <Fields>
+    <Field Alias="VALORLIQUIDOTOTAL" From="A" Path="VALORLIQUIDOTOTAL" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,119 @@
+﻿<div class="row" id="formulario">
+    <div class="col-md-4 col-lg-4 col-sm-4">
+        <div class="form-group">
+            <label for="dataInicial">Data inicial:</label>
+            <input type="text" class="form-control datepicker" maxlength="10 " data-date-format="dd/mm/yyyy" id="DataInicial" placeholder="dd/mm/aaaa" />
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4">
+        <div class="form-group">
+            <label for="dataInicial">Data final:</label>
+            <input type="text" class="form-control datepicker" maxlength="10" data-date-format="dd/mm/yyyy" id="DataFinal" placeholder="dd/mm/aaaa" />
+        </div>
+    </div>
+    <div class="col-md-2 col-lg-2 col-sm-2">
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn blue btn-block" type="button" onclick="GerarConsultaSimplificada()">Gerar demonstrativo</button>
+        </div>
+    </div>
+    <div class="col-md-2 col-lg-2 col-sm-2">
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn default btn-block" type="button" onclick="RedirecionarParaTelaFiltro($('#CONSULTAPORPERFIL'))">Voltar</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="container"></div>
+
+<script type="text/javascript">
+    $(function () {
+        //Benner.Date.init();
+        
+        tipoConsulta = parseInt($('input[name="optionsRadios"]:checked').val());
+        perfilUtilizar = parseInt($('#selPerfis').val());
+        RedirecionaParaFiltros();
+    });
+
+    function GerarConsultaSimplificada() {
+        var dataInicial = $('#DataInicial');
+        var dataFinal = $('#DataFinal');
+
+
+        if (dataInicial.val() == undefined || dataInicial.val() == "") {
+            ExibirMensagem("Selecione a data inicial.", TiposMensagem.Alerta, $('#formulario'));
+            dataInicial.focus();
+        }
+        else if (dataFinal.val() == undefined || dataFinal.val() == "") {
+            ExibirMensagem("Selecione a data final.", TiposMensagem.Alerta, $('#formulario'));
+            dataFinal.focus();
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: Benner.Page.getApplicationPath() + 'ConsultasContabil/GerarConsultaSimples',
+                data: { handlePerfil: perfilUtilizar, dtInicial: $('#DataInicial').val(), dtFinal: $('#DataFinal').val(), tpConsulta: tipoConsulta },
+                cache: false,
+                beforeSend: function (x) {
+                    App.blockUI({
+                        target: $('#CONSULTAPORPERFIL'),
+                        animate: true,
+                        overlayColor: 'none'
+                    });
+                    EsconderMensagem($('#CONSULTAPORPERFIL'));
+                },
+                success: function (data) {
+                    if (data != 'Sucesso')
+                        ExibirMensagem(data, TiposMensagem.Alerta, $('#portlet_CONSULTAPORPERFIL .portlet-body.form').find('.row').eq(0));
+                    else
+                        Benner.AsyncProcesses.initAjax();                   
+                },
+                error: function (xhr, textStatus, error) {
+                    ExibirMensagem(error, TiposMensagem.Erro, $('#portlet_CONSULTAPORPERFIL .portlet-body.form').find('.row').eq(0));
+                },
+                complete: function (x) {
+                    App.unblockUI($("#CONSULTAPORPERFIL"));
+                }
+            });
+        }
+    }
+
+    function RedirecionaParaFiltros(exibir) {
+
+        if (exibir == undefined || exibir) {
+            $('#CONSULTAPORPERFIL').show();
+            $('#ctl00_Main_RESULTADOCONSULTA_ctl04').hide();
+        }
+        else {
+            $('#CONSULTAPORPERFIL').hide();
+            $('#ctl00_Main_RESULTADOCONSULTA_ctl04').show();
+        }
+
+    }
+
+    //function MenuContextoCustomizado(e) {
+
+    //    var tblPivot = e.element;
+    //    var tds = tblPivot.find('td');
+
+    //    e.items.push({
+    //        icon: "fa fa-pencil",
+    //        text: "Diminuir tamanho do texto",
+    //        onItemClick: function () {
+    //            tds.css('font-size', '10px').css('padding', '2px').css('margin', '2px');
+    //        }
+    //    });
+    //    e.items.push({
+    //        text: "Aumentar tamanho do texto",
+    //        onItemClick: function () {
+    //            tds.css('font-size', '14px')
+    //        }
+    //    });
+
+    //    $('#tblResultado').dxPivotGrid('instance').repaint();
+    //    $('#tblResultado').dxPivotGrid('instance').updateDimensions();
+    //}
+</script>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_DIRFRESPONSAVEL.FORM</ViewName>
+  <EntityName>TR_DIRFRESPONSAVEL</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import TabItem
+    registro = widget.Entity
+    if registro == None: return
+    
+    dirf = str(registro.Fields["NOME"])
+    
+    widget.View.Commands["SaveNew"].Visible = False
+    
+    if (dirf != "None"):
+        widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_VISITAS_SEMANAIS_VICE_PRESIDENTE</Identifier>
+  <Name>CRM_VISITAS_SEMANAIS_VICE_PRESIDENTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) MEDIAVISSEMANAL&#xD;&#xA;FROM K_CRM_TAREFAUSUARIO A&#xD;&#xA;INNER JOIN K_CRM_PESSOAS B ON A.PESSOA = B.HANDLE&#xD;&#xA;WHERE DATEPART(WEEK,A.DATACONCLUSAO) = DATEPART(WEEK,GETDATE())&#xD;&#xA;AND B.FASE NOT IN (1,6)&#xD;&#xA;AND A.RESPOSTA NOT IN (75)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="MEDIAVISSEMANAL" From="A" Path="MEDIAVISSEMANAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

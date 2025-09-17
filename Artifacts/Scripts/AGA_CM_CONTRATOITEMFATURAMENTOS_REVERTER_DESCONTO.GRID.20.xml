@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CM_CONTRATOITEMFATURAMENTOS_REVERTER_DESCONTO.GRID</ViewName>
+  <EntityName>CM_CONTRATOITEMFATURAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONFIRMARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONFIRMARExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CM_CONTRATOITEMPERIODOS"))
+    command.TransitoryVars.Add("PERIODO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

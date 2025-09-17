@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOS.PEDIDOS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Contrato</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2 E 3</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DATAINCLUSAO">
+    <TableName>CN_CONTRATOS</TableName>
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>entre</Name>
+      <DatabaseOperator>BETWEEN</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="PESSOA">
+    <TableName>CN_CONTRATOS</TableName>
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>em</Name>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Contratado</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="3" FieldName="CONTRATO">
+    <TableName>CT_PEDIDOSEMPENHOS</TableName>
+    <FieldDefinitionName>AssociationFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>em</Name>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label>Contrato</Label>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <Properties />
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

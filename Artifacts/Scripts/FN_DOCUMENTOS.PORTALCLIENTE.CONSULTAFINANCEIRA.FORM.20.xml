@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS.PORTALCLIENTE.CONSULTAFINANCEIRA.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition
+    
+    registro = widget.Entity
+    if (registro.Fields["ABRANGENCIA"].Value == "N"):
+        widget.View.FieldDefinitions["DATAENTRADA"].Title = "Data entrada"
+    else:
+        widget.View.FieldDefinitions["DATAENTRADA"].Title = "Data saída"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

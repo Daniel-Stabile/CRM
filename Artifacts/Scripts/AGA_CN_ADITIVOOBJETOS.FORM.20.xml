@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_ADITIVOOBJETOS.FORM</ViewName>
+  <EntityName>CN_ADITIVOOBJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    
+    if registro == None: return
+
+    if widget.View.Commands["CMD_RATEIO"] != None: widget.View.Commands["CMD_RATEIO"].Visible = registro.EhAditivoAlteracao and registro.EhAditivoCadastrado
+    if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = registro.EhAditivoCadastrado
+    if widget.View.Commands["Edit"] != None: widget.View.Commands["Edit"].Visible = registro.EhAditivoCadastrado
+    if widget.View.Commands["Delete"] != None: widget.View.Commands["Delete"].Visible = registro.EhAditivoCadastrado</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

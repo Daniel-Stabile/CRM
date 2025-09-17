@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Apuração - COFINS - REG.M600: CONSOLIDAÇÃO DA CONTRIBUIÇÃO" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Apuração - COFINS - REG.M600: CONSOLIDAÇÃO DA CONTRIBUIÇÃO" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_ED_PCAPURACAOCONSOLIDACAO.FORM" CanDelete="False" CanUpdate="False" CanInsert="False" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="ED_EFDPC_APURACAOCOFINS__ED_EFDPC_APURACAOCOFINS_M600_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_7349" Title="REG.M605: DETALHAMENTO CÓDIGO RECEITA" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_ED_PCAPURACAOCONSOLIDACAOCR.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.CONSOLIDACAO = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t5003_at7349_hs2e791ac4.aspx" UserDefinedDisableRowSelection="False" PageId="ED_EFDPC_APURACAOCOFINS__ED_EFDPC_APURACAOCOFINS_M600_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_6706" Title="REG.M610: DETALHAMENTO DA CONTRIBUIÇÃO" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_ED_PCAPURACAODETALHAMENTOCONTR.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.CONSOLIDACAO = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t4413_at6706_hs2e7c1ac5.aspx" UserDefinedDisableRowSelection="False" PageId="ED_EFDPC_APURACAOCOFINS__ED_EFDPC_APURACAOCOFINS_M600_FORM" Level="20" Order="15"  />
+        </div>
+    
+      </asp:Content>
+    

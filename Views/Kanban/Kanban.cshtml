@@ -1,0 +1,1533 @@
+@using Benner.Corporativo.DataContracts.GestaoProjetos
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .kanban-div-titulo {
+		    position: relative;
+		    display: flex;
+		    font-size: 18px;
+		    padding: 5px 0px;	
+		    border-bottom: 1px solid #eee;
+        }
+
+        .kanban-dropdown {
+            position: relative;
+        }
+
+        .kanban-dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 16px 8px 16px 0px rgba(0,0,0,0.2);
+            border-radius: 10px !important;
+            z-index: 999;
+            top: 100%;
+            right: 0%;
+            border: 1px solid rgb(199, 199, 199);
+        }
+
+        .kanban-dropdown:hover .kanban-dropdown-menu {
+            display: block;
+        }
+
+        .kanban-dropdown-item {
+            width: 180px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 0px 2px 0px 2px solid #000; 
+        }
+
+        .kanban-dropdown-subitem {
+            padding: 5px;
+            flex-grow: 1;
+        }
+
+        .kanban-dropdown-subitem:hover {
+            background-color: #d9defa;
+            border-radius: 5px !important;
+        }
+
+        .kanban-dropdown-color {
+            border-radius: 24px !important; 
+            width: 24px; 
+            height: 24px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .kanban-dropdown-divisor {
+            height: 1px; 
+            background-color: rgba(194, 196, 198, 0.70);
+        }
+
+        .kanban-dropdown-excluir {
+            color: #f75e5e;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .kanban-board {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 5px;
+            overflow-x: auto;
+        }
+
+        .kanban-add-column-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px !important;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .kanban-add-column-btn:hover {
+            background-color: #0056b3;
+        }        
+
+        .kanban-columns-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .kanban-column {
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px !important;
+            background-color: #f9f9f9;
+            min-width: 300px;
+            min-height: 450px;
+            height: 450px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .kanban-secao-header {
+            padding: 10px 2px;
+            border: none;
+            border-radius: 10px 10px 0px 0px !important;
+            background-color: rgb(120, 100, 255);
+            font-weight: bold;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .kanban-secao-header .input-sem-borda {
+            text-overflow: ellipsis;
+        }
+
+        .kanban-secao-header .input-sem-borda:hover {
+            background-color: rgba(12, 12, 2, 0.2);
+            border-radius: 10px !important;
+        }
+
+        .kanban-delete-column-btn {
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .kanban-secao-button {
+            padding: 2px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .kanban-dropzone {
+            overflow-y: auto;
+            padding: 5px;
+            background-color: #fff;
+            border-radius: 10px !important;
+            margin: 5px 5px;
+            height: 74%;
+        }
+
+        .kanban-modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+            padding-bottom: 30px;
+        }
+
+        .kanban-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            max-width: 400px;
+            border-radius: 5px !important;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .kanban-modal-tarefa {
+            background-color: #FFF;
+            margin: auto;
+            height: inherit;
+            width: 500px;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 5px !important;            
+        }
+
+        .kanban-modal-tarefa-cabecalho {
+            display: flex;
+            height: 30px;
+            padding: 10px;
+            align-items: flex-end;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .kanban-modal-tarefa-cabecalho-buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .kanban-modal-tarefa-campos {
+            padding: 10px;
+            overflow-y: auto;
+            height: 95%;
+        }
+
+        .kanban-close {
+            color: #aaa;
+            float: right;
+            font-size: 20px;
+        }
+
+        .kanban-close:hover,
+        .kanban-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .kanban-delete-task-btn {
+            cursor: pointer;
+            color: #555;
+            font-size: 16px;
+            right: 5px;
+            position: relative;
+            background-color: transparent;
+            border: none;
+            pointer-events: none;
+        }
+
+        .kanban-delete-task-btn:hover {
+            color: #333;
+        }
+
+        .kanban-delete-confirm-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .kanban-delete-confirm-btn:hover {
+            background-color: #bd2130;
+        }
+
+        .kanban-add-task-btn {
+            border: 2px solid #000;
+            border-radius: 50% !important;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .kanban-add-task-btn:hover {
+            background-color: #ccc;
+        }
+
+        .kanban-task {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px !important;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .kanban-button-right {
+            margin-right: 10px;
+        }
+
+        .kanban-button-style {
+            padding: 5px;
+            border: none;
+            border-radius: 3px !important;
+            background-color: #195087;
+            color: #fff;
+        }
+
+        .kanban-button-style i {
+            margin: 5px;
+        }
+
+        .kanban-input {
+            margin: 2px;
+        }
+
+        .kanban-input input[type=text],
+        .kanban-input input[type=date],
+        .kanban-input input[type=time],
+        .kanban-input textarea,
+        .kanban-input select {
+            border: 1px solid #c2cad8;
+            padding: 6px 12px;
+            height: 34px;
+            outline: none;
+            width: 100%;
+            background: #FFF;
+        }
+
+        .kanban-input input[type=text][readonly],
+        .kanban-input input[type=date][readonly],
+        .kanban-input textarea[readonly] {
+            background-color: #d8d8d8;
+            color: #414141;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .kanban-input select[disabled] {
+            background-color: #d8d8d8;
+            color: #414141;
+            appearance: none;
+        }
+
+        .kanban-input input[type=checkbox] {
+            border: 1px solid #c2cad8;
+            margin: 5px;
+        }
+
+        .kanban-input textarea {
+            border: 1px solid #c2cad8;
+            height: 100px;
+            resize: none;
+        }
+
+        .kanban-flex-linha {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .kanban-align-end {
+            text-align: end;
+        }
+
+        .kanban-col-100 {
+            padding: 5px;
+            width: 100%;
+        }
+
+        .kanban-col-75 {
+            padding: 5px;
+            width: 75%;
+        }
+
+        .kanban-col-50 {
+            padding: 5px;
+            width: 50%;
+        }
+
+        .kanban-col-25 {
+            padding: 5px;
+            width: 25%;
+        }
+
+        .kanban-is-dragging {
+            opacity: 0.8;
+        }
+
+        .input-sem-borda {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: rgba(255, 255, 255, 1);
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .input-com-borda {
+            border: none;
+            outline: none;
+            border-radius: 10px !important;
+            background-color: white;
+            color: rgb(5, 5, 5);
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .kanban-apontartarefa {
+            margin-top: 20px;
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
+        .kanban-apontamentos {
+            display: none;
+        }
+
+        .kanban-board::-webkit-scrollbar,
+        .kanban-modal-tarefa-campos::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;              
+        }
+
+        .kanban-board::-webkit-scrollbar-track,
+        .kanban-modal-tarefa-campos::-webkit-scrollbar-track {
+            background: rgb(255, 255, 255);       
+        }
+
+        .kanban-board::-webkit-scrollbar-thumb,
+        .kanban-modal-tarefa-campos::-webkit-scrollbar-thumb {
+            background-color: #cfbfbfbe;     
+            border: none;
+        }
+
+        .comentarios {
+            display: flex;
+            flex-direction: column;
+            background-color: #FFF;
+            overflow-y: auto;
+            height: 150px;
+        }
+
+        .comentario {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .kanban-tarefa-conclude {
+            background: rgba(27, 197, 189, 1);
+            border-radius: 6px !important;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 5px;
+            color: rgba(255, 255, 255, 0.863);
+        }
+
+        .kanban-tarefa-restore {
+            display: none;
+            background: rgb(231, 152, 49);
+            border-radius: 6px !important;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 5px;
+            color: rgba(255, 255, 255, 0.863);
+        }
+
+        .kanban-tarefa-content-conclude-restore {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .kanban-tarefa-icon-conclude {
+            color: green;
+            font-size: 21px;
+            margin-right: 3px;
+        }
+
+        .kanban-fundo-card-icon-conclude {
+            background-color: #d1fcd1;
+            border-radius: 3px !important;
+        }
+    </style>
+</head>
+<body>
+    <input id="participanteSelecionado" type="hidden" value="@ViewBag.ParticipantesJson"/>
+
+    <!-- Titulo da página -->
+    <div class="kanban-div-titulo">
+	    <div class="caption">
+	        <span class="caption-subject font-green-sharp bold uppercase">@ViewBag.NomeProjeto</span>
+        </div>	
+    </div>
+
+    <!-- Corpo do página -->
+    <div id="app" class="kanban-board">
+        <button id="btn-add-column" class="kanban-add-column-btn" onclick="addColumn(event)" hidden>Criar Se&ccedil;&atilde;o</button>
+        <div class="kanban-columns-container" id="columns-container"></div>
+    </div>
+
+    <!-- Modal de exclusão -->
+    <div id="deleteModal" class="kanban-modal">
+        <div class="kanban-modal-content">
+            <span class="kanban-close">&times;</span>
+            <p id="messagemModalDelete"></p>
+            <button class="kanban-delete-confirm-btn">Sim, excluir</button>
+        </div>
+    </div>
+
+    <!-- Modal da tarefa -->
+    <div class="kanban-modal" id="taskModal">
+        <div class="kanban-modal-tarefa">
+            <div class="kanban-modal-tarefa-cabecalho">
+                <div>
+                    <div id="iconConclude" hidden>
+                        <i class="fa fa-check-circle-o kanban-tarefa-icon-conclude"></i>Tarefa Conclu&iacute;da
+                    </div>
+                </div>
+                <div class="kanban-modal-tarefa-cabecalho-buttons">
+                    <button id="saveDadosModalCard" class="kanban-button-style kanban-button-right">Salvar</button>
+                    <i id="closeModalCard" class="fa fa-times icon-x kanban-close" onclick="closeTaskModal()"></i>
+                </div>
+            </div>
+            <div class="kanban-modal-tarefa-campos">
+                <div class="kanban-flex-linha">
+                    <div class="kanban-col-100">
+                        <div class="kanban-input">
+                            <label class="titulo" for="cardTitle">T&iacute;tulo da Tarefa</label>
+                            <input type="text" id="cardTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-flex-linha">
+                    <div class="kanban-col-100">
+                        <div class="kanban-input">
+                            <label class="Nome" for="participante">Participante</label>
+                            <select id="participante">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-flex-linha">
+                    <div class="kanban-col-100">
+                        <div class="kanban-input">
+                            <label class="tituloDescricao" for="descricao">Descri&ccedil;&atilde;o</label>
+                            <textarea placeholder="Escreva uma descri&ccedil;&atilde;o aqui!" id="descricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-flex-linha">
+                    <div class="kanban-col-100">
+                        <div class="kanban-input">
+                            <label class="date" for="dataLimite">Data limite</label>
+                            <input type="date" id="dataLimite">
+                        </div>
+                    </div>
+                </div>
+                <div id="infoComplementares">
+                    <div class="kanban-flex-linha">
+                        <div class="kanban-col-100">
+                            <div class="kanban-input">
+                                <label for="apontarTarefa"><input type="checkbox" id="apontarTarefa"/>Apontamento em Tarefa</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-apontamentos">
+                        <div class="kanban-flex-linha">
+                            <div class="kanban-col-25">
+                                <div class="kanban-input">
+                                    <label class="lblHoraInicio" for="horaInicio"> Hora In&iacute;cio</label>
+                                    <input type="time" id="horaInicio" min="00:00" max="23:59">
+                                </div>
+                            </div>
+                            <div class="kanban-col-25">
+                                <div class="kanban-input">
+                                    <label class="lblHoraFim" for="horaFim">Hora Fim</label>
+                                    <input type="time" id="horaFim" min="00:00" max="23:59">
+                                </div>
+                            </div>
+                            <div class="kanban-col-25">
+                                <div class="kanban-input">
+                                    <label class="lblTotalHoras" for="totalHoras">Total Horas</label>
+                                    <input type="text" id="totalHoras">
+                                </div>
+                            </div>
+                            <div class="kanban-col-25">
+                                <div class="kanban-input">
+                                    <label class="lblEvolucao" for="evolucao">% Evolu&ccedil;&atilde;o</label>
+                                    <input type="text" id="evolucao">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-flex-linha">
+                        <div class="kanban-col-100">
+                            <div class="kanban-input">
+                                <label class="coment" for="comentario">Coment&aacute;rio</label>
+                                <textarea placeholder="Escreva um coment&aacute;rio aqui!" id="comentario"></textarea>
+                                <button class="kanban-button-style" id="btnEnviarComentario"><i class="fa fa-paper-plane-o"></i>Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-flex-linha">
+                        <div class="kanban-col-100">
+                            <label>Hist&oacute;rico de atividades</label>
+                            <div class="comentarios"></div>
+                        </div>
+                    </div>
+                    <div class="kanban-flex-linha">
+                        <div class="kanban-col-100" hidden>
+                            <label>Anexos</label>
+                            <div class="imageVisible">
+                                <div class="imageStyle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-flex-linha">
+                        <div class="kanban-col-100">
+                            <div class="kanban-tarefa-content-conclude-restore">
+                                <button id="concludeModalCard" type="button" class="kanban-tarefa-conclude">Concluir Tarefa</button>
+                                <button id="restoreModalCard" type="button" class="kanban-tarefa-restore">Restaurar Tarefa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let _handleProjeto;
+
+        function addColumn(e) {
+            e.preventDefault();
+
+            var ColunaKanbanResponse = {
+                TituloColuna: "Nova Se\u00E7\u00E3o",
+                CorColuna: "#7864FF",
+                HandleColuna: 0
+            };
+            
+            var url = getPath() + '/Kanban/AdicionarColuna?handleProjeto=' + _handleProjeto;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(ColunaKanbanResponse),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    ColunaKanbanResponse.HandleColuna = response["Value"];
+                    createColumn(ColunaKanbanResponse);
+                },
+                error: function(xhr, status, error) { alert(error) }
+            });
+        }
+
+        function createColumn(ColunaKanbanResponse) {
+            var newColumn = document.createElement('div');
+            newColumn.classList.add('kanban-column');
+            newColumn.id = 'column-'+ColunaKanbanResponse.HandleColuna;
+            newColumn.innerHTML = `
+                <div class="kanban-secao-header">
+                    <input type="text" class="input-sem-borda" value="${ColunaKanbanResponse.TituloColuna}"/>
+                    <div class="kanban-dropdown">
+                        <button class="kanban-delete-column-btn"><i class="fa fa-cog"></i></button>
+                        <div class="kanban-dropdown-menu">
+                            <div class="kanban-dropdown-item">
+                                <div class="kanban-dropdown-color" style="background-color: rgb(0, 170, 255)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(46, 215, 216)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(64, 112, 255)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(161, 121, 242)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(247, 87, 140)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(208, 31, 46)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(255, 170, 0)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(255, 212, 38)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(150, 219, 11)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(61, 204, 61)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(61, 71, 77)"></div>
+                                <div class="kanban-dropdown-color" style="background-color: rgb(138, 148, 153)"></div>
+                            </div>
+                            <div class="kanban-dropdown-divisor"></div>
+                         <div class="kanban-dropdown-item">
+                                <div class="kanban-dropdown-subitem">
+                                    <div class="kanban-dropdown-excluir">
+                                        Excluir se\u00E7\u00E3o
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-secao-button">
+                    <button class="kanban-add-task-btn"><i class="fa fa-plus"></i></button>
+                </div>
+            `;
+            
+            var dropzone = document.createElement('div');
+            dropzone.classList.add('kanban-dropzone');
+            dropzone.id = 'dropzone-'+ColunaKanbanResponse.HandleColuna;
+            dropzone.dataset.columnId = ColunaKanbanResponse.HandleColuna;
+            dropzone.addEventListener('dragenter', dragEnterTask)
+            dropzone.addEventListener('dragleave', dragLeaveTask)
+            dropzone.addEventListener('dragover', dragOverTask)
+            dropzone.addEventListener('drop', dropTask)
+
+            newColumn.appendChild(dropzone);
+
+            var tituloSecao = newColumn.querySelector('.kanban-secao-header input');
+            tituloSecao.addEventListener('blur', blurTituloSecao, false);
+            tituloSecao.addEventListener('click', clickTituloSecao, false);
+
+            var header = tituloSecao.closest('.kanban-secao-header');
+            header.style.backgroundColor = ColunaKanbanResponse.CorColuna;
+
+            var color = newColumn.querySelectorAll('.kanban-dropdown-color');
+            color.forEach(cor => {
+                cor.addEventListener('click', ColorSecao, false);
+            });
+
+            var adicionarTarefa = newColumn.querySelector('.kanban-add-task-btn');
+            adicionarTarefa.addEventListener('click', insertTaskModal);
+
+            var excluir = newColumn.querySelector('.kanban-dropdown-excluir');
+            excluir.addEventListener('click', deleteColumn, false);
+
+            var columnsContainer = document.getElementById('columns-container');
+            columnsContainer.appendChild(newColumn);
+        }
+
+        function insertTaskModal(e) {
+            e.preventDefault();
+            controleModoleitura(false, false);
+            mostrarInformacoesComplementares(false);
+
+            var modal = document.getElementById('taskModal');
+            modal.dataset.taskId = 0;
+
+            var column = this.closest('.kanban-column');
+            modal.dataset.columnId = column.id.replace('column-','');
+            
+            var participante = document.getElementById('participante');
+
+            ChamarParticipantes(participante);
+
+            openTaskModal();
+        }
+
+        function editTaskModal() {
+            var modal = document.getElementById('taskModal');
+            modal.dataset.columnId = this.dataset.columnId;
+            var participante = document.getElementById('participante');
+            const handletarefa = this.id.replace('task-', '');
+
+            ChamarParticipantes(participante);
+
+            var url = getPath() + '/Kanban/ConsultarTarefa';
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",                
+                dataType: "json",
+                data: { handleTarefa: handletarefa },
+                    success: function(response) {
+                        configurarModal(response);
+                        openTaskModal();
+                    },
+                    error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function configurarModal(tarefa) {
+            controleModoleitura(tarefa.Importado, tarefa.CardConcluido);
+
+            document.getElementById('cardTitle').value = tarefa.TituloCard;
+            document.getElementById('participante').value = tarefa.HandleParticipante;
+            document.getElementById('descricao').value = tarefa.DesricaoCard;
+            
+            if (tarefa.DataLimite != null) {
+                var milisegundos = new Date(parseInt(tarefa.DataLimite.match(/\d+/)[0]));
+                var dataLimiteFormatada = milisegundos.toISOString().split('T')[0];
+                document.getElementById('dataLimite').value = dataLimiteFormatada;
+            }
+
+            mostrarInformacoesComplementares(true);
+
+            var modal = document.getElementById('taskModal');
+            modal.dataset.taskId = tarefa.HandleCard;
+            modal.dataset.taskImportada = tarefa.Importado ? 'S' : 'N';
+
+            var historyElement = document.querySelector('.comentarios');
+            const historicos = tarefa.HistoricoAtividades;
+
+            historicos.forEach(historico => {
+                var comentarioElement = document.createElement('div');
+                comentarioElement.classList.add("comentario");
+                comentarioElement.textContent = historico.HistoricoCard;
+                comentarioElement.id = historico.HandleHistorico;
+                historyElement.appendChild(comentarioElement);
+            });
+        }
+
+        function limpaModalTarefa() {
+            var modal = document.getElementById('taskModal');
+            modal.dataset.taskId = "";
+            modal.dataset.columnId = "";
+            modal.dataset.taskImportada = "";
+            document.getElementById('cardTitle').value = "";
+            document.getElementById('participante').value = "";
+            document.getElementById('descricao').value = "";
+            document.getElementById('dataLimite').value = "";
+
+            limparApontamentoComentario();
+
+            var historyElement = document.querySelector('.comentarios');
+            while (historyElement.firstChild) {
+                historyElement.removeChild(historyElement.firstChild);
+            }
+        }
+
+        function ChamarParticipantes(select)
+        {
+            select.innerHTML = '';
+            const emptyOption = document.createElement('option');
+            emptyOption.value = '';
+            emptyOption.text = '';
+            select.appendChild(emptyOption);
+
+            var participantes = JSON.parse(document.getElementById('participanteSelecionado').value);
+
+            participantes.forEach(function(participante) {
+                const option = document.createElement('option');
+                option.value = participante.HandleParticipante;
+                option.text = participante.NomeParticipante;
+                select.appendChild(option);
+            });   
+        }
+
+        // Evento de clique no botão "Adicionar Tarefa"
+        function openTaskModal() {
+            var modal = document.getElementById('taskModal');
+            modal.style.display = 'block';
+        }
+
+        function closeTaskModal() {
+            var modal = document.getElementById('taskModal');
+            modal.style.display = 'none';
+            limpaModalTarefa();
+        }
+
+        //Modal apagar a tarefa
+        function openDeleteTaskModal(e) {
+            e.stopPropagation();
+            var task = this.closest('.kanban-task');
+            var taskImportada = task.dataset.importado;
+
+            if (taskImportada === 'S'){
+                alert("Tarefa importada, n\u00E3o ser\u00E1 poss\u00EDvel excluir!");
+                return;
+            }
+
+            var modal = document.getElementById('deleteModal');
+            modal.style.display = 'block';
+            modal.dataset.taskDelete = task.id.replace('task-', '');
+
+            alterarMensagemModalDelete(task);
+        }
+
+        function closeDeleteTaskModal() {
+            var modal = document.getElementById('deleteModal');
+            modal.style.display = 'none';
+            modal.dataset.taskDelete = "";
+        }
+
+        function confirmDeleteTask(e) {
+            e.preventDefault();
+            var modal = document.getElementById('deleteModal');
+            var task = document.getElementById('task-'+modal.dataset.taskDelete);
+
+            const CardKanbanResponse = {
+                HandleCard: modal.dataset.taskDelete
+            }
+    
+            var url = getPath() + '/Kanban/DeletarCard';
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                data: JSON.stringify(CardKanbanResponse),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    task.parentNode.removeChild(task);
+                    closeDeleteTaskModal();
+                },
+                error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function alterarMensagemModalDelete(task) {
+            var mensagemBase = "Tem certeza que deseja excluir esta tarefa:";
+            var mensagem = document.getElementById('messagemModalDelete');
+            mensagem.textContent = mensagemBase + " " + task.dataset.name + "?";
+        }
+
+        function deleteColumn(e) {
+            var column = this.closest('.kanban-column');
+
+            var dropzone = column.querySelector('.kanban-dropzone');
+            if (dropzone.hasChildNodes()) {
+                alert("N\u00E3o ser\u00E1 poss\u00EDvel excluir a se\u00E7\u00E3o, existem tarefas na se\u00E7\u00E3o!");
+            }else {
+                const ColunaKanbanResponse = {
+                    HandleColuna: column.id.replace('column-','')
+                };
+
+                var url = getPath() + '/Kanban/DeletarColuna'
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    data: JSON.stringify(ColunaKanbanResponse),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        column.parentNode.removeChild(column);
+                        e.preventDefault();
+                    },
+                    error: function(xhr, status, error) { alert(xhr.responseJSON) }
+                });
+            }
+        }
+
+        function SalvarTarefa(e) {
+            e.preventDefault();
+            var modal = document.getElementById('taskModal');
+            var inputTitulo = document.getElementById('cardTitle').value;
+            var inputParticipante = document.getElementById('participante').value;
+            var ptselecionado = document.getElementById('participante').value;
+            var inputDescricao = document.getElementById('descricao').value;
+            var inputDataLimite = document.getElementById('dataLimite').value.split('/').reverse().join('-');
+
+            const historicos = [];
+            const Historico = historicos;
+
+            var CardKanbanResponse = {
+                HandleCard: modal.dataset.taskId,
+                TituloCard: inputTitulo,
+                DesricaoCard: inputDescricao,
+                DataLimite: inputDataLimite,
+                CardConcluido :false
+            };
+
+            const ColunaKanbanResponse = {
+                HandleColuna: modal.dataset.columnId
+            };
+
+            const ParticipanteSelecionadoCard = {
+                HandleParticipanteSelecionado: ptselecionado
+            };
+
+            const handleprojeto = _handleProjeto;
+
+            if (!validarSalvarTarefa(CardKanbanResponse)) {
+                return;
+            }
+
+            var url = getPath() + '/Kanban/AdicionarCard';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify({CardKanbanResponse, ColunaKanbanResponse, ParticipanteSelecionadoCard, Historico, handleprojeto }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    closeTaskModal();
+                    if (CardKanbanResponse.HandleCard == 0) {
+                        CardKanbanResponse.HandleCard = response["Value"];
+                        createTask(CardKanbanResponse, ColunaKanbanResponse.HandleColuna);
+                        atualizarOrdemCards(ColunaKanbanResponse.HandleColuna);
+                    } else {
+                        atualizarCard(CardKanbanResponse);
+                    }
+                },
+                error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function atualizarCard(CardKanbanResponse){
+            var task = document.getElementById('task-'+CardKanbanResponse.HandleCard);
+            task.dataset.name = CardKanbanResponse.TituloCard;
+            var tituloTask = document.getElementById('tituloID'+CardKanbanResponse.HandleCard);
+            tituloTask.textContent = CardKanbanResponse.TituloCard;
+        }
+
+        function createTask(CardKanbanResponse, idColumn) {
+            var dropzone = document.getElementById('dropzone-'+idColumn);
+
+            var newTask = document.createElement('div');
+            newTask.classList.add('kanban-task');
+            newTask.setAttribute('draggable', 'true');
+            newTask.addEventListener('click', editTaskModal);
+            newTask.dataset.columnId = idColumn;
+            newTask.id = 'task-'+CardKanbanResponse.HandleCard;
+            newTask.dataset.name = CardKanbanResponse.TituloCard;
+            newTask.dataset.importado = CardKanbanResponse.Importado ? "S" : "N";
+            newTask.addEventListener('dragstart', dragStartTask);
+            newTask.addEventListener('drag', dragTask);
+            newTask.addEventListener('dragend', dragEndTask);
+            newTask.innerHTML = `
+                <div class="kanban-flex-linha">
+                    <div class="kanban-col-100 kanban-fundo-card-icon-conclude" id="iconConcludeCard${CardKanbanResponse.HandleCard}">
+                        <div><i class="fa fa-check-circle-o kanban-tarefa-icon-conclude"></i>Tarefa Conclu&iacute;da</div>
+                    </div>
+                </div>
+                <div class="kanban-flex-linha">
+                    <div class="kanban-col-75">
+                        <div id='tituloID${CardKanbanResponse.HandleCard}'>${CardKanbanResponse.TituloCard}</div>
+                    </div>
+                    <div class="kanban-col-25 kanban-align-end">
+                        <div class="kanban-dropdown">
+                            <button class="kanban-delete-task-btn"><i class="fa fa-ellipsis-h"></i></button>
+                            <div class="kanban-dropdown-menu">
+                                <div class="kanban-dropdown-item">
+                                    <div class="kanban-dropdown-subitem">
+                                        <div class="kanban-dropdown-excluir">
+                                            Excluir tarefa
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            var btnExcluirTarefa = newTask.querySelector('.kanban-dropdown-excluir');
+            btnExcluirTarefa.addEventListener('click', openDeleteTaskModal);
+
+            dropzone.appendChild(newTask);
+
+            var iconConclude = document.getElementById("iconConcludeCard"+CardKanbanResponse.HandleCard);
+            iconConclude.hidden = !CardKanbanResponse.CardConcluido;
+        }
+
+        function dragStartTask(){
+            this.classList.add("kanban-is-dragging");
+        }
+
+        function dragTask() {
+        }
+
+        function dragEndTask(){
+            this.classList.remove("kanban-is-dragging");
+
+            var handleTask = this.id.replace('task-','');
+            var columnDrop = this.dataset.columnId;
+
+            const CardKanbanResponse = {
+                HandleCard: handleTask
+            };
+
+            const ColunaKanbanResponse = {
+                HandleColuna: columnDrop
+            };
+
+            const handleProjeto = _handleProjeto;
+
+            var url = getPath() + '/Kanban/mudarCardDeColuna';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify({ ColunaKanbanResponse, CardKanbanResponse, handleProjeto }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    atualizarOrdemCards(columnDrop);
+                },
+                error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function dragOverTask(e) {
+            e.preventDefault();
+
+            const task = document.querySelector(".kanban-is-dragging");
+            const applybefore = getnewPosition(this, e.clientY);
+            if (!applybefore) {
+                this.appendChild(task);
+            } else {
+                this.insertBefore(task, applybefore);
+            }
+
+            task.dataset.columnId = this.dataset.columnId;
+        }
+
+        function dragEnterTask() {
+        }
+
+        function dragLeaveTask() {
+        }
+
+        function dropTask() {
+        }
+
+        function getnewPosition(dropzone, posY) {
+            const cards = dropzone.querySelectorAll(".kanban-task:not(.kanban-is-dragging)");
+
+            let closestTask = null;
+            let closestOffset = Number.NEGATIVE_INFINITY;
+
+            cards.forEach(card => {
+                const acima = card.getBoundingClientRect();
+                const offset = posY - (acima.top + (acima.height / 2));
+
+                if (offset < 0 && offset > closestOffset) { 
+                    closestOffset = offset;
+                    closestTask = card;
+                }
+            });
+
+            return closestTask;
+        }
+
+        function atualizarOrdemCards(coluna) {
+            let novoIndice = 0;
+            const cards = document.getElementById('dropzone-'+coluna).querySelectorAll('.kanban-task');
+            const CardsKanbanResponse = [];
+
+            cards.forEach((card) => {
+                const handleCard = card.id.replace('task-', '');
+
+                const cardResponse = {
+                    HandleCard: handleCard,
+                    PosicaoCard: novoIndice
+                };
+
+                CardsKanbanResponse.push(cardResponse);
+                novoIndice++;
+            });
+
+            var url = getPath() + '/Kanban/atualizarOrdemCards';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(CardsKanbanResponse),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {},
+                error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function ColorSecao(event) {
+            var header = this.closest('.kanban-secao-header');
+            const column = header.closest('.kanban-column');
+            const cor = this.style.backgroundColor;
+
+            const ColunaKanbanResponse = {
+                HandleColuna: column.id.replace('column-',''),
+                CorColuna: cor
+            };
+            
+            var url = getPath() + '/Kanban/AtualizarCorSecao';
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(ColunaKanbanResponse),
+                dataType: "json",
+                    success: function(response) {
+                        header.style.backgroundColor = cor;
+                    },
+                    error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function getPath(){
+           return String(window.location.href).split('/aga')[0]
+        }
+
+        function ReceberDados(handleprojeto, filtroParticipantes) {
+            _handleProjeto = handleprojeto;
+
+            eventosTaskModal();
+            eventosDeleteModal();
+
+            if (_handleProjeto == 0){
+                return null;
+            }
+
+            var btnAddColumn = document.getElementById("btn-add-column");
+            btnAddColumn.hidden = false;
+
+            var arrayParticipantes = filtroParticipantes ? String(filtroParticipantes).split('.') : [];
+            var participantesJSON = arrayParticipantes.length > 0 ? JSON.stringify(arrayParticipantes) : "[]";
+            var urlBase = getPath() + '/Kanban/TrazerColuna';
+            var parametros = `handleProjeto=${_handleProjeto}&handleParticipantes=${encodeURIComponent(participantesJSON)}`;
+            var url = `${urlBase}?${parametros}`;
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                    success: function(response) {
+                        response.forEach(coluna => {
+                            createColumn(coluna);
+
+                            //Adicionar as tarefas
+                            coluna.Cards.forEach(card => {
+                                createTask(card, coluna.HandleColuna);
+                            });
+                        });
+                    },
+                    error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function clickTituloSecao() {
+            this.classList.remove("input-sem-borda");
+            this.classList.add("input-com-borda");
+
+            this.dataset.oldValue = this.value;
+        }
+
+        function blurTituloSecao() {
+            this.classList.remove("input-com-borda");
+            this.classList.add("input-sem-borda");
+
+            var column = this.closest('.kanban-column');
+
+            if (this.dataset.oldValue != this.value) {
+                if (this.value === '') {
+                    this.value = this.dataset.oldValue;
+                } else {
+                    const ColunaKanbanResponse = {
+                        HandleColuna: column.id.replace('column-',''),
+                        TituloColuna: this.value
+                    };
+            
+                    var url = getPath() + '/Kanban/AtualizarTituloSecao';
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(ColunaKanbanResponse),
+                        dataType: "json",
+                            success: function(response) {},
+                            error: function(xhr, status, error) { alert(xhr.responseJSON) }
+                    });
+                }
+            }
+        }
+
+        function eventosTaskModal() {
+            var saveTaskModal = document.getElementById("saveDadosModalCard");
+            saveTaskModal.addEventListener('click', SalvarTarefa);
+
+            var cbxApontarTarefa = document.getElementById("apontarTarefa");
+            cbxApontarTarefa.addEventListener('change', changeApontarTarefa);
+
+            var horaInicio = document.getElementById('horaInicio');
+            horaInicio.addEventListener('blur', calcularHoras);
+
+            var horaFim = document.getElementById('horaFim');
+            horaFim.addEventListener('blur', calcularHoras);
+
+            var evolucao = document.getElementById('evolucao');
+            evolucao.addEventListener('blur', blurEvolucao);
+
+            var btnEnviarComentario = document.getElementById('btnEnviarComentario');
+            btnEnviarComentario.addEventListener('click', enviarComentario);
+
+            var btnConcluirTarefa = document.getElementById('concludeModalCard');
+            btnConcluirTarefa.addEventListener('click', concluirTarefa);
+
+            var btnRestaurarTarefa = document.getElementById('restoreModalCard');
+            btnRestaurarTarefa.addEventListener('click', restaurarTarefa);
+        }
+
+        function eventosDeleteModal() {
+            var modal = document.getElementById('deleteModal');
+
+            var closeModal = modal.querySelector('.kanban-close');
+            closeModal.addEventListener('click', closeDeleteTaskModal);
+            
+            var btnExcluir = modal.querySelector('.kanban-delete-confirm-btn');
+            btnExcluir.addEventListener('click', confirmDeleteTask);
+        }
+
+        function changeApontarTarefa() {
+            var apontamentos = document.querySelector(".kanban-apontamentos");
+
+            apontamentos.style.display = "none";
+            if (this.checked) {
+                apontamentos.style.display = "block";
+            }
+        }
+
+        function enviarComentario(e) {
+            e.preventDefault();
+            const modal = document.getElementById('taskModal');
+            const cbxApontarTarefa = document.getElementById('apontarTarefa');
+            const inputHoraInicio = document.getElementById('horaInicio').value;
+            const inputHoraFim = document.getElementById('horaFim').value;
+            const inputTotalHoras = document.getElementById('totalHoras').value;
+            const totalHorasParsed = parseFloat(inputTotalHoras.replace(',', '.'));
+            const formattedTotalHoras = totalHorasParsed.toFixed(1).replace('.', ',');
+            const inputEvolucao = document.getElementById('evolucao').value;
+            const inputParticipante = document.getElementById('participante').value;
+            const comentario = document.getElementById('comentario');
+
+            const Apontamentos = {
+                HoraInicioApontamento: inputHoraInicio,
+                HoraFinalApontamento: inputHoraFim,
+                TotalHorasApontamento: formattedTotalHoras,
+                PercentualEvolucao: inputEvolucao,
+                HandleCard: modal.dataset.taskId,
+                HandleParticipante: inputParticipante,
+                Comentario: comentario.value,
+                GeraApontamento: cbxApontarTarefa.checked
+            };
+
+            if (!validarApontamentoComentario(Apontamentos)){
+                return;
+            }
+
+            const handleProjeto = _handleProjeto;
+
+            var url = getPath() + '/Kanban/SalvarApontamentos';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify({Apontamentos, handleProjeto}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    limparApontamentoComentario();
+                    MontarHistorico(modal.dataset.taskId);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : "Erro desconhecido";
+                    alert(errorMessage);
+                }
+            });
+        }
+
+        function MontarHistorico(handleCard) {
+            var historyElement = document.querySelector('.comentarios');
+            historyElement.textContent = '';
+
+            var url = getPath() + '/Kanban/ConsultarHistorico';
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                data: { handleCard: handleCard },
+                dataType: "json",
+                success: function(response) { 
+                    response.forEach(historico => {
+                        var comentarioElement = document.createElement('div');
+                        comentarioElement.classList.add("comentario");
+                        comentarioElement.textContent = historico.HistoricoCard;
+                        comentarioElement.id = historico.HandleHistorico;
+                        historyElement.appendChild(comentarioElement);
+                    });
+                },
+                error: function(xhr, status, error) { alert(xhr.responseJSON.error) }
+            });
+        }
+
+        function limparApontamentoComentario() {
+            document.getElementById('horaInicio').value = '';
+            document.getElementById('horaFim').value = '';
+            document.getElementById('totalHoras').value = '';
+            document.getElementById('evolucao').value = '';
+            document.getElementById('comentario').value = '';
+
+            var checkbox = document.getElementById('apontarTarefa');
+            checkbox.checked = false;
+            var evento = new Event('change', { bubbles: true });
+            checkbox.dispatchEvent(evento);
+        }
+
+        function validarApontamentoComentario(Apontamento) {
+            if (Apontamento.HandleParticipante === ''){
+                alert('Necess\u00E1rio selecionar um participante!');
+                return false;
+            }
+
+            if ((Apontamento.GeraApontamento) && 
+               (Apontamento.HoraInicioApontamento > Apontamento.HoraFinalApontamento)) {
+                alert('"Hora Inicio" maior que o "Hora Fim", favor verificar!');
+                return false;
+            }
+
+            return true;
+        }
+
+        function validarSalvarTarefa(CardKanbanResponse) {
+            if (CardKanbanResponse.TituloCard.trim() === '') {
+                alert("Titulo da tarefa est\u00E1 em branco!");
+                return false;
+            }
+
+            if (CardKanbanResponse.DataLimite === '') {
+                alert("Data limite n\u00E3o informado!");
+                return false;
+            }
+
+            return true;
+        }
+
+        function mostrarInformacoesComplementares(condicao) {
+            var infoComplementares = document.getElementById('infoComplementares');
+            infoComplementares.hidden = !condicao;
+        }
+
+        function concluirTarefa() {
+            const modal = document.getElementById('taskModal');
+            var taskImportada = modal.dataset.taskImportada === 'S' ? true : false;
+
+            const inputParticipante = document.getElementById('participante');
+            if (inputParticipante.value === ''){
+                alert('Necess\u00E1rio selecionar um participante!');
+                return;
+            }
+
+            const CardsKanbanResponse = {
+                HandleCard: modal.dataset.taskId,
+                CardConcluido: true,
+                HandleParticipante: inputParticipante.value
+            };
+            
+            var url = getPath() + '/Kanban/AtualizarConclusaoTarefa';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(CardsKanbanResponse),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    controleModoleitura(taskImportada, true);
+                    atualizarCardConclude(modal.dataset.taskId, true);
+                    MontarHistorico(modal.dataset.taskId);
+                },
+                error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function restaurarTarefa() {
+            const modal = document.getElementById('taskModal');
+            var taskImportada = modal.dataset.taskImportada === 'S' ? true : false;
+
+            const inputParticipante = document.getElementById('participante');
+            if (inputParticipante.value === ''){
+                alert('Necess\u00E1rio selecionar um participante!');
+                return;
+            }
+
+            const CardsKanbanResponse = {
+                HandleCard: modal.dataset.taskId,
+                CardConcluido: false,
+                HandleParticipante: inputParticipante.value
+            };
+            
+            var url = getPath() + '/Kanban/AtualizarConclusaoTarefa';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(CardsKanbanResponse),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    controleModoleitura(taskImportada, false);
+                    atualizarCardConclude(modal.dataset.taskId, false);
+                    MontarHistorico(modal.dataset.taskId);
+                },
+                error: function(xhr, status, error) { alert(xhr.responseJSON) }
+            });
+        }
+
+        function blurEvolucao() {
+            const value = this.value.replace(/\D/g, '');
+            this.value = value;
+            const intValue = parseInt(value);
+
+            if (!isNaN(intValue)) {
+                if (intValue < 0) {
+                    this.value = 0;
+                } else if (intValue > 100) {
+                    this.value = 100;
+                }
+            }
+        }
+
+        function controleModoleitura(isImportado, isConcluido) {
+            document.getElementById('cardTitle').readOnly = isImportado || isConcluido;
+            document.getElementById('descricao').readOnly = isImportado || isConcluido;
+            document.getElementById('dataLimite').readOnly = isImportado || isConcluido;
+            document.getElementById('apontarTarefa').disabled = (!isImportado) || isConcluido;
+            document.getElementById('comentario').readOnly = isConcluido;
+            document.getElementById('btnEnviarComentario').hidden = isConcluido;
+            document.getElementById('saveDadosModalCard').hidden = isConcluido;
+            document.getElementById('iconConclude').hidden = !isConcluido;
+
+            var btnConcluirTarefa = document.getElementById('concludeModalCard');
+            var btnRestaurarTarefa = document.getElementById('restoreModalCard');
+
+            if (isConcluido) {
+                btnConcluirTarefa.style.display = 'none';
+                btnRestaurarTarefa.style.display = 'block';
+            }else {
+                btnConcluirTarefa.style.display = 'block';
+                btnRestaurarTarefa.style.display = 'none';
+            }
+        }
+
+        function atualizarCardConclude(handleCard, isConclude) {
+            var iconConclude = document.getElementById("iconConcludeCard"+handleCard);
+            iconConclude.hidden = !isConclude;
+        }
+
+        function calcularHoras() {
+            var inputHoraInicio = document.getElementById('horaInicio');
+            var inputHoraFim = document.getElementById('horaFim');
+            var inputTotalHoras = document.getElementById('totalHoras');
+
+            if (inputHoraFim.value != '' && inputHoraInicio.value != '') {
+                const [inicioHoras, inicioMinutos] = inputHoraInicio.value.split(":").map(Number);
+                const [fimHoras, fimMinutos] = inputHoraFim.value.split(":").map(Number);
+
+                const minutosInicio = inicioHoras * 60 + inicioMinutos;
+                const minutosFim = fimHoras * 60 + fimMinutos;
+
+                const diferencaMinutos = minutosFim - minutosInicio;
+                const diferencaHorasDecimal = diferencaMinutos / 60;
+
+                inputTotalHoras.value = diferencaHorasDecimal.toFixed(4);
+            } else {
+                inputTotalHoras.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

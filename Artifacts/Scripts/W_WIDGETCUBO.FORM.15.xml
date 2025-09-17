@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>W_WIDGETCUBO.FORM</ViewName>
+  <EntityName>W_WIDGETCUBO</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if(widget.Entity != None and widget.Entity.Fields["CUBO"].Instance != None and widget.Entity.Fields["CUBO"].Instance.Handle.IsValid()):
+        widget.View.FieldDefinitions["CRITERIODESELECAO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

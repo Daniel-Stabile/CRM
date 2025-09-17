@@ -1,0 +1,46 @@
+﻿@{
+    var codigoReceita = Model.Fields["CODIGORECEITA"];
+    var retencao = Model.Fields["IMPOSTO"];
+    DateTime vencimento = Model.Fields["VENCIMENTO"] == null ? DateTime.MinValue : Model.Fields["VENCIMENTO"];
+}
+
+<div class="row static-info grid-retencoes">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Imposto
+                    </div>
+                </div>
+            </label>
+            <span class=" value">@retencao</span>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group column-nowrap">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Código
+                    </div>
+
+                </div>
+            </label>
+            <span class=" value valueSecundario">@codigoReceita</span>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="form-group">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Vencimento
+                    </div>
+
+                </div>
+            </label>
+            <span class=" value valueSecundario">@(vencimento != DateTime.MinValue ? vencimento.ToShortDateString() : "")</span>
+        </div>
+    </div>
+</div>

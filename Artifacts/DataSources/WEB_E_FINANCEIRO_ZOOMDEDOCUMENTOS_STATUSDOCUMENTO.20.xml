@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>WEB_E_FINANCEIRO_ZOOMDEDOCUMENTOS_STATUSDOCUMENTO</Identifier>
+  <Name>Status Documento</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="select A.handle, A.entradasaida,&#xD;&#xA;  case A.entradasaida when 'E' then 'Liberado' when 'S' then 'Liberado' when 'I' then 'Bloqueado' when 'O' then 'Bloqueado' end as STATUS,&#xD;&#xA;  case A.entradasaida when 'E' then 'blue-soft' WHEN 'S' then 'blue-soft' when 'I' then 'red-thunderbird' WHEN 'O' then 'red-thunderbird' end as CLASSE, &#xD;&#xA;  case A.entradasaida when 'E' then 'fa fa-check' WHEN 'S' then 'fa fa-check' when 'I' then 'fa fa-ban' WHEN 'O' then 'fa fa-ban'end as ICONE&#xD;&#xA;  from fn_documentos A" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="CLASSE" From="A" Path="CLASSE" />
+    <Field Alias="ICONE" From="A" Path="ICONE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_MODELOS_DOCUMENTOS_GERADOS.GRID</ViewName>
+  <EntityName>CN_MODELODOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnENVIAREMAILExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnENVIAREMAILExecute(command, entity):
+    entity.TransitoryVars.Add("teste", 1)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity["INATIVO"].GetBoolean() :
+        row.GetCustomCommand("ENVIAREMAIL").Enabled = False
+        row.GetCustomCommand("INATIVAR").Enabled = False        
+        row.ViewCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnINATIVARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnINATIVARExecute(command, entity):
+    command.RequestConfirmation("Esta operação irá inativar o documento atual. Deseja continuar?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

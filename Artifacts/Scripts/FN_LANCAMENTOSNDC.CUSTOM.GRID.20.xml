@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_LANCAMENTOSNDC.CUSTOM.GRID</ViewName>
+  <EntityName>FN_LANCAMENTOSNDC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if ( entity["STATUS"].GetInt32() == 1 ):
+        row.GetCellByName("STATUS").FontIcon = "fa fa-info-circle"
+        row.GetCellByName("STATUS").TextColor = "#4B77BE"
+        row.GetCellByName("STATUS").Tooltip = "Em aprovação"
+        row.GetCellByName("STATUS").Text = ""
+    elif  ( entity["STATUS"].GetInt32() == 2 ):
+        row.GetCellByName("STATUS").FontIcon = "fa fa-check-circle"
+        row.GetCellByName("STATUS").TextColor = "#44B6AE"
+        row.GetCellByName("STATUS").Tooltip = "Aprovada"
+        row.GetCellByName("STATUS").Text = ""           
+    elif  ( entity["STATUS"].GetInt32() == 3 ):
+        row.GetCellByName("STATUS").FontIcon = "fa fa-times-circle"
+        row.GetCellByName("STATUS").TextColor = "#E43A45"
+        row.GetCellByName("STATUS").Tooltip = "Recusada"
+        row.GetCellByName("STATUS").Text = ""
+    else:
+        row.GetCellByName("STATUS").TextColor = "#E87E04"
+        row.GetCellByName("STATUS").FontIcon = "fa fa-info-circle"
+        row.GetCellByName("STATUS").Tooltip = "Não participa de aprovação"
+
+    row.GetCellByName("NATUREZA").Tooltip = entity["NATUREZA"].GetString()
+    row.GetCellByName("NATUREZA").Text = str( entity["NATUREZA"].GetDBValue() )
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>LANCAMENTOS_ADTO_CLI_FORN</Identifier>
+  <Name>Lançamentos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;F.NOME FILIAL,&#xD;&#xA;A.DATA,&#xD;&#xA;A.DOCUMENTOCONTABIL,&#xD;&#xA;CC.CODIGOREDUZIDO CONTADEBITO,&#xD;&#xA;CTC.CODIGOREDUZIDO CONTACREDITO,&#xD;&#xA;HIS.NOME HISTORICO,&#xD;&#xA;A.DATAVENCIMENTO,&#xD;&#xA;A.VALOR,&#xD;&#xA;A.EMPRESA,&#xD;&#xA;A.LOTE,&#xD;&#xA;A.COMPETENCIA,&#xD;&#xA;A.DOCUMENTO,&#xD;&#xA;A.CONTA,&#xD;&#xA;A.COMPLEMENTO,&#xD;&#xA;A.NATUREZA,&#xD;&#xA;A.DOCTOCONCILIACAO,&#xD;&#xA;Z.NOME USUARIOINCLUIU,&#xD;&#xA;A.USUARIOALTEROU,&#xD;&#xA;A.DATAALTERACAO,&#xD;&#xA;A.LANCAMENTOGERADO,&#xD;&#xA;A.BLOQUEADO,&#xD;&#xA;A.LANCAMENTOORIGINAL,&#xD;&#xA;A.LANCAMENTOMOVIMENTACAO,&#xD;&#xA;A.VALORMOEDA1,&#xD;&#xA;A.VALORMOEDA2&#xD;&#xA;&#xD;&#xA;FROM CT_LANCAMENTOS A&#xD;&#xA;JOIN FILIAIS F ON (F.HANDLE = A.FILIAL)&#xD;&#xA;LEFT JOIN CT_CONTAS CC ON (CC.HANDLE = A.CONTADEBITO)&#xD;&#xA;LEFT JOIN CT_CONTAS CTC ON (CTC.HANDLE = A.CONTACREDITO)&#xD;&#xA;LEFT JOIN CT_HISTORICOSPADROES HIS ON (HIS.HANDLE = A.HISTORICO)&#xD;&#xA;JOIN Z_GRUPOUSUARIOS Z ON (Z.HANDLE = A.USUARIOINCLUIU)&#xD;&#xA;&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="DOCUMENTOCONTABIL" From="A" Path="DOCUMENTOCONTABIL" />
+    <Field Alias="CONTADEBITO" From="A" Path="CONTADEBITO" />
+    <Field Alias="CONTACREDITO" From="A" Path="CONTACREDITO" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="LOTE" From="A" Path="LOTE" />
+    <Field Alias="COMPETENCIA" From="A" Path="COMPETENCIA" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="COMPLEMENTO" From="A" Path="COMPLEMENTO" />
+    <Field Alias="NATUREZA" From="A" Path="NATUREZA" />
+    <Field Alias="DOCTOCONCILIACAO" From="A" Path="DOCTOCONCILIACAO" />
+    <Field Alias="USUARIOINCLUIU" From="A" Path="USUARIOINCLUIU" />
+    <Field Alias="USUARIOALTEROU" From="A" Path="USUARIOALTEROU" />
+    <Field Alias="DATAALTERACAO" From="A" Path="DATAALTERACAO" />
+    <Field Alias="LANCAMENTOGERADO" From="A" Path="LANCAMENTOGERADO" />
+    <Field Alias="BLOQUEADO" From="A" Path="BLOQUEADO" />
+    <Field Alias="LANCAMENTOORIGINAL" From="A" Path="LANCAMENTOORIGINAL" />
+    <Field Alias="LANCAMENTOMOVIMENTACAO" From="A" Path="LANCAMENTOMOVIMENTACAO" />
+    <Field Alias="VALORMOEDA1" From="A" Path="VALORMOEDA1" />
+    <Field Alias="VALORMOEDA2" From="A" Path="VALORMOEDA2" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

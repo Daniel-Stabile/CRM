@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRAPAGAMENTO.CONDICAOPAGAMENTO.GRID</ViewName>
+  <EntityName>CP_ORDENSCOMPRAPAGAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None or widget.ProviderWidget.Entity == None: return
+
+    ordemCompra = widget.ProviderWidget.Entity
+    
+    if ordemCompra.Status.Index == 2:
+        ehConfirmada = ordemCompra.Status.Index == 2
+        widget.View.Commands["New"].Visible = not ehConfirmada
+        widget.View.Commands["Edit"].Visible = not ehConfirmada
+        widget.View.Commands["Delete"].Visible = not ehConfirmada
+    elif ordemCompra.Status.Index == 5:
+        ehCancelada = ordemCompra.Status.Index == 5
+        widget.View.Commands["New"].Visible = not ehCancelada
+        widget.View.Commands["Edit"].Visible = not ehCancelada
+        widget.View.Commands["Delete"].Visible = not ehCancelada
+    elif ordemCompra.Status.Index == 3:
+        ehRecebendo = ordemCompra.Status.Index == 3
+        widget.View.Commands["New"].Visible = not ehRecebendo
+        widget.View.Commands["Edit"].Visible = not ehRecebendo
+        widget.View.Commands["Delete"].Visible = not ehRecebendo
+    elif ordemCompra.Status.Index == 4:
+        ehEncerrada = ordemCompra.Status.Index == 3
+        widget.View.Commands["New"].Visible = not ehEncerrada
+        widget.View.Commands["Edit"].Visible = not ehEncerrada
+        widget.View.Commands["Delete"].Visible = not ehEncerrada
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

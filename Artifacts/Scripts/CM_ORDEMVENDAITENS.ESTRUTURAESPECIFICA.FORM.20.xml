@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDEMVENDAITENS.ESTRUTURAESPECIFICA.FORM</ViewName>
+  <EntityName>CM_ORDEMVENDAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    entidade = widget.Entity
+    status = entidade["STATUS"].GetInt32()
+    #widget.View.Commands["CMD_COPIAR_ESTRUTURA_PADRAO"].Visible = False
+    widget.View.Commands["CMD_COPIAR_ESTRUTURA_ORDEMVENDA"].Visible = False
+    widget.View.Commands["CMD_COPIAR_ESTRUTURA_PARA_PADRAO"].Visible = False
+    
+    if status == 1:
+        #widget.View.Commands["CMD_COPIAR_ESTRUTURA_PADRAO"].Visible = True
+        widget.View.Commands["CMD_COPIAR_ESTRUTURA_ORDEMVENDA"].Visible = True
+        widget.View.Commands["CMD_COPIAR_ESTRUTURA_PARA_PADRAO"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

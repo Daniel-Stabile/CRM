@@ -1,0 +1,35 @@
+﻿@model Benner.Tecnologia.Common.Entities<Benner.Corporativo.Definicoes.Financeiro.FNContaTesouraria>
+    
+
+<div class="form-actions top nobg no-border commands-bar fluid list-commands-bar">
+    <a href="@ViewBag.Novo" class="btn green btn-del predef-action" data-original-title=""><i class="fa fa-plus btn-action"></i> Novo</a>
+</div>
+<div class="row widget-row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <!-- BEGIN WIDGET THUMB -->
+            <a href="@ViewBag.Views[@item.Handle]">
+                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                    <h4 class="widget-thumb-heading">@item.Nome</h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon" style="font-style: normal; background-color:@Benner.Corporativo.Wes.WebApp.ContaBancariaCor.Get(item["BANCO"].GetInt32())">
+                            @(item["BANCO"].GetString()
+                                .ToUpper()
+                                .Replace("BANCO DO", "")
+                                .Replace("BANCO ", "")
+                                .Replace("BCO ", "")
+                                .Replace("BANK ", "")
+                                .Trim()[0])
+                        </i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle">R$</span>
+                            <span class="widget-thumb-body-stat @(@item["SALDOATUAL"].GetDecimal() < 0 ? "negativo" : "positivo")" data-counter="counterup" data-value="@item["SALDOATUAL"].GetDecimal()">@string.Format("{0:N}", item["SALDOATUAL"].GetDecimal())</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <!-- END WIDGET THUMB -->
+        </div>
+    }
+</div>

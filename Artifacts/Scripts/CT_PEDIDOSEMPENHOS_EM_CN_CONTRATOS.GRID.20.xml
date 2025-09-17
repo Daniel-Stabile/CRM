@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_PEDIDOSEMPENHOS_EM_CN_CONTRATOS.GRID</ViewName>
+  <EntityName>CT_PEDIDOSEMPENHOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    enabled = entity["COPIA"].GetBoolean() == False and entity["ORIGEM"].GetInt32() == 1 and  entity["STATUS"].GetInt32() == 2 
+    if (row.GetCustomCommand("CMD_DESASSOCIAR")): row.GetCustomCommand("CMD_DESASSOCIAR").Enabled = enabled
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

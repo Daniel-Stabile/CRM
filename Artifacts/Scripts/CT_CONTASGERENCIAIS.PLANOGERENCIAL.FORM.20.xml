@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_CONTASGERENCIAIS.PLANOGERENCIAL.FORM</ViewName>
+  <EntityName>CT_CONTASGERENCIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):    
+    entity = widget.Entity
+
+    if (entity == None) : return
+
+    widget.View.Commands["CMD_PRAZOEMISSAO"].Visible = (entity["ORCAMENTO"].GetDBValue() == "C") and (entity["ULTIMONIVEL"].GetDBValue() == "S")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

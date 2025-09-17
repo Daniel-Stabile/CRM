@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_AT_INVENTARIOS.FORM</ViewName>
+  <EntityName>AT_INVENTARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_CONSULTARINVENTARIO")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_CONSULTARINVENTARIO")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_CONSULTARINVENTARIO")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

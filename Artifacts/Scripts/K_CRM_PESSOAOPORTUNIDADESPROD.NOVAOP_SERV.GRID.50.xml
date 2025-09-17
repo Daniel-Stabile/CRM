@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESPROD.NOVAOP_SERV.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESPROD</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import QuerySource
+    
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["OPORTUNIDADE"];
+        versao = entity.Fields["VERSAO"];
+        criteria = Criteria("A.HANDLE IN (SELECT MODALIDADE FROM K_CRM_PESSOAOPORTUNIDADES WHERE HANDLE = :OPORTUNIDADE)", Parameter("OPORTUNIDADE", oportunidade));
+        modalidade = Entity.Get(EntityDefinition.GetByName("K_CRM_MODALIDADES"), criteria);
+        
+        if None != modalidade:
+            if modalidade.Fields["HANDLE"].IsValid():
+                if modalidade.Fields["ESCOPO"] == False:
+                    row.GetCustomCommand("cmdAdicionarEscopo").Enabled = False;
+                    
+        criterio = Criteria()
+        sql = "SELECT TOP 1 * FROM K_CRM_PO_DESCONTOS A WHERE A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.NIVELAPROVACAO &gt;= 1 AND A.NIVELAPROVACAO &lt;= 5 AND A.DATAAPROVACAO &gt;= (SELECT MAX(DATAAPROVACAO) FROM K_CRM_PO_DESCONTOS AS D2 WHERE A.OPORTUNIDADE = D2.OPORTUNIDADE AND A.VERSAO = D2.VERSAO AND D2.NIVELAPROVACAO = 1) ORDER BY NIVELAPROVACAO DESC";
+        criterio.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade.Handle));
+        criterio.Parameters.Add(Parameter("VERSAO", versao));
+        ed = EntityDefinition.Create();
+        ed.EntitySource = QuerySource(sql);
+        desconto = Entity.GetFirstOrDefault(ed, criterio);
+        if None != desconto and desconto.Fields["STATUS"] in [3]:
+            row.GetCustomCommand("CmdEscopoDoProduto").Enabled = False;
+            row.GetCustomCommand("CmdIncluirHoras").Enabled = False;
+            
+        if None == entity.Fields["ESCOPOPADRAO"] or entity.Fields["ESCOPOPADRAO"] == False:
+            row.GetCustomCommand("CmdIncluirHoras").Enabled = True;
+        else:
+            row.GetCustomCommand("CmdIncluirHoras").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+
+    entity = widget.ProviderWidget.Entity
+    essa = widget.Entity
+    
+    widget.MessagePanel.ShowMessage("Após definir o escopo do produto, clique sob a linha do mesmo para visualizar os dados calculados.", MessageType.Information)
+
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["HANDLE"];
+        versao = entity.Fields["VERSAO"];
+        criteria = Criteria("A.HANDLE IN (SELECT MODALIDADE FROM K_CRM_PESSOAOPORTUNIDADES WHERE HANDLE = :OPORTUNIDADE)", Parameter("OPORTUNIDADE", oportunidade));
+        modalidade = Entity.Get(EntityDefinition.GetByName("K_CRM_MODALIDADES"), criteria);
+        
+        if None != modalidade:
+            if modalidade.Fields["HANDLE"].IsValid():
+                if modalidade.Fields["LU"] == True:
+                    widget.View.FieldDefinitions["VALORLU"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORLU"].Visible = False;
+                if modalidade.Fields["LUM"] == True:
+                    widget.View.FieldDefinitions["VALORLUM"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORLUM"].Visible = False;        
+                if modalidade.Fields["LOCACAO"] == True:
+                    widget.View.FieldDefinitions["VALORLOCACAO"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORLOCACAO"].Visible = False;
+                if modalidade.Fields["SAAS"] == True:
+                    widget.View.FieldDefinitions["VALORDC"].Visible = True;
+                    widget.View.FieldDefinitions["VALORSAASSQL"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORDC"].Visible = False;
+                    widget.View.FieldDefinitions["VALORSAASSQL"].Visible = False;
+                if modalidade.Fields["ESCOPO"] == True and modalidade.Fields["LU"] == False and modalidade.Fields["LUM"] == False and modalidade.Fields["LOCACAO"] == False and (modalidade.Fields["SAAS"] == True or modalidade.Fields["SAAS"] == False):
+                    widget.Hidden = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

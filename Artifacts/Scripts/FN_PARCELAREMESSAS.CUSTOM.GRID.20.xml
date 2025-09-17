@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAREMESSAS.CUSTOM.GRID</ViewName>
+  <EntityName>FN_PARCELAREMESSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common import *
+    from Benner.Tecnologia.Common.Components import FormLinkDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    a = FormLinkDefinition();
+    a.Url = "~/aga/e/financeiro/zoomdeparcelas/Form.aspx";
+    a.UseTargetDefinitionName = True;
+    a.IsModalPage = False;
+    a.SystemInstanceName = BennerContext.Administration.DefaultSystemInstanceName;
+    a.TargetSystemInstanceName = BennerContext.Administration.DefaultSystemInstanceName;
+    a.TargetEntityDefinitionName = "FN_PARCELAS";
+    a.TargetFormMode = FormLinkDefinition.FormMode.View;
+    a.WhereClause = WhereClause("A.HANDLE = @CAMPO(PARCELA)");
+    command.OutputDefinition = a;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    
+    registroPai = widget.ProviderWidget.Entity;
+    if registroPai == None: return;
+    
+    if(widget.View.Commands["CMD_ADICIONAR"] != None):
+        widget.View.Commands["CMD_ADICIONAR"].Visible = registroPai["ARQUIVOGERADO"].GetString() != "True"
+        
+    if(widget.View.Commands["CMD_REMOVER"] != None):
+        widget.View.Commands["CMD_REMOVER"].Visible = registroPai["ARQUIVOGERADO"].GetString() != "True"
+    
+    if registroPai.State == EntityState.Initialized: 
+        widget.View.Commands["CMD_ADICIONAR"].Visible = False
+        widget.View.Commands["CMD_REMOVER"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityDefinition
+    
+    row.GetCellByName("CUSTOM_STATUS").Align = "center"
+    
+    if entity == None: return
+    entityDefinition = EntityDefinition.GetByName("FN_PARCELAREMESSAS");
+    funcao = function.Call(entityDefinition, "CalcularValorLiquido", entity);
+    
+    valorLiquidoCalculado = 0
+    
+    if (funcao.Vars["VALORLIQUIDOCALCULADO"] != None):
+        valorLiquidoCalculado = funcao.Vars["VALORLIQUIDOCALCULADO"]
+    
+    row.GetCellByName("VALORLIQUIDOREMESSA").Text = valorLiquidoCalculado.ToString("C2")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

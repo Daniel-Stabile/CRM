@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_APONTAMENTOS.CONTRATOSAPROVACOES.FORM</ViewName>
+  <EntityName>CN_APONTAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNApontamento
+    
+    widget.View.Commands["CONFIRMAR"].Visible = CNApontamento.VerificaSeUsuarioEstaNaAlcada()
+    widget.View.Commands["REPROVAR"].Visible = CNApontamento.VerificaSeUsuarioEstaNaAlcada()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

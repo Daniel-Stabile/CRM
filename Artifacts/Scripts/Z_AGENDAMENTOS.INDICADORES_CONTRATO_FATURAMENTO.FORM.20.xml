@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_AGENDAMENTOS.INDICADORES_CONTRATO_FATURAMENTO.FORM</ViewName>
+  <EntityName>Z_AGENDAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OcultarCampoClasse(visao):
+	visao.FieldDefinitions["CLASSE"].Visible = False
+
+def OcultarPeriodicidadesTipoWebEIntervalo(visao):
+    periodicidade = visao.Pages["GERAL"].Items["PERIODICIDADE"]
+    periodicidade.Pages["5"].Visible = False
+    periodicidade.Pages["6"].Visible = False
+
+def OcultarComandoNovo(visao):
+    if visao.Commands["New"] != None:
+			visao.Commands["New"].Visible = False
+
+def Load(widget):
+    OcultarPeriodicidadesTipoWebEIntervalo(widget.View)
+    OcultarCampoClasse(widget.View)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

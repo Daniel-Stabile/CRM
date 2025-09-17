@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_HBRETORNOREGRAS.COBRANCA.FORM</ViewName>
+  <EntityName>GN_HBRETORNOREGRAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnUTILIZARCHAVEALTERNATIVAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnUTILIZARCHAVEALTERNATIVAValueChanged(view, entity):
+    entity["CHAVEALTERNATIVA"].Visible = entity["UTILIZARCHAVEALTERNATIVA"].GetString() == "True"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if entity == None: return
+
+    widget.View.FieldDefinitions["CHAVEALTERNATIVA"].Visible = entity.Fields["UTILIZARCHAVEALTERNATIVA"] == True
+    widget.Entity["OPERACAOVALIDA"].ReadOnly = str(entity.Fields["UTILIZAROPERACAOVALIDA"]) != "Fixa"
+    widget.Entity["OPERACAOVALIDADEV"].ReadOnly = str(entity.Fields["UTILIZAROPERACAOVALIDA"]) != "Fixa"
+    widget.Entity["OPERACAOVALIDALP"].ReadOnly = str(entity.Fields["UTILIZAROPERACAOVALIDA"]) != "Fixa"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnUTILIZAROPERACAOVALIDAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnUTILIZAROPERACAOVALIDAValueChanged(view, entity):
+    entity["OPERACAOVALIDA"].ReadOnly = str(entity["UTILIZAROPERACAOVALIDA"]) != "Fixa"
+    entity["OPERACAOVALIDADEV"].ReadOnly = str(entity["UTILIZAROPERACAOVALIDA"]) != "Fixa"
+    entity["OPERACAOVALIDALP"].ReadOnly = str(entity["UTILIZAROPERACAOVALIDA"]) != "Fixa"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

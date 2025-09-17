@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_ITEMMOVIMENTACAOAPROVACOES.CUSTOM.FORM</ViewName>
+  <EntityName>AT_ITEMMOVIMENTACAOAPROVACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition    
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    entity = widget.Entity
+    view = widget.View
+
+    if entity == None: return
+
+    if entity["ITEM"].GetInt32() == 0 : return
+
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]       
+    
+    #Criterio de seleção CC
+    if entity.Fields["FILIALDESTINO"].Instance != None :       
+        entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+        parameters = NameValueDictionary()
+        parameters.Add("data", entity.Fields["DATA"])
+        parameters.Add("filialDestino", entity.Fields["FILIALDESTINO"].Handle.Value)
+        parametros = function.Call(entityDefinition, "SelecaoContaContabil", parameters)
+        entity.Fields["CCDESTINO"].LocalWhere = parametros.Vars["result"]  
+
+    #ReadOnly regras
+    if entity.DesativaCombosAdicao() == True :
+        widget.View.FieldDefinitions["FILIALDESTINO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["CCDESTINO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["PROJETODESTINO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["CRITERIOCALCULO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        widget.View.FieldDefinitions["LOCALIZACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        
+    if entity.ExigeMotivoTransferencia() == False :
+        widget.View.FieldDefinitions["MOTIVOTRANSFERENCIA"].DataAccessLevel = FieldDefinition.AccessLevel.Read     
+        
+    #Regra mostrar criterio calculo
+    if entity.VerificarCriterioCalculoPadrao() == False:
+        view.FieldDefinitions["TODOSCRITERIOS"].Visible = False
+        view.FieldDefinitions["CRITERIOCALCULO"].Visible = False
+        
+    #Controle dos comandos
+    podeMostrarComandos = entity.VerificarPodeLiberarExcluirEditar()
+    
+    if not podeMostrarComandos :
+        view.Commands["Edit"].Visible = False
+        view.Commands["Delete"].Visible = False        
+        view.Commands["LIBERAR"].Visible = False       
+        view.Commands["CMD_CANCELAR"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnITEMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnITEMValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Handle   
+    from Benner.Tecnologia.Common import FieldDefinition 
+    from Benner.Tecnologia.Common import NameValueDictionary
+    from Benner.Tecnologia.Common import Parameter
+
+    #if entity.Fields["ITEM"].Instance == None : return
+    #else:
+    entity.SugerirValores()
+        
+        
+    view.FieldDefinitions["RECUPERAICMSATUAL"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    view.FieldDefinitions["DESCRICAOFUNCAOATUAL"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+
+
+  
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]   
+
+            
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERCENTUALVALORRESIDUALDESTINOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERCENTUALVALORRESIDUALDESTINOValueChanged(view, entity):
+    entity.Fields["VALORRESIDUALDESTINO"] = (entity.TransitoryVars["valorAtualizado"] * entity.Fields["PERCENTUALVALORRESIDUALDESTINO"]) / 100
+    entity.Fields["VALORRESIDUALINDICEDESTINO"] = (entity.TransitoryVars["valorAtualizadoIndice"] * entity.Fields["PERCENTUALVALORRESIDUALDESTINO"]) / 100    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORRESIDUALDESTINOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORRESIDUALDESTINOValueChanged(view, entity):
+    Percentual = (entity.Fields["VALORRESIDUALDESTINO"] * 100) / entity.TransitoryVars["valorAtualizado"]
+    
+    if Percentual &gt; 100 :
+        PercentualDestino = 100
+    else:
+        PercentualDestino = Percentual
+    
+    
+    entity.Fields["PERCENTUALVALORRESIDUALDESTINO"] = PercentualDestino
+    entity.Fields["VALORRESIDUALINDICEDESTINO"] = (entity.TransitoryVars["valorAtualizadoIndice"] * Percentual) / 100
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORRESIDUALINDICEDESTINOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORRESIDUALINDICEDESTINOValueChanged(view, entity):
+    Percentual = (entity.Fields["VALORRESIDUALINDICEDESTINO"] / entity.TransitoryVars["valorAtualizadoIndice"]) * 100
+    
+    if Percentual &gt; 100 :
+        PercentualDestino = 100
+    else:
+        PercentualDestino = Percentual
+        
+    entity.Fields["PERCENTUALVALORRESIDUALDESTINO"] = PercentualDestino
+    entity.Fields["VALORRESIDUALDESTINO"] = (entity.TransitoryVars["valorAtualizado"] * PercentualDestino) / 100
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERCENTUALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERCENTUALValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]         
+    
+    
+    if entity.Fields["PERCENTUAL"] &gt; 0 :
+        entity.Fields["VALOR"]                  = (entity.TransitoryVars["valorAtualizado"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORINDICE"]            = (entity.TransitoryVars["valorAtualizadoIndice"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORRESIDUAL"]          = (entity.TransitoryVars["valorResidual"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORRESIDUALINDICE"]    = (entity.TransitoryVars["valorResidualIndice"] * entity.Fields["PERCENTUAL"]) / 100        
+    else:
+        if entity.TransitoryVars["valorAtualizadoIndice"] &gt; 0 :
+            entity.Fields["PERCENTUAL"] = (entity.Fields["VALORINDICE"] / entity.TransitoryVars["valorAtualizadoIndice"]) * 100
+            if entity.Fields["PERCENTUAL"] &gt; 100 :
+                entity.Fields["PERCENTUAL"] = 100
+        else:                
+            entity.Fields["PERCENTUAL"] = 0                
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCONTADESTINOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONTADESTINOValueChanged(view, entity):
+    if entity.Fields["CONTADESTINO"] != None :
+        entity.Fields["DEPRECIACAODESTINO"] = entity.ObterDepreciacaoContaDestino()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]         
+    
+    
+    if entity.Fields["PERCENTUAL"] &gt; 0 :
+        percentual                              = (entity.Fields["VALOR"] * 100) / entity.TransitoryVars["valorAtualizado"]
+        if percentual &gt; 100 :
+            percentual = 100
+            
+        entity.Fields["PERCENTUAL"]             = percentual
+        entity.Fields["VALORINDICE"]            = (entity.TransitoryVars["valorAtualizadoIndice"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORRESIDUAL"]          = (entity.TransitoryVars["valorResidual"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORRESIDUALINDICE"]    = (entity.TransitoryVars["valorResidualIndice"] * entity.Fields["PERCENTUAL"]) / 100
+        
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORINDICEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORINDICEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]         
+    
+    
+    if entity.TransitoryVars["valorAtualizadoIndice"] &gt; 0 :
+        percentual                              = (entity.Fields["VALORINDICE"] / entity.TransitoryVars["valorAtualizadoIndice"]) * 100
+        if percentual &gt; 100 :
+            percentual = 100
+            
+        entity.Fields["PERCENTUAL"]             = percentual
+        entity.Fields["VALOR"]            = (entity.TransitoryVars["valorAtualizado"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORRESIDUAL"]          = (entity.TransitoryVars["valorResidual"] * entity.Fields["PERCENTUAL"]) / 100
+        entity.Fields["VALORRESIDUALINDICE"]    = (entity.TransitoryVars["valorResidualIndice"] * entity.Fields["PERCENTUAL"]) / 100
+        
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORRESIDUALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORRESIDUALValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]         
+    
+    PercentualValor = 0
+    if entity.TransitoryVars["valorResidual"] &gt; 0 :
+        PercentualValor = (entity.Fields["VALORRESIDUAL"] * 100) / entity.TransitoryVars["valorResidual"]
+    entity.Fields["VALORRESIDUALINDICE"] = (entity.TransitoryVars["valorResidualIndice"] * PercentualValor ) / 100              
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORRESIDUALINDICEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORRESIDUALINDICEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]         
+    
+    PercentualValor = 0
+    if entity.TransitoryVars["valorResidualIndice"] &gt; 0 :
+        PercentualValor = (entity.Fields["VALORRESIDUALINDICE"] / entity.TransitoryVars["valorResidualIndice"]) * 100
+    entity.Fields["VALORRESIDUAL"] = (entity.TransitoryVars["valorResidual"] * PercentualValor ) / 100              
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORVENDAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORVENDAValueChanged(view, entity):
+    PercentualValor = 0
+    if entity.Fields["VALOR"] &gt; 0 :
+        PercentualValor = entity.Fields["VALORVENDA"] / entity.Fields["VALOR"]
+    entity.Fields["VALORVENDAINDICE"] = (entity.Fields["VALORINDICE"] * PercentualValor )       
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORVENDAINDICEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORVENDAINDICEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import NameValueDictionary
+    
+    #Regra do valor residual
+    entityDefinition = EntityDefinition.GetByName(entity.Definition.EntitySource.SystemInstanceName, "AT_ITEMMOVIMENTACAOAPROVACOES")
+    parameters = NameValueDictionary()
+    parameters.Add("data", entity.Fields["DATA"])
+    parameters.Add("item", entity.Fields["ITEM"].Handle.Value)
+    if entity.Fields["CRITERIOCALCULO"].Instance != None :   
+        parameters.Add("criterio", entity.Fields["CRITERIOCALCULO"].Handle.Value)
+    else :
+        parameters.Add("criterio", 0)
+    parametros = function.Call(entityDefinition, "BuscarCriterioCalculoItem", parameters)
+    
+    entity.TransitoryVars["valorAtualizado"] = parametros.Vars["valorAtualizado"]
+    entity.TransitoryVars["valorAtualizadoIndice"] = parametros.Vars["valorAtualizadoIndice"]
+    entity.TransitoryVars["valorResidual"] = parametros.Vars["valorResidual"]
+    entity.TransitoryVars["valorResidualIndice"] = parametros.Vars["valorResidualIndice"]             
+    
+    PercentualValor = 0
+    if entity.Fields["VALORINDICE"] &gt; 0 :
+        PercentualValor = entity.Fields["VALORVENDAINDICE"] / entity.Fields["VALORINDICE"]
+    entity.Fields["VALORVENDA"] = (entity.TransitoryVars["valorResidual"] * PercentualValor )           
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

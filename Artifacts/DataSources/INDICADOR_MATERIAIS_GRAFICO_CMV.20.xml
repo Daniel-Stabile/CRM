@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_GRAFICO_CMV</Identifier>
+  <Name>Indicadores materiais - Gráfico CMV</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALORCMV) VALORCMV,&#xA;      (CASE &#xA;        WHEN SUM(A.VALORTOTALVENDAS) = 0 THEN 0&#xA;        WHEN SUM(A.VALORTOTALVENDAS) &gt; 0 THEN ((SUM(A.VALORCMV)/SUM(A.VALORTOTALVENDAS))*100)&#xA;       END) PERCENTUALCMV,&#xA;      (CASE &#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 1 THEN 'Jan'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 2 THEN 'Fev'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 3 THEN 'Mar'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 4 THEN 'Abr'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 5 THEN 'Mai'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 6 THEN 'Jun'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 7 THEN 'Jul'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 8 THEN 'Ago'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 9 THEN 'Set'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 10 THEN 'Out'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 11 THEN 'Nov'&#xA;        WHEN @DATAPARTE(MES, A.COMPETENCIA) = 12 THEN 'Dez'&#xA;      END) LEGENDA&#xA;FROM PD_DWINDICADORCMV A&#xA;JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR &#xA;    WHERE @CRITERIOSELECAO&#xA;    GROUP BY A.COMPETENCIA&#xA;    ORDER BY A.COMPETENCIA" />
+  <Fields>
+    <DecimalField Alias="VALORCMV" From="A" Path="VALORCMV" FieldDecimalsFormat="0" />
+    <DecimalField Alias="PERCENTUALCMV" From="A" Path="PERCENTUALCMV" FieldDecimalsFormat="0" />
+    <Field Alias="LEGENDA" From="A" Path="LEGENDA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MA_FORMCENTROSMANUTENCAO.FORM</ViewName>
+  <EntityName>MA_CENTROSMANUTENCAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    if widget.Entity.Fields["TIPODESTINO"] != None:
+        widget.View.Commands["CMD_ABASTECIMENTO"].Visible = (widget.Entity.Fields["TIPODESTINO"].Value == 1)
+    if widget.Entity.Fields["TIPODESTINO"] != None:
+        widget.View.Commands["CMD_TECNICOS"].Visible = (widget.Entity.Fields["TIPODESTINO"].Value == 2 or widget.Entity.Fields["TIPODESTINO"].Value == 3)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,23 @@
+﻿@{
+    string operacaoCancelamento = Convert.ToString(@Model.Fields["OPERACAOCANCELAMENTO"]);
+    string classeCSS = "";
+    string textoTitulo = "";
+    if (operacaoCancelamento != "")
+    {
+        classeCSS = "label label-sm label-danger";
+        textoTitulo = "Cancelado";
+    }
+    else if ( (@Model.Fields["ENTRADASAIDA"] == "I") || (@Model.Fields["ENTRADASAIDA"] == "O") )
+    {
+        classeCSS = "label label-sm label-default";
+        textoTitulo = "Bloqueado";
+    }
+    else
+    {
+        classeCSS = "label label-sm label-success";
+        textoTitulo = "Confirmado";
+    }
+}
+<div class="@classeCSS">
+    @textoTitulo
+</div>

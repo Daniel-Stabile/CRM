@@ -1,0 +1,1 @@
+<%@ WebHandler Language="C#" Class="Benner.Erp.Wes.Components.Components.DownloadXml, Benner.Erp.Wes.Components" %>

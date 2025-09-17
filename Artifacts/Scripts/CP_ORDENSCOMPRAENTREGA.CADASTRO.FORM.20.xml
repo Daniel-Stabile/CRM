@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRAENTREGA.CADASTRO.FORM</ViewName>
+  <EntityName>CP_ORDENSCOMPRAENTREGA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entrega = widget.Entity
+    if entrega == None: return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPOrdemCompraEntrega
+    
+    podeAlterar = CPOrdemCompraEntrega.PodeAlterar(entrega.OrdensCompraItens.Instance["ORDEMCOMPRA"].GetInt64())
+    
+    widget.View.Commands["New"].Visible = podeAlterar
+    widget.View.Commands["Edit"].Visible = podeAlterar
+    widget.View.Commands["Delete"].Visible = podeAlterar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

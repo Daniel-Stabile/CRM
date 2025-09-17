@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnRAMOATIVIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRAMOATIVIDADEValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Business")
+    
+    from Benner.Tecnologia.Business import Query
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    
+    ramoAtividade = entity.Fields["RAMOATIVIDADE"].Handle;
+    
+    if ramoAtividade.IsValid():
+        criteria = Criteria("A.RAMOATIVIDADE = :RAMO", Parameter("RAMO", ramoAtividade))
+        entityCampos = Entity.GetMany(EntityDefinition.GetByName("K_CRM_RAMOATIVIDADECAMPOS"), criteria)
+        
+        if entityCampos.Count &gt; 0:
+
+            for item in entityCampos:
+                nome = item.Fields["CAMPO"].Instance.Fields["NOME"]
+                view.FieldDefinitions[nome].Visible = bool(item.Fields["VISIVEL"])
+                view.FieldDefinitions[nome].Required = bool(item.Fields["OBRIGATORIO"])
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

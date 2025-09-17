@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_TIPOSCONTRATO.CUSTOM.FORM</ViewName>
+  <EntityName>AT_TIPOSCONTRATO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_TIPOS_CONTRATOS")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_TIPOS_CONTRATOS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_TIPOS_CONTRATOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

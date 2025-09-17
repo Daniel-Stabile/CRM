@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_ANSFCATIVIDADESOPER.FORM</ViewName>
+  <EntityName>CT_ANSFCATIVIDADESOPER</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    registro = widget.Entity
+    if registro == None: return
+
+    if (registro.State == EntityState.Read) or (registro.State == EntityState.Editing):
+        widget.View.Commands["New"].Visible = False
+    if (registro.State == EntityState.Initialized) or (registro.State == EntityState.Editing):
+        widget.View.Commands["SaveNew"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

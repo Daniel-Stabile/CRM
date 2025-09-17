@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_ACOESRELACIONAMENTO.GRID</ViewName>
+  <EntityName>CRM_ACOESRELACIONAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (not entity is None):
+        handleResponsavel = entity.Fields["RESPONSAVEL"].Handle
+        handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+        row.EditCommand.Visible = (entity.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel)
+        row.DeleteCommand.Visible = (entity.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel)
+        row.GetCustomCommand("CMD_EXECUTAR").Enabled = (entity.Fields["STATUS"].Value == 1 and handleUsuario == handleResponsavel)
+        row.GetCustomCommand("CMD_CANCELAR").Enabled = ((entity.Fields["STATUS"].Value == 2 or entity.Fields["STATUS"].Value == 1) and handleUsuario == handleResponsavel)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXECUTARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXECUTARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a execução da Ação de Relacionamento?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEditExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEditExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if (entity.Fields["STATUS"].Value != 1):
+        raise CancelledOperationException("Status da ação de relacionamento não permite edição!")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma o cancelamento da Ação de Relacionamento?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

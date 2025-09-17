@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PESSOAPARAMETROS.FORM</ViewName>
+  <EntityName>GN_PESSOAPARAMETROS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    widget.View.Commands["New"].Visible = widget.Entity == None and Utils.VerificaPermissao("MANTERFORNECEDOR", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS", "MODULO_CONTRATOS")
+    widget.View.Commands["Edit"].Visible = Utils.VerificaPermissao("MANTERFORNECEDOR", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS", "MODULO_CONTRATOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

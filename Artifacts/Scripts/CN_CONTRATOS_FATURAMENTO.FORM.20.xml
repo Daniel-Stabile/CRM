@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOS_FATURAMENTO.FORM</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_COPIARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_COPIARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirmar a cópia do contrato?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def ComandoNaoNulo(widget, nomeComando):
+    return widget.View.Commands[nomeComando] &lt;&gt; None
+    
+def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper 
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common.Components.FormPageGroup import StateGroup
+
+    comandoApontamentos = 1 
+    comandoAditivos = 2
+    
+    if widget.Entity.State == EntityState.Initialized:
+        widget.View.Pages["Capa"].Items["GROUP_OPCOESAVANCADAS"].State = StateGroup.Fixed
+        widget.View.Pages["Capa"].Items["GROUP_CRONOGRAMA"].Visible = True
+        widget.View.Pages["Capa"].Items["GROUP_OBSERVACOES"].Visible = True
+    	
+    registro = widget.Entity
+    if registro == None: return
+    
+    agrupamentoFuncoes = widget.View.Commands["GRP_FUNCOES"]
+    
+    if agrupamentoFuncoes != None and agrupamentoFuncoes.Items["CMD_SUSPENDER"] != None:
+        agrupamentoFuncoes.Items["CMD_SUSPENDER"].Title = registro.TituloComandoSuspender()
+    
+    widget.Entity.Visualization.Fields["TEXTOAVISOCANCELAMENTO"].ReadOnly = registro.ContratoEmCadastro()
+    
+    if ComandoNaoNulo(widget, "New"): widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_CONTRATO_FATURAMENTO")
+    if ComandoNaoNulo(widget, "Edit"): widget.View.Commands["Edit"].Visible = registro.ContratoEmCadastro()
+    if ComandoNaoNulo(widget, "Delete"): widget.View.Commands["Delete"].Visible = registro.ContratoEmCadastro()
+    
+    if ComandoNaoNulo(widget, "CMD_ADITIVOS"): widget.View.Commands["CMD_ADITIVOS"].Visible = registro.ExibeComando(comandoAditivos) 
+    if ComandoNaoNulo(widget, "CMD_APONTAMENTOS"): widget.View.Commands["CMD_APONTAMENTOS"].Visible = registro.ExibeComando(comandoApontamentos)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

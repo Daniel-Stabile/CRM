@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Benner.Core.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Benner.Core.Abstractions.DependencyInjection.IBennerServiceBuilder">
+            <summary>
+            Interface para implementação da injeção de dependência 
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Abstractions.DependencyInjection.IBennerServiceBuilder.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adiciona os serviços à coleção para injeção de dependência
+            </summary>
+            <param name="services">Coleção de serviços</param>
+        </member>
+        <member name="T:Benner.Core.Abstractions.IDataAccessConnectionSettings">
+            <summary>
+            Representa os dados necessários para conexão com o banco de dados.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.IDataAccessConnectionSettings.ConnectionString">
+            <summary>
+            ConnectionString do Ado.Net.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.IDataAccessConnectionSettings.IsLangDriverParadox">
+            <summary>
+            True para bancos de dados com LangDriver Paradox, senão False.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.IDataAccessConnectionSettings.DriverName">
+            <summary>
+            Nome do driver de acesso ao banco de dados.
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Abstractions.ISuperServerSettings">
+            <summary>
+            Representa os dados necessários para conexão com o super server.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.ISuperServerSettings.Host">
+            <summary>
+            Servidor do super server.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.ISuperServerSettings.SystemName">
+            <summary>
+            Nome do sistema no super server.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.ISuperServerSettings.Port">
+            <summary>
+            Porta utilizada pelo super server. Deixar nulo para utilizar a padrão.
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Schedule.ILogsCleaner">
+            <summary>
+            Business task para limpeza de logs
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Schedule.ILogsCleaner`1">
+            <summary>
+            Business task para limpeza de logs
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Schedule.ILogsCleaner`2">
+            <summary>
+            Business task para limpeza de logs
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Tasks.IAsyncProcessResponse">
+            <summary>
+            Tipo que todo objeto de valor utilizado para respostas em processos assíncronos deve implementar
+            Utilizado por:
+               Benner.Core.Abstractions.Tasks.IBusinessTaskFunction
+               Benner.Core.Provider.Communication.TaskResponse
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.Tasks.IAsyncProcessResponse.Success">
+            <summary>
+            Indica se houve erro no processamento
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Abstractions.Tasks.IAsyncProcessResponse.Payload">
+            <summary>
+            Payload de resposta
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Tasks.IBusinessTaskAction">
+            <summary>
+            Interface para implementação de tarefas em BusinessComponents
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Abstractions.Tasks.IBusinessTaskAction.Run">
+            <summary>
+            Método de execução
+            </summary>
+            <returns>Objeto de saída</returns>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Tasks.IBusinessTaskAction`1">
+            <summary>
+            Interface para implementação de tarefas em BusinessComponents
+            </summary>
+            <typeparam name="TRequest">Tipo do objeto de entrada</typeparam>
+        </member>
+        <member name="M:Benner.Core.Abstractions.Tasks.IBusinessTaskAction`1.Run(`0)">
+            <summary>
+            Método de execução
+            </summary>
+            <param name="request">Objeto de entrada</param>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Tasks.IBusinessTaskFunction`1">
+            <summary>
+            Interface para implementação de tarefas em BusinessComponents
+            </summary>
+            <typeparam name="TResponse">Tipo do objeto de retorno</typeparam>
+        </member>
+        <member name="M:Benner.Core.Abstractions.Tasks.IBusinessTaskFunction`1.Run">
+            <summary>
+            Método de execução
+            </summary>
+            <returns>Objeto de saída</returns>
+        </member>
+        <member name="T:Benner.Core.Abstractions.Tasks.IBusinessTaskFunction`2">
+            <summary>
+            Interface para implementação de tarefas em BusinessComponents
+            </summary>
+            <typeparam name="TResponse">Tipo do objeto de retorno</typeparam>
+            <typeparam name="TRequest">Tipo do objeto de entrada</typeparam>
+        </member>
+        <member name="M:Benner.Core.Abstractions.Tasks.IBusinessTaskFunction`2.Run(`1)">
+            <summary>
+            Método de execução
+            </summary>
+            <returns>Objeto de saída</returns>
+        </member>
+    </members>
+</doc>

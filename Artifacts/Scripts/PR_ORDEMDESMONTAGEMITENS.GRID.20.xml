@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_ORDEMDESMONTAGEMITENS.GRID</ViewName>
+  <EntityName>PR_ORDEMDESMONTAGEMITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    mestre = widget.ProviderWidget
+    entidadeMestre = mestre.Entity
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = False
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = False
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = False
+    if(entidadeMestre.Fields["STATUS"].Value == 1 and entidadeMestre.Fields["LIBERADA"] == False):
+        if widget.View.Commands["Edit"] != None:
+            widget.View.Commands["Edit"].Visible = True
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = True
+        if widget.View.Commands["New"] != None:
+            widget.View.Commands["New"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

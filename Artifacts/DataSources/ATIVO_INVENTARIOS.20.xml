@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ATIVO_INVENTARIOS</Identifier>
+  <Name>Inventários do imobilizado</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;BENS.STATUS,&#xD;&#xA;COUNT(BENS.HANDLE) QTDE&#xD;&#xA;&#xD;&#xA;FROM (SELECT ITEM.HANDLE,&#xD;&#xA;        (CASE &#xD;&#xA;           WHEN ULTIMOINV.HANDLE IS NOT NULL THEN 'Bens inventariados'&#xD;&#xA;           WHEN ITEM.DATAAQUISICAO &gt;= @ANO[1] THEN 'Aquisição no ano'&#xD;&#xA;           ELSE 'Não inventariados'&#xD;&#xA;           END) STATUS&#xD;&#xA;        FROM AT_ITENS ITEM&#xD;&#xA;        LEFT JOIN (SELECT ITEINV.ITEM, MAX(ITEINV.HANDLE) HANDLE&#xD;&#xA;                     FROM AT_ITEMINVENTARIOS ITEINV&#xD;&#xA;                    WHERE ITEINV.DATA BETWEEN @ANO[1] AND @ANO[2]&#xD;&#xA;                    GROUP BY ITEINV.ITEM ) ULTIMOINV ON ULTIMOINV.ITEM = ITEM.HANDLE&#xD;&#xA;        ) BENS&#xD;&#xA;&#xD;&#xA;GROUP BY BENS.STATUS" />
+  <Fields>
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

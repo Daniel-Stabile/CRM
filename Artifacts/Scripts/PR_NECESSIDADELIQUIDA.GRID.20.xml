@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_NECESSIDADELIQUIDA.GRID</ViewName>
+  <EntityName>PR_NECESSIDADELIQUIDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity["CALCULOGERADO"].GetBoolean():
+        if row.EditCommand != None:
+            row.EditCommand.Visible = False;
+        if row.DeleteCommand != None:
+            row.DeleteCommand.Visible = False;
+    if entity["STATUSCALCULO"].GetInt64() == 2 or entity["STATUSCALCULO"].GetInt64() == 3 or entity["STATUSCALCULO"].GetInt64() == 5 or entity["STATUSCALCULO"].GetInt64() == 4:
+        if row.EditCommand != None:
+            row.EditCommand.Visible = False;
+        if row.DeleteCommand != None:
+            row.DeleteCommand.Visible = False;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAVERTICAL.RESUMO.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAVERTICAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    entity = widget.Entity;
+    view = widget.View;
+    
+    if entity == None:
+        return;
+    
+    usuario = BennerIdentity.Current.UserHandle
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    filial = Entity.GetFirstOrDefault(EntityDefinition.GetByName("FILIAIS"), Criteria("A.HANDLE = @FILIAL"));
+    
+    if filial == None:
+        filial = Entity.GetFirstOrDefault(EntityDefinition.GetByName("FILIAIS"), Criteria("A.HANDLE = " + entity.Fields["FILIAL"].Handle.Value.ToString()));
+    
+    if entity.Fields["SUBFASE"].Handle.IsValid():
+        if entity.Fields["SUBFASE"].Instance.Fields["NOME"].ToString() != "Pré Qualificado":
+            widget.View.Commands["cmdQuestionario"].Visible = False;
+        else:
+            if entity.Fields["SUBFASE"].Instance.Fields["NOME"].ToString() == "Pré Qualificado" and (entity.Fields["USUARIOSDR"].Handle == usuario or entity.Fields["USUARIOEXECUTIVO"].Handle == usuario):
+                widget.View.Commands["cmdQuestionario"].Visible = True;
+            else:
+                widget.View.Commands["cmdQuestionario"].Visible = False;
+                
+    view.Commands["CmdCategorizarLead"].Visible = entity.Fields["SUBFASE"].Instance.Fields["FASE"].Instance.Fields["NOME"] == "Cliente";
+        
+    criteria = Criteria("A.PERMITIROPORTUNIDADE = 'S' AND A.HANDLE = :SUBFASE", Parameter("SUBFASE", subfase))
+    aceitaOportunidade = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_SUBFASES"), criteria)
+        
+    if aceitaOportunidade != None:
+        widget.View.Commands["cmdOportunidades"].Visible = True;
+        criter = Criteria("A.NOME = 'Cliente' AND A.HANDLE = :SUBFASE", Parameter("SUBFASE", subfase));
+        clienteOportunidade = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_SUBFASES"), criter)
+        if clienteOportunidade == None:
+            widget.View.Commands["cmdAdicionarEscopo"].Visible = False;
+            widget.View.Commands["CmdTipoDeRecursoBenner"].Visible = False;
+        else:
+            if filial.Fields["K_EHREVENDA"] == True:
+                widget.View.Commands["cmdAdicionarEscopo"].Visible = True;
+                widget.View.Commands["CmdTipoDeRecursoBenner"].Visible = False;
+            else:
+                widget.View.Commands["cmdAdicionarEscopo"].Visible = False;
+                widget.View.Commands["CmdTipoDeRecursoBenner"].Visible = True;
+    else:
+        widget.View.Commands["cmdOportunidades"].Visible = False;
+        widget.View.Commands["cmdAdicionarEscopo"].Visible = False;
+        widget.View.Commands["CmdTipoDeRecursoBenner"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

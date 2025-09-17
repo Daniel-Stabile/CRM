@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_EVOLUCAO</Identifier>
+  <Name>CRM_V1_EVOLUCAO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT  CAST(CAST(LEFT(DATENAME(MONTH,A.DATAFECHAMENTO),3) AS VARCHAR) +' / '+ CAST(DATENAME(YEAR,A.DATAFECHAMENTO) AS VARCHAR) AS VARCHAR) MES,&#xD;&#xA;        COUNT(A.HANDLE) OPORTUNIDADES_GANHAS&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY DATENAME(MONTH,A.DATAFECHAMENTO),DATENAME(YEAR,A.DATAFECHAMENTO)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="MES" From="A" Path="MES" />
+    <Field Alias="OPORTUNIDADES_GANHAS" From="A" Path="OPORTUNIDADES_GANHAS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

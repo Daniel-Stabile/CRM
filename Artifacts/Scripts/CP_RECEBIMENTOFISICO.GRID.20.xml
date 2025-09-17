@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_RECEBIMENTOFISICO.GRID</ViewName>
+  <EntityName>CP_RECEBIMENTOFISICO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    recebimentoPai = widget.ProviderWidget.Entity
+    
+    if (recebimentoPai == None or recebimentoPai.IsCreating): return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRecebimentoFisico
+
+    widget.View.Commands["NEW"].Visible = CPRecebimentoFisico.TipoPaiPermiteInsercao(recebimentoPai.Handle) and CPRecebimentoFisico.StatusPaiPermiteAlteracao(recebimentoPai.Handle)
+    widget.View.Commands["EDIT"].Visible = CPRecebimentoFisico.TipoPaiPermiteAlteracao(recebimentoPai.Handle) and CPRecebimentoFisico.StatusPaiPermiteAlteracao(recebimentoPai.Handle)
+    widget.View.Commands["DELETE"].Visible = CPRecebimentoFisico.StatusPaiPermiteAlteracao(recebimentoPai.Handle)
+    widget.View.Commands["GRP_SELECIONAR_ITENS"].Items["CMD_SELECIONAR_OC"].Visible = CPRecebimentoFisico.PaiPermiteSelecionarOc(recebimentoPai.Handle)
+
+    if recebimentoPai.Tipo.Index == 3:
+        widget.View.Commands["GRP_SELECIONAR_ITENS"].Items["CMD_CARREGARITENS"].Visible = True
+    else:
+        widget.View.Commands["GRP_SELECIONAR_ITENS"].Items["CMD_CARREGARITENS"].Visible = False
+    widget.View.Commands["GRP_SELECIONAR_ITENS"].Items["CMD_SELECIONARNF"].Visible = CPRecebimentoFisico.PaiPermiteSelecionarNf(recebimentoPai.Handle)
+
+    widget.View.Commands["GRP_SELECIONAR_ITENS"].Items["CMD_SELECIONAR_CONTRATO"].Visible = CPRecebimentoFisico.PaiPermiteSelecionarContratos(recebimentoPai.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAVERTICAL.HEAD.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAVERTICAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import RadioItem
+    
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    usuario = BennerIdentity.Current.UserHandle
+    subfaseNome = entity.Fields["SUBFASE"].Instance.Fields["NOME"]
+    
+    if subfaseNome != "Pré Qualificado":
+        if row.GetCustomCommand("cmdQuestionario") != None:
+            row.GetCustomCommand("cmdQuestionario").Enabled = False;
+    else:
+        if subfaseNome == "Pré Qualificado" and entity.Fields["USUARIOSDR"].Handle == usuario:
+            if row.GetCustomCommand("cmdQuestionario") != None:
+                row.GetCustomCommand("cmdQuestionario").Enabled = True;
+        else:
+            if row.GetCustomCommand("cmdQuestionario") != None:
+                row.GetCustomCommand("cmdQuestionario").Enabled = False;
+        
+    criteria = Criteria("A.PERMITIROPORTUNIDADE = 'S' AND A.HANDLE = :SUBFASE", Parameter("SUBFASE", subfase))
+    aceitaOportunidade = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_SUBFASES"), criteria)
+        
+    if aceitaOportunidade != None:    
+        if row.GetCustomCommand("cmdOportunidades") != None:
+            row.GetCustomCommand("cmdOportunidades").Enabled = True;
+                        
+        criteriaOp = Criteria("A.DATAINICIO &lt;= GETDATE() AND A.DATAFIM &gt;= GETDATE() AND A.INATIVO = 'N' AND A.PRODUTO IN (SELECT HANDLE FROM K_CRM_PRODUTOS WHERE VERTICAL = :VERTICAL)", Parameter("VERTICAL", int(entity.Fields["VERTICAL"].Handle.Value)));
+        oportunidadeComOuSemTabela = Entity.GetMany(EntityDefinition.GetByName("K_CRM_TABELASPRECO"), criteriaOp);
+        
+        if oportunidadeComOuSemTabela.Count &gt; 0 and entity.Fields["PESSOA"].Instance.Fields["PUBLICOPRIVADO"] == RadioItem("2", "Privado"):
+            if row.GetCustomCommand("cmdNovaOportunidade") != None:
+                row.GetCustomCommand("cmdNovaOportunidade").Enabled = True;
+            if row.GetCustomCommand("cmdNovaOportunidadeManual") != None:
+                row.GetCustomCommand("cmdNovaOportunidadeManual").Enabled = False;
+        else:
+            if row.GetCustomCommand("cmdNovaOportunidade") != None:
+                row.GetCustomCommand("cmdNovaOportunidade").Enabled = False;
+            if row.GetCustomCommand("cmdNovaOportunidadeManual") != None:
+                row.GetCustomCommand("cmdNovaOportunidadeManual").Enabled = True;
+    else:
+        if row.GetCustomCommand("cmdOportunidades") != None:
+            row.GetCustomCommand("cmdOportunidades").Enabled = False;
+        if row.GetCustomCommand("cmdNovaOportunidade") != None:
+            row.GetCustomCommand("cmdNovaOportunidade").Enabled = False;
+        if row.GetCustomCommand("cmdNovaOportunidadeManual") != None:
+            row.GetCustomCommand("cmdNovaOportunidadeManual").Enabled = False;
+    
+    if entity.Fields["USUARIOSDR"].Handle.IsInvalid():
+        if row.GetCustomCommand("cmdTrasferirLead") != None:
+            row.GetCustomCommand("cmdTrasferirLead").Enabled = True;
+    else:
+        if entity.Fields["USUARIOSDR"].Handle == usuario:
+            if row.GetCustomCommand("cmdTrasferirLead") != None:
+                row.GetCustomCommand("cmdTrasferirLead").Enabled = True;
+        else:
+            if row.GetCustomCommand("cmdTrasferirLead") != None:
+                row.GetCustomCommand("cmdTrasferirLead").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+
+    ehExecutivo = activeRole == "K_CRM_EXECUTIVO_CONTAS_V2" #Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS_V2")
+    ehArquiteto = activeRole == "K_CRM_ARQUITETO_SOLUCOES" #Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehSDR = activeRole == "K_CRM_SDR_V2" #Thread.CurrentPrincipal.IsInRole("K_CRM_SDR_V2")
+    ehBDR = activeRole == "K_CRM_BDR_SINCK"
+    ehGerenteRelacionamento = activeRole == "K_CRM_GERENTE_RELACIONAMENTO"
+    ehGerenteProduto = activeRole =="K_CRM_GERENTE_PRODUTOS"
+    
+    if (ehSDR) or (ehBDR) or (ehExecutivo) or (ehArquiteto) or (ehGerenteRelacionamento) or (ehGerenteProduto):
+        widget.Hidden = True;
+    else:
+        widget.Hidden = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

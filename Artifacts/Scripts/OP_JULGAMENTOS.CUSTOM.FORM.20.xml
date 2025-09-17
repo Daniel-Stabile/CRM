@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_JULGAMENTOS.CUSTOM.FORM</ViewName>
+  <EntityName>OP_JULGAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    entity = widget.Entity
+    if entity == None: return
+
+    if (widget.View.Commands["Edit"]): widget.View.Commands["Edit"].Visible = entity.PodeEditar()
+    if (widget.View.Commands["Delete"]): widget.View.Commands["Delete"].Visible = entity.PodeExcluir()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

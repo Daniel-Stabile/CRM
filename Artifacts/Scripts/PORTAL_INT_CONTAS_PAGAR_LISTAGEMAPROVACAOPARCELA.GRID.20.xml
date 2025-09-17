@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONTAS_PAGAR_LISTAGEMAPROVACAOPARCELA.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter 
+    
+    args.WhereClause.Clear()
+    
+    whereaux = ""
+    
+    pessoas = args.Entity["PESSOAS"].GetString()
+    if pessoas != None:
+        pessoas = pessoas.replace("|_|", ",").replace("|_", "")
+        if (pessoas != ""):
+           whereaux = " PESSOA IN (" + pessoas + ") "
+           
+    documento = args.Entity["DOCUMENTO"].GetString()
+    if documento != None:
+        if whereaux != "":
+            whereaux = whereaux + " AND DOCUMENTODIGITADO = '" + documento +"'"
+        if whereaux == "":
+            whereaux = " DOCUMENTODIGITADO = '" + documento +"'"
+        
+    
+    if whereaux != "":
+        args.WhereClause.AddWhereClause("A.DOCUMENTO IN (SELECT HANDLE FROM FN_DOCUMENTOS WHERE " + whereaux + ")" )
+        
+    ap = args.Entity["AP"].GetString()
+    if ap != None:
+        args.WhereClause.AddWhereClause("A.AP = "+ ap)
+        
+    valorinicial = args.Entity["VALORINICIAL"].GetString()
+    if valorinicial != None:
+         valorinicial = valorinicial.replace(",",".")
+         args.WhereClause.AddWhereClause("A.VALOR &gt;= " +valorinicial)  
+        
+    valorfinal = args.Entity["VALORFINAL"].GetString()
+    if valorfinal != None:
+        valorfinal = valorfinal.replace(",",".")
+        args.WhereClause.AddWhereClause("A.VALOR &lt;= " +valorfinal) 
+        
+        
+    datainicial = args.Entity["VENCIMENTOINICIAL"].GetString()
+    if datainicial  != None:
+        args.WhereClause.AddWhereClause("A.VCTOPRORROGADO &gt;= :VENCIMENTOINI ") 
+        args.WhereClause.AddParameter("VENCIMENTOINI",args.Entity["VENCIMENTOINICIAL"].GetDateTime())
+    
+    
+    datafim = args.Entity["VENCIMENTOFINAL"].GetString()
+    if datafim != None:
+        args.WhereClause.AddWhereClause("A.VCTOPRORROGADO &lt;= :VENCIMENTOFIM ") 
+        args.WhereClause.AddParameter("VENCIMENTOFIM",args.Entity["VENCIMENTOFINAL"].GetDateTime())
+           
+           
+           
+            
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

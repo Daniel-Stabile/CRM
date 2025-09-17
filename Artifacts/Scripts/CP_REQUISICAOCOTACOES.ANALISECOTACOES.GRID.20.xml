@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOCOTACOES.ANALISECOTACOES.GRID</ViewName>
+  <EntityName>CP_REQUISICAOCOTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference('System')
+    import System
+
+    if entity == None: return
+
+    comandoSelecionar = row.GetCustomCommand("CMD_SELECIONARCOTACAO")
+    comandoDescelecionar = row.GetCustomCommand("CMD_DESSELECIONARCOTACAO")
+    
+    selecionado = entity.Fields["SELECIONADO"].Value
+    
+    if selecionado == 2:
+        comandoDescelecionar.Enabled = True
+        comandoSelecionar.Enabled = False
+    else: 
+        comandoDescelecionar.Enabled = False
+        comandoSelecionar.Enabled = True
+        
+    if System.String.IsNullOrEmpty(entity.FornecedorInstance.Apelido):
+        row.GetCellByName("FORNECEDOR").Text =  entity.FornecedorInstance.Nome
+
+    row.GetCellByName("DESCONTOSVALOR").TextColor = "red"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

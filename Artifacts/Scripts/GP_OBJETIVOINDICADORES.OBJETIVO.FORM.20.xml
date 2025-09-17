@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_OBJETIVOINDICADORES.OBJETIVO.FORM</ViewName>
+  <EntityName>GP_OBJETIVOINDICADORES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPIndicadorPontosControle
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    
+    if widget.Entity["OBJETIVO"].GetInt64() &lt;= 0 : return
+    if widget.Entity["HANDLE"].GetInt64() &lt;= 0 : return
+    
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(widget.Entity["OBJETIVO"].GetInt64())
+    
+    widget.View.Commands["New"].Visible = cicloEmElaboracao
+    widget.View.Commands["Edit"].Visible = cicloEmElaboracao
+    widget.View.Commands["Delete"].Visible = cicloEmElaboracao
+    
+    
+    existeDivergencia = GPIndicadorPontosControle.ExisteDivergenciaNosPontosIndicador(widget.Entity["HANDLE"].GetInt64())
+    
+    widget.MessagePanel.Visible = False
+    
+    if (existeDivergencia):
+        widget.MessagePanel.ShowMessage("Aviso: Divergência no valor da meta ou do valor inicial dos pontos de controle em relação à meta ou valor inicial do indicador, soma dos pontos de controle deve ser igual ao valor definido no indicador", MessageType.Information)
+        
+    pontoControle = GPIndicadorPontosControle()
+    pontoControle.AtualizaMetricaInconsistencia(widget.Entity["HANDLE"].GetInt64(), existeDivergencia)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

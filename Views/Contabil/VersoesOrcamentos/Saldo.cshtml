@@ -1,0 +1,57 @@
+@{
+    decimal Valor = (@Model["SALDO"].GetDecimal());
+    decimal Saidas = (@Model["SQL_SAIDAS"].GetDecimal());
+    decimal Entradas = (@Model["SQL_ENTRADAS"].GetDecimal());
+
+    string ValorString = string.Format("R$ {0:N2}", Valor);
+    string SaidasString = string.Format("R$ {0:N2}", Saidas);
+    string EntradasString = string.Format("R$ {0:N2}", Entradas);
+    string icon = "";
+    string bgColor = "";
+    string color = "";
+
+    if (Valor == 0)
+    {
+        bgColor = "#A9D8E877";
+        color = "#003C6E";
+        icon = "fa fa-circle";
+    }
+    else if (Valor > 0)
+    {
+        bgColor = "#A9D8E877";
+        color = "#003C6E";
+        icon = "fa fa-arrow-circle-up";
+    }
+    else
+    {
+        bgColor = "#F8CECC77";
+        color = "#660000";
+        icon = "fa fa-arrow-circle-down";
+    }
+
+}
+<div style="display:flex;flex-direction: column; align-items: flex-start;">
+
+    <div
+        style="background-color: @bgColor; color: @color; padding: 4px 8px;border-radius: 4px !important; width: 100%; white-space: nowrap;">
+
+        <span style="margin-left: 2px; font-size:14px; font-weight: 600; text-transform: uppercase;">
+            @ValorString
+        </span>
+    </div>
+
+    <div style="white-space: nowrap; color: #003C6E">
+        <i class="fa fa-arrow-circle-up" style="font-size:10px;"></i>
+        <span style="margin-left: 2px; font-size:12px; font-weight: 600; text-transform: uppercase;">
+            @EntradasString
+        </span>
+    </div>
+
+    <div style="white-space: nowrap; color: #660000">
+        <i class="fa fa-arrow-circle-down" style="font-size:10px;"></i>
+        <span style="margin-left: 2px; font-size:12px; font-weight: 600; text-transform: uppercase;">
+            @SaidasString
+        </span>
+    </div>
+
+</div>

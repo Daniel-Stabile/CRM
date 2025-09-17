@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_AUDITORIAS.CUSTOM.GRID</ViewName>
+  <EntityName>REINF_AUDITORIAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def addClass(FieldDefinition, Classe):
+    Css = FieldDefinition.CssClass
+    if (Css == None) or not(Classe in Css): 
+        FieldDefinition.CssClass+=" "+Classe+" "
+situacaoResult = {
+    1:"&lt;span class='bg-blue label'&gt; Pendente &lt;/span&gt;",
+    2:"&lt;span class='label bg-green-haze'&gt; Pronto para Envio &lt;/span&gt;",
+    3:"&lt;a class='openAudit'&gt;&lt;span class='btn label red-pink'&gt;&lt;i class='fa fa-search'&gt;&lt;/i&gt;  Erro de Envio &lt;/span&gt;&lt;/a&gt;",
+    4:"&lt;span class='label bg-blue-steel'&gt; Aguardando Aprovação &lt;/span&gt;",
+    5:"&lt;a class='openAudit'&gt;&lt;span class='btn label red-thunderbird'&gt; &lt;i class='fa fa-search'&gt;&lt;/i&gt;  Erro Aprovação &lt;/span&gt;&lt;/a&gt;",
+    6:"&lt;span class='label bg-green-jungle'&gt; Aprovado &lt;/span&gt;",
+    7:"&lt;span class='label bg-yellow-gold'&gt; Enviando &lt;/span&gt;"
+}
+def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.SPED.REINF.TabelasLayout import REINFR9000
+        
+    row.GetCustomCommand("CMD_R9000").Enabled = REINFR9000.VerificarVisibilidadeR9000(entity["HANDLE"].GetInt32())
+    situacao = entity["SITUACAO"].GetInt32()
+    cellSituacao = row.GetCellByName("SITUACAO")
+    if (situacao == 3 or situacao == 5): addClass(row, "bg-danger")
+    cellSituacao.Text = situacaoResult[situacao]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity == None:
+        return
+    
+    leiaute = entity.Fields["LEIAUTE"].Instance.Fields["REINF"]
+    handleEvento = entity.Fields["HANDLEEVENTO"]
+    
+    if entity.Fields["HANDLEEVENTO"] != None:
+        command.OutputDefinition.TargetEntityHandle = handleEvento
+        
+    if leiaute == "R-1000":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R1000.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R1000"
+    elif leiaute == "R-1070":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R1070.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R1070"
+    elif leiaute == "R-1050":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R1050.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R1050"
+    elif leiaute == "R-2010":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2010.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2010"
+    elif leiaute == "R-2020":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2020.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2020"
+    elif leiaute == "R-2030":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2030.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2030"
+    elif leiaute == "R-2040":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2040.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2040"
+    elif leiaute == "R-2050":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2050.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2050"
+    elif leiaute == "R-2055":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2055.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2055"
+    elif leiaute == "R-2060":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2060.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2060"
+    elif leiaute == "R-2098":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2098.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2098"
+    elif leiaute == "R-2099":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R2099.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R2099"
+    elif leiaute == "R-3010":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R3010.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R3010"
+    elif leiaute == "R-4010":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R4010.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R4010"
+    elif leiaute == "R-4020":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R4020.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R4020"
+    elif leiaute == "R-4040":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R4040.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R4040"
+    elif leiaute == "R-4080":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R4080.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R4080"
+    elif leiaute == "R-4099":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R4099.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R4099"
+    elif leiaute == "R-5001":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R5001.aspxx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R5001"
+    elif leiaute == "R-9000":
+        command.OutputDefinition.Url = "~/PortalReinf/a/Registros/Cadastro/R9000.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "REINF_R9000"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

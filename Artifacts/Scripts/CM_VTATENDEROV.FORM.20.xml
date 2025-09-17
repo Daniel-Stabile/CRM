@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_VTATENDEROV.FORM</ViewName>
+  <EntityName>CM_VTATENDEROV</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    entrega = entity.OrdemVendaEntrega.Instance
+    command.RequestConfirmationBeforeExecute("Deseja realmente " + "reservar esta quantidade?" if entrega.OperacaoAtualizaEstoque() else " atender este item?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

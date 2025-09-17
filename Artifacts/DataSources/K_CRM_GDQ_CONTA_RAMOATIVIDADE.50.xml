@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GDQ_CONTA_RAMOATIVIDADE</Identifier>
+  <Name>CRM_GDQ_CONTA_RAMOATIVIDADE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(A.HANDLE) QUANTIDADE,COALESCE(B.NOME,'Sem Ramo de atividade') TEXTO&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;LEFT JOIN K_CRM_RAMOATIVIDADE B ON A.RAMOATIVIDADE = B.HANDLE&#xD;&#xA;GROUP BY B.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QUANTIDADE" From="A" Path="QUANTIDADE" />
+    <Field Alias="TEXTO" From="A" Path="TEXTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

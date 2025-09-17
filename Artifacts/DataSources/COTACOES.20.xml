@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>COTACOES</Identifier>
+  <Name>Cotações</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COT.HANDLE,&#xA;       COT.PRODUTO,&#xA;       COT.QUANTIDADECOTADA,&#xA;       COT.VALORUNITARIO,&#xA;       COT.DATA,&#xA;       COT.DATAENTREGA,&#xA;       COT.CONDICAO,&#xA;       COT.QUANTIDADE,&#xA;       COT.UNIDADE,&#xA;       (COT.QUANTIDADE * COT.VALORUNITARIO) TOTALITENS,&#xA;       COT.TOTALGERAL,&#xA;       UM.ABREVIATURA,&#xA;       PRD.FORNECEDOR,&#xA;       FORN.NOME NOMEFORNECEDOR,&#xA;       PAG.DESCRICAO CONDICAOPAGAMENTO,&#xA;       REQ.HANDLE REQUISICAOITEM,&#xA;       REQ.REQUISICAOPAI,&#xA;       REQ.UNIDADE UNIDADEREQUISICAO,&#xA;       REQ.QUANTIDADE QUANTIDADEREQUISICAO,&#xA;       PROD.NOME NOMEPRODUTO&#xA;  FROM CP_REQUISICAOAGRUPADAS AGP&#xA;  JOIN CP_REQUISICAOPRODUTOS PRD ON PRD.HANDLE = AGP.REQUISICAOPRODUTO&#xA;  JOIN CP_REQUISICAOCOTACOES COT ON COT.COTACAO = PRD.HANDLE&#xA;  JOIN GN_PESSOAS FORN ON FORN.HANDLE = PRD.FORNECEDOR&#xA;  LEFT JOIN CP_CONDICOESPAGAMENTO PAG ON PAG.HANDLE = COT.CONDICAO&#xA;  JOIN CP_REQUISICOES REQ ON REQ.HANDLE = AGP.REQUISICAOHANDLE&#xA;  JOIN CM_UNIDADESMEDIDA UM ON UM.HANDLE = COT.UNIDADE&#xA;  JOIN PD_PRODUTOS PROD ON PROD.HANDLE = COT.PRODUTO" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="PRODUTO" From="A" Path="PRODUTO" />
+    <DecimalField Alias="QUANTIDADECOTADA" From="A" Path="QUANTIDADECOTADA" FieldDecimalsFormat="4" />
+    <DecimalField Alias="VALORUNITARIO" From="A" Path="VALORUNITARIO" FieldDecimalsFormat="4" />
+    <DateField Alias="DATA" From="A" Path="DATA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAENTREGA" From="A" Path="DATAENTREGA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="CONDICAO" From="A" Path="CONDICAO" />
+    <DecimalField Alias="QUANTIDADE" From="A" Path="QUANTIDADE" FieldDecimalsFormat="4" />
+    <Field Alias="UNIDADE" From="A" Path="UNIDADE" />
+    <DecimalField Alias="TOTALITENS" From="A" Path="TOTALITENS" FieldDecimalsFormat="4" />
+    <DecimalField Alias="TOTALGERAL" From="A" Path="TOTALGERAL" FieldDecimalsFormat="4" />
+    <Field Alias="ABREVIATURA" From="A" Path="ABREVIATURA" />
+    <Field Alias="FORNECEDOR" From="A" Path="FORNECEDOR" />
+    <Field Alias="NOMEFORNECEDOR" From="A" Path="NOMEFORNECEDOR" />
+    <Field Alias="CONDICAOPAGAMENTO" From="A" Path="CONDICAOPAGAMENTO" />
+    <Field Alias="REQUISICAOITEM" From="A" Path="REQUISICAOITEM" />
+    <Field Alias="REQUISICAOPAI" From="A" Path="REQUISICAOPAI" />
+    <Field Alias="UNIDADEREQUISICAO" From="A" Path="UNIDADEREQUISICAO" />
+    <DecimalField Alias="QUANTIDADEREQUISICAO" From="A" Path="QUANTIDADEREQUISICAO" FieldDecimalsFormat="0" />
+    <Field Alias="NOMEPRODUTO" From="A" Path="NOMEPRODUTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

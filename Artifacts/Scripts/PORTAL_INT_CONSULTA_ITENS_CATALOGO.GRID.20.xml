@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CONSULTA_ITENS_CATALOGO.GRID</ViewName>
+  <EntityName>CP_CATALOGOFORNECIMENTOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import Parameter    
+    
+    args.WhereClause.Clear();
+    
+    if(not args.Entity["NOME"].IsNull):
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE NOME LIKE :NOME )", Parameter("NOME", "%"+args.Entity["NOME"].Value+"%"))    
+
+    if(not args.Entity["VALORUNITARIODE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.VALORUNITARIOCATALOGO &gt;= :DE", Parameter("DE", args.Entity["VALORUNITARIODE"].GetDecimal()))
+        
+    if(not args.Entity["VALORUNITARIOATE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.VALORUNITARIOCATALOGO &lt;= :ATE", Parameter("ATE", args.Entity["VALORUNITARIOATE"].GetDecimal())) 
+        
+    if(not args.Entity["CODIGO"].IsNull):
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE CODIGO = :CODIGO )", Parameter("CODIGO", args.Entity["CODIGO"].Value))    
+        
+    if(not args.Entity["CODIGOREFERENCIA"].IsNull):
+        args.WhereClause.AddWhereClause("A.PRODUTOPAI IN (SELECT HANDLE FROM PD_PRODUTOSPAI WHERE CODIGOREFERENCIA LIKE :CODIGOREFERENCIA )", Parameter("CODIGOREFERENCIA", "%"+args.Entity["CODIGOREFERENCIA"].Value+"%"))            
+        
+        
+    if(not args.Entity["FAMILIA"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.FAMILIA IN ("+args.Entity["FAMILIA"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.FAMILIA IN ("+args.Entity["FAMILIA"].GetString().replace("|_|",",").replace("|_","")+")" 
+            
+    if(not args.Entity["UNIDADE"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.UNIDADE IN ("+args.Entity["UNIDADE"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.UNIDADE IN ("+args.Entity["UNIDADE"].GetString().replace("|_|",",").replace("|_","")+")"             
+            
+            
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

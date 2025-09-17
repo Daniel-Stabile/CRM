@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAS.ZOOMDOCUMENTOS.SUSPENDERPARCELAS.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import DateTime
+    
+    valorLiquido = entity.Fields["VALOR"]
+    
+    if entity.Fields["ACRESCIMOS"] != None:
+        valorLiquido += entity.Fields["ACRESCIMOS"]
+    
+    if entity.Fields["ABATIMENTOS"] != None:
+        valorLiquido -= entity.Fields["ABATIMENTOS"]
+    
+    if (entity.Fields["DATALIMITEDESCONTOCONDICIONAL"] &gt;= DateTime.Today) and (entity.Fields["DESCONTOCONDICIONAL"] != None):
+        valorLiquido -= entity.Fields["DESCONTOCONDICIONAL"]
+        
+    row.GetCellByName("CUSTOM_VALORLIQUIDO").Text = valorLiquido.ToString("C2")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_EMITIRBOLETO.FORM</ViewName>
+  <EntityName>CLOUD_EMITIRBOLETO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOEMISSAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOEMISSAOValueChanged(view, entity):
+    
+    tipo = entity.Fields["TIPOEMISSAO"]
+    if tipo == None: return
+
+    valor = tipo.Value
+    if valor == 2:
+        entity.Fields["ASSUNTO"] = "Boleto da parcela " + entity.Fields["PARCELA"].ToString() + " emitido";
+        entity.Fields["CORPO"] = "Boleto com vencimento em " + entity.Fields["PARCELA"].Instance.Fields["DATAVENCIMENTO"].ToString("dd/MM/yyyy");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.Title = "Emitir Boleto"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

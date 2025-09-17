@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CM_PARAMETROSCI.GRID</ViewName>
+  <EntityName>CM_PARAMETROSCI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    if (form == None) : return
+    
+    entity = form.Entity
+    if (entity == None) : return
+    
+    widget.Hidden = entity["TIPOFCI"].GetDBValue() != 2
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

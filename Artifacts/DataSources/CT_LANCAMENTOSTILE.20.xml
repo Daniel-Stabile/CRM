@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CT_LANCAMENTOSTILE</Identifier>
+  <Name>Tile lançamentos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT DISTINCT DOCUMENTO,&#xD;&#xA;       ((SELECT CASE&#xD;&#xA;                   WHEN SUM(VALOR) IS NULL THEN 0 ELSE SUM(VALOR) END&#xD;&#xA;           FROM CT_LANCAMENTOS&#xD;&#xA;          WHERE NATUREZA = 'C' AND DOCUMENTO = A.DOCUMENTO&#xD;&#xA;        )&#xD;&#xA;        -&#xD;&#xA;        (&#xD;&#xA;            SELECT CASE&#xD;&#xA;                   WHEN SUM(VALOR) IS NULL THEN 0 ELSE SUM(VALOR) END&#xD;&#xA;                   FROM CT_LANCAMENTOS&#xD;&#xA;                  WHERE NATUREZA = 'D' AND DOCUMENTO = A.DOCUMENTO&#xD;&#xA;                )&#xD;&#xA;            )&#xD;&#xA;        DIFERENCA FROM CT_LANCAMENTOS A" />
+  <Fields>
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DIFERENCA" From="A" Path="DIFERENCA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

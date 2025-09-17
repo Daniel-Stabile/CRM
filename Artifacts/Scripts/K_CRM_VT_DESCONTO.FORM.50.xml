@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_DESCONTO.FORM</ViewName>
+  <EntityName>K_CRM_VT_DESCONTO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    #item            = entity.Fields["ITEM"].Handle;
+    #valor            = entity.Fields["VALOR"];
+    #desconto        = entity.Fields["DESCONTO"];
+    #quantidade      = entity.Fields["QUANTIDADE"];
+    #vFinal          = None
+    
+    #if item.IsValid():
+        
+        
+    #    vFinal = quantidade*(valor*(100 - desconto)/100)
+    #    criteria = Criteria("A.HANDLE = :HANDLE")
+    #    criteria.Parameters.Add("HANDLE", item)
+    #    ent = Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), criteria, GetMode.Edit)
+        
+    #    ent.Fields["VALORDESCONTO"]              = desconto
+    #    ent.Fields["VALORFINAL"]            = vFinal
+    #    ent.Save()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDESCONTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDESCONTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    item            = entity.Fields["ITEM"].Handle;
+    valor            = entity.Fields["VALOR"];
+    desconto        = entity.Fields["DESCONTO"];
+    quantidade      = entity.Fields["QUANTIDADE"];
+    
+    if item.IsValid():
+        
+        entity.Fields["VALORFINAL"] = quantidade*(valor*(100 - desconto)/100)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnQUANTIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnQUANTIDADEValueChanged(view, entity):
+    
+    item            = entity.Fields["ITEM"].Handle;
+    valor           = entity.Fields["VALOR"];
+    desconto        = entity.Fields["DESCONTO"];
+    quantidade      = entity.Fields["QUANTIDADE"];
+    
+    if item.IsValid():
+        
+        entity.Fields["VALORFINAL"] = quantidade*(valor*(100 - desconto)/100)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    view    = widget.View
+    entity  = widget.Entity
+    
+    if view == None or entity == None:return
+    
+    tipo = int(entity.Fields["ITEM"].Instance.Fields["TIPO"].Handle.Value)
+    
+    #entity.Visualization.Fields["QUANTIDADE"].ReadOnly    = tipo not in [1,2]
+    entity.Visualization.Fields["VALOR"].ReadOnly         = tipo not in [1,2]
+    #entity.Visualization.Fields["DESCONTO"].ReadOnly      = tipo not in [1,2]
+    entity.Visualization.Fields["VALORFINAL"].ReadOnly    = tipo not in [1,2]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

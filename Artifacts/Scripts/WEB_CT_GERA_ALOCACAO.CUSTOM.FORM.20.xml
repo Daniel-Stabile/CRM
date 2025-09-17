@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_CT_GERA_ALOCACAO.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_CT_GERA_ALOCACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    
+    # Se TIPOALOCACAO for ItemExcluirAlocacao(12) e OPCOESEXCLUSAO for ItemAlocacaoLalur(5) ou
+    # Se TIPOALOCACAO for ItemEncerramentoDoExercicio(3) então:
+    # Valida se ExisteContaResultadoSemAlocacao e pede confirmação caso exista
+    
+    if ((entity.Fields["TIPOALOCACAO"] != None) and ((int(entity.Fields["TIPOALOCACAO"].Value) == 11 or int(entity.Fields["TIPOALOCACAO"].Value) == 3))):
+        if (entity.Fields["ALOCACAOINICIAL"].Handle.IsValid()):
+            if (entity.ExisteContaResultadoSemAlocacao(int(entity.Fields["ALOCACAOINICIAL"].Handle.Value))):
+                command.RequestConfirmationBeforeExecute("No cadastro da alocação inicial informada existem contas contábeis do tipo 'Resultado' que estão desmarcadas, e deste modo, não serão encerradas." +
+                                                         "\nConfirma a geração do encerramento do exercício apenas com as atuais contas contábeis configuradas?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

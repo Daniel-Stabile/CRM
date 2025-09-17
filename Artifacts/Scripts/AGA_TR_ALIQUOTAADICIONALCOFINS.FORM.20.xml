@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_ALIQUOTAADICIONALCOFINS.FORM</ViewName>
+  <EntityName>TR_ALIQUOTAADICIONALCOFINS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    from Benner.Corporativo.Definicoes.Tributos import TRAliquotaAdicionalCofins
+    
+    if (entity.Fields["HANDLE"].Value &gt; 0):
+        if (TRAliquotaAdicionalCofins.VerificarRelacionamentoExclusao(entity.Fields["HANDLE"].Value)):
+            command.RequestConfirmationBeforeExecute("Esse período possui relacionamentos, deseja prosseguir ?")
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,23 @@
+﻿@{
+    string sStatus = Convert.ToString(@Model.Fields["ENTRADASAIDA"]);
+    string sClass = "";
+    string sTitulo = "";
+    if (sStatus.ToLower().Equals("entrada") || sStatus.ToLower().Equals("saída"))
+    {
+        sClass = "label label-sm label-primary";
+        sTitulo = "Confirmado";
+    }
+    else if (sStatus.ToLower().Equals("entrada bloqueada") || sStatus.ToLower().Equals("saída bloqueada"))
+    {
+        sClass = "label label-sm label-danger";
+        sTitulo = "Bloqueado";
+    }
+    else
+    {
+        sClass = "label label-sm label-success";
+        sTitulo = "Não informado";
+    }
+}
+<div class="@sClass">
+    @sTitulo
+</div>

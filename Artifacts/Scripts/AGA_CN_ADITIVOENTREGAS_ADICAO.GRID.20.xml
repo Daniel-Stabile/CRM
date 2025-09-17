@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_ADITIVOENTREGAS_ADICAO.GRID</ViewName>
+  <EntityName>CN_ADITIVOENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRTODASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRTODASExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_ADITIVOOBJETOS"))    
+    command.TransitoryVars.Add("HANDLECONTRATO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    objeto = widget.ProviderWidget
+    if (objeto == None) : return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Contratos import CNAditivoObjeto
+    
+    aditivoStatusCadastrado = objeto.Entity.AditivoStatusCondastrado(objeto.Entity.AditivoHandle)
+    
+    if (objeto.Entity.AditivoHandle != None):
+        widget.View.Commands["CMD_GERARPRAZOS"].Visible = aditivoStatusCadastrado
+        widget.View.Commands["CMD_EXCLUIRTODAS"].Visible = aditivoStatusCadastrado
+        widget.View.Commands["New"].Visible = aditivoStatusCadastrado
+        widget.View.Commands["Edit"].Visible = aditivoStatusCadastrado
+        widget.View.Commands["Delete"].Visible = aditivoStatusCadastrado</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

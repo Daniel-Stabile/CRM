@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_EMAILS.FORM</ViewName>
+  <EntityName>K_CRM_EMAILS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import BennerPrincipal
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Handle
+    
+    view = widget.View;
+    entity = widget.Entity;
+    ehAdmin = BennerPrincipal.Current.ActiveRole == "K_CRM_ADMIN";
+    
+    if entity == None:
+        return;
+    
+    widget.View.FieldDefinitions["REMETENTE"].Visible = not widget.Entity.IsCreating;
+    widget.View.FieldDefinitions["MENSAGEM"].Visible = widget.Entity.IsCreating;
+    widget.View.FieldDefinitions["HISTORICO"].Visible = not widget.Entity.IsCreating;
+    
+    OnTIPOValueChanged(view, entity);
+    
+    if None != view.Commands["CmdResponder"]:
+        if entity.Fields["REMETENTE"].Handle == BennerContext.Security.GetLoggedUserHandle():
+            view.Commands["CmdResponder"].Visible = False;
+            view.Commands["CmdResponderTodos"].Visible = False;
+            sql = "SELECT FILIAL FROM Z_GRUPOUSUARIOEMPRESAFILIAIS WHERE USUARIO = @USUARIO"
+            ed = EntityDefinition.Create()
+            ed.EntitySource = QuerySource(sql)
+            retorno = Entity.GetMany(ed, Criteria());
+            filiais = entity.Fields["FILIAIS"].ToHandleList();
+            estaNaFilial = False;
+            for filial in retorno:
+                if filiais.Contains(Handle(filial.Fields["FILIAL"].ToString())):
+                    estaNaFilial = True;
+                    
+            sql2 = "SELECT HANDLE FROM Z_GRUPOUSUARIOS WHERE HANDLE IN (SELECT USUARIO FROM Z_PAPELATRIBUICOES A WHERE A.PAPEL IN (SELECT HANDLE FROM Z_PAPEIS WHERE NOME = '" + BennerPrincipal.Current.ActiveRole + "') AND (USUARIO IN (SELECT HANDLE FROM Z_GRUPOUSUARIOS WHERE INATIVO = 'N') OR A.GRUPO IN (SELECT GRUPO FROM Z_GRUPOUSUARIOS WHERE INATIVO = 'N'))) UNION SELECT HANDLE FROM Z_GRUPOUSUARIOS WHERE INATIVO = 'N' AND GRUPO IN (SELECT GRUPO FROM Z_PAPELATRIBUICOES A WHERE A.PAPEL IN (SELECT HANDLE FROM Z_PAPEIS WHERE NOME = '" + BennerPrincipal.Current.ActiveRole + "') AND (USUARIO IN (SELECT HANDLE FROM Z_GRUPOUSUARIOS WHERE INATIVO = 'N') OR A.GRUPO IN (SELECT GRUPO FROM Z_GRUPOUSUARIOS WHERE INATIVO = 'N')))"
+            ed2 = EntityDefinition.Create()
+            ed2.EntitySource = QuerySource(sql2)
+            retorno2 = Entity.GetMany(ed2, Criteria());
+            estaNoPapel = False;
+            for ret in retorno2:
+                if BennerContext.Security.GetLoggedUserHandle().Value.ToString() ==ret.Fields["HANDLE"].ToString():
+                    estaNoPapel = True;
+            
+            if entity.Fields["DESTINATARIOS"].Contains(BennerContext.Security.GetLoggedUserHandle()) or estaNaFilial == True or estaNoPapel == True:
+                view.Commands["CmdMarcarComoNaoLida"].Visible = True;
+            else:
+                view.Commands["CmdMarcarComoNaoLida"].Visible = False;
+        else:
+            view.Commands["CmdResponder"].Visible = True;
+            view.Commands["CmdResponderTodos"].Visible = True;
+            view.Commands["CmdMarcarComoNaoLida"].Visible = True;
+    
+    widget.Hidden = not ehAdmin;
+    
+    if ehAdmin:
+        view.Commands["CmdResponderTodos"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    
+    tipo = int(entity.Fields["TIPO"].Value);
+    
+    if tipo == 1:
+        view.FieldDefinitions["PAPEIS"].Visible = False;
+        view.FieldDefinitions["PAPEIS"].Required = False;
+        view.FieldDefinitions["FILIAIS"].Visible = False;
+        view.FieldDefinitions["FILIAIS"].Required = False;
+        view.FieldDefinitions["DESTINATARIOS"].Visible = True;
+        view.FieldDefinitions["DESTINATARIOS"].Required = True;
+        if entity.Fields["DESTINATARIOS"].Count == 0:
+            view.FieldDefinitions["FILIAL"].Visible = True;
+            view.FieldDefinitions["FILIAL"].Required = True;
+        else:
+            view.FieldDefinitions["FILIAL"].Visible = False;
+            view.FieldDefinitions["FILIAL"].Required = False;
+    elif tipo == 2:
+        view.FieldDefinitions["PAPEIS"].Visible = False;
+        view.FieldDefinitions["PAPEIS"].Required = False;
+        view.FieldDefinitions["FILIAIS"].Visible = True;
+        view.FieldDefinitions["FILIAIS"].Required = True;
+        view.FieldDefinitions["FILIAL"].Visible = False;
+        view.FieldDefinitions["FILIAL"].Required = False;
+        view.FieldDefinitions["DESTINATARIOS"].Visible = False;
+        view.FieldDefinitions["DESTINATARIOS"].Required = False;
+    elif tipo == 3:
+        view.FieldDefinitions["PAPEIS"].Visible = True;
+        view.FieldDefinitions["PAPEIS"].Required = True;
+        view.FieldDefinitions["FILIAIS"].Visible = False;
+        view.FieldDefinitions["FILIAIS"].Required = False;
+        view.FieldDefinitions["FILIAL"].Visible = False;
+        view.FieldDefinitions["FILIAL"].Required = False;
+        view.FieldDefinitions["DESTINATARIOS"].Visible = False;
+        view.FieldDefinitions["DESTINATARIOS"].Required = False;
+    else:
+        view.FieldDefinitions["PAPEIS"].Visible = False;
+        view.FieldDefinitions["PAPEIS"].Required = False;
+        view.FieldDefinitions["FILIAIS"].Visible = False;
+        view.FieldDefinitions["FILIAIS"].Required = False;
+        view.FieldDefinitions["FILIAL"].Visible = False;
+        view.FieldDefinitions["FILIAL"].Required = False;
+        view.FieldDefinitions["DESTINATARIOS"].Visible = False;
+        view.FieldDefinitions["DESTINATARIOS"].Required = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

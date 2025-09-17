@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_GRUPOALCADASINTEGRANTES.FORM</ViewName>
+  <EntityName>CP_GRUPOALCADASINTEGRANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    entity["VALORMAXIMO"].Visible = entity["TIPOGRUPOALCADA"].GetInt32() == 14
+    entity["CONFIRMARTODOS"].Visible = entity["TIPOGRUPOALCADA"].GetInt32() == 6 or entity["TIPOGRUPOALCADA"].GetInt32() == 1
+    entity["APROVAAUTOMATICO"].Visible = entity["TIPOGRUPOALCADA"].GetInt32() == 6 or entity["TIPOGRUPOALCADA"].GetInt32() == 7
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

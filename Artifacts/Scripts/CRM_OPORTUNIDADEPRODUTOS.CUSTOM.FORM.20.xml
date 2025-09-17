@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_OPORTUNIDADEPRODUTOS.CUSTOM.FORM</ViewName>
+  <EntityName>CRM_OPORTUNIDADEPRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnVALORUNITARIOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVALORUNITARIOValueChanged(view, entity):
+    entity.Fields["VALORTOTAL"] = entity.Fields["QUANTIDADE"] * entity.Fields["VALORUNITARIO"]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import BennerContext
+    
+    entity = widget.Entity
+    if (not entity is None):
+        if (entity.Fields["OPORTUNIDADE"].Handle.IsValid()):
+            if widget.Entity.Fields["VALORUNITARIO"] is None:
+                widget.Entity.Fields["VALORUNITARIO"] = 0
+            oportunidade = entity.Fields["OPORTUNIDADE"].Instance
+            handleResponsavel = oportunidade.Fields["RESPONSAVEL"].Handle
+            handleUsuario = BennerContext.Security.GetLoggedUserHandle()
+            widget.View.Commands["Edit"].Visible = handleUsuario == handleResponsavel
+            widget.View.Commands["Delete"].Visible = handleUsuario == handleResponsavel
+            widget.View.Commands["New"].Visible = handleUsuario == handleResponsavel
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnQUANTIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnQUANTIDADEValueChanged(view, entity):
+    OnVALORUNITARIOValueChanged(view, entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

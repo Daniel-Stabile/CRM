@@ -1,0 +1,372 @@
+﻿<script src="@Url.Content("~/scripts/handsontable/handsontable.full.js")"></script>
+<link rel="stylesheet" media="screen" href="~/Content/css/handsontable.full.css">
+<script src="~/Content/aga/js/complete.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/numericjs/numeric.js"></script>
+<script src="@Url.Content("~/scripts/handsontable/formula.js")"></script>
+<script src="@Url.Content("~/scripts/handsontable/parser.js")"></script>
+<script src="@Url.Content("~/scripts/handsontable/ruleJS.js")"></script>
+<script src="@Url.Content("~/scripts/handsontable/handsontable.formula.js")"></script>
+
+<button id="btn-salvarOrcamentos" style="display:none; margin-bottom: 10px;" class="btn blue btn-save" onclick="SalvarOrcamentos()">Salvar orçamentos</button>
+<div id="tabela-orcamento-fisico" style="overflow: hidden"></div>
+<input type="hidden" value="@ViewBag.ObjetoTabela" id="objetoTabelaJson" />
+
+<script type="text/javascript">
+    var hot;
+    var objetoTabela;
+
+    $(function () {
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (!prm.get_isInAsyncPostBack()) {
+            prm.add_beginRequest(function (sender, args) {
+                if (args._postBackElement.localName == "input" || args._postBackElement.localName == "button") {
+                    args._request._url = updateQueryStringParameter(args._request._url, "Gerar", "False");
+                }
+                else {
+                    args._request._url = updateQueryStringParameter(args._request._url, "Gerar", "True");
+                }
+
+                function updateQueryStringParameter(uri, key, value) {
+                    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+                    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+                    if (uri.match(re)) {
+                        return uri.replace(re, '$1' + key + "=" + value + '$2');
+                    }
+                    else {
+                        return uri + separator + key + "=" + value;
+                    }
+                }
+            });
+
+            prm.add_endRequest(function (sender, args) {
+                var redirecionarTabela = false;
+
+                valorObjetoTabela = $('#objetoTabelaJson').val();
+                if (valorObjetoTabela != undefined && valorObjetoTabela != null && valorObjetoTabela.length > 0) {
+                    objetoTabela = JSON.parse(valorObjetoTabela);
+                    redirecionarTabela = true;
+                }
+
+                if (objetoTabela != undefined && objetoTabela != null && objetoTabela.Dados.length > 0) {
+                    var mensagem = $('.alert-info');
+                    if (mensagem.length > 0)
+                        mensagem.hide();
+
+                    $("#btn-salvarOrcamentos").css('display', 'block');
+
+                    var competencias = CriarMeses(objetoTabela.Competencias);
+
+                    var Tipo = objetoTabela.Tipo.Index;
+
+                    var temValor = objetoTabela.TemValor;
+
+                    var altura = 68 + (objetoTabela.Dados.length * 24);
+
+                    if (altura > 560)
+                        altura = 560;
+
+                    var colunas = [
+                        { data: 'Nome', type: 'text', readOnly: true },
+                        { data: 'Unidade', type: 'text', readOnly: true, className: 'htCenter' }
+                    ];
+
+                    if (temValor)
+                        colunas.push({ data: 'ValorUnitario', type: 'numeric', format: '0,0.00', renderer: 'renderNumeric', readOnly: true });
+
+                    Array.prototype.push.apply(colunas, CriarColunasMeses(Object.keys(competencias)));
+
+                    colunas.push({ data: 'Total', type: 'numeric', readOnly: true });
+
+                    if (temValor)
+                        colunas.push({ data: 'ValorTotal', type: 'numeric', format: '0,0.00', renderer: 'renderNumeric', className: 'htRight', readOnly: true });
+
+                    Handsontable.renderers.registerRenderer('renderNumeric', RenderNumeric);
+
+                    var container = document.getElementById('tabela-orcamento-fisico');
+                    hot = new Handsontable(container, {
+                        data: objetoTabela.Dados,
+                        columns: colunas,
+                        rowHeaders: true,
+                        height: altura,
+                        colHeaders: GetColHeaders(),
+                        autoColumnSize: true,
+                        maxRows: objetoTabela.Dados.length,
+                        maxCols: colunas.length,
+                        fixedColumnsLeft: temValor ? 3 : 2,
+                        currentRowClassName: 'currentRow',
+                        currentColClassName: 'currentCol',
+                        formulas: true,
+                        comments: {
+                            displayDelay: 3000
+                        }
+                    });
+                    if (objetoTabela.Item > 0) {
+                        hot.updateSettings({
+                            fixedRowsTop: 1
+                        });
+                    }
+                    hot.updateSettings({
+                        cells: function (row, col, prop) {
+                            var cellProperties = {};
+
+                            if (objetoTabela != null && !objetoTabela.Dados[row].Editavel) {
+                                cellProperties.readOnly = true;
+                            }
+
+                            return cellProperties;
+                        },
+                        rowHeaders: function (row) {
+                            var retorno = "";
+                            if (row != undefined || row != null)
+                                switch (hot.getSourceDataAtRow(row).Tabela) {
+                                    case "CT_ITENSORCAMENTOFISICO":
+                                        retorno = "Item";
+                                        break;
+                                    case "CT_CONTASGERENCIAIS":
+                                        retorno = "Conta";
+                                        break;
+                                    case "CT_CC":
+                                    case "CT_CCGERENCIAIS":
+                                        retorno = "CC";
+                                        break;
+                                    case "GN_PROJETOS":
+                                    case "CT_PROJETOSGERENCIAIS":
+                                        retorno = "Proj";
+                                        break;
+                                    case "CT_DIMENSOESGERENCIAIS":
+                                        retorno = "Dim G";
+                                        break;
+                                    case "CT_DIMENSAOGERENCIALESTRUTURAS":
+                                        retorno = "Dim";
+                                        break;
+                                }
+                            return "<b>" + retorno + "</b>"
+                        },
+                        beforeChange: function (changes) {
+                            for (var i = 0; i < changes.length; i++) {
+                                var prop = changes[i][1];
+                                var newValue = changes[i][3];
+
+                                if ((Object.keys(competencias).includes(prop) && newValue === '' || newValue === null) || newValue > Number.MAX_SAFE_INTEGER) {
+                                    changes[i][3] = 0;
+                                }
+                            }
+                        },
+                        onSelection: function (row, col) {
+                            if (hot.getCellMeta(row, col).readOnly)
+                                hot.deselectCell();    
+                        },
+                        beforeKeyDown: function (e) {
+                            // prevent Alpha chars in numeric sheet cells
+                            var key = e.charCode || e.keyCode || 0;
+                            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers
+                            // ONLY home, end, F5, F12
+                            var isNumeric = ((key == 8) || (key == 9) || (key == 13) || (key == 46)
+                                || (key == 116) || (key == 123) || ((key >= 35) && (key <= 40))
+                                || ((key >= 48) && (key <= 57)) || ((key >= 96) && (key <= 105)));
+
+                            if (!isNumeric || e.shiftKey) {
+                                // prevent alpha characters
+                                e.stopImmediatePropagation();
+                                e.preventDefault();
+                            }
+                        },
+                        afterChange: function (changes) {
+                            if (Tipo == 4) { // 4 - Orçar por dimensões
+                                changes.forEach(([row, prop, oldValue, newValue]) => {
+                                    var HandleDimGer = hot.getDataAtRowProp(row, 'Pai');
+                                    var RowDimGer = GetRowPai("CT_DIMENSOESGERENCIAIS", HandleDimGer);
+                                    var ValorDG = Number(hot.getCell(RowDimGer, hot.propToCol(prop)).innerText);
+                                    var HandlePai = hot.getDataAtRowProp(RowDimGer, 'Pai');
+                                    var RowPai = GetRowPai(objetoTabela.Conta > 0 ? "CT_ITENSORCAMENTOFISICO" : "CT_CONTASGERENCIAIS", HandlePai);
+                                    var SaldoConta = Number(hot.getCell(RowPai, hot.propToCol(prop)).innerText);
+
+                                    if (SaldoConta < ValorDG) {
+                                        hot.setCellMeta(RowDimGer, hot.propToCol(prop), 'comment', 'A dimensão gerencial ultrapassou o saldo '.concat(objetoTabela.Conta > 0 ? 'do item.' : 'da conta.'));
+                                        hot.render();
+                                        $('textarea.htCommentTextArea')
+                                            .attr('readonly', 'readonly')
+                                            .css({ 'height': 65, 'background-color': 'white' });
+                                    }
+                                    else {
+                                        if (hot.getCellMeta(RowDimGer, hot.propToCol(prop)).comment != undefined) {
+                                            hot.setCellMeta(RowDimGer, hot.propToCol(prop), 'comment', null);
+                                            hot.render();
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    });
+
+                    if (redirecionarTabela)
+                        document.getElementById('tabela-orcamento-fisico').scrollIntoView();
+
+                    function GetRowPai(TabelaPai, HandlePai) {
+                        TotalFormula = objetoTabela.Dados.find(x => x.Tabela == TabelaPai && x.Handle == HandlePai).Total;
+                        return TotalFormula.match(/\d+/g)[0] - 1;
+                    }
+
+                    function RenderNumeric(hotInstance, td, row, column, prop, value, cellProperties) {
+                        if (objetoTabela.Dados[row].Tabela == "CT_ITENSORCAMENTOFISICO") {
+                            Handsontable.NumericCell.renderer.apply(this, arguments);
+                            td.innerText = td.innerText.replace(/,/g, '_');
+                            td.innerText = td.innerText.replace('.', ',');
+                            td.innerText = td.innerText.replace(/_/g, '.');
+                            td.innerText = 'R$ ' + td.innerText;
+                        }
+                    }
+
+                    function DefaultRender(hotInstance, td, row, column, prop, value, cellProperties) {
+                        if (!value || value === '' || value == null) {
+                            td.innerHTML = "0";
+                        }
+                    }
+
+                    function CriarColunasMeses(meses) {
+                        var retorno = [];
+
+                        for (let i = 0; i < meses.length; i++) {
+                            retorno.push({ data: meses[i], type: 'numeric' });
+                        }
+
+                        return retorno;
+                    }
+
+                    function CriarMeses(competencias) {
+
+                        var retorno = {};
+
+                        for (let i = 0; i < competencias.length; i++) {
+                            competenciaAtual = new Date(competencias[i]);
+
+                            retorno[PegarMesPeloNumero(competenciaAtual.getUTCMonth() + 1)] = competenciaAtual.getUTCFullYear();
+                        }
+
+                        return retorno
+                    }
+
+                    function PegarMesPeloNumero(numero) {
+                        switch (numero) {
+                            case 1:
+                                return "Jan";
+                            case 2:
+                                return "Fev";
+                            case 3:
+                                return "Mar";
+                            case 4:
+                                return "Abr";
+                            case 5:
+                                return "Mai";
+                            case 6:
+                                return "Jun";
+                            case 7:
+                                return "Jul";
+                            case 8:
+                                return "Ago";
+                            case 9:
+                                return "Set";
+                            case 10:
+                                return "Out";
+                            case 11:
+                                return "Nov";
+                            case 12:
+                                return "Dez";
+                        }
+                    }
+
+                    function GetColHeaders() {
+                        var retorno = [];
+                        retorno[0] = "<b>Orçar por " + (Tipo == 1 ? "Item" : Tipo == 2 ? "centro de custo" : Tipo == 3 ? "projeto" : "dimensão") + "<br>Itens</br></b>";
+                        retorno[1] = "<b></br>Unidade</b>";
+
+                        var index = 2;
+
+                        if (temValor) {
+                            retorno[index] = "<b>Valor</br>unitário</b>";
+                            index++;
+                        }
+
+                        var meses = Object.keys(competencias);
+
+                        for (let i = 0; i < meses.length; i++) {
+                            var mes = meses[i];
+                            retorno[i + index] = "<b>" + mes + "/" + (competencias[mes] + "</br>Qtde</b>");
+                        }
+
+                        retorno[retorno.length] = "<b>Total<br>Qtde</br></b>";
+
+                        if (temValor) {
+                            retorno[retorno.length] = "<b>Valor</br>total</b>";
+                        }
+
+                        return retorno;
+                    }
+
+                }
+            })
+        }
+    })
+
+    function SalvarOrcamentos() {
+        $.ajax({
+            type: "POST",
+            dataType: 'text',
+            url: Benner.Page.getApplicationPath() + 'OrcamentoFisico/SalvarOrcamentos',
+            data: { JSonObjetoTabela: JSON.stringify(objetoTabela) },
+            success: function (data) {
+                if (data == '"Salvo com sucesso"') {
+                    AGA.Toastr.show({
+                        kind: "Success",
+                        position: "BottomRight",
+                        timeout: 3000,
+                        title: "Sucesso",
+                        message: data,
+                        url: "",
+                        urlTarget: "Navigate"
+                    });
+                }
+                else {
+                    AGA.Toastr.show({
+                        kind: "Error",
+                        position: "BottomRight",
+                        timeout: 8000,
+                        title: "Erro",
+                        message: data,
+                        url: "",
+                        urlTarget: "Navigate"
+                    });
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                AGA.Toastr.show({
+                    kind: "Error",
+                    position: "BottomRight",
+                    timeout: 3000,
+                    title: "Erro",
+                    message: error,
+                    url: "",
+                    urlTarget: "Navigate"
+                });
+            }
+        });
+
+    }
+
+
+</script>
+
+<style type="text/css">
+    .handsontable .currentRow {
+        background-color: #E7E8EF;
+    }
+
+    .handsontable .currentCol {
+        background-color: #E7E8EF;
+    }
+
+    td {
+        min-width: 65px;
+    }
+</style>

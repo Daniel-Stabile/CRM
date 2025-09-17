@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>REMANEJAMENTO_HISTORICO</Identifier>
+  <Name>Histórico de remanejamentos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;       ORI.DATA COMPETENCIA,&#xD;&#xA;       ORI.HISTORICO,&#xD;&#xA;       ORI.VALOR,&#xD;&#xA;       ORI.CONTA,&#xD;&#xA;       CASE WHEN VER.PROJETOS = 1 THEN ORI.PROJETO ELSE ORI.PROJETOGERENCIAL END PROJETO,&#xD;&#xA;       CASE WHEN VER.CENTROSDECUSTO = 1 THEN ORI.CENTROCUSTO ELSE ORI.CENTROCUSTOGERENCIAL END CENTROCUSTO,&#xD;&#xA;       ORI.ORIGEM,&#xD;&#xA;       ORI.PLANO,&#xD;&#xA;       VER.HANDLE VERSAO,&#xD;&#xA;       ORI.FILIAL,&#xD;&#xA;       FIL.CODIGO CODFILIAL,&#xD;&#xA;       FIL.NOME NOMEFILIAL,&#xD;&#xA;       @CONCATENAR(@CONCATENAR(CTA.ESTRUTURA, ' - '), CTA.NOME) ESTRUTURANOMECONTA,&#xD;&#xA;       CASE WHEN CC.ESTRUTURA IS NOT NULL&#xD;&#xA;                 THEN @CONCATENAR(@CONCATENAR(CC.ESTRUTURA, ' - '), CC.NOME)&#xD;&#xA;            WHEN CCG.ESTRUTURA IS NOT NULL&#xD;&#xA;                 THEN @CONCATENAR(@CONCATENAR(CCG.ESTRUTURA, ' - '), CCG.NOME)&#xD;&#xA;            ELSE '' END ESTRUTURANOMECC,&#xD;&#xA;       CASE WHEN PRJ.ESTRUTURA IS NOT NULL&#xD;&#xA;                 THEN @CONCATENAR(@CONCATENAR(PRJ.ESTRUTURA, ' - '), PRJ.NOME)&#xD;&#xA;            WHEN PRJG.ESTRUTURA IS NOT NULL&#xD;&#xA;                 THEN @CONCATENAR(@CONCATENAR(PRJG.ESTRUTURA, ' - '), PRJG.NOME)&#xD;&#xA;            ELSE '' END ESTRUTURANOMEPROJ&#xD;&#xA;  FROM CT_ORCAMENTOS ORI&#xD;&#xA;       JOIN CT_ORCAMENTOS DES ON (DES.HANDLE = ORI.REMANEJAMENTOIRMAO)&#xD;&#xA;       JOIN FILIAIS FIL ON (FIL.HANDLE = DES.FILIAL)&#xD;&#xA;       JOIN CT_CONTASGERENCIAIS CTA ON (CTA.HANDLE = DES.CONTA)&#xD;&#xA;       JOIN CT_VERSOESORCAMENTOS VER ON ORI.VERSAO = VER.HANDLE&#xD;&#xA;  LEFT JOIN CT_CC CC ON (CC.HANDLE = DES.CENTROCUSTO)&#xD;&#xA;  LEFT JOIN GN_PROJETOS PRJ ON (PRJ.HANDLE = DES.PROJETO)&#xD;&#xA;  LEFT JOIN CT_CCGERENCIAIS CCG ON (CCG.HANDLE = DES.CENTROCUSTOGERENCIAL)&#xD;&#xA;  LEFT JOIN CT_PROJETOSGERENCIAIS PRJG ON (PRJG.HANDLE = DES.PROJETOGERENCIAL)" />
+  <Fields>
+    <Field Alias="COMPETENCIA" From="A" Path="COMPETENCIA" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="ORIGEM" From="A" Path="ORIGEM" />
+    <Field Alias="PLANO" From="A" Path="PLANO" />
+    <Field Alias="VERSAO" From="A" Path="VERSAO" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="CODFILIAL" From="A" Path="CODFILIAL" />
+    <Field Alias="NOMEFILIAL" From="A" Path="NOMEFILIAL" />
+    <Field Alias="ESTRUTURANOMECONTA" From="A" Path="ESTRUTURANOMECONTA" />
+    <Field Alias="ESTRUTURANOMECC" From="A" Path="ESTRUTURANOMECC" />
+    <Field Alias="ESTRUTURANOMEPROJ" From="A" Path="ESTRUTURANOMEPROJ" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

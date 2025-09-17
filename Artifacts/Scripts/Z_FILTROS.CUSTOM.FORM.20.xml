@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_FILTROS.CUSTOM.FORM</ViewName>
+  <EntityName>Z_FILTROS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Handle
+	
+    registro = widget.Entity
+    system = registro.Definition.EntitySource.SystemInstanceName
+    entityDefinition = EntityDefinition.GetByName(system, "Z_GRUPOUSUARIOS")
+    grupoUsuario = EntityAssociation(Handle(identity.UserHandle), entityDefinition)
+	
+    widget.Entity.Fields["GRUPO"] = grupoUsuario.Instance.Fields["GRUPO"]
+    widget.Entity.Fields["CATEGORIA"].Value = 1
+    widget.Entity.Fields["PERMISSAO"]= False
+
+    widget.Entity.Fields["TABELA"].LocalWhere = "A.HANDLE IN ( SELECT HANDLE FROM Z_TABELAS WHERE NOME IN ( 'FN_DOCUMENTOS','PD_MOVIMENTACAOVARIACAO','TS_LANCAMENTOS' ) ) "
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

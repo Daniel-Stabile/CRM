@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>FX_FLUXOS_ATIVOS</Identifier>
+  <Name>Fluxos Ativos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT count(A.ATIVO) as Ativos FROM FX_FLUXO A WHERE A.Ativo = 'S' group by A.Ativo" />
+  <Fields>
+    <Field Alias="ATIVOS" From="A" Path="ATIVOS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

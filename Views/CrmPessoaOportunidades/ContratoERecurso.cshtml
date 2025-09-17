@@ -1,0 +1,106 @@
+﻿<div class="portlet light ">
+    <div class="row">
+        <div class="form-group" style="display: none;">
+            <label class="control-label name column-nowrap">
+                Oportunidade
+            </label>
+            <span>
+                <input type="text" id="TxtOportunidade" value="@Model.CodigoOportunidade" readonly="readonly" class="form-control ">
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label name column-nowrap">
+                Contrato
+            </label>
+            <span data-field="CONTRATO" data-label="Contrato" data-type="list">
+                <select name="CmbContrato" id="CmbContrato" class="form-control ">
+                    <option value="-1">(nenhum)</option>
+                    @{
+                        foreach (var contrato in Model.Contratos)
+                        {
+                            <option value="@contrato.Identificador">@contrato.Contrato</option>
+                        }
+                    }
+                </select>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label name column-nowrap" id="LblRecurso" style="display: none;">
+                Recurso
+            </label>
+            <span data-field="RECURSO" data-label="Recurso" data-type="list">
+                <select name="CmbRecurso" id="CmbRecurso" class="form-control" style="display: none;">
+                    <option value="-1">(nenhum)</option>
+                    @{
+                        for (int i = 0; i < Model.Recursos.Count; i++)
+                        {
+                            <option value="@i">@Model.Recursos[i].Recurso</option>
+                        }
+                    }
+                </select>
+            </span>
+        </div>
+    </div>
+</div>
+@{
+    string recursosJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Recursos);
+}
+
+<script>
+    var recursos = @Html.Raw(recursosJson);
+    document.addEventListener('DOMContentLoaded', function () {
+        var cmbContrato = document.getElementById('CmbContrato');
+        var cmbRecurso = document.getElementById('CmbRecurso');
+
+        // Função para filtrar as opções do select de recursos
+        function filtrarRecursos() {
+            // Limpar opções atuais
+            cmbRecurso.innerHTML = '<option value="-1">(nenhum)</option>';
+
+            // Obter o contrato selecionado
+            var contratoSelecionado = cmbContrato.value;
+
+            // Verificar se o contrato selecionado é diferente de -1 (nenhum)
+            if (contratoSelecionado !== '-1') {
+                // Filtrar os recursos pelo contrato selecionado
+                var recursosFiltrados = recursos.filter(function (recurso) {
+                    return recurso.IdentificadorContrato == contratoSelecionado;
+                });
+
+                // Adicionar as opções filtradas ao select de recursos
+                recursosFiltrados.forEach(function (recurso) {
+                    var option = document.createElement('option');
+                    option.value = recurso.Identificador;
+                    option.textContent = recurso.Recurso;
+                    cmbRecurso.appendChild(option);
+                });
+
+                // Exibir o select de recursos
+                document.getElementById('LblRecurso').style.display = 'inline-block';
+                cmbRecurso.style.display = 'block';
+            } else {
+                // Se o contrato selecionado for nenhum, ocultar o select de recursos
+                document.getElementById('LblRecurso').style.display = 'none';
+                cmbRecurso.style.display = 'none';
+            }
+        }
+
+        // Adicionar um listener para o evento change no select de contrato
+        cmbContrato.addEventListener('change', filtrarRecursos);
+
+        // Chamar a função de filtrar recursos no Document.load para inicializar o select corretamente
+        filtrarRecursos();
+    });
+    //document.getElementById('CmbContrato').addEventListener('change', function () {
+    //    var cmbContrato = this;
+    //    var cmbRecurso = document.getElementById('CmbRecurso');
+    //    if (cmbContrato.value !== '-1') {
+    //        document.getElementById('LblRecurso').style.display = 'inline-block';
+    //        cmbRecurso.style.display = 'block';
+    //    } else {
+    //        document.getElementById('LblRecurso').style.display = 'none';
+    //        cmbRecurso.style.display = 'none';
+    //        cmbRecurso.value = '-1';
+    //    }
+    //});
+</script>

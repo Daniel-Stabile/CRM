@@ -1,0 +1,537 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Benner.Corporativo.WebServices</name>
+    </assembly>
+    <members>
+        <member name="T:Benner.Corporativo.WebServices.Financeiro.IUserNameAuthentication">
+            <summary>
+            Interface para a autenticacao utilizando usuário e senha como credencial
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.BaixarDocumentosRequest.PodeExecutarParcial">
+            <summary>
+            Informa se permite baixar documentos desconsiderando os que tenham gerado inconsistência
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.GerarBorderoRemessa(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.BorderoDto)">
+            <summary>
+            Método para gerar bordero e arquivo remessa no tanque de integração
+            </summary>
+            <param name="input">Requisição correspondente aos números AP das parcelas e dados bancários</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.ConsultarBorderoRemessa(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.BorderoConsultaInput)">
+            <summary>
+            Método para consultar resultado do tanque
+            </summary>
+            <param name="input">Token ID do tanque</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.ConsultarRetirarBorderoRemessa(System.Int64)">
+            <summary>
+            Método para consultar resultado do tanque
+            </summary>
+            <param name="TokenId">Token ID do tanque</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.DownloadArquivoBorderoRemessa(System.Int32)">
+            <summary>
+            Método para download arquivo de remessa
+            </summary>
+            <param name="NumeroBordero">Número borderô de remessa</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.DownloadBorderoPDF(System.Int32)">
+            <summary>
+            Método para download arquivo de remessa
+            </summary>
+            <param name="numeroBordero">Número borderô de remessa</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.RetornoRemessa(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.RetornoRemessaDto)">
+            <summary>
+            Método para gerar bordero e arquivo remessa no tanque de integração
+            </summary>
+            <param name="input">Requisição correspondente aos números AP das parcelas e dados bancários</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.ConsultarRetornoRemessa(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.BorderoConsultaInput)">
+            <summary>
+            Método para consultar resultado do tanque
+            </summary>
+            <param name="input">Token ID do tanque</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.RetirarBordero(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.RetirarBorderoDto)">
+            <summary>
+            Método Retirar Bordero
+            </summary>
+            <param name="input">Requisição correspondente aos números AP das parcelas e dados bancários</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.BorderoService.GerarPDFBordero(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.BorderoPdfDto)">
+            <summary>
+            Método para gerar PDF bordero no tanque de integração
+            </summary>
+            <param name="input">Requisição com número do borderô</param>
+            <returns></returns>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.CancelamentoAjusteImpostosRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode executar apenas alguns cancelamentos e desprezar os erros
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.CancelamentoRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode executar apenas alguns documentos e desprezar os erros
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.LiberarParcelasService.LiberarParcelasSuspensas(Benner.Corporativo.WebServices.Layouts.REST.Financeiro.ParcelasSuspensasDto)">
+            <summary>
+            Método para liberar parcelas suspensas no tanque de integração
+            </summary>
+            <param name="input">Requisição correspondente aos números AP das parcelas</param>
+            <returns></returns>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.IntegrarAjusteImpostosRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode integrar apenas alguns ajustes de impostos e desprezar os ajustes inconsistentes
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.IntegrarAjusteImpostosResponse.AjusteImpostos">
+            <summary>
+            Documentos integrados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.FuncaoRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode executar apenas alguns documentos e desprezar os erros
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.AlterarDocumentosRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode alterar apenas alguns documentos e desprezar os documentos inconsistentes
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.AlterarDocumentosResponse.#ctor">
+            <summary>
+            Recebe uma lista de documentos alterados.
+            Criado na sms 636617
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.AlterarDocumentosResponse.Documentos">
+            <summary>
+            Documentos Alterados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.IntegrarDocumentosResponse.Documentos">
+            <summary>
+            Documentos integrados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Financeiro.IntegrarDocumentosRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode integrar apenas alguns documentos e desprezar os documentos inconsistentes
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.ServiceBase.Login(Benner.Corporativo.WebServices.Financeiro.LoginRequest)">
+            <summary>
+            Efetua o login do usuário
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Financeiro.ServiceBase.LogOut(Benner.Corporativo.WebServices.Financeiro.LogOutRequest)">
+            <summary>
+            Efetua o logOut do usuário
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.ServiceRequest.RequestID">
+            <summary>
+            Identificador de lote.
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.CancelamentoNotaFiscalRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode executar apenas alguns documentos e desprezar os erros
+            </summary>
+        </member>
+        <member name="F:Benner.Corporativo.WebServices.ContadorNotaFiscalService._VTContadorNotaFiscalDefition">
+            <summary>
+            Busca o próximo valor do contador configurado na operação de faturamento passada por parâmetro
+            Utiliza a entidade VT_CONTADORNOTAFISCAL onde é executada a regra de negócio
+            </summary>
+            
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Contabil.ContabilService.PostLancamentosContabeis(Benner.Corporativo.WebServices.Layouts.REST.Contabil.LancamentosContabeisPost)">
+            <summary>
+            Lançamentos contábeis
+            </summary>
+            <param name="request">Requisição para inserção do lançamento contábil</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Contabil.ContabilService.DeleteLancamentosContabeis(System.String,System.String)">
+            <summary>
+            Lançamentos contábeis
+            </summary>
+            <param name="CnpjFilial">CNPJ da filial do lançamento contábil</param>
+            <param name="numero">Número do lançamento contábil</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Contabil.ContabilService.PathLancamentosContabeis(System.String,System.String)">
+            <summary>
+            Lançamentos contábeis
+            </summary>
+            <param name="CnpjFilial">CNPJ da filial</param>
+            <param name="numero">Número do lançamento contábil</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Contabil.ContabilService.GetLancamentosContabeis(System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Consulta lançamentos contábeis
+            </summary>
+            <param name="CnpjFilial">Cnpj da Filial ex.: 00.000.000/0000-00</param>
+            <param name="numero">Código do lançamento</param>
+            <param name="startIndex">Índice de início para consultas paginadas.</param>
+            <param name="count">Quantidade de registros a serem retornados (default = 10).</param>
+            <param name="orderBy">Campo de ordenação (deve pertencer à visão).</param>
+            <returns>Retorna consulta de lançamentos contábeis</returns>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.DocumentoFinanceiro.DocumentoFinanceiroAlteracaoRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode alterar apenas alguns documentos e desprezar os documentos inconsistentes
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.DocumentoFinanceiro.DocumentoFinanceiroAlteracaoResponse.Documentos">
+            <summary>
+            Documentos Alterados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.DocumentoFinanceiro.DocumentoFinanceiroCancelamentoRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode executar apenas alguns documentos e desprezar os erros
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.DocumentoFinanceiro.DocumentoFinanceiroInclusaoRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode integrar apenas alguns documentos e desprezar os documentos inconsistentes
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.DocumentoFinanceiro.DocumentoFinanceiroInclusaoResponse.Documentos">
+            <summary>
+            Documentos incluidos
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.DocumentoFinanceiro.DocumentoFinanceiroRequest.PodeExecutarParcial">
+            <summary>
+            Informa se pode executar apenas alguns documentos e desprezar os erros
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.AjustesRetencoes(Benner.Corporativo.WebServices.Layouts.REST.Fiscal.AjustesRetencoesDto)">
+            <summary>
+            Método para salvar no tanque Dto para alterar impostos retidos
+            </summary>
+            <param name="input">Requisição correspondente aos impostos retidos a serem alterados</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.ConsultaRetencoes(Benner.Corporativo.WebServices.Layouts.REST.Fiscal.ConsultaRetencoesDto)">
+            <summary>
+            Realiza a busca de retenções com os parâmetros informados
+            </summary>
+            <param name="dto">Dto</param>
+            <returns>Retorna objeto com as retenções encontradas</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.ValidarCamposObrigatorios(Benner.Corporativo.WebServices.Layouts.REST.Fiscal.ConsultaRetencoesDto)">
+            <summary>
+            Valida se foi informado o token de integração ou as informações básicas para busca das retenções
+            </summary>
+            <param name="dto">Dto</param>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.GetRecebimentos(Benner.Corporativo.WebServices.Layouts.REST.Fiscal.ConsultaRetencoesDto)">
+            <summary>
+            Realiza a busca dos recebimentos de acordo com os parâmetros da <paramref name="dto"/>
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.BuscarTokenRecebimento(System.Int32)">
+            <summary>
+            Realiza a busca do token de integração relacionado ao recebimento
+            </summary>
+            <param name="handleRecebimento"></param>
+            <returns>Retorna o token, caso exista</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.GetRecebimentoPorToken(Benner.Tecnologia.Common.Criteria)">
+            <summary>
+            Realiza a busca dos recebimentos através do token de integração e outros filtros existentes
+            </summary>
+            <param name="criteria"></param>
+            <returns>Lista de recebimentos encontrada</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.GetRecebimentoSemToken(Benner.Tecnologia.Common.Criteria)">
+            <summary>
+            Realiza a busca dos recebimentos através das informações de empresa, filial, fornecedor e outros filtros existentes
+            </summary>
+            <param name="criteria"></param>
+            <returns>Lista de recebimentos encontrada</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.CriaCriteriaBuscaRetencao(Benner.Corporativo.WebServices.Layouts.REST.Fiscal.ConsultaRetencoesDto)">
+            <summary>
+            Cria criteria de busca de retenções conforme parâmetros da <paramref name="dto"/>
+            </summary>
+            <param name="dto"></param>
+            <returns>Criteria com filtros</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.MontarOutputRetencao(Benner.Tecnologia.Common.EntityBase)">
+            <summary>
+            Cria dto de recebimento com base no <paramref name="recebimento"/> fornecido
+            </summary>
+            <param name="recebimento"></param>
+            <returns>Dto de retenção com impostos, caso hajam</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.GerarRecebimentoDto(Benner.Tecnologia.Common.NameValueDictionary)">
+            <summary>
+            Cria dto de recebimento com base nos <paramref name="fields"/>
+            </summary>
+            <param name="fields"></param>
+            <returns>Dto de recebimento</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.MontarImpostoDto(Benner.Corporativo.Definicoes.Genericos.GNPessoa,Benner.Tecnologia.Common.EntityBase,Benner.Tecnologia.Common.EntityBase)">
+            <summary>
+            Cria dto de imposto com base nos parâmetros recebidos
+            </summary>
+            <param name="coletor"></param>
+            <param name="imposto"></param>
+            <param name="docImposto"></param>
+            <returns>Dto de imposto</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Fiscal.NotasEntradaService.FieldTemValor(Benner.Tecnologia.Common.NameValueDictionary,System.String)">
+            <summary>
+            Verifica se o dicionário <paramref name="fields"/> contém a chave <paramref name="keyName"/> e se ela possui valor
+            </summary>
+            <param name="fields"></param>
+            <param name="keyName"></param>
+            <returns>Booleano se possui o campo com valor ou não</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Estoque.EstoqueConferenciaFisicaService.InserirRecebimentosFisicos(Benner.Corporativo.WebServices.Layouts.REST.Estoque.ConferenciaFisica.NotaEntradaDto)">
+            <summary>
+            Método para inserir recebimentos físicos no tanque de integração
+            </summary>
+            <param name="input">Requisição correspondente aos dados do Recebimento Físico</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.Materiais.ProdutosPaiService.GetProdutoPai(Benner.Corporativo.WebServices.Layouts.Materiais.Integracao.ProdutoPaiConsultaLayout)">
+            <summary>
+            Consulta de produto pai
+            </summary>
+            <returns>Retorna consulta de produto pai</returns>
+        </member>
+        <member name="T:Benner.Corporativo.WebServices.MTreeView.Controles.CamposAdicionais">
+            <summary>
+            Para especificar capmos adicionais que serão exibidos no treeview, é necessário criar um método estático com o Atributo Table e
+            informar o nome da tabela.
+            O retorno é uma lista com os nomes do campo.
+            Caso o campo seja da propria tabela, informar APENAS o nome, sem nenhum alias.
+            Caso o campo seja de uma tabela de um campo tipo Tabela, usar o nome da tabela desde campo como Alias
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Controles.Estrutura.Nodes.BaseNode.CreateId(System.Int64,System.Int64,System.Int64,System.Int64,System.String,System.String)">
+            <summary>
+            Cria um id para o node
+            </summary>
+            <param name="carga">Handle da arvore Z_ARVORES</param>
+            <param name="tabela">Handle da tabela Z_TABELAS</param>
+            <param name="entidade">Handle do registro da tabela</param>
+            <param name="arvoretabela">Handle da carga da tabela Z_ARVORETABELA. No caso de terem duas cargas no mesmo nível apontando para a mesma tabela, com SQL especial diferente</param>
+            <param name="agrupador">Identificação de agrupador</param>
+            <param name="substr"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.MTreeView.Estrutura.Query.Tabela.PorEmpresa">
+            <summary>
+            Este campo NÃO representa o PorEmpresa do builder, ele apenas indica se tem o campo empresa na tabela
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.MTreeView.Estrutura.Query.Tabela.PorFilial">
+            <summary>
+            Este campo NÃO representa o PorFilial do builder, ele apenas indica se tem o campo filial na tabela
+            </summary>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.AddCustomFields(Benner.Corporativo.Comum.Helpers.QueryMaker.IQueryMakerManagement)">
+            <summary>
+            Rotina para mostrar campos adicionais no node do treeview, dependendo da tabela
+            </summary>
+            <param name="queryObject"></param>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.PopulateJoins(System.Int64,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Método para preencher os Joins que será usado nas consultas
+            </summary>
+            <param name="handle"></param>
+            <param name="adicionarJoin"></param>
+            <param name="aliasTabela"></param>
+            <param name="campoAnterior"></param>
+            <param name="tabelaAnterior"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.GetCriteriaForTable(System.Int64,System.Int64,System.Int64,System.String)">
+            <summary>
+            Método que espera o handle da tabela pai e o handle da tabela atual, procura o campo de ligação e retorna um criteria utilizando este campo
+            </summary>
+            <param name="handleTabelaAtual">Handle da Z_TABELAS que será usada na consulta deste Criteria</param>
+            <param name="handleTabelaPai">Handle da Z_TABELAS que tem o vínculo com a tabela atual</param>
+            <param name="handlePai">Handle do registro pai</param>
+            <param name="alias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.SearchFolder(System.Int64,System.String,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Busca nas cargas de entidade do builder, as cargas e tabelas filhas da carga informada
+            </summary>
+            <param name="arvorePai">Handle de Z_ARVORES usado para buscar as cargas filhas</param>
+            <param name="ordenacao"></param>
+            <param name="tabela">(Opcional) Handle de Z_TABELAS usado para filtrar apenas as cargas da apontando para a tabela informada</param>
+            <param name="arvore">Handle de Z_ARVORES das cargas filhas</param>
+            <param name="arvoretabela">Handle de Z_ARVORETABELAS, no caso de 2 cargas de tabelas iguais, apenas com seleção especial diferente</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.GetTableFromName(System.String)">
+            <summary>
+            Retorna o handle de Z_TABELAS buscando pelo nome da tabela
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.TranslateSpecialFunction(System.String,Benner.ERP.Comum.Breadcrumb.BreadcrumbTree)">
+            <summary>
+            
+            </summary>
+            <param name="sql"></param>
+            <param name="breadcrumb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.CampoEhDatetime">
+            <summary>
+            Verifica se o campo que será apresentado no node é DateTime
+            Obs: Se for, não podemos agrupar por texto pois não é possível fazer substring de DateTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.MTreeView.Helper.MTreeViewHelper.GetAliasFromLocalWhere(System.String,System.String)">
+            <summary>
+            Retorna o alias da tabela que foi utilizado na seleção especial
+            </summary>
+            <param name="sql"></param>
+            <param name="nomeTabela"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.OrcamentoPublico.ClassificacaoOrcamentariaService.ReajustarClassificacoesOrcamentarias(Benner.Corporativo.WebServices.Layouts.REST.OrcamentoPublico.ReajustarClassificacoesOrcamentariasDto)">
+            <summary>
+            Salvar cópia das classificações com novo valor reajustado
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.PostInventarios(Benner.Corporativo.WebServices.Layouts.REST.SPED.Inventario.InventariosPost)">
+            <summary>
+            Inventário
+            </summary>
+            <param name="request">Requisição para inserção do inventário</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.DeleteInventarios(System.String,System.Int64)">
+            <summary>
+            Inventários
+            </summary>
+            <param name="CnpjFilial">CNPJ da filial</param>
+            <param name="NumeroInventario">Número do Inventário</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.PutInventarios(Benner.Corporativo.WebServices.Layouts.REST.SPED.Inventario.InventariosPut)">
+            <summary>
+            Inventários
+            </summary>
+            <param name="request">Requisição para atualização do inventário</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.GetInventarios(System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Consulta Inventários
+            </summary>
+            <param name="CnpjFilial">Cnpj da Filial ex.: 00.000.000/0000-00</param>
+            <param name="DataInicial">Data inicial (no formato dd/mm/yyyy)</param>
+            <param name="DataFinal">Data final (no formato dd/mm/yyyy)</param>
+            <param name="startIndex">Índice de início para consultas paginadas.</param>
+            <param name="count">Quantidade de registros a serem retornados (default = 10).</param>
+            <param name="orderBy">Campo de ordenação (deve pertencer à visão).</param>
+            <returns>Retorna consulta de Invetários</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.GetInventarios(System.Int64)">
+            <summary>
+            Consulta de um inventário
+            </summary>
+            <param name="NumeroInventario">Id do inventário</param>
+            <returns>Retorna a consulta de um inventário</returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.PostOperacaoCartao(Benner.Corporativo.WebServices.Layouts.REST.SPED.OperacaoCartao.OperacaoCartaoPost)">
+            <summary>
+            Operação cartão
+            </summary>
+            <param name="request">Requisição para inserção</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.PutOperacaoCartao(Benner.Corporativo.WebServices.Layouts.REST.SPED.OperacaoCartao.OperacaoCartaoPut)">
+            <summary>
+            Operação cartão
+            </summary>
+            <param name="request">Requisição para atualização</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.DeleteOperacaoCartao(System.String,System.Int64)">
+            <summary>
+            Operação de cartão
+            </summary>
+            <param name="CnpjFilial">CNPJ da filial</param>
+            <param name="NumeroOperacao">Número da operação de cartão</param>
+            <returns></returns>
+        </member>
+        <member name="M:Benner.Corporativo.WebServices.SPED.SPEDService.GetOperacaoCartao(System.String,System.String,System.String,System.Int64,System.Int64,System.Int32,System.Int32,System.String)">
+            <summary>
+            Consulta Operações de Cartão
+            </summary>
+            <param name="CnpjFilial">Cnpj da Filial ex.: 00.000.000/0000-00</param>
+            <param name="DataInicial">Data inicial (no formato dd/mm/yyyy)</param>
+            <param name="DataFinal">Data final (no formato dd/mm/yyyy)</param>
+            <param name="NumeroOperacao">Identificador único da operação de cartão</param>
+            <param name="TokenId">Identificador do tanque de integrações (GN_TANQUEINTEGRACOES.TOKENINTEGRACAO)</param>
+            <param name="startIndex">Índice de início para consultas paginadas.</param>
+            <param name="count">Quantidade de registros a serem retornados (default = 10).</param>
+            <param name="orderBy">Campo de ordenação (deve pertencer à visão).</param>
+            <returns>Retorna consulta de Operações de Cartão</returns>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Tesouraria.BaixaTituloResponse.Resultados">
+            <summary>
+            Resultados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Tesouraria.CancelamentoTesourariaResponse.Resultados">
+            <summary>
+            Resultados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Tesouraria.InclusaoAVistaResponse.Resultados">
+            <summary>
+            Resultados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Tesouraria.InclusaoTesourariaResponse.Resultados">
+            <summary>
+            Resultados
+            </summary>
+        </member>
+        <member name="P:Benner.Corporativo.WebServices.Tesouraria.InclusaoTransferenciaResponse.Resultados">
+            <summary>
+            Resultados
+            </summary>
+        </member>
+    </members>
+</doc>

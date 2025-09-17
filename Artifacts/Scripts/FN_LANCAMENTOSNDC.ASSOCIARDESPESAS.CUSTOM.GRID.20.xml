@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_LANCAMENTOSNDC.ASSOCIARDESPESAS.CUSTOM.GRID</ViewName>
+  <EntityName>FN_LANCAMENTOSNDC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMDCANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMDCANCELARExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    # recupera a lista que representa o breadcrumb
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_APONTAMENTOS"))
+    command.TransitoryVars["HANDLEAP"] = item.Handle
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMDGerarCREExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMDGerarCREExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    # recupera a lista que representa o breadcrumb
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_APONTAMENTOS"))
+    command.TransitoryVars["HANDLEAP"] = item.Handle
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMDReceberExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMDReceberExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    # recupera a lista que representa o breadcrumb
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_APONTAMENTOS"))
+    command.TransitoryVars["HANDLEAP"] = item.Handle
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

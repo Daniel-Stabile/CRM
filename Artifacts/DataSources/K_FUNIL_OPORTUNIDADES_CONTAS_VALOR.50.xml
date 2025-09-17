@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_FUNIL_OPORTUNIDADES_CONTAS_VALOR</Identifier>
+  <Name>FUNIL_OPORTUNIDADES_CONTAS_VALOR</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;    CASE TEMPERATURA&#xD;&#xA;        WHEN 1 THEN 'NONE'&#xD;&#xA;        WHEN 2 THEN 'UPSIDE'&#xD;&#xA;        WHEN 3 THEN 'HOT'&#xD;&#xA;        WHEN 4 THEN  ' COMMIT '&#xD;&#xA;    END AS TEMPERATURA,&#xD;&#xA;    SUM(VALORTOTAL+RECORRENTE+VALORSAAS +VALORBPO)  VALOR,&#xD;&#xA;    CASE TEMPERATURA&#xD;&#xA;        WHEN 1 THEN ' #2c3e50 '&#xD;&#xA;        WHEN 2 THEN ' #F3C200 '&#xD;&#xA;        WHEN 3 THEN ' #E35B5A '&#xD;&#xA;        WHEN 4 THEN ' #26C281 '&#xD;&#xA;    END AS COR&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE TEMPERATURA IS NOT NULL &#xD;&#xA;AND MONTH(DATAFECHAMENTO) = MONTH(GETDATE())&#xD;&#xA;AND YEAR(DATAFECHAMENTO) = YEAR (GETDATE())&#xD;&#xA;AND FILIAL  IN  (3,11,15,16,17)&#xD;&#xA;GROUP BY TEMPERATURA&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="TEMPERATURA" From="A" Path="TEMPERATURA" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+    <Field Alias="COR" From="A" Path="COR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

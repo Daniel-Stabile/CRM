@@ -1,0 +1,12 @@
+﻿<%@ Page Title="Em execução" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:SimpleGrid runat="server" ID="GRID" Title="Em execução" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_MI_ORDEMSERVICOS.GRID" CanDelete="False" CanUpdate="False" CanInsert="False" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="A.SITUACAO IN (6, 12)" FormUrl="~/aga/a/f/aga_t2685_at4252_hs211f3494.aspx" UserDefinedDisableRowSelection="False" PageId="MI_ORDEMSERVICO_ORDEM__EXECUTANDOINTERNO_GRID" Level="20" Order="1"  />
+        </div>
+    
+      </asp:Content>
+    

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TMP_CM_CONTRATOITEMFATURAMENTO.CUSTOM.GRID</ViewName>
+  <EntityName>TMP_CM_CONTRATOITEMFATURAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    faturado = entity.Fields["DOCUMENTOSUSPENSO"]
+    cmd = row.GetCustomCommand("CMD_LIBERAR");
+    cmd2 = row.GetCustomCommand("CMD_SUSPENDER");
+    
+    if (cmd != None):
+        cmd.Enabled = faturado
+        cmd2.Enabled = not faturado
+	
+    if faturado :
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm label-danger'&gt;"+ "Suspensa" +"&lt;/div&gt;"
+    else:
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm label-info'&gt;" + "A faturar" + "&lt;/div&gt;"
+    
+    if entity.Fields["LIBERADO"] :
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm label-success'&gt;"+ "Faturamento encerrado" +"&lt;/div&gt;"
+    
+    if entity.Fields["GARANTIA"] :
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm label-warning'&gt;"+ "Em garantia" +"&lt;/div&gt;"   
+    
+    if entity.Fields["GARANTIA"] :
+        row.GetCellByName("SITUACAO").Text = "&lt;div class='label label-sm label-warning'&gt;"+ "Concedido desconto total" +"&lt;/div&gt;" 
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    parentNode = widget.Breadcrumb.Parent
+    if parentNode != None:
+        if parentNode.Entity.PhysicalTableName == "VT_CM_CONTRATOITEMPERIODOS":
+            widget.View.Commands["CMD_CONFIRMAR"].Visible = False
+        else:
+            widget.View.Commands["CMD_CONFIRMARADITIVO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONFIRMARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONFIRMARExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CM_CONTRATOITEMPERIODOS"))
+    
+    command.TransitoryVars.Add("PERIODO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONFIRMARADITIVOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONFIRMARADITIVOExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_ADITIVOOBJETOS"))
+    command.TransitoryVars.Add("ADITIVOOBJETO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

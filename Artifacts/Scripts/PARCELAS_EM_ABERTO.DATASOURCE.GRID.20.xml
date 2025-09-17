@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PARCELAS_EM_ABERTO.DATASOURCE.GRID</ViewName>
+  <EntityName>PARCELAS_EM_ABERTO.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    
+    row.GetCellByName("CUSTOM_DESCONTOEABATIMENTO").Align = "right"
+            
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    row.GetCustomCommand("CMD_OCORRENCIA").Enabled = AuthorizationHelper.HasTask("MANTER_OCORRENCIAPARCELAS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_META_ANUAL_CONTAS_TOTALIZADO</Identifier>
+  <Name>META_ANUAL_CONTAS_TOTALIZADO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALOR) PLANEJADO,&#xD;&#xA;(SELECT SUM(VALORTOTAL+RECORRENTE+VALORSAAS+VALORBPO) &#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE YEAR(DATAFECHAMENTO) = YEAR(GETDATE())&#xD;&#xA;AND STATUS = 10) REALIZADO&#xD;&#xA;FROM K_CRM_METASUSUARIOSTIPOS A&#xD;&#xA;JOIN K_CRM_METASUSUARIOS B ON A.METAUSUARIO = B.HANDLE&#xD;&#xA;JOIN K_CRM_METASPERIODOS C ON B.METAPERIODO = C.HANDLE&#xD;&#xA;JOIN K_CRM_METASUNIDADES D ON C.METAUNIDADE = D.HANDLE&#xD;&#xA;WHERE YEAR(C.DATA) = YEAR(GETDATE())&#xD;&#xA;AND D.FILIAL  IN  (3,11,15,16,17)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="PLANEJADO" From="A" Path="PLANEJADO" />
+    <Field Alias="REALIZADO" From="A" Path="REALIZADO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOASEMAFORO.GRID</ViewName>
+  <EntityName>K_CRM_PESSOASEMAFORO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import DateTime
+    
+    semaforoValue = int(entity.Fields["SEMAFORO"].Value)
+    semaforoText = entity.Fields["SEMAFORO"].Text
+    
+    status = int(entity.Fields["STATUS"].Value)
+    
+    
+    if entity.Fields["PRAZO"] != None:
+        if entity.Fields["PRAZO"] &lt; DateTime.Now and status not in [2]:
+            i = 0
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#E35B5A"
+                i += 1
+    
+    
+    if status in [2]:
+        i = 0
+        while(row.Cells.Count &gt; i):
+            row.GetCellByIndex(i).TextColor = "#BFBFBF"
+            i += 1
+    
+    if semaforoValue in [1]:
+        row.GetCellByName("SEMAFORO").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-green-jungle'&gt;"+semaforoText+"&lt;/span&gt;"
+        
+    if semaforoValue in [2]:
+        row.GetCellByName("SEMAFORO").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-yellow-crusta'&gt;"+semaforoText+"&lt;/span&gt;"
+        
+    if semaforoValue in [3]:
+        row.GetCellByName("SEMAFORO").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label pulseSolicitacao'&gt;"+semaforoText+"&lt;/span&gt;"
+     
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

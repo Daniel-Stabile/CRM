@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTONFE.FISCAL.FORM</ViewName>
+  <EntityName>FN_DOCUMENTONFE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    form = widget.ProviderWidget
+    if (form == None) : return
+    
+    entity = form.Entity
+    if (entity == None) : return
+    
+    tipo = entity.DefinirTipoNfe(entity)
+    widget.Hidden = not ( tipo == 1 or tipo == 3 or tipo == 4 or tipo == 5)
+    
+    if(tipo == 1):
+        widget.Title = "NF-e"
+    if(tipo == 3):
+        widget.Title = "CT-e"
+    if(tipo == 4):
+        widget.Title = "SAT"
+    if(tipo == 5):
+        widget.Title = "NFCom"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

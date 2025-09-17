@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_TABELASCOMAUDITORIA.FORM</ViewName>
+  <EntityName>Z_TABELASCOMAUDITORIA</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import RadioItem
+    if entity == None: return
+    item =  entity.Fields["PRESERVARINFORMACOES"]
+    if item.Value == 2 : entity.Fields["DIAS"] = None
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

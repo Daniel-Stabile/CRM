@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_SEMAFOROITEM_DESFECHO</Identifier>
+  <Name>CRM_GRAPH_SEMAFOROITEM_DESFECHO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="select&#xD;&#xA;    case&#xD;&#xA;    when DESFECHO = 1 then 'Resolvido'&#xD;&#xA;    when DESFECHO = 2 then 'Não resolvido'&#xD;&#xA;    ELSE 'Pendente'&#xD;&#xA;    end ROTULO,&#xD;&#xA;    case&#xD;&#xA;    when DESFECHO = 1 then '#26C281'&#xD;&#xA;    when DESFECHO = 2 then '#E35B5A'&#xD;&#xA;    ELSE '#578EBE'&#xD;&#xA;    end COR,&#xD;&#xA;    COUNT(HANDLE) VALOR&#xD;&#xA;from K_CRM_PESSOASEMAFOROITEM&#xD;&#xA;GROUP BY DESFECHO" />
+  <Fields>
+    <Field Alias="ROTULO" From="A" Path="ROTULO" />
+    <Field Alias="COR" From="A" Path="COR" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

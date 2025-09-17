@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_CERTIFICADORAS.FORM</ViewName>
+  <EntityName>Z_CERTIFICADORAS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	from Benner.Tecnologia.Common import TabItem
+	from Benner.Tecnologia.Common import EntityState
+	from Benner.Tecnologia.Common import FieldDefinition
+	
+	entity = widget.Entity
+	if entity == None: return
+
+	certifierIsNotNone = entity.Fields["CERTIFICADORA"] != None
+	
+	if certifierIsNotNone:
+		certifierIsDocuSign = entity.Fields["CERTIFICADORA"].Value == 2
+		certifierIsAdobeSign = entity.Fields["CERTIFICADORA"].Value == 3
+		
+		widget.View.Commands["CMD_AutorizarAdobeSign"].Visible = False
+		widget.View.Commands["CMD_AutorizarDocuSign"].Visible = False
+		if certifierIsDocuSign:
+			certifierDocuSignAuthenticationIsNotNone = entity.Fields["DOCUSIGNAUTENTICACAO"] != None
+			if certifierDocuSignAuthenticationIsNotNone:
+				certifierDocuSignAuthenticationIsOAuthJWT = entity.Fields["DOCUSIGNAUTENTICACAO"].Value == 2
+				if certifierDocuSignAuthenticationIsOAuthJWT:
+					widget.View.Commands["CMD_AutorizarDocuSign"].Visible = True
+					
+		elif certifierIsAdobeSign:
+			widget.View.Commands["CMD_AutorizarAdobeSign"].Visible = True
+		else:
+			widget.View.Commands["CMD_AutorizarAdobeSign"].Visible = False
+			widget.View.Commands["CMD_AutorizarDocuSign"].Visible = False
+	else:
+		 widget.View.Commands["CMD_AutorizarAdobeSign"].Visible = False
+		 widget.View.Commands["CMD_AutorizarDocuSign"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

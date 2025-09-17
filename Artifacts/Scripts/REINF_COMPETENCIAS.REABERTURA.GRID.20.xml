@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_COMPETENCIAS.REABERTURA.GRID</ViewName>
+  <EntityName>REINF_COMPETENCIAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ENVIAREVENTOR2098Execute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ENVIAREVENTOR2098Execute(command, entity):
+    from System import String
+
+    if entity == None:
+        return
+    
+    command.RequestConfirmationBeforeExecute("Essa ação enviará o evento R-2098 para reabrir a competência "+ entity.Fields["COMPETENCIA"].ToString("MM/yyyy") +" da EFD REINF da empresa. Tem certeza que desejar reabrir esse período?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

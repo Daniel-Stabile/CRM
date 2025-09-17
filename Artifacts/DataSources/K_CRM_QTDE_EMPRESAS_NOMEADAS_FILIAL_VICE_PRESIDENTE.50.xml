@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_QTDE_EMPRESAS_NOMEADAS_FILIAL_VICE_PRESIDENTE</Identifier>
+  <Name>CRM_QTDE_EMPRESAS_NOMEADAS_FILIAL_VICE_PRESIDENTE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) QTDEEMPNOMEADAS &#xD;&#xA;FROM K_CRM_PESSOAS&#xD;&#xA;WHERE CONTANOMEADA = 'S'&#xD;&#xA;AND FILIAL = @FILIAL&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QTDEEMPNOMEADAS" From="A" Path="QTDEEMPNOMEADAS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

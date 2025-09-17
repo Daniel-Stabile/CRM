@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOPARTICIPANTES.GESTAO.FORM</ViewName>
+  <EntityName>GP_PROJETOPARTICIPANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    
+    projetoConcluido = GPProjetos.ProjetoConcluido(widget.Entity.ProjetoHandle)
+    
+    if widget.View.Commands["New"] != None : widget.View.Commands["New"].Visible = not projetoConcluido
+    if widget.View.Commands["Delete"] != None : widget.View.Commands["Delete"].Visible = not projetoConcluido
+    if widget.View.Commands["Edit"] != None : widget.View.Commands["Edit"].Visible = not projetoConcluido
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

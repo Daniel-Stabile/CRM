@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_EMAILS.GRID</ViewName>
+  <EntityName>Z_EMAILS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    registro = entity.Fields
+    
+    #CADASTRADO
+    if (registro["STATUS"].Value == 1):
+        row.GetCustomCommand("CMD_LIBERARENVIO").Enabled = True
+        
+        row.GetCustomCommand("CMD_VOLTARPARACADASTRO").Enabled = False
+        row.GetCustomCommand("CMD_CANCELARENVIO").Enabled = False
+        row.GetCustomCommand("CMD_ENVIARAGORA").Enabled = False
+        
+    elif (registro["STATUS"].Value == 2):
+        row.GetCustomCommand("CMD_VOLTARPARACADASTRO").Enabled = True
+        row.GetCustomCommand("CMD_CANCELARENVIO").Enabled = True
+        row.GetCustomCommand("CMD_ENVIARAGORA").Enabled = True
+        
+        row.GetCustomCommand("CMD_LIBERARENVIO").Enabled = False
+        
+    elif (registro["STATUS"].Value == 6):
+        row.GetCustomCommand("CMD_LIBERARENVIO").Enabled = True
+        row.GetCustomCommand("CMD_CANCELARENVIO").Enabled = True
+        row.GetCustomCommand("CMD_ENVIARAGORA").Enabled = True
+        row.GetCustomCommand("CMD_VOLTARPARACADASTRO").Enabled = False    
+    else :
+        row.GetCustomCommand("CMD_LIBERARENVIO").Enabled = False
+        row.GetCustomCommand("CMD_VOLTARPARACADASTRO").Enabled = False
+        row.GetCustomCommand("CMD_CANCELARENVIO").Enabled = False
+        row.GetCustomCommand("CMD_ENVIARAGORA").Enabled = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

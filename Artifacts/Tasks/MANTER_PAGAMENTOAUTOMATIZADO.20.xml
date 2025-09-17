@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<TaskPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>MANTER_PAGAMENTOAUTOMATIZADO</Id>
+  <Title>Manter Pagamento Automatizado</Title>
+  <Level>Benner</Level>
+  <Reports>
+    <string>C.3067</string>
+  </Reports>
+  <Pages>
+    <string>AGA_A_FINANCEIRO_OFFICEBANKING_ADICIONARTITULOSREMESSA</string>
+    <string>AGA_A_FINANCEIRO_OFFICEBANKING_ALTERARTITULOS</string>
+    <string>AGA_A_FINANCEIRO_OFFICEBANKING_PAGAMENTOAUTOMATIZADO</string>
+    <string>AGA_A_FINANCEIRO_OFFICEBANKING_REMESSA</string>
+    <string>AGA_A_FINANCEIRO_VERIFICARIMPOSTOS</string>
+  </Pages>
+  <Components>
+    <string>Benner.Corporativo.Definicoes.Financeiro.Interfaces.IGeradorArquivoRemessaPgto|PROCESSARARQUIVOREMESSAPGTO</string>
+    <string>Benner.Corporativo.Definicoes.Financeiro.Interfaces.IPagamentoAutomatizadoPreRemessa|ENVIARREMESSAAPROVACAO</string>
+    <string>Benner.Corporativo.Definicoes.Financeiro.IVerificarRetencoes|BUSCARALIQUOTAPESSOA</string>
+    <string>Benner.Corporativo.Definicoes.Financeiro.IVerificarRetencoes|BUSCARVALORIMPOSTOTRUNCADOARREDONDADO</string>
+    <string>Benner.Corporativo.Definicoes.Financeiro.IVerificarRetencoes|EHBASEVENCIMENTOBAIXA</string>
+    <string>Benner.Corporativo.Definicoes.Financeiro.IVerificarRetencoes|OBTERBASEIMPOSTOSBAIXA</string>
+    <string>Benner.Corporativo.Financeiro.OfficeBanking.Pagamento.PagamentoAutomatizadoPreRemessa|ENVIARREMESSAAPROVACAO</string>
+  </Components>
+  <Apis />
+  <Operations>
+    <string>CP_GRUPOALCADAS|VIEW</string>
+    <string>CP_GRUPOALCADASINTEGRANTES|VIEW</string>
+    <string>CP_GRUPOALCADASUSUARIOS|VIEW</string>
+    <string>FN_DOCUMENTOIMPOSTOSPARCELAS|UPDATE</string>
+    <string>FN_DOCUMENTOIMPOSTOSPARCELAS|VIEW</string>
+    <string>FN_PARCELAREMESSAS|CALCULARVALORLIQUIDO</string>
+    <string>FN_PARCELAREMESSAS|INSERT</string>
+    <string>FN_PARCELAREMESSAS|UPDATE</string>
+    <string>FN_PARCELAREMESSAS|VERIFICARIMPOSTOSRETIDOS</string>
+    <string>FN_PARCELAREMESSAS|VIEW</string>
+    <string>FN_PARCELAS|CALCULARVALORLIQUIDO</string>
+    <string>FN_PARCELAS|INSERIRPARCELAREMESSA</string>
+    <string>FN_PARCELAS|VIEW</string>
+    <string>FN_VT_ALTERACAOTITULOS|INSERT</string>
+    <string>FN_VT_ALTERACAOTITULOS|VIEW</string>
+    <string>FN_VT_ALTERARTITULOSFILTRO|INSERT</string>
+    <string>FN_VT_ALTERARTITULOSFILTRO|VIEW</string>
+    <string>GN_HBREMESSAS|ALTERARTÍTULOS</string>
+    <string>GN_HBREMESSAS|CANCELARREMESSA</string>
+    <string>GN_HBREMESSAS|CONFIRMARVERIFICACAOIMPOSTOS</string>
+    <string>GN_HBREMESSAS|DISPARAGERADORARQUIVO</string>
+    <string>GN_HBREMESSAS|DISPARAMENSAGEMARQUIVO</string>
+    <string>GN_HBREMESSAS|EMITIRRELATORIOPGTOAUTOMATIZADO</string>
+    <string>GN_HBREMESSAS|EXCLUIRREMESSA</string>
+    <string>GN_HBREMESSAS|GERARARQUIVOREMESSA</string>
+    <string>GN_HBREMESSAS|INSERT</string>
+    <string>GN_HBREMESSAS|UPDATE</string>
+    <string>GN_HBREMESSAS|VERIFICARIMPOSTOS</string>
+    <string>GN_HBREMESSAS|VIEW</string>
+    <string>TS_LANCAMENTOS|INSERIRTRANSFERENCIAREMESSA</string>
+    <string>TS_LANCAMENTOS|VIEW</string>
+    <string>WEB_FN_PGTOAUTOFILTROTITULOS|INSERT</string>
+    <string>WEB_FN_PGTOAUTOFILTROTITULOS|VIEW</string>
+  </Operations>
+  <Process>
+    <string>1|Benner.Corporativo.Financeiro.OfficeBanking.Pagamento.GerarArquivoRemessaPgto, Benner.Corporativo.Financeiro</string>
+  </Process>
+  <Tasks>
+    <string>VISUALIZAR_PAGAMENTOAUTOMATIZADO</string>
+  </Tasks>
+  <FieldVisibility />
+</TaskPortable>

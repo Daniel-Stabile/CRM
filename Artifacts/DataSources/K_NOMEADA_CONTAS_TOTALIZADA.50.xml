@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_NOMEADA_CONTAS_TOTALIZADA</Identifier>
+  <Name>NOMEADA_CONTAS_TOTALIZADA</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) QTDEEMPNOMEADAS &#xD;&#xA;FROM K_CRM_PESSOAS&#xD;&#xA;WHERE CONTANOMEADA = 'S'&#xD;&#xA;AND FILIAL IN (3,11,15,16,17)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QTDEEMPNOMEADAS" From="A" Path="QTDEEMPNOMEADAS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

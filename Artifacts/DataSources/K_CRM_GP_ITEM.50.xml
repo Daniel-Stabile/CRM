@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GP_ITEM</Identifier>
+  <Name>CRM_GP_ITEM</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;    CASE C.TIPO&#xD;&#xA;        WHEN 1 THEN 'UNITARIO'&#xD;&#xA;        WHEN 2 THEN 'RECORRENTE'&#xD;&#xA;        WHEN 3 THEN 'SERVIÇO'&#xD;&#xA;        WHEN 4 THEN 'SAAS'&#xD;&#xA;    END AS TIPO,&#xD;&#xA;    SUM(B.VALOR*B.QUANTIDADE) VALOR,&#xD;&#xA;    CASE C.TIPO&#xD;&#xA;        WHEN 1 THEN 10000&#xD;&#xA;        WHEN 2 THEN 5000&#xD;&#xA;        WHEN 3 THEN 50000&#xD;&#xA;        WHEN 4 THEN 5000&#xD;&#xA;    END AS META&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADESITENS B&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADES A ON B.OPORTUNIDADE = A.HANDLE&#xD;&#xA;JOIN K_CRM_PRODUTOITENS C ON B.ITEM = C.HANDLE&#xD;&#xA;WHERE MONTH(A.DATAFECHAMENTO) = MONTH(GETDATE())&#xD;&#xA;GROUP BY C.TIPO&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="TIPO" From="A" Path="TIPO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="META" From="A" Path="META" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

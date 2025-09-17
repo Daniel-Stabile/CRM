@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Apuração - REG.E210: Apuração de ICMS ST" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="FORMULARIO" Title="Apuração - REG.E210: Apuração de ICMS ST" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" EntityViewName="AGA_ED_APURACAOSUBSTTRIBUTARIA.FORM" CanDelete="True" CanUpdate="True" CanInsert="True" IncludeRecordInRecentItems="True" UserDefinedCriteriaWhereClause="'forcar_carga_form'='forcar_carga_form'" UserDefinedCommandsVisible="True" PageId="ED_CARGA_EFD_APURACAO__REG_E200_SAIDAS_FORM" Level="20" Order="1"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_5924" Title="REG.E220: Ajustes do ICMS ST" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_ED_APURACAOAJUSTES.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.APURACAOSUBSTTRIBUTARIA = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t3185_at5924_hs59b2f32b.aspx" UserDefinedDisableRowSelection="False" PageId="ED_CARGA_EFD_APURACAO__REG_E200_SAIDAS_FORM" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="WIDGET_5927" Title="REG.E250: Obrigações do ICMS a recolher" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="false" ProviderWidgetUniqueId="FORMULARIO" ChromeState="Normal" EntityViewName="AGA_ED_APURACAOOBRIGACOES.GRID" CanDelete="True" CanUpdate="True" CanInsert="True" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="CompanyAndBranch" UserDefinedCriteriaWhereClause="(A.APURACAOSUBSTTRIBUTARIA = @CAMPO(HANDLE))" FormUrl="~/aga/a/f/aga_t3192_at5927_hsfe03f32b.aspx" UserDefinedDisableRowSelection="False" PageId="ED_CARGA_EFD_APURACAO__REG_E200_SAIDAS_FORM" Level="20" Order="15"  />
+        </div>
+    
+      </asp:Content>
+    

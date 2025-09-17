@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_USUARIOFILIAL.GER_REGIONAL.FORM</ViewName>
+  <EntityName>K_CRM_VT_USUARIOFILIAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnMESValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnMESValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    
+#    entity.OutputMessage = "Teste : " + entity["VERTICAL"].Value.ToString(); 
+
+
+    if entity.Fields["MES"] == None:
+        entity.Fields["TRIMESTRE"] = None;
+        entity.Visualization.Fields["TRIMESTRE"].ReadOnly = False;
+    else:
+        if entity.Fields["MES"] == ListItem(1, "Janeiro") or entity.Fields["MES"] == ListItem(2, "Fevereiro") or entity.Fields["MES"] == ListItem(3, "Março"):
+            entity.Fields["TRIMESTRE"] = ListItem(1, "Jan-Mar");
+            entity.Visualization.Fields["TRIMESTRE"].ReadOnly = True;
+        elif entity.Fields["MES"] == ListItem(4, "Abril") or entity.Fields["MES"] == ListItem(5, "Maio") or entity.Fields["MES"] == ListItem(6, "Junho"):
+            entity.Fields["TRIMESTRE"] = ListItem(2, "Abr-Jun");
+            entity.Visualization.Fields["TRIMESTRE"].ReadOnly = True;
+        elif entity.Fields["MES"] == ListItem(7, "Julho") or entity.Fields["MES"] == ListItem(8, "Agosto") or entity.Fields["MES"] == ListItem(9, "Setembro"):
+            entity.Fields["TRIMESTRE"] = ListItem(3, "Jul-Set");
+            entity.Visualization.Fields["TRIMESTRE"].ReadOnly = True;
+        elif entity.Fields["MES"] == ListItem(10, "Outubro") or entity.Fields["MES"] == ListItem(11, "Novembro") or entity.Fields["MES"] == ListItem(12, "Dezembro"):
+            entity.Fields["TRIMESTRE"] = ListItem(4, "Out-Dez");
+            entity.Visualization.Fields["TRIMESTRE"].ReadOnly = True;
+        else:
+            entity.Fields["TRIMESTRE"] = None;
+            entity.Visualization.Fields["TRIMESTRE"].ReadOnly = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTRIMESTREValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTRIMESTREValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+
+    if entity.Fields["TRIMESTRE"] == None:
+        entity.Visualization.Fields["MES"].ReadOnly = False;
+    else:
+        entity.Fields["MES"] = None;
+        entity.Visualization.Fields["MES"].ReadOnly = True;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVERTICALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVERTICALValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    entity.Visualization.Fields["VERTICAIS"].ReadOnly = False;
+    valor = entity["VERTICAL"].Value
+    
+    if valor.ToString() == '':
+        entity.Visualization.Fields["VERTICAIS"].ReadOnly = True;
+        entity.Fields["USUARIOS"].LocalWhere = "A.HANDLE IS NOT NULL";
+#        view.FieldDefinitions["VERTICAIS"].Required = False 
+    else:
+        entity.Visualization.Fields["VERTICAIS"].ReadOnly = False;
+        entity.Fields["USUARIOS"].LocalWhere = "A.K_VERTICALPRODUTO LIKE '" + entity["VERTICAL"].Value.ToString() + "' OR A.K_VERTICALPRODUTO LIKE '%" + entity["VERTICAL"].Value.ToString() + "' OR A.K_VERTICALPRODUTO LIKE '%" + entity["VERTICAL"].Value.ToString() + "%' OR A.K_VERTICALPRODUTO LIKE '" + entity["VERTICAL"].Value.ToString() + "%'";
+#        view.FieldDefinitions["VERTICAIS"].Required = True
+
+
+        
+#    criteria = Criteria("(A.INATIVO = 'N' AND A.K_EXECUTIVOCONTAS = 'S' AND A.HANDLE IN (SELECT USUARIO FROM Z_GRUPOUSUARIOEMPRESAFILIAIS WHERE FILIAL = :FILIAL AND (A.K_VERTICALPRODUTO LIKE CONCAT( :VERTICAL , '%') OR A.K_VERTICALPRODUTO LIKE CONCAT( '%', :VERTICAL , '%') OR A.K_VERTICALPRODUTO LIKE CONCAT( '%', :VERTICAL ) OR A.K_VERTICALPRODUTO LIKE :VERTICAL)) ")
+#    criteria.Parameters.Add(Parameter("FILIAL", 1))
+#    criteria.Parameters.Add(Parameter("VERTICAL", 2))
+    
+#    usuarios = Entity.GetMany(EntityDefinition.GetByName("Z_GRUPOUSUARIOS"),criteria);
+#    entity["USUARIOS"] = usuarios
+
+    
+#    entity.OutputMessage = "A.K_VERTICALPRODUTO LIKE '" + entity["VERTICAL"].Value.ToString() + "'";
+#   entity.OutputMessage = entity["USUARIOS"].Value.ToString();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnUSUARIOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnUSUARIOSValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    #entity.Fields["VERTICAL"].LocalWhere = "A.HANDLE IN (SELECT K_VERTICALPRODUTO FROM " + entity["USUARIOS"].Value.ToString() + ")";
+    valor = entity["USUARIOS"].Value
+    
+    if valor.ToString() == "":
+        entity.Fields["VERTICAL"].LocalWhere = "A.HANDLE IS NOT NULL"
+    else:    
+        entity.Fields["VERTICAL"].LocalWhere = "A.HANDLE IN (SELECT Z.HANDLE FROM K_CRM_VERTICAL Z JOIN STRING_SPLIT ( ( SELECT REPLACE(REPLACE(SUBSTRING(U.K_VERTICALPRODUTO,0,LEN(U.K_VERTICALPRODUTO)-1), '|',''),'_',',') VERTICAIS FROM Z_GRUPOUSUARIOS U WHERE HANDLE = REPLACE(REPLACE('" +  entity["USUARIOS"].Value.ToString() + "','|',''),'_','')),',') ON VALUE= A.HANDLE)"
+
+    #entity.OutputMessage = entity.Fields["VERTICAL"].LocalWhere.ToString();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVERTICAISValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVERTICAISValueChanged(view, entity):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    from System import DateTime
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import BennerContext
+    from System import DateTime
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import QuerySource
+
+    
+    if widget == None:return;
+    if widget.Entity == None:return;
+    
+    entity             = widget.Entity
+    
+    entity.Visualization.Fields["VERTICAIS"].ReadOnly = False;
+    valor = entity["VERTICAL"].Value;
+    
+    sql = "SELECT MONTH(GETDATE()) MES";
+    ed = EntityDefinition.Create();
+    ed.EntitySource = QuerySource(sql);
+    resultado = Entity.GetFirstOrDefault(ed, Criteria.Empty);
+    
+    if entity.Fields["MES"] == None and None != resultado:
+        if resultado.Fields["MES"].ToString() == "1":
+            entity.Fields["MES"] = ListItem(1,"Janeiro");
+            entity.Fields["TRIMESTRE"] = ListItem(1,"Jan-Mar");
+        elif resultado.Fields["MES"].ToString() == "2":
+            entity.Fields["MES"] = ListItem(2,"Fevereiro");
+            entity.Fields["TRIMESTRE"] = ListItem(1,"Jan-Mar");
+        elif resultado.Fields["MES"].ToString() == "3":
+            entity.Fields["MES"] = ListItem(3,"Março");
+            entity.Fields["TRIMESTRE"] = ListItem(1,"Jan-Mar");
+        elif resultado.Fields["MES"].ToString() == "4":
+            entity.Fields["MES"] = ListItem(4,"Abril");
+            entity.Fields["TRIMESTRE"] = ListItem(2,"Abr-Jun");
+        elif resultado.Fields["MES"].ToString() == "5":
+            entity.Fields["MES"] = ListItem(5,"Maio");
+            entity.Fields["TRIMESTRE"] = ListItem(2,"Abr-Jun");
+        elif resultado.Fields["MES"].ToString() == "6":
+            entity.Fields["MES"] = ListItem(6,"Junho");
+            entity.Fields["TRIMESTRE"] = ListItem(2,"Abr-Jun");
+        elif resultado.Fields["MES"].ToString() == "7":
+            entity.Fields["MES"] = ListItem(7,"Julho");
+            entity.Fields["TRIMESTRE"] = ListItem(3,"Jul-Set");
+        elif resultado.Fields["MES"].ToString() == "8":
+            entity.Fields["MES"] = ListItem(8,"Agosto");
+            entity.Fields["TRIMESTRE"] = ListItem(3,"Jul-Set");
+        elif resultado.Fields["MES"].ToString() == "9":
+            entity.Fields["MES"] = ListItem(9,"Setembro");
+            entity.Fields["TRIMESTRE"] = ListItem(3,"Jul-Set");
+        elif resultado.Fields["MES"].ToString() == "10":
+            entity.Fields["MES"] = ListItem(10,"Outubro");
+            entity.Fields["TRIMESTRE"] = ListItem(4,"Out-Dez");
+        elif resultado.Fields["MES"].ToString() == "11":
+            entity.Fields["MES"] = ListItem(11,"Novembro");
+            entity.Fields["TRIMESTRE"] = ListItem(4,"Out-Dez");
+        elif resultado.Fields["MES"].ToString() == "12":
+            entity.Fields["MES"] = ListItem(12,"Dezembro");
+            entity.Fields["TRIMESTRE"] = ListItem(4,"Out-Dez");
+        else:
+            entity.Fields["MES"] = ListItem(1,"Janeiro");
+            entity.Fields["TRIMESTRE"] = ListItem(1,"Jan-Mar");
+    
+    if valor.ToString() == '':
+        entity.Visualization.Fields["VERTICAIS"].ReadOnly = True;
+    else:
+        entity.Visualization.Fields["VERTICAIS"].ReadOnly = False;
+    
+    if entity.Fields["FILIAL"] != None:
+        if entity.Fields["FILIAL"].Handle.IsValid():
+            return
+        else:
+            if Entity.GetFirstOrDefault(EntityDefinition.GetByName("FILIAIS"), Criteria("A.HANDLE = @FILIAL")) != None:
+                filial = Entity.GetFirstOrDefault(EntityDefinition.GetByName("FILIAIS"), Criteria("A.HANDLE = @FILIAL")).Handle  
+                entity.Fields["FILIAL"].Handle = filial
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

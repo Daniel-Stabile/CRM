@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_ED_PCPERIODOS.FORM</ViewName>
+  <EntityName>ED_PCPERIODOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_GERARExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.SPED.EFD import EDPCPeriodo
+    from Benner.Tecnologia.Common import BennerContext
+    
+    if EDPCPeriodo.DeveGerarRegistro0900(entity["DATAFINAL"].GetDateTime(), entity["FINALIDADEARQUIVO"].GetInt32(), entity["HANDLE"].GetInt64()):
+        command.RequestConfirmationBeforeExecute("Esse arquivo está sendo gerado após o prazo regular de entrega e deverá conter o registro '0900-Composição das Receitas do Período - Receita Bruta e Demais Receitas'. Confirma emissão do arquivo magnético sem este registro?")
+    else:
+        command.RequestConfirmationBeforeExecute("Confirma emissão do arquivo magnético?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ALTERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ALTERARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a Alteração/Retificação?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

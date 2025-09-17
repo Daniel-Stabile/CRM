@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>AT_LOGBTLCALCULOS</Identifier>
+  <Name>Log BTL cálculos de depreciação</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CALC.HANDLE, CALC.DATAINCLUSAO, PROCESSO.NOME NOMEPROCESSO, &#xD;&#xA;PROCESSO.INICIO DATAINICIO, PROCESSO.FIM DATAFIM, PROCESSO.OCORRENCIA MENSAGEM, &#xD;&#xA;(CASE PROCESSO.SITUACAO&#xD;&#xA; WHEN 1 THEN 'Processando'&#xD;&#xA; WHEN 2 THEN 'Cancelamento solicitado'&#xD;&#xA; WHEN 3 THEN 'Cancelado'&#xD;&#xA; WHEN 4 THEN 'Finalizado com erros'&#xD;&#xA; WHEN 5 THEN 'Finalizado com sucesso'&#xD;&#xA; WHEN 6 THEN 'Pendente'&#xD;&#xA; ELSE 'Situação inválida'&#xD;&#xA;  END) NOMESITUACAO, PROCESSO.SITUACAO&#xD;&#xA;  FROM  GN_TASKTICKETS TICKET&#xD;&#xA;INNER JOIN Z_TABELAS TAB ON (TAB.HANDLE = TICKET.TABELAORIGEM AND TAB.NOME = 'AT_CALCULOCONTABILIZACAO')&#xD;&#xA;INNER JOIN AT_CALCULOCONTABILIZACAO CALC ON (CALC.HANDLE = TICKET.HANDLEORIGEM)&#xD;&#xA;INNER JOIN Z_PROCESSOS PROCESSO ON (PROCESSO.HANDLE = TICKET.NUMEROTICKET )&#xD;&#xA;WHERE CALC.EMPRESA = @EMPRESA&#xD;&#xA;AND CALC.PROCESSOORIGEM = 1 /* CALCULOS */&#xD;&#xA;AND TICKET.HANDLE = (SELECT MAX(HANDLE) &#xD;&#xA;                       FROM GN_TASKTICKETS &#xD;&#xA;                      WHERE TABELAORIGEM = TICKET.TABELAORIGEM &#xD;&#xA;                        AND HANDLEORIGEM = TICKET.HANDLEORIGEM ) &#xD;&#xA;ORDER BY PROCESSO.SITUACAO, PROCESSO.FIM DESC, PROCESSO.INICIO&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DATAINCLUSAO" From="A" Path="DATAINCLUSAO" />
+    <Field Alias="NOMEPROCESSO" From="A" Path="NOMEPROCESSO" />
+    <Field Alias="DATAINICIO" From="A" Path="DATAINICIO" />
+    <Field Alias="DATAFIM" From="A" Path="DATAFIM" />
+    <Field Alias="MENSAGEM" From="A" Path="MENSAGEM" />
+    <Field Alias="NOMESITUACAO" From="A" Path="NOMESITUACAO" />
+    <Field Alias="SITUACAO" From="A" Path="SITUACAO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

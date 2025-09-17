@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_FASES_ARQUITETO</Identifier>
+  <Name>CRM_GRAPH_FASES_ARQUITETO</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.NOME FASE,COUNT(A.NOME) QTDEFASES, FO.NOME STATUSOPORTUNIDADE&#xD;&#xA;FROM K_CRM_FASES A&#xD;&#xA;JOIN K_CRM_PESSOAS B ON B.FASE = A.HANDLE&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADES C ON C.PESSOA = B.HANDLE&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADESPROD BA ON BA.OPORTUNIDADE = C.HANDLE&#xD;&#xA;JOIN K_CRM_FASESOPORTUNIDADE FO ON FO.HANDLE = C.STATUSOPORTUNIDADE&#xD;&#xA;WHERE BA.ARQUITETOSOLUCAO = @USUARIO&#xD;&#xA;GROUP BY A.NOME,C.ARQUITETOSOLUCAO, FO.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="FASE" From="A" Path="FASE" />
+    <Field Alias="QTDEFASES" From="A" Path="QTDEFASES" />
+    <Field Alias="STATUSOPORTUNIDADE" From="A" Path="STATUSOPORTUNIDADE" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

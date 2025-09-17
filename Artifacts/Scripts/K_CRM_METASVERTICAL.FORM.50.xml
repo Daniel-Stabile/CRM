@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASVERTICAL.FORM</ViewName>
+  <EntityName>K_CRM_METASVERTICAL</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    sql = "SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASVERTICAL A JOIN K_CRM_METAS B ON B.HANDLE = A.META WHERE B.HANDLE = :META GROUP BY B.VALORMETA";
+    crit = Criteria()
+    crit.Parameters.Add(Parameter("META", widget.Entity.Fields["META"].Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    saldo = Entity.GetFirstOrDefault(ed, crit)
+    
+    if saldo == None:
+        sql = "SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METAS WHERE HANDLE = :META";
+        crit = Criteria()
+        crit.Parameters.Add(Parameter("META", widget.Entity.Fields["META"].Handle))
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        saldo = Entity.GetFirstOrDefault(ed, crit)
+        widget.View.FieldDefinitions["SALDO"].Value = saldo.Fields["SALDO"].ToString();
+    elif saldo.Fields["SALDO"] != None:
+        widget.View.FieldDefinitions["SALDO"].Value = saldo.Fields["SALDO"].ToString();
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

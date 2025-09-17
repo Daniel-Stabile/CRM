@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PARAMETROS.FORM</ViewName>
+  <EntityName>GN_PARAMETROS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    
+    if registro == None: return
+
+    status = registro.Fields["CONTROLEDOCUMENTOSFORNECEDORES"].Value
+    
+    if widget.View.Commands["CMD_ASSOCIARDOCUMENTOS"] != None:
+        widget.View.Commands["CMD_ASSOCIARDOCUMENTOS"].Visible = status != 1
+        
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = registro.Fields["HANDLE"] == None</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARDOCUMENTOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARDOCUMENTOSExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import BennerContext
+    empresaMestre = BennerContext.Security.GetEntityCurrentCompany("GN_PARAMETROS")
+    empresaParametros = BennerContext.Security.GetCurrentCompany(BennerContext.Administration.DefaultSystemInstanceName).Handle
+    if empresaMestre != empresaParametros:
+        raise CancelledOperationException("Para realizar a associação de documentos deste parâmetro, deve-se estar logado na empresa do parâmetro ou na empresa mestre se houver.")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

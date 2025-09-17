@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOADITIVOS.GRID</ViewName>
+  <EntityName>CN_CONTRATOADITIVOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoAditivo
+    if (widget.Breadcrumb.Parent.Entity.Handle != None):
+        contratoAprovado = CNContratoAditivo.ContratoAprovado(long(widget.Breadcrumb.Parent.Entity.Handle.Value))
+        if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = contratoAprovado
+        if widget.View.Commands["Edit"] != None: widget.View.Commands["Edit"].Visible = contratoAprovado
+        if widget.View.Commands["Delete"] != None: widget.View.Commands["Delete"].Visible = contratoAprovado
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    contratoAprovado = entity.ContratoAprovado(long(entity.Fields["CONTRATO"].Handle.Value))
+    
+    if (contratoAprovado):
+        statusAditivo = int(entity.Fields["STATUS"].Value)
+        statusCadastrado = 1    
+        if (statusAditivo &gt; statusCadastrado):
+            if row.EditCommand != None: row.EditCommand.Visible = False
+            if row.DeleteCommand != None: row.DeleteCommand.Visible = False
+            
+    if row.GetCustomCommand("AcompanharAssinaturasDigitais") != None:    
+        row.GetCustomCommand("AcompanharAssinaturasDigitais").Enabled = entity.ExibirComandoAcompanharAssinaturasDigitais
+        
+    if row.GetCustomCommand("VoltarParaElaboracao") != None:    
+        row.GetCustomCommand("VoltarParaElaboracao").Enabled = entity.PodeVoltarParaElaboracao</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ATIVO_OCORRENCIARELATORIOS.GRID</ViewName>
+  <EntityName>AT_TIPOSOCORRENCIARELATORIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_IMPRIMIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_IMPRIMIRExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode    
+
+    # recupera a lista que representa o breadcrumb
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("AT_ITEMMOVIMENTACAOREQUISICOES"))
+    
+    command.TransitoryVars["HANDLEREQUISICAO"] = item.Handle
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

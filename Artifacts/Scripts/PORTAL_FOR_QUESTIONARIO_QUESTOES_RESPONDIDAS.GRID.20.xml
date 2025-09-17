@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_QUESTIONARIO_QUESTOES_RESPONDIDAS.GRID</ViewName>
+  <EntityName>QL_APLICACAOQUESTIONARIOFORNEC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    exibirnota = bool(entity.Fields["RESPOSTAFORNECEDOR"].Instance.Fields["EXIBIRNOTA"]);
+    ViewPontosObtidos = bool(entity.Fields["RESPOSTAFORNECEDOR"].Instance.Fields["STATUS"].Value in [5,6]);
+    if (not exibirnota) or (not ViewPontosObtidos):
+        row.GetCellByName("PONTOS").Text = "";
+
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

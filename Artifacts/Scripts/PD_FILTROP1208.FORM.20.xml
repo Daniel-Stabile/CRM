@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_FILTROP1208.FORM</ViewName>
+  <EntityName>PD_FILTROP1208</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDATAINICIOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDATAINICIOValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDataFinalMenor)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDATAFIMValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDATAFIMValueChanged(view, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.ExibirAvisoWeb:
+        entity.ExibirAvisoWeb = False
+        raise CancelledOperationException(entity.MensagemDataFinalMenor)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>VT_RENEGOCIACAO_DOCUMENTO.DOCDESCTAX.FORM</ViewName>
+  <EntityName>VT_RENEGOCIACAO_DOCUMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDESCONTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDESCONTOValueChanged(view, entity): 
+    #Leiame: deixe este código pois ele é responsável por fazer o postback e atualizar o valor todal do documento a ser renegociado.
+    1==1
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTAXAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTAXAValueChanged(view, entity):
+    #Leiame: deixe este código pois ele é responsável por fazer o postback e atualizar o valor todal do documento a ser renegociado.
+    1==1
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.Entity != None):
+        if widget.Entity.Fields["DESCONTO"] == None:
+            widget.Entity.Fields["DESCONTO"] = "0"
+        if widget.Entity.Fields["TAXA"] == None:
+            widget.Entity.Fields["TAXA"] = "0"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

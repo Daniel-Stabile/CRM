@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ATIVO_REQUISICAOTRANSFERENCIA.FORM</ViewName>
+  <EntityName>AT_ITEMMOVIMENTACAOREQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+
+    if widget.Entity == None: return
+
+    if widget.Entity.State != EntityState.Initialized:
+        temItem = widget.Entity.VerificarPodeInserirItem()
+    
+        if (temItem) :
+            widget.View.Commands["ADICIONARITEM"].Visible = True
+            widget.View.Commands["LIBERAR"].Visible = False
+        else:        
+            widget.View.Commands["ADICIONARITEM"].Visible = False
+            widget.View.Commands["LIBERAR"].Visible = True
+        
+        if widget.Entity["STATUS"].GetInt32() &gt; 1:
+            widget.View.Commands["ADICIONARITEM"].Visible = False
+            widget.View.Commands["LIBERAR"].Visible = False  
+            widget.View.Commands["VISUALIZARMOVIMENTACAO"].Visible = True
+            widget.View.Commands["Delete"].Visible = False
+            widget.View.Commands["CMD_CANCELAR"].Visible = False
+        
+        else:   
+            
+            if (temItem) :
+                widget.View.Commands["VISUALIZARMOVIMENTACAO"].Visible = False
+            widget.View.Commands["Delete"].Visible = True
+    else:            
+        widget.View.Commands["ADICIONARITEM"].Visible = False
+        widget.View.Commands["LIBERAR"].Visible = False   
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

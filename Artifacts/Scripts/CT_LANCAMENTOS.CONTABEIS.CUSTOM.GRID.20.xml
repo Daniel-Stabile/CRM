@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOS.CONTABEIS.CUSTOM.GRID</ViewName>
+  <EntityName>CT_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDeleteExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDeleteExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    entityDefinition = EntityDefinition.GetByName("CT_LANCAMENTOS");
+    funcao = function.Call(entityDefinition, "VerificarLancamentoContraPartida", entity);
+    if (bool(funcao.Vars["FOIEXCLUIDO"])):
+        return;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (row.EditCommand != None):
+        row.GetCustomCommand("CMD_EDITARWIZARD").Enabled = row.EditCommand.Visible;
+        row.EditCommand.Visible = False;
+    else:
+        row.GetCustomCommand("CMD_EDITARWIZARD").Enabled = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    provider = widget.ProviderWidget;
+    if provider == None: return;
+    registroPai = provider.Entity;
+    if registroPai == None: return;
+    bloqueado = registroPai.Fields["BLOQUEADO"];
+    if bloqueado == None: return;
+    widget.View.Commands["CMD_NOVOWIZARD"].Visible = bloqueado;
+    widget.View.Commands["Edit"].Visible = bloqueado;
+    widget.View.Commands["Delete"].Visible = bloqueado;
+    widget.View.Commands["View"].Visible = True;
+    widget.View.Commands["New"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

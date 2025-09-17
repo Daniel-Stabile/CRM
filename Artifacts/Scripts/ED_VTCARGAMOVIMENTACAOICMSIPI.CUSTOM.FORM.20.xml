@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>ED_VTCARGAMOVIMENTACAOICMSIPI.CUSTOM.FORM</ViewName>
+  <EntityName>ED_VTCARGAMOVIMENTACAOICMSIPI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.Tecnologia.Common import BennerVars
+    
+    widget.View.Commands["CMD_EXCLUIR"].Visible = BennerVars.UserVars["CARGASPEDEXCLUIR"] == "S";
+    
+    widget.View.Commands["Save"].Visible = AuthorizationHelper.HasTask("MANTER_SPED_FISCAL_ICMSIPI")
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_CLASSIFICACAOORCAMENTARIA_EM_OP_ACOESPROJETOS_OPERACAO.CUSTOM.GRID</ViewName>
+  <EntityName>OP_CLASSIFICACAOORCAMENTARIA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    row.EditCommand.Visible =   entity.PodeAlterar
+    row.DeleteCommand.Visible = entity.PodeExcluir
+    
+    if (row.GetCustomCommand("CMD_LIBERAR")): row.GetCustomCommand("CMD_LIBERAR").Enabled = entity.PodeLiberar
+    if (row.GetCustomCommand("CMD_RECUSAR")): row.GetCustomCommand("CMD_RECUSAR").Enabled =  entity.PodeConfirmarOuRecusar
+    if (row.GetCustomCommand("CMD_CONFIRMAR")): row.GetCustomCommand("CMD_CONFIRMAR").Enabled = entity.PodeConfirmarOuRecusar
+    if (row.GetCustomCommand("CMD_VOLTAR")): row.GetCustomCommand("CMD_VOLTAR").Enabled = entity.PodeVoltar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

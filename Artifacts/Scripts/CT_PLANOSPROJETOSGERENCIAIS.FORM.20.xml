@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_PLANOSPROJETOSGERENCIAIS.FORM</ViewName>
+  <EntityName>CT_PLANOSPROJETOSGERENCIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	from Benner.Tecnologia.Common import EntityState
+	entity = widget.Entity
+	if entity == None:
+		return
+	
+	entity.Fields["ROTINASOCULTAR"] = 15
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

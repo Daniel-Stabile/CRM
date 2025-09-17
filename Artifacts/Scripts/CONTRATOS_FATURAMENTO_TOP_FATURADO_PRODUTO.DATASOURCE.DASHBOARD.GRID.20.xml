@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CONTRATOS_FATURAMENTO_TOP_FATURADO_PRODUTO.DATASOURCE.DASHBOARD.GRID</ViewName>
+  <EntityName>CONTRATOS_FATURAMENTO_TOP_FATURADO_PRODUTO.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Truncar(campos, row):
+    from System.Web import HttpUtility
+    for campo in campos:
+        texto = HttpUtility.HtmlDecode(row.GetCellByName(campo).Text)
+        if len(texto) &gt; 20:
+            row.GetCellByName(campo).Tooltip = texto
+            row.GetCellByName(campo).Text = texto[0:17] + '...'
+        
+def InitializeRow(entity, row):
+    Truncar(['NOME'], row)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

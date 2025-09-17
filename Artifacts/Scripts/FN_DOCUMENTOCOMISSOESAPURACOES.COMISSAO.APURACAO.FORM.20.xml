@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOCOMISSOESAPURACOES.COMISSAO.APURACAO.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOCOMISSOESAPURACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System import Decimal
+    ent = widget.Entity
+    if ( ent == None ):
+        return;
+    
+    if ( ent["VALORBRUTO"].IsNull ):
+        ent.Fields["VALORBRUTO"] = Decimal( 0.00 )
+    if ( ent["VALORADIANTAMENTOADESCONTAR"].IsNull ):
+        ent.Fields["VALORADIANTAMENTOADESCONTAR"] = Decimal( 0.00)
+    if ( ent["VALORNOTASCREDITO"].IsNull ):
+        ent.Fields["VALORNOTASCREDITO"] = Decimal( 0.00)        
+    if ( ent["VALORNOTASDEBITO"].IsNull ):
+        ent.Fields["VALORNOTASDEBITO"] = Decimal( 0.00)                
+    if ( ent["SALDOFINAL"].IsNull ):
+        ent.Fields["SALDOFINAL"] = Decimal( 0.00)                        
+        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

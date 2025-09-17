@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_FN_BLOQUETOS.FORM</ViewName>
+  <EntityName>WEB_FN_BLOQUETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.Entity["LOCALPAGAMENTO"].SetString("Pagável em qualquer banco até o vencimento.")
+    widget.Entity["MOEDA"].SetString("2")
+    widget.Entity["ACRESCIMOS"].SetString("0,00")
+    widget.Entity["UTILIZARENDCOBRANCA"].Visible = False
+    widget.Entity["PUBLICARBOLWEB"].Visible = False
+    widget.View.FieldDefinitions["SELECIONADOS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

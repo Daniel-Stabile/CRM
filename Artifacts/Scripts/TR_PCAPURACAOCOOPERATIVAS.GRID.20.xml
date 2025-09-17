@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAOCOOPERATIVAS.GRID</ViewName>
+  <EntityName>TR_PCAPURACAOCOOPERATIVAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+
+    #Zerando valores
+    row.GetCellByName("BASECALCULOCONTRIBUICAO").Text = "0,00";
+    row.GetCellByName("VALOREXCLUSAOGERAL").Text = "0,00";
+    row.GetCellByName("VALOREXCLUSAOBASECALCULO").Text = "0,00";
+    row.GetCellByName("BASECALCULOAPOSEXCLUSOES").Text = "0,00";
+
+    #Formatação dos valores
+    if entity.Fields["BASECALCULOCONTRIBUICAO"] != None: row.GetCellByName("BASECALCULOCONTRIBUICAO").Text = str(str(str("{:,.2f}".format(entity.Fields["BASECALCULOCONTRIBUICAO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOREXCLUSAOGERAL"] != None: row.GetCellByName("VALOREXCLUSAOGERAL").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOREXCLUSAOGERAL"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALOREXCLUSAOBASECALCULO"] != None: row.GetCellByName("VALOREXCLUSAOBASECALCULO").Text = str(str(str("{:,.2f}".format(entity.Fields["VALOREXCLUSAOBASECALCULO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["BASECALCULOAPOSEXCLUSOES"] != None: row.GetCellByName("BASECALCULOAPOSEXCLUSOES").Text = str(str(str("{:,.2f}".format(entity.Fields["BASECALCULOAPOSEXCLUSOES"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

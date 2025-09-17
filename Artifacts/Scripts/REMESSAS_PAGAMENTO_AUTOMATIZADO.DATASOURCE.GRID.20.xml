@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REMESSAS_PAGAMENTO_AUTOMATIZADO.DATASOURCE.GRID</ViewName>
+  <EntityName>REMESSAS_PAGAMENTO_AUTOMATIZADO.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if(entity.Fields["TITULOS"] != None and row.GetCellByName("TITULOS") != None):
+        row.GetCellByName("TITULOS").Text = entity.Fields["TITULOS"].ToString()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_PCCODIGOSNATUREZARECEITA.GRID</ViewName>
+  <EntityName>TR_PCCODIGOSNATUREZARECEITA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIR_TABELASPISCOFINS")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTER_TABELASPISCOFINS")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_TABELASPISCOFINS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

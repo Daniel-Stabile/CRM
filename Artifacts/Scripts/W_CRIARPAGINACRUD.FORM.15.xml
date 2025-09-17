@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>W_CRIARPAGINACRUD.FORM</ViewName>
+  <EntityName>W_CRIARPAGINACRUD</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnENTIDADEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnENTIDADEValueChanged(view, entity):
+    import re
+    
+    name = entity["ENTIDADE"].GetString();
+    matches = re.findall("\~\/[0-9|A-Z|a-z|_]+\/", entity["CAMINHO"].Value)
+    if name and len(matches) &gt; 0:
+        name = name.replace('_', ' ').replace('.', ' ').title().replace(' ', '')
+        path = matches[0]
+        entity["CAMINHO"].Value = path + name
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

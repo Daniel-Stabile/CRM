@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_OBJETIVOINDICADORES.OBJETIVO.GRID</ViewName>
+  <EntityName>GP_OBJETIVOINDICADORES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+    
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(entity.ObjetivoHandle)
+
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = cicloEmElaboracao
+    if row.EditCommand != None:
+        row.EditCommand.Visible = cicloEmElaboracao
+
+    if entity.Fields["METRICAINCONSISTENTE"]:
+        row.GetCellByName("INCONSISTENCIA").FontIcon = "fa fa-warning"
+        row.GetCellByName("INCONSISTENCIA").TextColor = "rgb(255,165,0)"
+        row.GetCellByName("INCONSISTENCIA").Tooltip = "Métricas do indicador inconsistentes"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+
+    objetivo = widget.ProviderWidget.Entity
+    if objetivo == None : return
+    
+    ativo = objetivo["AGRUPADOR"].GetBoolean()
+    if(ativo == None) : ativo = False
+    
+    widget.View.Commands["New"].Visible = not ativo;
+    
+    if objetivo.Fields["HANDLE"] &lt;= 0 : return
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(objetivo.Fields["HANDLE"])
+    
+    widget.View.Commands["New"].Visible = cicloEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_PRAZOSREALIZACAO.GRID</ViewName>
+  <EntityName>CT_PRAZOSREALIZACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>
+        def Load(widget):
+        form = widget.ProviderWidget
+        entity = form.Entity
+
+        if (entity == None) : return
+
+        widget.Hidden = True; # pertence ao módulo Orçamento! (entity["SQL_PRAZOSREALIZACAO"].GetDBValue() == None) or (entity["ULTIMONIVEL"].GetDBValue() == "N");
+
+      </SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

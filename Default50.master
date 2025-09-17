@@ -1,0 +1,315 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="Benner.Corporativo.Wes.WebApp.CorporativoMasterPage" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components.WebControls" TagPrefix="wes" %>
+<%@ Register Src="~/uc/TopBar.ascx" TagName="TopBar" TagPrefix="wes" %>
+<%@ Register Src="~/uc/TopBarMainContent.ascx" TagName="TopBarMainContent" TagPrefix="wes" %>
+<%@ Register Src="~/uc/HeadSection.ascx" TagName="HeadSection" TagPrefix="wes" %>
+<%@ Register Src="~/uc/SidePanel.ascx" TagName="SidePanel" TagPrefix="wes" %>
+<%@ Register Src="~/uc/WesManager.ascx" TagName="WesManager" TagPrefix="wes" %>
+<%@ Register Src="~/uc/HeadSectionApp.ascx" TagName="HeadSectionApp" TagPrefix="wes" %>
+<%@ Register TagPrefix="wes" Namespace="Benner.Tecnologia.Wes.Components.WebApp" Assembly="Benner.Tecnologia.Wes.Components.WebApp, Version=2008.0.0.0, Culture=neutral, PublicKeyToken=f2db26731026fd37" %>
+<!doctype html>
+<!--[if IE 9]> <html lang="pt" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="pt" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head runat="server">
+    <asp:ContentPlaceHolder ID="AntesHEAD" runat="server" EnableViewState="false">
+    </asp:ContentPlaceHolder>
+    <wes:HeadSection runat="server" />
+    <wes:HeadSectionApp runat="server" />
+    <asp:ContentPlaceHolder ID="Head" runat="server">
+        <link rel="stylesheet" type="text/css" href="<%# ResolveUrl("~/Content/css/produto.min.css")%>" />
+    </asp:ContentPlaceHolder>
+    <title>Web Enterprise Suite</title>
+    <asp:ContentPlaceHolder ID="ConteudoMaster" runat="server" EnableViewState="false">
+        <asp:PlaceHolder runat="server" ID="HeadCorporativoDesenv"></asp:PlaceHolder>
+        <asp:PlaceHolder runat="server" ID="HeadCorporativoProducao"></asp:PlaceHolder>
+    </asp:ContentPlaceHolder>
+<link href="<%# ResolveUrl("~/Content/assets/fullcalendar/fullcalendar.min.css")%>"  rel='stylesheet' />
+    <link href="<%# ResolveUrl("~/Content/assets/fullcalendar/fullcalendar.print.min.css")%>" rel='stylesheet' media='print' />
+    <asp:ContentPlaceHolder ID="AposHead" runat="server" EnableViewState="false">
+    </asp:ContentPlaceHolder>
+</head>
+
+<script runat="server">
+    protected override void OnLoad(EventArgs e) {
+        base.OnLoad(e);
+
+        Page.Header.DataBind();
+
+        HeadCorporativoProducao.Visible = !Benner.Tecnologia.Common.BennerContext.Security.IsDeveloper();
+        HeadCorporativoDesenv.Visible = !HeadCorporativoProducao.Visible;
+
+        string script = Benner.Corporativo.Wes.WebApp.ErpUtils.HideSingleTabScript;
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "HideSingleTab", script, true);
+
+        if (!Request.Url.AbsoluteUri.Contains("SiteSettings"))
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "TabColor", "Erp.initPortletTitleColor('blue');", true);
+    }
+</script>
+
+<body runat="server" id="Body" class="page-header-fixed page-container-bg-solid">
+    <form id="formMain" runat="server">
+        <wes:WesManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Content/js/CorporativoComum.js" />
+                <asp:ScriptReference Path="~/Content/js/MenuLateral.js" />
+                <asp:ScriptReference Path="~/PortalGerais/e/Scripts/erp.js" />
+                <asp:ScriptReference Path="~/PortalGerais/e/Scripts/dashboards.js" />
+<asp:ScriptReference Path="~/Content/assets/fullcalendar/fullcalendar.min.js" />
+                <asp:ScriptReference Path="~/Content/assets/fullcalendar/gcal.js" />
+            </Scripts>
+        </wes:WesManager>
+        <div class="page-wrapper">
+            <!-- INÍCIO DO CABEÇALHO -->
+            <div runat="server" id="Header" class="page-header navbar navbar-fixed-top">
+
+                <!-- INÍCIO DA BARRA DE NAVEGAÇÃO -->
+                <div class="page-header-inner">
+
+                    <!-- INÍCIO DA LOGO -->
+                    <div class="page-logo">
+                        <asp:HyperLink NavigateUrl="~/Default.aspx" runat="server" ID="logo">
+                            <div class="logo"></div>
+                        </asp:HyperLink>
+
+                    </div>
+                    <!-- FIM DA LOGO -->
+                    <!-- INÍCIO DO MENU HORIZONTAL -->
+                    <div class="hor-menu hor-menu-light hidden-sm hidden-xs" id="menuHorizontal">
+                        <wes:HorizontalMenu runat="server" ID="horizontalMenu" MenuID="MAIN" OpenSubMenuOnMouseHover="true" />
+                    </div>
+
+                    <a href="javascript:;" class="menu-toggler responsive-toggler" id="main-menu-toggler" data-toggle="collapse" data-target=".navbar-collapse"><span></span></a>
+                    <!-- FIM DO MENU HORIZONTAL-->
+
+<div style="float: right;">
+                    <!-- INÍCIO DO MENU DO USUÁRIO -->
+                    <wes:TopBar ID="TopBar" runat="server" OpenSubMenuOnMouseHover="true" ShowSelectedRoleName="true" />
+                    <!-- FIM DO MENU DO USUÁRIO -->
+
+<!-- INICIO DO MENU CUSTOMIZADO -->
+<div class="top-menu other-menu">
+<div class="view-root mounted">
+<ul class="nav navbar-nav pull-right" style="margin-right:0px;">
+<li class="dropdown" >
+<a href="/CRM/Pages/K_CRM_EMAILS/Grid.aspx"
+data-hover="dropdown" data-delay="100" data-close-others="true" aria-expanded="false"
+class="menu-link dropdown-toggle" style="padding-inline: 10px;">
+<i class="icon-envelope"></i>
+<span id="LblQtdEmailsNaoLidos" class="badge badge-default"></span>
+</a>
+</li>
+<li class="dropdown" >
+<a href="/CRM/Pages/K_CRM_NOVIDADES/Novidades.aspx" data-hover="dropdown"
+data-delay="100" data-close-others="true" class="menu-link dropdown-toggle"
+aria-expanded="false" style="padding-inline: 10px;">
+<i class="icon-feed"></i>
+<span id="LblQtdNovidadesNaoLidas" class="badge badge-default"></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- FIM DO MENU CUSTOMIZADO -->
+</div>
+
+                </div>
+
+                <!-- FIM DA BARRA DE NAVEGAÇÃO -->
+            </div>
+            <!-- FIM DO CABEÇALHO -->
+
+            <div class="clearfix"></div>
+
+            <!-- INÍCIO CONTEÚDO -->
+            <div class="page-container">
+                <!-- INICIO MENU LATERAL -->
+                <asp:ContentPlaceHolder ID="PageSidebarContent" runat="server">
+                    <div runat="server" id="SideBar" class="page-sidebar-wrapper">
+                        <div class="page-sidebar navbar-collapse collapse">
+
+                            <ul runat="server" id="SidebarMenu" class="page-sidebar-menu page-header-fixed sidebar" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                                <li class="sidebar-toggler-wrapper">
+                                    <div class="sidebar-toggler" id="sidebar-menu-toggler">
+                                        <span></span>
+                                    </div>
+                                </li>
+
+
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-clock-o" Title="Recentes" ID="recentes" Provider="RecentItem" DisplayMenuTitle="false" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-star" Title="Favoritos" ID="favoritos" Provider="Bookmark" DisplayMenuTitle="false" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-code-fork" Title="Atalhos" ID="atalhos" Provider="Menu" DisplayMenuTitle="false" MenuID="BARRA_DE_ATALHOS" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-bar-chart" Title="Indicadores" ID="MENUINDICADORES" Provider="Menu" MenuID="INDICADORES" />
+<!-- CRM -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-line-chart" Title="Meu CRM" ID="MENUK_MEUCRM_MENULATERAL" Provider="Menu"  MenuID="K_MEUCRM_MENULATERAL"  />                                
+<!-- Produção-->
+                                <wes:SideBarMenuWidget runat="server" ClientIDMode="Static" Icon="fa fa-gear" Title="Ordens de Produção" ID="MENULATERALPRORDENSPRODUCAO" Provider="Menu" MenuID="MENULATERALPRORDENSPRODUCAO" />
+                                <wes:SideBarMenuWidget runat="server" ClientIDMode="Static" Icon="fa fa-gear" Title="Ordens de Retrabalho" ID="MENULATERALORDENSRETRABALHO" Provider="Menu" MenuID="ORDENSRETRABALHOLATERAL" />
+                                <wes:SideBarMenuWidget runat="server" ClientIDMode="Static" Icon="fa fa-gear" Title="Ordens de Desmontagem" ID="MENUORDEMDESMONTAGEMLATERAL" Provider="Menu" MenuID="ORDEMDESMONTAGEMLATERAL" />
+                                <!-- Comercial -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-shopping-cart" Title="Ordens de Venda" ID="MENUORDENSVENDALATERAL" Provider="Menu" MenuID="ORDENSVENDALATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-usd" Title="Faturamento" ID="MENUFATURAMENTOLATERAL" Provider="Menu" MenuID="FATURAMENTOLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="icon-briefcase" Title="Propostas Comerciais" ID="MENUPROPOSTASLATERAL" Provider="Menu" MenuID="PROPOSTASLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-laptop" Title="Processos no servidor" ID="MENUPROCESSOSSERVIDORCOMERCIAL" Provider="Menu" MenuID="MENU_PROCESSOSSERVIDOR_COMERCIAL" />
+                                <!-- Menus laterais genéricos -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-pencil-square" Title="Aprovações" ID="APROVACOESLATERAL" Provider="Menu" MenuID="APROVACOESLATERAL" />
+                                <!-- Gestão de cobrança -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-calendar" Title="Agenda" ID="MENUAGENDA" Provider="Menu" MenuID="MENU_AGENDA" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-pencil-square-o" Title="Cadastros" ID="MENUCADASTROSGESTAOCOBRANCA" Provider="Menu" MenuID="MENU_CADASTROS_GESTAO_COBRANCA" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-laptop" Title="Processos no servidor" ID="MENUPROCESSOSSERVIDORGESTAOCOBRANCA" Provider="Menu" MenuID="MENU_PROCESSOSSERVIDOR_GESTAO_COBRANCA" />
+                                <!-- Financeiro -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-share" Title="Contas a Pagar" ID="MENUCPA" Provider="Menu" MenuID="CPA" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-reply" Title="Contas a Receber" ID="MENUCRE" Provider="Menu" MenuID="CRE" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-bank (alias)" Title="Tesouraria" ID="MENUTESOURARIALATERAL" Provider="Menu" MenuID="TESOURARIALATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-refresh" Title="Notas Débito/Crédito" ID="MENUNOTASDEBITOCREDITO" Provider="Menu" MenuID="NOTASDEBITOCREDITO" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-gears" Title="Processos" ID="MENUPROCESSOSFINANCEIRO" Provider="Menu" MenuID="MENU_PROCESSOS_FINANCEIRO" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-laptop" Title="Processos no servidor" ID="MENUPROCESSOSNOSERVIDORLATERAL" Provider="Menu" MenuID="PROCESSOSNOSERVIDORLATERAL" />
+                                <!-- Contratos -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-binoculars" Title="Consultas" ID="MENUCONSULTASFINANCEIRO" Provider="Menu" MenuID="CONSULTAS" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-zip-o (alias)" Title="Pré-Contrato" ID="MENUPRECONTRATOS" Provider="Menu" MenuID="PRECONTRATOLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-text-o" Title="Contratos" ID="MENUCONTRATOSLATERAL" Provider="Menu" MenuID="CONTRATOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="" Title="Documentos do contrato" ID="MENUDOCUMENTOSCONTRATOSLATERAL" Provider="Menu" MenuID="DOCUMENTOSCONTRATOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-usd" Title="Faturamento" ID="MENUFATURAMENTOCONTRATOSLATERAL" Provider="Menu" MenuID="FATURAMENTOCONTRATOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-pencil-square-o" Title="Requisições" ID="MENUREQUISICOESLATERAL" Provider="Menu" MenuID="REQUISICOESLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-binoculars" Title="Consultas" ID="MENUCONSULTACONTRATOSLATERAL" Provider="Menu" MenuID="CONSULTACONTRATOSLATERAL" />
+
+                                <!-- Materiais -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cube" Title="Itens" ID="MENUITENSMATERIAISLATERAL" Provider="Menu" MenuID="ITENSMATERIAISLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-user-plus" Title="Atendimento" ID="MENUATENDIMENTOMATERIAISLATERAL" Provider="Menu" MenuID="ATENDIMENTOMATERIAISLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-text-o" Title="Recebimentos" ID="MENUMATERIAISRECEBIMENTOSLATERAL" Provider="Menu" MenuID="MATERIAISRECEBIMENTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-text-o" Title="Entrada de nota fiscal" ID="MENUENTRADADENOTAFISCALLATERAL" Provider="Menu" MenuID="ENTRADADENOTAFISCALLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-building-o" Title="Almoxarifado" ID="MENUALMOXARIFADOMATERIAISLATERAL" Provider="Menu" MenuID="ALMOXARIFADOMATERIAISLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-refresh" Title="Recálculos" ID="MENURECALCULOSMATERIAISLATERAL" Provider="Menu" MenuID="RECALCULOSMATERIAISLATERAL" />
+
+                                <!-- Suprimentos -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-pencil-square" Title="Solicitações" ID="MENUSOLICITACOESSUPRIMENTOS" Provider="Menu" MenuID="SOLICITACOESSUPRIMENTOS" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-pencil-square-o" Title="Requisições" ID="MENUREQUISICOESSUPRIMENTOS" Provider="Menu" MenuID="REQUISICOESSUPRIMENTOS" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-table" Title="Cotações" ID="MENUCOTACOESSUPRIMENTOSLATERAL" Provider="Menu" MenuID="COTACOESSUPRIMENTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-shopping-cart" Title="Ordens de compra" ID="MENUORDENSDECOMPRASUPRIMENTOSLATERAL" Provider="Menu" MenuID="ORDENSDECOMPRASUPRIMENTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-opencart" Title="Ressuprimentos" ID="MENURESSUPRIMENTOSSUPRIMENTOSLATERAL" Provider="Menu" MenuID="RESSUPRIMENTOSSUPRIMENTOSLATERAL" />
+
+                                <!-- ESG -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-text-o" Title="Requisitos GRI" ID="MENUREQUISITOSGRI" Provider="Menu" MenuID="REQUISITOSGRI" />
+
+                                <!-- Gestão Estratégica -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-map-o" Title="Mapa Estratégico" ID="MENU_MAPAESTRATEGICO" Provider="Menu" MenuID="GESTAOMAPAESTRATEGICOLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-text-o" Title="Projetos" ID="MENU_GESTAOPROJETOS" Provider="Menu" MenuID="GESTAOPROJETOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-columns" Title="Kanban" ID="MENU_GESTAOKABAN" Provider="Menu" MenuID="GESTAOKANBANLATERAL" />
+
+                                <!-- Aquisições -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cube" Title="Aquisições" ID="MENU_AQUISICOESLATERAL" Provider="Menu" MenuID="AQUISICOESLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-text-o" Title="Requisições" ID="MENU_REQUISICOESAQUISICOESLATERAL" Provider="Menu" MenuID="REQUISICOESAQUISICOESLATERAL" />
+
+                                <!-- Contábil -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cogs" Title="Movimentações" ID="MENUMOVIMENTACOESCONTABILLATERAL" Provider="Menu" MenuID="MOVIMENTACOESCONTABILLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-binoculars" Title="Consultas" ID="MENUCONSULTASCONTABILLATERAL" Provider="Menu" MenuID="CONSULTASCONTABILLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cubes" Title="Processos" ID="MENUPROCESSOSCONTABILLATERAL" Provider="Menu" MenuID="PROCESSOSCONTABILLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-check" Title="Validações" ID="MENUVALIDACAOCONTABILATERAL" Provider="Menu" MenuID="VALIDACAOCONTABILATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-newspaper-o" Title="Demonstrações" ID="MENUDEMONSTRACOESCONTABILLATERAL" Provider="Menu" MenuID="DEMONSTRACOESCONTABILLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-sitemap" Title="Planos" ID="MENUPLANOSCONTABILLATERAL" Provider="Menu" MenuID="PLANOSCONTABILLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cog" Title="Configurações" ID="MENUCONFIGURACOESCONTABILLATERAL" Provider="Menu" MenuID="CONFIGURACOESCONTABILLATERAL" />
+                                <!-- Tributos -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cogs" Title="Movimentações" ID="MENUMOVIMENTACOESTRIBUTOSLATERAL" Provider="Menu" MenuID="MOVIMENTACOESTRIBUTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-calculator" Title="Apurações" ID="MENUSUBSTITUICAOTRIBUTARIAAPURACOES" Provider="Menu" MenuID="SUBSTITUICAOTRIBUTARIAAPURACOES" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-tasks" Title="Consultas" ID="MENUCONSULTASTRIBUTOSLATERAL" Provider="Menu" MenuID="CONSULTASTRIBUTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-cogs" Title="Declarações" ID="MENUDECLARACOESLATERAL" Provider="Menu" MenuID="DECLARACOESLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-calculator" Title="Apurações" ID="MENUAPURACOESTRIBUTOSLATERAL" Provider="Menu" MenuID="APURACOESTRIBUTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Title="Processos" ID="MENUPROCESSOSTRIBUTOSLATERAL" Provider="Menu" MenuID="PROCESSOSTRIBUTOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Title="PIS/COFINS" ID="MENUPISCONFINSTRIBUTOSLATERAL" Provider="Menu" MenuID="PISCONFINSTRIBUTOSLATERAL" />
+
+
+                                <!-- Ativo -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-calculator" Title="Itens" ID="MENUITENSLATERAL" Provider="Menu" MenuID="ITENSATIVOLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-calculator" Title="Cálculos" ID="MENUATIVOCALCULOSLATERAL" Provider="Menu" MenuID="ATIVOCALCULOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-book" Title="Inventários" ID="MENUATIVOINVENTARIOSLATERAL" Provider="Menu" MenuID="ATIVOINVENTARIOSLATERAL" />
+
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-gear" Title="Cadastros" ID="parametros" Provider="Menu" DisplayMenuTitle="false" MenuID="MENU_PARAMETROS" />
+                                <!-- Orcamento -->
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-folder" Title="Versões" ID="MENUVERSOESORCAMENTO" Provider="Menu" MenuID="MENU_VERSOES_ORCAMENTO" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-sticky-note" Title="Ações Orçamentárias" ID="AGA_ACOES_ORCAMENTARIAS" Provider="Menu" MenuID="AGA_ACOES_ORCAMENTARIAS" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-bank" Title="Planejamento" ID="AGA_ORCAMENTO_PLANEJAMENTO" Provider="Menu" MenuID="AGA_ORCAMENTO_PLANEJAMENTO" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-file-o" Title="Empenhos" ID="EMPENHOSLATERAL" Provider="Menu" MenuID="EMPENHOSLATERAL" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-server" Title="Processos no servidor" ID="MENUPROCESSOSSERVIDORORCAMENTOPUBLICO" Provider="Menu" MenuID="MENU_LATERAL_PROCESSOS_SERVIDOR_ORCAMENTO_PUBLICO" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-gears" Title="Processos" ID="MENUPROCESSOSORCAMENTO" Provider="Menu" MenuID="MENU_PROCESSOS_ORCAMENTO" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa fa-truck" Title="Frotas" ID="MENUMANUTENCAO_FROTAS" Provider="Menu" MenuID="MANUTENCAO_FROTAS" />
+                            </ul>
+
+
+
+                            <wes:HorizontalMenu runat="server" ID="horizontalMenu1" MenuID="MAIN" Collapsible="true" />
+
+                        </div>
+                    </div>
+                </asp:ContentPlaceHolder>
+                <!-- FIM MENU LATERAL -->
+                <wes:DeveloperModalPageMenu ID="developerModalPageMenu" runat="server" />
+                <wes:SearcherModalPanel ID="searchModal" runat="server" />
+
+                <div class="page-content-wrapper">
+                    <!-- INÍCIO DA PÁGINA -->
+                    <asp:Panel runat="server" ID="ContentPanel" CssClass="page-content" ClientIDMode="Static">
+                        <wes:TopBarMainContent ID="TopBarMainContent" runat="server" />
+                        <asp:ContentPlaceHolder ID="Main" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </asp:Panel>
+                    <!-- FIM DA PÁGINA -->
+                </div>
+            </div>
+
+            <!-- INÍCIO RODAPÉ -->
+            <div runat="server" id="Footer" class="page-footer">
+                <div class="page-footer-inner">
+                    <script type="text/javascript">
+                        document.write(new Date().getFullYear());
+                    </script>
+                    &copy; Benner Sistemas.
+                    <a href="javascript:Benner.Page.openEnvironmentSummary()" class="pull-right">
+                        <asp:Label ID="systemVersion" runat="server"></asp:Label>
+                    </a>
+                </div>
+            </div>
+            <!-- FIM RODAPÉ -->
+
+            <script>
+                $(document).ready(function() {
+                    AplicarRegraMenuLateral();
+                    Benner.Corporativo.Notificacoes.inicializarNotificacoes();
+                });
+
+                Erp.enableTitleCollapse();
+document.addEventListener('DOMContentLoaded', function () {
+                    $.get(Benner.Page.getApplicationPath() + "CrmNovidades/GetNovidadesNaoLidas", null, function (data) {
+                        $("#rDados").html(data);
+                        try {
+                            var result = JSON.parse(data);
+                            if (result.length > 0) {
+                                document.getElementById("LblQtdNovidadesNaoLidas").innerHTML = result.length;
+                            }
+                        }
+                        catch (e) {
+                            console.log(e);
+                        }
+                    });
+
+                    $.get(Benner.Page.getApplicationPath() + "CrmEmails/GetEmailsNaoLidos", null, function (data) {
+                        $("#rDados").html(data);
+                        try {
+                            var result = JSON.parse(data);
+                            if (result.length > 0) {
+                                document.getElementById("LblQtdEmailsNaoLidos").innerHTML = result.length;
+                            }
+                        }
+                        catch (e) {
+                            console.log(e);
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </form>
+</body>
+
+</html>

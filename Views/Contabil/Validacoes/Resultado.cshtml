@@ -1,0 +1,20 @@
+@{
+	int valorStatus = (@Model["Resultado"].GetInt32());
+    string classeCSS = "";
+
+    if (valorStatus == 1) /* válida */
+       {<p>Com sucesso</p>}
+			
+	if (valorStatus == 2)  /* Inválida */
+	{
+		{<p>Com erros</p>}
+	}
+	if (valorStatus == 3) /* Não executada */
+	{
+		{<p>Não executada</p>}
+	}
+	if (valorStatus == 4)  /* Falha */
+	{
+		{<p>Com falhas</p>}
+	}   
+}

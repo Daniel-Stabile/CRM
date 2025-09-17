@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>MF_LEITURASULCOS</Identifier>
+  <Name>LEITURASULCOS</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT &#xD;&#xA;    A.RECURSO, &#xD;&#xA;    A.CENTRODEMANUTENCAO, &#xD;&#xA;    A.MARCAFOGO, &#xD;&#xA;    A.CODIGO, &#xD;&#xA;    B.NOME,  &#xD;&#xA;    A.POSICAO, &#xD;&#xA;    A.VIDAUTIL,                  &#xD;&#xA;    A.DESGASTEACUMULADOVIDA, &#xD;&#xA;    D.NUMERO, &#xD;&#xA;    D.DATAULTIMALEITURA,                &#xD;&#xA;    D.PROFUNDIDADE, &#xD;&#xA;    D.PRESSAO, &#xD;&#xA;    D.TEMPERATURA, &#xD;&#xA;    D.VIDA,                      &#xD;&#xA;    A.HANDLE AS HANDLEPNEU, &#xD;&#xA;    D.HANDLE, &#xD;&#xA;    E.HANDLE AS HANDLESULCO, &#xD;&#xA;    D.NUMERO AS SULCO&#xD;&#xA;FROM &#xD;&#xA;    MA_RECURSOPARTES A                                                       &#xD;&#xA;    INNER JOIN MF_MODELOPNEUMEDIDAS B ON B.HANDLE = A.MEDIDAS              &#xD;&#xA;    INNER JOIN MF_PNEUVIDAS C ON A.HANDLE = C.PNEU AND A.VIDAUTIL = C.VIDA &#xD;&#xA;    INNER JOIN MF_PNEUVIDASULCOS D ON D.VIDA = C.HANDLE                    &#xD;&#xA;    LEFT JOIN MF_LEITURASULCOS E ON E.SULCO = D.HANDLE&#xD;&#xA;WHERE &#xD;&#xA;    E.DATA = (SELECT MAX(F.DATA)            &#xD;&#xA;              FROM MF_LEITURASULCOS F       &#xD;&#xA;              WHERE F.SULCO = D.HANDLE)&#xD;&#xA;ORDER BY &#xD;&#xA;    A.MARCAFOGO, &#xD;&#xA;    D.DATAULTIMALEITURA ASC&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="RECURSO" From="A" Path="RECURSO" />
+    <Field Alias="CENTRODEMANUTENCAO" From="A" Path="CENTRODEMANUTENCAO" />
+    <Field Alias="MARCAFOGO" From="A" Path="MARCAFOGO" />
+    <Field Alias="CODIGO" From="A" Path="CODIGO" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DecimalField Alias="POSICAO" From="A" Path="POSICAO" FieldDecimalsFormat="0" />
+    <Field Alias="VIDAUTIL" From="A" Path="VIDAUTIL" />
+    <DecimalField Alias="DESGASTEACUMULADOVIDA" From="A" Path="DESGASTEACUMULADOVIDA" FieldDecimalsFormat="0" />
+    <Field Alias="NUMERO" From="A" Path="NUMERO" />
+    <DateField Alias="DATAULTIMALEITURA" From="A" Path="DATAULTIMALEITURA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DecimalField Alias="PROFUNDIDADE" From="A" Path="PROFUNDIDADE" FieldDecimalsFormat="0" />
+    <DecimalField Alias="PRESSAO" From="A" Path="PRESSAO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="TEMPERATURA" From="A" Path="TEMPERATURA" FieldDecimalsFormat="0" />
+    <Field Alias="VIDA" From="A" Path="VIDA" />
+    <Field Alias="HANDLEPNEU" From="A" Path="HANDLEPNEU" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="HANDLESULCO" From="A" Path="HANDLESULCO" />
+    <Field Alias="SULCO" From="A" Path="SULCO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

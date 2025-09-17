@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ORDENS_COMPRA_APROVAR.GRID</ViewName>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter       
+    
+    if (not args.Entity["NUMERO"].IsNull) :
+        args.WhereClause.AddWhereClause("A.NUMERO = :NUMERO ", Parameter("NUMERO", args.Entity["NUMERO"].GetInt64()))
+        
+    if (not args.Entity["NUMERODOCUMENTOORIGEM"].IsNull) :
+        args.WhereClause.AddWhereClause("A.NUMERODOCUMENTOORIGEM = :NUMERODOCUMENTOORIGEM ", Parameter("NUMERODOCUMENTOORIGEM", args.Entity["NUMERODOCUMENTOORIGEM"].GetInt64()))
+        
+    if(not args.Entity["GRUPODEASSINATURAS"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.GRUPODEASSINATURAS IN ("+args.Entity["GRUPODEASSINATURAS"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.GRUPODEASSINATURAS IN ("+args.Entity["GRUPODEASSINATURAS"].GetString().replace("|_|",",").replace("|_","")+")"
+            
+    if(not args.Entity["FORNECEDOR"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.FORNECEDOR IN ("+args.Entity["FORNECEDOR"].GetString().replace("|_|",",").replace("|_","")+")"
+        else :
+            args.WhereClause.Where += " A.FORNECEDOR IN ("+args.Entity["FORNECEDOR"].GetString().replace("|_|",",").replace("|_","")+")"            
+            
+    if(not args.Entity["STATUS"].IsNull):        
+        args.WhereClause.AddWhereClause("A.STATUS = :STATUS", Parameter("STATUS", args.Entity["STATUS"].GetInt64()))
+        
+    if(not args.Entity["ORIGEM"].IsNull):        
+        args.WhereClause.AddWhereClause("A.ORIGEM = :ORIGEM", Parameter("ORIGEM", args.Entity["ORIGEM"].GetInt64()))        
+        
+    if(not args.Entity["DATABASEDE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.DATADABASE &gt;= :DE", Parameter("DE", args.Entity["DATABASEDE"].GetDateTime()))
+        
+    if(not args.Entity["DATABASEATE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.DATADABASE &gt;= :ATE", Parameter("ATE", args.Entity["DATABASEATE"].GetDateTime()))         
+
+    if(not args.Entity["COMPRADOR"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.HANDLE IN (SELECT ORDEMCOMPRA FROM CP_ORDENSCOMPRAITENS WHERE HANDLE IN (SELECT ORDEMCOMPRAITEM FROM CP_REQUISICAOAGRUPADAS WHERE REQUISICAOHANDLE IN (SELECT REQ.HANDLE FROM CP_REQUISICOES REQ WHERE REQ.COMPRADOR IN ("+args.Entity["COMPRADOR"].GetString().replace("|_|",",").replace("|_","")+"))))"
+        else :
+            args.WhereClause.Where += " A.HANDLE IN (SELECT ORDEMCOMPRA FROM CP_ORDENSCOMPRAITENS WHERE HANDLE IN (SELECT ORDEMCOMPRAITEM FROM CP_REQUISICAOAGRUPADAS WHERE REQUISICAOHANDLE IN (SELECT REQ.HANDLE FROM CP_REQUISICOES REQ WHERE REQ.COMPRADOR IN ("+args.Entity["COMPRADOR"].GetString().replace("|_|",",").replace("|_","")+"))))"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

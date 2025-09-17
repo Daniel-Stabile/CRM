@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>FATURAMENTO_ITENSDEVOLVIDOS</Identifier>
+  <Name>Faturamento - itens devolvidos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="    SELECT I.DOCUMENTO, D.DOCUMENTODIGITADO NOTAORIGINAL, D.DATAEMISSAO, C.CODIGO, C.NOME PRODUTO, B.QUANTIDADE, A.QUANTIDADEDEVOLVIDA QTDEDEVOLVIDA, A.REPOSICAO, E.NUMERO ORDEMCOMPRA&#xD;&#xA;      FROM CM_ITEMDEVOLUCOES A&#xD;&#xA;      JOIN CM_ITENS I ON A.ITEM = I.HANDLE&#xD;&#xA;INNER JOIN CM_ITENS B ON A.ITEMDEVOLVIDO = B.HANDLE&#xD;&#xA;INNER JOIN PD_PRODUTOS C ON B.PRODUTO = C.HANDLE&#xD;&#xA;INNER JOIN FN_DOCUMENTOS D ON B.DOCUMENTO = D.HANDLE&#xD;&#xA; LEFT JOIN CP_ORDENSCOMPRA E ON A.ORDEMCOMPRA = E.HANDLE&#xD;&#xA;  ORDER BY D.HANDLE" />
+  <Fields>
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="NOTAORIGINAL" From="A" Path="NOTAORIGINAL" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="CODIGO" From="A" Path="CODIGO" />
+    <Field Alias="PRODUTO" From="A" Path="PRODUTO" />
+    <Field Alias="QUANTIDADE" From="A" Path="QUANTIDADE" />
+    <Field Alias="QTDEDEVOLVIDA" From="A" Path="QTDEDEVOLVIDA" />
+    <Field Alias="REPOSICAO" From="A" Path="REPOSICAO" />
+    <Field Alias="ORDEMCOMPRA" From="A" Path="ORDEMCOMPRA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

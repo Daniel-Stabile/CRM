@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_ALMOXARIFADOS.FORM</ViewName>
+  <EntityName>PD_ALMOXARIFADOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.Value == 0:
+        raise CancelledOperationException("Selecione uma filial.")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

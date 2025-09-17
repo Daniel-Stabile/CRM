@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRA.CAPALANCAMENTOOC.FORM</ViewName>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    ordemCompra = widget.Entity
+    if ordemCompra == None: return
+    
+    if ordemCompra.Handle.IsValid():
+        ErpEnvironment.AtribuirSessionVar("HANDLE_OC_ATUAL_WEB", ordemCompra.Handle.ToString())
+        
+    if widget.View.Commands["Edit"] &lt;&gt; None: widget.View.Commands["Edit"].Visible = ordemCompra.PodeAlterar
+    if widget.View.Commands["Delete"] &lt;&gt; None: widget.View.Commands["Delete"].Visible = ordemCompra.PodeExcluir
+    if widget.View.Commands["CMD_ENCERRAR"] &lt;&gt; None: widget.View.Commands["CMD_ENCERRAR"].Visible = ordemCompra.PodeEncerrar
+    if widget.View.Commands["MAPA_ANALISE_COTACOES"] &lt;&gt; None: widget.View.Commands["MAPA_ANALISE_COTACOES"].Visible = ordemCompra.VisibilidadeComandoMapaAnaliseCotacoes
+    if widget.View.Commands["CMD_CANCELAR_COTACAO"] &lt;&gt; None: widget.View.Commands["CMD_CANCELAR_COTACAO"].Visible = ordemCompra.VisibilidadeComandoCancelar and (widget.Entity.Fields["ORIGEM"].Value == 1)
+    if widget.View.Commands["CMD_CANCELAR"] &lt;&gt; None: widget.View.Commands["CMD_CANCELAR"].Visible = ordemCompra.VisibilidadeComandoCancelar and (widget.Entity.Fields["ORIGEM"].Value &lt;&gt; 1)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    if (entity.Fields["ORIGEM"].Value == 5):
+        command.RequestConfirmationBeforeExecute("Atenção! A ordem de compra "+ str(entity.Fields["NUMERO"]) +" foi gerada a partir de um contrato com apontamentos e após ser cancelada não poderá ser excluída. Deseja continuar?")
+        
+    if (entity.Fields["ORIGEM"].Value == 12):
+        command.RequestConfirmationBeforeExecute("A ordem de compra, Numero: "+ str(entity.Fields["NUMERO"]) +", foi gerada a partir de um registro de preços. A quantidade dos itens retornará para o saldo do registro de preços")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

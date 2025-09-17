@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>WEB_E_FINANCEIRO_ZOOMDEPARCELAS_STATUSPARCELA</Identifier>
+  <Name>Status da parcela</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE , &#xD;&#xA;    (CASE WHEN (A.PARCELACANCELADA = 'S') THEN 'Cancelada'&#xD;&#xA;          WHEN (A.MOTIVOSUSPENSAO IS NOT NULL) THEN 'Suspensa'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS = 0 ) THEN 'Aberta'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS &gt; 0 AND A.VALORESBAIXADOS &lt; A.VALOR ) THEN 'Parcial'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS = A.VALOR ) THEN 'Liquidada'&#xD;&#xA;           END ) AS STATUS,&#xD;&#xA;    (CASE WHEN (A.PARCELACANCELADA = 'S') THEN 'red'&#xD;&#xA;          WHEN (A.MOTIVOSUSPENSAO IS NOT NULL) THEN 'red'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS = 0 ) THEN 'blue-oleo'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS &gt; 0 AND A.VALORESBAIXADOS &lt; A.VALOR ) THEN 'yellow'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS = A.VALOR ) THEN 'green'&#xD;&#xA;           END ) AS COLOR,&#xD;&#xA;    (CASE WHEN (A.PARCELACANCELADA = 'S') THEN 'fa fa-times'&#xD;&#xA;          WHEN (A.MOTIVOSUSPENSAO IS NOT NULL) THEN 'fa fa-lock'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS = 0 ) THEN 'fa fa-unlock'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS &gt; 0 AND A.VALORESBAIXADOS &lt; A.VALOR ) THEN 'fa fa-bars'&#xD;&#xA;          WHEN ( A.VALORESBAIXADOS = A.VALOR ) THEN 'fa fa-check'&#xD;&#xA;           END ) AS FONTICON&#xD;&#xA;     FROM FN_PARCELAS A" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="COLOR" From="A" Path="COLOR" />
+    <Field Alias="FONTICON" From="A" Path="FONTICON" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

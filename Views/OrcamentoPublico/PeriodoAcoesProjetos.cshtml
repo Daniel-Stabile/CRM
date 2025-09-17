@@ -1,0 +1,88 @@
+@{
+    DateTime dataAtual = DateTime.Now; // Data atual
+    DateTime dataInicial = (@Model["INICIOPREV"].GetDateTime());
+    DateTime dataFinal = @Model["TERMINOPREV"].GetDateTime();
+
+    int totalDias = 0, expiraEm = 0, diasPassados = 0;
+    double progressPercentage = 0;
+    string progress = "";
+
+
+}
+
+@if (dataFinal.Year != 1)
+{
+    totalDias = (int)(dataFinal - dataInicial).TotalDays;
+    expiraEm = (int)(dataFinal - dataAtual).TotalDays;
+    diasPassados = (int)(dataAtual - dataInicial).TotalDays;
+    progressPercentage = (double)diasPassados / totalDias * 100;
+    progress = dataInicial > dataAtual ? "0%" : (dataAtual > dataFinal ? "100%" : ((int)progressPercentage).ToString() +
+    "%");
+}
+
+@functions {
+    string FormatarData(DateTime data)
+    {
+        return data.ToString("dd/MM/yyyy");
+    }
+}
+
+<span>
+    <style>
+        /* Estilos para a barra de progresso */
+        .cshtml-progress-bar {
+            width: 100%;
+            background-color: #dddddd;
+
+            height: 4px;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .cshtml-progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
+
+
+
+    @{
+        if (dataFinal.Year == 1)
+        {
+            <div style="display: flex; flex-direction: column; gap: 5px;align-items:center;">
+                <div style="display: flex; gap: 5px;align-items:center;">
+                    <div style="white-space: nowrap;">@FormatarData(dataInicial)</div>
+                    <i style="color: #777777;" class="fa fa-long-arrow-right"></i>
+                    <div style="white-space: nowrap;">Indeterminado</div>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div style="display: flex; flex-direction: column; gap: 5px;align-items:center;">
+                <div style="display: flex; gap: 5px;align-items:center;">
+                    <div style="white-space: nowrap;">@FormatarData(dataInicial)</div>
+                    <i style="color: #777777;" class="fa fa-long-arrow-right"></i>
+                    <div style="white-space: nowrap;">@FormatarData(dataFinal)</div>
+                </div>
+
+                <div class="cshtml-progress-bar">
+                    <div style="width: @progress" class="cshtml-progress" id="progressBar">
+
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+
+
+
+</span>

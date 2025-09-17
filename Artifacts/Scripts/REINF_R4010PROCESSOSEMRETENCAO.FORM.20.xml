@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R4010PROCESSOSEMRETENCAO.FORM</ViewName>
+  <EntityName>REINF_R4010PROCESSOSEMRETENCAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    
+    entity = widget.Entity
+    RemovePrefixoMoedas("VLRNRETIDO", entity)
+    RemovePrefixoMoedas("VLRDEPJUD", entity)
+    RemovePrefixoMoedas("VLRCMPANOCAL", entity)
+    RemovePrefixoMoedas("VLRCMPANOANT", entity)
+    RemovePrefixoMoedas("VLRRENDSUSP", entity)
+    
+def RemovePrefixoMoedas(nomeCampo, entidade):
+    if entidade == None: return
+    entidade.Fields[nomeCampo] = str(str(str("{:,.2f}".format(entidade[nomeCampo].GetDecimal())).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

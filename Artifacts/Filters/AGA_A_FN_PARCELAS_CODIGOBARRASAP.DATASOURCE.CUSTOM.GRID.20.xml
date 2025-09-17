@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_A_FN_PARCELAS_CODIGOBARRASAP.DATASOURCE.CUSTOM.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>AGA_A_FN_PARCELAS_CODIGOBARRASAP.DATASOURCE</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Padrão</Name>
+      <Type>VirtualTable</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <VirtualTableFormView>VT_CODIGOBARRASAP.FORM</VirtualTableFormView>
+      <VirtualTableWhereClause>(A.AP = @CAMPO(NUMEROAP) OR @CAMPO(NUMEROAP) = -1) AND
+(A.PESSOA IN (@CAMPO(PESSOA)) OR @CAMPO(PESSOA) = -1) AND
+(
+    (
+          (A.DATAVENCIMENTO BETWEEN @CAMPO(DATAINICIAL) AND @CAMPO(DATAFINAL)) OR 
+          (@CAMPO(DATAINICIAL) IS NULL OR @CAMPO(DATAFINAL) IS NULL)
+    ) OR
+    (
+          (A.VCTOPRORROGADO BETWEEN @CAMPO(DATAINICIAL) AND @CAMPO(DATAFINAL)) OR 
+          (@CAMPO(DATAINICIAL) IS NULL OR @CAMPO(DATAFINAL) IS NULL)
+    )
+) AND
+(
+    ((A.CODIGOBARRAS IS NULL OR A.CODIGOBARRAS = '') AND @CAMPO(CODIGOBARRAS) = 1) OR
+    (A.CODIGOBARRAS IS NOT NULL AND @CAMPO(CODIGOBARRAS) = 2) OR
+    (@CAMPO(CODIGOBARRAS) = '')
+) AND
+(
+    ((A.HANDLEFORMALIQUIDACAO IS NULL  OR A.HANDLEFORMALIQUIDACAO = 0) AND @CAMPO(FORMALIQUIDACAO) = 1) OR
+    (A.HANDLEFORMALIQUIDACAO IS NOT NULL AND @CAMPO(FORMALIQUIDACAO) = 2) 
+)
+
+</VirtualTableWhereClause>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_META_ANUAL_DIRETOR_GERAL</Identifier>
+  <Name>CRM_META_ANUAL_DIRETOR_GERAL</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALOR) PLANEJADO,&#xD;&#xA;(SELECT SUM(VALORTOTAL+RECORRENTE+VALORSAAS) &#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE YEAR(DATAFECHAMENTO) = YEAR(GETDATE())&#xD;&#xA;AND STATUS = 10) REALIZADO&#xD;&#xA;FROM K_CRM_METASUSUARIOSTIPOS A&#xD;&#xA;JOIN K_CRM_METASUSUARIOS B ON A.METAUSUARIO = B.HANDLE&#xD;&#xA;JOIN K_CRM_METASPERIODOS C ON B.METAPERIODO = C.HANDLE&#xD;&#xA;JOIN K_CRM_METASUNIDADES D ON C.METAUNIDADE = D.HANDLE&#xD;&#xA;WHERE YEAR(C.DATA) = YEAR(GETDATE())&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="PLANEJADO" From="A" Path="PLANEJADO" />
+    <Field Alias="REALIZADO" From="A" Path="REALIZADO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

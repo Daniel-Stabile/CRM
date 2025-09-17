@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFAPRECEDENCIAS.GESTAO.FORM</ViewName>
+  <EntityName>GP_PROJETOTAREFAPRECEDENCIAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    
+    tarefaConcluida = GPProjetoTarefas.TarefaConcluida(widget.Entity.ProjetoHandle)
+    
+    if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = not tarefaConcluida
+    if widget.View.Commands["Edit"] != None: widget.View.Commands["Edit"].Visible = not tarefaConcluida
+    if widget.View.Commands["Delete"] != None: widget.View.Commands["Delete"].Visible = not tarefaConcluida
+    
+    widget.View.Commands["New"].Visible = (not widget.Entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid())
+    widget.View.Commands["Edit"].Visible = (not widget.Entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid())
+    widget.View.Commands["Delete"].Visible = (not widget.Entity.Fields["PROJETOTAREFA"].Instance.Fields["PROJETOLINHABASE"].Handle.IsValid())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

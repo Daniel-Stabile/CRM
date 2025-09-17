@@ -1,0 +1,147 @@
+﻿@using Benner.Tecnologia.Common;
+@using Benner.Tecnologia.Business;
+@using Benner.Corporativo.Definicoes.Contabil;
+
+@{
+    decimal? totalAtivo = 0;
+    decimal? totalPassivo = 0;
+    decimal? totalResultado = 0;
+    decimal? totalDebito = 0;
+    decimal? totalCredito = 0;
+    decimal? diferenca = 0;
+
+    if (Model != null)
+    {
+        const string sql = "SELECT SUM(A.VALOR) VALOR FROM CT_LANCAMENTOS A WHERE ";
+
+        var lancamentosAtivo = new Query(
+            sql + "A.DOCUMENTO = :DOCUMENTO AND A.CONTA IN (SELECT HANDLE FROM CT_CONTAS WHERE TIPO = 'A')",
+            new Parameter("DOCUMENTO", Model.Handle))
+            .ExecuteFirstOrDefault();
+
+        totalAtivo = lancamentosAtivo != null ? lancamentosAtivo["VALOR"].GetDecimal() : 0;
+
+        var lancamentosPassivo = new Query(
+            sql + "A.DOCUMENTO = :DOCUMENTO AND A.CONTA IN (SELECT HANDLE FROM CT_CONTAS WHERE TIPO = 'P')",
+            new Parameter("DOCUMENTO", Model.Handle))
+            .ExecuteFirstOrDefault();
+
+        totalPassivo = lancamentosPassivo != null ? lancamentosPassivo["VALOR"].GetDecimal() : 0;
+
+        var lancamentosResultado = new Query(
+            sql + "A.DOCUMENTO = :DOCUMENTO AND A.CONTA IN (SELECT HANDLE FROM CT_CONTAS WHERE TIPO = 'R')",
+            new Parameter("DOCUMENTO", Model.Handle))
+            .ExecuteFirstOrDefault();
+
+        totalResultado = lancamentosResultado != null ? lancamentosResultado["VALOR"].GetDecimal() : 0;
+
+        var lancamentosDebito = new Query(
+            sql + "A.DOCUMENTO = :DOCUMENTO AND A.NATUREZA = 'D' AND A.CONTA IN (SELECT HANDLE FROM CT_CONTAS WHERE ULTIMONIVEL = 'S')",
+            new Parameter("DOCUMENTO", Model.Handle))
+            .ExecuteFirstOrDefault();
+
+        totalDebito = lancamentosDebito != null ? lancamentosDebito["VALOR"].GetDecimal() : 0;
+
+        var lancamentosCredito = new Query(
+            sql + "A.DOCUMENTO = :DOCUMENTO AND A.NATUREZA = 'C' AND A.CONTA IN (SELECT HANDLE FROM CT_CONTAS WHERE ULTIMONIVEL = 'S')",
+            new Parameter("DOCUMENTO", Model.Handle))
+            .ExecuteFirstOrDefault();
+
+        totalCredito = lancamentosCredito != null ? lancamentosCredito["VALOR"].GetDecimal() : 0;
+
+        diferenca = totalDebito - totalCredito;
+    }
+}
+
+<div id="ctl00_Main_TOTALATIVO_UpdatePanel">
+    <div class="wes-tile">
+        <div class="widget-thumb widget-bg-color-white text-uppercase bordered wes-flat-tile">
+            <a class="command-name">
+                <h4 class="widget-thumb-heading tiledescription">&nbsp;Ativo</h4>
+                <div class="widget-thumb-wrap">
+                    <div class="widget-thumb-body">
+                        @*<span class="widget-thumb-subtitle tileprefix">&nbsp;Ativo</span>*@
+                        <span class="widget-thumb-body-stat tilevalue">&nbsp;@string.Format("{0:N}", totalAtivo)</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="ctl00_Main_TOTALPASSIVO_UpdatePanel">
+    <div class="wes-tile">
+        <div class="widget-thumb widget-bg-color-white text-uppercase bordered wes-flat-tile">
+            <a class="command-name">
+                <h4 class="widget-thumb-heading tiledescription">&nbsp;Passivo</h4>
+                <div class="widget-thumb-wrap">
+                    <div class="widget-thumb-body">
+                        <span class="widget-thumb-body-stat tilevalue">&nbsp;@string.Format("{0:N}", totalPassivo)</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="ctl00_Main_TOTALRESULTDO_UpdatePanel">
+    <div class="wes-tile">
+        <div class="widget-thumb widget-bg-color-white text-uppercase bordered wes-flat-tile">
+            <a class="command-name">
+                <h4 class="widget-thumb-heading tiledescription">&nbsp;Resultado</h4>
+                <div class="widget-thumb-wrap">
+                    <div class="widget-thumb-body">
+                        <span class="widget-thumb-body-stat tilevalue">&nbsp;@string.Format("{0:N}", totalResultado)</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="ctl00_Main_TOTALDEBITO_UpdatePanel" style="padding-left:10px">
+    <div class="wes-tile">
+        <div class="widget-thumb widget-bg-color-white text-uppercase bordered wes-flat-tile">
+            <a class="command-name">
+                <h4 class="widget-thumb-heading tiledescription">&nbsp;Débito</h4>
+                <div class="widget-thumb-wrap">
+                    <div class="widget-thumb-body">
+                        <span class="widget-thumb-body-stat tilevalue">&nbsp;@string.Format("{0:N}", totalDebito)</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="ctl00_Main_TOTALCREDITO_UpdatePanel">
+    <div class="wes-tile">
+        <div class="widget-thumb widget-bg-color-white text-uppercase bordered wes-flat-tile">
+            <a class="command-name">
+                <h4 class="widget-thumb-heading tiledescription">&nbsp;Crédito</h4>
+                <div class="widget-thumb-wrap">
+                    <div class="widget-thumb-body">
+                        <span class="widget-thumb-body-stat tilevalue">&nbsp;@string.Format("{0:N}", totalCredito)</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="ctl00_Main_TOTALDIFERENCA_UpdatePanel">
+    <div class="wes-tile">
+        <div class="widget-thumb widget-bg-color-white text-uppercase bordered wes-flat-tile">
+            <a class="command-name">
+                <h4 class="widget-thumb-heading tiledescription">&nbsp;Diferença</h4>
+                <div class="widget-thumb-wrap">
+                    <div class="widget-thumb-body">
+                        @if (diferenca > 0)
+                        {
+                            <span class="widget-thumb-body-stat tilevalue" style="color:red">&nbsp;@string.Format("{0:N}", diferenca)</span>
+                        }
+                        else
+                        {
+                            <span class="widget-thumb-body-stat tilevalue">&nbsp;@string.Format("{0:N}", diferenca)</span>
+                        }
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R4080.GRID</ViewName>
+  <EntityName>REINF_R4080</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import ListItem
+    form = widget.ProviderWidget
+    entity = form.Entity
+    item = entity.Fields["REGISTRO"]
+    if entity != None:
+        if item != ListItem(14,"R-4020 - Pagamentos/Créditos a Beneficiário pessoa Jurídica"):
+            widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

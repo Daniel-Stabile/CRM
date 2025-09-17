@@ -1,0 +1,53 @@
+﻿
+
+@if(Model["STATUS"].GetInt32() != null){
+    if(Model["STATUS"].GetInt32() == 1){
+        <span class="badge badge-info badge-roundless col-md-12">
+            Em preparação
+        </span>   
+    }
+    if(Model["STATUS"].GetInt32() == 2){
+        <span class="badge badge-primary badge-roundless col-md-12">
+            Aguardando conferência
+        </span>   
+    }
+    if(Model["STATUS"].GetInt32() == 3){
+        <span class="badge badge-warning badge-roundless col-md-12">
+            Com divergências
+        </span>   
+    }
+    if(Model["STATUS"].GetInt32() == 4){
+        <span class="badge badge-primary badge-roundless col-md-12">
+            Aguardando remessa
+        </span>   
+    }
+	if(Model["STATUS"].GetInt32() == 5){
+        <span class="badge badge-primary badge-roundless col-md-12">
+            Aguardando aprovação
+        </span>   
+    }
+    if(Model["STATUS"].GetInt32() == 6){
+        <span class="badge badge-danger badge-roundless col-md-12">
+            Reprovado
+        </span>   
+    }
+	if(Model["STATUS"].GetInt32() == 7){
+        <span class="badge badge-success badge-roundless col-md-12">
+            Aprovado
+        </span>   
+    }
+	if(Model["STATUS"].GetInt32() == 8){
+        <span class="badge badge-success badge-roundless col-md-12">
+            Gerado
+        </span>   
+    }
+	if(Model["STATUS"].GetInt32() == 9){
+        <span class="badge badge-success badge-roundless col-md-12">
+            Processados
+        </span>   
+    }
+} else {
+    <span class="badge badge-danger badge-roundless col-md-12">
+        Nulo
+    </span>   
+}

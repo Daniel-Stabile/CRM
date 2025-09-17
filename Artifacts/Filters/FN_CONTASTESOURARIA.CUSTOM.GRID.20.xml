@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_CONTASTESOURARIA.CUSTOM.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>FN_CONTASTESOURARIA</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Contas com Extrato Bancário</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <TableName xsi:nil="true" />
+    <Value xsi:type="xsd:string">A.HANDLE IN (SELECT CT.HANDLE FROM FN_CONTASTESOURARIA CT JOIN TS_EXTRATOBANCARIO EB ON EB.CONTA = CT.HANDLE)</Value>
+    <Label xsi:nil="true" />
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.HANDLE IN (SELECT CT.HANDLE FROM FN_CONTASTESOURARIA CT JOIN TS_EXTRATOBANCARIO EB ON EB.CONTA = CT.HANDLE)</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

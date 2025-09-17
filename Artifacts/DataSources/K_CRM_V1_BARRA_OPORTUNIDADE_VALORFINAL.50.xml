@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_BARRA_OPORTUNIDADE_VALORFINAL</Identifier>
+  <Name>CRM_V1_BARRA_OPORTUNIDADE_VALORFINAL</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.NOME, B.HANDLE,&#xD;&#xA;       ROUND(SUM(C.VALORFINAL),2) VALORFINAL,&#xD;&#xA;       ROUND(SUM(C.VALORRECORRENTE),2) VALORRECORRENTE,&#xD;&#xA;       ROUND(SUM(C.VALORESCOPO),2) VALORESCOPO&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADESPROD A&#xD;&#xA;JOIN K_CRM_PRODUTOS B ON A.PRODUTO = B.HANDLE&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADESITENS C ON A.HANDLE = C.PRODUTO&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADES D ON D.HANDLE = A.OPORTUNIDADE&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY B.NOME, B.HANDLE&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <DecimalField Alias="VALORFINAL" From="A" Path="VALORFINAL" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORRECORRENTE" From="A" Path="VALORRECORRENTE" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORESCOPO" From="A" Path="VALORESCOPO" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

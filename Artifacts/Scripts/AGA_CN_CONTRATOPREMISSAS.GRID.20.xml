@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOPREMISSAS.GRID</ViewName>
+  <EntityName>CN_CONTRATOPREMISSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    if widget.ProviderWidget &lt;&gt; None and (widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    podeAlterar = CNContrato.PodeAlterarFilialFormulario(widget.ProviderWidget.Entity.Handle)
+    
+    widget.View.Commands["New"].Visible = podeAlterar
+    widget.View.Commands["Edit"].Visible = podeAlterar
+    widget.View.Commands["Delete"].Visible = podeAlterar</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

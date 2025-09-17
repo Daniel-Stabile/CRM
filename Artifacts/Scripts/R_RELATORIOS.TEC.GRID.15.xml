@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>R_RELATORIOS.TEC.GRID</ViewName>
+  <EntityName>R_RELATORIOS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_PreverExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_PreverExecute(command, entity):
+    from Benner.Tecnologia.Common import ReportUtils
+    ReportUtils.ConfigureReportCommand(command, entity)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.GetCustomCommand("CMD_EditarLayout") != None:
+		row.GetCustomCommand("CMD_EditarLayout").Enabled = entity["TIPO"].GetInt32() == 2        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

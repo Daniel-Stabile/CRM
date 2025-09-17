@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAINSCRICOESESTADUAIS.GRID</ViewName>
+  <EntityName>GN_PESSOAINSCRICOESESTADUAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Business import Query
+    from Benner.Tecnologia.Wes.Components import MessageType
+
+    entity = widget.ProviderWidget
+    if (entity.Entity != None):
+        sql = Query("SELECT ESCONDEPAGINAIE FROM TR_PARAMETROS WHERE EMPRESA = @EMPRESA")
+        _sql = sql.Execute()
+        
+    if (_sql != None):
+        escondePaginaIE = _sql[0]["ESCONDEPAGINAIE"].Value;
+        
+    if (escondePaginaIE != "S" and entity.Entity["EHPRODUTORRURAL"].Value):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

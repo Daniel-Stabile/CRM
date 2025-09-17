@@ -1,0 +1,117 @@
+﻿<div id="appPerformanceUsuario" class="row">
+    <div v-show="false" style="background-color:whitesmoke;z-index:100;opacity:0.6;height:100%;width:100%;position:absolute">
+        <img src="~/content/img/Dot Loader.gif" style="position:relative;left:40%;top:30%;width:20%" />
+    </div>
+    <div v-for="groupTiles in Tiles">
+        
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" v-for="item in groupTiles.ListaTipos">
+            <a v-bind:href="item.UrlGrafico">
+                <div class="dashboard-stat2 ">
+                    <div class="display">
+                        <div class="number">
+                            <h3 v-bind:class="'font-'+getPercentClass(item)">
+                                <span data-counter="counterup" data-value="7800">{{item.Valor}}</span>
+                                <small class="font-green-sharp"></small>
+                            </h3>
+                            <small>{{item.Nome}}</small>
+                        </div>
+                        <div class="icon">
+                            <i class="icon-pie-chart"></i>
+                        </div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress">
+                            <span v-bind:style="'width:'+ getPercent(item) +'%;'" v-bind:class="'progress-bar progress-bar-success ' + getPercentClass(item) + ' '">
+                                <span class="sr-only">{{getPercent(item)}}% progress</span>
+                            </span>
+                        </div>
+                        <div class="status">
+                            <div class="status-title"> Progresso {{item.Valor.replace("%","")}} / {{item.MetaValor.replace("%","")}} </div>
+                            <div class="status-number"> {{getPercent(item)}}% </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el: "#appPerformanceUsuario",
+            data: {
+                Tiles:[]
+            },
+            methods: {
+
+                getPercent: function (item) {
+                    var scope = this;
+
+                    var result1 = parseFloat(item.Valor.replace("%", ""));
+                    var result2 = parseFloat(item.MetaValor.replace("%", ""));
+
+                    var result = ((result1 / result2) * 100).toFixed(2);
+
+                    if (result > 100)
+                        return 100;
+                    else
+                        return result;
+                },
+
+                getPercentClass: function (item) {
+                    var scope = this;
+                    var result1 = parseFloat(item.Valor.replace("%", ""));
+                    var result2 = parseFloat(item.MetaValor.replace("%", ""));
+
+                    var result = ((result1 / result2) * 100).toFixed(2);
+
+                    console.log(item.Nome)
+                    console.log(result1)
+                    console.log(item.MetaValor)
+                    console.log(result)
+
+                    if (result == 100 || result > 100)
+                        return 'green-jungle';
+                    if (result < 20)
+                        return 'red-mint';
+                    if (result < 40)
+                        return 'red-intense';
+                    if (result < 60)
+                        return 'yellow-gold';
+                    if (result < 80)
+                        return 'yellow-saffron';
+                    if (result < 90)
+                        return 'green-sharp';
+                    if (result < 100)
+                        return 'green-meadow';
+                },
+
+                getMetas: function () {
+                    var scope = this;
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPerformance/GetMetasUsuario",
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("CrmPerformance/GetMetasUsuario!");
+                            console.log(JSON.parse(data));
+
+                            var aux = {};
+                            aux = JSON.parse(data);
+                            scope.Tiles = aux.data
+                            console.log(scope.Tiles);
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                        }
+                    });
+                },
+
+            },
+            mounted: function () {
+                var scope = this;
+
+                scope.getMetas();
+            }
+        });
+    </script>
+</div>

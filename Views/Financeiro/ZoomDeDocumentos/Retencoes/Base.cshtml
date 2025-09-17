@@ -1,0 +1,33 @@
+﻿@{
+    var baseCalculo = Model.Fields["BASECALCULO"] != null ?
+        Model.Fields["BASECALCULO"].ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) : null;
+
+    var baseAcumulada = Model.Fields["BASE"] != null ?
+        Model.Fields["BASE"].ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) : null;
+}
+<div class="row static-info grid-retencoes">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Cálculo
+                    </div>
+                </div>
+                <span class=" value">@baseCalculo</span>
+            </label>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Acumulada
+                    </div>
+                </div>
+            </label>
+            <span class=" value valueSecundario">@baseAcumulada</span>
+        </div>
+    </div>
+</div>

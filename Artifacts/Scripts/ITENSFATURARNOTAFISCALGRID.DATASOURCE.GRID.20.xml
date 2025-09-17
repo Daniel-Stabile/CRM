@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>ITENSFATURARNOTAFISCALGRID.DATASOURCE.GRID</ViewName>
+  <EntityName>ITENSFATURARNOTAFISCALGRID.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import System
+    
+    if entity.Fields["VALOR"] == None:
+        entity.Fields["VALOR"] = System.Int32(0)
+    
+    row.GetCellByName("VALOR").Text = entity.Fields["VALOR"].ToString("C2")
+        
+    row.GetCellByName("VALORUNITARIO").Text = entity.Fields["VALORUNITARIO"].ToString("C2")
+    
+    row.GetCellByName("DATALIBERACAO").Text = entity.Fields["DATALIBERACAO"].ToString("dd/MM/yyyy")
+    
+    row.GetCellByName("NUMEROOV").Text = str(int(entity.Fields["NUMEROOV"]))
+    
+    row.GetCellByName("QUANTIDADE").Text = str(str(str("{:,.4f}".format(entity.Fields["QUANTIDADE"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+    
+    if entity.Fields["DATAENTREGA"] != None:
+        row.GetCellByName("DATAENTREGA").Text = entity.Fields["DATAENTREGA"].ToString("dd/MM/yyyy")
+        
+    campos = ["NUMEROOV","CODIGOREFERENCIA","UNIDADE","QUANTIDADE"]    
+        
+    for campo in campos:
+        row.GetCellByName(campo).Align = "center"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

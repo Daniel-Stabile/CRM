@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.ANALISECREDITO.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if  ( widget.Entity  == None ):return
+    from System import DateTime
+    from System import String
+    from Benner.Tecnologia.Common import Parameter
+    import clr
+    clr.AddReference("Benner.Tecnologia.Business")
+    from Benner.Tecnologia.Common import BennerContext
+    clr.AddReference("Benner.Corporativo.DataContracts")
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    from Benner.Corporativo.DataContracts.Web.Financeiro import ClienteCredito
+    
+    
+    widget.View.Commands["Edit"].Visible = Utils.VerificaPermissao("MANTER_ANALISEDECREDITO");
+    widget.View.FieldDefinitions["GRUPOEMPRESARIAL"].Visible = (widget.Entity["GRUPOEMPRESARIAL"].GetInt64() &gt; 0)
+    clienteCredito = BennerContext.BusinessComponent.Call("Benner.Corporativo.Financeiro.Web.AnaliseCreditoCliente, Benner.Corporativo.Financeiro", "GetClienteCredito", widget.Entity["HANDLE"].GetInt32());
+    widget.View.FieldDefinitions["CUSTOM_PRIMEIRACOMPRA"].Value = clienteCredito.DataPrimeiraCompra
+    if ( clienteCredito.ValorUtilizado != None):
+        widget.View.FieldDefinitions["CUSTOM_UTILIZADO"].Value = clienteCredito.ValorUtilizado
+        
+    limiteCredito = (0).ToString("C2");
+    if clienteCredito.ValorLimiteCredito.OriginalValue &gt; 0:
+        limiteCredito = clienteCredito.ValorLimiteCredito.FormattedValue
+        
+    widget.View.FieldDefinitions["CUSTOM_LIMITECREDITO"].Value = limiteCredito
+    
+    if clienteCredito.ValorLimiteCredito.OriginalValue &gt; 0 and clienteCredito.ValorDisponivel.OriginalValue &gt; 0:
+        widget.View.FieldDefinitions["CUSTOM_DISPONIVEL"].Value = clienteCredito.ValorDisponivel.FormattedValue
+    else:
+        widget.View.FieldDefinitions["CUSTOM_DISPONIVEL"].Value = "R$ 0,00"        
+        
+    widget.View.FieldDefinitions["CUSTOM_SITUACAO"].Value = clienteCredito.Situacao
+    widget.View.FieldDefinitions["CUSTOM_DATACONSULTA"].Value = clienteCredito.DataConsulta
+    widget.View.FieldDefinitions["CUSTOM_VALORCUSTOMIZADO"].Visible = ( clienteCredito.TextoCustomizado != "" and  clienteCredito.ValorCustomizado.OriginalValue &gt; 0 )
+    widget.View.FieldDefinitions["CUSTOM_VALORCUSTOMIZADO"].Title = clienteCredito.TextoCustomizado
+    widget.View.FieldDefinitions["CUSTOM_VALORCUSTOMIZADO"].Value = clienteCredito.ValorCustomizado.FormattedValue</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PD_VTENTRADANOTAFISCAL.PASSO2_FORNECEDOR_NUMERONOTA.FORM</Name>
+  <Level>Benner</Level>
+  <EntityName>PD_VTENTRADANOTAFISCAL</EntityName>
+  <Type>Formulário</Type>
+  <Version>11</Version>
+  <FormDefinition entityDefinitionName="PD_VTENTRADANOTAFISCAL" name="PD_VTENTRADANOTAFISCAL.PASSO2_FORNECEDOR_NUMERONOTA.FORM" title="" inherited="false">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <Pages>
+      <FormPage caption="Geral" key="GERAL">
+        <visible>true</visible>
+        <Items>
+          <FormPageItem xsi:type="FormPageField" key="PAINEL_PASSO2_SELECAO_ITENS">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col12</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="FORNECEDOR">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col6</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="NUMERONOTAFISCAL">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col7</bootstrapCols>
+          </FormPageItem>
+        </Items>
+      </FormPage>
+    </Pages>
+    <Column xsi:nil="true" />
+    <FormCaptionPosition>Top</FormCaptionPosition>
+    <SubstituteViewName xsi:nil="true" />
+    <FieldDefinitions>
+      <FormFieldDefinition xsi:type="FormFieldLabelDefinition" key="PAINEL_PASSO2_SELECAO_ITENS">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>false</renderTitle>
+        <ValueFromView>@{
+    string nomeFornecedor = null;
+    string cpfCnpjFornecedor = null;
+    if (!@Model["FORNECEDOR"].IsNull)
+    {
+        var fornecedor = @Model.Fields["FORNECEDOR"].Instance;
+        nomeFornecedor = fornecedor.Fields["NOME"];
+        cpfCnpjFornecedor = fornecedor.Fields["CGCCPF"];
+    }
+}
+
+&lt;div class="row static-info"&gt;
+    @if (!@Model["FORNECEDOR"].IsNull)
+    {
+    	&lt;div class="row static-info"&gt;
+    		&lt;label class="name text-left col-md-3 col-sm-3"&gt;
+    			&lt;div class="label-form"&gt;
+    				&lt;div class="label-title"&gt;Fornecedor&lt;/div&gt;
+    			&lt;/div&gt;
+    		&lt;/label&gt;
+    		&lt;div class="col-md-9 col-sm-9 value"&gt;
+					&lt;span style="font-size:16px;"&gt;@nomeFornecedor - @cpfCnpjFornecedor&lt;/span&gt;
+    		&lt;/div&gt;
+    	&lt;/div&gt;
+	}
+	@if (!@Model["NUMERONOTAFISCAL"].IsNull)
+    {
+    	&lt;div class="row static-info"&gt;
+    		&lt;label class="name text-left col-md-3 col-sm-3"&gt;
+    			&lt;div class="label-form"&gt;
+    				&lt;div class="label-title"&gt;Nº nota fiscal&lt;/div&gt;
+    			&lt;/div&gt;
+    		&lt;/label&gt;
+    		&lt;div class="col-md-9 col-sm-9 value"&gt;
+    			&lt;span style="font-size:16px;"&gt;@Model["NUMERONOTAFISCAL"].GetString()&lt;/span&gt;
+    		&lt;/div&gt;
+    	&lt;/div&gt;
+	}
+&lt;/div&gt;</ValueFromView>
+        <ValueType>HTML</ValueType>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Fornecedor" key="FORNECEDOR">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>None</CompanyFilterMode>
+        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
+        <LookupResultFields>NOME,CGCCPF</LookupResultFields>
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter>false</SearchOnEnter>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Nº nota fiscal" key="NUMERONOTAFISCAL">
+        <visible>false</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <lines>1</lines>
+      </FormFieldDefinition>
+    </FieldDefinitions>
+    <Commands>
+      <Command title="Ok" key="Save">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Save" />
+      </Command>
+      <Command title="Cancelar" key="Cancel">
+        <visible>true</visible>
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context>Record</context>
+        <ProcessDefinition xsi:type="PredefinedAction" type="Cancel" />
+      </Command>
+    </Commands>
+  </FormDefinition>
+</ViewPortable>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_WFPROCESSOS.GRID</ViewName>
+  <EntityName>Z_WFPROCESSOS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSTARTPROCESSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSTARTPROCESSExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+
+    if entity == None : raise CancelledOperationException("Nenhum registro selecionado")
+    entityName = entity.GetRelevantDataEntityName()
+    if entityName == None : raise CancelledOperationException("Não é possível iniciar este processo pois não há fluxos ativos ou não possui tabela de dados relevantes definida")
+    if entityName == "" : raise CancelledOperationException("Não é possível iniciar este processo pois não há fluxos ativos ou não possui tabela de dados relevantes definida")
+    command.InputDefinition.TargetEntityDefinitionName = entityName + ".FORM";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

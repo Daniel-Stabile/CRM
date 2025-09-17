@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CAIXAENTRADA_SOLICITACOES.GRID</ViewName>
+  <EntityName>Z_WFTAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPESQUISARPORFilter</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPESQUISARPORFilter(args):
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter    
+    
+    args.WhereClause.Clear();
+    
+    if(not args.Entity["SOLICITACAO"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE SOLICITACAO IN (SELECT HANDLE FROM CP_SOLICITACOES WHERE NUMERO = :SOLICITACAO)) ", Parameter("SOLICITACAO", args.Entity["SOLICITACAO"].GetInt64()))
+        
+    if(not args.Entity["DATADE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE DATA &gt;= :DATADE) ", Parameter("DATADE", args.Entity["DATADE"].GetDateTime()))
+        
+    if(not args.Entity["DATAATE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE DATA &lt;= :DATAATE) ", Parameter("DATAATE", args.Entity["DATAATE"].GetDateTime()))                
+        
+    if(not args.Entity["VALORDE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE VALORTOTAL &gt;= :VALORDE) ", Parameter("VALORDE", args.Entity["VALORDE"].GetDecimal()))
+        
+    if(not args.Entity["VALORATE"].IsNull):        
+        args.WhereClause.AddWhereClause("A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE VALORTOTAL &lt;= :VALORATE) ", Parameter("VALORATE", args.Entity["VALORATE"].GetDecimal()))        
+        
+    if(not args.Entity["FILIAL"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE FILIAL IN ("+args.Entity["FILIAL"].GetString().replace("|_|",",").replace("|_","")+"))"
+        else :
+            args.WhereClause.Where += " A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE FILIAL IN ("+args.Entity["FILIAL"].GetString().replace("|_|",",").replace("|_","")+"))"
+            
+    if(not args.Entity["SOLICITANTE"].IsNull):
+        if (args.WhereClause.Where != ""):
+            args.WhereClause.Where += " AND A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE SOLICITANTE IN ("+args.Entity["SOLICITANTE"].GetString().replace("|_|",",").replace("|_","")+"))"
+        else :
+            args.WhereClause.Where += " A.HANDLEDADORELEVANTE IN (SELECT HANDLE FROM K9_WF_SOLICITACAO WHERE SOLICITANTE IN ("+args.Entity["SOLICITANTE"].GetString().replace("|_|",",").replace("|_","")+"))"             
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

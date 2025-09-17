@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_SUGAR_STATUS</Identifier>
+  <Name>CRM_SUGAR_STATUS</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CASE &#xD;&#xA;            WHEN STATUS = 1 THEN 'Processar'&#xD;&#xA;            WHEN STATUS = 2 THEN 'Cadastrado'&#xD;&#xA;            WHEN STATUS = 3 THEN 'Empresa já existe'&#xD;&#xA;            WHEN STATUS = 4 THEN 'CNPJ Inválido'&#xD;&#xA;        END ROTULO,&#xD;&#xA;        COUNT(HANDLE) TOTAL&#xD;&#xA;FROM K_CRM_SUGAR&#xD;&#xA;GROUP BY STATUS&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="ROTULO" From="A" Path="ROTULO" />
+    <Field Alias="TOTAL" From="A" Path="TOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

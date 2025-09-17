@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_ENTRADAS.DATASOURCE.GRID</ViewName>
+  <EntityName>GN_ENTRADAS.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    
+    
+    if entity["TIPO"].GetInt64() == 2 :
+        command.OutputDefinition.Url = "~/aga/a/materiais/recebimentoFisico/RecebimentoFisicoForm.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "CP_RECEBIMENTOFISICOPAI"        
+        command.OutputDefinition.TargetEntityHandle = entity["HANDLE"].GetInt64()            
+
+    if entity["TIPO"].GetInt64() == 3 :    
+        command.OutputDefinition.Url = "~/aga/a/materiais/recebimentos/RecebimentoFiscal/RecebimentoFiscalForm.aspx"
+        command.OutputDefinition.TargetEntityDefinitionName = "FN_DOCUMENTOS"
+        command.OutputDefinition.TargetEntityHandle = entity["HANDLE"].GetInt64()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

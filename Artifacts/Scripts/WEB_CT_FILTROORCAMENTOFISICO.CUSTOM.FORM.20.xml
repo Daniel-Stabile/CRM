@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_CT_FILTROORCAMENTOFISICO.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_CT_FILTROORCAMENTOFISICO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    entity.TransitoryVars["GERARORCAMENTO"] = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCancelExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCancelExecute(command, entity):
+    entity["FILIAL"].SetNull();
+    entity["ITEM"].SetNull();
+    entity["CONTA"].SetNull();
+    entity["CENTROCUSTO"].SetNull();
+    entity["CENTROCUSTOGERENCIAL"].SetNull();
+    entity["PROJETO"].SetNull();
+    entity["PROJETOGERENCIAL"].SetNull();
+    entity["DIMENSAOGERENCIAL"].SetNull();
+    entity["DIMENSAO"].SetNull();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    from System.Collections import Hashtable
+    from System.Web import HttpContext
+    from System.Web import HttpRequest
+    from System.Web import HttpResponse
+
+
+    parentNode = widget.Breadcrumb.Parent
+    
+    if parentNode == None: return
+
+    entidade = parentNode.Entity
+    
+    if entidade == None: return
+
+    if entidade.EntityDefinitionName == "CT_VERSOESORCAMENTOS":
+        orcamento = Entity.Get(EntityDefinition.GetByName(entidade.EntityDefinitionName), entidade.Handle)
+        
+        if orcamento["CENTROSDECUSTO"].GetInt32() == 1:
+            widget.View.FieldDefinitions["CENTROCUSTOGERENCIAL"].Visible = False
+        else:
+            widget.View.FieldDefinitions["CENTROCUSTO"].Visible = False
+            
+        if orcamento["PROJETOS"].GetInt32() == 1:
+            widget.View.FieldDefinitions["PROJETOGERENCIAL"].Visible = False
+        else:
+            widget.View.FieldDefinitions["PROJETO"].Visible = False
+            
+        if (not widget.Entity["MESINICIAL"].IsNull):
+            widget.Entity["MESINICIAL"].Value = orcamento["MESINICIAL"].Value
+            
+        if widget.Entity == None: return
+    
+        widget.Entity.TransitoryVars["VERSAOORCAMENTO"] = entidade.Handle
+        HttpContext.Current.Session["VERSAOORCAMENTO"]  = entidade.Handle
+ 
+    else:
+        if entidade.EntityDefinitionName == "WEB_CT_FILTROORCAMENTOFISICO":
+            handle = HttpContext.Current.Session["VERSAOORCAMENTO"]
+            widget.Entity.TransitoryVars["VERSAOORCAMENTO"] = handle
+        else:
+            raise CancelledOperationException("Não foi possivel carregar o nivel superior: " +entidade.EntityDefinitionName)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

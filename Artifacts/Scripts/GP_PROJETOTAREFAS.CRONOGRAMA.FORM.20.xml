@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFAS.CRONOGRAMA.FORM</ViewName>
+  <EntityName>GP_PROJETOTAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    from Benner.Tecnologia.Common import BennerContext
+    projetoEntity = GPProjetos.Get(widget.Entity.ProjetoHandle)
+    usuarioEhGestor = BennerContext.Security.GetLoggedUserHandle() ==projetoEntity.GestorProjetoHandle
+    
+    if (widget.Entity.Fields["PROJETO"].Handle.IsValid()):
+        projetoConcluido = GPProjetos.ProjetoConcluido(widget.Entity.ProjetoHandle)
+        
+        status = 0;
+        if widget.Entity.Fields["STATUS"] != None:
+            status = widget.Entity.Fields["STATUS"].Value;
+        
+        if widget.View.Commands["New"] != None: 
+            widget.View.Commands["New"].Visible = not projetoConcluido
+        
+        if widget.View.Commands["Edit"] != None: 
+            widget.View.Commands["Edit"].Visible = (not projetoConcluido
+            and (status in (1, 2)))
+        
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = (not projetoConcluido and (status == 1))
+        
+    widget.View.Commands["New"].Visible = (not widget.Entity.Fields["PROJETOLINHABASE"].Handle.IsValid()) and usuarioEhGestor
+    widget.View.Commands["Edit"].Visible = (not widget.Entity.Fields["PROJETOLINHABASE"].Handle.IsValid()) and usuarioEhGestor
+    widget.View.Commands["Delete"].Visible = (not widget.Entity.Fields["PROJETOLINHABASE"].Handle.IsValid()) and usuarioEhGestor
+    
+    # Tratamento das permissões pelo papel
+    if (GPProjetoTarefas.EhPartipanteProjeto()):
+        if (widget.View.Commands["New"] != None):
+            widget.View.Commands["New"].Visible = False
+            
+        if (widget.View.Commands["Edit"] != None):
+            widget.View.Commands["Edit"].Visible = False
+            
+        if (widget.View.Commands["Delete"] != None):
+            widget.View.Commands["Delete"].Visible = False
+    #
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

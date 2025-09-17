@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_LEADS_PORFASE</Identifier>
+  <Name>CRM_LEADS_PORFASE</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.NOME SUBFASE,COUNT(A.HANDLE) QTDE&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;JOIN K_CRM_SUBFASES B ON A.SUBFASE = B.HANDLE&#xD;&#xA;WHERE A.FASE = 1 AND A.SUBFASE NOT IN (2,31)&#xD;&#xA;GROUP BY B.NOME&#xD;&#xA;UNION&#xD;&#xA;SELECT&#xD;&#xA;     CASE &#xD;&#xA;          WHEN A.EXACTDESCARTADO ='S' AND C.NOME &lt;&gt; &quot;DESCARTADOS&quot; THEN C.NOME +'- Descartados'&#xD;&#xA;          WHEN A.EXACTDESCARTADO ='S' AND C.NOME = &quot;DESCARTADOS&quot; THEN C.NOME&#xD;&#xA;          WHEN A.EXACTDESCARTADO ='N' THEN C.NOME&#xD;&#xA;     END AS NOME,&#xD;&#xA;     COUNT(A.HANDLE) QTDE&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;JOIN K_CRM_SUBFASES B ON A.SUBFASE = B.HANDLE&#xD;&#xA;JOIN K_CRM_EXACTFASES C ON A.EXACTFASE = C.HANDLE&#xD;&#xA;GROUP BY C.NOME,A.EXACTDESCARTADO" />
+  <Fields>
+    <Field Alias="SUBFASE" From="A" Path="SUBFASE" />
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

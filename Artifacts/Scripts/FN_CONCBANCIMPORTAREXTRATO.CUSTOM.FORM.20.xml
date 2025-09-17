@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_CONCBANCIMPORTAREXTRATO.CUSTOM.FORM</ViewName>
+  <EntityName>FN_CONCBANCIMPORTAREXTRATO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+    
+    status = widget.Entity["STATUS"].GetInt32()
+    
+    podeEditar = False
+    habilitado = False
+    if (status == 1):
+        podeEditar = False
+        habilitado = False
+    elif (status == 2):   
+        podeEditar = False    
+        habilitado = False
+    elif (status == 3):
+        podeEditar = True
+        habilitado = True
+    elif (status == 4):
+        podeEditar = False
+        habilitado = False
+    elif (status == 5):
+        podeEditar = True
+        habilitado = False
+        
+    widget.View.Commands["CMD_PROCESSAR"].Visible = habilitado
+    widget.View.Commands["Edit"].Visible = podeEditar
+    widget.View.Commands["Delete"].Visible = podeEditar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRMCHART2</Identifier>
+  <Name>CRMCHART2</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(A.HANDLE) QTDE,B.NOME AS FASE,&#xD;&#xA;CASE&#xD;&#xA;  WHEN  B.HANDLE = 1 THEN '#9B59B6'&#xD;&#xA;  WHEN  B.HANDLE = 2 THEN '#f2784b'&#xD;&#xA;  WHEN  B.HANDLE = 3 THEN '#578ebe'&#xD;&#xA;  WHEN  B.HANDLE = 4 THEN '#e35b5a'&#xD;&#xA;  WHEN  B.HANDLE = 5 THEN '#44b6ae'&#xD;&#xA;END AS COLOR&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;JOIN K_CRM_FASES B ON B.HANDLE = A.FASE&#xD;&#xA;GROUP BY B.HANDLE, B.NOME" />
+  <Fields>
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+    <Field Alias="FASE" From="A" Path="FASE" />
+    <Field Alias="COLOR" From="A" Path="COLOR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

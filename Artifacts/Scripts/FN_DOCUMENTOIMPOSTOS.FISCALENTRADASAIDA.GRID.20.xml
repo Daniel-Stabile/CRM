@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOIMPOSTOS.FISCALENTRADASAIDA.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOIMPOSTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnViewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnViewExecute(command, entity):
+    command.OutputDefinition.Parameters["IMPOSTO"] = entity.Fields["IMPOSTO"].Handle.Value
+    command.OutputDefinition.Parameters["DOCUMENTO"] = entity.Fields["DOCUMENTO"].Handle.Value
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja excluir?")
+    command.TransitoryVars["HANDLE"] = entity.Fields["HANDLE"].Value
+    command.TransitoryVars["DOCUMENTOHANDLE"] = entity.Fields["DOCUMENTO"].Handle.Value
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRA.GRID</ViewName>
+  <EntityName>CP_ORDENSCOMPRA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    if row.EditCommand != None: row.EditCommand.Visible = entity.PodeAlterar
+    if row.DeleteCommand != None: row.DeleteCommand.Visible = entity.PodeExcluir
+    if (entity.AguardandoLiberacao): row.GetCellByName("STATUS").Text = "Aguardando confirmação"
+    if row.GetCustomCommand("CMD_CANCELAR") != None: row.GetCustomCommand("CMD_CANCELAR").Enabled = entity.VisibilidadeComandoCancelar and (entity.Fields["ORIGEM"].Value &lt;&gt; 1)
+    if row.GetCustomCommand("CMD_CANCELAR_COTACAO") != None: row.GetCustomCommand("CMD_CANCELAR_COTACAO").Enabled = entity.VisibilidadeComandoCancelar and (entity.Fields["ORIGEM"].Value == 1)
+    if row.GetCustomCommand("CMD_ENCERRAR") != None: row.GetCustomCommand("CMD_ENCERRAR").Enabled = entity.PodeEncerrar
+    
+    
+    ordemCompra = entity
+    if ordemCompra == None: return
+    
+    if row.GetCustomCommand("MAPA_ANALISE_COTACOES") &lt;&gt; None: row.GetCustomCommand("MAPA_ANALISE_COTACOES").Enabled = ordemCompra.VisibilidadeComandoMapaAnaliseCotacoes
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.Tecnologia.Business import Query
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    sqlValidaPrimeiraParcela = Query("SELECT VALIDAPRIMEIRAPARCELAOC FROM PD_PARAMETROSCOMPRAS WHERE EMPRESA = " + str(Utils.ObterEmpresaCorrente()) + " AND FILIAL = " + str(Utils.ObterFilialCorrente()))
+    resultValidaPrimeiraParcela = sqlValidaPrimeiraParcela.Execute()
+    
+    if resultValidaPrimeiraParcela and resultValidaPrimeiraParcela[0] is not None:
+        widget.View.Commands["CMD_LIBERAR"].Visible = AuthorizationHelper.HasTask("MANTERORDEMCOMPRA") and not resultValidaPrimeiraParcela[0]["VALIDAPRIMEIRAPARCELAOC"].GetBoolean()
+
+    sqlOrcamentoPublico = Query("SELECT ORCAMENTOPUBLICO FROM FN_PARAMETROS WHERE EMPRESA = "+str(Utils.ObterEmpresaCorrente()))
+    result = sqlOrcamentoPublico.Execute()
+
+    ehOrcamentoPublico = result[0]["ORCAMENTOPUBLICO"].GetBoolean()
+
+    widget.View.FieldDefinitions["STATUSPEDIDOEMPENHO"].Visible = ehOrcamentoPublico
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    if (entity.Fields["ORIGEM"].Value == 5):
+        command.RequestConfirmationBeforeExecute("Atenção! A ordem de compra "+ str(entity.Fields["NUMERO"]) +" foi gerada a partir de um contrato com apontamentos e após ser cancelada não poderá ser excluída. Deseja continuar?")
+        
+    if (entity.Fields["ORIGEM"].Value == 12):
+        command.RequestConfirmationBeforeExecute("A ordem de compra, Numero: "+ str(entity.Fields["NUMERO"]) +", foi gerada a partir de um registro de preços. A quantidade dos itens retornará para o saldo do registro de preços")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_FASESOPORTUNIDADECRIT.GERAL.GRID</ViewName>
+  <EntityName>K_CRM_FASESOPORTUNIDADECRIT</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    
+    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehGestorComercial = Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL")
+    ehGestorComercialRevenda = Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_COMERCIAL_REVENDA")
+    ehGestorProduto = Thread.CurrentPrincipal.IsInRole("K_CRM_GESTOR_PRODUTO") 
+    ehPresidente = Thread.CurrentPrincipal.IsInRole("K_CRM_PRESIDENTE")
+    ehVicePresidente = Thread.CurrentPrincipal.IsInRole("K_CRM_VP")
+    ehDiretor = Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_GERAL")
+    ehDiretorProduto = Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_PRODUTO")
+    ehDiretorVendas = Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_VENDAS")
+    ehGerenteCanais = Thread.CurrentPrincipal.IsInRole("K_CRM_GERENTE_CANAIS")
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN") 
+    ehGDQ = Thread.CurrentPrincipal.IsInRole("K_CRM_GDQ")
+    
+    ehDiretorRegional = Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETOR_REGIONAL")
+    ehGerenteRegional = Thread.CurrentPrincipal.IsInRole("K_CRM_GERENTE_REGIONAL")
+    ehGerenteCanaisV2 = Thread.CurrentPrincipal.IsInRole("K_CRM_GERENTE_CANAIS_V2")
+    
+    #ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_EXECUTIVODECONTAS")
+    ehGestorVertical = Thread.CurrentPrincipal.IsInRole("K_CRM_DIRETORVERTICAL")
+    ehSDR = Thread.CurrentPrincipal.IsInRole("K_CRM_SDR_V2")
+    #ehSDR = Thread.CurrentPrincipal.IsInRole("K_CRM_SDR_")
+    ehCS = Thread.CurrentPrincipal.IsInRole("K_CRM_CUSTOMER_SUCCESS") 
+    
+    if ehAdmin:
+        widget.Hidden = True;#idget.Hidden = True;
+    else:
+        widget.Hidden = False;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

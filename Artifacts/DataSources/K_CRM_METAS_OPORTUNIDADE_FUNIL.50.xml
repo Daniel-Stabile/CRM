@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_METAS_OPORTUNIDADE_FUNIL</Identifier>
+  <Name>Funil de oportunidades</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;    CASE TEMPERATURA&#xD;&#xA;        WHEN 1 THEN 'FRIA'&#xD;&#xA;        WHEN 2 THEN 'MORNA'&#xD;&#xA;        WHEN 3 THEN 'QUENTE'&#xD;&#xA;        WHEN 4 THEN 'MUITO-QUENTE'&#xD;&#xA;        WHEN 5 THEN 'FECHADO'&#xD;&#xA;    END AS TEMPERATURA,&#xD;&#xA;    SUM(VALORTOTAL) VALOR&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES&#xD;&#xA;WHERE TEMPERATURA IS NOT NULL AND MONTH(DATAFECHAMENTO) = MONTH(GETDATE())&#xD;&#xA;GROUP BY TEMPERATURA&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="TEMPERATURA" From="A" Path="TEMPERATURA" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

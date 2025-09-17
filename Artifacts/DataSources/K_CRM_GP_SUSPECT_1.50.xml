@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GP_SUSPECT_1</Identifier>
+  <Name>CRM_GP_SUSPECT_1</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.NOME SUBFASE,COUNT(A.HANDLE) QTDE&#xD;&#xA;FROM K_CRM_PESSOAS A&#xD;&#xA;JOIN K_CRM_SUBFASES B ON A.SUBFASE = B.HANDLE&#xD;&#xA;WHERE A.FASE = 1 AND A.SUBFASE &lt;&gt; 2&#xD;&#xA;GROUP BY B.NOME&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="SUBFASE" From="A" Path="SUBFASE" />
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

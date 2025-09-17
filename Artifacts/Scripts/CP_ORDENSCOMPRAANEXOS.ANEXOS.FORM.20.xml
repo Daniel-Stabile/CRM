@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRAANEXOS.ANEXOS.FORM</ViewName>
+  <EntityName>CP_ORDENSCOMPRAANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.ERP.Comum import ErpEnvironment
+    from Benner.Corporativo.Definicoes.Suprimentos import CPOrdemCompraItemAnexo
+    from Benner.Tecnologia.Common import Handle
+
+    handleOCAtual = ErpEnvironment.ObterSessionVar("HANDLE_OC_ATUAL_WEB")
+    if handleOCAtual != None:
+        permissaoCrud = CPOrdemCompraItemAnexo.PermiteCrudAnexos(Handle(handleOCAtual))
+        widget.View.Commands["New"].Visible = permissaoCrud
+        widget.View.Commands["Edit"].Visible = permissaoCrud
+        widget.View.Commands["Delete"].Visible = permissaoCrud
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

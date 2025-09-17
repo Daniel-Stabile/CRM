@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_DESEMPENHO_OBJETIVOS_MAPA_ESTRATEGICO</Identifier>
+  <Name>Indicadores desempenho objetivos - Mapa Estratégico</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE, A.NOME, A.DESEMPENHO, A.PLANEJAMENTOESTRATEGICO, A.PERSPECTIVA, A.CICLO,&#xD;&#xA;    (CASE&#xD;&#xA;            WHEN A.DESEMPENHO IS NULL THEN NULL&#xD;&#xA;            WHEN A.DESEMPENHO IS NOT NULL THEN (SELECT IMAGEM&#xD;&#xA;                      FROM GP_CICLOESCALAS WHERE A.CICLO = CICLO AND FAIXAINICIAL &lt;= A.DESEMPENHO AND FAIXAFINAL &gt;= A.DESEMPENHO)&#xD;&#xA;        END) IMAGEM&#xD;&#xA;    FROM GP_CICLOOBJETIVOS A&#xD;&#xA;    LEFT JOIN GP_CICLOESCALAS ON A.CICLO = GP_CICLOESCALAS.CICLO&#xD;&#xA;WHERE ((GP_CICLOESCALAS.FAIXAINICIAL &lt;= A.DESEMPENHO&#xD;&#xA;    AND GP_CICLOESCALAS.FAIXAFINAL &gt;= A.DESEMPENHO)&#xD;&#xA;    OR  A.DESEMPENHO IS NULL)&#xD;&#xA;GROUP BY A.HANDLE, A.NOME, A.DESEMPENHO, A.PLANEJAMENTOESTRATEGICO, A.PERSPECTIVA, A.CICLO" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DecimalField Alias="DESEMPENHO" From="A" Path="DESEMPENHO" FieldDecimalsFormat="1" />
+    <Field Alias="PLANEJAMENTOESTRATEGICO" From="A" Path="PLANEJAMENTOESTRATEGICO" />
+    <Field Alias="PERSPECTIVA" From="A" Path="PERSPECTIVA" />
+    <Field Alias="CICLO" From="A" Path="CICLO" />
+    <Field Alias="IMAGEM" From="A" Path="IMAGEM" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

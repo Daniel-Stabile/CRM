@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_IMAGENS.GRID</ViewName>
+  <EntityName>GN_IMAGENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Materiais import PDProdutoPai
+    widget.Hidden = PDProdutoPai.MostrarTabImagens()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    from Benner.Tecnologia.Common import *
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    import clr    
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Genericos import GNImagem    
+    
+    pai = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("PD_PRODUTOS"))        
+    command.OutputDefinition.WhereClause = WhereClause("(A.TABELAORIGEM = "+ str(GNImagem.HandleTabela("PD_PRODUTOS")) +" AND A.HANDLEORIGEM = "+ str(pai.Handle) +")");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

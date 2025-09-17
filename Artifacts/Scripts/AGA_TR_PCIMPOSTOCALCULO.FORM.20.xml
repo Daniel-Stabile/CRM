@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_PCIMPOSTOCALCULO.FORM</ViewName>
+  <EntityName>TR_PCIMPOSTOCALCULO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity;
+    if registro == None: return;
+    
+    calculoPossuiFormulas = registro.CalculoPossuiFormulas();
+    widget.View.Commands["CMD_INICIALIZARFORMULAS"].Visible = not calculoPossuiFormulas;
+    widget.View.Commands["CMD_REINICIALIZARFORMULAS"].Visible = calculoPossuiFormulas;
+    widget.View.Commands["CMD_APAGARFORMULAS"].Visible = calculoPossuiFormulas;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_REINICIALIZARFORMULASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_REINICIALIZARFORMULASExecute(command, entity):
+     command.RequestConfirmationBeforeExecute("Confirma a re-inicialização das fórmulas?");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_APAGARFORMULASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_APAGARFORMULASExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a exclusão das fórmulas?");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_INICIALIZARFORMULASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_INICIALIZARFORMULASExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirma a inicialização das fórmulas?");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

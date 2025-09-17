@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTASMAIORVARIACAO</Identifier>
+  <Name>ContasMaiorVariacao</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT CONTA.CONTA, CONTA.NOME, CONTA.ESTRUTURA, SUM(CONTA.MEDIA_MENSAL) MEDIA, SUM(CONTA.VALOR) VALOR, SUM(CONTA.MEDIA_MENSAL) - SUM(CONTA.VALOR) DIFERENCA&#xD;&#xA;FROM ( SELECT TOT.CONTA CONTA, C.NOME, C.ESTRUTURA, SUM(TOT.DEBITOS - TOT.CREDITOS) MEDIA_MENSAL, 0 VALOR&#xD;&#xA;           FROM CT_CONTATOTAIS TOT  &#xD;&#xA;           JOIN Z_DATAS DATAS ON DATAS.DATA = @HOJE&#xD;&#xA;           JOIN CT_CONTAS C   ON TOT.CONTA = C.HANDLE&#xD;&#xA;          WHERE TOT.COMPETENCIA &lt; @ADDMONTH( DATAS.DATA ,-1)&#xD;&#xA;            AND TOT.COMPETENCIA &gt; @ADDMONTH( DATAS.DATA ,-5)&#xD;&#xA;            AND TOT.TIPO = 'N'&#xD;&#xA;            AND TOT.EMPRESA = @EMPRESA&#xD;&#xA;            AND TOT.CONTA IN (&#xD;&#xA;                              SELECT TOT2.CONTA&#xD;&#xA;                               FROM CT_CONTATOTAIS TOT2&#xD;&#xA;                               JOIN Z_DATAS DATAS2 ON DATAS2.DATA = @HOJE&#xD;&#xA;                              WHERE TOT2.COMPETENCIA &lt; @ADDMONTH( DATAS2.DATA ,-1)&#xD;&#xA;                                AND TOT2.COMPETENCIA &gt; @ADDMONTH( DATAS2.DATA ,-2)&#xD;&#xA;                                AND TOT2.TIPO = 'N'&#xD;&#xA;                                AND TOT2.EMPRESA = @EMPRESA&#xD;&#xA;                              GROUP BY TOT2.CONTA&#xD;&#xA;                            )&#xD;&#xA;          GROUP BY TOT.CONTA, C.ESTRUTURA, C.NOME&#xD;&#xA;      UNION&#xD;&#xA;     SELECT TOT3.CONTA CONTA, C.NOME, C.ESTRUTURA, 0 MEDIA_MENSAL, SUM(TOT3.DEBITOS - TOT3.CREDITOS) VALOR&#xD;&#xA;           FROM CT_CONTATOTAIS TOT3&#xD;&#xA;           JOIN Z_DATAS DATAS3 ON DATAS3.DATA = @HOJE&#xD;&#xA;           JOIN CT_CONTAS C    ON TOT3.CONTA = C.HANDLE&#xD;&#xA;           WHERE TOT3.CONTA IN (&#xD;&#xA;                              SELECT TOT4.CONTA&#xD;&#xA;                               FROM CT_CONTATOTAIS TOT4&#xD;&#xA;                               JOIN Z_DATAS DATAS4 ON DATAS4.DATA = @HOJE&#xD;&#xA;                              WHERE TOT4.COMPETENCIA &lt; @ADDMONTH( DATAS4.DATA ,-1)&#xD;&#xA;                                AND TOT4.COMPETENCIA &gt; @ADDMONTH( DATAS4.DATA ,-2)&#xD;&#xA;                                AND TOT4.TIPO = 'N'&#xD;&#xA;                                AND TOT4.EMPRESA = @EMPRESA&#xD;&#xA;                              GROUP BY TOT4.CONTA&#xD;&#xA;                              )&#xD;&#xA;          AND TOT3.COMPETENCIA &lt; @ADDMONTH( DATAS3.DATA ,-1)&#xD;&#xA;          AND TOT3.COMPETENCIA &gt; @ADDMONTH( DATAS3.DATA ,-2)&#xD;&#xA;          AND TOT3.TIPO = 'N'&#xD;&#xA;          AND TOT3.EMPRESA = @EMPRESA&#xD;&#xA;  GROUP BY TOT3.CONTA, C.NOME, C.ESTRUTURA&#xD;&#xA;  ) CONTA&#xD;&#xA;GROUP BY CONTA.CONTA, CONTA.NOME, CONTA.ESTRUTURA" />
+  <Fields>
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="ESTRUTURA" From="A" Path="ESTRUTURA" />
+    <Field Alias="MEDIA" From="A" Path="MEDIA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="DIFERENCA" From="A" Path="DIFERENCA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

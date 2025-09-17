@@ -1,0 +1,104 @@
+﻿@model Benner.Tecnologia.Common.Entities<Benner.Tecnologia.Common.EntityBase>
+
+@{DateTime? dataCorrente = null;}
+
+@helper Conciliado(string concilado)
+{
+    if (concilado.Equals("S"))
+    {
+            <span class="label label-success"> Conciliado </span>
+    }
+    else
+    {
+            <span class="label label-default"> Não conciliado </span>
+    }
+}
+
+@helper Valor(decimal valor, string natureza)
+{
+    if (valor == 0 || natureza.Equals("C"))
+    {
+            <span class="positivo"> @valor.ToString("N") </span>
+    }
+    else
+    {
+            <span class="negativo"> @((valor*-1).ToString("N")) </span>
+    }
+}
+
+@helper Cabecalho(DateTime data)
+{
+    @:<div class="table-responsive">
+        @:<table class="table">
+            <thead>
+                <tr>
+                    <th> 
+                    @if (data.Date == DateTime.Today)
+                    {
+                        @:Hoje
+                    }
+                    else if (data.Date == DateTime.Today.AddDays(-1))
+                    {
+                        @:Ontem
+                    }
+                    else
+                    {
+                        @data.ToString("dd/MM/yyyy");
+                    }
+                    </th>
+                    <th> </th>
+                    <th class="text-right"> Valor </th>
+                </tr>
+            </thead>
+            @:<tbody>
+}
+
+@helper Rodape(decimal saldo)
+{
+    @:</tbody>
+    <tfoot>
+        <tr class="info">
+            <td> </td>
+            <td class="text-right"> <span class="positivo"> Saldo final do dia: </span></td>
+            <td class="text-right" style="padding-right: 10px"> <span class="@(saldo < 0 ? "negativo" : "positivo")"> R$ @saldo.ToString("N") </span></td>
+        </tr>
+    </tfoot>
+    @:</table>
+    @:</div>
+}
+
+<style>
+    td.valor {
+        width: 140px;
+    }
+
+    td.conciliado {
+        width: 200px;
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    if (dataCorrente != null && dataCorrente != @item["DATAEMISSAO"].GetDateTime())
+    {
+        @Rodape(ViewBag.SaldoDiario[dataCorrente.Value])
+    }
+
+    if (dataCorrente != @item["DATAEMISSAO"].GetDateTime())
+    {
+        @Cabecalho(@item["DATAEMISSAO"].GetDateTime())
+    }
+
+    <tr>
+        <td> @string.Format("{0} - {1}", @item["DOCUMENTO"].GetString(), @item["HISTORICO"].GetString()) </td>
+        <td class="conciliado text-right"> @Conciliado(@item["CONCILIADO"].GetString()) </td>
+        <td class="valor text-right"> @Valor(@item["VALORLANCAMENTO"].GetDecimal(), @item["NATUREZALANCAMENTO"].GetString()) </td>
+    </tr>
+
+    dataCorrente = item["DATAEMISSAO"].GetDateTime();
+}
+
+@if (dataCorrente != null && Model.Count > 0)
+{
+    @Rodape(ViewBag.SaldoDiario[dataCorrente.Value])
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CP_ORDEMCOMPRA_NOTASFISCAIS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Efetivas</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.ABRANGENCIA = 'R' AND A.HANDLE IN (SELECT  B.DOCUMENTO FROM CM_ITENS B, CP_ORDENSCOMPRAITENS C  WHERE B.ORDEMCOMPRAITEM = C.HANDLE AND C.ORDEMCOMPRA = @CAMPO(HANDLE))</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>A.ABRANGENCIA = 'R' AND A.HANDLE IN (SELECT  B.DOCUMENTO FROM CM_ITENS B, CP_ORDENSCOMPRAITENS C  WHERE B.ORDEMCOMPRAITEM = C.HANDLE AND C.ORDEMCOMPRA = @CAMPO(HANDLE))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Previsões</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">(A.ABRANGENCIA = 'O') AND (A.HANDLE IN (SELECT B.DOCUMENTOFINANCEIRO FROM CP_ORDENSCOMPRAENTREGA B, CP_ORDENSCOMPRAITENS C, CP_ORDENSCOMPRA D WHERE B.ORDENSCOMPRAITENS = C.HANDLE AND C.ORDEMCOMPRA = D.HANDLE AND D.HANDLE = @CAMPO(HANDLE)) OR A.HANDLE IN (SELECT D.DOCUMENTOFINANCEIRO FROM CP_ORDENSCOMPRA D WHERE D.HANDLE = @CAMPO(HANDLE))) </Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>(A.ABRANGENCIA = 'O') AND (A.HANDLE IN (SELECT B.DOCUMENTOFINANCEIRO FROM CP_ORDENSCOMPRAENTREGA B, CP_ORDENSCOMPRAITENS C, CP_ORDENSCOMPRA D WHERE B.ORDENSCOMPRAITENS = C.HANDLE AND C.ORDEMCOMPRA = D.HANDLE AND D.HANDLE = @CAMPO(HANDLE)) OR A.HANDLE IN (SELECT D.DOCUMENTOFINANCEIRO FROM CP_ORDENSCOMPRA D WHERE D.HANDLE = @CAMPO(HANDLE))) </Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

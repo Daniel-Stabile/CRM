@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOTAREFASAPONTAMENTOS.GESTAO.GRID</ViewName>
+  <EntityName>GP_APONTAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    from Benner.Tecnologia.Common import BennerContext
+    projetoEntity = GPProjetos.Get(widget.ProviderWidget.Entity.ProjetoHandle)
+    usuarioEhGestor = BennerContext.Security.GetLoggedUserHandle() ==projetoEntity.GestorProjetoHandle
+    usuarioEhParticipante = GPProjetos.UsuarioAtualEhParticipanteDoProjeto(widget.ProviderWidget.Entity.ProjetoHandle)
+    entity = widget.ProviderWidget.Entity
+    if (entity != None and entity.Fields["TAREFAAGRUPADORA"]): widget.Hidden = True
+    
+    if widget.View.Commands["New"] != None: 
+        widget.View.Commands["New"].Visible = (widget.ProviderWidget.Entity.Fields["STATUS"] != None and widget.ProviderWidget.Entity.Fields["STATUS"].Value in (1, 2)) and (usuarioEhGestor or usuarioEhParticipante)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetos
+    from Benner.Tecnologia.Common import BennerContext
+    tarefa = GPProjetoTarefas.Get(entity.TarefaHandle)
+    projetoEntity = GPProjetos.Get(tarefa.ProjetoHandle)
+    usuarioEhGestor = BennerContext.Security.GetLoggedUserHandle() ==projetoEntity.GestorProjetoHandle
+    usuarioEhParticipante = GPProjetos.UsuarioAtualEhParticipanteDoProjeto(projetoEntity.Handle)
+    
+    tarefaConcluida = GPProjetoTarefas.TarefaConcluida(entity.TarefaHandle)
+    
+    if row.EditCommand != None: row.EditCommand.Visible = not tarefaConcluida and (usuarioEhGestor or usuarioEhParticipante)
+    if row.DeleteCommand != None: row.DeleteCommand.Visible = not tarefaConcluida and (usuarioEhGestor or usuarioEhParticipante)
+    if row.ViewCommand != None: 
+        row.ViewCommand.Visible = (usuarioEhGestor or usuarioEhParticipante)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

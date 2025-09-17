@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAEQUIPEOPORTUNIDADE.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAEQUIPEOPORTUNIDADE</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerPrincipal
+    
+    activeRole = BennerPrincipal.Current.ActiveRole
+    
+    ehArquiteto = activeRole == "K_CRM_ARQUITETO_SOLUCOES"
+    
+    if (ehArquiteto):
+        widget.View.Commands["Edit"].Visible = False;
+        widget.View.Commands["Delete"].Visible = False;
+        widget.View.Commands["New"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

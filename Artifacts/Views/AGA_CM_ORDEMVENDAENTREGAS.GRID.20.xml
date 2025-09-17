@@ -1,0 +1,553 @@
+<?xml version="1.0"?>
+<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>AGA_CM_ORDEMVENDAENTREGAS.GRID</Name>
+  <Level>Benner</Level>
+  <EntityName>CM_ORDEMVENDAENTREGAS</EntityName>
+  <Type>Grid</Type>
+  <Version>13</Version>
+  <GridDefinition entityDefinitionName="CM_ORDEMVENDAENTREGAS" name="AGA_CM_ORDEMVENDAENTREGAS.GRID" title="CM_ORDEMVENDAENTREGAS" inherited="true">
+    <IsContextCached>false</IsContextCached>
+    <Fields />
+    <RecordReadOnly>false</RecordReadOnly>
+    <TableReadOnly>false</TableReadOnly>
+    <TransitoryVars />
+    <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
+    <FieldDefinitions>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Status" key="STATUS">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>10%</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Almoxarifado" cssClasses="customAlmoxarifado" key="CUSTOM_ALMOXARIFADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{var id = "ALMOXARIFADO_" + Model.Handle; }
+
+&lt;div id="@id" style="width:400px"&gt;
+    &lt;wes-lookup 
+        entity-name="PD_ALMOXARIFADOS" 
+        result-fields="ESTRUTURA,NOME"
+        where-clause-session-key="lookupAtendimentoOV_@id"
+    /&gt;
+&lt;/div&gt;</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Cód. ref." key="PATH_CODIGOREFERENCIA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.PRODUTO&gt;PD_PRODUTOS.CODIGOREFERENCIA</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Produto" key="PATH_ITEM">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.PRODUTO&gt;PD_PRODUTOS.NOME</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition title="Qtde. total" key="QUANTIDADE">
+        <visible>true</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Qtde. a reservar" cssClasses="customQuantidadeReservar" key="QUANTIDADERESERVAR">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Value>@{ var id = "QUANTIDADERESERVAR_" + Model.Handle.ToString(); }
+
+&lt;input type="Text" 
+       id="@id" 
+       class="form-control auto-numeric"
+       data-type="currency" 
+       data-a-sep="." 
+       data-a-dec="," 
+       data-m-dec="4" &gt;</Value>
+        <ValueType>HTML</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Qtde. atendida" key="QUANTIDADEATENDIDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldCustomDefinition" title="Qtde. faturada" key="QUANTIDADEFATURADA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <ValueType>Text</ValueType>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Número O.V." key="PATH_NUMEROOV">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.NUMEROOV</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition key="DATA" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility xsi:nil="true" />
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldSqlDefinition" title="Entrega futura" key="SQL_ENTREGAFUTURA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Expression>SELECT (CASE WHEN (B.ENTREGAFUTURA = 'S') THEN ('Sim') ELSE ('Não') END) FROM CM_ORDEMVENDAENTREGAS A1 LEFT JOIN CM_ORDEMVENDAITENS F ON A1.ITEM = F.HANDLE LEFT JOIN CM_ORDENSVENDA B ON B.HANDLE = F.ORDEMVENDA WHERE A1.HANDLE = @CAMPO(HANDLE)</Expression>
+        <FieldType>None</FieldType>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Pessoa" key="PATH_PESSOA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.PESSOA&gt;GN_PESSOAS.NOME</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Variação" key="VARIACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Visible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.VARIACAO&gt;PD_PRODUTOVARIACOESMESTRE.CONJUNTOVARIACOES</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="DESTINATARIO" inherited="true">
+        <visible xsi:nil="true" />
+        <DataAccessLevel xsi:nil="true" />
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility xsi:nil="true" />
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Cotação" key="PATH_COTACAOEMISSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.COTACAOEMISSAO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Data da alteração" key="PATH_DATAALTERACAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.DATAALTERACAO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Data da inclusão" key="PATH_DATAINCLUSAO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.DATAINCLUSAO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Data entrada" key="PATH_DATAENTRADA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.DATAENTRADA</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Documento digitado" key="PATH_DOCUMENTODIGITADO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.DOCUMENTODIGITADO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Empresa" key="PATH_EMPRESA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.EMPRESA&gt;EMPRESAS.NOME</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Filial" key="PATH_FILIAL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.FILIAL&gt;FILIAIS.NOME</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Moeda" key="PATH_MOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.MOEDA&gt;GN_MOEDAS.NOME</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Natureza documento" key="PATH_ENTRADASAIDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.ENTRADASAIDA</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Operação faturamento" key="PATH_OPERACAOFATURAMENTO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>250px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.OPERACAOFATURAMENTO&gt;CM_OPERACOESFATURAMENTO.NOME</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Série" key="PATH_SERIE">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.SERIE</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Taxa de mora" key="PATH_TAXAMORA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.TAXAMORA</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Usuário que alterou" key="PATH_USUARIOALTEROU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.USUARIOALTEROU&gt;Z_GRUPOUSUARIOS.APELIDO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Usuário que incluiu" key="PATH_USUARIOINCLUIU">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>200px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.USUARIOINCLUIU&gt;Z_GRUPOUSUARIOS.APELIDO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Valor" key="PATH_VALORNOMINAL">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.VALORNOMINAL</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Valor líquido" key="PATH_VALORLIQUIDO">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.VALORLIQUIDO</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Valor líquido moeda" key="PATH_VALORLIQUIDOMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.VALORLIQUIDOMOEDA</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridFieldPathDefinition" title="Valor moeda" key="PATH_VALORNOMINALMOEDA">
+        <visible>true</visible>
+        <DataAccessLevel>Read</DataAccessLevel>
+        <Required>false</Required>
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width>100px</Width>
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
+        <Path>ITEM&gt;CM_ORDEMVENDAITENS.ORDEMVENDA&gt;CM_ORDENSVENDA.VALORNOMINALMOEDA</Path>
+        <SystemInstanceName>CORP_MASTER_DEV</SystemInstanceName>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ITEM">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <lookupResultFields>PRODUTO</lookupResultFields>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+      <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="ALMOXARIFADO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>false</searchable>
+        <visibility>ToScript</visibility>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+      </GridFieldDefinition>
+    </FieldDefinitions>
+    <SubstituteViewName xsi:nil="true" />
+    <SortFields />
+    <Commands>
+      <Command title="" key="New" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Edit" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Save" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="SaveNew" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Cancel" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="Delete" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="" key="View" inherited="true">
+        <visible xsi:nil="true" />
+        <showModal xsi:nil="true" />
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable xsi:nil="true" />
+        <runInEditMode xsi:nil="true" />
+        <context xsi:nil="true" />
+      </Command>
+      <Command title="Reservar itens selecionados" image="fa fa-check" color="btn-primary" key="Reservar">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>false</runInEditMode>
+        <context>Table</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Inserir lotes" image="fa fa-arrow-right" color="yellow-lemon" key="InserirLotes">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>true</runInEditMode>
+        <context>Record</context>
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar reserva" image="fa fa-times" color="btn-danger" key="Cancelar">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>true</runInEditMode>
+        <context>Record</context>
+        <ProcessDefinition xsi:type="Function" functionName="Cancelar" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+      <Command title="Cancelar reservas" image="fa fa-times" color="red" key="CMD_CANCELARRESERVAS">
+        <visible>true</visible>
+        <showModal>false</showModal>
+        <modalSize xsi:nil="true" />
+        <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
+        <runInEditMode>true</runInEditMode>
+        <context>Table</context>
+        <ProcessDefinition xsi:type="Function" functionName="CancelarSelecionados" />
+        <OutputDefinition xsi:type="LocalLinkDefinition">
+          <Url />
+          <IsModalPage>false</IsModalPage>
+          <IsModalNavigation>false</IsModalNavigation>
+        </OutputDefinition>
+      </Command>
+    </Commands>
+  </GridDefinition>
+</ViewPortable>

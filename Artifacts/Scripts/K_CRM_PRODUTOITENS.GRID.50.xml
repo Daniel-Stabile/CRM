@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PRODUTOITENS.GRID</ViewName>
+  <EntityName>K_CRM_PRODUTOITENS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if entity == None:return;
+    
+    tipoitem = int(entity.Fields["TIPOITEM"].Value)
+    
+    if row.GetCustomCommand("cmdAdicionaItensPacote") != None: 
+        row.GetCustomCommand("cmdAdicionaItensPacote").Enabled = (tipoitem in [2])
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

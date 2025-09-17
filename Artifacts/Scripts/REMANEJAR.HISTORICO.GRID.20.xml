@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REMANEJAR.HISTORICO.GRID</ViewName>
+  <EntityName>REMANEJAMENTO_HISTORICO.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    row.GetCellByName("COMPETENCIA").Text = entity.Fields["COMPETENCIA"].ToString("MM/yyyy")
+    
+    if(row.GetCellByName("ESTRUTURANOMECC").Text == ''):
+        row.GetCellByName("ESTRUTURANOMECC").Text = ' - '
+    
+    if(row.GetCellByName("ESTRUTURANOMEPROJ").Text == ''):
+        row.GetCellByName("ESTRUTURANOMEPROJ").Text = ' - '    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

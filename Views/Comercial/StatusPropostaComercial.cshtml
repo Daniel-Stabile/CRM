@@ -1,0 +1,36 @@
+﻿
+
+@if(Model["STATUSPROPOSTA"].GetInt32() != null){
+    if(Model["STATUSPROPOSTA"].GetInt32() == 1){
+	    if(Model["LIBERADOCONFIRMACAO"].GetBoolean()){
+           <label class="label label-warning">
+               Confirmar
+           </label>   
+		}
+		else {
+		   <label class="label label-info">
+               Em elaboração
+           </label>    
+		}
+    }
+    if(Model["STATUSPROPOSTA"].GetInt32() == 2){
+        <label class="label label-success">
+            Emitida
+        </label>   
+    }
+    if(Model["STATUSPROPOSTA"].GetInt32() == 3){
+        <label class="label label-danger">
+            Cancelada
+        </label>   
+    }
+    if(Model["STATUSPROPOSTA"].GetInt32() == 4){
+        <label class="label label-default">
+            Fechada
+        </label>   
+    }
+    
+} else {
+    <label class="label label-danger">
+        Nulo
+    </label>   
+}

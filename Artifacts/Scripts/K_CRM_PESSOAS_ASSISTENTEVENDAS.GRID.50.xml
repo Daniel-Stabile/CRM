@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAS_ASSISTENTEVENDAS.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    
+    ehAssistVendasAdm = Thread.CurrentPrincipal.IsInRole("K_CRM_ASSISTENTE_VENDAS_ADM")
+    ehAssistVendas = Thread.CurrentPrincipal.IsInRole("K_CRM_ASSISTENTE_VENDAS")
+    ehAssistVendasCoord = Thread.CurrentPrincipal.IsInRole("K_CRM_ASSISTENTE_VENDAS_COORD")
+    
+    if (ehAssistVendasAdm or ehAssistVendas or ehAssistVendasCoord):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+    
+    # ======= FASES ===========
+    #   fase 1 = Suspecção, 
+    #   fase 2 = Prospecção, 
+    #   fase 3 = Negociação,  
+    #   fase 4 = Cliente,
+    #   fase 5 = Inativo,
+    # ======= END FASES =======
+    
+    # ======= STATUS ===========
+    #   status 1 = Não integrado, 
+    #   status 2 = Integrado
+    # ======= END FASES =======
+    
+    status = int(entity.Fields["INTEGRACAOEXACT"].Value);
+    faseNome = entity.Fields["FASE"].Instance.Fields["NOME"]
+    fase = int(entity.Fields["FASE"].Handle.Value)
+    subfase = int(entity.Fields["SUBFASE"].Handle.Value)
+    
+    if entity.Fields["TIPO"] != None:
+        tipo = int(entity.Fields["TIPO"].Value)
+    
+    if entity.Fields["SITUACAORECEITA"] != None:
+        situacaoreceita = int(entity.Fields["SITUACAORECEITA"].Value)
+    
+    usuario = BennerIdentity.Current.UserHandle
+    responsavel = entity.Fields["USUARIORESPONSAVEL"].Handle
+    executivo = entity.Fields["USUARIOEXECUTIVO"].Handle
+    
+    if row.GetCustomCommand("cmdIntegraExact") != None:
+        row.GetCustomCommand("cmdIntegraExact").Enabled = None;
+    
+    if row.GetCustomCommand("cmdVerificaExact") != None:
+        row.GetCustomCommand("cmdVerificaExact").Enabled = None;
+    
+    if row.GetCustomCommand("cmdSincronizaLead") != None:
+        row.GetCustomCommand("cmdSincronizaLead").Enabled = None;
+    
+    if row.GetCustomCommand("cmdQualificar") != None:
+        row.GetCustomCommand("cmdQualificar").Enabled = (usuario == responsavel and faseNome == "Suspecção" and subfaseNome == "A qualificar" );
+    
+    if row.GetCustomCommand("cmdTrasferirLead") != None:
+        row.GetCustomCommand("cmdTrasferirLead").Enabled = (usuario == responsavel or ehAdmin == True);
+    
+    if row.GetCustomCommand("cmdTrasferirExecutivo") != None:
+        row.GetCustomCommand("cmdTrasferirExecutivo").Enabled = (usuario == executivo or ehAdmin == True);
+    
+    if row.GetCustomCommand("cmdOportunidades") != None:
+        row.GetCustomCommand("cmdOportunidades").Enabled = (faseNome != "Suspecção" and faseNome != "Ex cliente" and faseNome != "Prospecção Futura") #fase not in [1];
+    
+    if row.GetCustomCommand("cmdNovaOportunidade") != None:
+        row.GetCustomCommand("cmdNovaOportunidade").Enabled = (faseNome == "Prospect" or faseNome == "Cliente") #fase in [4,5,6];
+        
+    if row.GetCustomCommand("cmdAtividadesPendentes") != None:
+        row.GetCustomCommand("cmdAtividadesPendentes").Enabled = (faseNome != "Ex cliente" and faseNome != "Prospecção Futura") #(fase not in [5] );
+    
+    if row.GetCustomCommand("cmdRecuperarLead") != None:
+        row.GetCustomCommand("cmdRecuperarLead").Enabled = (faseNome == "Ex cliente" or faseNome == "Prospecção Futura") #(fase in [5] );
+    
+    if row.GetCustomCommand("cmdGrupoEmpresarial") != None:
+        row.GetCustomCommand("cmdGrupoEmpresarial").Enabled = (entity.Fields["GRUPOEMPRESARIAL"].Handle.IsValid());
+        
+    if entity.Fields["USUARIORESPONSAVEL"].Handle != usuario:
+        if row.GetCustomCommand("cmdEdit") != None:
+            row.GetCustomCommand("cmdEdit").Enabled = False;
+        
+    if fase in [1]:
+        row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-purple-wisteria'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    if fase in [2]:
+        row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-yellow-casablanca'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    if fase in [3]:
+        row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-blue-sharp'&gt;"+faseNome+"&lt;/span&gt;"
+        
+    if fase in [4]:
+        row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-green-jungle'&gt;"+faseNome+"&lt;/span&gt;"  
+        
+    if fase in [5]:
+        row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-grey'&gt;"+faseNome+"&lt;/span&gt;"     
+        
+    if fase in [6]:
+        row.GetCellByName("FASE").Text = "&lt;span style='width:120px; height:25px; padding-top: 5px; display: inline-block; text-align: center' class='label bg-green-haze'&gt;C/ Oportunidade&lt;/span&gt;"
+    
+    if entity.Fields["GRUPOEMPRESARIAL"].Handle.IsValid():
+        row.GetCellByName("FASE").Text = "&lt;span style='margin-left:40%'&gt;-&lt;/span&gt;" 
+        row.GetCellByName("SUBFASE").Text = "&lt;span style='margin-left:40%'&gt;-&lt;/span&gt;"   
+    
+    if entity.Fields["TIPO"] != None:    
+        if tipo in [2]:
+            i = 0
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#95a5a6"
+                i += 1
+    
+    if entity.Fields["SITUACAORECEITA"] != None:    
+        if situacaoreceita in [2]:
+            i = 0
+            while(row.Cells.Count &gt; i):
+                row.GetCellByIndex(i).TextColor = "#f03434"
+                i += 1
+    
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,719 @@
+﻿<script src="@Url.Content("~/Content/js/daterangepicker.min.js")"></script>
+<script src="@Url.Content("~/Content/js/jquery.table2excel.js")"></script>
+<script src="@Url.Content("~/Content/js/BennerGrid.js")"></script>
+<script src="@Url.Content("~/Content/js/BennerXlsx.full.min.js")"></script>
+
+<link href="@Url.Content("~/Content/css/BennerGrid.css")" rel="stylesheet" />
+<style>
+    #periodoBase {
+        border: 0;
+        width: 160px;
+        cursor: pointer;
+        margin-left: 4%;
+        padding: 0;
+        font-family: "Open Sans", sans-serif;
+    }
+
+        .refer:hover > #periodoBase, #periodoBase:hover, #periodoBase:hover .refer, .refer:hover #periodoBase {
+            background-color: #395f9d !important;
+        }
+
+            .refer:hover > #periodoBase, #periodoBase:hover, #periodoBase:hover .refer, .refer:hover #periodoBase {
+                -webkit-transition: all .3s ease-in-out;
+                -moz-transition: all .3s ease-in-out;
+                -ms-transition: all .3s ease-in-out;
+                -o-transition: all .3s ease-in-out;
+                transition: all .3s ease-in-out;
+            }
+
+    .refer input[type="text"]:focus {
+        outline: none;
+    }
+
+    .portlet.light .portlet-body {
+        padding-top: 0 !important;
+    }
+
+    .portlet-title {
+        margin-bottom: 0 !important;
+    }
+
+    .right {
+        text-align: right !important;
+        padding-right: 0 !important
+    }
+
+    #tblDivergenciaDetalhes tbody tr td:first-child:hover, #tblDivergenciasPorRegras tbody tr td:first-child:hover {
+        text-decoration: underline !important;
+        cursor: pointer;
+    }
+
+    #fullModal .modal-dialog {
+        width: 98%;
+        padding: 0;
+        display: block;
+    }
+
+    #fullModal .modal {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100%;
+    }
+
+    .modal-header {
+        padding-bottom: 0;
+    }
+
+    #tblConciliadora {
+        border-collapse: separate !important;
+    }
+
+    #tblDivergenciasPorRegras th, #tblDivergenciaDetalhes th {
+        border-top: 1px solid #4B77BE !important;
+        border-bottom: 1px solid #4B77BE !important;
+        font-size: 13px !important;
+        font-weight: 600;
+        padding-left: 0;
+    }
+
+    #tblDivergenciasPorRegras tbody td, #tblDivergenciaDetalhes tbody td {
+        font-size: 13px !important;
+        border-bottom: 0 !important;
+        padding-left: 1.6% !important;
+    }
+
+    #tblConciliadora tbody td {
+        font-size: 13px !important;
+    }
+
+    tfoot td {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        font-size: 13px !important;
+        font-weight: bold !important;
+    }
+
+    .modal {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100%;
+    }
+
+    .modal-header {
+        padding-bottom: 0;
+    }
+
+
+    .dashboard-stat .details .number {
+        padding-top: 10px;
+        text-align: right;
+        font-size: 37px;
+        line-height: 37px;
+        letter-spacing: -1px;
+        margin-bottom: 0;
+        font-weight: 300;
+    }
+
+    .dashboard-stat .visual {
+        width: 80px;
+        height: 66px;
+        display: block;
+        float: left;
+        padding-top: 10px;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-size: 23px;
+        line-height: 12px;
+    }
+
+    .right {
+        text-align: right;
+        min-width: 100px !important;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .left {
+        text-align: left !important;
+    }
+
+    .input-icon > i {
+        color: #ccc;
+        position: absolute;
+        margin: 7px 2px 4px 10px;
+        z-index: 3;
+        width: 16px;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="portlet light" id="conteudo">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">conciliação contábil</span>
+                    <span class="caption-helper">- por período</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-sm btn-circle blue-steel refer" title="Alterar período para consulta.">
+                        <i class="fa fa-calendar refer">
+                            <input type="text" id="periodoBase" class="bg-blue-steel bg-font-blue-steel border-blue-steel" />
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row hide" id="msgPeriodoVazio">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="alert alert-warning alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                            <div id="msgErro">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div id="chartPosicaoGeral" class="chart"></div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div id="ChartPrincipalErros" class="chart"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-sm-6" id="prtResumoGeral">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">RESUMO GERAL</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" title="Exibir tela cheia"> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <table id="tblDivergenciasPorRegras"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-6" id="prtResumoRegras">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">RESUMO POR REGRA</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" title="Exibir tela cheia"> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <table id="tblDivergenciaDetalhes"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="fullModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                        <div class="caption collapsible">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <span class="font-grey-mint bold font-md">Regra conciliativa:</span>
+                                <span class="uppercase font-blue-steel" id="divDescricaoRegra"></span>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <span class="font-grey-mint bold font-md">Divergência:</span>
+                                <span class="uppercase font-blue-steel" id="divDescricaoDivergencia"></span>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <a class="btn btn-circle btn-icon-only btn-default fullscreen hide" id="maxPortlet" title="" data-original-title="Exibir tela inteira"></a>
+
+                            <div class="portlet-input input-inline">
+                                <div class="input-icon right">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control input-circle" style="height: 28px;" onkeyup="FiltrarNaTabela(this)" placeholder="Filtrar...">
+                                </div>
+                            </div>
+                            <a class="btn btn-circle btn-icon-only btn-default" onclick="ExportarExcel('xlsx');">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;" data-dismiss="modal">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-scrollable" style="height:350px;min-height:350px">
+                                    <table id="tblConciliadora"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var totalDocumentos, principaisErros = [], catRegras = [], catErros = []; dadosOrganizados = [], chartPosicaoGeral = null, ChartPrincipalErros = null;
+    var ultimoErro, ultimaRegra;
+
+    $(function () {
+        $("#periodoBase").daterangepicker({
+            opens: 'left',
+            startDate: moment().subtract(1, "month"),
+            endDate: moment(),
+            ranges: {
+                "Hoje": [moment(), moment()],
+                "Ontem": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Última semana": [moment().subtract(6, "days"), moment()],
+                "Últimos trinta dias": [moment().subtract(29, "days"), moment()],
+                "Mês atual": [moment().startOf("month"), moment().endOf("month")],
+                "Último mês": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+            },
+            buttonClasses: ["btn"],
+            applyClass: "blue-steel",
+            cancelClass: "default",
+            locale: {
+                applyLabel: "Aplicar",
+                fromLabel: "De",
+                toLabel: "Até",
+                separator: " - ",
+                customRangeLabel: "Período específico",
+                daysOfWeek: ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"],
+                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                firstDay: 1,
+                format: "DD/MM/YYYY",
+            }
+
+        }, AtualizarDados);
+
+        AtualizarDados();
+        FecharMenuLateral();
+    });
+
+    function AtualizarDados(inicio, fim, regra) {
+
+        inicio = inicio ? inicio.toDate() : moment().subtract(1, "months").toDate();
+        fim = fim ? fim.toDate() : moment().toDate();
+        rg = regra ? regra : '';
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: Benner.Page.getApplicationPath() + 'Conciliacao/DadosPorCompetencia',
+            data: { PeriodoInicial: inicio.format("yyyy-mm-dd HH:mm:ss"), PeriodoFinal: fim.format("yyyy-mm-dd HH:mm:ss"), regraConciliacao: rg },
+            cache: true,
+            beforeSend: function () {
+                App.blockUI({ target: '#POSIOATUAL', animate: true });
+                LimparVariaveisDinamicas();
+            },
+            success: function (data) {
+
+                var temRegistros = false;
+                totalDocumentos = [];
+                principaisErros = [];
+                catRegras = [],
+                    catErros = [];
+                dadosOrganizados = [];
+
+                if (data !== undefined && data.Estatisticas !== undefined) {
+
+                    $.each(data.Estatisticas, function (i, el) {
+                        if (el.TOTALDOCUMENTOS > 0) {
+                            temRegistros = true;
+                        }
+
+                        var atual = {};
+                        atual.CHAVE = el.DESCR;
+                        atual.VALOR = el.TOTALDOCUMENTOS;
+
+                        atual.COR = atual.CHAVE.indexOf('Div') > -1 ? Aleatory('N') : Aleatory('S');
+
+                        totalDocumentos.push(atual);
+                    });
+
+                    $.each(data.PrincipaisErros, function (i, el) {
+
+                        var erro = {};
+                        erro.CHAVE = el.ERRO;
+                        erro.VALOR = el.TOTAL;
+                        erro.COR = Aleatory('N')
+
+                        principaisErros.push(erro);
+                    });
+
+                    if (data.DivergenciasPorRegras) {
+                        RenderizarGridDivergenciasPorRegras(data.DivergenciasPorRegras);
+                    }
+                }
+
+                if (temRegistros) {
+                    console.log(data);
+                    RenderizarGrafico();
+                    ExibirMensagemPeriodoVazio(false);
+                }
+                else {
+                    LimparVariaveisDinamicas();
+                    console.log(data);
+                }
+
+
+            },
+            error: function (xhr, textStatus, error) {
+                console.warn(error);
+            },
+            complete: function () {
+                App.unblockUI('#POSIOATUAL');
+            }
+        });
+    }
+
+    function RenderizarGridDivergenciasPorRegras(dados) {
+
+        dadosOrganizados = OrganizarDadosDivergentes(dados);
+
+        var totalFinanceiro = catRegras.SomarTotalPorPropriedade("_vlFinanceiro");
+        var totalContabil = catRegras.SomarTotalPorPropriedade("_vlContabil");
+        var totalDiferenca = catRegras.SomarTotalPorPropriedade("_vlDiferenca");
+        if (catRegras.length > 0) {
+            $('#tblDivergenciasPorRegras').BennerGrid({
+                header: dadosOrganizados[1],
+                body: catRegras,
+                caption: '',
+                vincular: false,
+                footer: [{ value: "TOTAL", class: 'col-lg-6 col-md-6 col-sm-6' },
+                { value: totalFinanceiro, type: 'money', class: 'right' },
+                { value: totalContabil, type: 'money', class: 'right' },
+                { value: totalDiferenca, type: 'money', class: 'right' }]
+            });
+        }
+    }
+
+    function OrganizarDadosDivergentes(dados) {
+
+        var colunasHeaders = [{ value: "REGRA CONCILIATIVA", field: "_chave", scope: "col", class: 'col-lg-6 col-md-6 col-sm-6', onclick: 'RenderizarAbasDivergenciasPorRegra(this.innerText)' },
+        { value: "ORIGEM", field: "_vlFinanceiro", scope: "col", type: 'money', class: 'right' },
+        { value: "CONTÁBIL", field: "_vlContabil", scope: "col", type: 'money', class: 'right' }];
+
+        $.each(dados, function (i, el) {
+
+            var vlContabil = FormatarMoeda(el.VLCONTABIL).ValorFloat;
+            var vlFinanceiro = FormatarMoeda(el.VLFINANCEIRO).ValorFloat;
+            var indexRegra = catRegras.map(function (e) { return e._chave; }).indexOf(el.DESCRICAO);
+            var indexErro = catErros.map(function (e) { return e._chave; }).indexOf(el.ERRO);
+
+            el.VLDIFERENCA = (vlContabil - vlFinanceiro);
+            dadosOrganizados.push(el);
+            if (ultimaRegra === undefined || indexRegra < 0) {
+                ultimaRegra = el.DESCRICAO;
+
+                var incluir = {};
+                incluir._chave = ultimaRegra;
+                incluir._vlFinanceiro = vlFinanceiro;
+                incluir._vlContabil = vlContabil;
+                incluir._vlDiferenca = el.VLDIFERENCA;
+                catRegras.push(incluir);
+            }
+            else {
+                var exists = catRegras[indexRegra];
+                catRegras[indexRegra]._vlFinanceiro += vlFinanceiro;
+                catRegras[indexRegra]._vlContabil += vlContabil;
+                catRegras[indexRegra]._vlDiferenca += el.VLDIFERENCA;
+            }
+
+
+            var incluir = {};
+            incluir._regra = el.DESCRICAO;
+            incluir._chave = el.ERRO;
+            incluir._vlFinanceiro = vlFinanceiro;
+            incluir._vlContabil = vlContabil;
+            incluir._vlDiferenca = (vlContabil - vlFinanceiro);
+
+            catErros.push(incluir);
+        });
+
+        colunasHeaders.push({ value: "DIFERENÇA", field: "_vlDiferenca", scope: "col", type: 'money', class: 'right' });
+
+        return [dadosOrganizados, colunasHeaders];
+    }
+
+    function RenderizarAbasDivergenciasPorRegra(rgDescricao) {
+
+        var DivergenciasPorRegras = FiltrarPorRegra(rgDescricao);
+
+        var tabelaAtual = $('#tblDivergenciaDetalhes');
+        var totalFinanceiro = DivergenciasPorRegras.SomarTotalPorPropriedade("_vlFinanceiro");
+        var totalContabil = DivergenciasPorRegras.SomarTotalPorPropriedade("_vlContabil");
+        var totalDiferenca = DivergenciasPorRegras.SomarTotalPorPropriedade("_vlDiferenca");
+
+
+
+        if (DivergenciasPorRegras.length > 0 && rgDescricao !== undefined) {
+            tabelaAtual.BennerGrid({
+                header: [{ value: "DIVERGÊNCIA", field: "_chave", scope: "col", class: 'col-lg-6 col-md-6 col-sm-6', onclick: "OpenModal(this,'" + rgDescricao + "')", },
+                { value: "ORIGEM", field: "_vlFinanceiro", scope: "col", type: 'money', class: 'right' },
+                { value: "CONTÁBIL", field: "_vlContabil", scope: "col", type: 'money', class: 'right' },
+                { value: "DIFERENÇA", field: "_vlDiferenca", scope: "col", type: 'money', class: 'right' }],
+                body: DivergenciasPorRegras,
+                caption: '',
+                group: ["_chave"],
+                vincular: false,
+                footer: [{ value: "TOTAL", class: 'col-lg-6 col-md-6 col-sm-6' },
+                { value: totalFinanceiro, type: 'money', class: 'right' },
+                { value: totalContabil, type: 'money', class: 'right' },
+                { value: totalDiferenca, type: 'money', class: 'right' },
+                ]
+            });
+        }
+        else {
+            LimparVariaveisDinamicas();
+        }
+    }
+
+    function FiltrarPorRegra(regra) {
+
+        var ret = catErros.filter(function (el) {
+            return el._regra.toUpperCase() === regra.toUpperCase();
+        });
+
+        return ret;
+    }
+
+    function FiltrarPorErroRegra(erro, rg) {
+
+        return dadosOrganizados[0].filter(function (el) {
+            return el.ERRO === erro && el.DESCRICAO == rg;
+        });
+    }
+
+    function OpenModal(ln, rg) {
+
+        var _data = FiltrarPorErroRegra(ln.innerText, rg);
+        var _dtInicial = $("#periodoBase").data('daterangepicker').startDate._d;
+        var _dtFinal = $("#periodoBase").data('daterangepicker').endDate._d;
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: Benner.Page.getApplicationPath() + 'Conciliacao/DivergenciasPorRegra',
+            data: { DataInicial: _dtInicial.format("yyyy-mm-dd HH:mm:ss"), DataFinal: _dtFinal.format("yyyy-mm-dd HH:mm:ss"), regra: _data[0].DESCRICAO, erro: _data[0].ERRO },
+            cache: true,
+            success: function (retorno) {
+                $('#divDescricaoDivergencia').text(ln.innerText);
+                $('#divDescricaoRegra').text(_data[0].DESCRICAO);
+
+                $('#tblConciliadora').BennerGrid({
+                    header: [{ value: "CHAVE", field: "DOCUMENTO", scope: "col", style: 'width:75px', class: 'col-lg-1 col-md-1 col-sm-1 ' },
+                    { value: "OPERAÇÃO", field: "NOME", scope: "col", class: 'col-lg-3 col-md-3 col-sm-3' },
+                    { value: "DOC. FINANCEIRO", field: "DOCUMENTODIGITADO", scope: "col", class: 'col-lg-3 col-md-3 col-sm-3 center' },
+                    { value: "DOC. CONTÁBIL", field: "DOCUMENTOCONTABIL", scope: "col", class: 'col-lg-2 col-md-2 col-sm-2 center' },
+                    { value: "VL. FINANCEIRO", field: "VLFINANCEIRO", scope: "col", class: 'col-lg-1 col-md-1 col-sm-1 right', type: 'money' },
+                    { value: "VL. CONTÁBIL", field: "VLCONTABIL", scope: "col", class: 'col-lg-1 col-md-1 col-sm-1 right', type: 'money' },
+                    { value: "VL. DIFERENÇA", field: "VLDIFERENCA", scope: "col", class: 'col-lg-1 col-md-1 col-sm-1 right', type: 'money' }],
+                    body: retorno,
+                    caption: '',
+                    class: 'table table-hover simple-grid',
+                    vincular: false
+                });
+
+                $('#tblConciliadora').tableHeadFixer({ 'left': 0, 'head': true });
+                $('#fullModal').modal('show');
+            },
+            error: function (xhr, textStatus, error) {
+                console.warn(error);
+            },
+            complete: function () {
+                App.unblockUI('#POSIOATUAL');
+            }
+        });
+    }
+
+    function RenderizarGrafico() {
+
+        var dadosPosicaoGeral = totalDocumentos;
+        var dadosPrincipaisErros = principaisErros;
+
+
+        chartPosicaoGeral = AmCharts.makeChart("chartPosicaoGeral", {
+            "type": "pie",
+            "theme": "light",
+            "dataProvider": dadosPosicaoGeral,
+            "valueField": "VALOR",
+            "titleField": "CHAVE",
+            "colorField": "COR",
+            "labelColorField": "COR",
+            "balloon": {
+                "fixedPosition": true
+            },
+            fontSize: 14,
+            labelsEnabled: true,
+            autoMargins: false,
+            marginTop: 10,
+            marginBottom: 10,
+            marginLeft: 10,
+            marginRight: 10,
+            pullOutRadius: 10,
+        });
+
+        ChartPrincipalErros = AmCharts.makeChart("ChartPrincipalErros", {
+            "type": "pie",
+            "theme": "light",
+            "dataProvider": dadosPrincipaisErros,
+            "valueField": "VALOR",
+            "titleField": "CHAVE",
+            "colorField": "COR",
+            "labelColorField": "COR",
+            "balloon": {
+                "fixedPosition": true,
+                "text": "[[value]]"
+            },
+            "balloon": {
+                "fixedPosition": true,
+                "text": "[[value]]"
+            },
+            fontSize: 11,
+            labelsEnabled: true,
+            autoMargins: false,
+            marginTop: 10,
+            marginBottom: 10,
+            marginLeft: 10,
+            marginRight: 10,
+            pullOutRadius: 10,
+        });
+    }
+
+    function FecharMenuLateral() {
+        var btnMinimizar = $('#sidebar-menu-toggler');
+
+        if (!$('.page-sidebar-menu').hasClass('page-sidebar-menu-closed'))
+            btnMinimizar.trigger('click');
+
+    }
+
+    var aleatoryColorsSuccess = ["#3598DC", "#4B77BE", "#578EBE", "#5C9BD1", "#4C87B9"];
+    var aleatotyColorsErrors = ["#D05454", "#F2784B", "#EF4836", "#95A5A6"];
+    var sucessoEscolhidas = [], erroEscolhidos = [];
+
+    function Aleatory(tp) {
+
+        var count = 0;
+        var corRetorno;
+
+        if (sucessoEscolhidas.length == aleatoryColorsSuccess.length)
+            sucessoEscolhidas = [];
+
+        if (erroEscolhidos.length == aleatotyColorsErrors.length)
+            erroEscolhidos = [];
+
+        if (tp == 'S') {
+
+            corRetorno = aleatoryColorsSuccess[count++];
+            while (sucessoEscolhidas.indexOf(corRetorno) > -1) {
+                corRetorno = aleatoryColorsSuccess[count++];
+            }
+
+            sucessoEscolhidas.push(corRetorno);
+        }
+        else {
+
+            corRetorno = aleatotyColorsErrors[0];
+            while (erroEscolhidos.indexOf(corRetorno) > -1) {
+                corRetorno = aleatotyColorsErrors[count++];
+            }
+            erroEscolhidos.push(corRetorno);
+        }
+
+
+        return corRetorno;
+    }
+
+    function LimparVariaveisDinamicas() {
+        financeiroTotal = 0;
+        contabiltotal = 0;
+        diferencaTotal = 0;
+        sucessoEscolhidas = [];
+        erroEscolhidos = [];
+        totalDocumentos = [];
+        principaisErros = [];
+        catRegras = [];
+        catErros = [];
+        dadosOrganizados = [];
+
+        $('#tblDivergenciasPorRegras').empty();
+        $('#tblDivergenciasPorRegras').append('<tbody><td style="padding-left:0px!important">Não há regras divergentes aqui.</td></tbody>');
+        $('#tblDivergenciaDetalhes').empty();
+        $('#tblDivergenciaDetalhes').append('<tbody><td style="padding-left:0px!important">Selecione uma regra em <strong>resumo geral</strong>, para visualização dos <strong>detalhes</strong>.</td></tbody>')
+
+    }
+
+    function ExibirMensagemPeriodoVazio(exibir, msg) {
+        if (exibir) {
+            var txt = msg ? msg : '<strong>Oba!</strong> Não há nada divergente para o período selecionado. Você pode tentar com um intervalo maior entre as datas!'
+            $('#msgErro').empty().append(txt);
+            $('#prtResumoGeral, #prtResumoRegras, #chartPosicaoGeral, #ChartPrincipalErros').addClass('hide');
+            $('#msgPeriodoVazio').removeClass('hide');
+
+        }
+        else {
+            $('#prtResumoGeral, #prtResumoRegras, #chartPosicaoGeral, #ChartPrincipalErros').removeClass('hide');
+            $('#msgPeriodoVazio').addClass('hide');
+        }
+    }
+
+    function ExportarExcel(type, fn, dl) {
+        var elt = document.getElementById("tblConciliadora");
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "Resumo detalhado por regra" });
+        return dl ?
+            XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+            XLSX.writeFile(wb, fn || ('ResumoPorRegra.' + (type || 'xlsx')));
+    }
+
+    var bckLinhas = null;
+    function FiltrarNaTabela(cmp) {
+
+        if (bckLinhas == null) {
+            bckLinhas = $("#tblConciliadora tbody tr");
+        }
+        else {
+            $("#tblConciliadora tbody").append(bckLinhas);
+        }
+
+        $('#tblConciliadora').find('tr:not(:has(th))').filter(
+            function () {
+                return ($(this).find('td').text().toUpperCase().indexOf(cmp.value.toUpperCase()) < 0);
+            }).remove();
+
+    }
+
+</script>
+

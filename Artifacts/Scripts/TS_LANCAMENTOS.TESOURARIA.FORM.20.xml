@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TS_LANCAMENTOS.TESOURARIA.FORM</ViewName>
+  <EntityName>TS_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CONTAS_FINANCEIRASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CONTAS_FINANCEIRASExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    operacao = entity.Fields["OPERACAO"].Instance
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] =  operacao.Fields["CODIGOINTERNO"].Value
+    if entity.Fields["BLOQUEADOLIBERADO"].ToString() == "LIBERADO":
+        command.OutputDefinition.Parameters["SOMENTELEITURA"] = True    
+    else:
+        command.OutputDefinition.Parameters["SOMENTELEITURA"] = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

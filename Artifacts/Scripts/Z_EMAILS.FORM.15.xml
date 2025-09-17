@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_EMAILS.FORM</ViewName>
+  <EntityName>Z_EMAILS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None:
+        return
+    
+    #CADASTRADO
+    if widget.Entity.Fields["STATUS"].Value == 1:
+        widget.View.Commands["CMD_LIBERARENVIO"].Visible = True
+
+    #AGUARDANDO ENVIO    
+    elif widget.Entity.Fields["STATUS"].Value == 2:
+        widget.View.Commands["CMD_VOLTARPARACADASTRO"].Visible = True
+        widget.View.Commands["CMD_CANCELARENVIO"].Visible = True
+        widget.View.Commands["CMD_ENVIARAGORA"].Visible = True
+
+    #ERRO DE ENVIO
+    elif widget.Entity.Fields["STATUS"].Value == 6:
+        widget.View.Commands["CMD_LIBERARENVIO"].Visible = True
+        widget.View.Commands["CMD_CANCELARENVIO"].Visible = True
+        widget.View.Commands["CMD_ENVIARCOMERRO"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

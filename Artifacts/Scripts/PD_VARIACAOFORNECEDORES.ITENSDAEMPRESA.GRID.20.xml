@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_VARIACAOFORNECEDORES.ITENSDAEMPRESA.GRID</ViewName>
+  <EntityName>PD_VARIACAOFORNECEDORES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    if widget.View.Commands["CMD_NOVOFORNECEDOR"] != None:
+        widget.View.Commands["CMD_NOVOFORNECEDOR"].Visible = AuthorizationHelper.HasTask("MANTER_ITENSEMPRESA")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible = AuthorizationHelper.HasTask("MANTER_ITENSEMPRESA")
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = AuthorizationHelper.HasTask("EXCLUIR_ITENSEMPRESA")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

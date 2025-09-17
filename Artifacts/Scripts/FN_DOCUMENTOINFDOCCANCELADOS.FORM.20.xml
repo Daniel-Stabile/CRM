@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOINFDOCCANCELADOS.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOINFDOCCANCELADOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+  registro = widget.Entity
+  
+  if registro == None:
+    widget.View.Commands["New"].Visible = False
+    widget.View.Commands["Delete"].Visible = False
+    widget.View.Commands["Edit"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

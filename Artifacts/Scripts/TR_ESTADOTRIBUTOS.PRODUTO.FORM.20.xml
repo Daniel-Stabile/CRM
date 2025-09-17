@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_ESTADOTRIBUTOS.PRODUTO.FORM</ViewName>
+  <EntityName>TR_ESTADOTRIBUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Wes.Components import WesBreadcrumbProvider
+    
+    registro = widget.Entity
+    if registro == None: return
+
+    if (not registro["PRODUTO"].IsNull):
+        WesBreadcrumbProvider.UpdateCurrentTitle("Produto " + registro["PRODUTO"].GetString())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_META_FATURAMENTO_V1</Identifier>
+  <Name>META_FATURAMENTO_V1</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT ROUND(SUM(PLANEJADO),2) PLANEJADO,&#xD;&#xA;       ROUND(SUM(REALIZADO),2) REALIZADO,&#xD;&#xA;       'R$ ' + convert(varchar,cast(CAST(SUM(PLANEJADO) as decimal) as money), 1) PLANEJADO_MONEY&#xD;&#xA;FROM (&#xD;&#xA;SELECT A.VALORFATURAMENTO PLANEJADO,&#xD;&#xA;(SELECT COALESCE(SUM(VALORTOTAL+RECORRENTE),0)&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES AA&#xD;&#xA;JOIN K_CRM_METASUSUARIOS AB ON AA.RESPONSAVEL = AB.USUARIO&#xD;&#xA;JOIN K_CRM_METASDIRETORES AC ON AB.METADIRETOR = A.HANDLE&#xD;&#xA;WHERE YEAR(AA.DATAFATURAMENTO) = YEAR(GETDATE())&#xD;&#xA;AND STATUS = 10) REALIZADO&#xD;&#xA;FROM K_CRM_METASDIRETORES A&#xD;&#xA;JOIN K_CRM_METASUNIDADES B ON A.METAUNIDADE = B.HANDLE&#xD;&#xA;JOIN K_CRM_METAS C ON B.META = C.HANDLE&#xD;&#xA;WHERE YEAR(C.DATA) = YEAR(GETDATE())&#xD;&#xA;GROUP BY A.HANDLE,A.VALORFATURAMENTO) AS TABLETESTE&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="PLANEJADO" From="A" Path="PLANEJADO" />
+    <Field Alias="REALIZADO" From="A" Path="REALIZADO" />
+    <Field Alias="PLANEJADO_MONEY" From="A" Path="PLANEJADO_MONEY" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

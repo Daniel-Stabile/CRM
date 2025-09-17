@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>WEB_FN_COBRANCABANC_TITULOS_OCORRENCIAS</Identifier>
+  <Name>Cobrança bancaria - Títulos e Ocorrências</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT * FROM (&#xD;&#xA;SELECT 1 TIPO,&#xD;&#xA;       PAR.HANDLE,&#xD;&#xA;       DOC.DOCUMENTODIGITADO,&#xD;&#xA;       PAR.PARCELADIGITADA,&#xD;&#xA;       PAR.AP,&#xD;&#xA;       ((CASE WHEN PAR.VALOR IS NULL THEN 0 ELSE PAR.VALOR END) - (CASE WHEN PAR.VALORESBAIXADOS IS NULL THEN 0 ELSE PAR.VALORESBAIXADOS END)) VALOR,&#xD;&#xA;       NULL VALOROCORRENCIA,&#xD;&#xA;       NULL DATA,&#xD;&#xA;       PAR.DATAVENCIMENTO,&#xD;&#xA;       PAR.VCTOPRORROGADO,&#xD;&#xA;       DOC.DATAEMISSAO,&#xD;&#xA;       DOC.DATAENTRADA,&#xD;&#xA;       NULL ABATIMENTO,&#xD;&#xA;       NULL MOVIMENTO,&#xD;&#xA;       PAR.DATAREJEICAO,&#xD;&#xA;       PAR.DOCUMENTOSUSPENSO,&#xD;&#xA;       PAR.PREVISAO,&#xD;&#xA;       PAR.CALCULOEFETIVO,&#xD;&#xA;       PAR.BLOQUETOEMITIDO,&#xD;&#xA;       PAR.TIPOCOBRANCA,&#xD;&#xA;       DOC.ENTRADASAIDA,&#xD;&#xA;       DOC.TIPODEMOVIMENTO,&#xD;&#xA;       DOC.PESSOA,&#xD;&#xA;       PES.NOME,&#xD;&#xA;       EST.NOME ESTADO,&#xD;&#xA;       MUN.NOME MUNICIPIO,&#xD;&#xA;       CASE WHEN PES.CEP IS NOT NULL THEN PES.CEP&#xD;&#xA;            WHEN PES.CEPCOBRANCA IS NOT NULL THEN PES.CEPCOBRANCA&#xD;&#xA;       END CEP,&#xD;&#xA;       NULL BANCO,&#xD;&#xA;       NULL OCORRENCIABANCO,&#xD;&#xA;       NULL NOMEOCORRENCIAREMESSA&#xD;&#xA;  FROM FN_PARCELAS PAR&#xD;&#xA;  JOIN FN_DOCUMENTOS DOC ON PAR.DOCUMENTO = DOC.HANDLE&#xD;&#xA;  JOIN GN_PESSOAS PES ON DOC.PESSOA = PES.HANDLE&#xD;&#xA;  LEFT JOIN FN_TIPOSCOBRANCAS TC ON (PAR.TIPOCOBRANCA = TC.HANDLE)&#xD;&#xA;  LEFT JOIN MUNICIPIOS MUN ON (MUN.HANDLE = PES.MUNICIPIO)&#xD;&#xA;  LEFT JOIN ESTADOS EST ON (EST.HANDLE = PES.ESTADO)&#xD;&#xA; WHERE (DOC.EMPRESA = @EMPRESA)&#xD;&#xA;   AND (PAR.VALOR &gt; 0)&#xD;&#xA;   AND (DOC.OPERACAOCANCELAMENTO IS NULL)&#xD;&#xA;   AND (PAR.EMABERTO = 'S')&#xD;&#xA;   AND (PAR.REMESSA IS NULL)&#xD;&#xA;   AND (PAR.TEMRETENCAONABAIXA = 'N')&#xD;&#xA;   AND (TC.NAOGERACOBRANCABANCARIA = 'N' OR TC.NAOGERACOBRANCABANCARIA IS NULL)&#xD;&#xA;&#xD;&#xA;UNION ALL&#xD;&#xA;&#xD;&#xA;SELECT 2 TIPO,&#xD;&#xA;       C.HANDLE,&#xD;&#xA;       D.DOCUMENTODIGITADO,&#xD;&#xA;       C.PARCELADIGITADA,&#xD;&#xA;       C.AP,&#xD;&#xA;       C.VALOR,&#xD;&#xA;       A.VALOR VALOROCORRENCIA,&#xD;&#xA;       A.DATA,&#xD;&#xA;       A.VENCIMENTO DATAVENCIMENTO,&#xD;&#xA;       C.VCTOPRORROGADO,&#xD;&#xA;       D.DATAEMISSAO,&#xD;&#xA;       D.DATAENTRADA,&#xD;&#xA;       A.ABATIMENTO,&#xD;&#xA;       A.HANDLE MOVIMENTO,&#xD;&#xA;       C.DATAREJEICAO,&#xD;&#xA;       C.DOCUMENTOSUSPENSO,&#xD;&#xA;       C.PREVISAO,&#xD;&#xA;       C.CALCULOEFETIVO,&#xD;&#xA;       C.BLOQUETOEMITIDO,&#xD;&#xA;       A.TIPOCOBRANCA,&#xD;&#xA;       D.ENTRADASAIDA,&#xD;&#xA;       D.TIPODEMOVIMENTO,&#xD;&#xA;       GP.HANDLE PESSO,&#xD;&#xA;       GP.NOME,&#xD;&#xA;       '' ESTADO,&#xD;&#xA;       '' MUNICIPIO,&#xD;&#xA;       '' CEP,&#xD;&#xA;       GB.BANCO,&#xD;&#xA;       GB.HANDLE OCORRENCIABANCO,&#xD;&#xA;       GB.NOMEOCORRENCIAREMESSA&#xD;&#xA;  FROM FN_MOVIMENTACOES A&#xD;&#xA;  JOIN FN_OCORRENCIAS B ON (B.HANDLE = A.OCORRENCIA)&#xD;&#xA;  JOIN FN_DOCUMENTOS D ON (D.ENTRADASAIDA = 'S')&#xD;&#xA;  JOIN FN_PARCELAS C ON (C.DOCUMENTO = D.HANDLE)&#xD;&#xA;  JOIN GN_BANCOHBOCORRENCIASREMESSA GB ON (GB.OCORRENCIA = B.HANDLE)&#xD;&#xA;  LEFT JOIN FN_TIPOSCOBRANCAS TC ON (A.TIPOCOBRANCA = TC.HANDLE)&#xD;&#xA;  LEFT JOIN GN_PESSOAS GP ON (GP.HANDLE = D.PESSOA)&#xD;&#xA; WHERE (A.ENVIOUOCORRENCIA = 'N' OR A.ENVIOUOCORRENCIA IS NULL)&#xD;&#xA;   AND (A.PARCELA = C.HANDLE)&#xD;&#xA;   AND (C.REMESSA IS NULL)&#xD;&#xA;   AND (A.DATAINCLUSAO &gt;= (SELECT MAX(R.DATA)&#xD;&#xA;                            FROM FN_PARCELAREMESSAS P, GN_HBREMESSAS R&#xD;&#xA;                           WHERE R.HANDLE = P.REMESSA&#xD;&#xA;                             AND P.PARCELA = A.PARCELA))&#xD;&#xA;   AND (A.EMPRESA = @EMPRESA)&#xD;&#xA;   AND (TC.NAOGERACOBRANCABANCARIA = 'N' OR TC.NAOGERACOBRANCABANCARIA IS NULL)&#xD;&#xA;) A&#xD;&#xA;GROUP BY A.HANDLE, A.TIPO , A.DOCUMENTODIGITADO, A.PARCELADIGITADA,&#xD;&#xA;         A.AP, A.VALOR, A.VALOROCORRENCIA, A.DATA, A.DATAVENCIMENTO,&#xD;&#xA;         A.VCTOPRORROGADO, A.DATAEMISSAO, A.DATAENTRADA, A.ABATIMENTO,&#xD;&#xA;         A.MOVIMENTO, A.DATAREJEICAO, A.DOCUMENTOSUSPENSO, A.PREVISAO, A.CALCULOEFETIVO,&#xD;&#xA;         A.BLOQUETOEMITIDO, A.TIPOCOBRANCA, A.ENTRADASAIDA, A.TIPODEMOVIMENTO,&#xD;&#xA;         A.PESSOA, A.NOME, A.ESTADO, A.MUNICIPIO, A.CEP, A.BANCO, A.OCORRENCIABANCO, A.NOMEOCORRENCIAREMESSA" />
+  <Fields>
+    <Field Alias="TIPO" From="A" Path="TIPO" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALOROCORRENCIA" From="A" Path="VALOROCORRENCIA" FieldDecimalsFormat="0" />
+    <DateField Alias="DATA" From="A" Path="DATA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAENTRADA" From="A" Path="DATAENTRADA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DecimalField Alias="ABATIMENTO" From="A" Path="ABATIMENTO" FieldDecimalsFormat="0" />
+    <Field Alias="MOVIMENTO" From="A" Path="MOVIMENTO" />
+    <DateField Alias="DATAREJEICAO" From="A" Path="DATAREJEICAO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="DOCUMENTOSUSPENSO" From="A" Path="DOCUMENTOSUSPENSO" />
+    <Field Alias="PREVISAO" From="A" Path="PREVISAO" />
+    <Field Alias="CALCULOEFETIVO" From="A" Path="CALCULOEFETIVO" />
+    <Field Alias="BLOQUETOEMITIDO" From="A" Path="BLOQUETOEMITIDO" />
+    <Field Alias="TIPOCOBRANCA" From="A" Path="TIPOCOBRANCA" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="TIPODEMOVIMENTO" From="A" Path="TIPODEMOVIMENTO" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="ESTADO" From="A" Path="ESTADO" />
+    <Field Alias="MUNICIPIO" From="A" Path="MUNICIPIO" />
+    <Field Alias="CEP" From="A" Path="CEP" />
+    <Field Alias="BANCO" From="A" Path="BANCO" />
+    <Field Alias="OCORRENCIABANCO" From="A" Path="OCORRENCIABANCO" />
+    <Field Alias="NOMEOCORRENCIAREMESSA" From="A" Path="NOMEOCORRENCIAREMESSA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

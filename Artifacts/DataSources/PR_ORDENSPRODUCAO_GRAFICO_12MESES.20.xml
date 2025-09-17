@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>PR_ORDENSPRODUCAO_GRAFICO_12MESES</Identifier>
+  <Name>Gráfico 12 meses ordem de produção</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT * FROM PR_DWDASHBOARDPRODUCAO A&#xD;&#xA;WHERE A.COMPETENCIA &gt; @ADICIONARANOS(@AGORA,-1)&#xD;&#xA;AND A.FILIAL = @FILIAL&#xD;&#xA;ORDER BY COMP asc" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="Z_GRUPO" From="A" Path="Z_GRUPO" />
+    <DateField Alias="COMPETENCIA" From="A" Path="COMPETENCIA" FieldDateFormat="MonthYear" FieldTimeFormat="NoTime" />
+    <Field Alias="CONFIRMADAS" From="A" Path="CONFIRMADAS" />
+    <Field Alias="ENCERRADAS" From="A" Path="ENCERRADAS" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <DateField Alias="DATACOLETA" From="A" Path="DATACOLETA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="CADASTRADAS" From="A" Path="CADASTRADAS" />
+    <Field Alias="EMAPROVACAO" From="A" Path="EMAPROVACAO" />
+    <Field Alias="APROVADAS" From="A" Path="APROVADAS" />
+    <Field Alias="APONTAMENTOSPENDENTES" From="A" Path="APONTAMENTOSPENDENTES" />
+    <DecimalField Alias="CUSTOPREVISTO" From="A" Path="CUSTOPREVISTO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="CUSTOREALIZADO" From="A" Path="CUSTOREALIZADO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="CUSTOPADRAO" From="A" Path="CUSTOPADRAO" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

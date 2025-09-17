@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_FN_BLOQUETOS_FILTROS.FORM</ViewName>
+  <EntityName>WEB_FN_BLOQUETOS_FILTROS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    form = widget.ProviderWidget
+    entity = form.Entity
+    entAux = widget.Entity
+    if ( entity == None ):
+        return
+    entAux["TPBLOQUETOS"].SetNull()
+    entAux["TPBLOQUETOS"].ReadOnly = False
+    if (not entity["REEMITIRPARCSALDO"].GetBoolean()):
+        entAux["TPBLOQUETOS"].ReadOnly = True
+        if (entity["REEMITIRBLOQUETO"].GetBoolean()):
+            entAux["TPBLOQUETOS"].SetInt32(2)
+        else:
+            entAux["TPBLOQUETOS"].SetInt32(3)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_COMANDOS_CADASTRAR_ITENS_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCancelarExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCancelarExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Tem certeza que deseja cancelar esta solicitação?")    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import EntitySource
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Entity
+
+    
+    if widget.Entity == None:
+        raise Exception("Recarregue a página.")
+    
+    if widget.Entity["STATUS"].GetInt32() == 1 :
+        widget.View.FieldDefinitions["MOTIVOSTATUS"].Visible = False
+        widget.View.FieldDefinitions["USUARIOALTERACAO"].Visible = False
+        
+    widget.View.Commands["CMD_ADICIONARITENS"].Visible = False
+    
+    if widget.Entity["MODALIDADE"].Value.Value == "C" :
+        widget.View.Commands["ADDITEM"].Visible = False     
+        widget.View.Commands["COPIARITENS"].Visible = False
+        widget.View.Commands["REGULARIZACAO"].Visible = False            
+        widget.View.Commands["CMD_ADICIONARITENS"].Visible = False
+        
+        sql = "SELECT ADICIONARITENSSEMCATALOGO FROM PD_PARAMETROSCOMPRAS WHERE FILIAL = :FILIAL "
+    
+        criterio = Criteria()
+        criterio.Parameters.Add(Parameter("FILIAL", widget.Entity["FILIAL"].GetInt32()))
+    
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        retorno = Entity.GetFirstOrDefault(ed, criterio)
+        
+        if (retorno != None):
+            if (retorno.Fields["ADICIONARITENSSEMCATALOGO"] == "S"):
+                widget.View.Commands["CMD_ADICIONARITENS"].Visible = True
+                widget.View.Commands["ADDITEMCATALOGO"].Visible = False
+            else:
+                widget.View.Commands["CMD_ADICIONARITENS"].Visible = False
+                widget.View.Commands["ADDITEMCATALOGO"].Visible = True        
+              
+    elif widget.Entity["MODALIDADE"].Value.Value  == "R" :
+        if not widget.Entity.RegularizacaoCadastrada() :
+            widget.View.Commands["ADDITEM"].Visible = False                       
+        widget.View.Commands["ADDITEMCATALOGO"].Visible = False
+        widget.View.Commands["ENDERECO"].Visible = False
+        widget.View.Commands["COPIARITENS"].Visible = False
+    else :
+        widget.View.Commands["ADDITEMCATALOGO"].Visible = False        
+        widget.View.Commands["ENDERECO"].Visible = False
+        widget.View.Commands["REGULARIZACAO"].Visible = False    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCOPIARITENSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCOPIARITENSExecute(command, entity):
+    from Benner.Tecnologia.Common import BennerVars
+    
+    BennerVars.UserVars["COPIARITENSSOLICITACAO"] = entity.Handle.Value.ToString();    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnADDITEMCATALOGOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnADDITEMCATALOGOExecute(command, entity):
+    from Benner.Tecnologia.Common import BennerVars
+    
+    BennerVars.UserVars["ADDITENSCATALOGOSOLICITACAO"] = entity.Handle.Value.ToString();    
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ADICIONARITENSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ADICIONARITENSExecute(command, entity):
+    from Benner.Tecnologia.Common import BennerVars
+    BennerVars.UserVars["ADDITENSCATALOGOSOLICITACAO"] = entity.Handle.Value.ToString();    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

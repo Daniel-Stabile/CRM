@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TS_LANCAMENTOS.TESOURARIA.GRID</ViewName>
+  <EntityName>TS_LANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if entity == None: return
+    
+    campoValor = row.GetCellByName("VALORLANCAMENTO")
+    if (str(entity["NATUREZALANCAMENTO"].GetDBValue()) == "D"):
+        campoValor.TextColor = "#E43A45"
+    else:
+        campoValor.TextColor = "#4C87B9"
+        
+    campoValor.Align = "right"
+    
+    historico = entity["HISTORICO"]
+    
+    if historico.GetDBValue() != None:
+        row.GetCellByName("HISTORICO").Text = "&lt;div class='btn btn-xs btn-circle blue'&gt;&lt;i class='fa fa-history'&gt;&lt;/i&gt;&lt;/div&gt;"
+        row.GetCellByName("HISTORICO").Tooltip = historico.GetString()
+        row.GetCellByName("HISTORICO").Align = "center"  
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.Erp.Web import AuthorizationHelper
+    from Benner.ERP.Comum import Utils
+
+    
+    #Se for Diretor, deve ter permissão para Manter e Visualizar, porém somente visualiza
+    if Utils.PapelAtual() == "DIRETOR_FINANCEIRO":
+        permissaoVisualizarDiretor = (AuthorizationHelper.HasTask("VISUALIZAR_TESOURARIA") and AuthorizationHelper.HasTask("MANTERMOVIMENTACOESTESOURARIA"))
+        if (permissaoVisualizarDiretor):
+            if (widget.View.Commands["CMD_TRANSFERENCIA"] != None):
+                widget.View.Commands["CMD_TRANSFERENCIA"].Visible = False
+            if (widget.View.Commands["CMD_BAIXARAPIDA"] != None):
+                widget.View.Commands["CMD_BAIXARAPIDA"].Visible = False
+	
+	permissaoModuloFinanceiro = (AuthorizationHelper.HasTask("MODULO_FINANCEIRO"))
+	if (permissaoModuloFinanceiro):
+            if (widget.View.Commands["CMD_TRANSFERENCIA"] != None):
+                widget.View.Commands["CMD_TRANSFERENCIA"].Visible = True
+            if (widget.View.Commands["CMD_BAIXARAPIDA"] != None):
+                widget.View.Commands["CMD_BAIXARAPIDA"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

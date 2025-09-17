@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>RESUMO_LANCAMENTOS_ADTO_CLI_FORN</Identifier>
+  <Name>Resumo</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE, A.NATUREZA, @CONCATENAR(@CONCATENAR(B.ESTRUTURA,' - '),  B.NOME) CONTA, C.NOME HISTORICO, A.COMPLEMENTO&#xD;&#xA;FROM CT_LANCAMENTOS A&#xD;&#xA;JOIN CT_CONTAS B ON (B.HANDLE = A.CONTA) JOIN CT_HISTORICOSPADROES C ON (C.HANDLE = A.HISTORICO)" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="NATUREZA" From="A" Path="NATUREZA" />
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="COMPLEMENTO" From="A" Path="COMPLEMENTO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

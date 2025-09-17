@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.TERCEIROS.GRID</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Tecnologia.Business import Query
+    from System.Web import HttpContext
+    from Benner.Corporativo.Definicoes.Genericos import GNPessoa
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.ERP.Comum import ErpEnvironment
+    
+    valor = ErpEnvironment.ObterSessionVar("FORN_TERC_VINCULADO")
+    if valor != None:
+        ErpEnvironment.AtribuirSessionVar("FORN_TERC_VINCULADO", "")
+        widget.MessagePanel.ShowMessage("Novo terceiro vinculado!", MessageType.Information)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

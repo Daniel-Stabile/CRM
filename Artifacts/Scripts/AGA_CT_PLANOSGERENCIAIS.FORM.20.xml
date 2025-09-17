@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CT_PLANOSGERENCIAIS.FORM</ViewName>
+  <EntityName>CT_PLANOSGERENCIAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARCONTASFINANCEIROExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARCONTASFINANCEIROExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "QuantidadePlanosFinanceirosDaEmpresa");
+    if (funcao.Vars["QUANTIDADE"] &gt; 1):
+        command.InputDefinition = CommandsUtility.InputFactory.Create("~/DefaultDataInput.aspx", "CORPORATIVO", "CT_SELECIONARPLANOASSOCIACAO.CUSTOM.FORM", "");
+    else:
+        command.TransitoryVars["PLANO"] = function.Call(entityDefinition, "PlanoFinanceiroDaEmpresa").Vars["HANDLE"];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARCONTASGERENCIAISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARCONTASGERENCIAISExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "ControlaPlanoGerencial", entity);
+    if (bool(funcao.Vars["PRECISAENTRADADEDADOS"])):
+        command.InputDefinition = CommandsUtility.InputFactory.Create("~/DefaultDataInput.aspx", "CORPORATIVO", "CT_SELECIONARPLANOASSOCIACAO.CUSTOM.FORM", funcao.Vars["WHEREENTRADADEDADOS"].ToString());
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ASSOCIARCONTASCONTABEISExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ASSOCIARCONTASCONTABEISExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "QuantidadePlanosContabeisDaEmpresa");
+    if (funcao.Vars["QUANTIDADE"] &gt; 1):
+        command.InputDefinition = CommandsUtility.InputFactory.Create("~/DefaultDataInput.aspx", "CORPORATIVO", "CT_SELECIONARPLANOCONTABIL.CUSTOM.FORM", "");
+    else:
+        command.TransitoryVars["PLANO"] = function.Call(entityDefinition, "PlanoContabilDaEmpresa").Vars["HANDLE"];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):  
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Wes.Components import CommandsUtility
+    if widget.Entity == None: return
+    entityDefinition = EntityDefinition.GetByName("CT_PLANOSGERENCIAIS");
+    funcao = function.Call(entityDefinition, "DefinirVisibilidadesComandosWeb", widget.Entity);
+    
+    if funcao.Vars == None: return
+    
+    for comando in funcao.Vars["COMANDOS"]:
+        widget.View.Commands["GRP_ASSOCIAR"].GetItem(comando.Key, widget.View.Commands).Visible = comando.Value 
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

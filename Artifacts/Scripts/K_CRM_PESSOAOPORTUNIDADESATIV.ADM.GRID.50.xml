@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESATIV.ADM.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESATIV</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    
+    if entity == None:return;
+    
+    ehResponsavel = entity.Fields["ITEM"].Instance.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle.Value
+    
+    if entity.Fields["ITEM"].Instance.Fields["PRODUTO"].Instance.Fields["ARQUITETOSOLUCAO"].Handle.IsValid():
+        ehArquitetoResponsavel = entity.Fields["ITEM"].Instance.Fields["PRODUTO"].Instance.Fields["ARQUITETOSOLUCAO"].Handle.Value
+    else:
+        ehArquitetoResponsavel = None
+    
+    status = int(entity.Fields["ITEM"].Instance.Fields["STATUS"].Value)
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible     = (status in [1,3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+    
+    #if row.DeleteCommand != None:
+    #    row.DeleteCommand.Visible   = status in [3]
+    
+    if status in [2]:
+        i = 0
+        while(row.Cells.Count &gt; i):
+            row.GetCellByIndex(i).TextColor = "#BFBFBF"
+            i += 1
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    ehAdmin = Thread.CurrentPrincipal.IsInRole("K_CRM_ADMIN")
+    
+    if ehAdmin:
+        widget.Hidden = False;
+    else:
+        widget.Hidden = True;
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    if widget == None:return;
+    
+    if widget.ProviderWidget == None:return;
+    
+    if widget.ProviderWidget.Entity == None:return;
+    
+    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    ehResponsavel = widget.ProviderWidget.Entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle
+    status = int(widget.ProviderWidget.Entity.Fields["STATUS"].Value)
+    
+    widget.View.Commands["New"].Visible = (status != 10 and usuario == ehResponsavel)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

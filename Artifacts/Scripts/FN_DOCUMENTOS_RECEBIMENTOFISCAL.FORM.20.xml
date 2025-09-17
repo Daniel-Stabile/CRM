@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS_RECEBIMENTOFISCAL.FORM</ViewName>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition
+    if widget.Entity == None: return
+
+    widget.View.Commands["CMD_LOG"].Enabled = widget.Entity.Log != None
+    widget.View.Commands["OPERACOESFISCAIS"].Visible = widget.Entity.PermitirLancamentoComplementoOperacoesFiscais()
+    widget.View.Commands["CMD_EDITAR"].Visible = widget.View.Commands["Confirmar"].Visible
+    widget.View.Commands["CMD_SELECIONARCONTA"].Visible = widget.View.Commands["Confirmar"].Visible
+
+    
+    registro = widget.Entity
+    botaoObservacoesLancFiscaisVisible = registro.BotaoObservacaoLancamentosFiscaisVisible()
+    if (not botaoObservacoesLancFiscaisVisible):
+       widget.View.Commands["GRP_COMANDOS"].Items["CMD_LANCAMENTOOBSFISCAIS"].Visible = False
+    
+    botaoObservacoesVisible = registro.BotaoObservacoesVisible()
+    if(not botaoObservacoesVisible):
+        widget.View.Commands["GRP_COMANDOS"].Items["CMD_OBSERVACOES"].Visible = False
+        
+    botaoSpedGasEnergiaVisible = registro.BotaoSpedGasEnergiaVisible()
+    if (not botaoSpedGasEnergiaVisible):
+        if widget.View.Commands["GRP_SPED"].Items["CMD_GASENERGIAAGUA"] != None:
+            widget.View.Commands["GRP_SPED"].Items["CMD_GASENERGIAAGUA"].Visible = False
+            
+    botaoSpedComunicacaoTelecomunicacaoVisible = registro.BotaoSpedComunicacaoVisible()
+    if (not botaoSpedComunicacaoTelecomunicacaoVisible):
+        if widget.View.Commands["GRP_SPED"].Items["CMD_COMUNICACAOTELECOMUNICACAO"] != None:
+            widget.View.Commands["GRP_SPED"].Items["CMD_COMUNICACAOTELECOMUNICACAO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EDITARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EDITARExecute(command, entity):
+    if entity == None: return
+
+    entity.TransitoryData["HANDLEDOC"] = entity.Handle
+    #command.TransitoryData["HANDLEDOC"] = entity.Handle
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

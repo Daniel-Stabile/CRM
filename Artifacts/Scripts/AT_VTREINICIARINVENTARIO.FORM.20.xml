@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_VTREINICIARINVENTARIO.FORM</ViewName>
+  <EntityName>AT_VTREINICIARINVENTARIO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    if ((entity.Filiais.Count == 0) and (entity.Contas.Count == 0) and (entity.CentrosCusto.Count == 0) and (entity.Localizacoes.Count == 0) and (entity.Especies.Count == 0)):
+        command.RequestConfirmationBeforeExecute("Tem certeza que deseja reiniciar o inventário para todos os bens da empresa?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["Save"].Visible = AuthorizationHelper.HasTask("MANTER_REINICIARINVENTARIO")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

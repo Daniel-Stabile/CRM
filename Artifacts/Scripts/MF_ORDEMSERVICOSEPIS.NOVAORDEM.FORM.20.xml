@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ORDEMSERVICOSEPIS.NOVAORDEM.FORM</ViewName>
+  <EntityName>MF_ORDEMSERVICOSEPIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    clr.AddReference("Benner.Corporativo.Frotas.Definicoes")
+    from Benner.Corporativo.Frotas.Definicoes.Entidades import MFOrdemServicosEpis
+    
+    entity = widget.Entity;
+    
+    if MFOrdemServicosEpis.PermiteDeletar(entity.Handle):
+        widget.View.Commands["Delete"].Visible = False
+    
+    if entity != None:
+        widget.View.Commands["New"].Visible = False
+        if entity.Fields["STATUS"].Value != 1:
+            widget.View.Commands["Edit"].Visible = False
+            widget.View.Commands["Delete"].Visible = False
+    
+    if entity.Fields["STATUS"].Value == 1:
+        widget.View.Commands["CMD_IMPRIMIR"].Visible = False
+    
+    elif entity.Fields["STATUS"].Value == 2:
+        widget.View.Commands["CMD_APROVAR"].Visible = False
+        widget.View.Commands["CMD_CANCELAR"].Visible = False
+    else:
+        widget.View.Commands["CMD_APROVAR"].Visible = False
+        widget.View.Commands["CMD_CANCELAR"].Visible = False
+        widget.View.Commands["CMD_IMPRIMIR"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja realmente cancelar a Ordem de EPI?");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

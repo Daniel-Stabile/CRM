@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_SUSPENSAOEXIGIBILIDADE.GRID</ViewName>
+  <EntityName>REINF_SUSPENSAOEXIGIBILIDADE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+	from Benner.Tecnologia.Common import Entity
+	
+	form = row.Grid.ProviderWidget	
+	if form == None: return
+	
+	registro = form.Entity
+	if registro == None: return
+	
+	if int(registro.Fields["INFOOPERACAO"].Value) == 3:
+	    if row.EditCommand != None: row.EditCommand.Visible = False
+	    if row.DeleteCommand != None: row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    form = widget.ProviderWidget
+    entity = form.Entity
+    if entity == None: return
+    
+    if int(entity.Fields["INFOOPERACAO"].Value) == 3:
+        widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

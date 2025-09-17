@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_IMPORTAREXTRATO.GRID</ViewName>
+  <EntityName>FN_CONCBANCIMPORTAREXTRATO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    status = entity["STATUS"].GetInt32()
+    
+    podeEditar = False
+    habilitado = False
+    fontIcon = "fa fa-circle"
+    textColor = "#CCCCCC"
+    toolTip = "Cadastrado"
+    
+    if (status == 1):
+        habilitado = False
+        podeEditar = False
+        fontIcon = "fa fa-clock-o"
+        textColor = "#C49F47"
+        toolTip = "Pendente"
+    elif (status == 2):        
+        habilitado = False
+        podeEditar = False
+        fontIcon = "fa fa-play-circle"
+        textColor = "#3598DC"
+        toolTip = "Processando"
+    elif (status == 3):
+        habilitado = True
+        podeEditar = True
+        fontIcon = "fa fa-times-circle"
+        textColor = "#D91E18"
+        toolTip = "Finalizado com erro"
+    elif (status == 4):
+        habilitado = False
+        podeEditar = False
+        fontIcon = "fa fa-check-square"
+        textColor = "#26C281"
+        toolTip = "Processado"
+    elif (status == 5):
+        habilitado = False
+        podeEditar = True
+        fontIcon = "fa fa-circle"
+        textColor = "#CCCCCC"
+        toolTip = "Cadastrado"
+    
+    row.GetCellByName("STATUS").Text = ""
+    if(row.GetCustomCommand("CMD_PROCESSAR") &lt;&gt; None):
+        row.GetCustomCommand("CMD_PROCESSAR").Enabled = habilitado;
+    if(row.DeleteCommand &lt;&gt; None):
+        row.DeleteCommand.Visible = podeEditar;
+    if(row.EditCommand &lt;&gt; None):
+        row.EditCommand.Visible = podeEditar;
+    row.GetCellByName("STATUS").FontIcon = fontIcon
+    row.GetCellByName("STATUS").TextColor = textColor
+    row.GetCellByName("STATUS").Tooltip = toolTip
+    row.GetCellByName("STATUS").Align = "center"  
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

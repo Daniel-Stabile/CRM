@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASUNIDADES.GRID</ViewName>
+  <EntityName>K_CRM_METASUNIDADES</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+#    clr.AddReference("Benner.Tecnologia.Wes.Components")
+#    from Benner.Tecnologia.Wes.Components import MessageType
+#    from Benner.Tecnologia.Common import EntityBase
+#    from Benner.Tecnologia.Common import Entities
+#    from Benner.Tecnologia.Common import EntityDefinition
+#    from Benner.Tecnologia.Common import EntityState
+#    from Benner.Tecnologia.Common import Entity
+#    from Benner.Tecnologia.Common import Criteria
+#    from Benner.Tecnologia.Common import Parameter
+#    from Benner.Tecnologia.Common import GetMode
+#    from Benner.Tecnologia.Common import QuerySource
+#    from Benner.Tecnologia.Common import EntityAssociation
+#    from Benner.Tecnologia.Common import BennerContext
+#    from System import DateTime
+#    from System.Threading import Thread
+#    
+#    log = "";
+#    MetaReal = "";
+#    MetaAcumulada = "";
+#    
+#    valorReal = 0.00;
+#    valorAcumulado = 0.00;
+#    calculoFinal = 0.00;
+#    
+#    ent_pai = widget.ProviderWidget.Entity;
+#    ent_filho = widget.Entity;
+#    
+#    if ent_pai != None:
+#        MetaReal = ent_pai.Fields["VALORMETA"].ToString();
+#        criterio = Criteria();
+#        sql = "SELECT SUM(VALORMETA) SOMA FROM K_CRM_METASUNIDADES WHERE META=:META"
+#        criterio.Parameters.Add(Parameter("META", ent_pai.Fields["HANDLE"].ToString()))
+#        ed = EntityDefinition.Create()
+#        ed.EntitySource = QuerySource(sql)
+#        resultado = Entity.GetFirstOrDefault(ed, criterio)
+#        soma = resultado.Fields["SOMA"];
+#        MetaAcumulada = soma.ToString();
+#        
+#        #Se ainda houver meta a distribuir, mostra na tela
+#        if MetaReal != MetaAcumulada:
+#            if MetaReal.find(",") != -1:
+#                valorReal = float(MetaReal.replace(",","."));
+#            else:
+#                valorReal = float(MetaReal);
+#            if MetaAcumulada.find(",") != -1:
+#                valorAcumulado = float(MetaAcumulada.replace(",","."));
+#            else:
+#                valorAcumulado = float(MetaAcumulada);
+#                
+#            calculoFinal = valorReal - valorAcumulado;
+#            log+="Saldo Pendente: R$" + float("{:.2f}".format(calculoFinal)).ToString();
+#    
+#    #Se foram encontradas pendencias nas metas, será informado na tela
+#    if log != "":
+#        widget.MessagePanel.ShowMessage(log, MessageType.Information);
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    sql = "SELECT CASE WHEN (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASUNIDADESVERTICAL A JOIN K_CRM_METASUNIDADES B ON B.HANDLE = A.METAUNIDADE WHERE B.HANDLE = :METAUNIDADE GROUP BY B.VALORMETA) IS NULL THEN (SELECT FORMAT((VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUNIDADES WHERE HANDLE = :METAUNIDADE) ELSE (SELECT FORMAT((B.VALORMETA - SUM(A.VALORMETA)),'C', 'pt-BR') SALDO FROM K_CRM_METASUNIDADESVERTICAL A JOIN K_CRM_METASUNIDADES B ON B.HANDLE = A.METAUNIDADE WHERE B.HANDLE = :METAUNIDADE GROUP BY B.VALORMETA) END SALDO";
+    crit = Criteria()
+    crit.Parameters.Add(Parameter("METAUNIDADE", entity.Handle))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    saldo = Entity.GetFirstOrDefault(ed, crit)
+    
+    if saldo == None:
+        row.GetCellByName("SALDOPRODUTOS").Text = "R$ 0,00";
+    elif saldo.Fields["SALDO"] != None:
+        row.GetCellByName("SALDOPRODUTOS").Text =saldo.Fields["SALDO"].ToString()
+        
+    sql2 = "SELECT FORMAT(SUM(A.VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOSVERTICAL A JOIN K_CRM_METASUSUARIOS B ON B.HANDLE = A.METAUSUARIO JOIN K_CRM_METASUNIDADES C ON C.HANDLE = B.METAUNIDADE WHERE C.HANDLE = :METAUNIDADE";
+    crit2 = Criteria()
+    crit2.Parameters.Add(Parameter("METAUNIDADE", entity.Handle))
+    ed2 = EntityDefinition.Create()
+    ed2.EntitySource = QuerySource(sql2)
+    saldo2 = Entity.GetFirstOrDefault(ed2, crit2)
+    
+    if saldo2 == None:
+        row.GetCellByName("METAEXECUTIVOPRODUTOACUM").Text = "R$ 0,00";
+    elif saldo2.Fields["SALDO"] != None:
+        row.GetCellByName("METAEXECUTIVOPRODUTOACUM").Text = saldo2.Fields["SALDO"].ToString()
+        
+    sql3 = "SELECT CASE WHEN (SELECT FORMAT(C.VALORMETA - SUM(A.VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOSVERTICAL A JOIN K_CRM_METASUSUARIOS B ON B.HANDLE = A.METAUSUARIO JOIN K_CRM_METASUNIDADES C ON C.HANDLE = B.METAUNIDADE WHERE C.HANDLE = :METAUNIDADE GROUP BY C.VALORMETA) IS NULL THEN (SELECT FORMAT(VALORMETA,'C', 'pt-BR') FROM K_CRM_METASUNIDADES WHERE HANDLE = :METAUNIDADE) ELSE (SELECT FORMAT(C.VALORMETA - SUM(A.VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOSVERTICAL A JOIN K_CRM_METASUSUARIOS B ON B.HANDLE = A.METAUSUARIO JOIN K_CRM_METASUNIDADES C ON C.HANDLE = B.METAUNIDADE WHERE C.HANDLE = :METAUNIDADE GROUP BY C.VALORMETA) END SALDO";
+    crit3 = Criteria()
+    crit3.Parameters.Add(Parameter("METAUNIDADE", entity.Handle))
+    ed3 = EntityDefinition.Create()
+    ed3.EntitySource = QuerySource(sql3)
+    saldo3 = Entity.GetFirstOrDefault(ed3, crit3)
+    
+    if saldo3 == None:
+        row.GetCellByName("SALDOEXECUTIVOPRODUTOACUM").Text = "R$ 0,00";
+    elif saldo3.Fields["SALDO"] != None:
+        row.GetCellByName("SALDOEXECUTIVOPRODUTOACUM").Text = saldo3.Fields["SALDO"].ToString()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

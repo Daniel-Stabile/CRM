@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_FAMILIASPRODUTOS.GRID</ViewName>
+  <EntityName>PD_FAMILIASPRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARCLIENTESExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+def OnCMD_GERARCLIENTESExecute(command, entity):
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial.")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARFORNECEDORESExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+def OnCMD_GERARFORNECEDORESExecute(command, entity):
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial.")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

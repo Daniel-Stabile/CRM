@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_WFMODELOINSTANCIAS.INBOX.FORM</ViewName>
+  <EntityName>Z_WFMODELOINSTANCIAS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(form):
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = form.Entity
+    if registro == None: return
+    form.View.Commands["FLUXO_SUPERIOR"].Visible = (registro.Fields["SUPERIOR"].Handle.IsValid())</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

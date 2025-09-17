@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TS_EXTRATOBANCARIO.DIGITAREXTRATO.FORM</ViewName>
+  <EntityName>TS_EXTRATOBANCARIO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.Entity == None: return
+    widget.View.Commands["Edit"].Visible = not widget.Entity["CONCILIADO"].GetBoolean()
+    widget.View.Commands["Delete"].Visible = widget.Entity["CONCILIACAO"].GetInt64() &lt;= 0
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

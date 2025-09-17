@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_RUBRICALANCAMENTOS.COMSECOES.FORM</ViewName>
+  <EntityName>TR_RUBRICALANCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+	registro = widget.Entity
+	if registro == None: return
+	
+	widget.View.Commands["CMD_CONTABILIZACAO"].Visible = registro.HabilitarCMD_CONTABILIZACAO()
+	widget.View.Commands["GRP_SPED"].Items["CMD_INFORMACOESADICIONAIS"].Visible = registro.HabilitarCMD_INFORMACOESADICIONAIS()
+	widget.View.Commands["GRP_SPED"].Items["CMD_DETALHAMENTORUBRICA"].Visible = registro.HabilitarCMD_DETALHAMENTORUBRICA()
+	widget.View.Commands["REMETENTE"].Visible = registro.HabilitarREMETENTE()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnOPERACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnOPERACAOValueChanged(view, entity):
+    registro = entity
+    if registro == None: return
+
+    view.Commands["CMD_CONTABILIZACAO"].Visible = registro.HabilitarCMD_CONTABILIZACAO()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnIMPOSTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnIMPOSTOValueChanged(view, entity):
+	registro = entity
+	if registro == None: return
+    
+	view.Commands["GRP_SPED"].Items["CMD_INFORMACOESADICIONAIS"].Visible = registro.HabilitarCMD_INFORMACOESADICIONAIS()
+	view.Commands["GRP_SPED"].Items["CMD_DETALHAMENTORUBRICA"].Visible = registro.HabilitarCMD_DETALHAMENTORUBRICA()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

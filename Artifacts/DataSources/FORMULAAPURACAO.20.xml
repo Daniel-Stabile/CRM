@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>FORMULAAPURACAO</Identifier>
+  <Name>Fórmula Apuração</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT TR.HANDLE,&#xD;&#xA;       TR.Z_GRUPO,&#xD;&#xA;       TR.NOME,&#xD;&#xA;       TR.TABELA,&#xD;&#xA;       TR.CAMPO,&#xD;&#xA;       T.NOME NOMETABELA,&#xD;&#xA;       C.NOME NOMECAMPO&#xD;&#xA;  FROM TR_FILTROS TR,&#xD;&#xA;       Z_TABELAS T,&#xD;&#xA;       Z_CAMPOS C&#xD;&#xA; WHERE TR.TABELA = T.HANDLE&#xD;&#xA;   AND TR.CAMPO = C.HANDLE&#xD;&#xA; ORDER BY TR.NOME" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="Z_GRUPO" From="A" Path="Z_GRUPO" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="TABELA" From="A" Path="TABELA" />
+    <Field Alias="CAMPO" From="A" Path="CAMPO" />
+    <Field Alias="NOMETABELA" From="A" Path="NOMETABELA" />
+    <Field Alias="NOMECAMPO" From="A" Path="NOMECAMPO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

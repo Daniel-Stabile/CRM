@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_RATEIO_SOLICITACAO.FORM</ViewName>
+  <EntityName>CP_SOLICITACAOITEMCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPERCENTUALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERCENTUALValueChanged(view, entity):
+    entity.PercentualOnChange()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    widget.Entity.BuscarValorTotal()
+    widget.Entity.PercentualOnChange()
+    
+    if widget.Entity.ExigirProjeto() :
+        widget.View.FieldDefinitions["PROJETO"].Required = True
+    else :       
+        widget.View.FieldDefinitions["PROJETO"].Required = False    
+
+    if widget.Entity["CENTROCUSTO"].GetInt32() &gt; 0 and widget.Entity.HabilitarProjeto() :
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :       
+        widget.View.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read   
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    entity.PercentualOnChange()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCENTROCUSTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCENTROCUSTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+
+    if entity["CENTROCUSTO"].GetInt32() &gt; 0 and entity.HabilitarProjeto():
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else :       
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read   
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveNewExecute(command, entity):
+    entity.PercentualOnChange()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

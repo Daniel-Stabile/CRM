@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_HABILITACAO_DOCUMENTOS.GRID</ViewName>
+  <EntityName>GN_PESSOADOCHABILITREGISTROS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    editavel = (bool) (entity.Fields["STATUS"].Value in [1, 4]);
+    row.EditCommand.Enabled = editavel;
+    row.DeleteCommand.Enabled = editavel;
+    row.GetCustomCommand("CustomEnviarAprovacao").Enabled = editavel;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

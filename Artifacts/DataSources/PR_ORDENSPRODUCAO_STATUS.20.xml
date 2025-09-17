@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>PR_ORDENSPRODUCAO_STATUS</Identifier>
+  <Name>Ordens Produção Status</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(*) AS QUANTIDADE ,STATUS FROM PR_ORDENSPRODUCAO A&#xD;&#xA;WHERE (A.EMPRESA = @EMPRESA ) AND (A.FILIAL = @FILIAL)&#xD;&#xA;GROUP BY A.STATUS" />
+  <Fields>
+    <Field Alias="QUANTIDADE" From="A" Path="QUANTIDADE" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

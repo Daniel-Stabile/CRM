@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_PRERECEBIMENTONFES.PRECADASTROCTE.GRID</ViewName>
+  <EntityName>CP_PRERECEBIMENTONFES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None:
+        return
+    if entity["STATUS"].GetInt32() == 1:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-caret-square-o-down";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#005ce6"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Recebida"
+    if entity["STATUS"].GetInt32() == 2:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-check-square";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#39e600"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Validada(XML)"
+    if entity["STATUS"].GetInt32() == 3:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-file";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#39e600"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Autorizada(XML)"
+    if entity["STATUS"].GetInt32() == 4:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-play";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#39e600"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Disponivel"
+    if entity["STATUS"].GetInt32() == 5:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-times-circle";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#ff3300"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Cancelado"
+    if entity["STATUS"].GetInt32() == 6:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-refresh";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#39e600"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Gerado"
+    if entity["STATUS"].GetInt32() == 7:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-gears";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#ff9900"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Erro processamento"
+    if entity["STATUS"].GetInt32() == 8:
+        row.GetCellByName("CUSTOM_STATUS").FontIcon = "fa fa-times-circle";
+        row.GetCellByName("CUSTOM_STATUS").TextColor = "#ff3300"
+        row.GetCellByName("CUSTOM_STATUS").Text = ""
+        row.GetCellByName("CUSTOM_STATUS").Tooltip = "Gerado cancelamento"
+    RemovePrefixoMoedas("TOTALNOTA", entity, row)
+
+def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+    if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

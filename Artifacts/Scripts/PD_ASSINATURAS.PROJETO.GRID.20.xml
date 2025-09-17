@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ASSINATURAS.PROJETO.GRID</ViewName>
+  <EntityName>PD_ASSINATURAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+ 
+    entidade = widget.ProviderWidget
+    if entidade == None: return
+    registro = entidade.Entity
+    
+    widget.Hidden = not(registro.Fields["GRUPOASSINATURAS"].Handle.IsValid())
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

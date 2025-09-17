@@ -1,0 +1,145 @@
+
+@using Benner.Tecnologia.Common;
+@using Benner.Tecnologia.Business;
+@using System.Runtime;
+@{
+
+    string guid = Guid.NewGuid().ToString();
+
+    @* int AcoesProjetos = @Model["ACOESPROJETOS"].GetInt32(); *@
+    int Periodo = @Model["HANDLE"].GetInt32();
+
+    var LOA = new Query("SELECT B.NOME,B.HANDLE FROM CT_VERSOESORCAMENTOS B WHERE B.HANDLE IN (SELECT C.VERSAO FROM OP_CLASSIFICACAOORCAMENTARIA C WHERE C.PERIODO = :HANDLE ) AND B.TIPO = 'O' AND ( B.ESTADO = 'X' OR ( B.ESTADO = 'H' AND B.ESTADOANTERIOR = 'X' ))",
+    new Parameter("HANDLE",Periodo)).ExecuteFirstOrDefault();
+
+    int LoaHandle = LOA != null ? LOA["HANDLE"].GetInt32() : 0;
+    string LoaNome = LOA != null ? LOA["NOME"].GetString() : "";
+
+}
+
+@functions {
+
+    string getBgColor(decimal Valor)
+    {
+        if (Valor >= 0)
+            return "#A9D8E877";
+        else
+            return "#F8CECC77";
+    }
+
+}
+
+<div class="controleexecucao">
+
+    @if (LOA != null)
+    {
+
+        <h4>Versao Or&ccedil;ament&aacute;ria Em Execu&ccedil;ao:</h4>
+        <div style="display: flex; align-items: center;justify-content:space-between; gap:4px;margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;gap:4px;margin-bottom: 10px;">
+                <div title="Vers&atilde;o Oficial"
+                    style="width: 20px;margin-right: 5px; height:20px; display: flex;align-items:center;justify-content:center; background-color: #00ddaa; color: #ffffff; border-radius: 5px !important;">
+                    <i class="fa fa-play" style="font-size:10px;"></i>
+                </div>
+                <h4>
+                    <b>
+                            @LoaNome
+                    </b>
+                </h4>
+            </div>
+            <div id="controleexecucao-loading" class="loading" style="display: none">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+                <p>Carregando...</p>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="empty" id="contentDetalhes-@guid" onclick="window.loadControleExecucao(@LoaHandle, @Periodo,'#content')">
+                <div style="display: flex; flex-direction: column; justify-content: center;align-items:center">
+                    <h4>Carregar</h4>
+                    <p>Clique para carregar os valores</p>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div id="content">
+            <div class="empty">
+                <div style="display: flex; flex-direction: column; justify-content: center;align-items:center">
+                    <p style="font-size: 16px">Este per&iacute;odo n&atilde;o possu&iacute; nenhuma LOA em execu&ccedil;&atilde;o</p>
+                </div>
+            </div>
+        </div>
+    } 
+
+
+</div>
+
+
+<style>
+    .controleexecucao .loading {
+        display: flex;
+        padding: 2px 8px;
+        border: 1px solid #22aaff;
+        border-radius: 6px !important;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .controleexecucao .loading p {
+        color: #22aaff;
+        margin: 0px;
+    }
+
+    #content .empty {
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        border: 1px solid #cccccc;
+        background-color: #eeeeee;
+        width: 100%;
+        height: 200px;
+        border-radius: 8px !important;
+    }
+
+    #content .empty:hover {
+        background-color: #dddddd;
+    }
+
+    #content .empty button {
+        border: none;
+        color: #333333;
+        font-weight: 600;
+    }
+
+    .form-column {
+        flex: 1;
+        padding: 8px;
+    }
+
+    .form-card {
+        padding: 12px;
+        border-radius: 6px !important;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #dddddd;
+    }
+
+    .form-card-empty {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ffffff;
+    }
+
+    .form-card .header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+</style>
+

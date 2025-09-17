@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_RECEBIMENTOFISICOLOTE.LOTES.FORM</ViewName>
+  <EntityName>CP_RECEBIMENTOFISICOLOTE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.Entity.Handle.IsInvalid()): return
+
+    statusCadastrado = 1
+    statusDivergente = 2
+    statusLiberado = 5
+
+    statusPai = widget.Entity.Status()
+    
+    podeAlterar = (statusPai == statusCadastrado or statusPai == statusDivergente or statusPai == statusLiberado)
+    
+    widget.View.Commands["EDIT"].Visible = podeAlterar
+    widget.View.Commands["DELETE"].Visible = podeAlterar
+    widget.View.Commands["NEW"].Visible = podeAlterar
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

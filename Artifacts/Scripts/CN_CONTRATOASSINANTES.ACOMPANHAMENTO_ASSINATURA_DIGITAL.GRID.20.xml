@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOASSINANTES.ACOMPANHAMENTO_ASSINATURA_DIGITAL.GRID</ViewName>
+  <EntityName>CN_CONTRATOASSINANTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    cor = "warning" if entity.StatusAssinaturaDigital.Index == 1 else "success"
+    row.GetCellByName("STATUSASSINATURADIGITAL").Text = "&lt;span class='label label label-"+ cor + "'&gt; "+ row.GetCellByName("STATUSASSINATURADIGITAL").Text +" &lt;/span&gt;"</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

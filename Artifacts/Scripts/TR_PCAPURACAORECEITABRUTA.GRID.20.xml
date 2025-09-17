@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAORECEITABRUTA.GRID</ViewName>
+  <EntityName>TR_PCAPURACAORECEITABRUTA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    #Zerando valores
+    #row.GetCellByName("RECEITANCTRIBMERCADOINTERNO").Text = "0,00";
+    #row.GetCellByName("RECEITANCNAOTRIBMERCADOINTERNO").Text = "0,00";
+    #row.GetCellByName("RECEITANCEXPORTACAO").Text = "0,00";
+    #row.GetCellByName("RECEITACUMULATIVA").Text = "0,00";
+    #row.GetCellByName("SQL_RECEITATOTAL").Text = "0,00";
+
+    #if entity.Fields["RECEITANCTRIBMERCADOINTERNO"] != None: row.GetCellByName("RECEITANCTRIBMERCADOINTERNO").Text = str(str(str("{:,.2f}".format(entity.Fields["RECEITANCTRIBMERCADOINTERNO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["RECEITANCNAOTRIBMERCADOINTERNO"] != None: row.GetCellByName("RECEITANCNAOTRIBMERCADOINTERNO").Text = str(str(str("{:,.2f}".format(entity.Fields["RECEITANCNAOTRIBMERCADOINTERNO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["RECEITANCEXPORTACAO"] != None: row.GetCellByName("RECEITANCEXPORTACAO").Text = str(str(str("{:,.2f}".format(entity.Fields["RECEITANCEXPORTACAO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    #if entity.Fields["RECEITACUMULATIVA"] != None: row.GetCellByName("RECEITACUMULATIVA").Text = str(str(str("{:,.2f}".format(entity.Fields["RECEITACUMULATIVA"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["SQL_RECEITATOTAL"] != None: row.GetCellByName("SQL_RECEITATOTAL").Text = str(str(str("{:,.2f}".format(entity.Fields["SQL_RECEITATOTAL"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

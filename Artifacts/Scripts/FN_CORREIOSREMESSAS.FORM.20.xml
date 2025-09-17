@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_CORREIOSREMESSAS.FORM</ViewName>
+  <EntityName>FN_CORREIOSREMESSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    Entity = widget.Entity
+    
+    widget.View.Commands["CMD_BAIXARARQUIVO"].Visible = not(Entity == None or Entity["ARQUIVO"].IsNull)
+    widget.View.Commands["Edit"].Visible = (Entity["STATUS"].GetInt32() == 1)
+    widget.View.Commands["Delete"].Visible = (Entity["STATUS"].GetInt32() == 1)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

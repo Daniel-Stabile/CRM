@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>FN_DOCUMENTOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Contas a pagar</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DOCUMENTODIGITADO">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2">
+    <Value xsi:type="xsd:string">((A.ENTRADASAIDA = 'E' OR A.ENTRADASAIDA = 'I')    AND (A.TIPODEMOVIMENTO IN (1,2)) OR ((A.ENTRADASAIDA = 'S' OR A.ENTRADASAIDA = 'O') AND (A.TIPODEMOVIMENTO = 3)))    AND  (A.ABRANGENCIA &lt;&gt; 'R' AND A.ABRANGENCIA &lt;&gt; 'F' AND A.ABRANGENCIA &lt;&gt; 'A' AND A.ABRANGENCIA &lt;&gt; 'B' AND A.ABRANGENCIA &lt;&gt; 'D'           AND A.ABRANGENCIA &lt;&gt; 'G' AND A.ABRANGENCIA &lt;&gt; 'H') AND ((A.EFETUANDOINTEGRACAO &lt;&gt; 'S') OR (A.EFETUANDOINTEGRACAO IS NULL))</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>1=1 AND ((A.ENTRADASAIDA = 'E' OR A.ENTRADASAIDA = 'I')    AND (A.TIPODEMOVIMENTO IN (1,2)) OR ((A.ENTRADASAIDA = 'S' OR A.ENTRADASAIDA = 'O') AND (A.TIPODEMOVIMENTO = 3)))    AND  (A.ABRANGENCIA &lt;&gt; 'R' AND A.ABRANGENCIA &lt;&gt; 'F' AND A.ABRANGENCIA &lt;&gt; 'A' AND A.ABRANGENCIA &lt;&gt; 'B' AND A.ABRANGENCIA &lt;&gt; 'D'           AND A.ABRANGENCIA &lt;&gt; 'G' AND A.ABRANGENCIA &lt;&gt; 'H') AND ((A.EFETUANDOINTEGRACAO &lt;&gt; 'S') OR (A.EFETUANDOINTEGRACAO IS NULL))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Contas a receber</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DOCUMENTODIGITADO">
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2">
+    <Value xsi:type="xsd:string">(((A.ENTRADASAIDA = 'S' OR A.ENTRADASAIDA = 'O')      AND (A.TIPODEMOVIMENTO IN (1,2))) OR ((A.ENTRADASAIDA = 'E' OR A.ENTRADASAIDA = 'I')    AND (A.TIPODEMOVIMENTO = 3)))  AND (A.ABRANGENCIA &lt;&gt; 'R' AND A.ABRANGENCIA &lt;&gt; 'F' AND A.ABRANGENCIA &lt;&gt; 'A' AND A.ABRANGENCIA &lt;&gt; 'B' AND A.ABRANGENCIA &lt;&gt; 'D'         AND A.ABRANGENCIA &lt;&gt; 'G' AND A.ABRANGENCIA &lt;&gt; 'H')           AND ((A.EFETUANDOINTEGRACAO &lt;&gt; 'S') OR (A.EFETUANDOINTEGRACAO IS NULL))</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>1=1 AND (((A.ENTRADASAIDA = 'S' OR A.ENTRADASAIDA = 'O')      AND (A.TIPODEMOVIMENTO IN (1,2))) OR ((A.ENTRADASAIDA = 'E' OR A.ENTRADASAIDA = 'I')    AND (A.TIPODEMOVIMENTO = 3)))  AND (A.ABRANGENCIA &lt;&gt; 'R' AND A.ABRANGENCIA &lt;&gt; 'F' AND A.ABRANGENCIA &lt;&gt; 'A' AND A.ABRANGENCIA &lt;&gt; 'B' AND A.ABRANGENCIA &lt;&gt; 'D'         AND A.ABRANGENCIA &lt;&gt; 'G' AND A.ABRANGENCIA &lt;&gt; 'H')           AND ((A.EFETUANDOINTEGRACAO &lt;&gt; 'S') OR (A.EFETUANDOINTEGRACAO IS NULL))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Itens devolução</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1 E 2</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DOCUMENTODIGITADO">
+    <TableName>FN_DOCUMENTOS</TableName>
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>contém</Name>
+      <DatabaseOperator>LIKE</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+      <ValueSubstitutionPattern>%{0}%</ValueSubstitutionPattern>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+  <FilterCondition Index="2" FieldName="DATAEMISSAO">
+    <TableName>FN_DOCUMENTOS</TableName>
+    <FieldDefinitionName>DateTimeFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>entre</Name>
+      <DatabaseOperator>BETWEEN</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+    <FilterItemPortable>
+      <Name>Por documento</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>true</ShowEmptyResults>
+      <ShowSimpleSearch>true</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="DOCUMENTODIGITADO">
+    <TableName xsi:nil="true" />
+    <FieldDefinitionName>StringFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="xsd:string"></Value>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+    <ParameterCollection />
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

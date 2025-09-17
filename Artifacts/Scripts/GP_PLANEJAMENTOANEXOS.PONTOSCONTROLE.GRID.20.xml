@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PLANEJAMENTOANEXOS.PONTOSCONTROLE.GRID</ViewName>
+  <EntityName>GP_PLANEJAMENTOANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+
+    pai = widget.ProviderWidget.Entity
+    if pai == None : return
+
+    objetivo = pai.Fields["INDICADOR"].Instance.Fields["OBJETIVO"].Handle
+
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(objetivo)
+    
+    widget.View.Commands["New"].Visible = cicloEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+
+    objetivo = entity.Fields["INDICADORPONTOCONTROLE"].Instance.Fields["INDICADOR"].Instance.Fields["OBJETIVO"].Handle
+    
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(objetivo)
+
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = cicloEmElaboracao
+    if row.EditCommand != None:
+        row.EditCommand.Visible = cicloEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

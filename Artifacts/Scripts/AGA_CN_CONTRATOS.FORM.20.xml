@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOS.FORM</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity
+    if registro == None: return
+    status = int(registro.Fields["STATUS"].Value)
+    liberado = registro.Fields["LIBERADO"]
+    statusSuspenso = 5
+    if status == statusSuspenso:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_SUSPENDER"].Title = "Reativar"
+    else:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_SUSPENDER"].Title = "Suspender"
+    statusEmElaboracao = 1    
+    if (((status == statusEmElaboracao) and liberado) or (status &gt; statusEmElaboracao)):
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+    else:
+        widget.View.Commands["CMD_ADITIVOS"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_COPIARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_COPIARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirmar a cópia do contrato?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

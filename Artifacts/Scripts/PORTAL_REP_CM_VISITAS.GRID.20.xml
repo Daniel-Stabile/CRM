@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_CM_VISITAS.GRID</ViewName>
+  <EntityName>CM_VISITA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    ehCadastrada = 1
+    ehPendente = 2
+    ehEncerrada = 3
+    
+    if widget.Entity == None: return
+
+    registro = widget.Entity
+    if registro == None: return
+	
+    status = (registro.Fields["STATUS"].Value)
+    
+    widget.View.Commands["Delete"].Visible = True
+    widget.View.Commands["Liberar"].Visible = False
+    widget.View.Commands["Encerrar"].Visible = False
+    widget.View.Commands["Pendente"].Visible = False
+    
+    if (status == ehCadastrada):
+        if widget.View.Commands["Liberar"] != None:
+            widget.View.Commands["Liberar"].Visible = True
+    if (status == ehPendente):
+        if widget.View.Commands["Encerrar"] != None:
+            widget.View.Commands["Encerrar"].Visible = True
+    if (status == ehEncerrada):
+        if widget.View.Commands["Pendente"] != None:
+            widget.View.Commands["Pendente"].Visible = True
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    ehCadastrada = 1;
+    ehPendente = 2;
+    ehEncerrada = 3;
+    corCadastrada = "#4C87B9";
+    corPendente = "#F7CA18";
+    corEncerrada = "#26C281";
+    
+    row.GetCellByName("STATUS").TextColor = "#FFFFFF";
+    status = entity["STATUS"].GetInt32();
+    if (status == ehCadastrada):
+        row.GetCellByName("STATUS").BackgroundColor = corCadastrada;
+    elif (status == ehPendente):
+        row.GetCellByName("STATUS").BackgroundColor = corPendente;
+    elif (status == ehEncerrada):
+        row.GetCellByName("STATUS").BackgroundColor = corEncerrada;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

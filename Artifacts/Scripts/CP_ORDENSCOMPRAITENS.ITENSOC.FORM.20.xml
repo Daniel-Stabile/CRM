@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_ORDENSCOMPRAITENS.ITENSOC.FORM</ViewName>
+  <EntityName>CP_ORDENSCOMPRAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSALDOS_ESTOQUEExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSALDOS_ESTOQUEExecute(command, entity):
+    from Benner.Tecnologia.Common.BennerVariables import BennerVarsFactory
+    
+    BennerVarsFactory().CreateSessionVars().SetSessionVar("SALDOS_ESTOQUE_PRODUTO", str(entity["PRODUTO"].GetInt64()))
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPOrdemCompraItem
+    
+    podeUtilizarRateio = CPOrdemCompraItem.VisibilidadeBotaoRateio()
+    
+    widget.View.Commands["CMD_RATEIO"].Visible = podeUtilizarRateio
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

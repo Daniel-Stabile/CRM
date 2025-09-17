@@ -1,0 +1,195 @@
+﻿<link href="@Url.Content("~/content/css/fullcalendar.css")" rel="stylesheet" type="text/css" media="screen" />
+<link href="@Url.Content("~/content/css/fullcalendar.print.css")" rel="stylesheet" type="text/css" media="print" />
+<link href="@Url.Content("~/Content/assets/global/css/plugins.css")" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="@Url.Content("~/content/calendar/js/moment.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/content/calendar/js/fullcalendar.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/content/calendar/js/gcal.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/content/calendar/js/pt-br.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/content/calendar/js/en-us.js")"></script>
+<script type="text/javascript">
+    function Update() {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: '../../../Stateful_Services/AgendaEducacaoCorporativa.asmx/GetTreinamentosMultiplicador',
+            dataType: "json",
+            success: function (data) {
+                var dataDefault = $.now();
+                if (data.d.length > 0) { dataDefault = data.d[0].DataInicio; }
+
+
+                var events = $.map(data.d, function (item, i) {
+                    return {
+                        id: item.ID,
+                        start: item.DataInicio,
+                        end: item.DataFinal,
+                        title: item.Titulo,
+                        url: item.Url,
+                        color: item.Cor,
+                        local: item.Local,
+                        detalheslocal: item.DetalhesLocal,
+                        descricao: item.Descricao
+                    };
+                });
+                $('#calendar').fullCalendar({
+                    events: events,
+                    defaultDate: dataDefault,
+                    height: 'auto',
+                    header: {
+                        left: "title",
+                        center: "",
+                        right: "prev,next today,agendaDay,agendaWeek,month"
+                    },
+                    monthNames: [
+                        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
+                        "Novembro", "Dezembro"
+                    ],
+                    monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+                    dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+                    timeFormat: "HH:mm ",
+                    axisFormat: "HH:mm",
+                    allDayText: "Hora",
+                    lazyFetching: false,
+                    buttonText: {
+                        today: "Hoje",
+                        month: "Mês",
+                        week: "Semana",
+                        day: "Dia"
+                    },
+                    displayEventTime: false,
+                    slotDuration: "00:15:00",
+                    scrollTime: "06:00:00",
+                    columnFormat: {
+                        day: "ddd DD/MM",
+                        week: "ddd DD/MM",
+                        month: "ddd"
+                    },
+                    titleFormat: {
+                        month: "MMMM/YYYY",
+                        day: "ddd - DD/MM/YYYY",
+                        week: "DD/MM/YYYY"
+                    },
+                    eventRender: function (event, element) {
+                        if (event.allDay) {
+                            $(element).find(".fc-time").addClass("hide");
+                        } else {
+                            $(element).find(".fc-time").text((new Date(event.start)).format("HH:mm") + " - " + (new Date(event.end)).format("HH:mm"));
+                        }
+
+
+                        if (event.endOfScale) {
+                            $(element).css("border-bottom", "solid 2px #F3565D");
+                        } else {
+                            $(element).css("border-bottom", "solid 1px #eee");
+                        }
+                    },
+                    eventClick: function (calEvent) {
+                        var url = getModalUrl(calEvent);
+                        openModal(url);
+                    }
+                });
+                unblock(".calendar");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var err = eval("(" + XMLHttpRequest.responseText + ")"); // Boil the ASP.NET AJAX error down to JSON.                    
+                $('#calendar').text("Erro ao carregar calendário: " + err.Message);
+            }
+        });
+    }
+    var openModal = function (url) {
+        AGA.log("AGA.Schedule.openModal");
+        var config = {
+            url: url,
+            id: "aga-schedule-modal",
+            size: "large",
+            height: 750,
+            displayFooter: false,
+            displayTitle: false,
+            title: ""
+        };
+
+        Benner.ModalPage.show(config,
+            Benner.WidgetCommandsBar.openModal,
+            modalClose);
+    };
+    var getModalUrl = function (calEvent) {
+
+        var s = new Date(calEvent.start);
+        var e = new Date(calEvent.end);
+        s = s.toLocaleString();
+        e = e.toLocaleString();
+
+        var dL = btoa(calEvent.detalhesLocal);
+        var d = btoa(calEvent.descricao);
+        var l = btoa(calEvent.local);
+        var t = btoa(calEvent.title);
+        var s = btoa(s);
+        var e = btoa(e);
+
+        return AGA.Ajax.getUrlPath("aga/a/Multiplicador/eventoagenda.aspx?imp=1" +
+            "&dL=" + dL +
+            "&d=" + d +
+            "&l=" + l +
+            "&t=" + t +
+            "&s=" + s +
+            "&e=" + e);
+    };
+    var modalClose = function () {
+        AGA.log("AGA.Schedule.modalClose");
+        Benner.WidgetCommandsBar.disposeModal();
+        $(SELECTOR.needUpdate).each(function (index, item) {
+            $(item).removeClass(CLASSES.needUpdate);
+            updateContent(item);
+        });
+    };
+    var unblock = function (anyTarget) {
+        if (!$(anyTarget).hasClass("blocked"))
+            return;
+        $(anyTarget).removeClass("blocked");
+        AGA.Helper.unblockElement($("#calendar"));
+    };
+
+    var block = function (anyTarget) {
+        if ($(anyTarget).hasClass("blocked"))
+            return;
+
+        $(anyTarget).addClass("blocked");
+        AGA.Helper.blockElement($("#calendar"),
+            "Carregando...");
+    };
+
+</script>
+<style>
+    .portlet.calendar.light .fc-button {
+        top: 0 !important;
+    }
+
+    .aga-calendar-placeholder > .blockUI.blockOverlay {
+        opacity: 0.5 !important;
+        cursor: auto !important;
+    }
+
+    .aga-calendar-placeholder > .blockUI.blockMsg.blockElement {
+        cursor: auto !important;
+    }
+    #calendar{
+        background-color:white;
+    }
+</style>
+
+<div class="portlet light portlet-fit calendar">
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="calendar">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    block(".calendar");
+    Update();
+</script>

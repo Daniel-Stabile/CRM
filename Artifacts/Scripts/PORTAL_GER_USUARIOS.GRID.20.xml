@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_GER_USUARIOS.GRID</ViewName>
+  <EntityName>Z_GRUPOUSUARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Corporativo.Definicoes import ZGrupoUsuariosUtil
+    from Benner.Tecnologia.Wes.Components import MessageType
+ 
+    if (not ZGrupoUsuariosUtil.UsuarioTemPessoaVinculada()):
+        widget.View.Commands["New"].Visible = False
+        widget.MessagePanel.ShowMessage("Não é possível utilizar este formulário de cadastro com o usuário " + identity.UserName + ", utilize o cadastro padrão do menu de configurações/Autorizações/Usuários.", MessageType.Error)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

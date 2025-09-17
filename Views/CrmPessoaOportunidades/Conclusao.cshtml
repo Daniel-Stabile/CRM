@@ -1,0 +1,1714 @@
+﻿@if (null != Model)
+{
+    <div id="dvContainer" class="col-md-12 col-sm-12">
+        <div class="">
+            <a id="" onclick="GoFechamento()" class="btn command-action custom-action btn command-action default" style="">
+                <i id="" class="fa fa-chevron-circle-left btn-action" href=""></i> Voltar
+            </a>
+            @*<a id="" onclick="AtualizaConclusao()" class="btn command-action custom-action btn command-action green-jungle" style="display: inline-block;">
+                    <i id="" class="fa fa-refresh" href=""></i> Atualizar
+                </a>*@
+            <div id="BtnEmitirResumo" onclick="EmitirResumo()" class="btn command-action custom-action blue" style="display: none;">
+                <i id="" class="fa fa-file btn-action" href=""></i> Emitir Resumo Proposta
+            </div>
+            <div id="BtnReemitirResumo" onclick="EmitirResumo()" class="btn command-action custom-action purple" style="display: none;">
+                <i id="" class="fa fa-file btn-action" href=""></i> Reemitir Resumo Proposta
+            </div>
+            <div id="BtnAtivarOportunidade" onclick="AtivarOportunidade()" class="btn command-action custom-action green-jungle" style="display: none;">
+                <i id="" class="fa fa-check btn-action" href=""></i> Ativar Oportunidade
+            </div>
+            <div id="BtnCriarTarefaProposta" onclick="CriarTarefaProposta()" class="btn command-action custom-action blue-hoki" style="display: none;">
+                <i id="" class="fa fa-plus-circle" href=""></i> Criar Tarefa Proposta
+            </div>
+            <div id="BtnEmitirProposta" onclick="EmitirProposta()" class="btn command-action custom-action yellow-casablanca" style="display: none;">
+                <i id="" class="fa fa-file" href=""></i> Emitir Proposta
+            </div>
+            <div id="BtnReemitirProposta" onclick="EmitirProposta()" class="btn command-action custom-action yellow" style="display: none;">
+                <i id="" class="fa fa-file" href=""></i> Reemitir Proposta
+            </div>
+        </div>
+
+        <!-- Corpo da Minuta -->
+        <div id="divProposta" class="form-group" style="display: none;">
+
+            <div style="padding: 8px; font-family: 'Open Sans'; font-size: 14px;">
+
+                <!-- Dados iniciais-->
+                <div style="text-align: justify;">
+                    <h2 style="text-align:center"><b><u>ESTE DOCUMENTO NÃO SERVE COMO PROPOSTA COMERCIAL!</u></b></h2>
+                    <h3>Cliente: @Model.NomeEmpresa</h3>
+                    <h4>Proposta Nº: @Model.CodigoOportunidade </h4>
+                    <h4>Versão: @Model.Versao</h4>
+                    <h4>Modelo de contratação: <u>@Model.NomeModalidade</u></h4>
+                    <p>
+                        <span>
+                            O conteúdo desta proposta é confidencial e de uso exclusivo da BENNER e da @Model.NomeEmpresa, não devendo ser divulgado ou utilizado, parcial ou totalmente, a não ser para os fins a que se destina, sendo de total responsabilidade de ambas as empresas manter a confidencialidade deste documento.
+                        </span>
+                    </p>
+                    <p>
+                        <span>
+                            Abaixo segue o conteúdo dessa proposta comercial bem como seus valores:
+                        </span>
+                    </p>
+                </div>
+                <!-- Se a modalidade tiver Lu, Lum ou Locação -->
+                @if (Model.Modalidade.MostraLu || Model.Modalidade.MostraLum || Model.Modalidade.MostraLocacao)
+                {
+                    <ul>
+                        <li><h4><b><u>Módulos, Pacotes e Plugins</u></b></h4></li>
+                    </ul>
+
+                    <div style="">
+                        <p>
+                            <span>
+                                Sua oportunidade possui os seguintes itens:
+                            </span>
+                        </p>
+                        <div style="display: grid; grid-template-columns: 50% 50%">
+                            @foreach (var item in Model.Produtos)
+                            {
+                                if (item.Grid)
+                                {
+                                    <div style="width: 98%; padding-bottom: 16px;">
+                                        <table class="table" cellspacing="0" id="" style="border-collapse:collapse; display: table;">
+                                            <tbody style="text-align-last: center;">
+                                                <tr style="background-color: red;">
+                                                    <th scope="col">
+                                                        <span style="">
+                                                            @item.Item
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="font-weight: normal;text-align: justify;">
+                                                        <span>
+                                                            @item.DescricaoItem
+                                                        </span>
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div style="">
+                        @if (Model.PacoteModulos.Count > 0)
+                        {
+                            <p>
+                                <span>
+                                    Como existem pacotes na sua oportunidade, segue abaixo a descrição individual de cada módulo:
+                                </span>
+                            </p>
+                        }
+                        <div style="display: grid; grid-template-columns: 50% 50%">
+                            @foreach (var item in Model.PacoteModulos)
+                            {
+                                <div style="width: 98%; padding-bottom: 16px;">
+                                    <table class="table" cellspacing="0" id="" style="border-collapse:collapse; display: table;">
+                                        <tbody style="text-align-last: center;">
+                                            <tr style="background-color: dodgerblue;">
+                                                <th scope="col">
+                                                    <span style="">
+                                                        @item.Nome
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="font-weight: normal;text-align: justify;">
+                                                    <span>
+                                                        @item.Descricao
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <p>
+                            <span>
+                                Abaixo podemos verificar o valor individual de cada produto dentro de sua modalidade de venda:
+                            </span>
+                        </p>
+                    </div>
+                    <table class="table" cellspacing="0" id="" style="border-collapse: collapse; display: table; width: 100%">
+                        <tbody>
+                            <tr style="background-color:cornflowerblue;">
+                                <th scope="col">
+                                    <span><b>Item</b></span>
+                                </th>
+                                <th scope="col">
+                                    <span><b>Tipo</b></span>
+                                </th>
+                                <th scope="col">
+                                    <span><b>Tipo de Venda</b></span>
+                                </th>
+                                @*<th scope="col">
+                                        <span><b>Usuarios</b></span>
+                                    </th>*@
+                                <th scope="col">
+                                    <span><b>Empresas</b></span>
+                                </th>
+                                <th scope="col">
+                                    <span><b>Quantidade</b></span>
+                                </th>
+                                @if (Model.Modalidade.MostraLu)
+                                {
+                                    <th scope="col" style="text-align: right;">
+                                        <span><b>Lu</b></span>
+                                    </th>
+                                }
+                                @if (Model.Modalidade.MostraLum)
+                                {
+                                    <th scope="col" style="text-align: right;">
+                                        <span><b>Lum</b></span>
+                                    </th>
+                                }
+                                @if (Model.Modalidade.MostraLocacao)
+                                {
+                                    <th scope="col" style="text-align: right;">
+                                        <span><b>Locação</b></span>
+                                    </th>
+                                }
+                            </tr>
+                            @{
+                                foreach (var item in Model.Produtos)
+                                {
+                                    if (item.TituloAtivo == true)
+                                    {
+                                        <tr style="background-color: #51ced2; text-align: left;">
+                                            <th scope="col" style="font-weight: normal; text-align: left;">
+                                                <span>@item.TituloNome</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            @*<th style="font-weight: normal;">
+                                                    <span>@item.Usuarios</span>
+                                                </th>*@
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            @if (Model.Modalidade.MostraLu)
+                                            {
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            }
+
+                                            @if (Model.Modalidade.MostraLum)
+                                            {
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            }
+
+                                            @if (Model.Modalidade.MostraLocacao)
+                                            {
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            }
+                                        </tr>
+                                    }
+
+
+                                    <tr style="text-align: left;">
+                                        <th style="font-weight: normal; text-align: left;">
+                                            <span>@item.Item</span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Tipo</span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Venda</span>
+                                        </th>
+                                        @*<th style="font-weight: normal;">
+                                                <span>@item.Usuarios</span>
+                                            </th>*@
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Empresas</span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Unitario</span>
+                                        </th>
+                                        @if (Model.Modalidade.MostraLu)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.Lu</span>
+                                            </th>
+                                        }
+
+                                        @if (Model.Modalidade.MostraLum)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.Lum</span>
+                                            </th>
+                                        }
+
+                                        @if (Model.Modalidade.MostraLocacao)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.Locacao</span>
+                                            </th>
+                                        }
+
+                                    </tr>
+
+
+                                }
+                                if (Model.MsgDesconto != "" && Model.Bloqueado == false)
+                                {
+                                    <tr>
+                                        <th style="font-weight: normal; text-align: left;">
+                                            <span><b>Desconto aprovado</b></span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        @*<th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>*@
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        @if (Model.Modalidade.MostraLu)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span><b>@Model.DiferencaLu</b></span>
+                                            </th>
+                                        }
+                                        @if (Model.Modalidade.MostraLum)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span><b>@Model.DiferencaLum</b></span>
+                                            </th>
+                                        }
+                                        @if (Model.Modalidade.MostraLocacao)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span><b>@Model.DiferencaLocacao</b></span>
+                                            </th>
+                                        }
+
+
+                                    </tr>
+                                }
+
+                                <tr>
+                                    <th style="font-weight: normal; text-align: left;">
+                                        <span><b>TOTAL</b></span>
+                                    </th>
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    @*<th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>*@
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    @if (Model.Modalidade.MostraLu)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.TotalLu</b></span>
+                                        </th>
+                                    }
+                                    @if (Model.Modalidade.MostraLum)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.TotalLum</b></span>
+                                        </th>
+                                    }
+                                    @if (Model.Modalidade.MostraLocacao == true && Model.Modalidade.MostraSaas == false)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.TotalLocacao</b></span>
+                                        </th>
+                                    }
+                                    @if (Model.Modalidade.MostraLocacao == true && Model.Modalidade.MostraSaas == true)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.ValorSaas</b></span>
+                                        </th>
+                                    }
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <div>
+                        @if (Model.MsgDesconto != "")
+                        {
+                            if (Model.Bloqueado == false)
+                            {
+                                <p>
+                                    <span style="color: darkgreen">
+                                        <b>
+                                            @Model.MsgDesconto
+                                        </b>
+                                    </span>
+                                </p>
+                                <ul>
+                                    @if (Model.Modalidade.MostraLu)
+                                    {
+                                        <li>Desconto LU: @Model.Desconto.PorcentagemLu %</li>
+                                    }
+                                    @if (Model.Modalidade.MostraLum)
+                                    {
+                                        <li>Desconto LUM: @Model.Desconto.PorcentagemLum %</li>
+                                    }
+                                    @if (Model.Modalidade.MostraLocacao)
+                                    {
+                                        <li>Desconto LOCAÇÃO: @Model.Desconto.PorcentagemLocacao %</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>
+                                    <span style="color: darkgoldenrod">
+                                        <b>
+                                            @Model.MsgDesconto
+                                        </b>
+                                    </span>
+                                </p>
+                            }
+                        }
+
+                    </div>
+                    <div class="row" style="display: flex;justify-content: start; padding-top: 16px;">
+                        @if (Model.Modalidade.MostraLu)
+                        {
+                            <div class="widget-body col-md-4 widget  portlet-none" data-widget-id="K_LU" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <b>
+                                                            @Model.TotalLu
+                                                        </b>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription"><b>Valor Lu</b></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.Modalidade.MostraLum)
+                        {
+                            <div class="widget-body col-md-4 widget  portlet-none" data-widget-id="K_LUM" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <b>
+                                                            @Model.TotalLum
+                                                        </b>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription"><b>Valor Lum</b></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.Modalidade.MostraLocacao)
+                        {
+                            <div class="widget-body col-md-4 widget portlet-none" data-widget-id="K_LOCACAO" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <b>
+                                                            @Model.TotalLocacao
+                                                        </b>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription"><b>Valor Locação</b></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                <!-- Se a modalidade tiver Serviço -->
+                @if (Model.Modalidade.MostraServico)
+                {
+                    <ul>
+                        <li><h4><b><u>Serviços</u></b></h4></li>
+                    </ul>
+                    <div>
+                        <p>
+                            <span>
+                                A proposta contempla Serviços, que pode ser visto com detalhes abaixo:
+                            </span>
+                        </p>
+
+                        @foreach (var item in Model.DescricaoServicos)
+                        {
+                            <div style="padding-bottom: 16px;">
+                                <table class="table" cellspacing="0" id="" style="border-collapse: collapse; display: table; ">
+                                    <tbody style="text-align-last: center;">
+                                        <tr style="background-color: red;">
+                                            <th scope="col">
+                                                <span style="">
+                                                    @item.Nome
+                                                </span>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="font-weight: normal;text-align: justify;">
+                                                <span>
+                                                    @item.Descricao
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        <div style="padding-bottom: 16px;">
+                            <table class="table" cellspacing="0" id="" style="border-collapse: collapse; display: table; padding-top: 16px; padding-bottom: 16px; width: 100%">
+                                <tbody>
+                                    <tr style="background-color:cornflowerblue;">
+                                        <th scope="col">
+                                            <span>Recurso</span>
+                                        </th>
+                                        <th scope="col">
+                                            <span>Horas</span>
+                                        </th>
+                                        <th scope="col">
+                                            <span>Valor Hora</span>
+                                        </th>
+                                        <th scope="col" style="text-align: right;">
+                                            <span>Total Servico</span>
+                                        </th>
+                                    </tr>
+                                    @foreach (var item in Model.Servicos)
+                                    {
+                                        <tr>
+                                            <th style="font-weight: normal; text-align: left;">
+                                                <span>@item.Recurso</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@item.Horas</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@item.ValorHora</span>
+                                            </th>
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.TotalServico</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                    @if (Model.MsgDesconto != "" && Model.Bloqueado == false)
+                                    {
+                                        <tr id="" style="text-align: left;">
+                                            <th scope="col">
+                                                <span><b>Desconto aprovado</b></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <span id="lblTotalEscopo">@Model.DiferencaServico</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                    @if (Model.GerenciamentoProjeto != "" && Model.AdicionalNaGerenciaProjeto == false)
+                                    {
+                                        <tr>
+                                            <th scope="col" style="text-align: left;">
+                                                <span>Total de Serviços</span>
+                                            </th>
+                                            <th>
+                                                <span style="font-weight: normal;" id=""></span>
+                                            </th>
+                                            <th>
+                                                <span style="font-weight: normal;" id=""></span>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <span id="">@Model.TotalServico</span>
+                                            </th>
+                                        </tr>
+
+
+                                    }
+                                    else if (Model.GerenciamentoProjeto != "" && Model.AdicionalNaGerenciaProjeto == true)
+                                    {
+                                        <tr id="" style="">
+                                            <th scope="col" style="text-align: left;">
+                                                <span><b>Total Com gerenciamento de projeto</b></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <span id="lblTotalEscopo">@Model.GerenciamentoProjeto</span>
+                                            </th>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            @if (Model.MsgDesconto != "")
+                            {
+                                if (Model.Bloqueado == false)
+                                {
+                                    <p>
+                                        <span style="color: darkgreen">
+                                            <b>
+                                                @Model.MsgDesconto
+                                            </b>
+                                        </span>
+                                    </p>
+                                    <ul>
+                                        <li>Desconto SERVIÇO: @Model.Desconto.PorcentagemServico %</li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>
+                                        <span style="color: darkgoldenrod">
+                                            <b>
+                                                @Model.MsgDesconto
+                                            </b>
+                                        </span>
+                                    </p>
+                                }
+                            }
+                        </div>
+                        <div class="row" style="display: flex; justify-content: start; padding-top: 16px;">
+                            @if (Model.GerenciamentoProjeto != "")
+                            {
+                                <div class="widget-body col-md-4 widget portlet-none" data-widget-id="K_SERVICO" style="">
+                                    <div>
+                                        <div class="message-panel">
+                                        </div>
+                                        <div class="widget-context " style="display:none;">
+                                        </div>
+                                        <div class="wes-tile">
+                                            <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                                <div class="visual">
+                                                    <i class="fa fa-dollar"></i>
+                                                </div>
+                                                <div class="details">
+                                                    <div class="number">
+                                                        <span class="tilevalue">
+                                                            <span>
+                                                                <b>
+                                                                    @Model.GerenciamentoProjeto
+                                                                </b>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="desc tiledescription"><b>Valor Serviços</b></div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="widget-body col-md-4 widget portlet-none" data-widget-id="K_SERVICO" style="">
+                                    <div>
+                                        <div class="message-panel">
+                                        </div>
+                                        <div class="widget-context " style="display:none;">
+                                        </div>
+                                        <div class="wes-tile">
+                                            <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                                <div class="visual">
+                                                    <i class="fa fa-dollar"></i>
+                                                </div>
+                                                <div class="details">
+                                                    <div class="number">
+                                                        <span class="tilevalue">
+                                                            <span>
+                                                                <b>
+                                                                    @Model.TotalServico
+                                                                </b>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="desc tiledescription"><b>Valor Serviços</b></div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                <!-- Se a modalidade tiver Saas -->
+                @if (Model.Modalidade.MostraSaas)
+                {
+                    <ul>
+                        <li><h4><b><u>Data Center</u></b></h4></li>
+                    </ul>
+
+                    <div>
+                        <p style="text-align:justify;">
+                            <span>
+                                @Html.Raw(Model.DescricaoSaas.Replace("'", "\\'").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\f", "\\f"))
+                            </span>
+                        </p>
+                        @if (Model.MsgDesconto != "")
+                        {
+                            if (Model.Bloqueado == false)
+                            {
+                                <p>
+                                    <span style="color: darkgreen">
+                                        <b>
+                                            @Model.MsgDesconto
+                                        </b>
+                                    </span>
+                                </p>
+                                <ul>
+                                    <li>Desconto Data Center: @Model.Desconto.PorcentagemSaas %</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>
+                                    <span style="color: darkgoldenrod">
+                                        <b>
+                                            @Model.MsgDesconto
+                                        </b>
+                                    </span>
+                                </p>
+                            }
+                        }
+                        <div class="row" style="display: flex; justify-content: start;">
+                            <div class="widget-body col-md-4 widget portlet-none" data-widget-id="K_DATACENTER" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span>
+                                                            <b>
+                                                                @Model.ValorDataCenter
+                                                            </b>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription"><b>Valor Data Center</b></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-body col-md-4 widget portlet-none" data-widget-id="K_SAAS" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green-jungle" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green-jungle">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span>
+                                                            <b>
+                                                                @Model.ValorSaas
+                                                            </b>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription"><b>Valor SAAS</b></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- Se a modalidade tiver BPO -->
+                @if (Model.Modalidade.MostraBpo)
+                {
+                    <ul>
+                        <li><h4>BPO</h4></li>
+                    </ul>
+
+                }
+                <!-- Considerações e Formas de Pagamento -->
+                <div>
+                    <h4><b><u>Condições de Pagamento:</u></b></h4>
+
+                    @foreach (var adicional in Model.ConsideracoesAdicionais)
+                    {
+                        <div style="border: solid; border-color: black; border-width: thin; padding: 8px; margin-bottom: 8px; text-align: justify; ">
+                            <h5>@adicional.Nome</h5>
+                            <p>
+                                <span>
+                                    @adicional.Descricao
+                                </span>
+                            </p>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Corpo da página de Conclusão -->
+        <div id="divConteudoConclusao" class="form-group">
+
+            <div style="padding: 8px; font-family: 'Open Sans'; font-size: 14px;">
+
+                <!-- Dados iniciais-->
+                <div style="text-align: justify;">
+                    <h3>Cliente: @Model.NomeEmpresa</h3>
+                    <h4>Proposta Nº: @Model.CodigoOportunidade </h4>
+                    <h4>Versão: @Model.Versao</h4>
+                    <h4>Modelo de contratação: <u>@Model.NomeModalidade</u></h4>
+                </div>
+
+                <!-- Tiles com valores conforme a Modalidade -->
+                <div class="row" style="display: flex;justify-content: space-around;">
+                    @{
+                        if (Model.PerfilBennerVertical != "")
+                        {
+                            <div class="widget-body col-md-2 widget  portlet-none" data-widget-id="K_PERFILBENNER" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green-jungle" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green-jungle">
+                                            <div class="visual">
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span style="font-size: 2.3rem;">Categoria @Model.PerfilBennerVertical</span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">Perfil Benner</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.Modalidade.MostraLu)
+                        {
+                            <div class="widget-body col-md-2 widget  portlet-none" data-widget-id="K_LU" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span style="font-size: 2.3rem;">@Model.TotalLu</span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">Lu</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.Modalidade.MostraLum)
+                        {
+                            <div class="widget-body col-md-2 widget  portlet-none" data-widget-id="K_LUM" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span style="font-size: 2.3rem;">@Model.TotalLum</span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">Lum</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.Modalidade.MostraLocacao)
+                        {
+                            <div class="widget-body col-md-2 widget portlet-none" data-widget-id="K_LOCACAO" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span style="font-size: 2.3rem;">@Model.TotalLocacao</span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">Locação</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.Modalidade.MostraServico)
+                        {
+                            <div class="widget-body col-md-2 widget portlet-none" data-widget-id="K_SERVICO" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        @if (Model.GerenciamentoProjeto != "")
+                                                        {
+                                                            <span style="font-size: 2.3rem;">@Model.GerenciamentoProjeto</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span style="font-size: 2.3rem;">@Model.TotalServico</span>
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">Serviço</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model.Modalidade.MostraSaas)
+                        {
+                            <div class="widget-body col-md-2 widget portlet-none" data-widget-id="K_DATACENTER" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span style="font-size: 2.3rem;">@Model.ValorDataCenter</span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">Data Center</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-body col-md-2 widget portlet-none" data-widget-id="K_SAAS" style="">
+                                <div>
+                                    <div class="message-panel">
+                                    </div>
+                                    <div class="widget-context " style="display:none;">
+                                    </div>
+                                    <div class="wes-tile">
+                                        <a data-tilecolor="green-jungle" class="dashboard-stat dashboard-stat-v2 wes-default-tile tilecolor command-name green-jungle">
+                                            <div class="visual">
+                                                <i class="fa fa-dollar"></i>
+                                            </div>
+                                            <div class="details">
+                                                <div class="number">
+                                                    <span class="tilevalue">
+                                                        <span style="font-size: 2.3rem;">@Model.ValorSaas</span>
+                                                    </span>
+                                                </div>
+                                                <div class="desc tiledescription">SAAS</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Mensagem de Desconto -->
+                <div class="row" style="display: flex;justify-content: center; padding-top:16px;">
+                    <div>
+                        @if (Model.MsgDesconto != "")
+                        {
+                            if (Model.OportunidadeBloqueada == false)
+                            {
+                                <p>
+                                    <span style="color: darkgreen;">
+                                        <b>@Model.MsgDesconto</b>
+                                    </span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    <span style="color: darkgoldenrod;">
+                                        <b>@Model.MsgDesconto</b>
+                                    </span>
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- Tabela de valores caso a modalidade tiver Lu, Lum ou Locação -->
+                @if (Model.Modalidade.MostraLu || Model.Modalidade.MostraLum || Model.Modalidade.MostraLocacao)
+                {
+                    <ul>
+                        <li><h4><b><u>Módulos, Pacotes e Plugins</u></b></h4></li>
+                    </ul>
+                    <table class="table" cellspacing="0" id="" style="border-collapse: collapse; display: table; width: 100%">
+                        <tbody>
+                            <tr style="background-color:cornflowerblue;">
+                                <th scope="col">
+                                    <span><b>Item</b></span>
+                                </th>
+                                <th scope="col">
+                                    <span><b>Tipo</b></span>
+                                </th>
+                                <th scope="col">
+                                    <span><b>Tipo de Venda</b></span>
+                                </th>
+                                @*<th scope="col">
+                <span><b>Usuarios</b></span>
+            </th>*@
+                                <th scope="col">
+                                    <span><b>Empresas</b></span>
+                                </th>
+                                <th scope="col">
+                                    <span><b>Quantidade</b></span>
+                                </th>
+                                @if (Model.Modalidade.MostraLu)
+                                {
+                                    <th scope="col" style="text-align: right;">
+                                        <span><b>Lu</b></span>
+                                    </th>
+                                }
+                                @if (Model.Modalidade.MostraLum)
+                                {
+                                    <th scope="col" style="text-align: right;">
+                                        <span><b>Lum</b></span>
+                                    </th>
+                                }
+                                @if (Model.Modalidade.MostraLocacao)
+                                {
+                                    <th scope="col" style="text-align: right;">
+                                        <span><b>Locação</b></span>
+                                    </th>
+                                }
+                            </tr>
+                            @{
+                                foreach (var item in Model.Produtos)
+                                {
+                                    if (item.TituloAtivo == true)
+                                    {
+                                        <tr style="background-color: #51ced2; text-align: left;">
+                                            <th scope="col" style="font-weight: normal; text-align: left;">
+                                                <span>@item.TituloNome</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            @*<th style="font-weight: normal;">
+                            <span>@item.Usuarios</span>
+                        </th>*@
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span></span>
+                                            </th>
+                                            @if (Model.Modalidade.MostraLu)
+                                            {
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            }
+
+                                            @if (Model.Modalidade.MostraLum)
+                                            {
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            }
+
+                                            @if (Model.Modalidade.MostraLocacao)
+                                            {
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            }
+                                        </tr>
+                                    }
+
+                                    <tr style="text-align: left;">
+                                        <th style="font-weight: normal; text-align: left;">
+                                            <span>@item.Item</span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Tipo</span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Venda</span>
+                                        </th>
+                                        @*<th style="font-weight: normal;">
+                        <span>@item.Usuarios</span>
+                    </th>*@
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Empresas</span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span>@item.Unitario</span>
+                                        </th>
+                                        @if (Model.Modalidade.MostraLu)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.Lu</span>
+                                            </th>
+                                        }
+
+                                        @if (Model.Modalidade.MostraLum)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.Lum</span>
+                                            </th>
+                                        }
+
+                                        @if (Model.Modalidade.MostraLocacao)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.Locacao</span>
+                                            </th>
+                                        }
+
+                                    </tr>
+                                    if (item.ProdutoItens.Count > 0)
+                                    {
+                                        foreach (var module in item.ProdutoItens)
+                                        {
+                                            <tr style="text-align: left;">
+                                                <th style="font-weight: normal; text-align: left;">
+                                                    <span style="color: #ab9b9b;"> • @module.ProdutoItemNome</span>
+                                                </th>
+                                                <th style="font-weight: normal;">
+                                                    <span></span>
+                                                </th>
+                                                <th style="font-weight: normal;">
+                                                    <span></span>
+                                                </th>
+                                                <th style="font-weight: normal;">
+                                                    <span></span>
+                                                </th>
+                                                <th style="font-weight: normal;">
+                                                    <span></span>
+                                                </th>
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                                <th style="font-weight: normal; text-align: right;">
+                                                    <span></span>
+                                                </th>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                                if (Model.MsgDesconto != "" && Model.Bloqueado == false)
+                                {
+                                    <tr>
+                                        <th style="font-weight: normal; text-align: left;">
+                                            <span><b>Desconto aprovado</b></span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        @*<th style="font-weight: normal;">
+                        <span></span>
+                    </th>*@
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        <th style="font-weight: normal;">
+                                            <span></span>
+                                        </th>
+                                        @if (Model.Modalidade.MostraLu)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span><b>@Model.DiferencaLu</b></span>
+                                            </th>
+                                        }
+                                        @if (Model.Modalidade.MostraLum)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span><b>@Model.DiferencaLum</b></span>
+                                            </th>
+                                        }
+                                        @if (Model.Modalidade.MostraLocacao)
+                                        {
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span><b>@Model.DiferencaLocacao</b></span>
+                                            </th>
+                                        }
+
+
+                                    </tr>
+                                }
+
+                                <tr>
+                                    <th style="font-weight: normal; text-align: left;">
+                                        <span><b>TOTAL</b></span>
+                                    </th>
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    @*<th style="font-weight: normal;">
+                    <span></span>
+                </th>*@
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    <th style="font-weight: normal;">
+                                        <span></span>
+                                    </th>
+                                    @if (Model.Modalidade.MostraLu)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.TotalLu</b></span>
+                                        </th>
+                                    }
+                                    @if (Model.Modalidade.MostraLum)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.TotalLum</b></span>
+                                        </th>
+                                    }
+                                    @if (Model.Modalidade.MostraLocacao == true && Model.Modalidade.MostraSaas == false)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.TotalLocacao</b></span>
+                                        </th>
+                                    }
+                                    @if (Model.Modalidade.MostraLocacao == true && Model.Modalidade.MostraSaas == true)
+                                    {
+                                        <th style="font-weight: normal; text-align: right;">
+                                            <span><b>@Model.ValorSaas</b></span>
+                                        </th>
+                                    }
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+                <!-- Se a modalidade tiver Serviço -->
+                @if (Model.Modalidade.MostraServico)
+                {
+                    <ul>
+                        <li><h4><b><u>Serviços</u></b></h4></li>
+                    </ul>
+                    <div>
+                        <div style="padding-bottom: 16px;">
+                            <table class="table" cellspacing="0" id="" style="border-collapse: collapse; display: table; padding-top: 16px; padding-bottom: 16px; width: 100%">
+                                <tbody>
+                                    <tr style="background-color:cornflowerblue;">
+                                        <th scope="col">
+                                            <span>Produto</span>
+                                        </th>
+                                        <th scope="col">
+                                            <!--<span>Horas</span>-->
+                                        </th>
+                                        <th scope="col">
+                                            <!--<span>Valor Hora</span>-->
+                                        </th>
+                                        <th scope="col" style="text-align: right;">
+                                            <span>Total Servico</span>
+                                        </th>
+                                    </tr>
+                                    @foreach (var item in Model.Servicos)
+                                    {
+                                        <tr>
+                                            <th style="font-weight: normal; text-align: left;">
+                                                <span>@item.Recurso</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@item.Horas</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@item.ValorHora</span>
+                                            </th>
+                                            <th style="font-weight: normal; text-align: right;">
+                                                <span>@item.TotalServico</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                    @if (Model.GerenciamentoProjeto != "" && Model.AdicionalNaGerenciaProjeto == false)
+                                    {
+                                        <tr>
+                                            <th scope="col" style="text-align: left;">
+                                                <span>Total de Serviços (sem gerência de projeto)</span>
+                                            </th>
+                                            <th>
+                                                <span style="font-weight: normal;" id=""></span>
+                                            </th>
+                                            <th>
+                                                <span style="font-weight: normal;" id=""></span>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <span id="">@Model.TotalServico</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                    @if (Model.MsgDesconto != "" && Model.Bloqueado == false)
+                                    {
+                                        <tr id="" style="text-align: left;">
+                                            <th scope="col">
+                                                <span><b>Desconto aprovado</b></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <span id="lblTotalEscopo">@Model.DiferencaServico</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                    @if (Model.GerenciamentoProjeto != "" && Model.AdicionalNaGerenciaProjeto == true)
+                                    {
+                                        <tr id="" style="">
+                                            <th scope="col" style="text-align: left;">
+                                                <span><b>Total Com gerenciamento de projeto</b></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th>
+                                                <span id=""></span>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <span id="lblTotalEscopo">@Model.GerenciamentoProjeto</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+    var urlTarefa = "";
+    //debugger;
+
+    function CriarTarefaProposta() {
+        //Benner.Widget.prepareModal(urlTarefa);
+        window.location.href = urlTarefa;
+    }
+
+    function AtivarOportunidade() {
+            var link = Benner.Page.getApplicationPath() + "@Model.UrlAtivacao"; //"Pages/K_CRM_PESSOAOPORTUNIDADES/AtivarOportunidade.aspx";
+        //Benner.ModalPage.show({ size: 'large', height: 300, url: link, displayFooter: false, displayTitle: false, displayFooter: false });
+
+        Benner.WidgetCommandsBar.prepareModal = function (modalUrl, lazyPostId, sizeModal) {
+            $('body').data('lazy-post-id', lazyPostId);
+
+            //Antes de abrir o modal valida se tem alterações não salvas
+            if ($('#float-action-buttons').length > 0) {
+                if (!confirm("Você possui alterações visuais que ainda não foram persistidas. Deseja sair da página e perder essas alterações?")) {
+                    return false;
+                }
+            }
+
+            if (sizeModal == undefined || sizeModal == '')
+                sizeModal = "large";
+
+            Benner.ModalPage.show(
+                {
+                    id: 'ModalCommand',
+                    url: modalUrl,
+                    size: sizeModal.toLowerCase(),
+                    displayFooter: false,
+                    displayTitle: false,
+                    // ocupar 90% da altura, menos a altura do footer do modal
+                    height: 300
+                }, Benner.WidgetCommandsBar.openModal, Benner.WidgetCommandsBar.disposeModal);
+            //Limpa variavel para não realizar ser apresentada a confirmação de alterações não salvas.
+            window.onbeforeunload = null
+        };
+
+        Benner.Widget.prepareModal(link, 'ctl00$Main$K_FECHAMENTO', 'large');
+
+        //Benner.ModalPage.show(
+        //    {
+        //        id: 'ModalCommand',
+        //        url: link,
+        //        size: 'large',
+        //        displayFooter: false,
+        //        displayTitle: false,
+        //        // ocupar 90% da altura, menos a altura do footer do modal
+        //        height: 300
+        //    }, Benner.WidgetCommandsBar.openModal, Benner.WidgetCommandsBar.disposeModal);
+
+        //Benner.WidgetCommandsBar.disposeModal();
+            //Benner.Widget.prepareModal(link, '', 'Medium');
+        @*var BtnAtivarOportunidade = document.getElementById("BtnAtivarOportunidade");
+        var BtnCriarTarefaProposta = document.getElementById("BtnCriarTarefaProposta");
+        var BtnEmitirProposta = document.getElementById("BtnEmitirProposta");
+        var BtnReemitirProposta = document.getElementById("BtnReemitirProposta");
+
+        var dadosEnvio = {
+            "Oportunidade": @Model.CodigoOportunidade
+        };
+
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/patchAtivarOportunidade",
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(dadosEnvio),
+        };
+
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+
+            if (result.code == 400) {
+                toastr.error(result.message);
+            }
+            else {
+                toastr.success("Itens da oportunidades ativos!");
+                urlTarefa = Benner.Page.getApplicationPath() + result.url;
+
+            }
+        });
+
+        BtnAtivarOportunidade.style = "display: none;";
+
+        var StatusDeProposta = "@Html.Raw(Model.StatusDeProposta)";
+
+        var PropostaImpressa = "@Html.Raw(Model.PropostaImpressa)";
+
+        if (StatusDeProposta == "True") {
+            BtnCriarTarefaProposta.style = "display: none;";
+
+            if (PropostaImpressa == "True") {
+                BtnEmitirProposta.style = "display: none;";
+                BtnReemitirProposta.style = "display: inline-block;";
+            }
+            else {
+                BtnEmitirProposta.style = "display: inline-block;";
+                BtnReemitirProposta.style = "display: none;";
+            }
+        }
+        else {
+            BtnCriarTarefaProposta.style = "display: inline-block;";
+            BtnEmitirProposta.style = "display: none;";
+            BtnReemitirProposta.style = "display: none;";
+        }*@
+
+    }
+
+    function EmitirProposta() {
+        //TODO -- REGRA PARA MANDAR O USUARIO PARA PÁGINA DE EMISSAO DE PROPOSTA
+
+        window.location.href = Benner.Page.getApplicationPath() + "@Html.Raw(Model.UrlProposta.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+    }
+
+    function printIt() {
+        var printThis = document.getElementById("divProposta");
+        printThis.style = "display: block;";
+
+        var win = window.open();
+        self.focus();
+        win.document.open();
+        win.document.write('<' + 'html' + '><' + 'body' + '>');
+        //win.document.write('<' + 'style  type="text/css" media="print"' + '>')
+        //win.document.write('@@page' + ' { size: auto; margin: 0; } ')
+        //win.document.write('body ' + ' { padding-top: 32px; padding-bottom: 32px; height: 99%; } ')
+        win.document.write('<' + '/style' + '>')
+        win.document.write('<' + 'div class="col-md-12 col-sm-12"' + '>');
+        win.document.write(printThis.innerHTML);
+        win.document.write('<' + '/div' + '>');
+        win.document.write('<' + '/body' + '><' + '/html' + '>');
+        win.document.close();
+        win.print();
+        win.close();
+
+        printThis.style = "display: none;";
+        //EmitirResumo();
+    }
+
+    //function AtualizaConclusao() {
+    //    if (localStorage.getItem('current_Step')) {
+    //        //var atual = localStorage.getItem('current_Step');
+    //        //$('[href="#tab' + atual + '"]').tab('show');
+    //        localStorage.setItem("current_Step", 5);
+    //        window.location.reload(1);
+    //    }
+    //}
+
+    function EmitirResumo() {
+
+        var BtnEmitirResumo = document.getElementById("BtnEmitirResumo");
+        var BtnReemitirResumo = document.getElementById("BtnReemitirResumo");
+
+        var permiteImprimir = false;
+
+        var dadosEnvio = {
+            "Oportunidade": @Model.CodigoOportunidade
+        };
+
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/postResumoOportunidade",
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(dadosEnvio),
+        };
+
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+
+            if (result.code == 400) {
+                toastr.error(result.message);
+            }
+            else if (result.code == 201) {
+                permiteImprimir = true;
+                toastr.warning(result.message);
+            }
+            else {
+                permiteImprimir = true;
+                toastr.success(result.message);
+                BtnEmitirResumo.style = "display: none;";
+                BtnReemitirResumo.style = "display: inline-block;";
+                //window.location.href = Benner.Page.getApplicationPath() + result.url;
+            }
+        });
+
+        if (permiteImprimir)
+            printIt();
+    }
+
+        function VisibilidadeBotoes() {
+            //debugger;
+            var BtnEmitirResumo = document.getElementById("BtnEmitirResumo");
+            var BtnReemitirResumo = document.getElementById("BtnReemitirResumo");
+            var BtnAtivarOportunidade = document.getElementById("BtnAtivarOportunidade");
+            var BtnCriarTarefaProposta = document.getElementById("BtnCriarTarefaProposta");
+            var BtnEmitirProposta = document.getElementById("BtnEmitirProposta");
+            var BtnReemitirProposta = document.getElementById("BtnReemitirProposta");
+
+            var MinutaImpressa = "@Html.Raw(Model.MinutaImpressa)";
+            var PropostaImpressa = "@Html.Raw(Model.PropostaImpressa)";
+            var ProdutoAtivo = "@Html.Raw(Model.ProdutoAtivo)";
+            var StatusDeProposta = "@Html.Raw(Model.StatusDeProposta)";
+            var DescontoPendente = "@Html.Raw(Model.DescontoPendente)";
+
+            //Controlando a impressao de minutas
+            if (MinutaImpressa == "True") {
+                BtnReemitirResumo.style = "display: inline-block;";
+                BtnEmitirResumo.style = "display: none;";
+            }
+            else {
+                if (DescontoPendente == "True") {
+                    BtnEmitirResumo.style = "display: none;";
+                    BtnReemitirResumo.style = "display: none;";
+                    BtnEmitirProposta.style = "display: none;";
+                    BtnReemitirProposta.style = "display: none;";
+                    BtnAtivarOportunidade.style = "display: none;";
+                }
+                else {
+                    BtnEmitirResumo.style = "display: inline-block;";
+                    BtnReemitirResumo.style = "display: none;";
+                }
+            }
+
+            //Controlando a emissão de Propostas
+            if (StatusDeProposta == "True") {
+                BtnCriarTarefaProposta.style = "display: none;";
+
+                if (ProdutoAtivo == "True") {
+                    BtnAtivarOportunidade.style = "display: none;";
+
+                    if (PropostaImpressa == "True") {
+                        BtnEmitirProposta.style = "display: none;";
+                        BtnReemitirProposta.style = "display: inline-block;";
+                    }
+                    else {
+                        BtnEmitirProposta.style = "display: inline-block;";
+                        BtnReemitirProposta.style = "display: none;";
+                    }
+                }
+                else {
+                    if (DescontoPendente == "True") {
+                        BtnEmitirProposta.style = "display: none;";
+                        BtnReemitirProposta.style = "display: none;";
+                        BtnAtivarOportunidade.style = "display: none;";
+                    }
+                    else {
+                        BtnAtivarOportunidade.style = "display: inline-block;";
+                        BtnEmitirProposta.style = "display: none;";
+                        BtnReemitirProposta.style = "display: none;";
+                    }
+                }
+            }
+            else {
+                if (ProdutoAtivo == "True") {
+                    BtnAtivarOportunidade.style = "display: none;";
+                    BtnCriarTarefaProposta.style = "display: inline-block;";
+                }
+                else {
+                    BtnAtivarOportunidade.style = "display: inline-block;";
+                    BtnCriarTarefaProposta.style = "display: none;";
+                }
+
+                BtnEmitirProposta.style = "display: none;";
+                BtnReemitirProposta.style = "display: none;";
+
+            }
+
+            if ("True" == "@Model.OportunidadeAtiva") {
+                BtnAtivarOportunidade.style = "display: none;";
+            }
+        }
+    </script>
+    @Ajax.OnReadyScript("VisibilidadeBotoes();")
+}

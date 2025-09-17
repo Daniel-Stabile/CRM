@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASUSUARIOS.FORM</ViewName>
+  <EntityName>K_CRM_METASUSUARIOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    entity = widget.Entity;
+    
+    sql3 = "SELECT CASE WHEN (SELECT FORMAT(B.VALORMETA - SUM(A.VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOS A JOIN K_CRM_METASUNIDADES B ON B.HANDLE = A.METAUNIDADE WHERE B.HANDLE = :METAUNIDADE GROUP BY B.VALORMETA) IS NULL THEN (SELECT FORMAT(VALORMETA,'C', 'pt-BR') FROM K_CRM_METASUNIDADES WHERE HANDLE = :METAUNIDADE) ELSE (SELECT FORMAT(B.VALORMETA - SUM(A.VALORMETA),'C', 'pt-BR') SALDO FROM K_CRM_METASUSUARIOS A JOIN K_CRM_METASUNIDADES B ON B.HANDLE = A.METAUNIDADE WHERE B.HANDLE = :METAUNIDADE GROUP BY B.VALORMETA) END SALDO";
+    crit3 = Criteria()
+    crit3.Parameters.Add(Parameter("METAUNIDADE", entity.Fields["METAUNIDADE"].Handle))
+    ed3 = EntityDefinition.Create()
+    ed3.EntitySource = QuerySource(sql3)
+    saldo3 = Entity.GetFirstOrDefault(ed3, crit3)
+    
+    if saldo3 == None:
+        widget.View.FieldDefinitions["SALDO"].Value = "R$ 0,00";
+    elif saldo3.Fields["SALDO"] != None:
+        widget.View.FieldDefinitions["SALDO"].Value = saldo3.Fields["SALDO"].ToString();
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

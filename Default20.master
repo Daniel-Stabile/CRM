@@ -1,0 +1,182 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="Benner.Corporativo.Wes.WebApp.CorporativoMasterPage" %>
+
+
+<%@ Import namespace="System" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="System.Collections.ObjectModel" %>
+<%@ Import Namespace="Benner.Tecnologia.Common" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components.WebControls" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.ERP.Comum" Namespace="Benner.ERP.Comum" TagPrefix="Utils" %>
+<%@ Register Src="~/uc/TopBar.ascx" TagName="TopBar" TagPrefix="wes" %>
+<%@ Register Src="~/uc/TopBarMainContent.ascx" TagName="TopBarMainContent" TagPrefix="wes" %>
+<%@ Register Src="~/uc/HeadSection.ascx" TagName="HeadSection" TagPrefix="wes" %>
+<%@ Register Src="~/uc/SidePanel.ascx" TagName="SidePanel" TagPrefix="wes" %>
+<%@ Register Src="~/uc/WesManager.ascx" TagName="WesManager" TagPrefix="wes" %>
+<%@ Register Src="~/uc/HeadSectionApp.ascx" TagName="HeadSectionApp" TagPrefix="wes" %>
+<%@ Register TagPrefix="wes" Namespace="Benner.Tecnologia.Wes.Components.WebApp" Assembly="Benner.Tecnologia.Wes.Components.WebApp, Version=2008.0.0.0, Culture=neutral, PublicKeyToken=f2db26731026fd37" %>
+
+<!doctype html>
+<!--[if IE 9]> <html lang="pt" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="pt" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head runat="server">
+    <asp:ContentPlaceHolder ID="AntesHEAD" runat="server" EnableViewState="false">
+    </asp:ContentPlaceHolder>
+    <wes:HeadSection runat="server" />
+    <wes:HeadSectionApp runat="server" />
+    <asp:ContentPlaceHolder ID="Head" runat="server">
+        <link rel="stylesheet" type="text/css" href="<%# ResolveUrl("~/Content/css/produto.min.css")%>"/>
+    </asp:ContentPlaceHolder>
+    <title>Web Enterprise Suite</title>
+    <asp:ContentPlaceHolder ID="ConteudoMaster" runat="server" EnableViewState="false">
+        <asp:PlaceHolder runat="server" ID="HeadCorporativoDesenv"></asp:PlaceHolder>
+        <asp:PlaceHolder runat="server" ID="HeadCorporativoProducao"></asp:PlaceHolder>
+    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="AposHead" runat="server" EnableViewState="false">
+    </asp:ContentPlaceHolder>
+</head>
+
+<script runat="server">
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+
+        
+        Page.Header.DataBind();
+
+        HeadCorporativoProducao.Visible = !Benner.Tecnologia.Common.BennerContext.Security.IsDeveloper();
+        HeadCorporativoDesenv.Visible = !HeadCorporativoProducao.Visible;
+
+        string script = Benner.Corporativo.Wes.WebApp.ErpUtils.HideSingleTabScript;
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "HideSingleTab", script, true);
+
+        if (!Request.Url.AbsoluteUri.Contains("SiteSettings"))
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "TabColor", "Erp.initPortletTitleColor('blue');", true);
+    }
+
+</script>
+
+<body runat="server" id="Body" ViewStateMode="Disabled" class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-container-bg-solid">
+<form id="formMain" runat="server">
+        <wes:WesManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Content/js/CorporativoComum.js" />
+				<asp:ScriptReference Path="~/Content/js/MenuLateral.js" />
+                <asp:ScriptReference Path="~/PortalGerais/e/Scripts/erp.js" />
+                <asp:ScriptReference Path="~/PortalGerais/e/Scripts/dashboards.js" />
+            </Scripts>
+        </wes:WesManager>
+        <div class="page-wrapper">
+            <!-- INÍCIO DO CABEÇALHO -->
+            <div runat="server" id="Header" class="page-header navbar navbar-fixed-top">
+
+                <!-- INÍCIO DA BARRA DE NAVEGAÇÃO -->
+                <div class="page-header-inner">
+
+                    <!-- INÍCIO DA LOGO -->
+                    <div class="page-logo">
+                        <asp:HyperLink NavigateUrl="~/Default.aspx" runat="server" ID="logo">
+                        	<div class="logo-default"></div>
+                        </asp:HyperLink>
+                        <div id="sidebar-menu-toggler" class="menu-toggler sidebar-toggler">
+                            <span></span>
+                    </div>
+                    </div>
+                    <!-- FIM DA LOGO -->
+
+                    <!-- INÍCIO DO MENU HORIZONTAL -->
+
+                    <div class="hor-menu hor-menu-light hidden-sm hidden-xs" id="menuHorizontal">
+                        <wes:HorizontalMenu runat="server" ID="horizontalMenu" MenuID="MAIN" OpenSubMenuOnMouseHover="true" Visible="False" />
+                    </div>
+
+                    <a href="javascript:;" class="menu-toggler responsive-toggler" id="main-menu-toggler" data-toggle="collapse" data-target=".navbar-collapse"><span></span></a>
+
+                    <!-- FIM DO MENU HORIZONTAL-->
+
+
+                    <!-- INÍCIO DO MENU DO USUÁRIO -->
+                    <wes:TopBar ID="TopBar" runat="server" OpenSubMenuOnMouseHover="true" ShowSelectedRoleName="true" />
+                    <!-- FIM DO MENU DO USUÁRIO -->
+
+                </div>
+
+                <!-- FIM DA BARRA DE NAVEGAÇÃO -->
+            </div>
+            <!-- FIM DO CABEÇALHO -->
+
+            <div class="clearfix"></div>
+
+            <!-- INÍCIO CONTEÚDO -->
+            <div class="page-container">
+            <asp:ContentPlaceHolder ID="PageSidebarContent" runat="server">
+				<!-- INICIO MENU LATERAL -->
+                    <div runat="server" id="SideBar" class="page-sidebar-wrapper">
+                        <div class="page-sidebar navbar-collapse collapse">
+
+                            <ul runat="server" id="SidebarMenu" class="page-sidebar-menu page-header-fixed sidebar" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200"> 
+
+								<wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static"  Title="Menus" ID="MENULATERALMAIN" Provider="Menu" MenuID="MAIN" DisplayMenuTitle="true"/>
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa-duotone fa-gear" Title="Cadastros" ID="parametros" Provider="Menu" DisplayMenuTitle="false" MenuID="MENU_PARAMETROS" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa-duotone fa-clock" Title="Recentes" ID="recentes" Provider="RecentItem" DisplayMenuTitle="false" />
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa-duotone fa-star" Title="Favoritos" ID="favoritos" Provider="Bookmark" DisplayMenuTitle="false" />								
+                                <wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa-duotone fa-code-fork" Title="Atalhos" ID="atalhos" Provider="Menu" DisplayMenuTitle="false" MenuID="BARRA_DE_ATALHOS" />	
+								<wes:SideBarMenuWidget IsPrincipalMenu="True" runat="server" ClientIDMode="Static" Icon="fa-duotone fa-bar-chart" Title="Indicadores" ID="MENUINDICADORES" Provider="Menu"  MenuID="INDICADORES"  />	
+                            </ul>
+
+                            <wes:HorizontalMenu runat="server" ID="horizontalMenu1" MenuID="MAIN" Collapsible="true" />
+
+                        </div>
+                    </div>
+
+                </asp:ContentPlaceHolder>
+
+				<!-- FIM MENU LATERAL -->
+                <wes:DeveloperModalPageMenu ID="developerModalPageMenu" runat="server" />
+                <wes:SearcherModalPanel ID="searchModal" runat="server" />
+
+                <div class="page-content-wrapper">
+                    <!-- INÍCIO DA PÁGINA -->
+                    <asp:Panel runat="server" ID="ContentPanel" CssClass="page-content" ClientIDMode="Static">
+                        <wes:TopBarMainContent ID="TopBarMainContent" runat="server" />
+                        <asp:ContentPlaceHolder ViewStateMode="Enabled" EnableViewState="true" ID="Main" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </asp:Panel>
+                    <!-- FIM DA PÁGINA -->
+                </div>				
+            </div>
+
+            <!-- INÍCIO RODAPÉ -->
+              <div runat="server" id="Footer" class="page-footer">
+                <div class="page-footer-inner">
+                    <div class="footer-1">                       
+                        <p><script type="text/javascript">
+                            document.write(new Date().getFullYear());
+                        </script>
+                        &copy; Benner Sistemas.</p>                
+                    </div>
+                    <div class="footer-2 info-company">
+                        <span><%= GetCompany() %> - <%= GetBranch() %></span>
+                    </div>
+                    <div class="footer-3">
+                        <a href="javascript:Benner.Page.openEnvironmentSummary()">
+                        <asp:Label ID="systemVersion" runat="server" ClientIDMode="Static"></asp:Label></a>
+                   </div>
+                </div>
+            </div>
+            <!-- FIM RODAPÉ -->
+			
+            <script>
+                $(document).ready(function () {
+                    AplicarRegraMenuLateral();
+                    Benner.Corporativo.Notificacoes.inicializarNotificacoes();
+                });
+
+                Erp.enableTitleCollapse();
+            </script>
+        </div>
+    </form> 
+</body>
+</html>

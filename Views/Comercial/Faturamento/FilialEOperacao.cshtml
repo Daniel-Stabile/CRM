@@ -1,0 +1,31 @@
+﻿@{
+    var filialNome = Model.Definition.FieldDefinitions["FILIAL"].ToUI(Model["FILIAL"].Value);
+    var operacao =Model.Definition.FieldDefinitions["OPERACAOFATURAMENTO"].ToUI(Model["OPERACAOFATURAMENTO"].Value);
+}
+
+<div class="row static-info grid-retencoes">
+    <div class="col-lg-12">
+        <div class="form-group ">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Filial
+                    </div>
+                </div>
+            </label>
+            <span class=" value valueSecundario">@filialNome</span>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group ">
+            <label class="control-label name column-nowrap">
+                <div class="label-form">
+                    <div class="label-title">
+                        Operação
+                    </div>
+                </div>
+            </label>
+            <span class=" value valueSecundario">@operacao</span>
+        </div>
+    </div>
+</div>

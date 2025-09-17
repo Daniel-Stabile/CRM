@@ -1,0 +1,798 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Benner.OpenApi</name>
+    </assembly>
+    <members>
+        <member name="T:Benner.OpenApi.OpenApiAttribute">
+            <summary>
+            Definições da propriedade para o OpenApi.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiAttribute.CustomFieldName">
+            <summary>
+            Nome customizado para campo. Se não informado será utilizado o nome da propriedade.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiAttribute.Description">
+            <summary>
+            Descrição para o campo.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiAttribute.Priority">
+            <summary>
+            Prioridade do atributo no retorno dos atributos disponíveis.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiOptionAttribute">
+            <summary>
+            Definições de uma opção de valor o OpenApi.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiOptionAttribute.ApiValue">
+            <summary>
+            Valor do item.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiOptionAttribute.Description">
+            <summary>
+            Nome para o help do open api.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiOptionAttribute.TranslatedValue">
+            <summary>
+            Valor traduzido para a aplicação.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiOptionAttribute.#ctor(System.String,System.String,System.Object)">
+            <summary>
+            Construtor do atributo
+            </summary>
+            <param name="apiValue">Valor.</param>
+            <param name="description">Descrição.</param>
+            <param name="translatedValue">Valor para aplicação.</param>
+        </member>
+        <member name="T:Benner.OpenApi.IOpenApiDefinitionRepository">
+            <summary>
+            Representa uma fábrica de OpenApiDefinition.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.IOpenApiDefinitionRepository.Find(System.Type)">
+            <summary>
+            Busca uma definição já existente.
+            </summary>
+            <param name="referenceType">Tipo de referência no framework.</param>
+            <returns>Instância de definição de Api ou nulo.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.IOpenApiDefinitionRepository.Add(System.Type,Benner.OpenApi.IOpenApiDefinition)">
+            <summary>
+            Adiciona uma definição no repositório
+            </summary>
+            <param name="referenceType">Tipo de referência no framework.</param>
+            <param name="openApiDefinition">Instância de definição de Api.</param>
+        </member>
+        <member name="M:Benner.OpenApi.IOpenApiDefinitionRepository.Get(System.Type)">
+            <summary>
+            Busca uma definição, ou cria caso não exista.
+            </summary>
+            <param name="referenceType">Tipo de referência no framework.</param>
+            <returns>Instância de definição de Api ou nulo.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.IOpenApiDefinitionRepository.Get``1">
+            <summary>
+            Busca uma definição, ou cria caso não exista.
+            </summary>
+            <returns>Instância de definição de Api ou nulo.</returns>
+        </member>
+        <member name="T:Benner.OpenApi.IOpenApiDefinition">
+            <summary>
+            Representa uma definição de Open Api.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IOpenApiDefinition.Fields">
+            <summary>
+            Campos da Open Api.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IOpenApiDefinition.Item(System.String)">
+            <summary>
+            Retorna o campo com o nome informado
+            </summary>
+            <param name="fieldName">Nome do campo.</param>
+            <returns>Instância de definição do campo</returns>
+        </member>
+        <member name="M:Benner.OpenApi.IOpenApiDefinition.GetHelpModel">
+            <summary>
+            Retorna o modelo de resultado da OpenApi, com os campos disponíveis.
+            </summary>
+            <returns>Instância de QueryHelpResponseModel</returns>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiDefinitionBuilder">
+            <summary>
+            Construtor de um OpenApiDefinition.  
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionBuilder.AddField(Benner.OpenApi.FilterFieldDescriptionModel,System.String,System.Type)">
+            <summary>
+            Adiciona um novo campo.
+            </summary>
+            <param name="fieldDescriptionModel">Model do campo.</param>
+            <param name="targetProperty">Propriedade de destino.</param>
+            <param name="targetType">Tipo .net do campo.</param>
+            <returns>Uma instância de definição de campo.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionBuilder.AddField(Benner.OpenApi.FilterFieldDescriptionModel,System.String,System.Type,Benner.OpenApi.OpenApiOptionDefinition[])">
+            <summary>
+            Adiciona um novo campo.
+            </summary>
+            <param name="fieldDescriptionModel">Model do campo.</param>
+            <param name="targetProperty">Propriedade de destino.</param>
+            <param name="targetType">Tipo .net do campo.</param>
+            <param name="options">Opções de valor para o campo.</param>
+            <returns>Uma instância de definição de campo.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionBuilder.Build">
+            <summary>
+            Constroi a definição.
+            </summary>
+            <returns>Instância que implementa IOpenApiDefinition</returns>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiDefinitionImplementation.Fields">
+            <summary>
+            Campos da Open Api.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionImplementation.GetHelpModel">
+            <summary>
+            Retorna o modelo de ajuda para OpenApi.
+            </summary>
+            <returns>Modelo de ajuda para OpenApi.</returns>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiDefinitionRepository">
+            <summary>
+            Implementação do repositório de definições de Open Api.
+            </summary>
+        </member>
+        <member name="E:Benner.OpenApi.OpenApiDefinitionRepository.TypeResolve">
+            <summary>
+            Evento para resolver tipos concretos de interfaces.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionRepository.Find(System.Type)">
+            <summary>
+            Procura o tipo no repositório
+            </summary>
+            <param name="referenceType">Tipo.</param>
+            <returns>Definição para o tipo caso exista, senão nulo.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionRepository.Add(System.Type,Benner.OpenApi.IOpenApiDefinition)">
+            <summary>
+            Adiciona uma definição.
+            </summary>
+            <param name="referenceType"></param>
+            <param name="openApiDefinition"></param>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionRepository.Get``1">
+            <summary>
+            Obtém uma definição
+            </summary>
+            <returns>Definição para o tipo.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiDefinitionRepository.Get(System.Type)">
+            <summary>
+            Obtém uma definição
+            </summary>
+            <param name="referenceType">Tipo de referência, pode ser traduzido para um tipo concreto.</param>
+            <returns>Definição para o tipo.</returns>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiFieldDefinition">
+            <summary>
+            Representa uma definição de campo da Api.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiFieldDefinition.TargetType">
+            <summary>
+            Tipo .net do campo.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiFieldDefinition.TargetProperty">
+            <summary>
+            Nome da propriedade relacionada.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiFieldDefinition.Description">
+            <summary>
+            Descrição do campo.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiFieldDefinition.Options">
+            <summary>
+            Opções de valor para o campo.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiFieldDefinition.#ctor(Benner.OpenApi.FilterFieldDescriptionModel,System.String,System.Type,Benner.OpenApi.OpenApiOptionDefinition[])">
+            <summary>
+            Construtor da instância
+            </summary>
+            <param name="description">Description</param>
+            <param name="targetProperty">Propriedade relacionada.</param>
+            <param name="targetType">Tipo .net destino.</param>
+            <param name="options">Opções de valor para o campo.</param>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiFieldDefinition.ConvertFrom(Benner.OpenApi.FilterFieldValue)">
+            <summary>
+            Converte o valor do filtro para um valor .net
+            </summary>
+            <param name="filter">Filtro recebido no Api.</param>
+            <returns>Instância correspondente em .net.</returns>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiOptionDefinition">
+            <summary>
+            Definição de uma opção de valor para o OpenApi
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiOptionDefinition.ApiValue">
+            <summary>
+            Valor do item.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiOptionDefinition.Description">
+            <summary>
+            Nome para o help do open api.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiOptionDefinition.TranslatedValue">
+            <summary>
+            Valor traduzido para a aplicação.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiOptionDefinition.#ctor(System.String,System.String,System.Object)">
+            <summary>
+            Construtor da classe
+            </summary>
+            <param name="apiValue">Valor.</param>
+            <param name="description">Descrição.</param>
+            <param name="translatedValue">Valor para aplicação.</param>
+        </member>
+        <member name="T:Benner.OpenApi.Events.TypeResolverEventArgs">
+            <summary>
+            Argumentos de um evento de resolução de tipo
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.Events.TypeResolverEventArgs.ResolvedType">
+            <summary>
+            Tipo que esta sendo utilizado
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.FilterFieldDescriptionModel">
+            <summary>
+            Representa um campo disponível para utilização na Api.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldDescriptionModel.FieldName">
+            <summary>
+            Nome do campo.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldDescriptionModel.Description">
+            <summary>
+            Descrição do campo.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldDescriptionModel.DataType">
+            <summary>
+            Tipo de dado do campo.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldDescriptionModel.ValidOperations">
+            <summary>
+            Operações válidas para o campo.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.FilterOperationFlags">
+            <summary>
+            Representa a operação de um filtro.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.None">
+            <summary>
+            Nenhum
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.Equal">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.NotEqual">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.Null">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.NotNull">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.LessThan">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.LessThanOrEqual">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.GreaterThan">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.GreaterThanOrEqual">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.In">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.NotIn">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.StartsWith">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.FilterOperationFlags.Contains">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.QueryHelpResponseModel">
+            <summary>
+            Representa o resultado de uma consulta de campos disponíveis de uma consulta.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.QueryHelpResponseModel.AvailableFields">
+            <summary>
+            Campos disponíveis para Api.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.IPagingRequestModel">
+            <summary>
+            Representa uma requisição com os parâmetros.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingRequestModel.PageIndex">
+            <summary>
+            Índice da página requisitada.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingRequestModel.PageSize">
+            <summary>
+            Quantidade de itens da página requisitada.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingRequestModel.OrderBy">
+            <summary>
+            Expressão de ordenação.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingRequestModel.Filter">
+            <summary>
+            Expressão de filtro.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.IPagingResponseModel`1">
+            <summary>
+            Representa uma resposta com paginação.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingResponseModel`1.PageIndex">
+            <summary>
+            Índice da página.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingResponseModel`1.PageSize">
+            <summary>
+            Tamanho da página.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingResponseModel`1.OrderBy">
+            <summary>
+            Expressão de ordenação utilizada.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingResponseModel`1.Filter">
+            <summary>
+            Expressão de filtro utilizada.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingResponseModel`1.MorePages">
+            <summary>
+            Indica se existem mais páginas.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.IPagingResponseModel`1.Items">
+            <summary>
+            Itens da página.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiConstants">
+            <summary>
+            Constantes utilizadas pela biblioteca OpenApi.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiConstants.Parameters">
+            <summary>
+            Constantes relativas a parâmetros.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Parameters.PageIndex">
+            <summary>
+            Nome do parâmetro do índice da página.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Parameters.PageSize">
+            <summary>
+            Nome do parâmetro com o tamanho da página.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Parameters.Filter">
+            <summary>
+            Nome do parâmetro de filtro.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Parameters.OrderBy">
+            <summary>
+            Nome do parâmetro de ordenação.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiConstants.Paging">
+            <summary>
+            Constantes relativas a paginação.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Paging.MorePages">
+            <summary>
+            Informa se existem mais páginas.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Paging.Items">
+            <summary>
+            Itens da página retornada.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Paging.DefaultPageSize">
+            <summary>
+            Tamanho padrão de página.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Paging.MaxPageSize">
+            <summary>
+            Tamanho máximo de página.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiConstants.Operations">
+            <summary>
+            Constantes relativas aos operadores.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.Equal">
+            <summary>
+            Operador =
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.NotEqual">
+            <summary>
+            Operador diferente (!=)
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.Null">
+            <summary>
+            Operador is null
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.NotNull">
+            <summary>
+            Operador not is null
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.LessThan">
+            <summary>
+            Operador menor que
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.LessThanOrEqual">
+            <summary>
+            Operador menor ou igual a
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.GreaterThan">
+            <summary>
+            Operador maior que
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.GreaterThanOrEqual">
+            <summary>
+            Operador maior ou igual a
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.In">
+            <summary>
+            Operador em
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.NotIn">
+            <summary>
+            Operador não em
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.StartsWith">
+            <summary>
+            Operador inicia com
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.Operations.Contains">
+            <summary>
+            Operador contem
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiConstants.DataTypes">
+            <summary>
+            Constantes relativas aos tipos de dados suportados.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.DataTypes.Text">
+            <summary>
+            Tipo de dado texto.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.DataTypes.Number">
+            <summary>
+            Tipo de dado númérico.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.DataTypes.DateTime">
+            <summary>
+            Tipo de dado data ou data e hora.
+            </summary>
+        </member>
+        <member name="F:Benner.OpenApi.OpenApiConstants.DataTypes.Option">
+            <summary>
+            Tipo de dado contido em um conjunto de opções.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiException">
+            <summary>
+            Exceção padrão gerada pela biblioteca OpenApi.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiQueryBuilder">
+            <summary>
+            Objeto para criação de url.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.#ctor(System.String)">
+            <summary>
+            Contrutor da classe.
+            </summary>
+            <param name="baseUrl">Url para chamada.</param>
+            <exception cref="T:System.ArgumentNullException">baseUtl nula.</exception>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.AddPageIndex(System.Int32)">
+            <summary>
+            Adiciona o índice da página. Iniciando em zero.
+            </summary>
+            <param name="pageIndex">Índice da página.</param>
+            <returns>A própria instância do objeto OpenApiQueryBuilder.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.AddPageSize(System.Int32)">
+            <summary>
+            Adiciona o tamanho da página.
+            </summary>
+            <param name="pageSize">Tamanho da página.</param>
+            <returns>A própria instância do objeto OpenApiQueryBuilder.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.AddOrderBy(System.String)">
+            <summary>
+            Adiciona OrderBy.
+            </summary>
+            <param name="fieldName">Nome do campo.</param>
+            <returns>A própria instância do objeto OpenApiQueryBuilder.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.AddOrderByDescending(System.String)">
+            <summary>
+             Adiciona Order by descendente.
+            </summary>
+            <param name="fieldName">Nome do campo.</param>
+            <returns>A própria instância do objeto OpenApiQueryBuilder.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.AddFilter(System.String,System.String)">
+            <summary>
+            Adiciona um filtro.
+            </summary>
+            <param name="fieldName">Nome do campo.</param>
+            <param name="operation">Operação. Consultar OpenApiConstants.Operations</param>
+            <returns>A própria instância do objeto OpenApiQueryBuilder.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.AddFilter(System.String,System.String,System.String)">
+            <summary>
+            Adiciona um filtro.
+            </summary>
+            <param name="fieldName">Nome do campo.</param>
+            <param name="operation">Operação. Consultar OpenApiConstants.Operations</param>
+            <param name="value">Valor para filtrar.</param>
+            <returns>A própria instância do objeto OpenApiQueryBuilder.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.ToString">
+            <summary>
+            Retorna a Url completa,
+            </summary>
+            <returns>Url completa.</returns>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiQueryBuilder.ToJsonBody">
+            <summary>
+            Cria um objeto para ser usado com POST.
+            </summary>
+            <returns>Objeto de parâmetros.</returns>
+        </member>
+        <member name="T:Benner.OpenApi.FilterFieldValue">
+            <summary>
+            Representa o valor de um filtro
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldValue.FieldName">
+            <summary>
+            Campo que esta sendo filtrado
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldValue.Operation">
+            <summary>
+            Operação de filtro
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.FilterFieldValue.Values">
+            <summary>
+            Valor informado
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.OpenApiRequestParser">
+            <summary>
+            Parser de requisições.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiRequestParser.Data">
+            <summary>
+            Dados da requisição.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiRequestParser.Filters">
+            <summary>
+            Lista de filtros da requisição.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiRequestParser.OrderBy">
+            <summary>
+            Lista de campos a ordenar.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiRequestParser.PageIndex">
+            <summary>
+            Índice da página, iniciando em zero.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OpenApiRequestParser.PageSize">
+            <summary>
+            Tamanho da página.
+            </summary>
+        </member>
+        <member name="M:Benner.OpenApi.OpenApiRequestParser.#ctor(Benner.OpenApi.IPagingRequestModel)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="data">Requisição</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:Benner.OpenApi.OrderByFieldValue">
+            <summary>
+            Representa um campo para ordenação.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OrderByFieldValue.FieldName">
+            <summary>
+            Nome do campo a ordenar.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.OrderByFieldValue.IsDesc">
+            <summary>
+            Informar true para ordem decrescente ou false para crescente.
+            </summary>
+        </member>
+        <member name="T:Benner.OpenApi.ResourceStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err001FieldNameParameter">
+            <summary>
+              Looks up a localized string similar to Api001-The field [{0}] is not an available field.&quot;.
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err002ExpressionFilterParameter">
+            <summary>
+              Looks up a localized string similar to Api002-The expression [{0}] is an invalid filter..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err003FieldNameParameter">
+            <summary>
+              Looks up a localized string similar to Api003-The name [{0}] is not a valid field name..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err004OperatorParameter">
+            <summary>
+              Looks up a localized string similar to Api004-The operator [{0}] is not a valid operator..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err005DataTypeParameter">
+            <summary>
+              Looks up a localized string similar to Api005-The data type [{0}] is not a valid data type. The valid data types are: [number], [text], [datetime]..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err006TypeNameParameter">
+            <summary>
+              Looks up a localized string similar to Api006-The type [{0}] was not mapped to an open api data type..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err007ValueAndDataTypeParameter">
+            <summary>
+              Looks up a localized string similar to Api007-The value [{0}] is not a valid [{1}]..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err008PageSizeAndSuportedAndParameterNameParameter">
+            <summary>
+              Looks up a localized string similar to Api008-The page size provided ({0}) exceeds the maximum page size supported ({1}). Check the parameter [{2}]..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err009OrderByParameter">
+            <summary>
+              Looks up a localized string similar to Api009-The value [{0}] is an invalid order by expression..
+            </summary>
+        </member>
+        <member name="P:Benner.OpenApi.ResourceStrings.Err010ExpressionParameter">
+            <summary>
+              Looks up a localized string similar to Api010-The order [{0}] is invalid. The valid values are [asc] or [desc]..
+            </summary>
+        </member>
+    </members>
+</doc>

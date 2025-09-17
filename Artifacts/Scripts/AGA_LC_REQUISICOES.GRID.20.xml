@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_LC_REQUISICOES.GRID</ViewName>
+  <EntityName>LC_REQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity.Fields["STATUS"].Value != 1:
+        row.EditCommand.Visible = False
+        row.DeleteCommand.Visible = False
+
+    if entity.Fields["STATUS"].Value == 1 and entity.Fields["LIBERADA"] :
+        row.GetCellByName("STATUS").Text = "Confirmar"
+    elif entity.Fields["STATUS"].Value == 1 and entity.Fields["RECUSADA"] : 
+        row.GetCellByName("STATUS").Text = "Recusada"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

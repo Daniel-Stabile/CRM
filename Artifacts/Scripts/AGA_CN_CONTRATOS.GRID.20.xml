@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOS.GRID</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+
+    statusContrato = entity.Fields["STATUS"].Value
+    liberado = entity.Fields["LIBERADO"]
+    statusEmElaboracao = 1    
+    if (((statusContrato == statusEmElaboracao) and liberado) or (statusContrato &gt; statusEmElaboracao)): 
+        if row.EditCommand != None:
+            row.EditCommand.Visible = False
+        if row.DeleteCommand != None:    
+            row.DeleteCommand.Visible = False
+    if ((statusContrato == statusEmElaboracao) and liberado): 
+        row.GetCellByName("STATUS").Text = "Aguardando confirmação"
+    
+    if row.GetCustomCommand("AcompanharAssinaturasDigitais") != None:    
+        row.GetCustomCommand("AcompanharAssinaturasDigitais").Enabled = entity.ExibirComandoAcompanharAssinaturasDigitais
+        
+    if row.GetCustomCommand("VoltarParaElaboracao") != None:    
+        row.GetCustomCommand("VoltarParaElaboracao").Enabled = entity.PodeVoltarParaElaboracao
+    
+    if CNContrato.VerificarContradoVencido(entity.Fields["HANDLE"].Value):    
+        row.GetCellByName("STATUS").Text = "Vencido"</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    from Benner.Tecnologia.Business import Query
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    from Benner.Tecnologia.Common import EntityState
+    
+    if widget.ProviderWidget &lt;&gt; None and (widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+    
+    sqlOrcamentoPublico = Query("SELECT ORCAMENTOPUBLICO FROM FN_PARAMETROS WHERE EMPRESA = "+str(Utils.ObterEmpresaCorrente()))
+    result = sqlOrcamentoPublico.Execute()
+
+    ehOrcamentoPublico = result[0]["ORCAMENTOPUBLICO"].GetBoolean()
+
+    widget.View.FieldDefinitions["STATUSPEDIDOEMPENHO"].Visible = ehOrcamentoPublico
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

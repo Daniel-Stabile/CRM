@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTABILIZACAOFATURAMENTOCOMERCIAL</Identifier>
+  <Name>Contabilização de faturamento comercial</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE CHAVE,&#xD;&#xA;       B.HANDLE CHAVECC,&#xD;&#xA;       A.LANCAMENTOFINANCEIRO,&#xD;&#xA;       A.DATA,&#xD;&#xA;       A.DOCUMENTOCONTABIL,&#xD;&#xA;       AB.NOME CONTADEBITO,&#xD;&#xA;       AC.NOME CONTACREDITO,&#xD;&#xA;       A.HISTORICO,&#xD;&#xA;       A.DATAVENCIMENTO,&#xD;&#xA;       A.VALOR VALORLANCAMENTO,&#xD;&#xA;       C.NOME CENTROCUSTO,&#xD;&#xA;       D.NOME PROJETO,&#xD;&#xA;       B.VALOR VALORCC,&#xD;&#xA;       B.PERCENTUAL&#xD;&#xA;  FROM CT_LANCAMENTOS A&#xD;&#xA;       LEFT JOIN CT_CONTAS AB ON (AB.HANDLE = A.CONTADEBITO)&#xD;&#xA;       LEFT JOIN CT_CONTAS AC ON (AC.HANDLE = A.CONTACREDITO)&#xD;&#xA;       LEFT JOIN CT_LANCAMENTOCC B ON (B.LANCAMENTO = A.HANDLE)&#xD;&#xA;       LEFT JOIN CT_CC C ON (C.HANDLE = B.CENTROCUSTO)&#xD;&#xA;       LEFT JOIN GN_PROJETOS D ON (D.HANDLE = B.PROJETO)&#xD;&#xA; WHERE A.LANCAMENTOORIGINAL IS NULL " />
+  <Fields>
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="CHAVECC" From="A" Path="CHAVECC" />
+    <Field Alias="LANCAMENTOFINANCEIRO" From="A" Path="LANCAMENTOFINANCEIRO" />
+    <Field Alias="DATA" From="A" Path="DATA" />
+    <Field Alias="DOCUMENTOCONTABIL" From="A" Path="DOCUMENTOCONTABIL" />
+    <Field Alias="CONTADEBITO" From="A" Path="CONTADEBITO" />
+    <Field Alias="CONTACREDITO" From="A" Path="CONTACREDITO" />
+    <Field Alias="HISTORICO" From="A" Path="HISTORICO" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="VALORLANCAMENTO" From="A" Path="VALORLANCAMENTO" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <Field Alias="VALORCC" From="A" Path="VALORCC" />
+    <Field Alias="PERCENTUAL" From="A" Path="PERCENTUAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

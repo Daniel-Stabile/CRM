@@ -1,0 +1,133 @@
+﻿@helper LabelTesourariaHelper(string field, string labelName, dynamic model)
+{
+    try
+    {
+        if (model[field].GetBoolean())
+        {
+            <span class="badge badge-info badge-roundless col-md-12">
+                <p class="col-md-9 label-tesouraria-situation">@labelName</p>
+                <i class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"></i>
+            </span>
+        }
+        else
+        {
+            <span class="badge badge-default badge-roundless col-md-12 label-tesouraria-empty">
+                <p class="col-md-9 label-tesouraria-situation">@labelName</p>
+                <i class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"></i>
+            </span>
+        }
+    }
+    catch
+    {
+        if (model[field].GetString() == "S")
+        {
+            <span class="badge badge-info badge-roundless col-md-12">
+                <p class="col-md-9 label-tesouraria-situation">@labelName</p>
+                <i class="fa fa-check-square col-md-offset-2 col-md-1 icon-tesouraria-situation"></i>
+            </span>
+        }
+        else
+        {
+            <span class="badge badge-default badge-roundless col-md-12 label-tesouraria-empty">
+                <p class="col-md-9 label-tesouraria-situation">@labelName</p>
+                <i class="fa fa-square-o col-md-offset-2 col-md-1 icon-tesouraria-situation"></i>
+            </span>
+        }
+    }
+}
+
+@helper LabelTesourariaHelperIcon(string labelName, string value, string icon)
+{
+
+    <span class="badge badge-info badge-roundless col-md-12">
+        <p class="col-md-6 label-tesouraria-situation @icon">@labelName</p>
+        <p class="col-md-6 icon-tesouraria-situation @icon">@value</p>
+    </span>
+}
+
+@helper LabelTesourariaFooter(string labelValue, string color, bool breakLine = true)
+{
+    if (breakLine)
+    {
+        <hr />
+    }
+    <p style="margin-top:10px;text-align:right" class="label-tesouraria-footer @color">@labelValue</p>
+}
+
+@helper LabelTesourariaFooterDecimal(string labelValue, string color, bool breakLine = true)
+{
+    if (breakLine)
+    {
+        <hr />
+    }
+    <p style="margin-top:10px;text-align:right" class="label-tesouraria-footer @color">@labelValue.ToDecimal().ToString("C2")</p>
+}
+
+
+@helper LabelTesourariaIntValue(string label, string labelValue, int value, string fontColor, bool breakLine = false)
+{
+    if (labelValue != null && labelValue != string.Empty)
+    {
+
+
+        var emptyClass = "badge-info";
+        if (fontColor == "red")
+        {
+            emptyClass = "badge-danger";
+        }
+
+        if (value <= 0)
+        {
+            emptyClass = "label-tesouraria-empty";
+        }
+
+        <span class="badge badge-roundless col-md-12 @emptyClass">
+            @if (breakLine)
+            {
+                <p style="text-align:left" class="col-md-12 label-tesouraria-situation">@label</p>
+                <p style="text-align:left" class="col-md-12 label-tesouraria-value ">@labelValue</p>
+            }
+            else
+            {
+                <p class="col-md-4 label-tesouraria-situation">@label</p>
+                <p class="col-md-8 label-tesouraria-value ">@labelValue</p>
+            }
+
+        </span>
+    }
+}
+
+@helper LabelTesourariaDecimalValue(string label, string labelValue, decimal value, string fontColor, bool breakLine = false)
+{
+    if (labelValue != null && labelValue != string.Empty)
+    {
+
+
+        var emptyClass = "badge-info";
+        if (fontColor == "red")
+        {
+            emptyClass = "badge-danger";
+        }
+
+        if (value <= 0)
+        {
+            emptyClass = "label-tesouraria-empty";
+        }
+
+        <span class="badge badge-roundless col-md-12 @emptyClass">
+            @if (breakLine)
+            {
+                <p style="text-align:left" class="col-md-12 label-tesouraria-situation">@label</p>
+                <p style="text-align:left" class="col-md-12 label-tesouraria-value ">@labelValue.ToDecimal().ToString("C2")</p>
+            }
+            else
+            {
+                <p class="col-md-4 label-tesouraria-situation">@label</p>
+                <p class="col-md-8 label-tesouraria-value ">@labelValue.ToDecimal().ToString("C2")</p>
+            }
+
+        </span>
+    }
+}
+
+

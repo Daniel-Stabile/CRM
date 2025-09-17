@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>R_RELATORIOS.TEC.FORM</ViewName>
+  <EntityName>R_RELATORIOS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_PreverExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_PreverExecute(command, entity):
+    from Benner.Tecnologia.Common import ReportUtils
+    ReportUtils.ConfigureReportCommand(command, entity)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EmitirExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EmitirExecute(command, entity):
+    from Benner.Tecnologia.Common import ReportUtils
+    
+    ReportUtils.ConfigureReportCommand(command, entity)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

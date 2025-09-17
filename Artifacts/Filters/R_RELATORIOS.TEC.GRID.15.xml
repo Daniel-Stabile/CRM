@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>R_RELATORIOS.TEC.GRID</ViewName>
+  <Level>Tecnologia</Level>
+  <EntityName>R_RELATORIOS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Recentes</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FilterCondition Index="1">
+    <Value xsi:type="xsd:string">A.ALTERADOPOR = (SELECT APELIDO FROM Z_GRUPOUSUARIOS WHERE HANDLE = @USUARIO) AND A.ULTIMAALTERACAO &gt; (@AGORA - 60)</Value>
+    <UserInputRequired>false</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>true</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Where>A.ALTERADOPOR = (SELECT APELIDO FROM Z_GRUPOUSUARIOS WHERE HANDLE = @USUARIO) AND A.ULTIMAALTERACAO &gt; (@AGORA - 60)</Where>
+  <Parameters />
+</WhereClause>]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

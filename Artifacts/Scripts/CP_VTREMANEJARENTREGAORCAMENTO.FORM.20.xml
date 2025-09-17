@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_VTREMANEJARENTREGAORCAMENTO.FORM</ViewName>
+  <EntityName>CP_VTREMANEJARENTREGAORCAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPOrdemCompraEntrega
+    
+    ehAntecipacao = CPOrdemCompraEntrega.EhAntecipacao(entity.Fields["DATA"], entity.Fields["ENTREGA"].Handle.Value);
+    
+    if (ehAntecipacao):
+        command.RequestConfirmationBeforeExecute("Este processo irá antecipar a entrega, gerando novo pedido de empenho no orçamento em execução. Deseja continuar?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

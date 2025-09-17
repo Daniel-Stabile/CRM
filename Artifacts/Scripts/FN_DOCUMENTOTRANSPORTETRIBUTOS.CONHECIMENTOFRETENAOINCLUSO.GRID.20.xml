@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTOTRANSPORTETRIBUTOS.CONHECIMENTOFRETENAOINCLUSO.GRID</ViewName>
+  <EntityName>FN_DOCUMENTOTRANSPORTETRIBUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if row.EditCommand != None:
+        row.EditCommand.Visible = entity.Fields["DOCUMENTOTRANSPORTE"].Instance.Fields["STATUS"].Value == 2
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = entity.Fields["DOCUMENTOTRANSPORTE"].Instance.Fields["STATUS"].Value == 2
+    RemovePrefixoMoedas("VALORCONTABIL", entity, row)
+    RemovePrefixoMoedas("BASEICMS", entity, row)
+    RemovePrefixoMoedas("VALORICMS", entity, row)
+    RemovePrefixoMoedas("VALORISENTASICMS", entity, row)
+    RemovePrefixoMoedas("VALOROUTRASICMS", entity, row)
+    RemovePrefixoMoedas("DIFERENCIALALIQUOTA", entity, row)
+    RemovePrefixoMoedas("BASECALCULOPIS", entity, row)
+    RemovePrefixoMoedas("VALORPIS", entity, row)
+    RemovePrefixoMoedas("BASECALCULOCOFINS", entity, row)
+    RemovePrefixoMoedas("VALORCOFINS", entity, row)
+    RemovePrefixoMoedas("BASESUBSTITRIBUTARIA", entity, row)
+    RemovePrefixoMoedas("VALORICMSSUBSTITRIB", entity, row)
+    
+def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+    if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    mestre = widget.ProviderWidget
+    entidadeMestre = mestre.Entity
+    
+    widget.View.Commands["New"].Visible = entidadeMestre.Fields["STATUS"].Value == 2</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

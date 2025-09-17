@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_VERSOESORCAMENTOS.HISTORICO.GRID</ViewName>
+  <EntityName>CT_VERSOESORCAMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    if row.GetCustomCommand("CMD_ELABORAR") != None:
+        row.GetCustomCommand("CMD_ELABORAR").Enabled = entity.Fields["ESTADO"].Value == "E";
+    if row.GetCustomCommand("CMD_REMANEJAR") != None:
+        row.GetCustomCommand("CMD_REMANEJAR").Enabled = entity.Fields["ESTADO"].Value == "X";
+    
+    if row.GetCustomCommand("CMD_CARREGAR_OP"): row.GetCustomCommand("CMD_CARREGAR_OP").Enabled = Utils.EhOrcamentoPublicoComControleAcao()
+    
+    if (row.GetCustomCommand("CMD_DEFINIROFICIAL")): row.GetCustomCommand("CMD_DEFINIROFICIAL").Enabled = entity.ElaboracaoOficial == False
+    if (row.GetCustomCommand("CMD_REMOVEROFICIAL")): row.GetCustomCommand("CMD_REMOVEROFICIAL").Enabled = entity.ElaboracaoOficial == True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

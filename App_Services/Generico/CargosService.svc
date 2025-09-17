@@ -1,0 +1,61 @@
+﻿<%@ ServiceHost Language="C#"                 
+                Service="Benner.Corporativo.WebServices.Genericos.CargosService" 
+                Factory="Benner.Tecnologia.EnterpriseServiceLibrary.HttpServiceHostFactory" %>
+
+using System;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Description;
+using Benner.Tecnologia.EnterpriseServiceLibrary;
+using Benner.Tecnologia.Common.EnterpriseServiceLibrary;
+using Benner.Tecnologia.Common;
+
+namespace Benner.Corporativo.WebServices.Genericos
+{
+
+    [System.Runtime.Serialization.DataContract(Namespace = "http://benner.com.br/corporativo/CargosService")]
+    public class Cargo
+    {
+        [System.Runtime.Serialization.DataMember]
+        public long Codigo { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string Nome { get; set; }
+    }
+    
+    public class ConsultaCargosResponse : Response
+    {
+        [System.Runtime.Serialization.DataMember]
+        public System.Collections.Generic.List<Cargo> Cargos { get; set; }
+    }
+
+    [ServiceContract(Namespace = "http://benner.com.br/corporativo/CargosService")]
+    public interface ICargosService : IAuthentication
+    {
+        [OperationContract]
+        ConsultaCargosResponse ConsultaCargos();
+    }
+
+    [ServiceBehavior(Namespace = "http://benner.com.br/corporativo/CargosService")]
+    public class CargosService : ServiceBase, ICargosService
+    {
+        public ConsultaCargosResponse ConsultaCargos()
+        {
+            var response = new ConsultaCargosResponse();
+            response.Cargos = new System.Collections.Generic.List<Cargo>();
+            Entities<EntityBase> tipos = Entity.GetAll(EntityDefinition.GetByName("GN_CARGOS"));            
+
+            tipos.ForEach(item =>
+            {
+
+                System.Nullable<long> codigo = item.Fields["CODIGO"] as System.Nullable<long>;
+                response.Cargos.Add(new Cargo()
+                {
+                    Codigo = codigo.HasValue ? codigo.Value : 0,
+                    Nome = item.Fields["NOME"] as string
+                });
+            });
+
+            return response;
+        }
+    }
+}

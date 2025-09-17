@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_OBJETOENTREGAS.GRID</ViewName>
+  <EntityName>CN_OBJETOENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    objeto = widget.ProviderWidget.Entity
+    if (objeto == None) : return
+
+    widget.Hidden = objeto.IsCreating
+    
+    if not widget.Hidden:
+        import clr
+        clr.AddReference("Benner.Corporativo.Definicoes")    
+        from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+        widget.Hidden = CNContratoObjeto.PrevisaoApontamentoMostrarTab(objeto.Handle)    
+    
+        contratoEmElaboracao = objeto.ContratoEmElaboracao(objeto.ContratoHandle)
+        widget.View.Commands["CMD_GERARENTREGAS"].Visible = contratoEmElaboracao
+        widget.View.Commands["CMD_EXCLUIRTODAS"].Visible = contratoEmElaboracao
+        widget.View.Commands["New"].Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRTODASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRTODASExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_CONTRATOOBJETOS"))    
+    command.TransitoryVars.Add("HANDLECONTRATO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    objeto = entity.ObjetoInstance
+    contratoEmElaboracao = objeto.ContratoEmElaboracao(objeto.ContratoHandle)
+    row.EditCommand.Visible = contratoEmElaboracao
+    row.DeleteCommand.Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

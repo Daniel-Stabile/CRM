@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_FUNILVENDAS.CUSTOM.FORM</ViewName>
+  <EntityName>CRM_FUNILVENDAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    entity = widget.Entity
+    if (entity.State == EntityState.Initialized):
+        sql = "SELECT MAX(ORDEM) ORDEM FROM CRM_FUNILVENDAS WHERE EMPRESA = @EMPRESA"
+        ed = EntityDefinition.Create();
+        ed.EntitySource = QuerySource(sql)
+        ordem = Entity.Get(ed, Criteria())
+        
+        if (not ordem.Fields["ORDEM"] is None):
+            entity.Fields["ORDEM"] = ordem.Fields["ORDEM"] + 1
+        else:
+            entity.Fields["ORDEM"] = 1
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

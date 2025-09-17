@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ORDEMVEICULOPARADAS.NOVAORDEM.GRID</ViewName>
+  <EntityName>MF_ORDEMVEICULOPARADAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Frotas.Definicoes")
+    from Benner.Corporativo.Frotas.Definicoes.Entidades import MFOrdemServico
+    
+    form = widget.ProviderWidget
+    if form == None: return
+    entity = form.Entity
+    if entity == None: return
+    
+    tipoOrdem = entity.Fields["TIPOORDEMMANUTENCAO"].ToString()
+    
+    if not MFOrdemServico.EhVeiculoParado(tipoOrdem):
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

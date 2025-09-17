@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CLOUD_GN_PESSOAS.FORNECEDORES.FORM</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import TabItem
+    
+    # removendo tabs indesejados
+    paginaDoFormulario = widget.View.Pages[0]
+    tabPage = paginaDoFormulario.Items["TIPO"]
+    tabPage.Pages.Remove("3") # PF Exterior
+    tabPage.Pages.Remove("4") # PJ Exterior
+    tabPage.Pages.Remove("5") # Espólio
+    
+    # ajustando legenda do campo
+    if widget.Entity == None: return
+    tipo = widget.Entity.Fields["TIPO"]
+    if tipo == None: return
+
+    valor = tipo.Value
+    if valor == 1 or valor == 3:
+        widget.View.FieldDefinitions["CGCCPF"].Title = "CPF";
+        #widget.View.FieldDefinitions["CGCCPF"].Mask = "999\.999\.999-99";
+    else:
+        widget.View.FieldDefinitions["CGCCPF"].Title = "CNPJ";
+        #widget.View.FieldDefinitions["CGCCPF"].Mask = "99\.999\.999/9999-99";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    
+    tipo = entity.Fields["TIPO"]
+    if tipo == None: return
+
+    valor = tipo.Value
+    if valor == 1 or valor == 3:
+        view.FieldDefinitions["CGCCPF"].Title = "CPF";
+        #view.FieldDefinitions["CGCCPF"].Mask = "999\.999\.999-99";
+    else:
+        view.FieldDefinitions["CGCCPF"].Title = "CNPJ";
+        #view.FieldDefinitions["CGCCPF"].Mask = "99\.999\.999/9999-99";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    entity.Fields["APELIDO"] = entity.Fields["NOME"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

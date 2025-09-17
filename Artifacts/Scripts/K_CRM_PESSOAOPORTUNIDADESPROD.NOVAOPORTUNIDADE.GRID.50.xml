@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESPROD.NOVAOPORTUNIDADE.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESPROD</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import QuerySource
+    
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["OPORTUNIDADE"];
+        versao = entity.Fields["VERSAO"];
+        criteria = Criteria("A.HANDLE IN (SELECT MODALIDADE FROM K_CRM_PESSOAOPORTUNIDADES WHERE HANDLE = :OPORTUNIDADE)", Parameter("OPORTUNIDADE", oportunidade));
+        modalidade = Entity.Get(EntityDefinition.GetByName("K_CRM_MODALIDADES"), criteria);
+        
+        opInstance = Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADES"), oportunidade.Handle);
+        
+        if opInstance.Ativo == True:
+            row.EditCommand.Visible = False;
+            row.DeleteCommand.Visible = False;
+
+        criterio = Criteria()
+        sql = "SELECT TOP 1 * FROM K_CRM_PO_DESCONTOS A WHERE A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.NIVELAPROVACAO &gt;= 1 AND A.NIVELAPROVACAO &lt;= 5 AND A.DATAAPROVACAO &gt;= (SELECT MAX(DATAAPROVACAO) FROM K_CRM_PO_DESCONTOS AS D2 WHERE A.OPORTUNIDADE = D2.OPORTUNIDADE AND A.VERSAO = D2.VERSAO AND D2.NIVELAPROVACAO = 1) ORDER BY NIVELAPROVACAO DESC";
+        criterio.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade.Handle));
+        criterio.Parameters.Add(Parameter("VERSAO", versao));
+        ed = EntityDefinition.Create();
+        ed.EntitySource = QuerySource(sql);
+        desconto = Entity.GetFirstOrDefault(ed, criterio);
+        if None != desconto and desconto.Fields["STATUS"] in [3]:
+            row.EditCommand.Visible = False;
+            row.DeleteCommand.Visible = False;
+
+        critItens = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.PRODUTO IN (:PRODUTO)");
+        critItens.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        critItens.Parameters.Add(Parameter("VERSAO", versao));
+        critItens.Parameters.Add(Parameter("PRODUTO", entity.Fields["HANDLE"].ToString()));
+        itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), critItens);
+        #if itens.Count &gt; 0:
+        #    row.EditCommand.Visible = False;
+        
+        crit3 = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.TIPO = 2");       
+        crit3.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        crit3.Parameters.Add(Parameter("VERSAO", versao));
+        proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), crit3);
+        if None != proposta:
+            if proposta.Count &gt; 0:
+                if None != row.GetCustomCommand("cmdEditCustom"):
+                    row.GetCustomCommand("cmdEditCustom").Enabled = False
+                if None != row.DeleteCommand:
+                    row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import QuerySource
+
+    entity = widget.ProviderWidget.Entity
+    essa = widget.Entity
+
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["HANDLE"];
+        versao = entity.Fields["VERSAO"];
+        criteria = Criteria("A.HANDLE IN (SELECT MODALIDADE FROM K_CRM_PESSOAOPORTUNIDADES WHERE HANDLE = :OPORTUNIDADE)", Parameter("OPORTUNIDADE", oportunidade));
+        modalidade = Entity.Get(EntityDefinition.GetByName("K_CRM_MODALIDADES"), criteria);
+        
+        if entity.Ativo == True:
+            widget.View.Commands["New"].Visible = False;
+        
+        if None != modalidade:
+            if modalidade.Fields["HANDLE"].IsValid():
+                if modalidade.Fields["LU"] == True:
+                    widget.View.FieldDefinitions["VALORLU"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORLU"].Visible = False;
+                if modalidade.Fields["LUM"] == True:
+                    widget.View.FieldDefinitions["VALORLUM"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORLUM"].Visible = False;        
+                if modalidade.Fields["LOCACAO"] == True:
+                    widget.View.FieldDefinitions["VALORLOCACAO"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORLOCACAO"].Visible = False;
+                if modalidade.Fields["SAAS"] == True:
+                    widget.View.FieldDefinitions["VALORDC"].Visible = True;
+                    widget.View.FieldDefinitions["VALORSAASSQL"].Visible = True;
+                else:
+                    widget.View.FieldDefinitions["VALORDC"].Visible = False;
+                    widget.View.FieldDefinitions["VALORSAASSQL"].Visible = False;
+        
+        crit = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO");
+        crit.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        crit.Parameters.Add(Parameter("VERSAO", versao));
+        produtos = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESPROD"), crit);
+        itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), crit);
+        
+        if None != produtos:
+            if produtos.Count == 0 or itens.Count == 0:
+                widget.View.Commands["cmdGoAdicionais"].Visible = False;
+        
+        criterio = Criteria()
+        sql = "SELECT TOP 1 * FROM K_CRM_PO_DESCONTOS A WHERE A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.NIVELAPROVACAO &gt;= 1 AND A.NIVELAPROVACAO &lt;= 5 AND A.DATAAPROVACAO &gt;= (SELECT MAX(DATAAPROVACAO) FROM K_CRM_PO_DESCONTOS AS D2 WHERE A.OPORTUNIDADE = D2.OPORTUNIDADE AND A.VERSAO = D2.VERSAO AND D2.NIVELAPROVACAO = 1) ORDER BY NIVELAPROVACAO DESC";
+        criterio.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        criterio.Parameters.Add(Parameter("VERSAO", versao));
+        ed = EntityDefinition.Create();
+        ed.EntitySource = QuerySource(sql);
+        desconto = Entity.GetFirstOrDefault(ed, criterio);
+        if None != desconto and desconto.Fields["STATUS"] in [3]:
+            widget.View.Commands["cmdNewCustom"].Visible = False;
+            widget.View.Commands["New"].Visible = False;
+            
+        crit3 = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.TIPO = 2");       
+        crit3.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        crit3.Parameters.Add(Parameter("VERSAO", versao));
+        proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), crit3);
+        if None != proposta:
+            if proposta.Count &gt; 0:
+                widget.View.Commands["cmdNewCustom"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

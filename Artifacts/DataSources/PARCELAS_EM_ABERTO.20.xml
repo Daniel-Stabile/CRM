@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>PARCELAS_EM_ABERTO</Identifier>
+  <Name>Parcelas em aberto</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       A.VCTOPRORROGADO,&#xD;&#xA;       A.DATAVENCIMENTO,&#xD;&#xA;       A.AP,&#xD;&#xA;       A.PARCELADIGITADA,&#xD;&#xA;       A.VALOR,&#xD;&#xA;       A.VALORESBAIXADOS,&#xD;&#xA;       A.DESCONTOCONDICIONAL,&#xD;&#xA;       A.PERCENTUALMORA,&#xD;&#xA;       A.DATALIMITEDESCONTOCONDICIONAL,&#xD;&#xA;       A.PERCENTUALMULTA,&#xD;&#xA;       A.DATALIMITEMULTA,&#xD;&#xA;       A.FAVORECIDO,&#xD;&#xA;       A.BANCO,&#xD;&#xA;       A.AGENCIA,&#xD;&#xA;       A.CONTACORRENTE,&#xD;&#xA;       A.VENCIMENTOFLUXO,&#xD;&#xA;       A.REMESSA,&#xD;&#xA;       A.TEMRETENCAONABAIXA,&#xD;&#xA;       A.FILIAL,&#xD;&#xA;       A.TEMRETENCAOVENCIMENTO,&#xD;&#xA;       A.ABATIMENTOS,&#xD;&#xA;       A.ACRESCIMOS,&#xD;&#xA;       (A.VALOR - A.VALORESBAIXADOS) SALDO,&#xD;&#xA;       FIL.CODIGO,&#xD;&#xA;       DOC.TAXAMORA,&#xD;&#xA;       DOC.FILIAL FILIALDOCUMENTO,&#xD;&#xA;       DOC.DOCUMENTODIGITADO,&#xD;&#xA;       DOC.PESSOA,&#xD;&#xA;       DOC.DATAEMISSAO,&#xD;&#xA;       DOC.HANDLE DOCUMENTO,&#xD;&#xA;       DOC.DATAENTRADA,&#xD;&#xA;       DOC.VALORNOMINAL,&#xD;&#xA;       PES.NOME,&#xD;&#xA;       PES.APELIDO,&#xD;&#xA;       A.DOCUMENTOSUSPENSO,&#xD;&#xA;       DOC.ENTRADASAIDA,&#xD;&#xA;       A.EMABERTO,&#xD;&#xA;       A.PREVISAO,&#xD;&#xA;       A.PERMUTA,&#xD;&#xA;       A.EMPRESA,&#xD;&#xA;       A.MULTA,&#xD;&#xA;       A.JUROS,&#xD;&#xA;       DOC.OPERACAOCANCELAMENTO,&#xD;&#xA;       DOC.TIPODEMOVIMENTO,&#xD;&#xA;       DOC.ABRANGENCIA,&#xD;&#xA;       A.FORMALIQUIDACAO,&#xD;&#xA;       PES.CATEGORIACLIENTE,&#xD;&#xA;       PES.CATEGORIAFORNECEDOR,&#xD;&#xA;       A.PRIORIZARPAGAMENTO,&#xD;&#xA;       SUM(IMP.VALOR) IMPOSTO,&#xD;&#xA;       PES.GRUPOEMPRESARIAL,&#xD;&#xA;       A.VALOR - A.VALORESBAIXADOS&#xD;&#xA;               - CASE WHEN A.ABATIMENTOS &gt; 0 THEN A.ABATIMENTOS ELSE 0 END&#xD;&#xA;               + CASE WHEN A.ACRESCIMOS &gt; 0 THEN A.ACRESCIMOS ELSE 0 END&#xD;&#xA;               - CASE WHEN A.DATALIMITEDESCONTOCONDICIONAL &gt;= @HOJE THEN A.DESCONTOCONDICIONAL ELSE 0 END PARCELACALCULADA&#xD;&#xA;               &#xD;&#xA;  FROM FN_PARCELAS A&#xD;&#xA;  JOIN FN_DOCUMENTOS DOC ON (DOC.HANDLE = A.DOCUMENTO)&#xD;&#xA;  JOIN FILIAIS FIL ON (FIL.HANDLE = A.FILIAL)&#xD;&#xA;  JOIN GN_PESSOAS PES ON (PES.HANDLE = DOC.PESSOA)&#xD;&#xA;  LEFT JOIN FN_DOCUMENTOIMPOSTOSPARCELAS IMP ON (IMP.PARCELA = A.HANDLE)&#xD;&#xA; WHERE A.DOCUMENTOSUSPENSO = 'N'&#xD;&#xA;   AND A.EMABERTO = 'S'&#xD;&#xA;   AND A.PERMUTA &lt;&gt; 'S'&#xD;&#xA;   AND A.PREVISAO &lt;&gt; 'S'&#xD;&#xA;   AND DOC.EMPRESA = @EMPRESA&#xD;&#xA;   AND A.VALOR &gt; 0&#xD;&#xA;   AND DOC.OPERACAOCANCELAMENTO IS NULL&#xD;&#xA;   AND DOC.TIPODEMOVIMENTO IN (1, 2)&#xD;&#xA;   AND DOC.ABRANGENCIA IN ('N', 'T','M', 'P')&#xD;&#xA;   AND DOC.FILIAL IN @FILIAIS&#xD;&#xA;   AND DOC.EMABERTO = 'S'&#xD;&#xA;GROUP BY&#xD;&#xA;  A.HANDLE,&#xD;&#xA;  A.VCTOPRORROGADO,&#xD;&#xA;  A.DATAVENCIMENTO,&#xD;&#xA;  A.AP,&#xD;&#xA;  A.PARCELADIGITADA,&#xD;&#xA;  A.VALOR,&#xD;&#xA;  A.VALORESBAIXADOS,&#xD;&#xA;  A.DESCONTOCONDICIONAL,&#xD;&#xA;  A.PERCENTUALMORA,&#xD;&#xA;  A.DATALIMITEDESCONTOCONDICIONAL,&#xD;&#xA;  A.PERCENTUALMULTA,&#xD;&#xA;  A.DATALIMITEMULTA,&#xD;&#xA;  A.FAVORECIDO,&#xD;&#xA;  A.BANCO,&#xD;&#xA;  A.AGENCIA,&#xD;&#xA;  A.CONTACORRENTE,&#xD;&#xA;  A.VENCIMENTOFLUXO,&#xD;&#xA;  A.REMESSA,&#xD;&#xA;  A.TEMRETENCAONABAIXA,&#xD;&#xA;  A.FILIAL,&#xD;&#xA;  A.TEMRETENCAOVENCIMENTO,&#xD;&#xA;  A.ABATIMENTOS,&#xD;&#xA;  A.ACRESCIMOS,&#xD;&#xA;  FIL.CODIGO,&#xD;&#xA;  DOC.TAXAMORA,&#xD;&#xA;  DOC.FILIAL,&#xD;&#xA;  DOC.DOCUMENTODIGITADO,&#xD;&#xA;  DOC.PESSOA,&#xD;&#xA;  DOC.DATAEMISSAO,&#xD;&#xA;  DOC.HANDLE,&#xD;&#xA;  DOC.DATAENTRADA,&#xD;&#xA;  DOC.VALORNOMINAL,&#xD;&#xA;  PES.NOME,&#xD;&#xA;  PES.APELIDO,&#xD;&#xA;  A.DOCUMENTOSUSPENSO,&#xD;&#xA;  DOC.ENTRADASAIDA,&#xD;&#xA;  A.EMABERTO,&#xD;&#xA;  A.PREVISAO,&#xD;&#xA;  A.PERMUTA,&#xD;&#xA;  A.EMPRESA,&#xD;&#xA;  A.MULTA,&#xD;&#xA;  A.JUROS,&#xD;&#xA;  DOC.OPERACAOCANCELAMENTO,&#xD;&#xA;  DOC.TIPODEMOVIMENTO,&#xD;&#xA;  DOC.ABRANGENCIA,&#xD;&#xA;  A.FORMALIQUIDACAO,&#xD;&#xA;  PES.CATEGORIACLIENTE,&#xD;&#xA;  PES.CATEGORIAFORNECEDOR,&#xD;&#xA;  A.PRIORIZARPAGAMENTO,&#xD;&#xA;  PES.GRUPOEMPRESARIAL&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <DateField Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DateField Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="2" />
+    <DecimalField Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" FieldDecimalsFormat="2" />
+    <DecimalField Alias="DESCONTOCONDICIONAL" From="A" Path="DESCONTOCONDICIONAL" FieldDecimalsFormat="2" />
+    <DecimalField Alias="PERCENTUALMORA" From="A" Path="PERCENTUALMORA" FieldDecimalsFormat="2" />
+    <DateField Alias="DATALIMITEDESCONTOCONDICIONAL" From="A" Path="DATALIMITEDESCONTOCONDICIONAL" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DecimalField Alias="PERCENTUALMULTA" From="A" Path="PERCENTUALMULTA" FieldDecimalsFormat="2" />
+    <DateField Alias="DATALIMITEMULTA" From="A" Path="DATALIMITEMULTA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="FAVORECIDO" From="A" Path="FAVORECIDO" />
+    <Field Alias="BANCO" From="A" Path="BANCO" />
+    <Field Alias="AGENCIA" From="A" Path="AGENCIA" />
+    <Field Alias="CONTACORRENTE" From="A" Path="CONTACORRENTE" />
+    <DateField Alias="VENCIMENTOFLUXO" From="A" Path="VENCIMENTOFLUXO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="REMESSA" From="A" Path="REMESSA" />
+    <Field Alias="TEMRETENCAONABAIXA" From="A" Path="TEMRETENCAONABAIXA" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="TEMRETENCAOVENCIMENTO" From="A" Path="TEMRETENCAOVENCIMENTO" />
+    <DecimalField Alias="ABATIMENTOS" From="A" Path="ABATIMENTOS" FieldDecimalsFormat="2" />
+    <DecimalField Alias="ACRESCIMOS" From="A" Path="ACRESCIMOS" FieldDecimalsFormat="2" />
+    <DecimalField Alias="SALDO" From="A" Path="SALDO" FieldDecimalsFormat="2" />
+    <Field Alias="CODIGO" From="A" Path="CODIGO" />
+    <DecimalField Alias="TAXAMORA" From="A" Path="TAXAMORA" FieldDecimalsFormat="0" />
+    <Field Alias="FILIALDOCUMENTO" From="A" Path="FILIALDOCUMENTO" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+    <DateField Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <DateField Alias="DATAENTRADA" From="A" Path="DATAENTRADA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <DecimalField Alias="VALORNOMINAL" From="A" Path="VALORNOMINAL" FieldDecimalsFormat="2" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="APELIDO" From="A" Path="APELIDO" />
+    <Field Alias="DOCUMENTOSUSPENSO" From="A" Path="DOCUMENTOSUSPENSO" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="EMABERTO" From="A" Path="EMABERTO" />
+    <Field Alias="PREVISAO" From="A" Path="PREVISAO" />
+    <Field Alias="PERMUTA" From="A" Path="PERMUTA" />
+    <Field Alias="EMPRESA" From="A" Path="EMPRESA" />
+    <DecimalField Alias="MULTA" From="A" Path="MULTA" FieldDecimalsFormat="2" />
+    <DecimalField Alias="JUROS" From="A" Path="JUROS" FieldDecimalsFormat="2" />
+    <Field Alias="OPERACAOCANCELAMENTO" From="A" Path="OPERACAOCANCELAMENTO" />
+    <Field Alias="TIPODEMOVIMENTO" From="A" Path="TIPODEMOVIMENTO" />
+    <Field Alias="ABRANGENCIA" From="A" Path="ABRANGENCIA" />
+    <Field Alias="FORMALIQUIDACAO" From="A" Path="FORMALIQUIDACAO" />
+    <Field Alias="CATEGORIACLIENTE" From="A" Path="CATEGORIACLIENTE" />
+    <Field Alias="CATEGORIAFORNECEDOR" From="A" Path="CATEGORIAFORNECEDOR" />
+    <Field Alias="PRIORIZARPAGAMENTO" From="A" Path="PRIORIZARPAGAMENTO" />
+    <DecimalField Alias="IMPOSTO" From="A" Path="IMPOSTO" FieldDecimalsFormat="2" />
+    <Field Alias="GRUPOEMPRESARIAL" From="A" Path="GRUPOEMPRESARIAL" />
+    <DecimalField Alias="PARCELACALCULADA" From="A" Path="PARCELACALCULADA" FieldDecimalsFormat="2" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

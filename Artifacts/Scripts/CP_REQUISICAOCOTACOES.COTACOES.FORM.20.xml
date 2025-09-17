@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOCOTACOES.COTACOES.FORM</ViewName>
+  <EntityName>CP_REQUISICAOCOTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    
+    if entity == None: return
+    if not(entity.Fields["COTACAO"].Handle.Value &gt; 0): return
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoCotacao
+
+    widget.View.Commands["New"].Visible = CPRequisicaoCotacao.PodeIncluirCotacao(entity.Fields["COTACAO"].Handle.Value, entity.Fields["FILIAL"].Handle.Value)
+    widget.View.Commands["Edit"].Visible = CPRequisicaoCotacao.PodeAlterarCotacao(entity.Fields["STATUS"].Value, entity.Fields["STATUSDIGITARODADA"].Value, entity.Fields["COTACAO"].Handle.Value)
+    widget.View.Commands["Delete"].Visible = CPRequisicaoCotacao.PodeExcluirCotacao(entity.Fields["STATUS"].Value, entity.Fields["STATUSDIGITARODADA"].Value, entity.Fields["COTACAO"].Handle.Value, entity.Fields["FILIAL"].Handle.Value)
+    
+    if entity.EhCotacaoPortalFornecedores:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

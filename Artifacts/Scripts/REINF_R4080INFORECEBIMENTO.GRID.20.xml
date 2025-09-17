@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_R4080INFORECEBIMENTO.GRID</ViewName>
+  <EntityName>REINF_R4080INFORECEBIMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if entity == None: return
+
+    if entity.Fields["VLRBRUTO"] != None: row.GetCellByName("VLRBRUTO").Text = str(str(str("{:,.2f}".format(entity.Fields["VLRBRUTO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

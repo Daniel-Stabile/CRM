@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REPRESENTANTE_PEDIDOITENS.GRID</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    concluido = bool(entity.Fields["PEDIDOVENDA"].Instance.Fields["STATUS"].Value &gt; 1);
+    row.EditCommand.Visible = not concluido;
+    row.DeleteCommand.Visible = not concluido;
+    row.GetCustomCommand("CustomLocalEntrega").Enabled = not concluido;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

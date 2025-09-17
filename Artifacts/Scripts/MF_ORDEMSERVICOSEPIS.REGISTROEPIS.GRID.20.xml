@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ORDEMSERVICOSEPIS.REGISTROEPIS.GRID</ViewName>
+  <EntityName>MF_ORDEMSERVICOSEPIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System import String
+    row.GetCellByName("STATUS").Tooltip = entity["STATUS"].GetString()
+    row.GetCellByName("STATUS").Text = ""
+    row.GetCellByName("STATUS").Align = "center"
+    if (entity["STATUS"].GetInt32() == 1):
+        row.GetCellByName("STATUS").TextColor = "#FFD700"
+        row.GetCellByName("STATUS").FontIcon = "fa fa-info-circle"
+        row.GetCustomCommand("CMD_IMPRIMIR").Enabled = False
+    elif (entity["STATUS"].GetInt32() == 2):
+        row.GetCellByName("STATUS").TextColor = "Green"
+        row.GetCellByName("STATUS").FontIcon = "fa fa-check-circle"
+        row.GetCustomCommand("CMD_APROVAR").Enabled = False
+        row.GetCustomCommand("CMD_CANCELAR").Enabled = False
+    else:
+        row.GetCellByName("STATUS").TextColor = "Red"
+        row.GetCellByName("STATUS").FontIcon = "fa fa-times-circle"
+        row.GetCustomCommand("CMD_APROVAR").Enabled = False
+        row.GetCustomCommand("CMD_CANCELAR").Enabled = False
+        row.GetCustomCommand("CMD_IMPRIMIR").Enabled = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_CANCELARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_CANCELARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Deseja realmente cancelar a Ordem de EPI?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

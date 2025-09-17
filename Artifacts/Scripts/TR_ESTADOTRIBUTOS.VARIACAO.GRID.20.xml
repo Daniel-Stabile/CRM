@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_ESTADOTRIBUTOS.VARIACAO.GRID</ViewName>
+  <EntityName>TR_ESTADOTRIBUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Criteria
+    
+    form = widget.ProviderWidget
+    if (form == None) : return
+    
+    entity = form.Entity
+    if (entity == None) : return
+    
+    sql = "SELECT TEMVARIACAO FROM PD_PRODUTOS WHERE HANDLE = " + entity.Fields["PRODUTO"].Handle.ToString()
+    condicao = Entity.GetFirstOrDefault(EntityDefinition.FromQuery(sql), Criteria.Empty).Fields["TEMVARIACAO"]
+    widget.Hidden = condicao != "S"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

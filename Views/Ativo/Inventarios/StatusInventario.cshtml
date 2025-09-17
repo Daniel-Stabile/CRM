@@ -1,0 +1,20 @@
+﻿@{
+    int valorStatus = (@Model["STATUS"].GetInt32());
+    string classeCSS = "";
+    string textoTitulo = @Model["STATUS"].GetString();
+
+    if (valorStatus == 1) /* cadastrado */
+        classeCSS = "label label-sm label-default";
+    else
+        if (valorStatus == 2) /* processando */
+            classeCSS = "label label-sm label-primary";
+        else
+            if (valorStatus == 3) /* processado com erros */
+                classeCSS = "label label-sm label-danger";
+            else
+                if (valorStatus == 4) /* finalizado */
+                    classeCSS = "label label-sm label-success";
+}
+<div class="@classeCSS">
+    @textoTitulo
+</div>

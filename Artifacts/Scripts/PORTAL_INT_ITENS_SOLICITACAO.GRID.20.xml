@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_ITENS_SOLICITACAO.GRID</ViewName>
+  <EntityName>CP_SOLICITACAOITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("VALORTOTAL").Text = str('%.2f' % entity.ValorTotalItem() )
+    if (not entity["CENTROCUSTO"].IsNull): 
+        row.GetCellByName("CENTROCUSTO").Text = str(entity.Fields["CENTROCUSTO"].Instance.Fields["CODIGO"]) + " - " + row.GetCellByName("CENTROCUSTO").Text
+    if (not entity["PROJETO"].IsNull):
+        row.GetCellByName("PROJETO").Text = str(entity.Fields["PROJETO"].Instance.Fields["CODIGOREDUZIDO"]) + " - " + row.GetCellByName("PROJETO").Text
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

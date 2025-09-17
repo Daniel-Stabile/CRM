@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PR_ORDEMDESMONTAGEMAPONTAMENTO.GRID</ViewName>
+  <EntityName>PR_ORDEMDESMONTAGEMAPONTAMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: 
+        return
+    
+    StatusOD = entity.Fields["ORDEMDESMONTAGEM"].Instance.Fields["STATUS"].Value
+    if row.EditCommand != None:
+		row.EditCommand.Visible = False
+    if row.DeleteCommand != None:
+		row.DeleteCommand.Visible = False
+
+    if(entity.Fields["STATUS"].Value == 1 and ( StatusOD == 2 or StatusOD == 3)):
+        if row.EditCommand != None:
+		    row.EditCommand.Visible = True
+        if row.DeleteCommand != None:
+		    row.DeleteCommand.Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

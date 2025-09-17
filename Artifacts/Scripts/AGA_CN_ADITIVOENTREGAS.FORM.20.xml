@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_ADITIVOENTREGAS.FORM</ViewName>
+  <EntityName>CN_ADITIVOENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entity = widget.Entity
+    if (entity == None) : return
+    statusAditivoCadastrado = entity.StatusAditivoCadastrado(entity["ADITIVOOBJETOS"].GetString())
+    
+    widget.View.Commands["Edit"].Visible = statusAditivoCadastrado
+    widget.View.Commands["Delete"].Visible = statusAditivoCadastrado
+    widget.View.Commands["New"].Visible = statusAditivoCadastrado</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

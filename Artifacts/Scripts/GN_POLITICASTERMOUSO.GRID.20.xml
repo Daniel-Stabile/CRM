@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_POLITICASTERMOUSO.GRID</ViewName>
+  <EntityName>GN_POLITICASTERMOUSO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    from Benner.Tecnologia.Business import Query
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    qRegistros = Query("SELECT * FROM GN_POLITICASTERMOUSO").Execute()
+    
+    
+    widget.View.Commands["New"].Visible = (qRegistros.Count == 0)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

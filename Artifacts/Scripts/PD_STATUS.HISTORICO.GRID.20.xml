@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_STATUS.HISTORICO.GRID</ViewName>
+  <EntityName>PD_STATUS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None or widget.ProviderWidget.Entity == None: return
+
+    entidade = widget.ProviderWidget.Entity
+    tabela = entidade.Definition.Name
+        
+    if tabela == "CP_ORDENSCOMPRA":
+    	widget.Hidden = entidade.EstaEmCadastro()</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

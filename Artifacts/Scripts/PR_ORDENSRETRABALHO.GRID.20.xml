@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_ORDENSRETRABALHO.GRID</ViewName>
+  <EntityName>PR_ORDENSRETRABALHO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if row.EditCommand != None:
+        row.EditCommand.Visible = False
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = False
+    if(entity.Fields["STATUS"].Value == 1):
+		if row.EditCommand != None:
+			row.EditCommand.Visible = True
+		if row.DeleteCommand != None:
+			row.DeleteCommand.Visible = True
+		if(entity.Fields["LIBERADA"]):
+		    if row.DeleteCommand != None:
+		        row.DeleteCommand.Visible = False
+		    if row.EditCommand != None:
+		        row.EditCommand.Visible = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

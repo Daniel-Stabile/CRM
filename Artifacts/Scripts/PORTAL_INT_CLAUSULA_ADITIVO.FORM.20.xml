@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_CLAUSULA_ADITIVO.FORM</ViewName>
+  <EntityName>CN_ADITIVOCLAUSULAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+        
+    entity = widget.Entity
+    view = widget.View
+    
+    if entity &lt;&gt; None :
+        if entity.Fields["TIPO"].Value == 1 :
+            view.FieldDefinitions["CLAUSULA"].Visible = False
+            view.FieldDefinitions["PARAGRAFO"].Visible = False
+            view.FieldDefinitions["ORDEMANTERIOR"].Visible = False
+            view.FieldDefinitions["NOMEANTERIOR"].Visible = False                
+            view.FieldDefinitions["CONTEUDOANTERIOR"].Visible = False       
+       
+        else :    
+            view.FieldDefinitions["CLAUSULA"].Visible = True
+            if entity.Fields["TIPO"].Value == 2 :           
+                view.FieldDefinitions["ORDEMANTERIOR"].Visible = True
+                view.FieldDefinitions["NOMEANTERIOR"].Visible = True                
+                view.FieldDefinitions["CONTEUDOANTERIOR"].Visible = True
+                
+                if entity.Fields["TIPOALTERACAO"].Value == 1 :  
+                    view.FieldDefinitions["PARAGRAFO"].Visible = False
+                else :
+                    view.FieldDefinitions["PARAGRAFO"].Visible = True
+            else :
+                view.FieldDefinitions["ORDEMANTERIOR"].Visible = False
+                view.FieldDefinitions["NOMEANTERIOR"].Visible = False                
+                view.FieldDefinitions["CONTEUDOANTERIOR"].Visible = False
+                view.FieldDefinitions["PARAGRAFO"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_MA_RECURSOS.FORM</ViewName>
+  <EntityName>MA_RECURSOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_AlteraTipoModeloExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_AlteraTipoModeloExecute(command, entity):
+    
+    command.RequestConfirmationBeforeExecute("O sistema de Manutenção de Frotas não permite que seja feito alteração do modelo e tipo de veículo em um veículo já cadastrado. O sistema poderá habilitar os campos para que seja alterado manualmente, mas lembre-se de fazer as devidas alterações necessárias nos componentes (conjuntos, eixos, implementos, pneus) e nas manutenções (manutenção preventiva, lubrificação, check-list, combustível). Deseja habilitar os campos para efetuar alteração do modelo e tipo do veículo manualmente ?")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOAS.CUSTOM.FORNECEDOR.GRID</ViewName>
+  <EntityName>GN_PESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper
+    
+    widget.View.Commands["DELETE"].Visible = AuthorizationHelper.HasTask("EXCLUIRFORNECEDOR")
+    widget.View.Commands["EDIT"].Visible = AuthorizationHelper.HasTask("MANTERFORNECEDOR")
+    widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTERFORNECEDOR")
+    
+    if widget.ProviderWidget == None: return;
+    
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Materiais import PDFamiliaProduto
+   
+    entidade = widget.ProviderWidget.Entity
+    tabela = entidade.Definition.Name
+    
+    if tabela == PDFamiliaProduto.GetEntityDefinition().Name:
+        ehUltimoNivel = widget.ProviderWidget.Entity.UltimoNivel
+        widget.Hidden = not ehUltimoNivel</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (row.GetCustomCommand("CMD_DOCUMENTOSHABILITACAOGRID") != None):
+        row.GetCustomCommand("CMD_DOCUMENTOSHABILITACAOGRID").Enabled = entity.VisibilidadeComandoDocumentosHabilitacao</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

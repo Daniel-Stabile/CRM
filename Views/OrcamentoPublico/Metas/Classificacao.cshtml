@@ -1,0 +1,46 @@
+@{
+    int classificacao = @Model["CLASSIFICACAO"].GetInt32();
+    int operador = @Model["OPERADOR"].GetInt32();
+
+    string icon = "";
+    string bgColor = "";
+    string color = "";
+    string texto = "";
+    string operadorTitulo = @Model["OPERADOR"].GetString();
+}
+@{
+    switch (classificacao + "-" + operador)
+    {
+        case "1-0": //QUALIDADE
+            bgColor = "#FCEBBF";
+            color = "#555544";
+            texto = "Qualidade";
+            icon = "fa fa-handshake-o";
+            break;
+        case "2-1": //TENDENCIA
+            bgColor = "#A9D8E8aa";
+            color = "#003C6E";
+            texto = operadorTitulo;
+            icon = "fa fa-bar-chart";
+            break;
+        case "2-2": //QUANTIDADE
+            bgColor = "#c3a4f0aa";
+            color = "#331460";
+            texto = operadorTitulo;
+            icon = "fa fa-line-chart";
+            break;
+        default:
+            bgColor = "#dddddd";
+            color = "#555566";
+            icon = "fa fa-question-circle";
+            texto = "Indefinido";
+            break;
+    }
+}
+<span
+    style="background-color: @bgColor; color: @color; padding: 3px 8px;border-radius:4px !important;  white-space: nowrap;">
+    <i class="@icon" style="font-size:12px;"></i>
+    <span style="margin-left: 2px; font-size:11px; font-weight: 600; text-transform: uppercase;">
+        @texto
+    </span>
+</span>

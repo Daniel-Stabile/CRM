@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TR_SIMPLESNACIONALALIQUOTAS.GRID</ViewName>
+  <EntityName>TR_SIMPLESNACIONALALIQUOTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    form = widget.ProviderWidget
+    entity = form.Entity
+
+    if (entity == None) : return
+
+    if ( (str(widget.ID) == "WIDGET_6600") and  ( entity["ICMS"].GetDBValue() == "S"  ) or (str(widget.ID) == "WIDGET_6088") and ( entity["ISS"].GetDBValue() == "S")):
+        widget.Hidden = False
+    else:
+        widget.Hidden = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

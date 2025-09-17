@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOLINHASBASE.GESTAO.GRID</ViewName>
+  <EntityName>GP_PROJETOLINHASBASE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoLinhasBase
+    
+    if (row.GetCustomCommand("CMD_HISTORICO") != None):
+        row.GetCustomCommand("CMD_HISTORICO").Enabled = (entity.Fields["GRUPOASSINATURAS"].Instance != None)
+    
+    if (row.GetCustomCommand("CMD_CONFIRMAR") != None and row.GetCustomCommand("CMD_RECUSAR") != None):
+        emAprovacao = GPProjetoLinhasBase.PermissaoConfirmarRecusar(entity.Fields["HANDLE"].Value)
+        row.GetCustomCommand("CMD_CONFIRMAR").Enabled = emAprovacao
+        row.GetCustomCommand("CMD_RECUSAR").Enabled = emAprovacao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

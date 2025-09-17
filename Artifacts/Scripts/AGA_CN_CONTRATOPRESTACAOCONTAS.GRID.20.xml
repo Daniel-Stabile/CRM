@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOPRESTACAOCONTAS.GRID</ViewName>
+  <EntityName>CN_CONTRATOPRESTACAOCONTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    widget.Hidden = widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.Handle.IsInvalid() or CNContrato.PrestacaoContasMostrarTab(widget.ProviderWidget.Entity.Handle)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoPrestacaoConta
+    
+    handle = entity.Handle
+    
+    if row.EditCommand != None: row.EditCommand.Visible = CNContratoPrestacaoConta.PodeEditarExcluirLiberarPrestacaoConta(handle)
+    if row.DeleteCommand != None: row.DeleteCommand.Visible = CNContratoPrestacaoConta.PodeEditarExcluirLiberarPrestacaoConta(handle)
+    if row.GetCustomCommand("CMD_LIBERAR") != None: row.GetCustomCommand("CMD_LIBERAR").Enabled = CNContratoPrestacaoConta.PodeEditarExcluirLiberarPrestacaoConta(handle)
+    if row.GetCustomCommand("CMD_APROVAR") != None: row.GetCustomCommand("CMD_APROVAR").Enabled = CNContratoPrestacaoConta.PodeAprovarRecusarPrestacaoConta(handle)
+    if row.GetCustomCommand("CMD_RECUSAR") != None: row.GetCustomCommand("CMD_RECUSAR").Enabled = CNContratoPrestacaoConta.PodeAprovarRecusarPrestacaoConta(handle)
+    if row.GetCustomCommand("CMD_VOLTARELABORACAO") != None: row.GetCustomCommand("CMD_VOLTARELABORACAO").Enabled = CNContratoPrestacaoConta.PodeVoltarElaboracaoPrestacaoConta(handle)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

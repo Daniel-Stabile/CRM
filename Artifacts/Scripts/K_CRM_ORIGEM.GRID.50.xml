@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ViewName>K_CRM_ORIGEM.GRID</ViewName>
+  <EntityName>K_CRM_ORIGEM</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+
+    if row.GetCustomCommand("CmdAdicionarEvento") != None:
+        row.GetCustomCommand("CmdAdicionarEvento").Enabled = False;
+        if entity.Fields["NOME"] == "Eventos":
+            row.GetCustomCommand("CmdAdicionarEvento").Enabled = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

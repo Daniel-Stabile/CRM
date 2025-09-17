@@ -1,0 +1,15 @@
+﻿<%@ Page Title="Muda status" Language="C#" Inherits="Benner.Tecnologia.Wes.Components.WebApp.WesPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:AjaxForm runat="server" ID="K_MUDANADESTATUS" Title="Mudança de Status" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="8" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_VT_STATUS.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="K_PAGES_K_CRM_VT_STATUS_FORM" Level="50" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="K_CRITRIO" Title="Critérios Desejados" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="4" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_MUDANADESTATUS" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="K_CRM_FASESOPORTUNIDADECRIT.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FASEOPORTUNIDADE IN (COALESCE(@CAMPO(STATUSPROXIMO),0))" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_VT_STATUS_FORM" Level="50" Order="20"  />
+        <wes:AjaxForm runat="server" ID="K_MUDANADESTATUS_1" Title="Mudança de STATUS" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="8" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_VT_STATUS.GERAL.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="K_PAGES_K_CRM_VT_STATUS_FORM" Level="50" Order="30"  />
+        <wes:SimpleGrid runat="server" ID="K_CRITERIOSDESEJADOS" Title="CRITERIOS DESEJADOS" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="4" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_MUDANADESTATUS_1" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="K_CRM_FASESOPORTUNIDADECRIT.GERAL.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.FASEOPORTUNIDADE IN (COALESCE(@CAMPO(STATUSPROXIMO),0))" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_K_CRM_VT_STATUS_FORM" Level="50" Order="40"  />
+        </div>
+    
+      </asp:Content>
+    

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_PAPELTAREFAS.FORM</ViewName>
+  <EntityName>Z_PAPELTAREFAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    if entity.TaskHandle.IsValid() and entity.TaskInstance.Name.startswith("ABSTRATA_"):
+        from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+        raise CancelledOperationException("A tarefa selecionada é uma tarefa abstrata, de uso interno do sistema, e não deve ser incluída diretamente em nenhum papel ou outra tarefa. Se necessário, busque e associe suas especificações (tarefas que incluem esta abstração).")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

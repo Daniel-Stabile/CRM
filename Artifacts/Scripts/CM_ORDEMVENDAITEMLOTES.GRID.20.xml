@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDEMVENDAITEMLOTES.GRID</ViewName>
+  <EntityName>CM_ORDEMVENDAITEMLOTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    row.GetCellByName("ALMOXARIFADO").AllowEditing = not entity.AlmoxarifadoReadOnly</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnNewExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnNewExecute(command, entity):
+    from Benner.Tecnologia.Common.BennerVariables import BennerVarsFactory
+    BennerVarsFactory().CreateSessionVars().SetSessionVar("ATENDIMENTO_WEB", str(True))</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.ProviderWidget == None: return
+    entrega = widget.ProviderWidget.Entity
+    if entrega == None: return
+    widget.Hidden = not entrega.ProdutoEhLote</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

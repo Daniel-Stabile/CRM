@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_ESCOPO.VERSAO.GRID</ViewName>
+  <EntityName>K_CRM_PO_ESCOPO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    entity = widget.Entity;
+    pEntity = widget.ProviderWidget.ProviderWidget.Entity;
+            
+    if None != pEntity:
+        if pEntity.Fields["MODALIDADE"].Handle.IsValid():
+            modalidade = pEntity.Fields["MODALIDADE"].Instance;
+        
+            if None != modalidade:
+                if modalidade.Fields["ESCOPO"] == False:
+                    widget.Hidden = True;
+                else:
+                    widget.Hidden = False;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

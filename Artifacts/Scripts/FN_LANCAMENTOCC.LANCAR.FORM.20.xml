@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_LANCAMENTOCC.LANCAR.FORM</ViewName>
+  <EntityName>FN_LANCAMENTOCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    
+    lancamento = widget.ProviderWidget.ProviderWidget.Entity
+    
+    cc = widget.ProviderWidget.Entity
+    
+    widget.Hidden = lancamento == None or lancamento.State != EntityState.Read
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

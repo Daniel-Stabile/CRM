@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_VT_DOCUMENTOS.EDITAR.FORM</ViewName>
+  <EntityName>FN_VT_DOCUMENTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    if (widget.Entity == None or widget.Entity.Fields["OPERACAOFATURAMENTO"].Instance == None): return
+
+    opFatura = widget.Entity.Fields["OPERACAOFATURAMENTO"].Instance
+
+    if opFatura.Fields["EHIMPORTACAO"] == True:
+        widget.View.Pages["IMPORTACAO"].Title = "Importação"
+    
+    if opFatura.Fields["EHEXPORTACAO"] == True:
+        widget.View.Pages["IMPORTACAO"].Title = "Exportação"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

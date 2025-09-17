@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_PROJETOANEXOS.APONTAMENTO.GRID</ViewName>
+  <EntityName>GP_PROJETOANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPApontamentos
+    
+    tarefaConcluida = GPApontamentos.TarefaApontamentoConcluida(entity.ApontamentoHandle)
+    
+    if row.EditCommand != None: row.EditCommand.Visible = entity.PermiteManterAnexos and not tarefaConcluida
+    if row.DeleteCommand != None: row.DeleteCommand.Visible = entity.PermiteManterAnexos and not tarefaConcluida
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPProjetoTarefas
+    
+    if widget.ProviderWidget.Entity.TarefaHandle.IsInvalid: return
+
+    tarefaConcluida = GPProjetoTarefas.TarefaConcluida(widget.ProviderWidget.Entity.TarefaHandle)
+    
+    if widget.View.Commands["New"] != None : widget.View.Commands["New"].Visible = widget.ProviderWidget.Entity.PermiteManterApontamentos and not tarefaConcluida
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

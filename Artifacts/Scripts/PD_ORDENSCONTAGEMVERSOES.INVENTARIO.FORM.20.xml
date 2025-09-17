@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PD_ORDENSCONTAGEMVERSOES.INVENTARIO.FORM</ViewName>
+  <EntityName>PD_ORDENSCONTAGEMVERSOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    versaoContagem = widget.Entity
+    if versaoContagem == None: return
+    widget.View.Commands["Edit"].Visible = versaoContagem.VersaoEOrdemEstaoConfirmadas
+    widget.View.Commands["Delete"].Visible = versaoContagem.PodeExcluir
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

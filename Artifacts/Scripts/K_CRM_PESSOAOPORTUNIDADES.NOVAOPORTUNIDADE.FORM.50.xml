@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADES.NOVAOPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OncmdAtualizaPropostaExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OncmdAtualizaPropostaExecute(command, entity):
+    from System import DateTime
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    oportunidade = entity.Fields["HANDLE"];
+    total = 0
+    horas = 0
+    
+    if oportunidade.IsValid():
+        criteria = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE", Parameter("OPORTUNIDADE", oportunidade))
+        itens = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), criteria)
+        
+        if itens.Count &gt; 0:
+
+            for item in itens:
+                total += (item.Fields["ITEM"].Instance.Fields["VALOR"]*(100 - item.Fields["VALORDESCONTO"])/100)
+                horas += item.Fields["ITEM"].Instance.Fields["HORAS"]
+                
+        
+        entity.Fields["VALORTOTAL"] = total
+        entity.Fields["QDADEHRS"] = horas
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Wes.Components import MessageType
+ 
+    entity = widget.Entity
+    
+    if entity == None:
+        widget.Entity.Visualization.Fields["MODALIDADE"].ReadOnly = True;    
+        return;
+
+    modalidade  = int(entity.Fields["MODALIDADE"].Handle.IsValid())
+    statusoportunidade  = int(entity.Fields["STATUSOPORTUNIDADE"].Handle.Value)
+    faseOportunidade = entity.Fields["STATUSOPORTUNIDADE"].Instance.Fields["NOME"];
+
+    if entity.Fields["HANDLE"].IsValid():
+        oportunidade = entity.Fields["HANDLE"];
+        versao = entity.Fields["VERSAO"];
+        
+        if entity.Ativo == True:
+            widget.View.Commands["EDIT"].Visible = False;
+        
+        if faseOportunidade == "Negociação" or faseOportunidade == "Pregão / Leilão" or faseOportunidade == "Habilitação / Adjudicação" or faseOportunidade == "Proposta":#statusoportunidade in [4,12,13,22]:
+            widget.Entity.Visualization.Fields["MODALIDADE"].ReadOnly = False;
+            widget.View.FieldDefinitions["MODALIDADE"].Required = True;
+            if 0 != modalidade:
+                widget.View.Commands["cmdEtapa1Oportunidade"].Visible = True;
+                widget.View.Commands["CmdGoToOportunidades"].Visible = False;
+                widget.MessagePanel.Visible = False;
+            else:
+                widget.MessagePanel.ShowMessage("Edite a oportunidade e defina sua MODALIDADE para dar prosseguimento à oportunidade.", MessageType.Warning)
+                widget.View.Commands["cmdEtapa1Oportunidade"].Visible = False;
+                widget.View.Commands["CmdGoToOportunidades"].Visible = True;
+        elif faseOportunidade == "Oportunidade" or faseOportunidade == "A Qualificar": #statusoportunidade in [1,8]:
+            widget.View.Commands["cmdEtapa1Oportunidade"].Visible = False;
+            widget.View.Commands["CmdGoToOportunidades"].Visible = True;
+        else:
+            widget.View.Commands["cmdEtapa1Oportunidade"].Visible = False;
+            widget.View.Commands["CmdGoToOportunidades"].Visible = False;
+
+        criterio = Criteria()
+        sql = "SELECT TOP 1 * FROM K_CRM_PO_DESCONTOS A WHERE A.OPORTUNIDADE = :OPORTUNIDADE AND A.VERSAO = :VERSAO AND A.NIVELAPROVACAO &gt;= 1 AND A.NIVELAPROVACAO &lt;= 5 AND A.DATAAPROVACAO &gt;= (SELECT MAX(DATAAPROVACAO) FROM K_CRM_PO_DESCONTOS AS D2 WHERE A.OPORTUNIDADE = D2.OPORTUNIDADE AND A.VERSAO = D2.VERSAO AND D2.NIVELAPROVACAO = 1) ORDER BY NIVELAPROVACAO DESC";
+        criterio.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        criterio.Parameters.Add(Parameter("VERSAO", versao));
+        ed = EntityDefinition.Create();
+        ed.EntitySource = QuerySource(sql);
+        desconto = Entity.GetFirstOrDefault(ed, criterio);
+        if None != desconto and desconto.Fields["STATUS"] in [3]:
+            widget.View.Commands["Edit"].Visible = False;   
+        
+        critProposta = Criteria("A.OPORTUNIDADE IN (:OPORTUNIDADE) AND A.VERSAO = :VERSAO AND A.TIPO = 2");
+        critProposta.Parameters.Add(Parameter("OPORTUNIDADE", oportunidade));
+        critProposta.Parameters.Add(Parameter("VERSAO", versao));
+        proposta = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PO_PROPOSTA"), critProposta);
+        if None != proposta:
+            if proposta.Count &gt; 0:
+                widget.View.Commands["Edit"].Visible = False;  
+                widget.View.Commands["cmdNovaVersao"].Visible = True;
+            else:
+                widget.View.Commands["cmdNovaVersao"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OncmdNovaVersaoExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OncmdNovaVersaoExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    #
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    a=1;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

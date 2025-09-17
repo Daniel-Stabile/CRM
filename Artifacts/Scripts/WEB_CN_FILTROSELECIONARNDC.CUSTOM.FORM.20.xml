@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_CN_FILTROSELECIONARNDC.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_CN_FILTROSELECIONARNDC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget == None: return
+
+    registro = widget.Entity
+    
+    if registro == None: return
+    
+    if registro.Fields["MARCADOS"] == False:
+        widget.View.FieldDefinitions["DOCUMENTOSGERADOS"].Visible = False
+ 
+    registro.TransitoryVars["Valor"] = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

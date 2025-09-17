@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_PIZZA_TOTAL_VALOR</Identifier>
+  <Name>CRM_V1_PIZZA_TOTAL_VALOR</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT&#xD;&#xA;     (CONVERT(VARCHAR,COUNT(A.HANDLE)) +&#xD;&#xA;         ' - ' +&#xD;&#xA;         CASE&#xD;&#xA;            WHEN A.TEMPERATURA = 1 THEN 'NEUTRO'&#xD;&#xA;            WHEN A.TEMPERATURA = 2 THEN 'FIRME'&#xD;&#xA;            WHEN A.TEMPERATURA = 3 THEN 'RISCO'&#xD;&#xA;         END +&#xD;&#xA;         ' : R$ '+&#xD;&#xA;         REPLACE(&#xD;&#xA;           REPLACE(&#xD;&#xA;              REPLACE(&#xD;&#xA;                 convert(varchar,cast(CAST(SUM(VALORTOTAL) as decimal) as money), 1),&#xD;&#xA;              '.','|'),&#xD;&#xA;           ',','.'),&#xD;&#xA;         '|',',')) TEMPERATURA,&#xD;&#xA;     CASE&#xD;&#xA;       WHEN A.TEMPERATURA = 1 THEN '#2c82c9'&#xD;&#xA;       WHEN A.TEMPERATURA = 2 THEN '#26c281'&#xD;&#xA;       WHEN A.TEMPERATURA = 3 THEN '#f03434'&#xD;&#xA;     END COR,&#xD;&#xA;     ROUND(SUM(A.VALORTOTAL),2) VALOR&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADES A&#xD;&#xA;JOIN K_CRM_FASESOPORTUNIDADE B ON A.STATUSOPORTUNIDADE = B.HANDLE&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY A.TEMPERATURA&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="TEMPERATURA" From="A" Path="TEMPERATURA" />
+    <Field Alias="COR" From="A" Path="COR" />
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

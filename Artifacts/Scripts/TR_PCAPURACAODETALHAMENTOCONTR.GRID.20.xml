@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAODETALHAMENTOCONTR.GRID</ViewName>
+  <EntityName>TR_PCAPURACAODETALHAMENTOCONTR</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+
+    #Zerando valores
+    #row.GetCellByName("RECEITABRUTA").Text = "0,00";
+    #row.GetCellByName("BASECALCULO").Text = "0,00";
+    #row.GetCellByName("CONSOLIDACAO").Text = "0,00";
+    #row.GetCellByName("TOTALAJUSTESACRESCIMOBCPIS").Text = "0,00";
+    #row.GetCellByName("TOTALCONTRIBUICAOSOCIAL").Text = "0,00";
+    #row.GetCellByName("TOTALAJUSTESREDUCAOBCPIS").Text = "0,00";
+    #row.GetCellByName("TOTALBASECALCULOAJUSTES").Text = "0,00";
+    #row.GetCellByName("ALIQUOTA").Text = "0,00";
+    #row.GetCellByName("BASECALCULOQUANTIDADE").Text = "0,00";
+    #row.GetCellByName("ALIQUOTAVALOR").Text = "0,00";
+    #row.GetCellByName("TOTALCONTRIBUICAOPERIODO").Text = "0,00";
+    #row.GetCellByName("TOTALAJUSTESACRESCIMO").Text = "0,00";
+    #row.GetCellByName("TOTALAJUSTESREDUCAO").Text = "0,00";
+    #row.GetCellByName("TOTALDIFERIRPERIODOATUAL").Text = "0,00";
+    #row.GetCellByName("TOTALDIFERIRPERIODOANTERIOR").Text = "0,00";
+    #row.GetCellByName("TOTALIMPOSTODOCUMENTOS").Text = "0,00";
+    
+    
+    #Formatação dos valores NAO-CUMULATIVO
+    RemovePrefixoMoedas("RECEITABRUTA", entity, row)
+    RemovePrefixoMoedas("BASECALCULO", entity, row)
+    #RemovePrefixoMoedas("CONSOLIDACAO", entity, row)
+    RemovePrefixoMoedas("ALIQUOTA", entity, row)
+    #RemovePrefixoMoedas("ALIQUOTAVALOR", entity, row)
+    RemovePrefixoMoedas("TOTALCONTRIBUICAOSOCIAL", entity, row)
+    RemovePrefixoMoedas("TOTALAJUSTESACRESCIMO", entity, row)
+    RemovePrefixoMoedas("TOTALAJUSTESREDUCAO", entity, row)
+    RemovePrefixoMoedas("TOTALDIFERIRPERIODOATUAL", entity, row)
+    RemovePrefixoMoedas("TOTALDIFERIRPERIODOANTERIOR", entity, row)
+    RemovePrefixoMoedas("TOTALCONTRIBUICAOPERIODO", entity, row)
+    
+def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+        if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

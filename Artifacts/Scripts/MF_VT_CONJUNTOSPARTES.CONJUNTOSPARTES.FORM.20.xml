@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_VT_CONJUNTOSPARTES.CONJUNTOSPARTES.FORM</ViewName>
+  <EntityName>MF_VT_CONJUNTOSPARTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    if entity.Fields["CONJUNTO"].Count &gt; 0:
+        command.RequestConfirmationBeforeExecute("Confirma o ajuste do(s) conjunto(s) selecionado(s)?")
+    else:
+        command.RequestConfirmationBeforeExecute("Confirma o ajuste de todos os conjuntos?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if not (widget.Entity.Fields["VEICULO"].Handle.IsValid()):
+        widget.View.Commands["Save"].Visible = False
+        widget.View.Commands["Cancel"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVEICULOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVEICULOValueChanged(view, entity):
+      if entity.Fields["VEICULO"].Handle.IsValid():
+          view.Commands["Save"].Visible = True
+          view.Commands["Cancel"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_PARCELAS.DOCSFISCALENTRADASAIDA.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Company
+    from Benner.Tecnologia.Common import Handle
+    from System.Web import HttpContext
+    from System import String
+    
+    
+    sql = ("SELECT MOEDAPADRAO FROM GN_PARAMETROS WHERE EMPRESA = :pEMPRESA")
+    EntDef = EntityDefinition()
+    EntDef.EntitySource = QuerySource(sql)
+    parametro = Criteria()
+    parametro.Parameters.Add("pEMPRESA", Company.Current.Handle)
+    
+    resultado = Entity.GetFirstOrDefault(EntDef,parametro)
+    
+    if (entity.Fields["MOEDA"].Handle == Handle(resultado.Fields["MOEDAPADRAO"])):
+        valorSaldo = entity.Fields["VALOR"] - entity.Fields["VALORESBAIXADOS"]
+        row.GetCellByName("CUSTOM_SALDO").Text = str("R$ %0.2f" % valorSaldo).replace(".",",")
+    else:
+        sqlMoeda = ("SELECT ABREVIATURA FROM GN_MOEDAS WHERE HANDLE = :pMOEDA")
+        EntDef1 = EntityDefinition()
+        EntiDef1.EntitySource = QuerySource(sqlMoeda)
+        param = Criteria()
+        param.Parameters.Add("pMOEDA", entity.Fields["MOEDA"].Handle)
+        resultMoeda = Entity.GetFirstOrDefault(EntiDef1, param)
+        
+        valorSaldo = entity.Fields["VALORMOEDA"] - entity.Fields["VALORESBAIXADOSMOEDA"]
+        row.GetCellByName("CUSTOM_SALDO").Text = resultMoeda.Fields["ABREVIATURA"] + " " + str(valorSaldo)
+        
+    if (valorSaldo == 0):
+        row.GetCellByName("CUSTOM_STATUS").Text = "Liquidada"
+    elif (entity.Fields["VALOR"] != valorSaldo):
+        row.GetCellByName("CUSTOM_STATUS").Text = "Parcial"
+    else:
+        row.GetCellByName("CUSTOM_STATUS").Text = "Aberta"
+
+    if entity.Fields["PATH_DOC_OPERACAOCANCELAMENTO"] != None:
+        row.GetCellByName("CUSTOM_638102380130215738").Text = "&lt;div class='label label-sm' style='background-color: #e7505a !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-times'&gt;&lt;/i&gt;&lt;/div&gt;";
+        row.GetCellByName("CUSTOM_638102380130215738").Tooltip ="Cancelado"
+    else:
+        if entity.Fields["PATH_DOC_ENTRADASAIDA"].Value == "I" or entity["PATH_DOC_ENTRADASAIDA"].Value == "O":
+            row.GetCellByName("CUSTOM_638102380130215738").Text = "&lt;div class='label label-sm' style='background-color: #e7505a !important; padding: 2px 7px !important;'&gt;&lt;i class='fa fa-lock'&gt;&lt;/i&gt;&lt;/div&gt;";
+            row.GetCellByName("CUSTOM_638102380130215738").Tooltip ="Bloqueado"
+        else:
+            row.GetCellByName("CUSTOM_638102380130215738").Text = "&lt;div class='label label-sm' style='background-color: #1BBC9B !important; padding: 2px 4px !important;'&gt;&lt;i class='fa fa-check'&gt;&lt;/i&gt;&lt;/div&gt;";
+            row.GetCellByName("CUSTOM_638102380130215738").Tooltip ="Confirmado"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

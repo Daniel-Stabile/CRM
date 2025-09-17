@@ -1,0 +1,42 @@
+﻿@{
+    string mensagem = "<div>" + Convert.ToString(@Model.Fields["LOG"]) + "</div>";
+    string id = "Popover_" + Convert.ToString(@Model.Fields["HANDLE"]);
+    string titulo = "LOG - clique para exibir";
+    string classe = "";
+    //classe = "font-green-meadow fa fa-exclamation-circle ClassError";
+    classe = "btn btn-circle btn-xs red ClassError";    
+}
+
+<div class="btn-group">
+    <div>        
+        <a id="@id" href="javascript:parent.window.showPopover('#@id');"
+           data-toggle="popover"
+           data-trigger="manual"
+           class="@classe"
+           data-placement="left"
+           data-container="body"
+           data-html="true"
+           title="@titulo"           
+           style="color:white"
+           data-content="@mensagem">
+           <i class="fa fa-exclamation"></i>
+        </a>
+
+    </div>
+</div>
+
+<script>
+
+    window.showPopover = function (id) {
+        if (window.lastPopover === id) {
+            $(".popover[role=tooltip]").detach();
+            window.lastPopover = null;
+        }
+        else {
+            $(".popover[role=tooltip]").detach();
+            window.lastPopover = id;
+            $(id).popover("show");
+        }
+    }
+
+</script>

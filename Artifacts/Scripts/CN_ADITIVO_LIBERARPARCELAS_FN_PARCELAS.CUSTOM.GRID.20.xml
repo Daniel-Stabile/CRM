@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_ADITIVO_LIBERARPARCELAS_FN_PARCELAS.CUSTOM.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRINCLUIRPARCELASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRINCLUIRPARCELASExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    # recupera a lista que representa o breadcrumb
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_ADITIVORETENCAO"))
+    command.TransitoryVars["TransitoryAditivoRetencao"] = item.Handle
+    command.TransitoryVars["EhInclusao"] = True
+    command.TransitoryVars["EhExclusao"] = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

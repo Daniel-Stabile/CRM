@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>AGA_A_FN_PARCELAREMESSAS_VALORINCLUIDO</Identifier>
+  <Name>Valor já incluído na remessa</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT &#xA;    CASE VALORTOTAL &#xA;        WHEN NULL THEN 0 ELSE VALORTOTAL&#xA;    END VALORTOTAL,&#xA;    CASE HANDLE&#xA;        WHEN NULL THEN 0 ELSE HANDLE&#xA;    END HANDLE&#xA;FROM GN_HBREMESSAS&#xA;" />
+  <Fields>
+    <Field Alias="VALORTOTAL" From="A" Path="VALORTOTAL" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

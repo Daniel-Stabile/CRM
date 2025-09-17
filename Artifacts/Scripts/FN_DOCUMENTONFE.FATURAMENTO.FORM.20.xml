@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_DOCUMENTONFE.FATURAMENTO.FORM</ViewName>
+  <EntityName>FN_DOCUMENTONFE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    if registro == None: return
+    statusNFe = int(registro.Fields["STATUSNFE"].Value)
+    widget.View.Commands["CMD_DANFE"].Visible = (statusNFe == 6)
+    widget.View.Commands["CMD_XML"].Visible = (statusNFe == 6)
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_NECESSIDADELIQUIDACALCGERAL.RESULTADOCALCULO.GRID</ViewName>
+  <EntityName>PR_NECESSIDADELIQUIDACALCGERAL</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if row.GetCustomCommand("CMD_VISUALIZARORDENS") != None:
+        row.GetCustomCommand("CMD_VISUALIZARORDENS").Enabled = False;
+        
+    if row.GetCustomCommand("CMD_VISUALIZARORDENS") != None:
+        if entity["OCOP"].GetInt32() &gt; 0: 
+            row.GetCustomCommand("CMD_VISUALIZARORDENS").Enabled = True;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

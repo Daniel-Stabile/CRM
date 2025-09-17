@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_ORDEMRETRABALHOAPONTLOTES.FORM</ViewName>
+  <EntityName>PR_ORDEMRETRABALHOAPONTLOTES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entidadeMestre = widget.Entity
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = False
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = False
+    if widget.View.Commands["New"] != None:
+        widget.View.Commands["New"].Visible = False
+    if(entidadeMestre.Fields["APONTAMENTO"].Instance.Fields["STATUS"].Value == 1):
+        widget.View.Commands["New"].Visible = True
+        widget.View.Commands["Delete"].Visible = True
+        widget.View.Commands["Edit"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

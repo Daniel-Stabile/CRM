@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_W_FILTROCOMISSOES.FORM</ViewName>
+  <EntityName>W_FILTROCOMISSOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFILTROValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFILTROValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition;
+    
+    view.FieldDefinitions["FATURAMENTO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["FATURAMENTOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["VENCIMENTOTITULOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["VENCIMENTOTITULOCLIENTEATE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["RECEBIMENTOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["RECEBIMENTOCLIENTEATE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["APURACAOCOMISSAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["APURACAOCOMISSAOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["PAGAMENTOCOMISSAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["PAGAMENTOCOMISSAOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+    view.FieldDefinitions["CLIENTES"].DataAccessLevel = FieldDefinition.AccessLevel.Edit;
+
+    if int(entity.Fields["FILTRO"].Value) == 1:
+        view.FieldDefinitions["FATURAMENTO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["FATURAMENTOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["VENCIMENTOTITULOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["VENCIMENTOTITULOCLIENTEATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["RECEBIMENTOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["RECEBIMENTOCLIENTEATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["APURACAOCOMISSAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["APURACAOCOMISSAOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["PAGAMENTOCOMISSAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["PAGAMENTOCOMISSAOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+
+    if (int(entity.Fields["FILTRO"].Value) == 2) or (int(entity.Fields["FILTRO"].Value) == 3):
+        view.FieldDefinitions["APURACAOCOMISSAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["APURACAOCOMISSAOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["PAGAMENTOCOMISSAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+        view.FieldDefinitions["PAGAMENTOCOMISSAOATE"].DataAccessLevel = FieldDefinition.AccessLevel.Read; 
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

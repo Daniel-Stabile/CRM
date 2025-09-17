@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_SERASAREMESSAS.CUSTOM.GRID</ViewName>
+  <EntityName>FN_SERASAREMESSAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import ListItem
+    
+    statusRemessa = entity.Fields["STATUS"]
+    if (statusRemessa == None) or (row.DeleteCommand == None) :return
+
+    row.DeleteCommand.Visible = statusRemessa.Value in[1,5]
+
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

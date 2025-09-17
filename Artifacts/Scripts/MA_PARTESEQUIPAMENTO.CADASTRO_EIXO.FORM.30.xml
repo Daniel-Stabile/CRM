@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MA_PARTESEQUIPAMENTO.CADASTRO_EIXO.FORM</ViewName>
+  <EntityName>MA_PARTESEQUIPAMENTO</EntityName>
+  <Level>Vertical</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+        #Obtendo a página do formulário através de sua chave ("GERAL")
+    paginaDoFormulario = widget.View.Pages["GERAL"] 
+ 
+    #Obtendo o componente Tab
+    tabPage = paginaDoFormulario.Items["PARTEPNEU"]
+    
+    tabItem1 = tabPage.Pages["1"]
+    tabItem1.Visible = False
+    
+    tabItem1 = tabPage.Pages["2"]
+    tabItem1.Visible = False
+    
+    tabItem1 = tabPage.Pages["4"]
+    tabItem1.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

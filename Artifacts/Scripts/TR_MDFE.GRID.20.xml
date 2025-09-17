@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_MDFE.GRID</ViewName>
+  <EntityName>TR_MDFE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None : return
+    
+    if row.GetCustomCommand("CMD_EMITIR") != None:
+        row.GetCustomCommand("CMD_EMITIR").Enabled = int(entity.Fields["STATUS"].Value) == 1
+    if row.GetCustomCommand("CMD_CONSULTAR") != None:
+        row.GetCustomCommand("CMD_CONSULTAR").Enabled = int(entity.Fields["STATUS"].Value) == 2
+    #row.GetCustomCommand("CMD_CONSULTARENCERRAMENTO").Enabled = int(entity.Fields["STATUS"].Value) == 4;
+    if row.GetCustomCommand("CMD_ENCERRAR") != None:
+        row.GetCustomCommand("CMD_ENCERRAR").Enabled = int(entity.Fields["STATUS"].Value) == 3
+    if row.GetCustomCommand("CMD_DAMDFE") != None:
+        row.GetCustomCommand("CMD_DAMDFE").Enabled = int(entity.Fields["STATUS"].Value) &gt;= 3
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

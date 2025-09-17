@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCAPURACAOCONSOLIDACAO-NAOCUMULATIVA.GRID</ViewName>
+  <EntityName>TR_PCAPURACAOCONSOLIDACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    from System import DateTime
+    
+    row.GetCellByName("VALORNAOCUMULATIVOARECOLHER").BackgroundColor = "#B0C4DE";
+    row.GetCellByName("VALORNAOCUMULATIVOARECOLHER").CssClass = "font-weight: bold";
+    row.GetCellByName("VALORNAOCUMULATIVOARECOLHER").Align = "right";
+    
+    if entity == None: return
+
+    #Zerando valores NAO-CUMULATIVO
+    row.GetCellByName("TOTALNAOCUMULATIVOPERIODO").Text = "0,00";
+    row.GetCellByName("TOTALCREDITOPERIODOATUAL").Text = "0,00";
+    row.GetCellByName("TOTALCREDITOPERIODOANTERIOR").Text = "0,00";
+    row.GetCellByName("TOTALNAOCUMULATIVODEVIDO").Text = "0,00";
+    row.GetCellByName("TOTALRETIDOFONTENAOCUMULATIVO").Text = "0,00";
+    row.GetCellByName("TOTALDEDUCOESNAOCUMULATIVO").Text = "0,00";
+    row.GetCellByName("VALORNAOCUMULATIVOARECOLHER").Text = "0,00";
+    
+    #Formatação dos valores NAO-CUMULATIVO
+    if entity.Fields["TOTALNAOCUMULATIVOPERIODO"] != None: row.GetCellByName("TOTALNAOCUMULATIVOPERIODO").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALNAOCUMULATIVOPERIODO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALCREDITOPERIODOATUAL"] != None: row.GetCellByName("TOTALCREDITOPERIODOATUAL").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALCREDITOPERIODOATUAL"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALCREDITOPERIODOANTERIOR"] != None: row.GetCellByName("TOTALCREDITOPERIODOANTERIOR").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALCREDITOPERIODOANTERIOR"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALNAOCUMULATIVODEVIDO"] != None: row.GetCellByName("TOTALNAOCUMULATIVODEVIDO").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALNAOCUMULATIVODEVIDO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALRETIDOFONTENAOCUMULATIVO"] != None: row.GetCellByName("TOTALRETIDOFONTENAOCUMULATIVO").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALRETIDOFONTENAOCUMULATIVO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["TOTALDEDUCOESNAOCUMULATIVO"] != None: row.GetCellByName("TOTALDEDUCOESNAOCUMULATIVO").Text = str(str(str("{:,.2f}".format(entity.Fields["TOTALDEDUCOESNAOCUMULATIVO"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+    if entity.Fields["VALORNAOCUMULATIVOARECOLHER"] != None: row.GetCellByName("VALORNAOCUMULATIVOARECOLHER").Text = str(str(str("{:,.2f}".format(entity.Fields["VALORNAOCUMULATIVOARECOLHER"])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","");
+
+    dataNula = DateTime(1899,12,30);
+    if entity.Fields["VENCIMENTONAOCUMULATIVO"] == None or entity["VENCIMENTONAOCUMULATIVO"].Value == dataNula:
+        row.GetCellByName("VENCIMENTONAOCUMULATIVO").Text = "";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

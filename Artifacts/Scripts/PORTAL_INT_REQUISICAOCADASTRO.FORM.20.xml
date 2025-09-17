@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_INT_REQUISICAOCADASTRO.FORM</ViewName>
+  <EntityName>CP_REQUISICOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnPRODUTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPRODUTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import FieldDefinition    
+    from Benner.Tecnologia.Common import RadioItem    
+    
+    valor = 0
+    
+    if entity == None: return   
+
+    if entity.Fields["PRODUTO"].Handle.IsValid() :
+         
+        
+        # Buscando dados
+        produto = Entity.Get(EntityDefinition.GetByName("PD_PRODUTOS"), Criteria("A.HANDLE = :PRODUTO",Parameter("PRODUTO",entity.Fields["PRODUTO"].Handle)))    
+        familia = Entity.Get(EntityDefinition.GetByName("PD_FAMILIASPRODUTOS"), Criteria("A.HANDLE = :FAMILIA",Parameter("FAMILIA",produto.Fields["FAMILIA"].Handle)))
+        usuario = Entity.Get(EntityDefinition.GetByName("Z_GRUPOUSUARIOS"), Criteria("A.HANDLE = @USUARIO"))        
+        
+        # Familia
+        entity.Fields["FAMILIA"] = EntityAssociation(familia.Handle, EntityDefinition.GetByName("PD_FAMILIASPRODUTOS"))        
+        
+                
+        # Tipo movimentacao 
+        if produto.Fields["TIPOMOVIMENTOCOMPRA"].Handle.IsValid() :         
+            entity.Fields["TIPOMOVIMENTACAO"] = EntityAssociation(produto.Fields["TIPOMOVIMENTOCOMPRA"].Handle, EntityDefinition.GetByName("CM_OPERACOESFATURAMENTO"))         
+        
+        #Almoxarifado
+        view.FieldDefinitions["ALMOXARIFADO"].Where = " A.HANDLE IN (SELECT B.ALMOXARIFADO FROM PD_ALMOXARIFADOPRODUTOS B WHERE B.PRODUTO IN (SELECT HANDLE FROM PD_PRODUTOS WHERE PRODUTOPAI IN (SELECT PRODUTOPAI FROM PD_PRODUTOS WHERE HANDLE = "+entity.Fields["PRODUTO"].Handle.ToString()+")))"
+        
+        if entity.Fields["TABTIPO"].Value.Equals(1):  
+            if produto.Fields["ALMOXARIFADOCOMPRAS"].Handle.IsValid() :
+                entity.Fields["ALMOXARIFADO"] = EntityAssociation(produto.Fields["ALMOXARIFADOCOMPRAS"].Handle, EntityDefinition.GetByName("PD_ALMOXARIFADOS"))
+        else :
+            if usuario.Fields["ALMOXARIFADOREQUISICAO"].Handle.IsValid() :
+                almoxarifado = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_ALMOXARIFADOS"), Criteria("A.FILIAL = @FILIAL AND A.HANDLE = :HANDLE",Parameter("HANDLE",usuario.Fields["ALMOXARIFADOREQUISICAO"].Handle)))  
+                entity.Fields["ALMOXARIFADO"] = EntityAssociation(almoxarifado.Handle, EntityDefinition.GetByName("PD_ALMOXARIFADOS"))                                    
+        
+        if produto["TIPO"].GetInt32() == 3 :
+            view.FieldDefinitions["ALMOXARIFADO"].DataAccessLevel = FieldDefinition.AccessLevel.Read 
+            view.FieldDefinitions["ALMOXARIFADO"].Required = False
+        else :
+            view.FieldDefinitions["ALMOXARIFADO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit 
+            view.FieldDefinitions["ALMOXARIFADO"].Required = True            
+            
+        # Variacao   
+        if produto.Fields["TEMVARIACAO"] == False :
+            view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            
+            # Sugerir valor            
+            if entity.Fields["TABTIPO"].Value.Equals(1):     
+                parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))                
+                if parametros &lt;&gt; None :
+                    if parametros.Fields["VALORPARAORCAMENTO"].Value.Equals(1) :
+                        valor = produto.Fields["CUSTOMATERIAL"] + produto.Fields["CUSTOMAOOBRA"]
+                    elif parametros.Fields["VALORPARAORCAMENTO"].Value.Equals(2) :
+                        valor = produto.Fields["VALORULTIMACOMPRA"]
+                    else :
+                        valor = 0
+                        
+                    if valor &gt; 0 :            
+                        entity.Fields["VALOR"] = valor               
+            
+        else:
+            view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+            variacao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PRODUTOVARIACOESMESTRE"), Criteria("A.CODIGOREFERENCIA = :PRODUTO",Parameter("PRODUTO",entity.Fields["PRODUTO"].Handle)))    
+            if variacao.Handle.IsValid() :
+                entity.Fields["VARIACAO"] = EntityAssociation(variacao.Handle, EntityDefinition.GetByName("PD_PRODUTOVARIACOESMESTRE"))      
+                
+                # Campo valor
+                if entity.Fields["TABTIPO"].Value.Equals(1): 
+                    parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))                    
+                    if parametros &lt;&gt; None :
+                        variacao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PRODUTOVARIACOESMESTRE"), Criteria("A.HANDLE = :PRODUTO",Parameter("PRODUTO",entity.Fields["VARIACAO"].Handle)))            
+                        
+                        if parametros.Fields["VALORPARAORCAMENTO"].Value.Equals(1) :
+                            valor = variacao.Fields["CUSTOMATERIAL"] + variacao.Fields["CUSTOMAOOBRA"]
+                        elif parametros.Fields["VALORPARAORCAMENTO"].Value.Equals(2) :
+                            valor = variacao.Fields["VALORULTIMACOMPRA"]
+                            
+                        if valor &gt; 0 :            
+                            entity.Fields["VALOR"] = valor                      
+            
+        # unidade medida            
+        if entity.Fields["TABTIPO"].Value.Equals(2) :
+            entity.Fields["UNIDADE"] = EntityAssociation(produto.Fields["UNIDADEMEDIDACONSUMO"].Handle, EntityDefinition.GetByName("CM_UNIDADESMEDIDA"))    
+        else:            
+            entity.Fields["UNIDADE"] = EntityAssociation(produto.Fields["UNIDADEMEDIDACOMPRAS"].Handle, EntityDefinition.GetByName("CM_UNIDADESMEDIDA"))
+            
+        # Especificacoes            
+        entity.Fields["ESPECIFICACAO"] = produto.Fields["ESPECIFICACAOCOMPRAS"]     
+        
+        entity.Fields["ESPECIFICACAOITEM"] = produto.Fields["DESCRICAO"]              
+
+        # Operação
+        
+        condicao = Criteria()
+        condicao.SortExpression = " A.NOME "
+        
+        if entity.Fields["TABTIPO"].Value.Equals(1):        
+            if entity.Fields["TIPOMOVIMENTACAO"].Handle.IsValid():
+                if Entity.GetMany(EntityDefinition.GetByName("CM_OPERACAOITENS"), Criteria("A.OPERACAOCOMERCIAL = :OPERACAOCOMERCIAL",Parameter("OPERACAOCOMERCIAL",entity.Fields["TIPOMOVIMENTACAO"].Handle))).Count &gt; 0 :        
+                    view.FieldDefinitions["OPERACAO"].Where = " A.HANDLE IN (SELECT OPERACAO FROM CM_OPERACAOITENS WHERE OPERACAOCOMERCIAL= " + entity.Fields["TIPOMOVIMENTACAO"].Handle.ToString()+ ")"
+            else :                
+                view.FieldDefinitions["OPERACAO"].Where = ""              
+            condicao.Where = view.FieldDefinitions["OPERACAO"].Where
+            operacao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("GN_OPERACOES"), condicao) 
+        else:            
+            view.FieldDefinitions["OPERACAO"].Where = "A.EHREQUISICAO = 'S' AND A.EHESTOQUE = 'S' "
+            condicao.Where = view.FieldDefinitions["OPERACAO"].Where
+            operacao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("GN_OPERACOES"), condicao)            
+            
+        if operacao != None:        
+            entity.Fields["OPERACAO"] = EntityAssociation(operacao.Handle, EntityDefinition.GetByName("GN_OPERACOES")) 
+
+        # Conta financeira
+        if entity.Fields["TABTIPO"].Value.Equals(1):
+            if produto.Fields["CONTAFINANCEIRAENTRADA"].Handle.IsValid() :  
+                entity.Fields["CONTAFINANCEIRA"] = EntityAssociation(produto.Fields["CONTAFINANCEIRAENTRADA"].Handle, EntityDefinition.GetByName("FN_CONTAS"))      
+              
+        # Centro Custo
+        if usuario.Fields["CENTROCUSTOREQUISICAO"].Handle.IsValid():
+            entity.Fields["CENTROCUSTO"] = EntityAssociation(usuario.Fields["CENTROCUSTOREQUISICAO"].Handle, EntityDefinition.GetByName("CT_CC"))
+            
+        else:
+            if produto.Fields["CENTROCUSTOENTRADA"].Handle.IsValid() :
+                entity.Fields["CENTROCUSTO"] = EntityAssociation(produto.Fields["CENTROCUSTOENTRADA"].Handle, EntityDefinition.GetByName("CT_CC"))  
+            else:
+                if entity.Fields["ALMOXARIFADO"].Handle.IsValid() :
+                    almoxarifado = Entity.Get(EntityDefinition.GetByName("PD_ALMOXARIFADOS"), Criteria("A.HANDLE = :ALMOXARIFADO",Parameter("ALMOXARIFADO",entity.Fields["ALMOXARIFADO"].Handle)))        
+                    if almoxarifado.Fields["CENTRODECUSTO"].Handle.IsValid():
+                        entity.Fields["CENTROCUSTO"] = EntityAssociation(almoxarifado.Fields["CENTRODECUSTO"].Handle, EntityDefinition.GetByName("CT_CC")) 
+            
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnFAMILIAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFAMILIAValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition    
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity    
+    from Benner.Tecnologia.Common import Criteria    
+    from Benner.Tecnologia.Common import Handle    
+    
+         
+    #Produto where    
+    if entity.Fields["FAMILIA"].Handle.IsValid() :
+        view.FieldDefinitions["PRODUTO"].Where = " A.FAMILIA = " +  entity.Fields["FAMILIA"].Handle.ToString() + " AND A.STATUS = 3 "
+    else :
+        view.FieldDefinitions["PRODUTO"].Where = " A.STATUS = 3 "
+        
+    
+    if entity.Fields["ALMOXARIFADO"].Handle.IsValid() :
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.HANDLE IN ( SELECT PRODUTO FROM PD_ALMOXARIFADOPRODUTOS WHERE ALMOXARIFADO = "+entity.Fields["ALMOXARIFADO"].Handle.ToString()+")";	
+        
+        
+    if entity.Fields["FAMILIA"].Handle.IsValid() :   
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.FAMILIA = "+entity.Fields["FAMILIA"].Handle.ToString();	        
+        
+    if entity.Fields["TABTIPO"].Value == 1:         
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.EXIGECONTRATO &lt;&gt; 'S' AND ((A.TIPO = 2 AND A.INDUSTRIALIZACAOEXTERNA = 'S') OR (A.TIPO &lt;&gt; 2)) "
+        parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))        
+        if parametros.Fields["PERMITEUSARITEMCUSTO"] == False :
+            view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.TIPO &lt;&gt; 4 "           
+      
+
+    entity.Fields["VARIACAO"].Handle = None
+    entity.Fields["PRODUTO"].Handle = None
+    entity.Fields["ALMOXARIFADO"].Handle = None
+    
+
+
+    
+    view.FieldDefinitions["ALMOXARIFADO"].Where = ""
+    view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnALMOXARIFADOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnALMOXARIFADOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition    
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity    
+    from Benner.Tecnologia.Common import Criteria        
+    
+    #Produto where    
+    if entity.Fields["FAMILIA"].Handle.IsValid() :
+        view.FieldDefinitions["PRODUTO"].Where = " A.FAMILIA = " +  entity.Fields["FAMILIA"].Handle.ToString() + " AND A.STATUS = 3 "
+    else :
+        view.FieldDefinitions["PRODUTO"].Where = " A.STATUS = 3 "
+        
+    
+    if entity.Fields["ALMOXARIFADO"].Handle.IsValid() :
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.HANDLE IN ( SELECT PRODUTO FROM PD_ALMOXARIFADOPRODUTOS WHERE ALMOXARIFADO = "+entity.Fields["ALMOXARIFADO"].Handle.ToString()+")";	
+        
+    if entity.Fields["FAMILIA"].Handle.IsValid() :   
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.FAMILIA = "+entity.Fields["FAMILIA"].Handle.ToString();	        
+        
+    if entity.Fields["TABTIPO"].Value == 1:         
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.EXIGECONTRATO &lt;&gt; 'S' AND ((A.TIPO = 2 AND A.INDUSTRIALIZACAOEXTERNA = 'S') OR (A.TIPO &lt;&gt; 2)) "
+        parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))        
+        if parametros.Fields["PERMITEUSARITEMCUSTO"] == False :
+            view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.TIPO &lt;&gt; 4 " 
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTEMANEXOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTEMANEXOSValueChanged(view, entity):
+    raise Exception(entity.Fields["TABTIPO"])    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTABTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTABTIPOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import FieldDefinition        
+    
+    
+    if entity.Fields["TABTIPO"].Value == 2:
+        view.FieldDefinitions["OPERACAO"].Where = "EHREQUISICAO = 'S' AND EHESTOQUE = 'S' "
+        entity.Fields["TIPO"].Value = "O"
+    elif entity.Fields["TABTIPO"].Value == 1:
+        entity.Fields["TIPO"].Value = "C"
+        
+        if entity.Fields["TIPOMOVIMENTACAO"].Handle.IsValid():
+            if Entity.GetMany(EntityDefinition.GetByName("CM_OPERACAOITENS"), Criteria("A.HANDLE = :REQUISICAO",Parameter("REQUISICAO",entity.Fields["TIPOMOVIMENTACAO"].Handle))).Count &gt; 0 :        
+                view.FieldDefinitions["OPERACAO"].Where = " GN_OPERACOES.HANDLE IN (SELECT OPERACAO FROM CM_OPERACAOITENS WHERE OPERACAOCOMERCIAL= " + entity.Fields["TIPOMOVIMENTACAO"].Handle.ToString()
+        else :                
+            view.FieldDefinitions["OPERACAO"].Where = ""
+
+    entity.Fields["UNIDADE"].Handle = Handle()
+    entity.Fields["PRODUTO"].Handle = Handle()
+    entity.Fields["FAMILIA"].Handle = Handle()    
+    entity.Fields["CENTROCUSTO"].Handle = Handle()      
+    entity.Fields["PROJETO"].Handle = Handle()  
+    entity.Fields["OPERACAO"].Handle = Handle()
+    entity.Fields["ALMOXARIFADO"].Handle = Handle()    
+    entity.Fields["VARIACAO"].Handle = Handle()    
+    view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read    
+
+    # Operação
+    if entity.Fields["TABTIPO"].Value.Equals(1):        
+        operacao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_MOVIMENTACAOOPERACOES"), Criteria("A.FILIAL = @FILIAL AND A.EMPRESA = @EMPRESA AND A.CODIGO = 7")) 
+    else:            
+        operacao = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_MOVIMENTACAOOPERACOES"), Criteria("A.FILIAL = @FILIAL AND A.EMPRESA = @EMPRESA AND A.CODIGO = 1")) 
+        
+    if operacao &lt;&gt; None :        
+        entity.Fields["OPERACAO"] = EntityAssociation(operacao.Fields["OPERACAO"].Handle, EntityDefinition.GetByName("GN_OPERACOES"))   
+        
+    #Produto where    
+    if entity.Fields["FAMILIA"].Handle.IsValid() :
+        view.FieldDefinitions["PRODUTO"].Where = " A.FAMILIA = " +  entity.Fields["FAMILIA"].Handle.ToString() + " AND A.STATUS = 3 "
+    else :
+        view.FieldDefinitions["PRODUTO"].Where = " A.STATUS = 3 "
+        
+    
+    if entity.Fields["ALMOXARIFADO"].Handle.IsValid() :
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.HANDLE IN ( SELECT PRODUTO FROM PD_ALMOXARIFADOPRODUTOS WHERE ALMOXARIFADO = "+entity.Fields["ALMOXARIFADO"].Handle.ToString()+")";	
+        
+    if entity.Fields["FAMILIA"].Handle.IsValid() :   
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.FAMILIA = "+entity.Fields["FAMILIA"].Handle.ToString();	        
+        
+    if entity.Fields["TABTIPO"].Value.Equals(1):         
+        view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.EXIGECONTRATO &lt;&gt; 'S' AND ((A.TIPO = 2 AND A.INDUSTRIALIZACAOEXTERNA = 'S') OR (A.TIPO &lt;&gt; 2)) "
+        parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))        
+        if parametros.Fields["PERMITEUSARITEMCUSTO"] == False :
+            view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.TIPO &lt;&gt; 4 "  
+       
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCENTROCUSTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCENTROCUSTOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition   
+    from Benner.Tecnologia.Common import Handle    
+    from Benner.Tecnologia.Common import EntityAssociation    
+    from Benner.Tecnologia.Common import EntityDefinition    
+    
+    if entity.Fields["CENTROCUSTO"].Handle.IsValid() :   
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else:
+        entity.Fields["PROJETO"].Handle = Handle()
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read                    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnVARIACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnVARIACAOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition    
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter    
+    
+    
+    if entity.Fields["VARIACAO"].Handle.IsValid() :
+        parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))
+    
+    
+        # Campo valor
+        if entity.Fields["TABTIPO"].Value.Equals(1):    
+            if parametros &lt;&gt; None :
+                produto = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PRODUTOVARIACOESMESTRE"), Criteria("A.HANDLE = :PRODUTO",Parameter("PRODUTO",entity.Fields["VARIACAO"].Handle)))            
+    
+                if parametros.Fields["VALORPARAORCAMENTO"].Value.Equals(1) :
+                    valor = produto.Fields["CUSTOMATERIAL"] + produto.Fields["CUSTOMAOOBRA"]
+                elif parametros.Fields["VALORPARAORCAMENTO"].Value.Equals(2) :
+                    valor = produto.Fields["VALORULTIMACOMPRA"]
+                    
+                if valor &gt; 0 :            
+                    entity.Fields["VALOR"] = valor            
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityDefinition    
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter    
+	
+    entity = widget.Entity
+    view = widget.View
+    
+    if entity == None :
+        return
+    
+    if (widget.Entity.State != EntityState.Initialized):
+        view.FieldDefinitions["TABTIPO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+
+    # Variacao   
+        if entity.Fields["PRODUTO"].Handle.IsValid() :
+            produto = Entity.Get(EntityDefinition.GetByName("PD_PRODUTOS"), Criteria("A.HANDLE = :PRODUTO",Parameter("PRODUTO",entity.Fields["PRODUTO"].Handle)))           
+            if produto.Fields["TEMVARIACAO"] == False :
+            	view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            else:
+            	view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit      
+        else :            	
+            view.FieldDefinitions["VARIACAO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+            
+    #Operacao 
+        if entity.Fields["TABTIPO"] != None :
+            if entity.Fields["TABTIPO"].Value.Equals(1):        
+                if entity.Fields["TIPOMOVIMENTACAO"].Handle.IsValid():
+                    if Entity.GetMany(EntityDefinition.GetByName("CM_OPERACAOITENS"), Criteria("A.OPERACAOCOMERCIAL = :OPERACAOCOMERCIAL",Parameter("OPERACAOCOMERCIAL",entity.Fields["TIPOMOVIMENTACAO"].Handle))).Count &gt; 0 :        
+                        view.FieldDefinitions["OPERACAO"].Where = " A.HANDLE IN (SELECT OPERACAO FROM CM_OPERACAOITENS WHERE OPERACAOCOMERCIAL= " + entity.Fields["TIPOMOVIMENTACAO"].Handle.ToString()+ ")"
+                else :                
+                    view.FieldDefinitions["OPERACAO"].Where = ""              
+            else:            
+                view.FieldDefinitions["OPERACAO"].Where = "A.EHREQUISICAO = 'S' AND A.EHESTOQUE = 'S' "
+
+    #Produto where   
+    if entity.Fields["TABTIPO"] != None :    
+        if entity.Fields["FAMILIA"].Handle.IsValid() :
+            view.FieldDefinitions["PRODUTO"].Where = " A.FAMILIA = " +  entity.Fields["FAMILIA"].Handle.ToString() + " AND A.STATUS = 3 "
+        else :
+            view.FieldDefinitions["PRODUTO"].Where = " A.STATUS = 3 "
+            
+        
+        if entity.Fields["ALMOXARIFADO"].Handle.IsValid() :
+            view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.HANDLE IN ( SELECT PRODUTO FROM PD_ALMOXARIFADOPRODUTOS WHERE ALMOXARIFADO = "+entity.Fields["ALMOXARIFADO"].Handle.ToString()+")";	
+            
+        if entity.Fields["FAMILIA"].Handle.IsValid() :   
+            view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.FAMILIA = "+entity.Fields["FAMILIA"].Handle.ToString();	        
+            
+        if entity.Fields["TABTIPO"].Value.Equals(1):         
+            view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.EXIGECONTRATO &lt;&gt; 'S' AND ((A.TIPO = 2 AND A.INDUSTRIALIZACAOEXTERNA = 'S') OR (A.TIPO &lt;&gt; 2)) "
+            parametros = Entity.GetFirstOrDefault(EntityDefinition.GetByName("PD_PARAMETROSCOMPRAS"), Criteria("A.FILIAL = @FILIAL"))        
+            if parametros.Fields["PERMITEUSARITEMCUSTO"] == False :
+                view.FieldDefinitions["PRODUTO"].Where = view.FieldDefinitions["PRODUTO"].Where + " AND A.TIPO &lt;&gt; 4 " 
+        
+    #Almoxarifado where        
+    if entity.Fields["PRODUTO"].Handle.IsValid() :
+            view.FieldDefinitions["ALMOXARIFADO"].Where = " A.HANDLE IN (SELECT B.ALMOXARIFADO FROM PD_ALMOXARIFADOPRODUTOS B WHERE B.PRODUTO IN (SELECT HANDLE FROM PD_PRODUTOS WHERE PRODUTOPAI IN (SELECT PRODUTOPAI FROM PD_PRODUTOS WHERE HANDLE = "+entity.Fields["PRODUTO"].Handle.ToString()+")))"        
+
+    #Comandos
+    if entity.Fields["STATUS"].Value &lt;&gt; 1 : 
+        view.Commands.Remove("New")  
+        view.Commands.Remove("Edit")                
+        view.Commands.Remove("Delete") 
+        
+    #Projeto acesso        
+    if entity.Fields["CENTROCUSTO"].Handle.IsValid() :   
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+    else:
+        view.FieldDefinitions["PROJETO"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        
+    if entity.Fields["TIPO"].Value.Equals('C') or entity.Fields["TIPO"].Value.Equals('O') or entity.Fields["TIPO"].Value.Equals('N') :
+        view.FieldDefinitions["ALMOXARIFADOORIGEM"].Visible = False
+    else:
+        view.FieldDefinitions["ALMOXARIFADOORIGEM"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

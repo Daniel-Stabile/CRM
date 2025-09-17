@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_DOCUMENTOVALIDADES.FORM</ViewName>
+  <EntityName>CN_DOCUMENTOVALIDADES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Business import Query
+    registro = widget.Entity
+    if registro == None: return
+
+    handleRegistro = registro.Fields["HANDLE"].ToString()
+    if handleRegistro == "": return
+
+    sqlSituacaoDocumento = Query("SELECT SITUACAO FROM CN_CONTRATODOCUMENTOS WHERE HANDLE = ( SELECT DOCUMENTO FROM CN_DOCUMENTOVALIDADES WHERE HANDLE = " + registro.Fields["HANDLE"].ToString() + ") ")
+    
+    situacaoDocumento = sqlSituacaoDocumento.Execute()
+    
+    widget.View.Commands["CMD_ENVIARAPROVACAO"].Visible = situacaoDocumento[0]["SITUACAO"].GetString()=="P"
+    widget.View.Commands["Edit"].Visible = situacaoDocumento[0]["SITUACAO"].GetString()=="P"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

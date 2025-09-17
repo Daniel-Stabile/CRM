@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_METASUSUARIOSTIPOS.FORM</ViewName>
+  <EntityName>K_CRM_METASUSUARIOSTIPOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Tecnologia.Wes.Components")
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    
+    if widget == None:return;
+    if widget.Entity == None:return;
+    
+    ent             = widget.Entity
+    
+    if not ent.Fields["TIPO"].Handle.IsValid():return;
+    
+    tipo            = ent.Fields["TIPO"].Handle
+    metaPeriodo     = ent.Fields["METAUSUARIO"].Instance.Fields["METAPERIODO"].Handle 
+    
+    criteria        = Criteria("A.TIPO = :TIPO AND A.METAPERIODO = :METAPERIODO")
+    criteria.Parameters.Add(Parameter("METAPERIODO", metaPeriodo))
+    criteria.Parameters.Add(Parameter("TIPO", tipo))
+    totalPeriodo    = Entity.GetFirstOrDefault(EntityDefinition.GetByName("K_CRM_METASPERIODOSTIPOS"), criteria)
+    
+    if totalPeriodo == None:
+        widget.MessagePanel.ShowMessage("Não existe meta para esse tipo de item, faça o cadastro !!",MessageType.Error)
+        return;
+        
+    totalUsuarios = 0
+    
+    if metaPeriodo.IsValid():
+        criteria = Criteria("A.TIPO = :TIPO AND A.METAUSUARIO IN ( SELECT HANDLE FROM K_CRM_METASUSUARIOS WHERE METAPERIODO = :METAPERIODO)")
+        criteria.Parameters.Add(Parameter("METAPERIODO", metaPeriodo))
+        criteria.Parameters.Add(Parameter("TIPO", tipo))
+        usuarios = Entity.GetMany(EntityDefinition.GetByName("K_CRM_METASUSUARIOSTIPOS"), criteria)
+        
+        if usuarios.Count &gt; 0:
+            
+            for metaUsuario in usuarios:
+                totalUsuarios += metaUsuario.Fields["VALOR"]
+                
+        if not ent.Handle.IsValid():
+            totalUsuarios += ent.Fields["VALOR"]
+      
+    widget.MessagePanel.ShowMessage("Valor total da meta para o tipo de produto "+ent.Fields["TIPO"].Instance.Fields["NOME"]+": &lt;b&gt;R$ " + str(totalPeriodo.Fields["VALOR"]) + "&lt;/b&gt;&lt;/br&gt;Valor total da meta utilizada: &lt;b&gt;R$ "+str(totalUsuarios)+"&lt;/b&gt;", MessageType.Warning)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    view.OutputMessage = "PostBack"
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

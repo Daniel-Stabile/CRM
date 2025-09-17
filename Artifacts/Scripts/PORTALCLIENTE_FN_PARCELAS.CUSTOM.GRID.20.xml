@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTALCLIENTE_FN_PARCELAS.CUSTOM.GRID</ViewName>
+  <EntityName>FN_PARCELAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if (entity["PATH_636359043206809572"].IsNull):
+        if row.GetCustomCommand("CMD_ENVIAREMAIL") &lt;&gt; None: row.GetCustomCommand("CMD_ENVIAREMAIL").Enabled = False
+
+    if (entity["CONTATESOURARIA"].IsNull):
+        if row.GetCustomCommand("CMD_ENVIAREMAIL") &lt;&gt; None: row.GetCustomCommand("CMD_ENVIAREMAIL").Enabled = False
+        if row.GetCustomCommand("CMD_IMPRIMIR") &lt;&gt; None: row.GetCustomCommand("CMD_IMPRIMIR").Enabled = False</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

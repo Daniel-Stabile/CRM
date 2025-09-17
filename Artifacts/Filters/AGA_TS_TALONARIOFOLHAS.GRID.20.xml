@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<FilterPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_TS_TALONARIOFOLHAS.GRID</ViewName>
+  <Level>Benner</Level>
+  <EntityName>TS_TALONARIOFOLHAS</EntityName>
+  <Filters>
+    <FilterItemPortable>
+      <Name>Padrão</Name>
+      <Type>Conditions</Type>
+      <ShowEmptyResults>false</ShowEmptyResults>
+      <ShowSimpleSearch>false</ShowSimpleSearch>
+      <AdvancedFilterConditions>1</AdvancedFilterConditions>
+      <ConditionsContent><![CDATA[<ArrayOfFilterCondition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilterCondition Index="1" FieldName="STATUS">
+    <TableName>TS_TALONARIOFOLHAS</TableName>
+    <FieldDefinitionName>TabFieldDefinition</FieldDefinitionName>
+    <Operator>
+      <Name>igual</Name>
+      <DatabaseOperator>=</DatabaseOperator>
+      <IsFunction>false</IsFunction>
+    </Operator>
+    <Value xsi:type="ArrayOfListItem">
+      <ListItem>
+        <Value>1</Value>
+        <Text>Disponível</Text>
+      </ListItem>
+      <ListItem>
+        <Value>2</Value>
+        <Text>Emitido</Text>
+      </ListItem>
+      <ListItem>
+        <Value>3</Value>
+        <Text>Cancelado</Text>
+      </ListItem>
+      <ListItem>
+        <Value>4</Value>
+        <Text>Estornado</Text>
+      </ListItem>
+      <ListItem>
+        <Value>5</Value>
+        <Text>Remessa</Text>
+      </ListItem>
+      <ListItem>
+        <Value>6</Value>
+        <Text>Bloqueado</Text>
+      </ListItem>
+    </Value>
+    <Label />
+    <UserInputRequired>true</UserInputRequired>
+    <Required>false</Required>
+    <IsManuallyDefined>false</IsManuallyDefined>
+  </FilterCondition>
+</ArrayOfFilterCondition>
+]]></ConditionsContent>
+      <WhereClauseContent><![CDATA[<WhereClause xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Where>(A.STATUS IN ('1', '2', '3', '4', '5', '6'))</Where>
+  <Parameters />
+</WhereClause>
+]]></WhereClauseContent>
+      <Visible>true</Visible>
+    </FilterItemPortable>
+  </Filters>
+</FilterPortable>

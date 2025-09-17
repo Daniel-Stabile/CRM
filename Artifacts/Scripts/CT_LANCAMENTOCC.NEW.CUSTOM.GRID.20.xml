@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CT_LANCAMENTOCC.NEW.CUSTOM.GRID</ViewName>
+  <EntityName>CT_LANCAMENTOCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    provider = widget.ProviderWidget;
+    if provider == None: return;
+    registroPai = provider.Entity;
+    if registroPai == None: return;
+    bloqueado = registroPai.Fields["BLOQUEADO"];
+    if bloqueado == None: return;
+    widget.View.Commands["Edit"].Visible = bloqueado;
+    widget.View.Commands["Delete"].Visible = bloqueado;
+    widget.View.Commands["View"].Visible = True;
+    widget.View.Commands["New"].Visible = bloqueado;</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

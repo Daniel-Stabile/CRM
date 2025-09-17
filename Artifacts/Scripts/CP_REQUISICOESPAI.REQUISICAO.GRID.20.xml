@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICOESPAI.REQUISICAO.GRID</ViewName>
+  <EntityName>CP_REQUISICOESPAI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None : return
+
+    podeAlterarDeletar = entity.PodeExcluirEditar()
+    
+    if identity.Branch.Value != 0:
+        if row.EditCommand != None:
+            row.EditCommand.Visible = podeAlterarDeletar
+        if row.DeleteCommand != None:
+            row.DeleteCommand.Visible = podeAlterarDeletar
+    else:
+        if row.EditCommand != None:
+            row.EditCommand.Visible = False
+        if row.DeleteCommand != None:
+            row.DeleteCommand.Visible = False</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    from Benner.Tecnologia.Business import Query
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    sqlOrcamentoPublico = Query("SELECT ORCAMENTOPUBLICO FROM FN_PARAMETROS WHERE EMPRESA = "+str(Utils.ObterEmpresaCorrente()))
+    result = sqlOrcamentoPublico.Execute()
+
+    ehOrcamentoPublico = result[0]["ORCAMENTOPUBLICO"].GetBoolean()
+
+    widget.View.FieldDefinitions["STATUSPEDIDOEMPENHO"].Visible = ehOrcamentoPublico
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

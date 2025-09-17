@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REP_PEDIDOS.GRID</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    concluido = bool(entity.Fields["STATUS"].Value &gt; 1);
+    EnableCommand(row.GetCustomCommand("CustomImprimir"), True);
+    return;
+
+def EnableCommand(command, enabled):
+    if command == None: return;
+    command.Enabled = enabled;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

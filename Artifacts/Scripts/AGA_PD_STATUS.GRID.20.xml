@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_STATUS.GRID</ViewName>
+  <EntityName>PD_STATUS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    if widget.ProviderWidget &lt;&gt; None and (widget.ProviderWidget.Entity == None or widget.ProviderWidget.Entity.State == EntityState.Initialized):
+        widget.Hidden = True
+        return
+    
+    if widget.ProviderWidget.Entity == None: return
+    
+    from System import Array
+    
+    entidade = widget.ProviderWidget.Entity
+    
+    almoxarifados = Array[str](['PD_ALMOXARIFADOPRODUTOS', 'PD_ALMOXARIFADOS'])
+    
+    if (entidade.GetEntityDefinition().Name in almoxarifados):
+        widget.Hidden = entidade.SelecaoCargaHistoricoDeAlteracao()
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

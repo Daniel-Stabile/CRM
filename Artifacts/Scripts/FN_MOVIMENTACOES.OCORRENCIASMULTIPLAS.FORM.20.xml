@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>FN_MOVIMENTACOES.OCORRENCIASMULTIPLAS.FORM</ViewName>
+  <EntityName>FN_MOVIMENTACOES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnGerarRelatorioExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnGerarRelatorioExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import WhereClause
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Handle
+    
+    ocorrencia = entity.Fields["OCORRENCIA"]
+    if ocorrencia == None: return
+
+    relatorioOcorrencia = ocorrencia.Instance.Fields["RELATORIOOCORRENCIA"]
+    
+    if command.OutputDefinition.WhereClause == None:
+        command.OutputDefinition.WhereClause = WhereClause()
+    
+    if relatorioOcorrencia == None or relatorioOcorrencia.Handle.IsInvalid():
+        command.OutputDefinition.WhereClause.AddWhereClause("A.HANDLE IN (SELECT GR.RELATORIO FROM R_GRUPORELATORIOS GR WHERE GR.GRUPO IN(SELECT PAR.GRUPORELATORIOS FROM FN_PARAMETROS2 PAR WHERE PAR.EMPRESA = @EMPRESA))")
+    else:
+        command.OutputDefinition.WhereClause.AddWhereClause("A.HANDLE = :PHANDLE", Parameter("PHANDLE", relatorioOcorrencia))
+
+
+    
+    
+    
+    
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnOCORRENCIAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnOCORRENCIAValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from System import DateTime
+    from Benner.Tecnologia.Common import ListItem
+    
+    if entity == None: return
+    
+    ocorrencia = entity.Fields["OCORRENCIA"]
+    parcela = entity.Fields["PARCELA"]
+    if ocorrencia == None or ocorrencia.Handle.IsInvalid() or parcela == None: return
+
+    if entity.Fields["VENCIMENTO"] == None:
+        if ocorrencia.Instance == None: return
+        if parcela.Instance == None: return
+        if ocorrencia.Instance.Fields["ANTECIPAVENCIMENTO"] == True or ocorrencia.Instance.Fields["DATAVENCIMENTOPRORROGADO"] == True or ocorrencia.Instance.Fields["PRORROGAVENCIMENTOBLOQUETO"] == True:
+            entity.Fields["VENCIMENTO"] = parcela.Instance.Fields["DATAVENCIMENTO"]
+            
+    entity.TransitoryVars["EHNDC"] = ocorrencia.Instance.Fields["GERALANCAMENTOCONTACORRENTE"]
+    view.FieldDefinitions["VALORNDC"].Visible = entity.TransitoryVars["EHNDC"]
+    view.FieldDefinitions["NATUREZANDC"].Visible = entity.TransitoryVars["EHNDC"]
+    view.FieldDefinitions["COBRARNDC"].Visible = entity.TransitoryVars["EHNDC"]
+    
+    cobrarNdc = entity.Fields["COBRARNDC"]
+    if cobrarNdc == None: return
+    
+    view.FieldDefinitions["FORNECEDOR"].Visible = entity.TransitoryVars["EHNDC"] and cobrarNdc.Value == 4 #4 - Fornecedor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCOBRARNDCValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCOBRARNDCValueChanged(view, entity):
+    from Benner.Tecnologia.Common import ListItem
+    
+    cobrarNdcDe = entity.Fields["COBRARNDC"]
+    if entity.TransitoryVars["EHNDC"] == None or cobrarNdcDe == None: return
+
+    view.FieldDefinitions["FORNECEDOR"].Visible = entity.TransitoryVars["EHNDC"] and cobrarNdcDe.Value == 4 #4 - Fornecedor
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNParametro
+    from Benner.Tecnologia.Common import EntityAssociation
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import ListItem
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Criteria
+    
+    entity = widget.Entity
+    if entity == None: return
+
+    entity.Fields["TIPOMOVIMENTO"] = ListItem(7, "Ocorrência")
+    parcela = entity.Fields["PARCELA"]
+    if parcela.Handle.IsValid():
+        entity.Fields["FILIAL"] = parcela.Instance.Fields["FILIAL"]
+
+    parametros = FNParametro.GetFirstOrDefault(Criteria("A.EMPRESA = :PEMPRESA",  Parameter("PEMPRESA", identity.Company)))
+    if parametros == None: return
+
+    ehOrcamentoPublico = parametros.OrcamentoPublico
+    dataJurosDefinition = widget.View.FieldDefinitions["DATAJUROS"]
+    if (dataJurosDefinition != None):
+        dataJurosDefinition.Visible = ehOrcamentoPublico
+
+    ocorrencia = entity.Fields["OCORRENCIA"]
+    if ocorrencia == None or ocorrencia.Instance == None or ocorrencia.Instance.Fields["GERALANCAMENTOCONTACORRENTE"] == False:
+        widget.View.FieldDefinitions["VALORNDC"].Visible = False
+        widget.View.FieldDefinitions["NATUREZANDC"].Visible = False
+        widget.View.FieldDefinitions["COBRARNDC"].Visible = False
+        widget.View.FieldDefinitions["FORNECEDOR"].Visible = False
+    elif entity.Fields["COBRARNDC"] != None and entity.Fields["COBRARNDC"].Value != 4:
+        widget.View.FieldDefinitions["FORNECEDOR"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

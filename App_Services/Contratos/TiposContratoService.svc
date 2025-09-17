@@ -1,0 +1,194 @@
+﻿<%@ ServiceHost Language="C#"                 
+                Service="Benner.Corporativo.WebServices.Contratos.TiposContratoService" 
+                Factory="Benner.Tecnologia.EnterpriseServiceLibrary.HttpServiceHostFactory" %>
+
+using System;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Description;
+using Benner.Tecnologia.EnterpriseServiceLibrary;
+using Benner.Tecnologia.Common.EnterpriseServiceLibrary;
+using Benner.Tecnologia.Common;
+
+namespace Benner.Corporativo.WebServices.Contratos
+{
+
+    [System.Runtime.Serialization.DataContract(Namespace = "http://benner.com.br/corporativo/TiposContratoService")]
+    public class TipoContrato
+    {
+        [System.Runtime.Serialization.DataMember]
+        public string CnpjEmpresa { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public TipoPerfilContrato Tipo { get; set; }
+
+        [System.Runtime.Serialization.DataMember]
+        public string Codigo { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public string Nome { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public StatusPerfil Status { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public bool TemApontamentoMedicao { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public bool ExigeApontamentoMedicao { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public bool GeraOrdemCompra { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public bool GeraPrevisaoFinanceira { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public DateTime DataInclusao { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public DateTime DataAlteracao { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public string UsuarioIncluiu { get; set; }
+        
+        [System.Runtime.Serialization.DataMember]
+        public string UsuarioAlterou { get; set; }
+
+    }
+
+    [System.Runtime.Serialization.DataContract(Namespace = "http://benner.com.br/corporativo/TiposContratoService")]
+    public enum TipoPerfilContrato : int
+    {
+        [System.Runtime.Serialization.EnumMember]
+        Todos = 0,
+        [System.Runtime.Serialization.EnumMember]
+        Compra = 1,
+        [System.Runtime.Serialization.EnumMember]
+        Faturamento = 2,
+        [System.Runtime.Serialization.EnumMember]
+        ConvenioHibrido = 3
+    }
+    [System.Runtime.Serialization.DataContract(Namespace = "http://benner.com.br/corporativo/TiposContratoService")]
+    public enum StatusPerfil : int
+    {
+        [System.Runtime.Serialization.EnumMember]
+        Ativo = 1,
+        [System.Runtime.Serialization.EnumMember]
+        Inativo = 2
+    }
+    
+    public class ConsultaTiposContratoRequest : Request
+    {
+        [System.Runtime.Serialization.DataMember]
+        public string CnpjEmpresa { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public TipoPerfilContrato Tipo { get; set; }
+    }
+    
+    public class ConsultaTiposContratoResponse : Response
+    {
+        [System.Runtime.Serialization.DataMember]
+        public System.Collections.Generic.List<TipoContrato> TiposContrato { get; set; }
+    }
+
+    [ServiceContract(Namespace = "http://benner.com.br/corporativo/TiposContratoService")]
+    public interface ITiposContratoService : IAuthentication
+    {
+        [OperationContract]
+        ConsultaTiposContratoResponse ConsultaTiposContrato(ConsultaTiposContratoRequest request);
+    }
+
+    [ServiceBehavior(Namespace = "http://benner.com.br/corporativo/TiposContratoService")]
+    public class TiposContratoService : ServiceBase, ITiposContratoService
+    {
+        private Handle BuscaHandleEmpresa(string cnpjEmpresa)
+        {
+            try
+            {
+                EntityBase empresa = Entity.Get(EntityDefinition.GetByName("EMPRESAS"),new Criteria("A.CGC = :CGC", new Parameter("CGC", cnpjEmpresa)));
+                return empresa.Handle;
+            }
+            catch (Benner.Tecnologia.Common.Exceptions.EntityNotFoundException)
+            {
+                throw new Benner.Tecnologia.Common.Exceptions.EntityNotFoundException("Não foi encontrado uma empresa com o CNPJ " + cnpjEmpresa);
+            }
+        }
+        public ConsultaTiposContratoResponse ConsultaTiposContrato(ConsultaTiposContratoRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException("request");
+            
+            var response = new ConsultaTiposContratoResponse();
+            response.TiposContrato = new System.Collections.Generic.List<TipoContrato>();
+
+            Criteria criterio = new Criteria();
+
+            if (!string.IsNullOrEmpty(request.CnpjEmpresa))
+                criterio.AddWhereClause("A.EMPRESA = :EMPRESA", new Parameter("EMPRESA", BuscaHandleEmpresa(request.CnpjEmpresa)));
+                        
+            if (request.Tipo != TipoPerfilContrato.Todos)
+                criterio.AddWhereClause("A.TIPO = :TIPO", new Parameter("TIPO", (int)request.Tipo));            
+            
+            Entities<EntityBase> tipos = Entity.GetMany(EntityDefinition.GetByName("CN_TIPOSCONTRATOS"), criterio);            
+
+            tipos.ForEach(item =>
+            {      
+                var assocEmpresa = item.Fields["EMPRESA"] as EntityAssociation;
+                assocEmpresa.Handle = assocEmpresa.Handle;
+                
+                var listItemTipo = item.Fields["TIPO"] as ListItem;
+                var listItemStatus = item.Fields["STATUS"] as ListItem;
+
+                var assocUsuarioIncluiu = item.Fields["USUARIOINCLUIU"] as EntityAssociation;
+                assocUsuarioIncluiu.Handle = assocUsuarioIncluiu.Handle;
+                
+                var assocUsuarioAlterou = item.Fields["USUARIOALTEROU"] as EntityAssociation;
+                assocUsuarioAlterou.Handle = assocUsuarioAlterou.Handle;
+
+                var tipoContrato = new TipoContrato();
+                tipoContrato.CnpjEmpresa = assocEmpresa.Instance.Fields["CGC"] as string;
+                tipoContrato.Codigo = item.Fields["CODIGO"] as string;
+                tipoContrato.Nome = item.Fields["NOME"] as string;
+
+                switch (listItemTipo.Value)
+                {
+                    case 1:
+                        tipoContrato.Tipo = TipoPerfilContrato.Compra;
+                        break;
+                    case 2:
+                        tipoContrato.Tipo = TipoPerfilContrato.Faturamento;
+                        break;
+                    case 3:
+                        tipoContrato.Tipo = TipoPerfilContrato.ConvenioHibrido;
+                        break;
+                }
+
+                switch (listItemStatus.Value)
+                {
+                    case 1:
+                        tipoContrato.Status = StatusPerfil.Ativo;
+                        break;
+                    case 2:
+                        tipoContrato.Status = StatusPerfil.Inativo;
+                        break;
+                }                                
+                
+                tipoContrato.TemApontamentoMedicao = (bool)item.Fields["TEMAPONTAMENTO"];
+                tipoContrato.ExigeApontamentoMedicao = (bool)item.Fields["EXIGEAPONTAMENTO"];
+                tipoContrato.GeraOrdemCompra = (bool)item.Fields["GERAORDEMCOMPRA"];
+                tipoContrato.GeraPrevisaoFinanceira = (bool)item.Fields["PREVISAOFINANCEIRA"];
+                if (item.Fields["DATAINCLUSAO"] != null)
+                    tipoContrato.DataInclusao = (DateTime)item.Fields["DATAINCLUSAO"];
+                if (item.Fields["DATAALTERACAO"] != null)
+                    tipoContrato.DataAlteracao = (DateTime)item.Fields["DATAALTERACAO"];
+                
+                tipoContrato.UsuarioIncluiu = assocUsuarioIncluiu.Instance.Fields.ContainsKey("NOME") ? assocUsuarioIncluiu.Instance.Fields["NOME"] as string : "";
+                tipoContrato.UsuarioAlterou = assocUsuarioAlterou.Instance.Fields.ContainsKey("NOME") ? assocUsuarioAlterou.Instance.Fields["NOME"] as string : "";
+                response.TiposContrato.Add(tipoContrato);
+            });
+
+            return response;
+        }
+    }
+}

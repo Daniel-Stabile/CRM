@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICOESPAI.REQUISICAO.FORM</ViewName>
+  <EntityName>CP_REQUISICOESPAI</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    if widget.Entity == None : return
+
+    podeAlterarDeletar = widget.Entity.PodeExcluirEditar()
+    
+    widget.View.Commands["Edit"].Visible = podeAlterarDeletar
+    widget.View.Commands["Delete"].Visible = podeAlterarDeletar
+    widget.View.Commands["New"].Visible = not widget.Entity.EhItemConsumoDeProducao()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if entity.Fields["TIPO"] == None: raise CancelledOperationException("O campo 'TIPO' não foi preenchido.")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

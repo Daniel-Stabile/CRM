@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_CICLOOBJETIVOS.OBJETIVOS.FORM</ViewName>
+  <EntityName>GP_CICLOOBJETIVOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPCicloObjetivos
+    from Benner.Corporativo.Definicoes.GestaoDeProjetos import GPPlanejamentosEstrategicos
+    
+    cicloEmElaboracao = GPCicloObjetivos.EhPlanejamentoCicloEmElaboracao(widget.Entity["HANDLE"].GetInt64())
+    planejamentoEmElaboracao = GPPlanejamentosEstrategicos.EhPlanejamentoEstrategicoEmElaboracao(widget.Entity["PLANEJAMENTOESTRATEGICO"].GetInt64())
+    
+    widget.View.Commands["New"].Visible = cicloEmElaboracao and planejamentoEmElaboracao
+    widget.View.Commands["Edit"].Visible = cicloEmElaboracao and planejamentoEmElaboracao
+    widget.View.Commands["Delete"].Visible = cicloEmElaboracao and planejamentoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

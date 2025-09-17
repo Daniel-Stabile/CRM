@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>MF_ORDEMSERVICOS.CADASTROORDEMSERVICOS.FORM</ViewName>
+  <EntityName>MF_ORDEMSERVICOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    registro = widget.Entity
+    
+    if registro == None: return
+
+    if(registro.Fields["STATUS"].Value == 1 or
+        registro.Fields["STATUS"].Value == 10):
+        widget.View.Commands["CMD_LIBERAR"].Visible = True 
+        widget.View.Commands["CMD_CANCELAR"].Visible = True 
+        widget.View.Commands["CMD_IMPRIMIR"].Visible = True
+        widget.View.Commands["CMD_VoltarStatus"].Visible = False 
+        
+    elif(registro.Fields["STATUS"].Value == 15 or
+            registro.Fields["STATUS"].Value == 11 or
+            registro.Fields["STATUS"].Value == 6 or
+            registro.Fields["STATUS"].Value == 7 or
+            registro.Fields["STATUS"].Value == 8 or
+            registro.Fields["STATUS"].Value == 4):
+        widget.View.Commands["CMD_LIBERAR"].Visible = False 
+        widget.View.Commands["CMD_CANCELAR"].Visible = False 
+        widget.View.Commands["CMD_IMPRIMIR"].Visible = True
+        widget.View.Commands["CMD_VoltarStatus"].Visible = True 
+        
+    elif(registro.Fields["STATUS"].Value == 2):
+        widget.View.Commands["CMD_LIBERAR"].Visible = False 
+        widget.View.Commands["CMD_CANCELAR"].Visible = True 
+        widget.View.Commands["CMD_IMPRIMIR"].Visible = True
+        widget.View.Commands["CMD_VoltarStatus"].Visible = True 
+    elif(registro.Fields["STATUS"].Value == 3):
+        widget.View.Commands["CMD_LIBERAR"].Visible = False 
+        widget.View.Commands["CMD_CANCELAR"].Visible = False 
+        widget.View.Commands["CMD_IMPRIMIR"].Visible = True
+        widget.View.Commands["CMD_VoltarStatus"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

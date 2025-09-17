@@ -1,0 +1,457 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Benner.Core.Tasks.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.AppSettings">
+            <summary>
+            Custom app settings
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.AppSettings.TransportConfigSection">
+            <summary>
+            TransportConfigSection from IConfiguration
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Configuration.AppSettings.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Unique constructor
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.AppSettings.Current">
+            <summary>
+            Current app settings
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Configuration.AppSettings.GetCurrentSettings">
+            <summary>
+            Build app settings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.BackgroundTaskConfig">
+            <summary>
+            Configuration for messaging
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.BackgroundTaskConfig.Queues">
+            <summary>
+            List of available queues
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.BackgroundTaskConfig.Broker">
+            <summary>
+            Available broker
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.Queue">
+            <summary>
+            Queue settings
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Queue.Name">
+            <summary>
+            Queue name
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Queue.Exchange">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Queue.Dlx">
+            <summary>
+            Dead letter exchange
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Queue.Broker">
+             <summary>
+            Broker name
+             </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.Broker">
+            <summary>
+            Messaging broker information
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.Name">
+            <summary>
+            Broker name
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.Type">
+            <summary>
+            Broker [namespace, assembly]
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.HostName">
+            <summary>
+            Broker host
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.UserName">
+            <summary>
+            Broker user name
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.Password">
+            <summary>
+            Broker password
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.BrokerType">
+            <summary>
+            Loaded system type
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.GroupId">
+            <summary>
+            Group Id
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.Port">
+            <summary>
+            Port
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.Broker.Ack">
+            <summary>
+            Ack
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.BennerBusinessBrokerConfig">
+            <summary>
+            Classe responsável pela configuração de filas baseadas em arquivo .config
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Configuration.BennerBusinessBrokerConfig.#ctor">
+            <summary>
+            Instancia as configurações do broker através do arquivo informado
+            </summary>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="!:ConfigurationErrorsException"></exception>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Configuration.BennerBusinessBrokerConfig.CreateTransportInstance">
+            <summary>
+            Instantiates the broker configurations through a file.
+            The file structure is fully validated in the creation.
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.IBennerBusinessBrokerConfig">
+            <summary>
+            Contexto de configuração do broker de transporte
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Configuration.IBennerBusinessBrokerConfig.CreateTransportInstance">
+            <summary>
+            Cria uma nova instância do broker de transporte
+            </summary>
+            <returns>Instância do objeto de transporte</returns>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.IConsumptionInfo">
+            <summary>
+            Data for transport consumer
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo">
+            <summary>
+            Data for transport producer
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo.ContainerMessage">
+            <summary>
+            Mensagem a ser publicada
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo.Topic">
+            <summary>
+            Onde a mensagem será publicada
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo.Priority">
+            <summary>
+            Prioridade da mensage.
+            Range 0-9.
+            Quanto maior o número, maior a prioridade da mensagem, forçando-a ser processada antes de mensagens com menor prioridade.
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.IHostConfiguration">
+            <summary>
+            Configuração do Host
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.ConnectionException">
+            <summary>
+            Indica uma exceção de conexão
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.ConnectionException.#ctor">
+            <summary>
+            Indica uma exceção de conexão
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.ConnectionException.#ctor(System.String)">
+            <summary>
+            Indica uma exceção de conexão
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.ConnectionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Indica uma exceção de conexão
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging">
+            <summary>
+            Conte�do necess�rio para uma mensagem ser processada pelo Benner Business Broker
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.#ctor">
+            <summary>
+            Necess�rio para desserializa��o
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.#ctor(System.String,System.Nullable{System.Int64},Benner.Core.Abstractions.ContextServices.UserContextModel)">
+            <summary>
+            Propriedades get-only da mensagem
+            </summary>
+            <param name="businessComponent"></param>
+            <param name="processId"></param>
+            <param name="userContext"></param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.#ctor(System.Guid,System.String,System.String,System.String,System.Nullable{System.Int64},Benner.Core.Abstractions.ContextServices.UserContextModel)">
+            <summary>
+            Todas as propriedades da mensagem
+            </summary>
+            <param name="correlationId"></param>
+            <param name="businessComponent"></param>
+            <param name="eventName"></param>
+            <param name="message"></param>
+            <param name="processId"></param>
+            <param name="userContext"></param>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.UserContext">
+            <summary>
+            Contexto do usu�rio que criou a mensagem
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.Context">
+            <summary>
+            Vari�veis de contexto opcionais
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.CorrelationId">
+            <summary>
+            Identificador usado para rastreio da mensagem.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.BusinessComponent">
+            <summary>
+            Business Component a ser processado no formato [namespace.className,assemblyName]
+            � opcional caso a mensagem for processada pelo Worker e o evento [EventName] estiver parametrizado em seu arquivo de configura��o.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.EventName">
+            <summary>
+            Identifica��o do evento
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.CreationDate">
+            <summary>
+            Data de cria��o da mensagem
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.Message">
+            <summary>
+            IIntegrationMessaging serilizada em Json
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.ContainerMessaging.ProcessId">
+            <summary>
+            Handle do processo
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging">
+            <summary>
+            Conteúdo necessário para uma mensagem ser processada pelo Benner Business Broker
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.Context">
+            <summary>
+            Variáveis de contexto opcionais
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.UserContext">
+            <summary>
+            Contexto do usuário que criou a mensagem
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.CorrelationId">
+            <summary>
+            Identificador usado para rastreio da mensagem.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.BusinessComponent">
+            <summary>
+            Business Component a ser processado no formato [namespace.className,assemblyName]
+            É opcional caso a mensagem for processada pelo Worker e o evento [EventName] estiver parametrizado em seu arquivo de configuração.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.EventName">
+            <summary>
+            Identificação do evento
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.CreationDate">
+            <summary>
+            Data de criação da mensagem
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.Message">
+            <summary>
+            IIntegrationMessaging serilizada em Json
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.IContainerMessaging.ProcessId">
+            <summary>
+            Handle do processo
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs">
+            <summary>
+            Classe base para armazenar e desserializar mensagens recebidas por um listener de um <see cref="N:Benner.Core.Tasks.Abstractions.Messaging"/>.
+            A criptografia padrão para conversão de mensagens é <see cref="P:System.Text.Encoding.UTF8"/>.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs.AsBytes">
+            <summary>
+            A mensagem em um <see cref="!:byte[]"/>.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs.AsString">
+            <summary>
+            A mensagem em <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs.#ctor(System.Byte[])">
+            <summary>
+            </summary>
+            <param name="rawMessage">A mensagem em formato de <see cref="!:byte[]"/>.</param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs.#ctor(System.String)">
+            <summary>
+            </summary>
+            <param name="rawMessage">A mensagem em <see cref="T:System.String"/>.</param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs.GetMessage``1">
+            <summary>
+            Desserializa a mensagem para o objeto do tipo informado.
+            </summary>
+            <typeparam name="T">O tipo do objeto.</typeparam>
+            <returns>Uma nova instancia do objeto desserializado.</returns>
+            <exception cref="T:System.InvalidCastException">Ocorre quando há algum tipo de erro na desserialização.</exception>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.BennerBusinessBroker">
+            <summary>
+            Cria a instância do objeto de transporte.
+            </summary>
+        </member>
+        <member name="P:Benner.Core.Tasks.Abstractions.BennerBusinessBroker.Factory">
+            <summary>
+            Seleciona o tipo de transporte
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Transports.IConsumer">
+            <summary>
+            Responvável pela subscrição/consumidor de uma fila informada
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Transports.IConsumer.Subscribe``2">
+            <summary>
+            Inicia uma subscrição de uma fila informada.
+            </summary>
+            <typeparam name="T">tipo da mensagem</typeparam>
+            <typeparam name="TH">event handler</typeparam>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Transports.IConsumer.Subscribe``1(System.String)">
+            <summary>
+            Inicia uma subscrição de uma fila informada.
+            </summary>
+            <param name="eventName">nome do evento</param>
+            <typeparam name="TH">event handler</typeparam>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Transports.IConsumer.Unsubscribe``1(System.String)">
+            <summary>
+            Remove a subscrição do evento informado
+            </summary>
+            <typeparam name="TH"></typeparam>
+            <param name="eventName"></param>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.Transports.IProducer">
+            <summary>
+            Responsável pelo envio de mensagens para a exchange
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Transports.IProducer.Publish(Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo)">
+            <summary>
+            Publica uma mensagem
+            </summary>
+            <param name="param"></param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Transports.IProducer.Publish``1(Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo)">
+            <summary>
+            Publica uma mensagem
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="param"></param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.Transports.IProducer.Publish``1(Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo,``0)">
+            <summary>
+            Publica uma mensagem
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="param"></param>
+            <param name="integrationMessaging"></param>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.ITransport">
+            <summary>
+            Interface de controle para troca de mensagens.
+            </summary>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.ITransport.Publish(Benner.Core.Tasks.Abstractions.Configuration.IProductionInfo)">
+            <summary>
+            Envia uma mensagem para a fila informada.
+            </summary>
+            <param name="param"></param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.ITransport.Subscribe(Benner.Core.Tasks.Abstractions.Configuration.IConsumptionInfo,System.Func{Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Inicia um listener/consumidor para a fila informada.
+            </summary>
+            <param name="config">Informações sobre o destino das mensagens</param>
+            <param name="func">A Func que receberá e processará as mensagens.</param>
+        </member>
+        <member name="M:Benner.Core.Tasks.Abstractions.ITransport.SubscribeAllConfigQueues(System.Func{Benner.Core.Tasks.Abstractions.Messaging.MessagingArgs,System.Threading.Tasks.Task})">
+            <summary>
+            Inicia um listener/consumidor para cada fila informada em arquivo .config.
+            </summary>
+            <param name="func">A Func que receberá e processará as mensagens.</param>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.ITransportConfiguration">
+            <summary>
+            Responsável pelas configurações do broker de transporte.
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.ITransportFactorySelector">
+            <summary>
+            Responsável por selecionar o tipo de transporte
+            </summary>
+        </member>
+        <member name="T:Benner.Core.Tasks.Abstractions.TransportFactorySelector">
+            <summary>
+            Responsável pela seleção do tipo de transporte.
+            </summary>
+        </member>
+    </members>
+</doc>

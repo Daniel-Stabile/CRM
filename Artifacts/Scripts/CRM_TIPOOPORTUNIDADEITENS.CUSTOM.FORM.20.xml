@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CRM_TIPOOPORTUNIDADEITENS.CUSTOM.FORM</ViewName>
+  <EntityName>CRM_TIPOOPORTUNIDADEITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Handle
+    from Benner.Tecnologia.Common import TabItem
+    from Benner.Tecnologia.Common import ListItem
+    
+    if (entity.Fields["FASESUCESSO"]):
+        criterio = Criteria()
+        sql = "SELECT COUNT(HANDLE) NUM FROM CRM_TIPOOPORTUNIDADEITENS WHERE TIPOOPORTUNIDADE = :OPORTUNIDADE AND FASESUCESSO = 'S' AND HANDLE &lt;&gt; :HANDLE"
+        criterio.Parameters.Add(Parameter("OPORTUNIDADE", entity.Fields["TIPOOPORTUNIDADE"].Handle))
+        if (entity.Handle.IsValid()):
+            criterio.Parameters.Add(Parameter("HANDLE", entity.Handle))
+        else:
+            criterio.Parameters.Add(Parameter("HANDLE", -1))
+            
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        num = Entity.Get(ed, criterio)
+        
+        if (num.Fields["NUM"] &gt; 0):
+            raise CancelledOperationException("Já existe um item marcado como fase de sucesso.")
+    
+    if (entity.Fields["FASESEMSUCESSO"]):
+        criterio = Criteria()
+        sql = "SELECT COUNT(HANDLE) NUM FROM CRM_TIPOOPORTUNIDADEITENS WHERE TIPOOPORTUNIDADE = :OPORTUNIDADE AND FASESEMSUCESSO = 'S' AND HANDLE &lt;&gt; :HANDLE"
+        criterio.Parameters.Add(Parameter("OPORTUNIDADE", entity.Fields["TIPOOPORTUNIDADE"].Handle))
+        if (entity.Handle.IsValid()):
+            criterio.Parameters.Add(Parameter("HANDLE", entity.Handle))
+        else:
+            criterio.Parameters.Add(Parameter("HANDLE", -1))
+            
+        ed = EntityDefinition.Create()
+        ed.EntitySource = QuerySource(sql)
+        num = Entity.Get(ed, criterio)
+        
+        if (num.Fields["NUM"] &gt; 0):
+            raise CancelledOperationException("Já existe um item marcado como fase sem sucesso.")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>REMESSAS_APROVAR_DIRETORIA</Identifier>
+  <Name>Remessas em aprovação da diretoria</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE,&#xD;&#xA;       D.STATUS,&#xD;&#xA;       D.REMESSAGERADA HANDLEREMESSA,&#xD;&#xA;       A.CODIGO,&#xD;&#xA;       A.DATA,&#xD;&#xA;       E.NOME CONTA,&#xD;&#xA;       F.NOME SERVICO,&#xD;&#xA;       COUNT(B.HANDLE) TITULOS,&#xD;&#xA;       A.VALORTOTAL VALOR,&#xD;&#xA;       A.VALORLIQUIDOTOTAL VALORLIQUIDO&#xD;&#xA;  FROM GN_HBREMESSAS A&#xD;&#xA;       LEFT JOIN GN_PREREMESSAS D ON D.REMESSAGERADA = A.HANDLE&#xD;&#xA;       LEFT JOIN FN_PARCELAPREREMESSAS B ON B.PREREMESSA = D.HANDLE&#xD;&#xA;       LEFT JOIN FN_PARCELAS C ON C.HANDLE = B.PARCELA&#xD;&#xA;       LEFT JOIN FN_CONTASTESOURARIA E ON E.HANDLE = A.CONTACORRENTE&#xD;&#xA;       LEFT JOIN GN_HBENTIDADESERVICO F ON F.HANDLE = A.SERVICO&#xD;&#xA; GROUP BY A.HANDLE,&#xD;&#xA;       A.CODIGO,&#xD;&#xA;       D.STATUS,&#xD;&#xA;       E.NOME,&#xD;&#xA;       F.NOME,&#xD;&#xA;       A.DATA,&#xD;&#xA;       A.VALORTOTAL,&#xD;&#xA;       A.VALORLIQUIDOTOTAL,&#xD;&#xA;       D.HANDLE,&#xD;&#xA;       D.REMESSAGERADA " />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="STATUS" From="A" Path="STATUS" />
+    <Field Alias="HANDLEREMESSA" From="A" Path="HANDLEREMESSA" />
+    <Field Alias="CODIGO" From="A" Path="CODIGO" />
+    <DateField Alias="DATA" From="A" Path="DATA" FieldDateFormat="DayMonthYear" FieldTimeFormat="HourMinuteSecond" />
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="SERVICO" From="A" Path="SERVICO" />
+    <Field Alias="TITULOS" From="A" Path="TITULOS" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORLIQUIDO" From="A" Path="VALORLIQUIDO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

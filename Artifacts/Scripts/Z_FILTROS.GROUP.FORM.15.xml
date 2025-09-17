@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>Z_FILTROS.GROUP.FORM</ViewName>
+  <EntityName>Z_FILTROS</EntityName>
+  <Level>Tecnologia</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import Handle
+    parentNode = widget.Breadcrumb.Parent
+    entity = widget.Entity
+    
+    if (parentNode != None) and (entity != None):
+        if (parentNode.Entity.PhysicalTableName == "Z_GRUPOUSUARIOS"):
+            entity.Fields["USUARIO"].Handle = parentNode.Entity.Handle
+            entity.Fields["GRUPO"] = None
+            entity.Fields["PERMITEGRUPO"] = False
+        elif (parentNode.Entity.PhysicalTableName == "Z_GRUPOS"):
+            entity.Fields["GRUPO"].Handle = parentNode.Entity.Handle
+            entity.Fields["USUARIO"] = None
+            entity.Fields["PERMITEGRUPO"] = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

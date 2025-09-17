@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOS_FATURAMENTO.GRID</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity == None: return
+
+    statusContrato = entity.Fields["STATUS"].Value
+    liberado = entity.Fields["LIBERADO"]
+    statusEmElaboracao = 1    
+    if (((statusContrato == statusEmElaboracao) and liberado) or (statusContrato &gt; statusEmElaboracao)):
+        if row.EditCommand &lt;&gt; None: row.EditCommand.Visible = False
+        if row.DeleteCommand &lt;&gt; None: row.DeleteCommand.Visible = False
+    if ((statusContrato == statusEmElaboracao) and liberado):
+        row.GetCellByName("STATUS").Text = "Aguardando confirmação"
+        
+    if row.GetCustomCommand("CMD_CONTRATOFATURAMENTOVOLTARPARAELABORACAO") != None:
+        row.GetCustomCommand("CMD_CONTRATOFATURAMENTOVOLTARPARAELABORACAO").Enabled = entity.PodeVoltarParaElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

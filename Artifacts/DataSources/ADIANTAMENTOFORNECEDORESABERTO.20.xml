@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>ADIANTAMENTOFORNECEDORESABERTO</Identifier>
+  <Name>Adiantamento de fornecedores em aberto</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT COUNT(A.HANDLE) QTDE, SUM(B.VALOR-B.VALORESBAIXADOS) SALDO, SUM(B.VALOR) VALORTOTAL&#xD;&#xA;  FROM FN_DOCUMENTOS A, FN_PARCELAS B, GN_OPERACOES C&#xD;&#xA; WHERE B.DOCUMENTO = A.HANDLE&#xD;&#xA;   AND A.OPERACAO = C.HANDLE&#xD;&#xA;   AND C.CODIGOINTERNO &lt;&gt; 29&#xD;&#xA;   AND A.EHPREVISAO &lt;&gt; 'S'&#xD;&#xA;   AND (B.DOCUMENTOSUSPENSO &lt;&gt; 'S' OR  B.DOCUMENTOSUSPENSO IS NULL)&#xD;&#xA;   AND (B.EMABERTO = 'S')&#xD;&#xA;   AND A.TIPODEMOVIMENTO  = 2&#xD;&#xA;   AND A.ENTRADASAIDA = 'E'&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="QTDE" From="A" Path="QTDE" />
+    <Field Alias="SALDO" From="A" Path="SALDO" />
+    <Field Alias="VALORTOTAL" From="A" Path="VALORTOTAL" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

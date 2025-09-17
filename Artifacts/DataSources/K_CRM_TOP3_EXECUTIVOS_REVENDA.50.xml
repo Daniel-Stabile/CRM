@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_TOP3_EXECUTIVOS_REVENDA</Identifier>
+  <Name>CRM_TOP3_EXECUTIVOS_REVENDA</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT TOP 5 ROW_NUMBER() OVER(ORDER BY B.TOTAL DESC) AS POSICAO, A.NOME, B.TOTAL,&#xD;&#xA;       CASE&#xD;&#xA;          WHEN ROW_NUMBER() OVER(ORDER BY B.TOTAL DESC) = 1 THEN '#FFD700'&#xD;&#xA;          WHEN ROW_NUMBER() OVER(ORDER BY B.TOTAL DESC) = 2 THEN '#C0C0C0'&#xD;&#xA;          WHEN ROW_NUMBER() OVER(ORDER BY B.TOTAL DESC) = 3 THEN '#bf8970'&#xD;&#xA;          WHEN ROW_NUMBER() OVER(ORDER BY B.TOTAL DESC) &gt; 3 THEN '#89c4f4'&#xD;&#xA;       END COR&#xD;&#xA;FROM Z_GRUPOUSUARIOS A&#xD;&#xA;JOIN (&#xD;&#xA;       SELECT BB.RESPONSAVEL,SUM(BB.VALORTOTAL) TOTAL&#xD;&#xA;       FROM K_CRM_PESSOAOPORTUNIDADES BB&#xD;&#xA;       WHERE 1=1&#xD;&#xA;       AND YEAR(DATAFECHAMENTO) = YEAR(GETDATE())&#xD;&#xA;       AND STATUS = 10&#xD;&#xA;       AND BB.FILIAL &lt;&gt; 1&#xD;&#xA;       GROUP BY RESPONSAVEL) B ON B.RESPONSAVEL = A.HANDLE&#xD;&#xA;WHERE K_EXECUTIVOCONTAS = 'S'&#xD;&#xA;ORDER BY TOTAL DESC&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="POSICAO" From="A" Path="POSICAO" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <DecimalField Alias="TOTAL" From="A" Path="TOTAL" FieldDecimalsFormat="0" />
+    <Field Alias="COR" From="A" Path="COR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

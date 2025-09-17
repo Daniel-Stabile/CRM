@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_VISITA.FORM</ViewName>
+  <EntityName>CM_VISITA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common import Entity
+    
+    if widget.Entity == None: return
+
+    registro = widget.Entity
+    if registro == None: return
+
+    ehCadastrada = 1
+    ehPendente = 2
+    ehEncerrada = 3
+	
+    status = registro.Fields["STATUS"].Value
+
+    if (status == ehEncerrada):
+        if widget.View.Commands["Edit"] != None:
+		    widget.View.Commands["Edit"].Visible = False
+        if widget.View.Commands["New"] != None:
+            widget.View.Commands["New"].Visible = False
+        if widget.View.Commands["Novo"] != None:
+            widget.View.Commands["Novo"].Visible = False
+        if widget.View.Commands["Delete"] != None:
+            widget.View.Commands["Delete"].Visible = False
+            
+    OnCLIENTEValueChanged(widget.View, registro)
+    
+    widget.View.Commands["Liberar"].Visible = False
+    widget.View.Commands["Encerrar"].Visible = False
+    widget.View.Commands["Pendente"].Visible = False
+    
+    if (status == ehCadastrada):
+        if widget.View.Commands["Liberar"] != None:
+            widget.View.Commands["Liberar"].Visible = True
+    if (status == ehPendente):
+        if widget.View.Commands["Encerrar"] != None:
+            widget.View.Commands["Encerrar"].Visible = True
+    if (status == ehEncerrada):
+        if widget.View.Commands["Pendente"] != None:
+            widget.View.Commands["Pendente"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCLIENTEValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCLIENTEValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+
+    if entity == None: return
+    
+    if entity.Fields["CLIENTE"].Handle.IsValid():
+        view.FieldDefinitions["PROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["CONTATOPROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    else:
+        view.FieldDefinitions["PROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["CONTATOPROSPECT"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPROSPECTValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPROSPECTValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+
+    if entity == None: return
+    
+    if entity.Fields["PROSPECT"].Length &gt; 0 :
+        view.FieldDefinitions["CLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+        view.FieldDefinitions["CONTATOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Read
+    else:
+        view.FieldDefinitions["CLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+        view.FieldDefinitions["CONTATOCLIENTE"].DataAccessLevel = FieldDefinition.AccessLevel.Edit
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

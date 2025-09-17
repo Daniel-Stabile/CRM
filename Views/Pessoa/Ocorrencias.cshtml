@@ -1,0 +1,34 @@
+@using Benner.Tecnologia.Common
+@{var i = 0;}
+@if (@ViewBag.Ocorrencias != null) 
+{
+<div class="panel-group accordion" id="accordion1">
+    @foreach (var entity in @ViewBag.Ocorrencias)
+    {
+        EntityBase ocorrencia = entity as EntityBase;
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #f1f4f7 !important">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle @(i == 0 ? "" : "collapsed")" data-toggle="collapse" data-parent="#accordion1" href="#collapse_@i" aria-expanded="true"> @ocorrencia.Fields["DATA"] - @ocorrencia.Fields["NOME"] </a>
+                </h4>
+            </div>
+            <div id="collapse_@i" class="panel-collapse collapse @(i == 0 ? "in" : "")" aria-expanded="false" style="">
+                <div class="panel-body">
+                    <p style="white-space: pre-line"> @ocorrencia.Fields["OBSERVACAO"] </p>                    
+                </div>
+            </div>
+        </div>
+        i++;
+    }       
+</div>
+}
+else
+{
+    <table class="table table-striped table-bordered table-advance table-hover">
+        <tbody>
+            <tr>
+                <td style="white-space: pre-line">@ViewBag.MsgSemRegistro</td>
+            </tr>
+        </tbody>
+    </table>
+}

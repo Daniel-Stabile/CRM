@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_RATEIOCC.GRID</ViewName>
+  <EntityName>GN_RATEIOCC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    widget.View.FieldDefinitions["INICIOVALIDADE"].Visible = widget.View.FieldDefinitions["FIMVALIDADE"].Visible = widget.ProviderWidget.Entity["POSSUIVALIDADES"].Value;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

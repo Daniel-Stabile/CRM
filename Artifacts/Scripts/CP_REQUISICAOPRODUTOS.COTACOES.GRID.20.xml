@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CP_REQUISICAOPRODUTOS.COTACOES.GRID</ViewName>
+  <EntityName>CP_REQUISICAOPRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Suprimentos import CPRequisicaoProduto
+    cmdAlterarComprador = widget.View.Commands["AGR_COMANDOS"].Items["CMD_ALTERARCOMPRADOR"]
+    cmdGerarReqAquisicao = widget.View.Commands["CMD_GERAREQAQUISICAO"]
+ 
+    if cmdAlterarComprador != None : cmdAlterarComprador.Visible = CPRequisicaoProduto.VisibilidadePodeAlterarComprador()
+    if cmdGerarReqAquisicao != None : cmdGerarReqAquisicao.Visible = CPRequisicaoProduto.VisibilidadeGerarRequisicaoAquisicoes()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    comandoAbrirRodada = row.GetCustomCommand("AbrirRodadaCotacoes")
+    comandoRetirarCotacaoWeb = row.GetCustomCommand("CMD_RETIRARCOTACAODAWEB")
+    coamandoEnviarRequisicaoSelecao = row.GetCustomCommand("CMD_ENVIARREQUISICAODEVOLTASELECAO")
+    comandoReenviarRequisicaoSemEntradaDados = row.GetCustomCommand("CMD_ENVIARREQUISICAODEVOLTASELECAOSEMENTRADADADOS")
+    comandoAnexoRequisicao = row.GetCustomCommand("CMD_ANEXOREQUISICAO")
+    comandoEspecificacao = row.GetCustomCommand("CMD_ESPECIFICACAO")
+    coamndoEspecificacaoAgrupada = row.GetCustomCommand("CMD_ESPECIFICACOESAGRUPADAS")
+    comandoRequisicaoItemAgrupamento = row.GetCustomCommand("CMD_INFORMACAOREQUISICAOITEM")
+    comandoRequisicaoItemSemAgrupamento = row.GetCustomCommand("CMD_REQUISICAOITEMSEMAGRUPAMENTO")
+    comandoDigitarCotacao = row.GetCustomCommand("DIGITARCOTACAO")
+    
+    if comandoAbrirRodada != None: comandoAbrirRodada.Enabled = entity.VisibilidadeBotaoAbrirRodadaCotacao()
+    if comandoRetirarCotacaoWeb != None: comandoRetirarCotacaoWeb.Enabled = entity.VisibilidadeBotaoRetirarCotacaoWeb()
+    if coamandoEnviarRequisicaoSelecao != None: coamandoEnviarRequisicaoSelecao.Enabled = entity.VisibilidadeBotaoEnviarRequisicaoSelecao()
+    if comandoAnexoRequisicao != None: comandoAnexoRequisicao.Enabled = entity.PossuiAnexo()
+    if comandoDigitarCotacao != None: comandoDigitarCotacao.Enabled = entity.VisibilidadBotaoDigitarCotacao
+    
+    if entity.EhAgrupamento:
+        if comandoRequisicaoItemAgrupamento != None: comandoRequisicaoItemAgrupamento.Enabled = True
+        if comandoRequisicaoItemSemAgrupamento != None: comandoRequisicaoItemSemAgrupamento.Enabled = False
+        if comandoAnexoRequisicao != None: comandoAnexoRequisicao.Enabled - False
+    else:
+        if comandoRequisicaoItemAgrupamento != None: comandoRequisicaoItemAgrupamento.Enabled = False
+        if comandoRequisicaoItemSemAgrupamento != None: comandoRequisicaoItemSemAgrupamento.Enabled = True
+    
+    
+    ehAgrupado = entity.BuscarRequisicaoHandleParaVisibilidade()
+    
+    if comandoReenviarRequisicaoSemEntradaDados != None: comandoReenviarRequisicaoSemEntradaDados.Enabled = not ehAgrupado and not entity.VisibilidadeBotaoEnviarRequisicaoSelecao()
+    if coamandoEnviarRequisicaoSelecao != None: coamandoEnviarRequisicaoSelecao.Enabled = ehAgrupado or entity.VisibilidadeBotaoEnviarRequisicaoSelecao()
+    
+    if comandoEspecificacao != None: comandoEspecificacao.Enabled = not ehAgrupado
+    if coamndoEspecificacaoAgrupada != None: coamndoEspecificacaoAgrupada.Enabled = ehAgrupado
+    
+    
+    if entity.FornecedorInstance != None:
+        import clr
+        clr.AddReference('System')
+        import System
+        
+        if System.String.IsNullOrEmpty(entity.FornecedorInstance.Apelido):
+            row.GetCellByName("FORNECEDOR").Text =  entity.FornecedorInstance.Nome</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_RETIRARCOTACAODAWEBExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_RETIRARCOTACAODAWEBExecute(command, entity):
+    from Benner.Tecnologia.Common import WhereClause
+    command.OutputDefinition.WhereClause = WhereClause("A.COTACAO IN (SELECT COTACAO FROM CP_WEB_ITENSCOTACAO WHERE REQUISICAOPRODUTO = " +str(entity.Handle.Value) + ")" )
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ENVIARREQUISICAODEVOLTASELECAOSEMENTRADADADOSExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ENVIARREQUISICAODEVOLTASELECAOSEMENTRADADADOSExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Você realmente deseja voltar este item de requisição para o solicitante ?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ANALISEDECOTACOESExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ANALISEDECOTACOESExecute(command, entity):
+    from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+    
+    if identity.Branch.ToString() == '0':
+        raise CancelledOperationException("Por favor, selecione apenas uma filial!")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

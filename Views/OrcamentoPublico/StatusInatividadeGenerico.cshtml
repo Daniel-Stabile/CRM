@@ -1,0 +1,11 @@
+@{
+    bool inativo = (@Model["INATIVO"].GetBoolean());
+    string icon = inativo ? "fa fa-eye-slash" : "fa fa-eye";
+    string bgColor = inativo ? "#bbbbbb" : "#1BBC9B";
+    string color = inativo ? "#333333" : "#ffffff";
+}
+
+<div class='label label-sm'
+    style='border-radius: 4px !important;color: @color;background-color: @bgColor !important; padding: 2px 7px !important;'>
+    <i class='@icon'></i>
+</div>

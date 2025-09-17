@@ -1,0 +1,317 @@
+﻿<script src="@Url.Content("~/Content/js/BennerGrid.js")"></script>
+<script src="@Url.Content("~/Content/js/RazaoConta.js")"></script>
+@*<link href="@Url.Content("~/Content/css/BennerGrid.css")" rel="stylesheet" />*@
+<script src=@Url.Content("~/Content/js/jquery.table2excel.js")></script>
+<div class="row margin-top-15">
+    <div class="col-md-12">
+        <div class="alert alert-info" id="nDisponivel"></div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-default btn-lg active" for="rdbAnual">
+                <input type="radio" id="rdbAnual" value="4" name="periodo" onchange="AlterarCompetencia(this.value)" class="toggle"/> Anual
+            </label>
+            <label class="btn btn-default btn-lg" for="rdbSemestral">
+                <input type="radio" id="rdbSemestral" value="3" name="periodo" class="toggle" onchange="AlterarCompetencia(this.value)"/> Semestral
+            </label>
+            <label class="btn btn-default btn-lg" for="rdbTrimestral">
+                <input type="radio" id="rdbTrimestral" value="2" name="periodo" class="toggle" onchange="AlterarCompetencia(this.value)"/> Trimestral
+            </label>
+            @*<label class="btn btn-default btn-lg" for="rdbBimestral">
+                <input type="radio" id="rdbBimestral" data-key="Bimestral" data-tipo="5" data-op="1" name="periodo" class="toggle" onchange="AlterarCompetencia(this)"> Bimestral
+            </label>*@
+            <label class="btn btn-default btn-lg" for="rdbMensal">
+                <input type="radio" id="rdbMensal" value="1" name="periodo" class="toggle" onchange="AlterarCompetencia(this.value)"/> Mensal
+            </label>
+            @*<label class="btn btn-default btn-lg" for="rdbCustomizado">
+                <input type="radio" id="rdbCustomizado" data-key="Periodo" data-tipo="6" data-op="0" name="periodo" class="toggle" onchange="AlterarCompetencia(this)"> Período
+            </label>*@
+        </div>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 col-lg-3 col-sm-3">
+        <div class="form-group">
+            <label id="lbMesInicial">Periodo inicial:</label>
+            <input name="MesBaseInicial" type="text" id="MesBaseInicial" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-3 col-sm-3">
+        <div class="form-group">
+            <label>Período final:</label>
+            <input name="MesBaseFinal" type="text" id="MesBaseFinal" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-3 col-sm-3">
+        <label>&nbsp;</label>
+        <button class="btn blue btn-block" type="button" onclick="GerarDemonstrativo()">Gerar demonstrativo</button>
+    </div>
+</div>
+
+<script src="~/content/assets/jquery.initialize/jquery.initialize.js"></script>
+<script src="~/content/assets/dx-pivotgrid/libs/jszip/3.1.2/jszip.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/cldr.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/cldr/event.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/cldr/supplemental.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/globalize.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/globalize/message.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/globalize/number.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/globalize/currency.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/globalize/date.min.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/dx.all.js"></script>
+<script src="~/content/assets/dx-pivotgrid/js/localization/dx.all.br.js"></script>
+
+@RenderPage("~/Views/Shared/RazaoConta.cshtml")
+
+<script type="text/javascript">
+    var dataAtual = '@DateTime.Today.ToString("yyyy-MM-dd")';
+
+    var tipoPeriodoSelecionado = 0;
+
+    var Meses = { "Janeiro": 1, "Fevereiro": 2, "Março": 3, "Abril": 4, "Maio": 5, "Junho": 6, "Julho": 7, "Agosto": 8, "Setembro": 9, "Outubro": 10, "Novembro": 11, "Dezembro": 12 };
+    $(function () {
+        $.when(
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/main/ca-gregorian.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/main/numbers.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/main/currencies.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/main/en/ca-gregorian.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/main/en/currencies.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/main/en/numbers.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/supplemental/likelySubtags.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/supplemental/timeData.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/supplemental/weekData.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/supplemental/currencyData.json')),
+            $.get(Benner.Page.versionedResource('content/assets/dx-pivotgrid/js/cldr/supplemental/numberingSystems.json'))
+        ).then(function () {
+            // Normalize $.get results, we only need the JSON, not the request statuses.
+            return [].slice.apply(arguments, [0]).map(function (result) {
+                return result[0];
+            });
+        }).then(
+            Globalize.load
+        ).then(function () {
+
+            Globalize.locale(navigator.language || navigator.browserLanguage);
+        });
+
+        $('#rdbAnual').trigger('click');
+        $('#nDisponivel').hide();
+
+        //$("#AnoBase").datepicker({
+        //    format: "yyyy",
+        //    minViewMode: 2,
+        //    maxViewMode: 2,
+        //    language: "pt-BR",
+        //    endDate: dataAtual,
+        //    autoclose: true
+        //}).on('change', function (ev) {
+        //    setTimeout(function () {
+        //        $('.datepicker').hide();
+        //    }, 10)
+        //});
+
+
+        $("#MesBaseInicial").datepicker({
+            format: "mm/yyyy",
+            minViewMode: 1,
+            maxViewMode: 2,
+            language: "pt-BR",
+            autoclose: true
+        });
+
+        $("#MesBaseFinal").datepicker({
+            format: "mm/yyyy",
+            minViewMode: 1,
+            maxViewMode: 2,
+            language: "pt-BR",
+            autoclose: true
+        });
+
+
+        //Esconde possíveis mensagens de alerta no load da página
+        $('.alert-info').hide();
+        RedirecionarParaFiltros();
+    });
+
+    //Efetua a requisição ao servidor solicitando a geração do Demonstrativo.
+    function GerarDemonstrativo() {
+        if ($('#MesBaseInicial').val() === null || $('#MesBaseInicial').val() === '' || $('#MesBaseFinal').val() === null || $('#MesBaseFinal').val() === '') {
+            $('.alert-info').text('Para gerar o demonstrativo do balancete, é necessário informar um período base!').show();
+            return false;
+        }
+
+        var periodoInicial = $('#MesBaseInicial').val();
+        var periodoFinal = $('#MesBaseFinal').val();
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: Benner.Page.getApplicationPath() + 'ConsultasContabil/Balancete',
+            data: { periodoInicial: periodoInicial, periodoFinal: periodoFinal, tipoPeriodo: tipoPeriodoSelecionado },
+            cache: true,
+            beforeSend: function () {
+                $('.alert-info').empty().hide();
+                App.blockUI({ target: '#portlet_BALANCETEDEVERIFICAO', animate: true });
+            },
+            success: function (data) {
+                if (data != 'Sucesso')
+                    ExibirMensagem(data, TiposMensagem.Alerta, $('#portlet_BALANCETEDEVERIFICAO .portlet-body.form').find('.row').eq(0));
+                else
+                    Benner.AsyncProcesses.initAjax();
+            },
+            error: function (xhr, textStatus, error) {
+                $('.alert-info').append(error).show();
+            },
+            complete: function () {
+                App.unblockUI($("#portlet_BALANCETEDEVERIFICAO"));
+            }
+        });
+        //$.ajax({
+        //    type: "post",
+        //    dataType: "json",
+        //    url: Benner.Page.getApplicationPath() + 'ConsultasContabil/Balancete',
+        //    data: { mesBaseInicial: Meses[$('#MesBaseInicial').val()], mesBaseFinal: Meses[$('#MesBaseFinal').val()], anoBase: $('#AnoBase').val() },
+        //    cache: true,
+        //    beforeSend: function () {
+        //        $('.alert-info').empty().hide();
+        //        App.blockUI({ target: '#portlet_BALANCETEDEVERIFICAO', animate: true });
+        //    },
+        //    success: function (data) {
+        //        if (data !== null && ValidarJSON(data)) {
+
+        //            var campos = data.Campos;
+
+        //            var dados = data.Dados;
+
+        //            $('#tblBalancete').dxPivotGrid({
+        //                allowSortingBySummary: true,
+        //                allowFiltering: true,
+        //                showBorders: true,
+        //                showColumnGrandTotals: false,
+        //                showRowGrandTotals: false,
+        //                showRowTotals: false,
+        //                showColumnTotals: false,
+        //                fieldChooser: {
+        //                    enabled: true
+        //                },
+        //                dataSource: {
+        //                    fields: campos,
+        //                    store: dados
+        //                }
+        //            }).dxPivotGrid("instance");
+
+        //            RedirecionarParaFiltros(true);
+
+        //        }
+        //        else {
+        //            $('.alert-info').append(data).show();
+        //            $('#tblBalancete').empty();
+        //        }
+        //        App.unblockUI('#portlet_BALANCETEDEVERIFICAO');
+        //    },
+        //    error: function (xhr, textStatus, error) {
+        //        $('.alert-info').append(error).show();
+        //        App.unblockUI('#portlet_BALANCETEDEVERIFICAO');
+        //    }
+        //});
+    }
+
+    function OrganizarDados(dados) {
+        
+        var primeiroObjeto = dados[0];
+        var competencias = [];
+        var colunasHeaders = [{ value: "COD.", field: "ESTRUTURA", scope: "col", style: "min-width:130px;" },
+                              { value: "DESCRIÇÃO", field: "NOME", scope: "col", style: "min-width:350px;border-right:2px solid #F2F5F8" },
+                              { value: "ANTERIOR", field: "SALDOANTERIOR", scope: "col", type: 'money', class: "right", style: "min-width:130px;border-right:2px solid #F2F5F8" }];
+
+        for (var prop in primeiroObjeto) {
+            if (prop.indexOf('/') > -1 && prop.indexOf('-') == -1) {
+                competencias.push(prop);
+                colunasHeaders.push({ value: "DÉBITOS", class: "right", field: ('DEB-' + prop), type: 'money', scope: "col", vinculo: (prop), style: "border-right:1px solid #F2F5F8;", onclick: "ExibirRazaoDaConta(this)", onmouseover: "SublinharTexto(this)", onmouseout: "RemoverSublinhado(this)" });
+                colunasHeaders.push({ value: "CRÉDITOS", class: "right", field: ('CRE-' + prop), type: 'money', scope: "col", vinculo: (prop), style: "border-right:2px solid #F2F5F8;", onclick: "ExibirRazaoDaConta(this)", onmouseover: "SublinharTexto(this)", onmouseout: "RemoverSublinhado(this)" });
+            }
+        }
+        colunasHeaders.push({ value: "ATUAL", field: "SALDO", scope: "col",type: 'money', class: "right", style: "border-right:1px solid #F2F5F8" });
+
+        return [dados, colunasHeaders];
+    }
+
+    function AlterarCompetencia(tipoPeriodo) {
+        tipoPeriodoSelecionado = tipoPeriodo;
+        //var splDtAtual = dataAtual.split('-');
+        //var quantiaMeses = parseInt(splDtAtual[1]) - parseInt($(rbd).attr('data-op'));
+
+        //if (quantiaMeses < 1) {
+        //    $(rbd).attr('readonly', 'readonly').attr('disabled', true);
+        //    $('#rdbMensal').trigger('click');
+        //    $('#nDisponivel').html('O período "' + $(rbd).attr('data-key') + '" não está disponível atualmente.').fadeIn(2000).fadeOut(5000);
+        //    return false;
+        //}
+
+
+        //$('#lbMesInicial').text('Periodo inicial:');
+        //$('#MesBaseInicial').attr('readonly', 'readonly').attr('disabled', true).val('Janeiro');
+        //$('#MesBaseFinal').attr('readonly', 'readonly').attr('disabled', true).val('Dezembro');
+        //$('#AnoBase').attr('readonly', 'readonly').attr('disabled', true).val(dataAtual.substr(0, 4));
+
+        //switch ($(rbd).attr('data-key')) {
+        //    case 'Mensal':
+        //        $('#lbMesInicial').text('Período base:');
+        //        $('#MesBaseInicial').removeAttr('readonly').removeAttr('disabled');
+        //        $('#MesBaseFinal').attr('readonly', 'readonly').attr('disabled', true).val($('#MesBaseInicial').val());
+        //        break;
+        //    case 'Semestral':
+        //        $('#MesBaseFinal').val(MesesPorExtenso(quantiaMeses + parseInt($(rbd).attr('data-op'))));
+        //        $('#MesBaseInicial').val(MesesPorExtenso(quantiaMeses));
+        //        break;
+        //    case 'Trimestral':
+        //        $('#MesBaseFinal').val(MesesPorExtenso(quantiaMeses + parseInt($(rbd).attr('data-op'))));
+        //        $('#MesBaseInicial').val(MesesPorExtenso(quantiaMeses));
+        //        break;
+        //    case 'Bimestral':
+        //        $('#MesBaseFinal').val(MesesPorExtenso(quantiaMeses + parseInt($(rbd).attr('data-op'))));
+        //        $('#MesBaseInicial').val(MesesPorExtenso(quantiaMeses));
+        //        break;
+        //    case 'Exercicio':
+        //        $('#MesBaseFinal').removeAttr('readonly').removeAttr('disabled').val('Dezembro');
+        //        $('#MesBaseInicial').removeAttr('readonly').removeAttr('disabled').val('Janeiro');
+        //        $('#AnoBase').attr('readonly', 'readonly').attr('disabled', true);
+        //        break;
+        //    case 'Periodo':
+        //        $('#MesBaseFinal').removeAttr('readonly').removeAttr('disabled').val('');
+        //        $('#MesBaseInicial').removeAttr('readonly').removeAttr('disabled').val('');
+        //        $('#AnoBase').removeAttr('readonly').removeAttr('disabled').val('');
+        //        break;
+        //    default: // Anual
+        //        $('#MesBaseFinal').attr('readonly', 'readonly').attr('disabled', true).val('Dezembro');
+        //        $('#MesBaseInicial').attr('readonly', 'readonly').attr('disabled', true).val('Janeiro');
+        //        $('#AnoBase').removeAttr('readonly').removeAttr('disabled').val(dataAtual.substr(0, 4));
+        //        break;
+        //}
+    }
+
+    function MesesPorExtenso(mes) {
+        mes = parseInt(mes);
+        var retorno = 'Não informado';
+        $.each(Meses, function (i, m) {
+            if (mes == m) {
+                retorno = i;
+                return true;
+            }
+        });
+
+        return retorno;
+    }
+
+    function RedirecionarParaFiltros(passo) {
+        if (passo === undefined) {
+            $('#portlet_BALANCETEDEVERIFICAO').show();
+            $('#ctl00_Main_RESULTADO_ctl04').hide();
+        }
+        else {
+            $('#portlet_BALANCETEDEVERIFICAO').hide();
+            $('#ctl00_Main_RESULTADO_ctl04').show();
+
+        }
+       
+    }
+</script>

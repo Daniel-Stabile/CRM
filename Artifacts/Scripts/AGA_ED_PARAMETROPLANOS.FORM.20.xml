@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_ED_PARAMETROPLANOS.FORM</ViewName>
+  <EntityName>ED_PARAMETROPLANOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnDLPAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDLPAValueChanged(view, entity):
+    if (entity.Fields["DLPA"].Handle != None and entity.Fields["DLPA"].Handle.IsValid()):
+		entity.Fields["DMPL"].Handle = None
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnDMPLValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnDMPLValueChanged(view, entity):
+    if (entity.Fields["DMPL"].Handle != None and entity.Fields["DMPL"].Handle.IsValid()):
+		entity.Fields["DLPA"].Handle = None
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

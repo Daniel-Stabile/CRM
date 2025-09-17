@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>TR_PCOPERACOESFISCAIS.OPERACOESFISCAIS.GRID</ViewName>
+  <EntityName>TR_PCOPERACOESFISCAIS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    
+    if not (entity["DOCUMENTOFINANCEIRO"].IsNull):
+        tipo = entity.Fields["DOCUMENTOFINANCEIRO"].Instance.Fields["ENTRADASAIDA"].Value
+        if (tipo == "E" or tipo == "I" ):
+            row.GetCellByName("CUSTOM_ORIGEM").FontIcon = "fa fa-file";
+            row.GetCellByName("CUSTOM_ORIGEM").TextColor = "#e0352f"
+            row.GetCellByName("CUSTOM_ORIGEM").Text = ""
+            row.GetCellByName("CUSTOM_ORIGEM").Tooltip = "Contas a pagar"
+        else:
+            row.GetCellByName("CUSTOM_ORIGEM").FontIcon = "fa fa-file";
+            row.GetCellByName("CUSTOM_ORIGEM").TextColor = "#d68f13"
+            row.GetCellByName("CUSTOM_ORIGEM").Text = ""
+            row.GetCellByName("CUSTOM_ORIGEM").Tooltip = "Contas a receber"
+        
+    if (entity["DOCUMENTOFINANCEIRO"].IsNull and entity["LANCAMENTOTESOURARIA"].IsNull and entity["F100AUTOMATICO"].IsNull):
+        
+        row.GetCellByName("CUSTOM_ORIGEM").FontIcon = "fa fa-file";
+        row.GetCellByName("CUSTOM_ORIGEM").TextColor = "#003333"
+        row.GetCellByName("CUSTOM_ORIGEM").Text = ""
+        row.GetCellByName("CUSTOM_ORIGEM").Tooltip = "Tributos"
+        
+    if not(entity["LANCAMENTOTESOURARIA"].IsNull):
+        tipoMovimento = entity.Fields["LANCAMENTOTESOURARIA"].Instance.Fields["TIPOMOVIMENTO"].Value
+        if tipoMovimento == 1:
+            row.GetCellByName("CUSTOM_ORIGEM").FontIcon = "fa fa-file";
+            row.GetCellByName("CUSTOM_ORIGEM").TextColor = "#3d748a"
+            row.GetCellByName("CUSTOM_ORIGEM").Text = ""
+            row.GetCellByName("CUSTOM_ORIGEM").Tooltip = "Tesouraria - pagamento"
+        else:
+            row.GetCellByName("CUSTOM_ORIGEM").FontIcon = "fa fa-file";
+            row.GetCellByName("CUSTOM_ORIGEM").TextColor = "#3ec26a"
+            row.GetCellByName("CUSTOM_ORIGEM").Text = ""
+            row.GetCellByName("CUSTOM_ORIGEM").Tooltip = "Tesouraria - recebimento"
+        
+    if not(entity["F100AUTOMATICO"].IsNull):
+        row.GetCellByName("CUSTOM_ORIGEM").FontIcon = "fa fa-file";
+        row.GetCellByName("CUSTOM_ORIGEM").TextColor = "#80346d"
+        row.GetCellByName("CUSTOM_ORIGEM").Text = ""
+        row.GetCellByName("CUSTOM_ORIGEM").Tooltip = "Lançamento automático"
+        
+    if row.EditCommand != None:
+        row.EditCommand.Visible = (entity["DOCUMENTOFINANCEIRO"].IsNull and entity["LANCAMENTOTESOURARIA"].IsNull)
+        
+    if row.DeleteCommand != None:
+        row.DeleteCommand.Visible = (entity["DOCUMENTOFINANCEIRO"].IsNull and entity["LANCAMENTOTESOURARIA"].IsNull)
+        
+    RemovePrefixoMoedas("VALOROPERACAO", entity, row)
+        
+def RemovePrefixoMoedas(nomeCampo, entidade, linha):
+        if entidade.Fields[nomeCampo] != None: linha.GetCellByName(nomeCampo).Text = str(str(str("{:,.2f}".format(entidade.Fields[nomeCampo])).replace(".","_")).replace(",",".")).replace("_",",").replace("-","")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

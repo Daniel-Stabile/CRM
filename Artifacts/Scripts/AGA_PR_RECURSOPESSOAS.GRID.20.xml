@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PR_RECURSOPESSOAS.GRID</ViewName>
+  <EntityName>PR_RECURSOPESSOAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    mestre = widget.ProviderWidget
+    
+    if mestre == None:
+        return
+    
+    recurso = mestre.Entity
+    if recurso == None:
+        return
+    
+    widget.Hidden = recurso["TIPO"].GetInt32()==1</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

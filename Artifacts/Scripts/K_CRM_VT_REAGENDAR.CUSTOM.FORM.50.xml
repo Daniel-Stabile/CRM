@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_REAGENDAR.CUSTOM.FORM</ViewName>
+  <EntityName>K_CRM_VT_REAGENDAR</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    
+    entity = widget.Entity;
+    
+    if entity == None:
+        return;
+        
+    if entity.Fields["RESPOSTA"].Handle.IsValid():
+        entity.Fields["DESCRICAO"] = entity.Fields["RESPOSTA"].Instance.Fields["DESCRICAO"];
+    else:
+        entity.Fields["DESCRICAO"] = "";
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRESPOSTAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRESPOSTAValueChanged(view, entity):
+    a = 1;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

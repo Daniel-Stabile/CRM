@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>DESPESAS_MOVIMENTACAO</Identifier>
+  <Name>Despesas por movimentação</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT MOV.HANDLE MOVIMENTACAO,MOV.VALORTOTAL , SUM(DESP.VALOR) TOTALDESPESAS&#xD;&#xA; FROM FN_MOVIMENTACOES MOV LEFT JOIN FN_DOCUMENTODEBITARDESPESAS DESP&#xD;&#xA;ON (DESP.MOVIMENTACAO = MOV.HANDLE)&#xD;&#xA;GROUP BY MOV.HANDLE,MOV.VALORTOTAL&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="MOVIMENTACAO" From="A" Path="MOVIMENTACAO" />
+    <Field Alias="VALORTOTAL" From="A" Path="VALORTOTAL" />
+    <Field Alias="TOTALDESPESAS" From="A" Path="TOTALDESPESAS" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

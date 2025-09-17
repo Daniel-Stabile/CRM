@@ -1,0 +1,15 @@
+﻿<%@ Page Title="Sandbox" Language="C#" CodeFile="~/Pages/Sandbox.aspx.cs" Inherits="PagesSandboxPage" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:SimpleGrid runat="server" ID="K_EMAILS" Title="Emails" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_EMAILS.MAIN.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" FormUrl="~/Pages/Sandbox.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_SANDBOX" Level="50" Order="10"  />
+        <wes:AjaxForm runat="server" ID="K_EMAIL" Title="Email" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_EMAILS" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_EMAILS.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="K_PAGES_SANDBOX" Level="50" Order="20"  />
+        <wes:SimpleGrid runat="server" ID="K_ANEXOS" Title="Anexos" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_EMAIL" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_EMAILANEXOS.MAIN.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.EMAIL = @CAMPO(HANDLE)" FormUrl="~/Pages/Sandbox.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="K_PAGES_SANDBOX" Level="50" Order="30"  />
+        <wes:AjaxForm runat="server" ID="K_ANEXO" Title="Anexo" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="K_ANEXOS" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="K_CRM_EMAILANEXOS.MAIN.FORM" FormMode="None" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="K_PAGES_SANDBOX" Level="50" Order="40"  />
+        <wes:AjaxForm runat="server" ID="USUARIO" Title="Usuário" Subtitle="" PortletCssClass="" PortletLayout="Default" BootstrapCols="6" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="Z_GRUPOUSUARIOS.TEC.FORM" FormMode="ReadOnly" IncludeRecordInRecentItems="True" UserDefinedCommandsVisible="True" PageId="GROUPUSERSFORM" Level="15" Order="100"  />  
+      </div>
+      </asp:Content>
+    

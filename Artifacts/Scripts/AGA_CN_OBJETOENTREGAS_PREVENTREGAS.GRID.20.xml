@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_OBJETOENTREGAS_PREVENTREGAS.GRID</ViewName>
+  <EntityName>CN_OBJETOENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    objeto = widget.ProviderWidget
+    if (objeto == None) : return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+    
+    widget.Hidden = CNContratoObjeto.PrevisaoEntregaMostrarTab(objeto.Entity.Handle)    
+    
+    contratoEmElaboracao = objeto.Entity.ContratoEmElaboracao(objeto.Entity.ContratoHandle)
+    if widget.View.Commands["CMD_GERARENTREGAS"] &lt;&gt; None: widget.View.Commands["CMD_GERARENTREGAS"].Visible = contratoEmElaboracao
+    if widget.View.Commands["CMD_EXCLUIRTODAS"] &lt;&gt; None: widget.View.Commands["CMD_EXCLUIRTODAS"].Visible = contratoEmElaboracao
+    if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_EXCLUIRTODASExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_EXCLUIRTODASExecute(command, entity):
+    from Benner.Tecnologia.Common import BreadcrumbEntityHandle, WesSiteMapNode
+    breadCrumbList = WesSiteMapNode.GetBreadcrumbEntityHandles()
+    
+    item = breadCrumbList.Find(lambda found:found.EntityDefinitionName.Equals("CN_CONTRATOOBJETOS"))    
+    command.TransitoryVars.Add("HANDLECONTRATO", item.Handle)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    objeto = entity.ObjetoInstance
+    contratoEmElaboracao = objeto.ContratoEmElaboracao(objeto.ContratoHandle)
+    if row.EditCommand &lt;&gt; None: row.EditCommand.Visible = contratoEmElaboracao
+    if row.DeleteCommand &lt;&gt; None: row.DeleteCommand.Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

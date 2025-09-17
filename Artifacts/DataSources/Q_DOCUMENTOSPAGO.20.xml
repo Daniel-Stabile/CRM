@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>Q_DOCUMENTOSPAGO</Identifier>
+  <Name>Documentos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE HNDLDOCUMENTO, B.AP CHAVE, FILIAL.NOME FILIAL,&#xD;&#xA;       A.DATAEMISSAO,&#xD;&#xA;       A.DOCUMENTODIGITADO,&#xD;&#xA;       A.NUMEROPEDIDO,&#xD;&#xA;       B.PARCELADIGITADA,&#xD;&#xA;       B.AP,&#xD;&#xA;       FT.NOME TIPODOCUMENTO,&#xD;&#xA;       A.DATAENTRADA DATAENTRADADOC,&#xD;&#xA;       MOEDA.ABREVIATURA MOEDA,&#xD;&#xA;       A.DATAENTRADA,&#xD;&#xA;       (B.VALOR - B.VALORESBAIXADOS - B.VALORDESAGIO) SALDO,&#xD;&#xA;       B.VALOR,&#xD;&#xA;       B.VALORESBAIXADOS,&#xD;&#xA;       B.VALORMOEDA,&#xD;&#xA;       B.HANDLE,&#xD;&#xA;       A.HANDLE DOCUMENTO,&#xD;&#xA;       B.DATAVENCIMENTO,&#xD;&#xA;       B.VCTOPRORROGADO,&#xD;&#xA;       C.NOME,&#xD;&#xA;       B.VALORDESAGIO,&#xD;&#xA;       A.ENTRADASAIDA,&#xD;&#xA;       B.TIPOCOBRANCA,&#xD;&#xA;       B.VALORESBAIXADOSMOEDA,&#xD;&#xA;       A.PESSOA&#xD;&#xA;  FROM FN_DOCUMENTOS A&#xD;&#xA;       JOIN FN_PARCELAS B ON B.DOCUMENTO = A.HANDLE&#xD;&#xA;       JOIN GN_OPERACOES C ON A.OPERACAO = C.HANDLE&#xD;&#xA;       JOIN FILIAIS FILIAL ON FILIAL.HANDLE = A.FILIAL&#xD;&#xA;       JOIN FN_TIPOSDOCUMENTOS TIPODOCUMENTO ON TIPODOCUMENTO.HANDLE = A.TIPODOCUMENTO&#xD;&#xA;       LEFT JOIN GN_MOEDAS MOEDA ON MOEDA.HANDLE = A.MOEDA&#xD;&#xA;       JOIN FN_TIPOSDOCUMENTOS FT ON (FT.HANDLE = A.TIPODOCUMENTO)&#xD;&#xA; ORDER BY A.DATAENTRADA" />
+  <Fields>
+    <Field Alias="HNDLDOCUMENTO" From="A" Path="HNDLDOCUMENTO" />
+    <Field Alias="CHAVE" From="A" Path="CHAVE" />
+    <Field Alias="FILIAL" From="A" Path="FILIAL" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="NUMEROPEDIDO" From="A" Path="NUMEROPEDIDO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="TIPODOCUMENTO" From="A" Path="TIPODOCUMENTO" />
+    <Field Alias="DATAENTRADADOC" From="A" Path="DATAENTRADADOC" />
+    <Field Alias="MOEDA" From="A" Path="MOEDA" />
+    <Field Alias="DATAENTRADA" From="A" Path="DATAENTRADA" />
+    <Field Alias="SALDO" From="A" Path="SALDO" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="VALORESBAIXADOS" From="A" Path="VALORESBAIXADOS" />
+    <Field Alias="VALORMOEDA" From="A" Path="VALORMOEDA" />
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="VALORDESAGIO" From="A" Path="VALORDESAGIO" />
+    <Field Alias="ENTRADASAIDA" From="A" Path="ENTRADASAIDA" />
+    <Field Alias="TIPOCOBRANCA" From="A" Path="TIPOCOBRANCA" />
+    <Field Alias="VALORESBAIXADOSMOEDA" From="A" Path="VALORESBAIXADOSMOEDA" />
+    <Field Alias="PESSOA" From="A" Path="PESSOA" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

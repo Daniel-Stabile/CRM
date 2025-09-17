@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_VT_ALTERA_STATUS.NOVAOPORTUNIDADE.FORM</ViewName>
+  <EntityName>K_CRM_VT_ALTERA_STATUS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnSaveExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSaveExecute(command, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    oportunidade = entity.Fields["OPORTUNIDADE"].Handle;
+    status = entity.Fields["STATUS"].Value;
+    observacao = entity.Fields["OBSERVACAO"];
+    
+    if oportunidade.IsValid():
+        criteria = Criteria("A.HANDLE = :HANDLE")
+        criteria.Parameters.Add("HANDLE", oportunidade)
+        ent = Entity.Get(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADES"), criteria, GetMode.Edit)
+        
+        critItens = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE AND A.STATUS = 1")
+        critItens.Parameters.Add("OPORTUNIDADE", ent.Handle)
+        itensAtivos = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), critItens)
+        
+        if itensAtivos.Count &gt; 0:
+            ent.Fields["STATUS"].Value = status
+            status = int(entity.Fields["STATUS"].Value)
+            
+            if status == 2:
+                ent.Fields["CHANCE"] = 75
+                ent.Fields["TEMPERATURA"].Value = 2
+            
+            if status == 10:
+                ent.Fields["CHANCE"] = 100
+                ent.Fields["TEMPERATURA"].Value = 5
+                    
+            if status in [3,5,9,10] and observacao != None and observacao != "" :
+                ent.Fields["OBSERVACAO"] = observacao
+            
+        ent.Save()
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    i = 1;
+    if widget == None: return;
+    
+    entity       = widget.Entity
+    view      = widget.View
+    
+    if entity == None or view == None: return;
+    
+    status = int(entity.Fields["STATUS"].Value)
+    
+    if status not in [3,5,9,10]:
+        view.FieldDefinitions["OBSERVACAO"].Visible = False
+        view.FieldDefinitions["OBSERVACAO"].Required = False
+    else:
+        view.FieldDefinitions["OBSERVACAO"].Visible = True
+        view.FieldDefinitions["OBSERVACAO"].Required = True
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSTATUSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSTATUSValueChanged(view, entity):
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    usuario = BennerIdentity.Current.UserHandle
+    
+    
+    if entity == None or view == None: return;
+    
+    oportunidade = entity.Fields["OPORTUNIDADE"].Handle;
+    observacao = entity.Fields["OBSERVACAO"];
+    
+    status = int(entity.Fields["STATUS"].Value)
+    
+    if status not in [3,5,9,10]:
+        view.FieldDefinitions["OBSERVACAO"].Visible = False
+        view.FieldDefinitions["OBSERVACAO"].Required = False
+    else:
+        view.FieldDefinitions["OBSERVACAO"].Visible = True
+        view.FieldDefinitions["OBSERVACAO"].Required = True
+    
+    if oportunidade.IsValid():
+        critItens = Criteria("A.OPORTUNIDADE = :OPORTUNIDADE AND A.STATUS = 1")
+        critItens.Parameters.Add("OPORTUNIDADE", oportunidade)
+        itensAtivos = Entity.GetMany(EntityDefinition.GetByName("K_CRM_PESSOAOPORTUNIDADESITENS"), critItens)
+        
+        if status in [10] and itensAtivos.Count == 0:
+            view.OutputMessage = "Não tem itens ativos na oportunidade!!!"
+            view.Commands["Save"].Visible = False
+        else:
+            view.Commands["Save"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

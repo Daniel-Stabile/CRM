@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_CURVA_ABC</Identifier>
+  <Name>Indicadores materiais - Curva ABC</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALORCURVAA) VALOR, 'Curva A' CURVA &#xD;&#xA;    FROM PD_DWINDICADORREGISTROS A&#xD;&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;UNION ALL&#xD;&#xA;SELECT SUM(A.VALORCURVAB) VALOR, 'Curva B' CURVA&#xD;&#xA;    FROM PD_DWINDICADORREGISTROS A&#xD;&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;UNION ALL&#xD;&#xA;SELECT SUM(A.VALORCURVAC) VALOR, 'Curva C' CURVA&#xD;&#xA;    FROM PD_DWINDICADORREGISTROS A&#xD;&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xD;&#xA;WHERE @CRITERIOSELECAO" />
+  <Fields>
+    <DecimalField Alias="VALOR" From="A" Path="VALOR" FieldDecimalsFormat="0" />
+    <Field Alias="CURVA" From="A" Path="CURVA" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

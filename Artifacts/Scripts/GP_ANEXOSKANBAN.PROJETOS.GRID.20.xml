@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GP_ANEXOSKANBAN.PROJETOS.GRID</ViewName>
+  <EntityName>GP_ANEXOSKANBAN</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    form = widget.ProviderWidget.Entity
+    if form.Fields["PROJETO"].Handle.IsInvalid() : return;
+    handle = form.Fields["PROJETO"].Handle.Value;
+    if handle &gt; 0 : widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    
+    form = row.Grid.ProviderWidget.Entity
+    if form.Fields["PROJETO"].Handle.IsInvalid() : return;
+    handle = form.Fields["PROJETO"].Handle.Value;
+    if handle &gt; 0 : 
+        row.DeleteCommand.Visible = False
+        row.EditCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

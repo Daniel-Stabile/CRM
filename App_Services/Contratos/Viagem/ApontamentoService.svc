@@ -1,0 +1,74 @@
+﻿
+<%@ ServiceHost Language="C#" 
+    Service="ApontamentoService" 
+    Factory="Benner.Tecnologia.EnterpriseServiceLibrary.DynamicServiceHostFactory" %>
+
+using System;
+using System.ComponentModel;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Description;
+using System.ServiceModel.Web;
+using Benner.Tecnologia.Common;
+using Benner.Tecnologia.Common.EnterpriseServiceLibrary;
+using Benner.Tecnologia.EnterpriseServiceLibrary;
+
+
+[ServiceContract]
+[DynamicHost(
+    AllowedBindings = BindingType.BasicHttp | BindingType.WebHttp, 
+    BasicHttpAddress = "", 
+    BasicHttpsConfigurationName = "", 
+    WebHttpAddress = "api",
+    WebHttpsConfigurationName = "")]
+public interface IApontamentoService
+{
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.WrappedRequest )]
+    [Description("GerarApontamento")]
+    string GerarApontamento(int handleEmpresa, int HandleFilial, string CNPJContratado, System.DateTime DataEmissao, string Itens, string RateioCentroCusto, string NumeroFatura);
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("CancelarApontamento")]
+    string CancelarApontamento(int HandleApontamento);
+
+}
+
+
+public class ApontamentoService : ServiceBase, IApontamentoService
+{
+
+    public string GerarApontamento(int handleEmpresa, int HandleFilial, string CNPJContratado, System.DateTime DataEmissao, string Itens, string RateioCentroCusto, string NumeroFatura)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IApontamentoWS, Benner.Corporativo.Viagens",
+            "GerarApontamento",
+            (object)handleEmpresa,
+            (object)HandleFilial,
+            (object)CNPJContratado,
+            (object)DataEmissao,
+            (object)Itens,
+            (object)RateioCentroCusto,
+            (object)NumeroFatura);
+
+        return (string)result;
+    }
+
+    public string CancelarApontamento(int HandleApontamento)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IApontamentoWS, Benner.Corporativo.Viagens",
+            "CancelarApontamento",
+            (object)HandleApontamento);
+
+        return (string)result;
+    }
+
+}
+

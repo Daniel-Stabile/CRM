@@ -1,0 +1,154 @@
+﻿@using Benner.Tecnologia.Common
+@using Benner.Corporativo.Wes.WebApp.Controllers
+@{
+    var widgetId = ViewContext.RouteData.Values["WidgetUniqueId"];
+    var controllerId = ViewContext.RouteData.Values["controller"];
+    var actionId = ViewContext.RouteData.Values["action"];
+
+    var lancamentosExtrato = (ViewBag.RegistrosExtrato as Dictionary<long, ConciliacaoController.DataItem>)
+        .Values.ToList();
+
+    var lancamentosSistema = (ViewBag.RegistrosSistema as Dictionary<long, ConciliacaoController.DataItem>)
+        .Values.ToList();
+
+    if (actionId.Equals("Index"))
+    {
+        lancamentosExtrato = lancamentosExtrato.OrderByDescending(item => item.Checked).ToList();
+        lancamentosSistema = lancamentosSistema.OrderByDescending(item => item.Checked).ToList();
+    }
+
+    var selecionadosNoExtrato = ViewBag.SelecionadosNoExtrato as List<long>;
+    var selecionadosNoSistema = ViewBag.SelecionadosNoSistema as List<long>;
+
+    bool selecionarTodosNoSistema = (bool)ViewBag.SelecionarTodosNoSistema;
+    bool selecionarTodosNoExtrato = (bool)ViewBag.SelecionarTodosNoExtrato;
+
+    var totalSistema = ViewBag.TotalSistema;
+    var totalExtrato = ViewBag.TotalExtrato;
+    var diferenca = ViewBag.Diferenca;
+
+    var conciliarEnable = (bool)ViewBag.ConciliarEnable;
+    var lancarDiferencaEnable = (bool)ViewBag.LancarDiferencaEnable;
+}
+@if (actionId.Equals("LancarDiferenca"))
+{
+    @Ajax.OnReadyScript((string)ViewBag.ScriptInsercao);
+}
+<style>
+    .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .historico {
+        max-width: 200px;
+    }
+    .documento {
+        max-width: 100px;
+    }
+</style>
+    
+<input type="hidden" id="conciliacao" value='{"SelecionadosNoExtrato":[@(string.Join(",", selecionadosNoExtrato.ToArray()))],"SelecionadosNoSistema":[@(string.Join(",", selecionadosNoSistema.ToArray()))],"SelecionarTodosNoExtrato":@(selecionarTodosNoExtrato ? "true":"false"),"SelecionarTodosNoSistema":@(selecionarTodosNoSistema ? "true":"false")}' />
+<input type="hidden" id="widgetId" value='@widgetId' />
+<input type="hidden" id="controllerId" value='@controllerId' />
+<div class="row widget-row">
+    <div class="col-md-4 text-right">
+        <h4 class="block no-padding no-margin">
+            <span class="caption-subject font-green-sharp bold uppercase">extrato</span>&nbsp;
+            <span class="label label-info">@totalExtrato</span>
+        </h4>
+    </div>
+    <div class="col-md-4 text-center">
+        @if (conciliarEnable)
+        {
+            <button onclick="conciliar();" type="button" class="btn blue"><i class="fa fa-check"></i> Concilar</button>
+        }
+        else if (lancarDiferencaEnable)
+        {
+            <button onclick="lancarDiferenca();" type="button" class="btn green"><i class="fa fa-plus"></i> Lançar @diferenca</button>
+        }
+        else
+        {
+            <button type="button" class="btn default"> Diferença @diferenca </button>
+        }
+    </div>
+    <div class="col-md-4 text-left">
+        <h4 class="block no-padding no-margin">
+            <span class="label label-info">@totalSistema</span>&nbsp;
+            <span class="caption-subject font-green-sharp bold uppercase">sistema</span>
+        </h4>
+    </div>
+</div>
+<div class="row widget-row">
+    <div class="col-md-6">
+        <table class="table table-hover simple-grid" cellspacing="0" border="0" id="GRIDNOEXTRATO" style="border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th class="text-left normal-white-space" scope="col"><a class="nolink">Histórico</a></th>
+                    <th class="text-left normal-white-space" scope="col"><a class="nolink">Documento</a></th>
+                    <th class="text-center normal-white-space" scope="col"><a class="nolink">Data</a></th>
+                    <th class="text-right normal-white-space" scope="col"><a class="nolink">Valor</a></th>
+                    <th class="bs-checkbox " data-field="state" tabindex="0">
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                            <input onchange="toggleAll(this, 'extrato');" type="checkbox" @(selecionarTodosNoExtrato ? "checked=checked" : "")>
+                            <span></span>
+                        </label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lancamentosExtrato)
+                {
+                    <tr handle="@item.Handle" class="help-tooltip truncate @(item.Checked ? "active" : "")" data-original-title="@(HttpUtility.HtmlEncode(item.Historico))">
+                        <td class="text-left truncate historico" onclick=""><a class="nolink">@item.Historico</a></td>
+                        <td class="text-left documento" onclick=""><a class="nolink">@item.Documento</a></td>
+                        <td class="text-center" onclick=""><a class="nolink">@item.Data</a></td>
+                        <td class="text-right" onclick=""><a class="nolink" style="color:@(item.Debito?"#E43A45":"#1BA39C");">@(item.RawValue.ToString("N"))</a></td>
+                        <td class="bs-checkbox">
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input onchange="toggleItem(this,'extrato');" type="checkbox" @(item.Checked ? "checked=checked" : "")>
+                                <span></span>
+                            </label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-hover simple-grid" cellspacing="0" border="0" id="GRIDNOSISTEMA" style="border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th class="bs-checkbox " data-field="state" tabindex="0">
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                            <input onchange="toggleAll(this, 'sistema');" type="checkbox" @(selecionarTodosNoSistema ? "checked=checked" : "")>
+                            <span></span>
+                        </label>
+                    </th>
+                    <th class="text-right normal-white-space" scope="col"><a class="nolink">Valor</a></th>
+                    <th class="text-center normal-white-space" scope="col"><a class="nolink">Data</a></th>
+                    <th class="text-left normal-white-space" scope="col"><a class="nolink">Documento</a></th>
+                    <th class="text-left normal-white-space" scope="col"><a class="nolink">Histórico</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lancamentosSistema)
+                {
+                    <tr handle="@item.Handle" class="help-tooltip truncate @(item.Checked ? "active" : "")" data-original-title="@(HttpUtility.HtmlEncode(item.Historico))">
+                        <td class="bs-checkbox">
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input onchange="toggleItem(this,'sistema');" name="btSelectItem" type="checkbox" @(item.Checked ? "checked=checked" : "")>
+                                <span></span>
+                            </label>
+                        </td>
+                        <td class="text-right" onclick=""><a class="nolink" style="color:@(item.Debito?"#E43A45":"#1BA39C");">@(item.RawValue.ToString("N"))</a></td>
+                        <td class="text-center" onclick=""><a class="nolink">@item.Data</a></td>
+                        <td class="text-left documento" onclick=""><a class="nolink">@item.Documento</a></td>
+                        <td class="text-left truncate historico" onclick=""><a class="nolink">@item.Historico</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

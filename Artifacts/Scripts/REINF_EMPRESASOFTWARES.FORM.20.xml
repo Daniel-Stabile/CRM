@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>REINF_EMPRESASOFTWARES.FORM</ViewName>
+  <EntityName>REINF_EMPRESASOFTWARES</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+
+    entity = getRegistroPai(widget)
+    if entity == None: return
+
+    if int(entity.Fields["INFOOPERACAO"].Value) == 3:
+        if widget.View.Commands["New"] != None: widget.View.Commands["New"].Visible = False 
+        if widget.View.Commands["Edit"] != None: widget.View.Commands["Edit"].Visible = False
+        if widget.View.Commands["Delete"] != None: widget.View.Commands["Delete"].Visible = False
+
+def getRegistroPai(widget):
+	from Benner.Tecnologia.Common import EntityDefinition
+	from Benner.Tecnologia.Common import EntityAssociation
+	
+	parentNode = widget.Breadcrumb.Parent
+	#raise Exception(parentNode.Entity.PhysicalTableName)
+	entityDefinitionEmpSoft = EntityDefinition.GetByName(parentNode.Entity.SystemInstanceName, parentNode.Entity.PhysicalTableName)
+	registroEmpSoft = EntityAssociation(parentNode.Entity.Handle, entityDefinitionEmpSoft).Instance
+	
+	if not registroEmpSoft.Fields.ContainsKey("R1000"): return
+	
+	entityDefinitionR1000 = EntityDefinition.GetByName(parentNode.Entity.SystemInstanceName, "REINF_R1000")
+	registro = EntityAssociation(registroEmpSoft.Fields["R1000"].Handle, entityDefinitionR1000).Instance
+	
+	return registro
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>INDICADOR_MATERIAIS_TOP_FAMILIAS_ESTOCADAS</Identifier>
+  <Name>Indicadores materiais - Top famílias mais estocadas</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT SUM(A.VALORESTOQUEFINAL) VALORESTOQUEFINAL, &#xA;       PD_FAMILIASPRODUTOS.NOME FAMILIA,&#xA;       (CASE &#xA;            WHEN (SELECT SUM(A.VALORESTOQUEFINAL) FROM PD_DWINDICADORTOP A&#xA;                JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;                WHERE @CRITERIOSELECAO AND A.FAMILIA &lt;&gt; NULL AND A.TIPO = 1) = 0 THEN 0&#xA;            WHEN (SELECT SUM(A.VALORESTOQUEFINAL) FROM PD_DWINDICADORTOP A&#xA;                JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;                WHERE @CRITERIOSELECAO AND A.FAMILIA &lt;&gt; NULL AND A.TIPO = 1) &gt; 0 THEN (SUM(A.VALORESTOQUEFINAL) * 100)/ (SELECT SUM(A.VALORESTOQUEFINAL) FROM PD_DWINDICADORTOP A&#xA;            JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;            WHERE @CRITERIOSELECAO AND A.FAMILIA &lt;&gt; NULL AND A.TIPO = 1)&#xA;       END) PERCENTUAL&#xA;    FROM PD_DWINDICADORTOP A&#xA;    JOIN PD_DWINDICADORES ON PD_DWINDICADORES.HANDLE = A.DWINDICADOR&#xA;    JOIN PD_FAMILIASPRODUTOS ON PD_FAMILIASPRODUTOS.HANDLE = A.FAMILIA&#xA;WHERE @CRITERIOSELECAO AND A.FAMILIA &lt;&gt; NULL AND A.TIPO = 1&#xA;    GROUP BY A.FAMILIA, PD_FAMILIASPRODUTOS.NOME&#xA;    ORDER BY VALORESTOQUEFINAL DESC" />
+  <Fields>
+    <DecimalField Alias="VALORESTOQUEFINAL" From="A" Path="VALORESTOQUEFINAL" FieldDecimalsFormat="2" />
+    <Field Alias="FAMILIA" From="A" Path="FAMILIA" />
+    <DecimalField Alias="PERCENTUAL" From="A" Path="PERCENTUAL" FieldDecimalsFormat="2" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

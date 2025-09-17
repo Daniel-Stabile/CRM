@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_GRAPH_SEMAFORO_STATUS</Identifier>
+  <Name>CRM_GRAPH_SEMAFORO_STATUS</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="select &#xA;    case&#xA;    when STATUS = 1 then 'Pendente'&#xA;    when STATUS = 2 then 'Em andamento'&#xA;    when STATUS = 3 then 'Concluido'&#xA;    end ROTULO,&#xA;    case&#xA;    when STATUS = 1 then '#E35B5A'&#xA;    when STATUS = 2 then '#F3C200'&#xA;    when STATUS = 3 then '#26C281'&#xA;    end COR,&#xA;    COUNT(HANDLE) VALOR&#xA;from K_CRM_PESSOASEMAFORO&#xA;GROUP BY status" />
+  <Fields>
+    <Field Alias="ROTULO" From="A" Path="ROTULO" />
+    <Field Alias="COR" From="A" Path="COR" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

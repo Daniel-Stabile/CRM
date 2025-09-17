@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PESSOAOPORTUNIDADESITENS.RESUMO.GRID</ViewName>
+  <EntityName>K_CRM_PESSOAOPORTUNIDADESITENS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from System.Threading import Thread
+    from Benner.Tecnologia.Common import BennerIdentity
+    
+#    usuario = BennerIdentity.Current.UserHandle
+    
+#    ehArquiteto = Thread.CurrentPrincipal.IsInRole("K_CRM_ARQUITETO_SOLUCOES")
+#    ehExecutivo = Thread.CurrentPrincipal.IsInRole("K_CRM_EXECUTIVO_CONTAS")
+    
+#    if entity == None:return;
+    
+#    ehResponsavel = entity.Fields["OPORTUNIDADE"].Instance.Fields["RESPONSAVEL"].Handle
+    
+#    if entity.Fields["PRODUTO"].Instance.Fields["ARQUITETOSOLUCAO"].Handle.IsValid():
+#        ehArquitetoResponsavel = entity.Fields["PRODUTO"].Instance.Fields["ARQUITETOSOLUCAO"].Handle
+#    else:
+#        ehArquitetoResponsavel = None
+    
+#    status  = int(entity.Fields["STATUS"].Value)
+    
+#    if row.GetCustomCommand("cmdAtivar") != None:
+#        row.GetCustomCommand("cmdAtivar").Enabled       = status in [2] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel)
+#    if row.GetCustomCommand("cmdInativar") != None:
+#        row.GetCustomCommand("cmdInativar").Enabled     = status in [1] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel)
+#    if row.GetCustomCommand("cmdAprovarItem") != None:
+#        row.GetCustomCommand("cmdAprovarItem").Enabled  = False #status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel)
+#    if row.GetCustomCommand("cmdNewVersion") != None:
+#        row.GetCustomCommand("cmdNewVersion").Enabled   = status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel)
+    
+#    if row.EditCommand != None:
+#        row.EditCommand.Visible                        = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+    
+#    if row.DeleteCommand != None:
+#        row.DeleteCommand.Visible                      = (status in [3] and (usuario == ehResponsavel or usuario == ehArquitetoResponsavel))
+    
+    #if tipo in [3]:
+    #   row.GetCellByName("QUANTIDADE").Text = "-"
+    
+#    if status in [2]:
+#        i = 0
+#        while(row.Cells.Count &gt; i):
+#            row.GetCellByIndex(i).TextColor = "#BFBFBF"
+#            i += 1
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import System
+    from System.Threading import Thread
+    from System import Convert
+    from Benner.Tecnologia.Wes.Components import MessageType
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Entities
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import GetMode
+    from Benner.Tecnologia.Common import BennerIdentity
+    from Benner.Tecnologia.Common import QuerySource
+    from Benner.Tecnologia.Common import Handle 
+    
+    entity = widget.Entity;
+    pEntity = widget.ProviderWidget.ProviderWidget.Entity;
+    view = widget.View;
+  
+    if None != pEntity:
+        if pEntity.Fields["MODALIDADE"].Handle.IsValid():
+            modalidade = pEntity.Fields["MODALIDADE"].Instance;
+        
+            if None != modalidade:
+                if modalidade.Fields["LU"] == False and modalidade.Fields["LUM"] == False and modalidade.Fields["LOCACAO"] == False:
+                    widget.Hidden = True;
+                else:
+                    widget.Hidden = False;
+    
+    view.FieldDefinitions["VALORREVENDA"].Visible = pEntity.Fields["FILIAL"].Instance.Fields["K_EHREVENDA"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,135 @@
+﻿
+<%@ ServiceHost Language="C#" 
+    Service="IFinanceiroViagemService" 
+    Factory="Benner.Tecnologia.EnterpriseServiceLibrary.DynamicServiceHostFactory" %>
+
+using System;
+using System.ComponentModel;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Description;
+using System.ServiceModel.Web;
+using Benner.Tecnologia.Common;
+using Benner.Tecnologia.Common.EnterpriseServiceLibrary;
+using Benner.Tecnologia.EnterpriseServiceLibrary;
+
+
+[ServiceContract]
+[DynamicHost(
+    AllowedBindings = BindingType.BasicHttp, 
+    BasicHttpAddress = "", 
+    BasicHttpsConfigurationName = "basicHttpsDefaultConfiguration", 
+    WebHttpAddress = "api",
+    WebHttpsConfigurationName = "webHttpsDefaultConfiguration")]
+public interface IIFinanceiroViagemService
+{
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("GerarContasPagar")]
+    Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse GerarContasPagar(Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemRequest prRequest);
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("HasLicMutuos")]
+    System.Boolean HasLicMutuos();
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("GerarAdiantamentoCPA")]
+    Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse GerarAdiantamentoCPA(Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemRequest prRequest);
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("GerarAdiantamentoCRE")]
+    Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse GerarAdiantamentoCRE(Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemRequest prRequest);
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("CancelarDocumento")]
+    Benner.Corporativo.WebServices.Layouts.Financeiro.CancelamentoDocumentoViagemResponse CancelarDocumento(Benner.Corporativo.WebServices.Layouts.Financeiro.CancelamentoDocumentoViagemRequest prRequest);
+
+    [OperationContract]
+    [WebInvoke(
+        Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare )]
+    [Description("CompensarDocumentos")]
+    Benner.Corporativo.WebServices.Layouts.Financeiro.CompensacaoDocumentosViagemResponse CompensarDocumentos(Benner.Corporativo.WebServices.Layouts.Financeiro.CompensacaoDocumentosViagemRequest prRequest);
+
+}
+
+
+public class IFinanceiroViagemService : ServiceBase, IIFinanceiroViagemService
+{
+
+    public Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse GerarContasPagar(Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemRequest prRequest)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IFinanceiroViagemService, Benner.Corporativo.Viagens",
+            "GerarContasPagar",
+            (object)prRequest);
+
+        return (Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse)result;
+    }
+
+    public System.Boolean HasLicMutuos()
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IFinanceiroViagemService, Benner.Corporativo.Viagens",
+            "HasLicMutuos");
+
+        return (Boolean)result;
+    }
+
+    public Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse GerarAdiantamentoCPA(Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemRequest prRequest)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IFinanceiroViagemService, Benner.Corporativo.Viagens",
+            "GerarAdiantamentoCPA",
+            (object)prRequest);
+
+        return (Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse)result;
+    }
+
+    public Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse GerarAdiantamentoCRE(Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemRequest prRequest)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IFinanceiroViagemService, Benner.Corporativo.Viagens",
+            "GerarAdiantamentoCRE",
+            (object)prRequest);
+
+        return (Benner.Corporativo.WebServices.Layouts.Financeiro.DocumentoViagemResponse)result;
+    }
+
+    public Benner.Corporativo.WebServices.Layouts.Financeiro.CancelamentoDocumentoViagemResponse CancelarDocumento(Benner.Corporativo.WebServices.Layouts.Financeiro.CancelamentoDocumentoViagemRequest prRequest)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IFinanceiroViagemService, Benner.Corporativo.Viagens",
+            "CancelarDocumento",
+            (object)prRequest);
+
+        return (Benner.Corporativo.WebServices.Layouts.Financeiro.CancelamentoDocumentoViagemResponse)result;
+    }
+
+    public Benner.Corporativo.WebServices.Layouts.Financeiro.CompensacaoDocumentosViagemResponse CompensarDocumentos(Benner.Corporativo.WebServices.Layouts.Financeiro.CompensacaoDocumentosViagemRequest prRequest)
+    {
+        var result = CallBusinessComponent(
+            "Benner.Corporativo.Viagens.IFinanceiroViagemService, Benner.Corporativo.Viagens",
+            "CompensarDocumentos",
+            (object)prRequest);
+
+        return (Benner.Corporativo.WebServices.Layouts.Financeiro.CompensacaoDocumentosViagemResponse)result;
+    }
+
+}
+

@@ -1,0 +1,14 @@
+﻿<%@ Page Title="Documentos de habilitação" Language="C#" Inherits="Benner.Corporativo.Wes.WebApp.aga.a.genericos.fornecedores.DocumentosDeHabilitacao" %>
+   
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components.WebApp" Namespace="Benner.Tecnologia.Wes.Components.WebApp" TagPrefix="wes" %>
+<%@ Register Assembly="Benner.Tecnologia.Wes.Components" Namespace="Benner.Tecnologia.Wes.Components" TagPrefix="wes" %>
+     
+      <asp:Content ID="Content1" ContentPlaceHolderID="Main" Runat="Server">
+    <div class="row">
+        <wes:SimpleGrid runat="server" ID="DOCUMENTOS_GRID" Title="Tipos de Documentos" Subtitle="todos tipos" PortletCssClass="" PortletLayout="Default" BootstrapCols="12" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="" ChromeState="Normal" CanDelete="False" CanUpdate="False" CanInsert="False" EntityViewName="PORTAL_FOR_DOCUMENTOHABILITACAO_TIPODOCUMENTOS.GRID" Mode="Selectable" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="None" FormUrl="~/aga/a/suprimentos/CategoriaDocumentos/Categoria.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="AGA_A_GENERICOS_FORNECEDORES_DOCUMENTOSDEHABILITACAO" Level="20" Order="10"  />
+        <wes:SimpleGrid runat="server" ID="REGISTROS_GRID" Title="Documentos" Subtitle="documentos/certificados" PortletCssClass="" PortletLayout="Default" BootstrapCols="8" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="DOCUMENTOS_GRID" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="PORTAL_FOR_DOCUMENTOHABILITACAO_DOCUMENTOS.GRID" Mode="None" UserDefinedSelectColumnVisible="True" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" FormUrl="~/aga/a/genericos/fornecedores/Documento.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="AGA_A_GENERICOS_FORNECEDORES_DOCUMENTOSDEHABILITACAO" Level="20" Order="20"  />
+        <wes:SimpleGrid runat="server" ID="ANEXOS_GRID" Title="Anexos" Subtitle="selecione o documento para visualizar" PortletCssClass="" PortletLayout="Default" BootstrapCols="4" FontIcon="" ShowTitle="true" ProviderWidgetUniqueId="REGISTROS_GRID" ChromeState="Normal" CanDelete="True" CanUpdate="True" CanInsert="True" EntityViewName="PORTAL_FOR_DOCUMENTOHABILITACAO_ANEXOS.GRID" Mode="None" UserDefinedSelectColumnVisible="False" UserDefinedPageSize="10" SystemFilterOnly="False" DisplayRowCommand="True" CompanyFilterMode="OnlyCompany" UserDefinedCriteriaWhereClause="A.REGISTRO = @CAMPO(HANDLE)" FormUrl="~/aga/a/genericos/fornecedores/Anexo.aspx" ShowExport="True" UserDefinedDisableRowSelection="False" PageId="AGA_A_GENERICOS_FORNECEDORES_DOCUMENTOSDEHABILITACAO" Level="20" Order="30"  />
+        </div>
+    
+      </asp:Content>
+    

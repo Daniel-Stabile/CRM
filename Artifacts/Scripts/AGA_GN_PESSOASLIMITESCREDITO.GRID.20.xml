@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_GN_PESSOASLIMITESCREDITO.GRID</ViewName>
+  <EntityName>GN_PESSOASLIMITESCREDITO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.ERP.Comum")
+    from Benner.ERP.Comum import Utils
+    
+    widget.View.Commands["DELETE"].Visible = Utils.VerificaPermissao("EXCLUIRFORNECEDOR", "MODULO_CONTRATOS", "EXCLUIR_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+    widget.View.Commands["EDIT"].Visible = Utils.VerificaPermissao("MANTERFORNECEDOR", "MODULO_CONTRATOS", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+    widget.View.Commands["New"].Visible = Utils.VerificaPermissao("MANTERFORNECEDOR", "MODULO_CONTRATOS", "MANTER_CLIENTES", "MODULO_COMERCIAL", "MODULO_FINANCEIRO", "MODULO_TRIBUTOS")
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

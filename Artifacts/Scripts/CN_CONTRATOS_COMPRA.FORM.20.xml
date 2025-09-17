@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_CONTRATOS_COMPRA.FORM</ViewName>
+  <EntityName>CN_CONTRATOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_COPIARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_COPIARExecute(command, entity):
+    command.RequestConfirmationBeforeExecute("Confirmar a cópia do contrato?")
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def ComandoNaoNulo(widget, nomeComando):
+    return widget.View.Commands[nomeComando] &lt;&gt; None
+
+def Load(widget):
+    import clr
+    clr.AddReference("Benner.Erp.Web")
+    from Benner.Erp.Web import AuthorizationHelper 
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    from Benner.Tecnologia.Common import EntityState
+    from Benner.Tecnologia.Common import FieldDefinition
+    from Benner.Tecnologia.Common.Components.FormPageGroup import StateGroup
+    
+    comandoApontamentos = 1 
+    comandoAditivos = 2
+
+    registro = widget.Entity
+    if registro == None: return
+
+    if widget.Entity.State == EntityState.Initialized:
+        widget.View.Pages["Capa"].Items["GROUP_OPCOESAVANCADAS"].State = StateGroup.Fixed
+        widget.View.Pages["Capa"].Items["GROUP_CRONOGRAMA"].Visible = True
+        widget.View.Pages["Capa"].Items["GROUP_OBSERVACOES"].Visible = True
+    
+    agrupamentoFuncoes = widget.View.Commands["GRP_FUNCOES"]
+    
+    if agrupamentoFuncoes != None and agrupamentoFuncoes.Items["CMD_SUSPENDER"] != None:
+        agrupamentoFuncoes.Items["CMD_SUSPENDER"].Title = registro.TituloComandoSuspender()
+    
+    if ComandoNaoNulo(widget, "New"): widget.View.Commands["New"].Visible = AuthorizationHelper.HasTask("MANTER_CONTRATO_COMPRA")
+    if ComandoNaoNulo(widget, "Edit"): widget.View.Commands["Edit"].Visible = registro.ContratoEmCadastro()
+    if ComandoNaoNulo(widget, "Delete"): widget.View.Commands["Delete"].Visible = registro.ContratoEmCadastro()
+    
+    if widget.View.Commands["GRP_FUNCOES"].Items["CMD_CANCELAR_COM_COTACAO"] &lt;&gt; None: widget.View.Commands["GRP_FUNCOES"].Items["CMD_CANCELAR_COM_COTACAO"].Visible = registro.VisibilidadeComandoCancelarContratoCotacao
+    if widget.View.Commands["GRP_FUNCOES"].Items["CMD_CANCELAR"] &lt;&gt; None: widget.View.Commands["GRP_FUNCOES"].Items["CMD_CANCELAR"].Visible = registro.VisibilidadeComandoCancelarContrato
+    
+    if ComandoNaoNulo(widget, "CMD_ADITIVOS"): widget.View.Commands["CMD_ADITIVOS"].Visible = registro.ExibeComando(comandoAditivos)
+    if ComandoNaoNulo(widget, "CMD_APONTAMENTOS"): widget.View.Commands["CMD_APONTAMENTOS"].Visible = registro.ExibeComando(comandoApontamentos)
+    if registro.Fields["HANDLE"] &gt; 0: widget.View.Commands["CMD_CONDICOESPAGAMENTO"].Visible = CNContrato.CondicoesPagamentoMostrarTab(registro.Fields["HANDLE"].Value)
+    
+    if agrupamentoFuncoes != None and agrupamentoFuncoes.Items["AcompanharAssinaturasDigitais"] != None:
+        agrupamentoFuncoes.Items["AcompanharAssinaturasDigitais"].Visible = registro.ExibirComandoAcompanharAssinaturasDigitais
+    
+    if registro.Fields["HANDLE"].IsValid() and widget.View.Commands["GRP_FUNCOES"].Items["CMD_RECONFIRMAR"] &lt;&gt; None:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_RECONFIRMAR"].Visible = CNContrato.PodeReconfirmar(registro.Fields["HANDLE"].Value)
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_LIBERARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_LIBERARExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    if (CNContrato.VerificaDocumentosPendentes(entity.Handle, 1) != ""):
+        command.RequestConfirmationBeforeExecute("Os seguintes documentos contém não conformidades: " + CNContrato.VerificaDocumentosPendentes(entity.Handle, 1))
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_ENCERRARExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCMD_ENCERRARExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Contratos import CNContrato
+    
+    if (CNContrato.VerificaDocumentosPendentes(entity.Handle, 3) != ""):
+        command.RequestConfirmationBeforeExecute("Os seguintes documentos contém não conformidades: " + CNContrato.VerificaDocumentosPendentes(entity.Handle, 3))
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

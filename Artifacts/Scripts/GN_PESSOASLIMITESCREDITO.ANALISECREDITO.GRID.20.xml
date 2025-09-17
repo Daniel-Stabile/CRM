@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_PESSOASLIMITESCREDITO.ANALISECREDITO.GRID</ViewName>
+  <EntityName>GN_PESSOASLIMITESCREDITO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if ( entity == None ): return
+
+    row.GetCellByName("CUSTOM_TIPO").Text = entity.Fields["LIMITECREDITO"]
+    if ( entity["LIMITECREDITO"].GetInt32() == 2 ):
+        row.GetCellByName("CUSTOM_TIPO").Text =  row.GetCellByName("CUSTOM_TIPO").Text + " - " + entity.Fields["PESSOALIMITE"].Instance.Fields["NOME"];
+        row.GetCellByName("VALORLIMITE").Text = ""
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

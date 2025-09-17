@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_CN_CONTRATOOBJETOS.FORM</ViewName>
+  <EntityName>CN_CONTRATOOBJETOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")    
+    from Benner.Corporativo.Definicoes.Contratos import CNContratoObjeto
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity
+    if registro == None: return
+    
+    contratoEmElaboracao = CNContratoObjeto.ContratoEmElaboracao(long(registro.Fields["CONTRATO"].Handle.Value))    
+    
+    if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = contratoEmElaboracao
+    if widget.View.Commands["Edit"] &lt;&gt; None: widget.View.Commands["Edit"].Visible = contratoEmElaboracao
+    if widget.View.Commands["Delete"] &lt;&gt; None: widget.View.Commands["Delete"].Visible = contratoEmElaboracao
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRATEIOExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRATEIOExecute(command, entity):
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Financeiro import FNLancamentoCodigoInterno
+    
+    command.OutputDefinition.Parameters["CODIGOINTERNO"] = FNLancamentoCodigoInterno.ciCOO
+    command.OutputDefinition.Parameters["ENTIDADEORIGEM"] = entity
+    command.OutputDefinition.Parameters["SOMENTELEITURA"] = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

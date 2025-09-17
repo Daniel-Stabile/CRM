@@ -1,0 +1,2471 @@
+﻿<div class="col-md-12 col-sm-12">
+    <div class="row portlet">
+        <div class="commands-bar fluid list-commands-bar">
+            @if (Model.EhPaginaModal == false)
+            {
+                <a id="" onclick="Voltar()" class="btn command-action custom-action default" style="">
+                    <i id="" class="fa fa-chevron-circle-left btn-action" href=""></i> Voltar
+                </a>
+                <a id="BtnEditarEscopo" onclick="EditarEscopo()" class="btn command-action custom-action blue" style="display: inline-block;">
+                    <i id="" class="fa fa-pencil btn-action" href=""></i> Editar
+                </a>
+            }
+            else
+            {
+                <a id="BtnEditarEscopo" onclick="EditarEscopo()" class="btn command-action custom-action blue" style="display: inline-block;">
+                    <i id="" class="fa fa-pencil btn-action" href=""></i> Iniciar
+                </a>
+            }
+
+            <div id="BtnSalvarEscopo" onclick="SalvarEscopo()" class="btn command-action custom-action blue" style="display: none;">
+                <i id="" class="fa fa-check btn-action" href=""></i> Salvar
+            </div>
+            <div id="BtnCancelarAcaoEscopo" onclick="CancelarAcaoEscopo()" class="btn command-action custom-action default" style="display: none;">
+                <i id="" class="fa fa-times btn-action" href=""></i> Cancelar
+            </div>
+            @if (null != Model && Model.TipoDeEscopo == 0)
+            {
+                <a id="BtnAbreEscopo" onclick="AbreEscopo()" class="btn command-action custom-action green-seagreen"><i class="fa icon-target btn-action" onclick=""></i> Escopo</a>
+            }
+
+            @if (Model.EhPaginaModal == false)
+            {
+                <a id="BtnGoAdicionais" onclick="GoFechamento()" class="btn command-action custom-action blue" style="">
+                    <i class="fa fa-chevron-circle-right btn-action" onclick=""></i> Próximo
+                </a>
+            }
+
+        </div>
+
+        @if (null != Model)
+        {
+            <div class="form-group" style="padding-top: 16px;">
+                <form method="post" action="/api/crm/oportunidades/postServico">
+                    <input type="radio" id="RdoEscopoCustomizado" name="RdoEscopoCustomizado" onclick="OnEscopoChange(this)" value="RdoEscopoCustomizado" disabled style="cursor: pointer; display: none;" />
+                    <label for="RdoEscopoCustomizado" id="LblRdoEscopoCustomizado" style="cursor: pointer; display: none;">Montar escopo personalizado</label>
+                    <br />
+                    <div id="divEscopoCustomizado" style="display: none;">
+                        @if (Model.SubfaseVertical == "Cliente")
+                        {
+                            <div class="message-panel">
+                                <div class="alert alert-info">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    @if (Model.ValorRecursoPorContrato == false)
+                                    {
+                                        <p>
+                                            <span>
+                                                Para o <b>Escopo Personalizado</b>, é necessario informar os valores de cada serviço no cadastro da <b>Vertical</b>
+                                            </span>
+                                            <br />
+                                            <span>
+                                                Caso ainda não tenha cadastrado, clique <a href="javascript:MostraTipoRecursos()">Aqui</a>
+                                            </span>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p>
+                                            <span>
+                                                Para o <b>Escopo Personalizado</b>, é necessario informar os valores de cada serviço conforme o <b>Contrato</b> já existente no benner ERP.
+                                            </span>
+                                            <br />
+                                            <span>
+                                                Verifique os contratos e itens existentes para essa empresa clicando <a href="javascript:MostraTipoRecursos()">Aqui</a>
+                                            </span>
+                                        </p>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                        <div style="padding-bottom: 8px">
+                            <a id="BtnNovoEscopoCustomizado" onclick="IncluirRecurso()" class="btn command-action custom-action btn command-action green" style="display: none;">
+                                <i id="" class="fa fa-plus btn-action" href=""></i> Novo
+                            </a>
+                            <a id="BtnCancelaEscopoCustomizado" class="btn command-action custom-action btn command-action default" style="display: none;">
+                                <i id="" class="fa fa-times btn-action" href=""></i> Cancelar
+                            </a>
+                        </div>
+                        <table class="table table-hover" cellspacing="0" border="0" id="tableEscopoCustomizado" style="border-collapse:collapse; display: none;">
+                            <tbody id="tbodyEscopoCustomizado">
+                                <tr>
+                                    <th scope="col">
+                                        <span><b>Ações</b></span>
+                                    </th>
+                                    <th scope="col" width="1%">
+                                        <span><b>SEQUENCIA</b></span>
+                                    </th>
+                                    @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+                                    {
+                                        <th scope="col" id="TblThProduto">
+                                            <span><b>PRODUTO</b></span>
+                                        </th>
+                                    }
+                                    <th scope="col">
+                                        <span><b>ATIVIDADE</b></span>
+                                    </th>
+                                    @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                                    {
+                                        <th scope="col">
+                                            <span><b>CONTRATO</b></span>
+                                        </th>
+                                        <th scope="col">
+                                            <span><b>RECURSO</b></span>
+                                        </th>
+                                    }
+                                    else
+                                    {
+                                        <th scope="col">
+                                            <span><b>RECURSO</b></span>
+                                        </th>
+                                    }
+                                    <th scope="col">
+                                        <span><b>VALOR HORA</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>HORAS</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>TOTAL</b></span>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="radio" id="RdoEscopoPadrao" name="RdoEscopoPadrao" value="RdoEscopoPadrao" onclick="OnEscopoChange(this)" disabled style="cursor: pointer; display: none;" />
+                    <label id="lblEscopoPadrao" for="RdoEscopoPadrao" style="cursor: pointer; display: none;">Utilizar Escopo Padrão</label>
+                    <br />
+                    <div id="divEscopoPadrao" style="display: none;">
+                        <span>Sua Oportunidade possui os seguintes itens:</span>
+                        <br />
+                        <br />
+                        <table class="table table-hover" cellspacing="0" border="0" id="tableEscopoPadrao" style="border-collapse:collapse; display: table;">
+                            <tbody>
+                                <tr>
+                                    <th scope="col">
+                                        <span><b>ITEM</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>ATIVIDADE</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>RECURSO</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>FILIAL</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>HORAS</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>VALOR HORA</b></span>
+                                    </th>
+                                    <th scope="col">
+                                        <span><b>TOTAL</b></span>
+                                    </th>
+                                </tr>
+                                @{
+                                    foreach (var servico in Model.EscopoPadrao)
+                                    {
+                                        <tr>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.Item</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.Escopo</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.Recurso</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.Filial</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.Horas</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.ValorHora</span>
+                                            </th>
+                                            <th style="font-weight: normal;">
+                                                <span>@servico.TotalServico</span>
+                                            </th>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div id="divMensagem" style="display: none;" class="message-panel">
+                        <div class="alert alert-info">
+                            <button class="close" data-dismiss="alert"></button>
+                            <span id="lblMensagem"></span>
+                        </div>
+                    </div>
+                    <input type="checkbox" id="chkAdicionalProjeto" onchange="ChkAdicinalProjetoChanged()" disabled style="cursor: pointer; display: none;" />
+                    <label for="chkAdicionalProjeto" id="LblchkAdicionalProjeto" style="cursor: pointer; display: none;">Percentual de gestão de projeto</label>
+                    <br />
+                    <div style="display: grid; grid-template-columns: auto 100%;">
+                        <input disabled oninput="ControladorEscopoPadrao(this)" id="txtAdicionalProjeto" value="@Model.PorcentagemAdicionalProjeto" style="display: none; width: 4vw;" type="text" maxlength="5" class="form-control placeholder-no-fix valid" autocomplete="off" placeholder="%" aria-invalid="false" />
+                        <span id="lblAdicionalProjeto" style="align-self: center; display: none; padding-left: 4px; ">%</span>
+                    </div>
+                    <br />
+                </form>
+
+                <!-- ==== TOTAIS DO PRODUTO OU OPORTUNIDADE -->
+                <table class="table table-hover" cellspacing="0" border="0" id="tableAdicionalProjeto" style="border-collapse:collapse; display: none;">
+                    <tbody>
+                        <tr>
+                            <th scope="col" style="width:auto">
+                                <span>TOTAIS</span>
+                            </th>
+                            <th scope="col" style="width:10%">
+                                <span>Horas</span>
+                            </th>
+                            <th scope="col" style="width:10%">
+                                <span>Valor Hora (R$)</span>
+                            </th>
+                            <th scope="col" style="width:15%">
+                                <span>Valor Total (R$)</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span style="font-weight: normal;">Total de Serviço de Implantação</span>
+                            </th>
+                            <th>
+                                <span style="font-weight: normal;" id="lblHoras">@Model.TotalHorasEscopo</span>
+                            </th>
+                            <th>
+                                <span style="font-weight: normal;"></span>
+                            </th>
+                            <th>
+                                <span style="font-weight: normal;" id="lblEscopo">@Model.TotalValorEscopo</span>
+                            </th>
+                        </tr>
+                        @if (Model.AdicionalNaGerenciaProjeto == true)
+                        {
+                            <tr id="tblRowTotalProjeto" style="display: none;">
+                                <th>
+                                    <span style="font-weight: normal;">Total de Gerenciamento de projeto</span>
+                                </th>
+                                <th>
+                                    <span style="font-weight: normal;" id="lblAdicionalHoras"></span>
+                                </th>
+                                <th>
+                                    <span style="font-weight: normal;" id="lblVlHoraGerProd"></span>
+                                </th>
+                                <th>
+                                    <span style="font-weight: normal;" id="lblAdicionalEscopo"></span>
+                                </th>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr id="tblRowTotalProjeto" style="display: none;">
+                                <th>
+                                    <span style="font-weight: normal;">Total de Gerenciamento de projeto</span>
+                                </th>
+                                <th>
+                                    <span style="font-weight: normal;" id="lblAdicionalHoras">0</span>
+                                </th>
+                                <th>
+                                    <span style="font-weight: normal;" id="lblVlHoraGerProd">0</span>
+                                </th>
+                                <th>
+                                    <span style="font-weight: normal;" id="lblAdicionalEscopo">0</span>
+                                </th>
+                            </tr>
+                        }
+
+                        <tr id="tblRowTotal" style="display: none;">
+                            <th>
+                                <span><b>Total</b></span>
+                            </th>
+                            <th>
+                                <span id="lblTotalHoras"></span>
+                            </th>
+                            <th>
+                                <span style="font-weight: normal;"></span>
+                            </th>
+                            <th>
+                                <span id="lblTotalEscopo"></span>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var contadorGlobal = 0;
+    var ListaIgnorar = [];
+    var ListaEscopoSalvo = [];
+    var ListaAtividades = [];
+    var ListaContratos = [];
+    var ListaRecursosContratos = [];
+    var ListaRecursos = [];
+    var ListaValoHora = [];
+
+    function AbreEscopo() {
+        var link = Benner.Page.getApplicationPath() + "@Model.Url";
+        var size = 'Large';
+        var widgetIdToRefresh = "ctl00$Main$K_NOVAOPORTUNIDADE";//"ctl00$Main$K_VALORSERVIO";//"ctl00$Main$ActionView2";
+        Benner.Widget.prepareModal(link, widgetIdToRefresh,'Large');
+        //Benner.Page.ShowModal(link, size, widgetIdToRefresh);
+        //Benner.Widget.prepareModal(link);
+    }
+
+    function MostraTipoRecursos() {
+        @{ var UrlTipoDeRecuso = Benner.Tecnologia.Wes.Components.UriBuilder.Create(Model.linkDefinition); }
+        Benner.Widget.prepareModal(Benner.Page.getApplicationPath() + "@UrlTipoDeRecuso")
+    }
+
+    function OnEscopoChange(elemento) {
+        var escopoPadrao = document.getElementById("RdoEscopoPadrao");
+        var escopoCustomizado = document.getElementById("RdoEscopoCustomizado");
+        var tableEscopoPadrao = document.getElementById("tableEscopoPadrao");
+        var divEscopoPadrao = document.getElementById("divEscopoPadrao");
+        var divEscopoCustomizado = document.getElementById("divEscopoCustomizado");
+        var lblEscopoPadrao = document.getElementById("lblEscopoPadrao");
+
+        if (elemento == escopoPadrao) {
+            escopoPadrao.checked = true;
+            escopoCustomizado.checked = false;
+
+            tableEscopoPadrao.style = "border - collapse: collapse;display: table;";
+            divEscopoPadrao.style = "display: block; padding-top: 16px;";
+            divEscopoCustomizado.style = "display: none;";
+        }
+        else if (elemento == escopoCustomizado) {
+            escopoPadrao.checked = false;
+            escopoCustomizado.checked = true;
+
+            tableEscopoPadrao.style = "border - collapse: collapse;display: none;";
+            divEscopoPadrao.style = "display: none; padding-top: 16px;";
+            escopoPadrao.style = "display: none;";
+            lblEscopoPadrao.style = "display: none;";
+            divEscopoCustomizado.style = "display: block;";
+        }
+    }
+
+    function ChkAdicinalProjetoChanged() {
+        var txtAdicionalProjeto = document.getElementById("txtAdicionalProjeto");
+        var chkAdicionalProjeto = document.getElementById("chkAdicionalProjeto");
+
+        if (!chkAdicionalProjeto.checked) {
+            txtAdicionalProjeto.value = 0;
+        }
+
+        AdicionalProjeto()
+    }
+
+    function AdicionalProjeto() {
+        var chkAdicionalProjeto = document.getElementById("chkAdicionalProjeto");
+        var txtAdicionalProjeto = document.getElementById("txtAdicionalProjeto");
+        var lblAdicionalProjeto = document.getElementById("lblAdicionalProjeto");
+        var tblRowTotalProjeto = document.getElementById("tblRowTotalProjeto");
+        var tblRowTotal = document.getElementById("tblRowTotal");
+        var tableAdicionalProjeto = document.getElementById("tableAdicionalProjeto");
+
+        //tblRowTotalProjeto.style = "display: table-row;";
+        //tblRowTotal.style = "display: table-row;";
+        txtAdicionalProjeto.style = "display: block;  width: 4vw;";
+        lblAdicionalProjeto.style = "align-self: center; display: flex; padding-left: 4px;";
+        tableAdicionalProjeto.style = "border-collapse:collapse; display: table;";
+
+        if (txtAdicionalProjeto.value > 0) {
+            tblRowTotalProjeto.style = "display: table-row;";
+            tblRowTotal.style = "display: table-row;";
+        }
+        else {
+            tblRowTotalProjeto.style = "display: none;";
+            tblRowTotal.style = "display: none;";
+        }
+
+        /*if (chkAdicionalProjeto.checked) {
+            txtAdicionalProjeto.style = "display: block;  width: 4vw;";
+            lblAdicionalProjeto.style = "align-self: center; display: flex; padding-left: 4px;";
+            tableAdicionalProjeto.style = "border-collapse:collapse; display: table;";
+
+            if (txtAdicionalProjeto.value > 0) {
+                tblRowTotalProjeto.style = "display: table-row;";
+                tblRowTotal.style = "display: table-row;";
+            }
+            else {
+                tblRowTotalProjeto.style = "display: none;";
+                tblRowTotal.style = "display: none;";
+            }
+        }
+        else {
+            txtAdicionalProjeto.style = "display: none;";
+            tableAdicionalProjeto.style = "display: none;";
+            //tblRowTotalProjeto.style = "display: none;";
+            //tblRowTotal.style = "display: none;";
+            lblAdicionalProjeto.style = "display: none;";
+
+            if(txtAdicionalProjeto.value > 0) {
+                tblRowTotalProjeto.style = "display: table-row;";
+                tblRowTotal.style = "display: table-row;";
+            }
+            else {
+                tblRowTotalProjeto.style = "display: none;";
+                tblRowTotal.style = "display: none;";
+            }
+        }*/
+    }
+
+    function AbrirModalObs(btnObs) {
+        var handle = btnObs.id.substring(6)
+        $.get(Benner.Page.getApplicationPath() + "api/crm/oportunidades/getUrlComentario?handleEscopo=" + handle, null, function (data) {
+            $("#rDados").html(data);
+            Benner.Widget.prepareModal(Benner.Page.getApplicationPath() + data);
+            //url = data;
+            //console.log(data);
+            //var result = JSON.parse(data);
+            //var resultado = JSON.parse(result.message);
+            //url = result;
+            //for (let [key, value] of Object.entries(resultado)) {
+            //    url = value;
+            //}
+        });
+        //Benner.Widget.prepareModal(Benner.Page.getApplicationPath() + url);
+    }
+
+    function AtribuiListaAtividades() {
+        return new Promise(function (resolve, reject) {
+            $.get(Benner.Page.getApplicationPath() + "api/crm/oportunidades/getServicos", null, function (data2) {
+                $("#rDados").html(data2);
+                var result = JSON.parse(data2);
+                var resultado = JSON.parse(result.message);
+
+                var i = 0;
+                for (let [key, value] of Object.entries(resultado)) {
+                    var novoRegistro = {
+                        "Servico": value.Servico,
+                        "Handle": value.Handle
+                    }
+
+                    if (!ListaAtividades.find(x => x.Servico == novoRegistro.Servico && x.Handle == novoRegistro.Handle)) {
+                        ListaAtividades.push(novoRegistro);
+                    }
+                }
+
+                resolve(ListaAtividades);
+            })
+                .fail(function (error) {
+                    reject("Erro na requisição: " + error);
+                });
+        });
+    }
+
+    function AtribuiListaContratos() {
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/getContratos?handlePessoa=" + @Model.HandlePessoa,
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+            var resultado = JSON.parse(result.message);
+
+            for (let [key, value] of Object.entries(resultado)) {
+
+                var novo = {
+                    "NumeroContrato": value
+                }
+
+                if (!ListaContratos.find(x => x.NumeroContrato == novo.NumeroContrato)) {
+                    ListaContratos.push(novo);
+                }
+            }
+        });
+    }
+
+    function AtribuiListaRecursosContratos() {
+        for (var i = 0; i < ListaContratos.length; i++) {
+            var numeroContrato = encodeURIComponent(ListaContratos[i].NumeroContrato);
+
+            var settings = {
+                "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/getRecursosContrato?numeroContrato=" + numeroContrato,
+                "method": "POST",
+                "async": false,
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+            };
+            $.ajax(settings).done(function (response) {
+                var result = JSON.parse(response);
+                var resultado = JSON.parse(result.message);
+                var contrato = ListaContratos[i].NumeroContrato;
+
+                for (let [key, value] of Object.entries(resultado)) {
+
+                    var novo = {
+                        "Contrato": contrato,
+                        "Produto": value.Produto,
+                        "ValorUnitario": value.ValorUnitario
+                    }
+
+                    if (!ListaRecursosContratos.find(x => x.Produto == novo.Produto
+                        && x.Contrato == novo.Contrato
+                        && x.ValorUnitario == novo.ValorUnitario)) {
+                        ListaRecursosContratos.push(novo);
+                    }
+                }
+            });
+        }
+    }
+
+    function AtribuiListaRecursos() {
+        var settings = {
+                    "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/getRecursos",
+                    "method": "POST",
+                    "async": false,
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify({
+                        "CodigoPessoa": "@Model.HandlePessoa",
+                        "Vertical": "@Model.HandleVertical"
+                    }),
+                };
+                $.ajax(settings).done(function (response) {
+                    var result = JSON.parse(response);
+                    var resultado = JSON.parse(result.message);
+                    for (let [key, value] of Object.entries(resultado.VlHoraRecurso)) {
+
+                        var novoRecurso = {
+                            "Recurso": value.Recurso,
+                            "Valor": value.Valor,
+                            "Handle": value.Handle
+                        }
+
+                        if (!ListaRecursos.find(elemento => elemento.Handle == novoRecurso.Handle)) {
+                            ListaRecursos.push(novoRecurso);
+                        }
+                    }
+                });
+    }
+
+    function AtribuiListaEscopoSalvo() {
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/getEscopoPersonalizado",
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "Oportunidade": "@Model.HandleOportunidade",
+                "HandleProduto": "@Model.HandleOportunidadeProduto"
+            }),
+        };
+        //debugger;
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+            var resultado = JSON.parse(result.message);
+            ListaEscopoSalvo.length = 0;
+            resultado.BindPersonalizados.forEach(function (dados) {
+
+                var novoRegistro = {
+                    "HandleEscopo": dados.HandleEscopo,
+                    "Atividade": dados.Atividade,
+                    "Contrato": dados.Contrato,
+                    "Editou": dados.Editou,
+                    "HandleAtividade": dados.HandleAtividade,
+                    "HandleProduto": dados.HandleProduto,
+                    "HandleRecurso": dados.HandleRecurso,
+                    "Horas": dados.Horas,
+                    "Recurso": dados.Recurso,
+                    "RecursoContrato": dados.RecursoContrato,
+                    "Sequencia": dados.Sequencia,
+                    "ValorHora": dados.ValorHora
+                }
+
+                ListaEscopoSalvo.push(novoRegistro);
+
+                /*if (!ListaEscopoSalvo.find(x =>
+                    //x.Atividade == novoRegistro.Atividade &&
+                    //x.Contrato == novoRegistro.Contrato &&
+                    //x.Editou == novoRegistro.Editou
+                    //&& x.HandleAtividade == novoRegistro.HandleAtividade &&
+                    x.HandleEscopo == novoRegistro.HandleEscopo
+                    //&& x.HandleProduto == novoRegistro.HandleProduto
+                    //&& x.HandleRecurso == novoRegistro.HandleRecurso
+                    //&& x.Horas == novoRegistro.Horas
+                    //&& x.Recurso == novoRegistro.Recurso
+                    //&& x.RecursoContrato == novoRegistro.RecursoContrato
+                    //&& x.Sequencia == novoRegistro.Sequencia
+                    //&& x.ValorHora == novoRegistro.ValorHora
+                    )) {
+                    ListaEscopoSalvo.push(novoRegistro);
+                }*/
+            });
+        });
+    }
+
+    function SelectContratoOnChange(selectContrato, selectRecursoContrato) {
+        if (selectContrato.selectedIndex >= 0) {
+            var numeroContrato = selectContrato.options[selectContrato.selectedIndex].textContent;
+            //var spanValorHoraTotal = document.getElementById("spanValorHoraTotal" + selectContrato.id.substring(14));
+            //var spanValorHora = document.getElementById("spanValorHora" + selectContrato.id.substring(14));
+            // Limpa as opções existentes, se houver
+            selectRecursoContrato.innerHTML = '';
+
+            // Percorre o array ListaAtividades
+            for (var i = 0; i < ListaRecursosContratos.length; i++) {
+                if (ListaRecursosContratos[i].Contrato == numeroContrato) {
+                    var option = document.createElement('option'); // Cria um elemento <option>
+                    option.value = ListaRecursosContratos[i].Produto; // Define o valor (handle)
+                    option.text = ListaRecursosContratos[i].Produto; // Define o texto (serviço)
+
+                    selectRecursoContrato.appendChild(option); // Adiciona a opção ao <select>
+
+                    //var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(ListaRecursosContratos[i].ValorUnitario.replace(',', '.'));
+                    //spanValorHora.innerHTML = brl;
+                    //spanValorHoraTotal.innerHTML = brl;
+                }
+            }
+            SelectRecursoContratoOnChange(selectContrato, selectRecursoContrato);
+        }
+    }
+
+    function SelectRecursoContratoOnChange(selectContrato, selectRecursoContrato) {
+        if (selectContrato.selectedIndex >= 0) {
+            var spanValorHoraTota = document.getElementById("spanValorHoraTotal" + selectRecursoContrato.id.substring(21));
+            var spanValorHora = document.getElementById("spanValorHora" + selectRecursoContrato.id.substring(21));
+            var inputHorasServico = document.getElementById("inputHorasServico" + selectRecursoContrato.id.substring(21));
+
+            var valor = ListaRecursosContratos.find(elemento => elemento.Produto == selectRecursoContrato.value && elemento.Contrato == selectContrato.options[selectContrato.selectedIndex].textContent)
+
+            var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(parseFloat(valor.ValorUnitario.replace(',', '.')));
+            spanValorHora.innerHTML = brl;
+
+            var brlTot = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(parseFloat(valor.ValorUnitario.replace(',', '.')) * inputHorasServico.value);
+            spanValorHoraTota.innerHTML = brlTot;
+        }
+    }
+
+    function SelectRecursoOnChange(selectRecurso) {
+        var spanValorHora = document.getElementById("spanValorHora" + selectRecurso.id.substring(13));
+        var spanValorHoraTota = document.getElementById("spanValorHoraTotal" + selectRecurso.id.substring(13));
+        var inputHorasServico = document.getElementById("inputHorasServico" + selectRecurso.id.substring(13));
+
+        var valor = ListaRecursos.find(elemento => elemento.Handle == selectRecurso.value)
+
+        var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(valor.Valor);
+        spanValorHora.innerHTML = brl;
+
+        var brlTot = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(valor.Valor * inputHorasServico.value);
+        spanValorHoraTota.innerHTML = brlTot;
+    }
+
+    function ControladorNumerico(elemento) {
+        elemento.value = elemento.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+    }
+
+    function ControladorEscopo(elemento, valorEscopo, horas, valorHoraGerencia) {
+        if (elemento.value.length > 0) {
+            if (elemento.value == "." || elemento.value == ",") {
+                elemento.value = "";
+            }
+            else {
+                var total = parseFloat(elemento.value);
+                var divMensagem = document.getElementById("divMensagem");
+                var lblMensagem = document.getElementById("lblMensagem");
+
+                if (total > 100) {
+                    divMensagem.style = "display: block;";
+                    lblMensagem.innerHTML = "Não é possivel ultrapassar 100% de adicional para gerenciamento do projeto";
+
+                    elemento.value = "100";
+                }
+                else {
+                    divMensagem.style = "display: none;";
+                    lblMensagem.innerHTML = "";
+
+                    var lblAdicionalHoras = document.getElementById("lblAdicionalHoras");
+                    var lblAdicionalEscopo = document.getElementById("lblAdicionalEscopo");
+                    var lblVlHoraGerProd = document.getElementById("lblVlHoraGerProd");
+                    var lblHoras = document.getElementById("lblHoras");
+                    var lblEscopo = document.getElementById("lblEscopo");
+                    var lblTotalHoras = document.getElementById("lblTotalHoras");
+                    var lblTotalEscopo = document.getElementById("lblTotalEscopo");
+                    //debugger;
+                    var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(valorEscopo);
+
+                    var AdicionalEscopo = parseFloat(valorHoraGerencia) * parseFloat(horas) * (elemento.value / 100); //parseFloat(valorEscopo) * (elemento.value / 100);
+                    var brlAdicional = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(AdicionalEscopo);
+
+                    var TotalEscopo = AdicionalEscopo + parseFloat(valorEscopo); //(parseFloat(valorEscopo) * (elemento.value / 100)) + parseFloat(valorEscopo);
+                    var brlEscopo = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(TotalEscopo);
+
+                    var vlHoraGerProd = parseFloat(valorHoraGerencia);
+                    var brlvlHoraGerProd = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(vlHoraGerProd);
+
+                    lblAdicionalEscopo.innerHTML = brlAdicional;
+                    lblTotalEscopo.innerHTML = brlEscopo;
+                    lblHoras.innerHTML = horas;
+                    lblEscopo.innerHTML = brl;
+                    lblAdicionalHoras.innerHTML = parseFloat(horas) * (elemento.value / 100);
+                    lblTotalHoras.innerHTML = (parseFloat(horas) * (elemento.value / 100)) + parseFloat(lblHoras.innerHTML);
+                    lblVlHoraGerProd.innerHTML = brlvlHoraGerProd;
+
+                    AdicionalProjeto();
+                }
+            }
+        }
+        else {
+            try {
+                elemento.value = "0";
+
+                AdicionalProjeto();
+            }
+            catch (e) {
+                divMensagem.style = "display: block;";
+                lblMensagem.innerHTML = "Houve um erro ao calcular seu adicional!";
+
+                elemento.value = "";
+            }
+        }
+    }
+
+    function ControladorEscopoPadrao(elemento) {
+        elemento.value = elemento.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+
+        if (elemento.value.length > 0) {
+            if (elemento.value == "." || elemento.value == ",") {
+                elemento.value = "";
+            }
+            else {
+                var total = parseFloat(elemento.value);
+                var divMensagem = document.getElementById("divMensagem");
+                var lblMensagem = document.getElementById("lblMensagem");
+
+                if (total > 100) {
+                    divMensagem.style = "display: block;";
+                    lblMensagem.innerHTML = "Não é possivel ultrapassar 100% de adicional para gerenciamento do projeto";
+
+                    elemento.value = "100";
+                }
+                else {
+                    divMensagem.style = "display: none;";
+                    lblMensagem.innerHTML = "";
+
+                    var lblAdicionalHoras = document.getElementById("lblAdicionalHoras");
+                    var lblAdicionalEscopo = document.getElementById("lblAdicionalEscopo");
+                    var lblVlHoraGerProd = document.getElementById("lblVlHoraGerProd");
+                    var lblHoras = document.getElementById("lblHoras");
+                    var lblEscopo = document.getElementById("lblEscopo");
+                    var lblTotalHoras = document.getElementById("lblTotalHoras");
+                    var lblTotalEscopo = document.getElementById("lblTotalEscopo");
+
+                    lblAdicionalHoras.innerHTML = parseFloat(lblHoras.innerHTML) * (elemento.value / 100);
+                    lblTotalHoras.innerHTML = (parseFloat(lblHoras.innerHTML) * (elemento.value / 100)) + parseFloat(lblHoras.innerHTML);
+
+                    var AdicionalEscopo = 0;
+                    var TotalEscopo = 0;
+                    var VlEscopo = 0;
+                    var vlHoraGerProd = 0;
+                    if (ListaValoHora.length > 0) {
+                        AdicionalEscopo = parseFloat(lblAdicionalHoras.innerHTML) * parseFloat(ListaValoHora[0].ValorHoraGerencia);
+                        TotalEscopo = AdicionalEscopo + parseFloat(ListaValoHora[0].Valor);
+                        VlEscopo = parseFloat(ListaValoHora[0].Valor);
+                        vlHoraGerProd = parseFloat(ListaValoHora[0].ValorHoraGerencia);
+                    }
+                    else {
+                        AdicionalEscopo = parseFloat(lblAdicionalHoras.innerHTML) * parseFloat(@Model.ValorHoraGerencia.Replace(',', '.'));
+                        TotalEscopo = AdicionalEscopo + parseFloat(@Model.TotalValorEscopo.Replace(',', '.'));
+                        VlEscopo = parseFloat(@Model.TotalValorEscopo.Replace(',','.'));
+                        vlHoraGerProd = parseFloat(@Model.ValorHoraGerencia.Replace(',', '.'));
+                    }
+
+                    var brlAdicional = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(AdicionalEscopo);
+                    var brlEscopo = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(TotalEscopo);
+                    var brllblEscopo = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(VlEscopo);
+                    var brlvlHoraGerProd = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(vlHoraGerProd);
+
+                    lblAdicionalEscopo.innerHTML = brlAdicional;
+                    lblTotalEscopo.innerHTML = brlEscopo;
+                    lblEscopo.innerHTML = brllblEscopo;
+                    lblVlHoraGerProd.innerHTML = brlvlHoraGerProd;
+
+                    AdicionalProjeto();
+                }
+            }
+        }
+        else {
+            try {
+                elemento.value = "0";
+
+                AdicionalProjeto();
+            }
+            catch (e) {
+                divMensagem.style = "display: block;";
+                lblMensagem.innerHTML = "Houve um erro ao calcular seu adicional!";
+
+                elemento.value = "";
+            }
+        }
+    }
+
+    function ControladorEscopoCustomizado(InputDeEntrada, SpanValorHora, selectRecurso, selectContrato = "") {
+        InputDeEntrada.value = InputDeEntrada.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+
+        if (InputDeEntrada.value.length > 0) {
+            if (InputDeEntrada.value == "." || InputDeEntrada.value == ",") {
+                InputDeEntrada.value = "";
+            }
+            else {
+                var totalUnitario = parseFloat(InputDeEntrada.value);
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                {
+                    <text>
+                var recurso = ListaRecursosContratos.find(x => x.Produto == selectRecurso.value && x.Contrato == selectContrato.options[selectContrato.selectedIndex].textContent)
+                        var VlCalculado = totalUnitario * parseFloat(recurso.ValorUnitario.replace(',', '.'));
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        var recurso = ListaRecursos.find(x => x.Handle == selectRecurso.value)
+                        var VlCalculado = totalUnitario * recurso.Valor;
+                    </text>
+                }
+
+                var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(VlCalculado);
+
+                SpanValorHora.innerHTML = brl;
+            }
+        }
+        else {
+            try {
+                InputDeEntrada.value = "";
+                var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(0);
+                SpanValorHora.innerHTML = brl;
+            }
+            catch (e) {
+                InputDeEntrada.value = "";
+            }
+        }
+    }
+
+    function EditarEscopo() {
+        var BtnEditarEscopo = document.getElementById("BtnEditarEscopo");
+        var BtnSalvarEscopo = document.getElementById("BtnSalvarEscopo");
+        var escopoPadrao = document.getElementById("RdoEscopoPadrao");
+        var escopoCustomizado = document.getElementById("RdoEscopoCustomizado");
+        var chkAdicionalProjeto = document.getElementById("chkAdicionalProjeto");
+        var btnNovoEscopoCustomizado = document.getElementById("BtnNovoEscopoCustomizado");
+        var BtnCancelarAcaoEscopo = document.getElementById("BtnCancelarAcaoEscopo");
+        var txtAdicionalProjeto = document.getElementById("txtAdicionalProjeto");
+
+        BtnEditarEscopo.style = "display: none;";
+        BtnSalvarEscopo.style = "display: inline-block;";
+        BtnCancelarAcaoEscopo.style = "display: inline-block;";
+        btnNovoEscopoCustomizado.style = "display: inline-block;";
+        escopoPadrao.disabled = false;
+        escopoCustomizado.disabled = false;
+        chkAdicionalProjeto.disabled = false;
+        txtAdicionalProjeto.disabled = false;
+
+        if (contadorGlobal > 0) {
+            var i = 1;
+            for (i = 1; i <= contadorGlobal; i++) {
+                var selectAtividade = document.getElementById("selectAtividade" + i);
+                selectAtividade.disabled = false;
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                {
+                    <text>
+                        var selectContrato = document.getElementById("selectContrato" + i);
+                        selectContrato.disabled = false;
+                        var selectRecursoContrato = document.getElementById("selectRecursoContrato" + i);
+                        selectRecursoContrato.disabled = false;
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        var selectRecurso = document.getElementById("selectRecurso" + i);
+                        selectRecurso.disabled = false;
+                    </text>
+                }
+                var inputHorasServico = document.getElementById("inputHorasServico" + i);
+                inputHorasServico.disabled = false;
+                var inputSequencia = document.getElementById("inputSequencia" + i);
+                inputSequencia.disabled = false;
+                var btnAcao = document.getElementById("btnAcao" + i);
+                btnAcao.style = "display: inline-block;";
+                //var btnObs = document.getElementById("btnObs" + i);
+                //btnObs.style = "display: inline-block;";
+                //var lblHandle = document.getElementById("lblHandle" + i);
+                //lblHandle.style = "display: inline-block;";
+            }
+
+            // Seleciona todos os elementos cujo ID começa com "btnObs"
+            var buttons = document.querySelectorAll('[id^="btnObs"]');
+
+            // Itera sobre os botões selecionados e aplica o estilo desejado
+            buttons.forEach(function (button) {
+                button.style = "display: inline-block;";
+            });
+        }
+    }
+
+    function SalvarEscopo() {
+        DesabilitarVisibilidadeCampos();
+
+        var txtAdicionalProjeto = document.getElementById("txtAdicionalProjeto");
+        var lblAdicionalProjeto = document.getElementById("lblAdicionalProjeto");
+        var escopoPadrao = document.getElementById("RdoEscopoPadrao");
+        var adicionalProjeto = 0;
+
+        if (txtAdicionalProjeto.value != "") {
+            adicionalProjeto = txtAdicionalProjeto.value;
+        }
+
+        var dadosEnvio = {
+            "HandleProduto": "@Model.HandleOportunidadeProduto",
+            "RdoEscopoPadrao": escopoPadrao.checked,
+            "Oportunidade": @Model.HandleOportunidade,
+            "AdicionalProjeto": adicionalProjeto,
+            "BindPersonalizados": []
+        };
+        //debugger;
+        if (escopoPadrao.checked) {
+
+        }
+        else {
+            if (contadorGlobal > 0) {
+                var i = 1;
+                for (i = 1; i <= contadorGlobal; i++) {
+                    var atividade = document.getElementById("selectAtividade" + i);
+                    var horas = document.getElementById("inputHorasServico" + i);
+                    var sequencia = document.getElementById("inputSequencia" + i);
+                    var buscaLinha = document.getElementById("tableRow" + i);
+
+                    // Encontrar o elemento <a> dentro da <tr>
+                    var linkElement = buscaLinha.querySelector('a[id^="btnObs"]');
+
+                    // Obter o valor do atributo 'id'
+                    var idAttributeValue = linkElement.getAttribute('id');
+
+                    // Extrair o número após "btnObs"
+                    var numeroHandle = idAttributeValue.replace('btnObs', '');
+
+                    @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                    {
+                        <text>
+                    var contrato = document.getElementById("selectContrato" + i);
+                    var recurso = document.getElementById("selectRecursoContrato" + i);
+                    var vlHora = ListaRecursosContratos.find(elemento => elemento.Produto == recurso.value && elemento.Contrato == contrato.options[contrato.selectedIndex].textContent)
+                            var novoItem = {
+                                "Atividade": atividade.options[atividade.selectedIndex].value,
+                                "Recurso": "",
+                                "Contrato": contrato.options[contrato.selectedIndex].textContent,
+                                "RecursoContrato": recurso.options[recurso.selectedIndex].value,
+                                "Horas": horas.value,
+                                "ValorHora": parseFloat(vlHora.ValorUnitario.replace(',', '.')),
+                                "HandleProduto": "@Model.HandleOportunidadeProduto",
+                                "Sequencia": sequencia.value,
+                                "HandleEscopo": numeroHandle
+                            }
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            var recurso = document.getElementById("selectRecurso" + i);
+                            var vlHora = ListaRecursos.find(elemento => elemento.Handle == recurso.value)
+                            var novoItem = {
+                                "Atividade": atividade.options[atividade.selectedIndex].value,
+                                "Recurso": recurso.options[recurso.selectedIndex].value,
+                                "Contrato": "",
+                                "RecursoContrato" : "",
+                                "Horas": horas.value,
+                                "ValorHora": vlHora.Valor,
+                                "HandleProduto": "@Model.HandleOportunidadeProduto",
+                                "Sequencia": sequencia.value,
+                                "HandleEscopo": numeroHandle
+                            }
+                        </text>
+                    }
+                    
+                    if (!ListaIgnorar.find(x => x == buscaLinha))
+                        dadosEnvio.BindPersonalizados.push(novoItem);
+                }
+            }
+        }
+        
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/postServico",
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(dadosEnvio),
+        };
+        //debugger;
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+
+            if (result.code == 400) {
+                toastr.error(result.message);
+            }
+            else {
+                toastr.success("Escopo atualizado com sucesso!");
+                ControladorEscopo(txtAdicionalProjeto, result.message.Valor, result.message.Horas, result.message.ValorHoraGerencia);
+
+                var novoRegistro = {
+                    "Horas": result.message.Horas,
+                    "Valor": result.message.Valor,
+                    "ValorHoraGerencia": result.message.ValorHoraGerencia
+                }
+                if (!ListaValoHora.find(elemento => elemento.Horas == novoRegistro.Horas && elemento.Valor == novoRegistro.Valor && elemento.ValorHoraGerencia == novoRegistro.ValorHoraGerencia)) {
+                    ListaValoHora.pop();
+                    ListaValoHora.push(novoRegistro);
+                }
+            }
+        });
+
+        if (window.location.href.includes("NovaOportunidadeEscopoCustomizado")) {
+
+        } else {
+            __doPostBack('ctl00$Main$ActionView2', 'CrmPessoaOportunidades$TilesValorModalidade${ }');
+        }
+
+
+        txtAdicionalProjeto.disabled = true;
+        txtAdicionalProjeto.style = "display: none;";
+        lblAdicionalProjeto.style = "display: none;";
+    }
+
+    function CancelarAcaoEscopo() {
+        DesabilitarVisibilidadeCampos();
+
+        var btnNovoEscopoCustomizado = document.getElementById("BtnNovoEscopoCustomizado");
+        var BtnCancelaEscopoCustomizado = document.getElementById("BtnCancelaEscopoCustomizado");
+        var tableEscopoCustomizado = document.getElementById("tableEscopoCustomizado");
+        var txtAdicionalProjeto = document.getElementById("txtAdicionalProjeto");
+
+        btnNovoEscopoCustomizado.style = "display: none;";
+        BtnCancelaEscopoCustomizado.style = "display: none;";
+        tableEscopoCustomizado.style = "display: none;";
+        txtAdicionalProjeto.disabled = true;
+
+        $("#tbodyEscopoCustomizado").detach();
+
+        contadorGlobal = 0;
+
+        CarregaEscopoPersonalizado();
+    }
+
+    function DesabilitarVisibilidadeCampos() {
+        //debugger;
+        var BtnEditarEscopo = document.getElementById("BtnEditarEscopo");
+        var BtnSalvarEscopo = document.getElementById("BtnSalvarEscopo");
+        var BtnCancelarAcaoEscopo = document.getElementById("BtnCancelarAcaoEscopo");
+        var BtnNovoEscopoCustomizado = document.getElementById("BtnNovoEscopoCustomizado");
+        var BtnCancelaEscopoCustomizado = document.getElementById("BtnCancelaEscopoCustomizado");
+        var escopoPadrao = document.getElementById("RdoEscopoPadrao");
+        var escopoCustomizado = document.getElementById("RdoEscopoCustomizado");
+        var chkAdicionalProjeto = document.getElementById("chkAdicionalProjeto");
+
+        BtnEditarEscopo.style = "display: inline-block;";
+        BtnSalvarEscopo.style = "display: none;";
+        BtnCancelarAcaoEscopo.style = "display: none;";
+        BtnNovoEscopoCustomizado.style = "display: none;";
+        BtnCancelaEscopoCustomizado.style = "display: none;";
+        escopoPadrao.disabled = true;
+        escopoCustomizado.disabled = true;
+        chkAdicionalProjeto.disabled = true;
+
+        if (contadorGlobal > 0) {
+            var i = 1;
+            for (i = 1; i <= contadorGlobal; i++) {
+                var selectAtividade = document.getElementById("selectAtividade" + i);
+                selectAtividade.disabled = true;
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                {
+                    <text>
+                        var selectContrato = document.getElementById("selectContrato" + i);
+                        selectContrato.disabled = true;
+                        var selectRecursoContrato = document.getElementById("selectRecursoContrato" + i);
+                        selectRecursoContrato.disabled = true;
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        var selectRecurso = document.getElementById("selectRecurso" + i);
+                        selectRecurso.disabled = true;
+                    </text>
+                }
+
+                var inputHorasServico = document.getElementById("inputHorasServico" + i);
+                inputHorasServico.disabled = true;
+                var inputSequencia = document.getElementById("inputSequencia" + i);
+                inputSequencia.disabled = true;
+                var btnAcao = document.getElementById("btnAcao" + i);
+                btnAcao.style = "display: none;";
+                if (ListaEscopoSalvo[i - 1]) {
+                    var btnObs = document.getElementById("btnObs" + ListaEscopoSalvo[i - 1].HandleEscopo);
+                    btnObs.style = "display: none;";
+                }
+
+            }
+        }
+    }
+
+    function ExcluirLinha(botao) {
+        var atual = botao.id.substring(7);
+        var buscaLinha = document.getElementById("tableRow" + atual);
+        var buscaSequencia = document.getElementById("inputSequencia" + atual);
+
+        var settings = {
+            "url": Benner.Page.getApplicationPath() + "api/crm/oportunidades/deleteItemEscopo",
+            "method": "POST",
+            "async": false,
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "Sequencia": buscaSequencia.value,
+                "HandleProduto": "@Model.HandleOportunidadeProduto"
+            }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            var result = JSON.parse(response);
+
+            if (result.code == 400) {
+                toastr.error(result.message);
+            }
+            else {
+                ListaIgnorar.push(buscaLinha)
+                //contadorGlobal--;
+                //deletados++;
+                //ReearanjarIds();
+                //ControladorEscopo(txtAdicionalProjeto, result.message.Valor, result.message.Horas);
+
+                //var novoRegistro = {
+                //    "Horas": result.message.Horas,
+                //    "Valor": result.message.Valor
+                //}
+                //if (!ListaValoHora.find(elemento => elemento.Horas == novoRegistro.Horas && elemento.Valor == novoRegistro.Valor)) {
+                //    ListaValoHora.pop();
+                //    ListaValoHora.push(novoRegistro);
+                //}
+            }
+        });
+        //debugger;
+        if (window.location.href.includes("NovaOportunidadeEscopoCustomizado")) {
+
+        } else {
+            __doPostBack('ctl00$Main$ActionView2', 'CrmPessoaOportunidades$TilesValorModalidade${ }');
+        }
+
+        buscaLinha.style = "display: none;";
+    }
+
+    function IncluirRecurso() {
+        contadorGlobal++;
+
+        var tableEscopoCustomizado = document.getElementById("tableEscopoCustomizado");
+
+        if (!document.getElementById("tbodyEscopoCustomizado")) {
+            let tbodyEscopoCustomizado2 = document.createElement("tbody");
+            tbodyEscopoCustomizado2.id = "tbodyEscopoCustomizado";
+            tableEscopoCustomizado.appendChild(tbodyEscopoCustomizado2);
+
+            let trTitulo = document.createElement('tr');
+            trTitulo.style = "display: table-row;"
+
+            let thTituloAcoes = document.createElement('th');
+            let thTituloSequencia = document.createElement('th');
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                    let thTituloProduto = document.createElement('th');
+                </text>
+            }
+            let thTituloAtividade = document.createElement('th');
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    let thTituloContrato = document.createElement('th');
+                    let thTituloRecursoContrato = document.createElement('th');
+                </text>
+            }
+            else
+            {
+                <text>
+                    let thTituloRecurso = document.createElement('th');
+                </text>
+            }
+
+            let thTituloValorHora = document.createElement('th');
+            let thTitulotHorasServico = document.createElement('th');
+            let thTituloValorHoraTotal = document.createElement('th');
+
+            thTituloAcoes.scope = "col";
+            thTituloSequencia.scope = "col";
+            thTituloSequencia.style = "width: 1%;";
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            thTituloProduto.scope = "col";
+                </text>
+            }
+
+            thTituloAtividade.scope = "col";
+
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    thTituloContrato.scope = "col";
+                    thTituloRecursoContrato.scope = "col";
+                </text>
+            }
+            else
+            {
+                <text>
+                    thTituloRecurso.scope = "col";
+                </text>
+            }
+
+            thTituloValorHora.scope = "col";
+            thTitulotHorasServico.scope = "col";
+            thTituloValorHoraTotal.scope = "col";
+
+            trTitulo.appendChild(thTituloAcoes);
+            trTitulo.appendChild(thTituloSequencia);
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            trTitulo.appendChild(thTituloProduto);
+                </text>
+            }
+
+            trTitulo.appendChild(thTituloAtividade);
+
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    trTitulo.appendChild(thTituloContrato);
+                    trTitulo.appendChild(thTituloRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+                    trTitulo.appendChild(thTituloRecurso);
+                </text>
+            }
+
+            trTitulo.appendChild(thTituloValorHora);
+            trTitulo.appendChild(thTitulotHorasServico);
+            trTitulo.appendChild(thTituloValorHoraTotal);
+
+            let spanTituloAcoes = document.createElement('span');
+            let spanTituloSequencia = document.createElement('span');
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            let spanTituloProduto = document.createElement('span');
+                </text>
+            }
+
+            let spanTituloAtividade = document.createElement('span');
+
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    let spanTituloContrato = document.createElement('span');
+                    let spanTituloRecursoContrato = document.createElement('span');
+                </text>
+            }
+            else
+            {
+                <text>
+                    let spanTituloRecurso = document.createElement('span');
+                </text>
+            }
+
+            let spanTituloValorHora = document.createElement('span');
+            let spanTituloHorasServico = document.createElement('span');
+            let spanTituloValorHoraTotal = document.createElement('span');
+
+            spanTituloAcoes.innerHTML = "<b>Ações</b>";
+            spanTituloSequencia.innerHTML = "<b>SEQUENCIA</b>";
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            spanTituloProduto.innerHTML = "<b>PRODUTO</b>";
+                </text>
+            }
+
+            spanTituloAtividade.innerHTML = "<b>ATIVIDADE</b>";
+
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    spanTituloContrato.innerHTML = "<b>CONTRATO</b>";
+                    spanTituloRecursoContrato.innerHTML = "<b>RECURSO</b>";
+                </text>
+            }
+            else
+            {
+                <text>
+                    spanTituloRecurso.innerHTML = "<b>RECURSO</b>";
+                </text>
+            }
+
+            spanTituloValorHora.innerHTML = "<b>VALOR HORA</b>";
+            spanTituloHorasServico.innerHTML = "<b>HORAS</b>";
+            spanTituloValorHoraTotal.innerHTML = "<b>TOTAL</b>";
+
+            thTituloAcoes.appendChild(spanTituloAcoes);
+            thTituloSequencia.appendChild(spanTituloSequencia);
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            thTituloProduto.appendChild(spanTituloProduto);
+                </text>
+            }
+
+            thTituloAtividade.appendChild(spanTituloAtividade);
+
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    thTituloContrato.appendChild(spanTituloContrato);
+                    thTituloRecursoContrato.appendChild(spanTituloRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+                    thTituloRecurso.appendChild(spanTituloRecurso);
+                </text>
+            }
+
+            thTituloValorHora.appendChild(spanTituloValorHora);
+            thTitulotHorasServico.appendChild(spanTituloHorasServico);
+            thTituloValorHoraTotal.appendChild(spanTituloValorHoraTotal);
+
+            tbodyEscopoCustomizado2.appendChild(trTitulo);
+        }
+
+        var tbodyEscopoCustomizado = document.getElementById("tbodyEscopoCustomizado");
+        var BtnCancelaEscopoCustomizado = document.getElementById("BtnCancelaEscopoCustomizado");
+
+        tableEscopoCustomizado.style = "border-collapse:collapse; display: table;";
+        //BtnCancelaEscopoCustomizado.style = "display: inline-block;";
+
+        let tr = document.createElement('tr');
+        tr.style = "display: table-row;"
+
+        tbodyEscopoCustomizado.appendChild(tr);
+
+        let thAcoes = document.createElement('th');
+        let thSequencia = document.createElement('th');
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+        {
+                <text>
+                    let thProduto = document.createElement('th');
+                </text>
+        }
+
+        let thAtividade = document.createElement('th');
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    let thContrato = document.createElement('th');
+                    let thRecursoContrato = document.createElement('th');
+                </text>
+            }
+            else
+            {
+                <text>
+                    let thRecurso = document.createElement('th');
+                </text>
+            }
+
+        let thValorHora = document.createElement('th');
+        let thtHorasServico = document.createElement('th');
+        let thValorHoraTotal = document.createElement('th');
+
+        thAcoes.style = "font-weight: normal;";
+        thSequencia.style = "font-weight: normal;";
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+        thProduto.style = "font-weight: normal;";
+                </text>
+            }
+
+        thAtividade.style = "font-weight: normal;";
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    thContrato.style = "font-weight: normal;";
+                    thRecursoContrato.style = "font-weight: normal;";
+                </text>
+            }
+            else
+            {
+                <text>
+                    thRecurso.style = "font-weight: normal;";
+                </text>
+            }
+
+        thValorHora.style = "font-weight: normal;";
+        thtHorasServico.style = "font-weight: normal;";
+        thValorHoraTotal.style = "font-weight: normal;";
+
+        tr.appendChild(thAcoes);
+        tr.appendChild(thSequencia);
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+        tr.appendChild(thProduto);
+                </text>
+            }
+
+        tr.appendChild(thAtividade);
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    tr.appendChild(thContrato);
+                    tr.appendChild(thRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+                    tr.appendChild(thRecurso);
+                </text>
+            }
+
+        tr.appendChild(thValorHora);
+        tr.appendChild(thtHorasServico);
+        tr.appendChild(thValorHoraTotal);
+
+        let btnAcao = document.createElement('a')
+        let btnObs = document.createElement('a');
+        //let iconeAcao = document.createElement('i');
+        let inputSequencia = document.createElement('input');
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+        let lblProduto = document.createElement('span');
+                </text>
+            }
+
+        let selectAtividade = document.createElement('select');
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    let selectContrato = document.createElement('select');
+                    let selectRecursoContrato = document.createElement('select');
+                </text>
+            }
+            else
+            {
+                <text>
+                    let selectRecurso = document.createElement('select');
+                </text>
+            }
+
+        let spanValorHora = document.createElement('span');
+        let inputHorasServico = document.createElement('input');
+        let spanValorHoraTotal = document.createElement('span');
+
+        tr.id = "tableRow" + contadorGlobal;
+        btnAcao.id = "btnAcao" + contadorGlobal;
+        btnObs.id = "btnObs" + contadorGlobal;
+        btnObs.title = "Adicionar Comentário";
+
+        inputSequencia.id = "inputSequencia" + contadorGlobal;
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+        lblProduto.id = "lblProduto" + contadorGlobal;
+                </text>
+            }
+
+        selectAtividade.id = "selectAtividade" + contadorGlobal;
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    selectContrato.id = "selectContrato" + contadorGlobal;
+                    selectRecursoContrato.id = "selectRecursoContrato" + contadorGlobal;
+                </text>
+            }
+            else
+            {
+                <text>
+                    selectRecurso.id = "selectRecurso" + contadorGlobal;
+                </text>
+            }
+
+        spanValorHora.id = "spanValorHora" + contadorGlobal;
+        inputHorasServico.id = "inputHorasServico" + contadorGlobal;
+        spanValorHoraTotal.id = "spanValorHoraTotal" + contadorGlobal;
+
+        btnAcao.className = "btn btn-xs btn-circle red";
+        btnObs.className = "btn btn-xs btn-circle blue";
+        //iconeAcao.className = "fa fa-minus";
+        inputSequencia.className = "form-control";
+        selectAtividade.className = "form-control";
+        selectAtividade.style = "width: 100%;";
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    selectContrato.className = "form-control";
+                    selectContrato.style = "width: 100%;";
+                    selectRecursoContrato.className = "form-control";
+                    selectRecursoContrato.style = "width: 100%;";
+                </text>
+            }
+            else
+            {
+                <text>
+                    selectRecurso.className = "form-control";
+                    selectRecurso.style = "width: 100%;";
+                </text>
+            }
+
+        inputHorasServico.className = "form-control";
+
+        inputHorasServico.type = "text";
+        inputHorasServico.maxlength = "5";
+        inputHorasServico.value = 1;
+
+        btnAcao.innerHTML = "<i class=\"fa fa-minus\"></i>";
+        btnObs.innerHTML = "<i class=\"fa fa-comment\"></i>";
+
+        btnObs.style = "display: none;"
+
+        btnAcao.onclick = function () {
+            ExcluirLinha(this);
+        };
+
+        //btnObs.onclick = function () {
+        //    //AbrirModalObs(this);
+        //}
+
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+        lblProduto.innerText = "@Html.Raw(Model.NomeOportunidadeProduto.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+                </text>
+            }
+
+
+        inputSequencia.type = "text";
+        inputSequencia.maxlength = "5";
+
+        inputSequencia.oninput = function () {
+            ControladorNumerico(this);
+        };
+
+        thAcoes.appendChild(btnAcao);
+        thAcoes.appendChild(btnObs);
+        thSequencia.appendChild(inputSequencia);
+        @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+        thProduto.appendChild(lblProduto);
+                </text>
+            }
+
+        thAtividade.appendChild(selectAtividade);
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+        thContrato.appendChild(selectContrato);
+        thRecursoContrato.appendChild(selectRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+                    thRecurso.appendChild(selectRecurso);
+                </text>
+            }
+
+        thValorHora.appendChild(spanValorHora);
+        thtHorasServico.appendChild(inputHorasServico);
+        thValorHoraTotal.appendChild(spanValorHoraTotal);
+
+        // Limpa as opções existentes, se houver
+        selectAtividade.innerHTML = '';
+
+        // Percorre o array ListaAtividades
+        for (var i = 0; i < ListaAtividades.length; i++) {
+            var option = document.createElement('option'); // Cria um elemento <option>
+            option.value = ListaAtividades[i].Handle; // Define o valor (handle)
+            option.text = ListaAtividades[i].Servico; // Define o texto (serviço)
+
+            selectAtividade.appendChild(option); // Adiciona a opção ao <select>
+        }
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                    // Limpa as opções existentes, se houver
+                    selectContrato.innerHTML = '';
+
+                    // Percorre o array ListaAtividades
+                    for (var i = 0; i < ListaContratos.length; i++) {
+                        var option = document.createElement('option'); // Cria um elemento <option>
+                        option.value = ListaContratos[i].NumeroContrato;
+                        option.text = ListaContratos[i].NumeroContrato;
+
+                        selectContrato.appendChild(option); // Adiciona a opção ao <select>
+                    }
+
+
+                </text>
+            }
+            else
+            {
+                <text>
+                    //Buscando o Recurso e Valor hora da tabela de pessoa ou filial conforme a subfase da conta
+        selectRecurso.innerHTML = '';
+
+        for (var i = 0; i < ListaRecursos.length; i++) {
+            if (selectRecurso.selectedIndex >= 0 && selectRecurso.options[selectRecurso.selectedIndex].value != ListaRecursos[i].Handle) {
+                var option = document.createElement('option'); // Cria um elemento <option>
+                option.value = ListaRecursos[i].Handle; // Define o valor (handle)
+                option.text = ListaRecursos[i].Recurso; // Define o texto (recurso)
+
+                selectRecurso.appendChild(option); // Adiciona a opção ao <select>
+            }
+            else {
+                var option = document.createElement('option'); // Cria um elemento <option>
+                option.value = ListaRecursos[i].Handle; // Define o valor (handle)
+                option.text = ListaRecursos[i].Recurso; // Define o texto (recurso)
+
+                selectRecurso.appendChild(option); // Adiciona a opção ao <select>
+            }
+        }
+                </text>
+            }
+
+
+
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+
+                <text>
+        inputHorasServico.oninput = function () {
+            var select = selectRecursoContrato;
+            ControladorEscopoCustomizado(this, spanValorHoraTotal, select, selectContrato);
+        };
+        selectContrato.onchange = function () {
+            SelectContratoOnChange(selectContrato, selectRecursoContrato);
+        };
+        SelectContratoOnChange(selectContrato, selectRecursoContrato);
+
+        selectRecursoContrato.onchange = function () {
+            SelectRecursoContratoOnChange(selectContrato, selectRecursoContrato);
+        };
+
+
+                </text>
+            }
+            else
+            {
+                <text>
+        inputHorasServico.oninput = function () {
+            var select = selectRecurso;
+            ControladorEscopoCustomizado(this, spanValorHoraTotal, select);
+        };
+
+        selectRecurso.onchange = function () {
+            SelectRecursoOnChange(selectRecurso);
+        };
+        SelectRecursoOnChange(selectRecurso);
+                </text>
+            }
+
+    }
+
+    async function MarcaEscopo() {
+        var escopoPadrao = document.getElementById("RdoEscopoPadrao");
+        var escopoCustomizado = document.getElementById("RdoEscopoCustomizado");
+        var divescopoPadrao = document.getElementById("divEscopoPadrao");
+        var divescopoCustomizado = document.getElementById("divEscopoCustomizado");
+        var chkAdicionalProjeto = document.getElementById("chkAdicionalProjeto");
+        var LblchkAdicionalProjeto = document.getElementById("LblchkAdicionalProjeto");
+        var lblAdicionalProjeto = document.getElementById("lblAdicionalProjeto");
+        var txtAdicionalProjeto = document.getElementById("txtAdicionalProjeto");
+        //var editar = document.getElementById("BtnEditarEscopo");
+        var lblEscopoPadrao = document.getElementById("lblEscopoPadrao");
+        var LblRdoEscopoCustomizado = document.getElementById("LblRdoEscopoCustomizado");
+
+        //debugger;
+
+        await AtribuiListaAtividades();
+
+        //var a = ListaAtividades;
+
+        @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+         {
+            <text>
+                AtribuiListaContratos();
+                AtribuiListaRecursosContratos();
+            </text>
+        }
+        else
+        {
+            <text>
+                AtribuiListaRecursos();
+            </text>
+        }
+
+
+        chkAdicionalProjeto.checked = @(Model.AdicionalNaGerenciaProjeto == false ? Html.Raw("false") : Html.Raw("true"));//true;
+        ControladorEscopoPadrao(txtAdicionalProjeto);
+
+        escopoPadrao.checked = false;
+        divescopoPadrao.style = "display: none;";
+
+        escopoCustomizado.checked = true;
+        divescopoCustomizado.style = "display: block;";
+
+        escopoCustomizado.style = "display: none;";
+        LblRdoEscopoCustomizado.style = "display: none;";
+        chkAdicionalProjeto.style = "display: none;";
+        LblchkAdicionalProjeto.style = "display: none;";
+        txtAdicionalProjeto.style = "display: none;";
+        lblAdicionalProjeto.style = "display: none;";
+
+        lblEscopoPadrao.style = "display: none;";
+        escopoPadrao.style = "display: none;";
+
+        CarregaEscopoPersonalizado();
+
+        var novoRegistro = {
+            "Horas": "@Model.TotalHorasEscopo",
+            "Valor": "@Model.TotalValorEscopo",
+            "ValorHoraGerencia": "@Model.ValorHoraGerencia"
+        };
+
+        if (ListaValoHora.find(elemento => elemento.Horas == novoRegistro.Horas && elemento.Valor == novoRegistro.Valor && elemento.ValorHoraGerencia == novoRegistro.ValorHoraGerencia)) {
+            ListaValoHora.pop();
+            ListaValoHora.push(novoRegistro);
+        }
+        else {
+            ListaValoHora.push(novoRegistro);
+        }
+
+        @*if ("@Model.SolicitacaoDesconto" == "True") {
+            editar.style = "display: none";
+        }
+        else {
+            editar.style = "display: inline-block;"
+        }*@
+    }
+
+    function CarregaEscopoPersonalizado() {
+
+        AtribuiListaEscopoSalvo();
+
+        //#region Configura a Visualização da tabela de escopo personalizado
+        var tableEscopoCustomizado = document.getElementById("tableEscopoCustomizado");
+
+        if (!document.getElementById("tbodyEscopoCustomizado")) {
+            let tbodyEscopoCustomizado2 = document.createElement("tbody");
+            tbodyEscopoCustomizado2.id = "tbodyEscopoCustomizado";
+            tableEscopoCustomizado.appendChild(tbodyEscopoCustomizado2);
+
+            let trTitulo = document.createElement('tr');
+            trTitulo.style = "display: table-row;"
+
+            let thTituloAcoes = document.createElement('th');
+            let thTituloSequencia = document.createElement('th');
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            let thTituloProduto = document.createElement('th');
+                </text>
+            }
+
+            let thTituloAtividade = document.createElement('th');
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+            let thTituloContrato = document.createElement('th');
+            let thTituloRecursoContrato = document.createElement('th');
+                </text>
+            }
+            else
+            {
+                <text>
+            let thTituloRecurso = document.createElement('th');
+                </text>
+            }
+            let thTituloValorHora = document.createElement('th');
+            let thTitulotHorasServico = document.createElement('th');
+            let thTituloValorHoraTotal = document.createElement('th');
+
+            thTituloAcoes.scope = "col";
+            thTituloSequencia.scope = "col";
+            thTituloSequencia.style = "width: 1%;";
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            thTituloProduto.scope = "col";
+                </text>
+            }
+
+            thTituloAtividade.scope = "col";
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+            thTituloContrato.scope = "col";
+            thTituloRecursoContrato.scope = "col";
+                </text>
+            }
+            else
+            {
+                <text>
+            thTituloRecurso.scope = "col";
+                </text>
+            }
+            thTituloValorHora.scope = "col";
+            thTitulotHorasServico.scope = "col";
+            thTituloValorHoraTotal.scope = "col";
+
+            trTitulo.appendChild(thTituloAcoes);
+            trTitulo.appendChild(thTituloSequencia);
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            trTitulo.appendChild(thTituloProduto);
+                </text>
+            }
+
+            trTitulo.appendChild(thTituloAtividade);
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+            trTitulo.appendChild(thTituloContrato);
+            trTitulo.appendChild(thTituloRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+            trTitulo.appendChild(thTituloRecurso);
+                </text>
+            }
+            trTitulo.appendChild(thTituloValorHora);
+            trTitulo.appendChild(thTitulotHorasServico);
+            trTitulo.appendChild(thTituloValorHoraTotal);
+
+            let spanTituloAcoes = document.createElement('span');
+            let spanTituloSequencia = document.createElement('span');
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            let spanTituloProduto = document.createElement('span');
+                </text>
+            }
+
+            let spanTituloAtividade = document.createElement('span');
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+            let spanTituloContrato = document.createElement('span');
+            let spanTituloRecursoContrato = document.createElement('span');
+                </text>
+            }
+            else
+            {
+                <text>
+            let spanTituloRecurso = document.createElement('span');
+                </text>
+            }
+            let spanTituloValorHora = document.createElement('span');
+            let spanTituloHorasServico = document.createElement('span');
+            let spanTituloValorHoraTotal = document.createElement('span');
+
+            spanTituloAcoes.innerHTML = "<b>Ações</b>";
+            spanTituloSequencia.innerHTML = "<b>SEQUENCIA</b>";
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            spanTituloProduto.innerHTML = "<b>PRODUTO</b>";
+                </text>
+            }
+
+            spanTituloAtividade.innerHTML = "<b>ATIVIDADE</b>";
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+            spanTituloContrato.innerHTML = "<b>CONTRATO</b>";
+            spanTituloRecursoContrato.innerHTML = "<b>RECURSO</b>";
+                </text>
+            }
+            else
+            {
+                <text>
+            spanTituloRecurso.innerHTML = "<b>RECURSO</b>";
+                </text>
+            }
+            spanTituloValorHora.innerHTML = "<b>VALOR HORA</b>";
+            spanTituloHorasServico.innerHTML = "<b>HORAS</b>";
+            spanTituloValorHoraTotal.innerHTML = "<b>TOTAL</b>";
+
+            thTituloAcoes.appendChild(spanTituloAcoes);
+            thTituloSequencia.appendChild(spanTituloSequencia);
+            @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+            thTituloProduto.appendChild(spanTituloProduto);
+                </text>
+            }
+
+            thTituloAtividade.appendChild(spanTituloAtividade);
+            @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+            thTituloContrato.appendChild(spanTituloContrato);
+            thTituloRecursoContrato.appendChild(spanTituloRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+            thTituloRecurso.appendChild(spanTituloRecurso);
+                </text>
+            }
+            thTituloValorHora.appendChild(spanTituloValorHora);
+            thTitulotHorasServico.appendChild(spanTituloHorasServico);
+            thTituloValorHoraTotal.appendChild(spanTituloValorHoraTotal);
+
+            tbodyEscopoCustomizado2.appendChild(trTitulo);
+        }
+
+        tableEscopoCustomizado.style = "border-collapse:collapse; display: table;";
+        //#endregion
+
+        //debugger;
+
+        //#region Criando tabela do escopo anteriormente salvo
+        var tbodyEscopoCustomizado = document.getElementById("tbodyEscopoCustomizado");
+
+        for (var i = 0; i < ListaEscopoSalvo.length; i++) {
+            var j = i + 1;
+            var retorno = ListaEscopoSalvo[i];
+
+            let tr = document.createElement('tr');
+                tr.style = "display: table-row;"
+
+                tbodyEscopoCustomizado.appendChild(tr);
+
+                let thAcoes = document.createElement('th');
+                let thSequencia = document.createElement('th');
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                let thProduto = document.createElement('th');
+                </text>
+            }
+
+                let thAtividade = document.createElement('th');
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                let thContrato = document.createElement('th');
+                let thRecursoContrato = document.createElement('th');
+                </text>
+            }
+            else
+            {
+                <text>
+                let thRecurso = document.createElement('th');
+                </text>
+            }
+                let thValorHora = document.createElement('th');
+                let thtHorasServico = document.createElement('th');
+                let thValorHoraTotal = document.createElement('th');
+
+                thAcoes.style = "font-weight: normal;";
+                thSequencia.style = "font-weight: normal;";
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                thProduto.style = "font-weight: normal;";
+                </text>
+            }
+
+                thAtividade.style = "font-weight: normal;";
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                thContrato.style = "font-weight: normal;";
+                thRecursoContrato.style = "font-weight: normal;";
+                </text>
+            }
+            else
+            {
+                <text>
+                thRecurso.style = "font-weight: normal;";
+                </text>
+            }
+                thValorHora.style = "font-weight: normal;";
+                thtHorasServico.style = "font-weight: normal;";
+                thValorHoraTotal.style = "font-weight: normal;";
+
+                tr.appendChild(thAcoes);
+                tr.appendChild(thSequencia);
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                tr.appendChild(thProduto);
+                </text>
+            }
+
+                tr.appendChild(thAtividade);
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                tr.appendChild(thContrato);
+                tr.appendChild(thRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+                tr.appendChild(thRecurso);
+                </text>
+            }
+                tr.appendChild(thValorHora);
+                tr.appendChild(thtHorasServico);
+                tr.appendChild(thValorHoraTotal);
+
+                let btnAcao = document.createElement('a');
+            let btnObs = document.createElement('a');
+            let lblHandle = document.createElement('span');
+                let inputSequencia = document.createElement('input');
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                let lblProduto = document.createElement('span');
+                </text>
+            }
+
+                let selectAtividade = document.createElement('select');
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                let selectContrato = document.createElement('select');
+                let selectRecursoContrato = document.createElement('select');
+                </text>
+            }
+            else
+            {
+                <text>
+                let selectRecurso = document.createElement('select');
+                </text>
+            }
+                let spanValorHora = document.createElement('span');
+                let inputHorasServico = document.createElement('input');
+                let spanValorHoraTotal = document.createElement('span');
+
+                tr.id = "tableRow" + j;
+            btnAcao.id = "btnAcao" + j;
+            btnObs.id = "btnObs" + retorno.HandleEscopo;
+            lblHandle.id = "lblHandle" + j;
+            btnObs.title = "Adicionar Comentário";
+                inputSequencia.id = "inputSequencia" + j;
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                lblProduto.id = "lblProduto" + j;
+                </text>
+            }
+
+                selectAtividade.id = "selectAtividade" + j;
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                selectContrato.id = "selectContrato" + j;
+                selectRecursoContrato.id = "selectRecursoContrato" + j;
+                </text>
+            }
+            else
+            {
+                <text>
+                selectRecurso.id = "selectRecurso" + j;
+                </text>
+            }
+                spanValorHora.id = "spanValorHora" + j;
+                inputHorasServico.id = "inputHorasServico" + j;
+                spanValorHoraTotal.id = "spanValorHoraTotal" + j;
+
+            btnAcao.className = "btn btn-xs btn-circle red";
+            btnObs.className = "btn btn-xs btn-circle blue";
+            btnAcao.style = "display: none;";
+            btnObs.style = "display: none;";
+            lblHandle.style = "display: none;";
+                //iconeAcao.className = "fa fa-minus";
+                inputSequencia.className = "form-control";
+                selectAtividade.className = "form-control";
+                selectAtividade.style = "width: 100%;";
+
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                selectContrato.className = "form-control";
+                selectContrato.style = "width: 100%;";
+                selectRecursoContrato.className = "form-control";
+                selectRecursoContrato.style = "width: 100%;";
+                </text>
+            }
+            else
+            {
+                <text>
+                selectRecurso.className = "form-control";
+                selectRecurso.style = "width: 100%;";
+                </text>
+            }
+
+                inputHorasServico.className = "form-control";
+
+                inputHorasServico.type = "text"
+                inputHorasServico.maxlength = "5"
+                inputHorasServico.value = retorno.Horas;
+                inputSequencia.value = retorno.Sequencia;
+
+            btnAcao.innerHTML = "<i class=\"fa fa-minus\"></i>";
+            btnObs.innerHTML = "<i class=\"fa fa-comment\"></i>";
+            lblHandle.innerHTML = retorno.HandleEscopo;
+
+                btnAcao.onclick = function () {
+                    ExcluirLinha(this);
+            };
+
+            btnObs.onclick = function () {
+                AbrirModalObs(this);
+            }
+
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                lblProduto.innerText = "@Html.Raw(Model.NomeOportunidadeProduto.Replace("'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\").Replace("/", "\\/").Replace("\r\n", "\\r\\n").Replace("\t", "\\t").Replace("\r", "\\r").Replace("\0", "\\0").Replace("\b", "\\b").Replace("\f", "\\f"))";
+                </text>
+            }
+
+
+                inputSequencia.type = "text";
+                inputSequencia.maxlength = "5";
+
+                inputSequencia.oninput = function () {
+                    ControladorNumerico(this);
+                };
+
+
+
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                option = document.createElement('option');
+                option.value = retorno.Contrato;
+                option.text = retorno.Contrato;
+                selectContrato.add(option);
+
+                option3 = document.createElement('option');
+                option3.value = retorno.RecursoContrato;
+                option3.text = retorno.RecursoContrato;
+            selectRecursoContrato.add(option3);
+
+            var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(retorno.ValorHora);
+            spanValorHora.innerHTML = brl;
+            var brlTotal = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(parseFloat(retorno.Horas) * retorno.ValorHora);
+            spanValorHoraTotal.innerHTML = brlTotal;
+
+                selectContrato.disabled = true;
+                selectRecursoContrato.disabled = true;
+                </text>
+            }
+            else
+            {
+                <text>
+                option = document.createElement('option');
+                option.value = retorno.HandleRecurso;
+                option.text = retorno.Recurso;
+                selectRecurso.add(option);
+            selectRecurso.disabled = true;
+
+            var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(retorno.ValorHora);
+                spanValorHora.innerHTML = brl;
+
+                var brlTotal = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(parseFloat(retorno.Horas) * retorno.ValorHora);
+                spanValorHoraTotal.innerHTML = brlTotal;
+                </text>
+            }
+                //debugger;
+                option2 = document.createElement('option');
+                option2.value = retorno.HandleAtividade;
+                option2.text = retorno.Atividade;
+                selectAtividade.add(option2);
+
+                selectAtividade.disabled = true;
+
+                inputHorasServico.disabled = true;
+                inputSequencia.disabled = true;
+
+
+
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                inputHorasServico.oninput = function () {
+                    var select = selectRecursoContrato;
+                    ControladorEscopoCustomizado(this, spanValorHoraTotal, select, selectContrato);
+                };
+                selectContrato.onchange = function () {
+                    SelectContratoOnChange(selectContrato, selectRecursoContrato);
+                };
+                selectRecursoContrato.onchange = function () {
+                    SelectRecursoContratoOnChange(selectContrato, selectRecursoContrato);
+                };
+                //SelectContratoOnChange(selectContrato, selectRecursoContrato);
+            </text>
+            }
+            else
+            {
+                <text>
+                inputHorasServico.oninput = function () {
+                    var select = selectRecurso;
+                    ControladorEscopoCustomizado(this, spanValorHoraTotal, select);
+                };
+
+                selectRecurso.onchange = function () {
+                    SelectRecursoOnChange(selectRecurso);
+                };
+                //SelectRecursoOnChange(selectRecurso);
+                </text>
+            }
+
+
+            thAcoes.appendChild(btnAcao);
+            thAcoes.appendChild(btnObs);
+            thAcoes.appendChild(lblHandle);
+
+                thSequencia.appendChild(inputSequencia);
+                @if (Model.TipoDeEscopo == SM.Crm.Definicoes.Comum.Oportunidades.TiposDeEscopo.Produto)
+            {
+                <text>
+                thProduto.appendChild(lblProduto);
+                </text>
+            }
+
+                thAtividade.appendChild(selectAtividade);
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+            {
+                <text>
+                thContrato.appendChild(selectContrato);
+                thRecursoContrato.appendChild(selectRecursoContrato);
+                </text>
+            }
+            else
+            {
+                <text>
+                thRecurso.appendChild(selectRecurso);
+                </text>
+            }
+                thValorHora.appendChild(spanValorHora);
+                thtHorasServico.appendChild(inputHorasServico);
+            thValorHoraTotal.appendChild(spanValorHoraTotal);
+
+
+            //SelectRecursoContratoOnChange(selectContrato, selectRecursoContrato);
+
+                contadorGlobal = j;
+        }
+        //#endregion
+
+        //#region Criando funções individuais de cada campo na tela
+        if (contadorGlobal > 0) {
+            var k = 1;
+            for (k = 1; k <= contadorGlobal; k++) {
+                //#region Inicializando Variaveis
+                var selectAtividadeAtual = document.getElementById("selectAtividade" + k);
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                {
+                    <text>
+                var selectContratoAtual = document.getElementById("selectContrato" + k);
+                var selectRecursoContratoAtual = document.getElementById("selectRecursoContrato" + k);
+                    </text>
+                }
+                    else
+                    {
+                    <text>
+                var selectRecursoAtual = document.getElementById("selectRecurso" + k);
+                    </text>
+                    }
+                var inputHorasServicoAtual = document.getElementById("inputHorasServico" + k);
+                var spanValorHoraTotalAtual = document.getElementById("spanValorHoraTotal" + k);
+                var spanValorHoraAtual = document.getElementById("spanValorHora" + k);
+                //#endregion
+
+                //#region Buscando todas as Atividades Cadastradas
+                //selectAtividadeAtual.innerHTML = '';
+                //debugger;
+                // Percorre o array ListaAtividades
+                for (var i = 0; i < ListaAtividades.length; i++) {
+                    if (selectAtividadeAtual.options[selectAtividadeAtual.selectedIndex].textContent != ListaAtividades[i].Servico) {
+                        var option = document.createElement('option'); // Cria um elemento <option>
+                        option.value = ListaAtividades[i].Handle; // Define o valor (handle)
+                        option.text = ListaAtividades[i].Servico; // Define o texto (serviço)
+
+                        selectAtividadeAtual.appendChild(option); // Adiciona a opção ao <select>
+                    }
+                }
+                //#endregion
+
+                @if (Model.SubfaseVertical == "Cliente" && Model.ValorRecursoPorContrato == true)
+                {
+                <text>
+                //#region Buscando todas os CONTRATOS e RECURSOS na API
+                // Limpa as opções existentes, se houver
+                //selectContratoAtual.innerHTML = '';
+
+                // Percorre o array ListaAtividades
+                for (var i = 0; i < ListaContratos.length; i++) {
+                    if (selectContratoAtual.options[selectContratoAtual.selectedIndex].textContent != ListaContratos[i].NumeroContrato) {
+                        var option = document.createElement('option'); // Cria um elemento <option>
+                        option.value = ListaContratos[i].NumeroContrato;
+                        option.text = ListaContratos[i].NumeroContrato;
+
+                        selectContratoAtual.appendChild(option); // Adiciona a opção ao <select>
+                    }
+                }
+                //debugger;
+                if (selectContratoAtual.selectedIndex >= 0) {
+                    for (var i = 0; i < ListaRecursosContratos.length; i++) {
+                        if (selectRecursoContratoAtual.options[selectRecursoContratoAtual.selectedIndex].textContent != ListaRecursosContratos[i].Produto) {
+                            var numeroContrato = selectContratoAtual.options[selectContratoAtual.selectedIndex].textContent;
+                            if (ListaRecursosContratos[i].Contrato == numeroContrato) {
+                                var option = document.createElement('option'); // Cria um elemento <option>
+                                option.value = ListaRecursosContratos[i].Produto; // Define o valor (handle)
+                                option.text = ListaRecursosContratos[i].Produto; // Define o texto (serviço)
+
+                                selectRecursoContratoAtual.appendChild(option); // Adiciona a opção ao <select>
+
+                                //var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(ListaRecursosContratos[i].ValorUnitario.replace(',', '.'));
+                                //spanValorHoraAtual.innerHTML = brl;
+                                //spanValorHoraTotalAtual.innerHTML = brl;
+                            }
+                        }
+                    }
+                }
+
+
+
+                //if (selectContratoAtual.selectedIndex >= 0) {
+                //    var numeroContrato = selectContratoAtual.options[selectContratoAtual.selectedIndex].textContent;
+
+                //    // Limpa as opções existentes, se houver
+                //    //selectRecursoContratoAtual.innerHTML = '';
+                //        // Percorre o array ListaAtividades
+                //    for (var i = 0; i < ListaRecursosContratos.length; i++) {
+                //        if (selectRecursoContratoAtual.selectedIndex >= 0) {
+                //            if (selectRecursoContratoAtual.options[selectRecursoContratoAtual.selectedIndex].textContent != ListaRecursosContratos[i].Produto) {
+                //                if (ListaRecursosContratos[i].Contrato == numeroContrato) {
+                //                    var option = document.createElement('option'); // Cria um elemento <option>
+                //                    option.value = ListaRecursosContratos[i].Produto; // Define o valor (handle)
+                //                    option.text = ListaRecursosContratos[i].Produto; // Define o texto (serviço)
+
+                //                    selectRecursoContratoAtual.appendChild(option); // Adiciona a opção ao <select>
+
+                //                    var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(ListaRecursosContratos[i].ValorUnitario.replace(',', '.'));
+                //                    spanValorHoraAtual.innerHTML = brl;
+                //                    spanValorHoraTotalAtual.innerHTML = brl;
+                //                }
+                //            }
+                //        }
+                //        else {
+                //            if (ListaRecursosContratos[i].Contrato == numeroContrato) {
+                //                var option = document.createElement('option'); // Cria um elemento <option>
+                //                option.value = ListaRecursosContratos[i].Produto; // Define o valor (handle)
+                //                option.text = ListaRecursosContratos[i].Produto; // Define o texto (serviço)
+
+                //                selectRecursoContratoAtual.appendChild(option); // Adiciona a opção ao <select>
+
+                //                var brl = new Intl.NumberFormat("pt-BR", { style: "currency", "currency": "BRL" }).format(ListaRecursosContratos[i].ValorUnitario.replace(',', '.'));
+                //                spanValorHoraAtual.innerHTML = brl;
+                //                spanValorHoraTotalAtual.innerHTML = brl;
+                //            }
+                //        }
+                //    }
+
+                //}
+
+                //SelectContratoOnChange(selectContratoAtual, selectRecursoContratoAtual);
+
+                //#endregion
+                </text>
+                }
+                else
+                {
+                <text>
+                //#region Buscando todas os Recursos conforme o status da Vertical
+                //selectRecursoAtual.innerHTML = '';
+
+                // Percorre o array ListaAtividades
+                for (var i = 0; i < ListaRecursos.length; i++) {
+                    if (selectRecursoAtual.options[selectRecursoAtual.selectedIndex].value != ListaRecursos[i].Handle) {
+                        var option = document.createElement('option'); // Cria um elemento <option>
+                        option.value = ListaRecursos[i].Handle; // Define o valor (handle)
+                        option.text = ListaRecursos[i].Recurso; // Define o texto (recurso)
+
+                        selectRecursoAtual.appendChild(option); // Adiciona a opção ao <select>
+                    }
+                }
+
+                //SelectRecursoOnChange(selectRecursoAtual);
+                //#endregion
+                </text>
+                }
+            }
+        }
+        //#endregion
+    }
+
+    function AtualizaServicos() {
+        window.location.reload(1);
+    }
+</script>
+@Ajax.OnReadyScript("MarcaEscopo();")

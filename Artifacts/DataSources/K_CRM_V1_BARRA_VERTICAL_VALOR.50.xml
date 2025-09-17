@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>K_CRM_V1_BARRA_VERTICAL_VALOR</Identifier>
+  <Name>CRM_V1_BARRA_VERTICAL_VALOR</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT  NOME, PRODUTO,&#xD;&#xA;        SUM(VALORLU) VALORLU,&#xD;&#xA;        SUM(VALORLUM) VALORLUM,&#xD;&#xA;        SUM(VALORLOCACAO) VALORLOCACAO,&#xD;&#xA;        SUM(VALORSAAS) VALORSAAS,&#xD;&#xA;        SUM(VALORESCOPO) VALORESCOPO&#xD;&#xA;FROM(SELECT B.NOME,A.PRODUTO,&#xD;&#xA;       (&#xD;&#xA;        SELECT COALESCE(ROUND(SUM(AC.VALORLU),2),0) TOTAL&#xD;&#xA;        FROM K_CRM_PESSOAOPORTUNIDADESPROD AA&#xD;&#xA;        JOIN K_CRM_PESSOAOPORTUNIDADESITENS AC ON AA.HANDLE = AC.PRODUTO&#xD;&#xA;        WHERE AA.HANDLE = A.HANDLE AND AA.TIPOVENDA = 1) VALORLU,&#xD;&#xA;       (&#xD;&#xA;        SELECT COALESCE(ROUND(SUM(AC.VALORLUM),2),0) TOTAL&#xD;&#xA;        FROM K_CRM_PESSOAOPORTUNIDADESPROD AA&#xD;&#xA;        JOIN K_CRM_PESSOAOPORTUNIDADESITENS AC ON AA.HANDLE = AC.PRODUTO&#xD;&#xA;        WHERE AA.HANDLE = A.HANDLE AND AA.TIPOVENDA = 1) VALORLUM,&#xD;&#xA;       (&#xD;&#xA;        SELECT COALESCE(ROUND(SUM(AC.VALORLOCACAO),2),0) TOTAL&#xD;&#xA;        FROM K_CRM_PESSOAOPORTUNIDADESPROD AA&#xD;&#xA;        JOIN K_CRM_PESSOAOPORTUNIDADESITENS AC ON AA.HANDLE = AC.PRODUTO&#xD;&#xA;        WHERE AA.HANDLE = A.HANDLE AND( AA.TIPOVENDA = 2 OR AA.TIPOVENDA = 3)) VALORLOCACAO,&#xD;&#xA;       (&#xD;&#xA;        SELECT COALESCE(ROUND(SUM(AC.VALORSAAS),2),0) TOTAL&#xD;&#xA;        FROM K_CRM_PESSOAOPORTUNIDADESPROD AA&#xD;&#xA;        JOIN K_CRM_PESSOAOPORTUNIDADESITENS AC ON AA.HANDLE = AC.PRODUTO&#xD;&#xA;        WHERE AA.HANDLE = A.HANDLE AND AA.TIPOVENDA = 3) VALORSAAS,&#xD;&#xA;        (&#xD;&#xA;        SELECT COALESCE(ROUND(SUM(AC.VALORESCOPO),2),0) TOTAL&#xD;&#xA;        FROM K_CRM_PESSOAOPORTUNIDADESPROD AA&#xD;&#xA;        JOIN K_CRM_PESSOAOPORTUNIDADESITENS AC ON AA.HANDLE = AC.PRODUTO&#xD;&#xA;        WHERE AA.HANDLE = A.HANDLE) VALORESCOPO&#xD;&#xA;FROM K_CRM_PESSOAOPORTUNIDADESPROD A&#xD;&#xA;JOIN K_CRM_PRODUTOS B ON A.PRODUTO = B.HANDLE&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADESITENS C ON A.HANDLE = C.PRODUTO&#xD;&#xA;JOIN K_CRM_PESSOAOPORTUNIDADES D ON D.HANDLE = A.OPORTUNIDADE&#xD;&#xA;WHERE @CRITERIOSELECAO&#xD;&#xA;GROUP BY B.NOME,A.PRODUTO,A.HANDLE) TABELA&#xD;&#xA;GROUP BY NOME, PRODUTO" />
+  <Fields>
+    <Field Alias="NOME" From="A" Path="NOME" />
+    <Field Alias="PRODUTO" From="A" Path="PRODUTO" />
+    <DecimalField Alias="VALORLU" From="A" Path="VALORLU" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORLUM" From="A" Path="VALORLUM" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORLOCACAO" From="A" Path="VALORLOCACAO" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORSAAS" From="A" Path="VALORSAAS" FieldDecimalsFormat="0" />
+    <DecimalField Alias="VALORESCOPO" From="A" Path="VALORESCOPO" FieldDecimalsFormat="0" />
+  </Fields>
+</DataSourceDefinition>]]></Content>
+  <Level>Cliente</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

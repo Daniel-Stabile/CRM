@@ -1,0 +1,77 @@
+@{
+    Ajax.OnReadyScript("reloadRecaptcha()");
+}
+
+@* HTML *@
+<div class="divPrincipal">
+    <label class="titleChave">Chave</label>
+    <label class="lblObrigatorio">*</label>
+    <input class="inputChave" id="chaveInput" name="chaveInput"></input>
+    <div class="g-recaptcha" data-sitekey="@Html.Raw(ViewBag.PublicKey)" id="recaptcha"></div>
+    @Html.ActionLinkWes("Pesquisar", "SubmeterConsulta","ConsultaDocumentosPublicos", new {@class = "btnPesquisar"})
+    <span class="spanMessagem">@Html.Raw(ViewBag.Message)</span>
+</div>
+
+@* CSS *@
+<style>
+    .divPrincipal{
+        margin-top: 100px;
+        margin-left: 500px;
+    }
+
+    .lblObrigatorio{
+        color: red;
+    }
+
+    .inputChave{
+        width: 500px;
+        height: 30px;
+        border: 2px solid rgb(177, 181, 184);
+        border-radius: 15px;
+        margin-left: 15px;
+    }
+
+    .spanMessagem{
+        align-items: center;
+        height: 40px;
+        margin-left: 70px;
+        color: red;
+    }
+
+
+    .g-recaptcha{
+        margin-top: 30px;
+        margin-left: 70px;
+    }
+
+    .btnPesquisar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 2px !important;
+        background-color: rgb(208, 209, 209);
+        width: 100px;
+        height: 40px;
+        margin-left: 70px;
+        margin-top: 15px;
+        color: rgb(104, 103, 103);
+        font-weight: bold;
+    }
+</style>
+
+@* JavaScript *@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+function renderRecaptcha() {
+  grecaptcha.render('recaptcha', {
+    sitekey: '@Html.Raw(ViewBag.PublicKey)',
+    size: 'normal',
+  });
+}
+
+function reloadRecaptcha() {
+  renderRecaptcha();
+}
+</script>

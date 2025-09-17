@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>WEB_CT_PERFISCONSULTAS.CUSTOM.FORM</ViewName>
+  <EntityName>WEB_CT_PERFISCONSULTAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.Entity["TIPO"].GetString() == "Gerenciais"):
+        widget.View.Pages[3].Items["EXIBICAOBALANCETE"].Visible = False;
+    else:
+        widget.View.Pages[2].Visible = False;
+        widget.View.Pages[3].Items["EXIBICAOGERENCIAIS"].Visible = False;
+    if(widget.Entity["EHCONTAGERENCIAL"].GetBoolean()):
+        widget.Entity["CONTASGERENCIAIS"].Visible = True;
+        widget.Entity["CONTAS"].Visible = False;
+        widget.Entity["CONTAS"].SetNull();
+    else:
+        widget.Entity["CONTAS"].Visible = True;
+        widget.Entity["CONTASGERENCIAIS"].Visible = False;
+        widget.Entity["CONTASGERENCIAIS"].SetNull();
+    if (widget.Entity["EHCCGERENCIAL"].GetBoolean()):
+        widget.Entity["PLANOCC"].ReadOnly = False;
+        widget.Entity["CCGERENCIAIS"].Visible = True;
+        widget.Entity["CENTROCUSTOS"].Visible = False;
+        widget.Entity["CENTROCUSTOS"].SetNull();
+    else:
+        widget.Entity["PLANOCC"].ReadOnly = True;
+        widget.Entity["PLANOCC"].SetNull();
+        widget.Entity["CENTROCUSTOS"].Visible = True;
+        widget.Entity["CCGERENCIAIS"].Visible = False;
+        widget.Entity["CCGERENCIAIS"].SetNull();
+    if (widget.Entity["EHPROJETOSGERENCIAL"].GetBoolean()):
+        widget.Entity["PLANOPROJETOS"].ReadOnly = False;
+        widget.Entity["PROJETOSGERENCIAIS"].Visible = True;
+        widget.Entity["PROJETOS"].Visible = False;
+        widget.Entity["PROJETOS"].SetNull();
+    else:
+        widget.Entity["PLANOPROJETOS"].ReadOnly = True;
+        widget.Entity["PLANOPROJETOS"].SetNull();
+        widget.Entity["PROJETOS"].Visible = True;
+        widget.Entity["PROJETOSGERENCIAIS"].Visible = False;
+        widget.Entity["PROJETOSGERENCIAIS"].SetNull();
+    coluna = widget.Entity["COLUNAS"].GetInt32();
+    if (coluna == 2 or coluna == 3 or coluna == 4):
+        widget.Entity["RESULTADOCOLUNA"].Visible = True;
+    else:
+        widget.Entity["RESULTADOCOLUNA"].Visible = False;
+    if (widget.Entity["ANTESZERAMENTO"].GetBoolean()):
+        widget.Entity["DATAZERAMENTO"].ReadOnly = False;
+        widget.Entity["DATAZERAMENTO"].SetNull();
+    else:
+        widget.Entity["DATAZERAMENTO"].ReadOnly = True;
+        widget.Entity["DATAZERAMENTO"].SetNull();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnRADIOPROJETOSValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnRADIOPROJETOSValueChanged(view, entity):
+    raise Exception(entity["RADIOPROJETOS"].GetString());
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEHCCGERENCIALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEHCCGERENCIALValueChanged(view, entity):
+    if (entity["EHCCGERENCIAL"].GetBoolean()):
+        entity["PLANOCC"].ReadOnly = False;
+        entity["CCGERENCIAIS"].Visible = True;
+        entity["CENTROCUSTOS"].Visible = False;
+        entity["CENTROCUSTOS"].SetNull();
+    else:
+        entity["PLANOCC"].ReadOnly = True;
+        entity["PLANOCC"].SetNull();
+        entity["CENTROCUSTOS"].Visible = True;
+        entity["CCGERENCIAIS"].Visible = False;
+        entity["CCGERENCIAIS"].SetNull();
+
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEHPROJETOSGERENCIALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEHPROJETOSGERENCIALValueChanged(view, entity):
+    if (entity["EHPROJETOSGERENCIAL"].GetBoolean()):
+        entity["PLANOPROJETOS"].ReadOnly = False;
+        entity["PROJETOSGERENCIAIS"].Visible = True;
+        entity["PROJETOS"].Visible = False;
+        entity["PROJETOS"].SetNull();
+    else:
+        entity["PLANOPROJETOS"].ReadOnly = True;
+        entity["PLANOPROJETOS"].SetNull();
+        entity["PROJETOS"].Visible = True;
+        entity["PROJETOSGERENCIAIS"].Visible = False;
+        entity["PROJETOSGERENCIAIS"].SetNull();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOValueChanged(view, entity):
+    if (entity["TIPO"].GetString() == "Gerenciais"):
+        view.Pages[2].Visible = True;
+        view.Pages[3].Items["EXIBICAOBALANCETE"].Visible = False;
+        view.Pages[3].Items["EXIBICAOGERENCIAIS"].Visible = True;
+        entity["EHPADRAOBALANCETE"].Visible = False;
+    else:
+        view.Pages[2].Visible = False;
+        view.Pages[3].Items["EXIBICAOBALANCETE"].Visible = True;
+        view.Pages[3].Items["EXIBICAOGERENCIAIS"].Visible = False;
+        entity["EHPADRAOBALANCETE"].Visible = True;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnEHCONTAGERENCIALValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnEHCONTAGERENCIALValueChanged(view, entity):
+    if(entity["EHCONTAGERENCIAL"].GetBoolean()):
+        entity["CONTASGERENCIAIS"].Visible = True;
+        entity["CONTAS"].Visible = False;
+        entity["CONTAS"].SetNull();
+    else:
+        entity["CONTAS"].Visible = True;
+        entity["CONTASGERENCIAIS"].Visible = False;
+        entity["CONTASGERENCIAIS"].SetNull();
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCOLUNASValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCOLUNASValueChanged(view, entity):
+    coluna = entity["COLUNAS"].GetInt32();
+    if (coluna == 2 or coluna == 3 or coluna == 4):
+        entity["RESULTADOCOLUNA"].Visible = True;
+    else:
+        entity["RESULTADOCOLUNA"].Visible = False;
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnANTESZERAMENTOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnANTESZERAMENTOValueChanged(view, entity):
+    if (entity["ANTESZERAMENTO"].GetBoolean()):
+        entity["DATAZERAMENTO"].ReadOnly = False;
+        entity["DATAZERAMENTO"].SetNull();
+    else:
+        entity["DATAZERAMENTO"].ReadOnly = True;
+        entity["DATAZERAMENTO"].SetNull();
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

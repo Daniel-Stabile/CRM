@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>CONTASFINANCEIRASITEMFATURAMENTOCOMERCIAL</Identifier>
+  <Name>Contas financeiras do item faturamento comercial</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT A.HANDLE HANDLE,&#xD;&#xA;       A.NATUREZA,&#xD;&#xA;       A.DOCUMENTO,&#xD;&#xA;       A.LANCAMENTOITEMFAT,&#xD;&#xA;       A.PERCENTUAL PERCLANCAMENTO,&#xD;&#xA;       B.HANDLE HANDLECC,&#xD;&#xA;       AB.NOME CONTA,&#xD;&#xA;       AB.ESTRUTURA ESTRUTURACONTA,&#xD;&#xA;       A.VALOR VALORLANCAMENTO,&#xD;&#xA;       C.NOME CENTROCUSTO,&#xD;&#xA;       C.ESTRUTURA ESTRUTURACC,&#xD;&#xA;       D.NOME PROJETO,&#xD;&#xA;       B.VALOR VALORCC,&#xD;&#xA;       B.PERCENTUAL PERCCC&#xD;&#xA;  FROM FN_LANCAMENTOS A&#xD;&#xA;       LEFT JOIN FN_CONTAS AB ON (AB.HANDLE = A.CONTA)&#xD;&#xA;       LEFT JOIN FN_LANCAMENTOCC B ON (B.LANCAMENTO = A.HANDLE)&#xD;&#xA;       LEFT JOIN CT_CC C ON (C.HANDLE = B.CENTROCUSTO)&#xD;&#xA;       LEFT JOIN GN_PROJETOS D ON (D.HANDLE = B.PROJETO)&#xD;&#xA; WHERE A.PARCELA IS NULL" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="NATUREZA" From="A" Path="NATUREZA" />
+    <Field Alias="DOCUMENTO" From="A" Path="DOCUMENTO" />
+    <Field Alias="LANCAMENTOITEMFAT" From="A" Path="LANCAMENTOITEMFAT" />
+    <Field Alias="PERCLANCAMENTO" From="A" Path="PERCLANCAMENTO" />
+    <Field Alias="HANDLECC" From="A" Path="HANDLECC" />
+    <Field Alias="CONTA" From="A" Path="CONTA" />
+    <Field Alias="ESTRUTURACONTA" From="A" Path="ESTRUTURACONTA" />
+    <Field Alias="VALORLANCAMENTO" From="A" Path="VALORLANCAMENTO" />
+    <Field Alias="CENTROCUSTO" From="A" Path="CENTROCUSTO" />
+    <Field Alias="ESTRUTURACC" From="A" Path="ESTRUTURACC" />
+    <Field Alias="PROJETO" From="A" Path="PROJETO" />
+    <Field Alias="VALORCC" From="A" Path="VALORCC" />
+    <Field Alias="PERCCC" From="A" Path="PERCCC" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

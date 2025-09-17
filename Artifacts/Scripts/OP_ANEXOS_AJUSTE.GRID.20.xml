@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_ANEXOS_AJUSTE.GRID</ViewName>
+  <EntityName>OP_ANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+     row.GetCellByName("DOCUMENTO").Text = "&lt;div style='color: #000000; background-color: #DADADE !important; padding: 4px 10px !important; border-radius: 4px !important;display: inline-flex;align-items:center'&gt;&lt;i style='margin-right:6px' class='fa fa-file'&gt;&lt;/i&gt;&lt;b &gt;"+row.GetCellByName("DOCUMENTO").Text+"&lt;/b&gt;&lt;/div&gt;";
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

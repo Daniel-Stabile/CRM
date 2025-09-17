@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>OP_FUNCIONALPROGRAMATICA.FORM</ViewName>
+  <EntityName>OP_FUNCIONALPROGRAMATICA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnFUNCAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnFUNCAOValueChanged(view, entity):
+    
+    entity.Fields["CODIGO"] = "";
+    
+    try:
+        lookup = entity.Fields["FUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    try:
+        lookup = entity.Fields["SUBFUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")        
+        
+    try:
+        lookup = entity.Fields["PROGRAMA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                
+        
+    try:
+        lookup = entity.Fields["ACAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                        
+        
+    try:
+        lookup = entity.Fields["SUBTITULO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    string = entity.Fields["CODIGO"];
+    entity.Fields["CODIGO"] = string[0:len(string)-1];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSUBFUNCAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSUBFUNCAOValueChanged(view, entity):
+    
+    entity.Fields["CODIGO"] = "";
+    
+    try:
+        lookup = entity.Fields["FUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    try:
+        lookup = entity.Fields["SUBFUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")        
+        
+    try:
+        lookup = entity.Fields["PROGRAMA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                
+        
+    try:
+        lookup = entity.Fields["ACAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                        
+        
+    try:
+        lookup = entity.Fields["SUBTITULO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    string = entity.Fields["CODIGO"];
+    entity.Fields["CODIGO"] = string[0:len(string)-1];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPROGRAMAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPROGRAMAValueChanged(view, entity):
+    
+    entity.Fields["CODIGO"] = "";
+    
+    try:
+        lookup = entity.Fields["FUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    try:
+        lookup = entity.Fields["SUBFUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")        
+        
+    try:
+        lookup = entity.Fields["PROGRAMA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                
+        
+    try:
+        lookup = entity.Fields["ACAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                        
+        
+    try:
+        lookup = entity.Fields["SUBTITULO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    string = entity.Fields["CODIGO"];
+    entity.Fields["CODIGO"] = string[0:len(string)-1];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnACAOValueChanged(view, entity):
+    
+    entity.Fields["CODIGO"] = "";
+    
+    try:
+        lookup = entity.Fields["FUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    try:
+        lookup = entity.Fields["SUBFUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")        
+        
+    try:
+        lookup = entity.Fields["PROGRAMA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                
+        
+    try:
+        lookup = entity.Fields["ACAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                        
+        
+    try:
+        lookup = entity.Fields["SUBTITULO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    string = entity.Fields["CODIGO"];
+    entity.Fields["CODIGO"] = string[0:len(string)-1];
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnSUBTITULOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnSUBTITULOValueChanged(view, entity):
+    
+    entity.Fields["CODIGO"] = "";
+    
+    try:
+        lookup = entity.Fields["FUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    try:
+        lookup = entity.Fields["SUBFUNCAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")        
+        
+    try:
+        lookup = entity.Fields["PROGRAMA"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                
+        
+    try:
+        lookup = entity.Fields["ACAO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")                        
+        
+    try:
+        lookup = entity.Fields["SUBTITULO"];
+        entity.Fields["CODIGO"] += lookup.Instance.Fields["CODIGO"] + ".";
+    except:
+        print("An exception occurred")
+        
+    string = entity.Fields["CODIGO"];
+    entity.Fields["CODIGO"] = string[0:len(string)-1];
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

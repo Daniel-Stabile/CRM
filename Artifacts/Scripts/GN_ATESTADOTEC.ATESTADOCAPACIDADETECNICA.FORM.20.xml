@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>GN_ATESTADOTEC.ATESTADOCAPACIDADETECNICA.FORM</ViewName>
+  <EntityName>GN_ATESTADOTEC</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def ControlaVisibilidadeAgrupadoresComandos(widget, atestado):
+    if widget.View.Commands["GRP_FUNCOES"].Items["CMD_CONFIRMAR"] != None:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_CONFIRMAR"].Visible = atestado.IsVisibleCMDCONFIRMAR
+        
+    if widget.View.Commands["GRP_FUNCOES"].Items["CMD_LIBERAR"] != None:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_LIBERAR"].Visible = atestado.IsVisibleCMDLIBERAR
+        
+    if widget.View.Commands["GRP_FUNCOES"].Items["CMD_RECUSAR"] != None:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_RECUSAR"].Visible = atestado.IsVisibleCMDRECUSAR
+        
+    if widget.View.Commands["GRP_FUNCOES"].Items["CMD_CANCELAR"] != None:
+        widget.View.Commands["GRP_FUNCOES"].Items["CMD_CANCELAR"].Visible = atestado.IsVisibleCMDCANCELAR
+        
+def ControlaVisibilidadeBotoesTec(widget, atestado):
+    if widget.View.Commands["Edit"] != None:
+        widget.View.Commands["Edit"].Visible = atestado.IsVisibleBTNEDITAR
+        
+    if widget.View.Commands["Delete"] != None:
+        widget.View.Commands["Delete"].Visible = atestado.IsVisibleBTNEXCLUIR
+
+def Load(widget):
+    from Benner.Tecnologia.Common.BennerVariables import BennerVarsFactory
+    atestado = widget.Entity
+    if atestado == None: return
+
+    if atestado.Handle.IsValid():
+        BennerVarsFactory().CreateSessionVars().SetSessionVar("HANDLE_ATESTADO_ATUAL_WEB", str(atestado.Handle))
+
+    ControlaVisibilidadeAgrupadoresComandos(widget, atestado)
+    ControlaVisibilidadeBotoesTec(widget, atestado)</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

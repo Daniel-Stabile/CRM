@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>VT_CM_VISITAAVALIACAO.CUSTOM.FORM</ViewName>
+  <EntityName>VT_CM_VISITAAVALIACAO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnCONFIGAVALIACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnCONFIGAVALIACAOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    if entity == None: return
+    
+    if entity.Fields["CONFIGAVALIACAO"].Handle.IsValid():
+        view.FieldDefinitions["OPCAOAVALIACAO"].Required = True
+    else:
+        view.FieldDefinitions["OPCAOAVALIACAO"].Required = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

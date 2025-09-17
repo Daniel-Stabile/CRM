@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_CHAMADOS.ADMIN.GRID</ViewName>
+  <EntityName>K_CRM_CHAMADOS</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    from Benner.Tecnologia.Common import ListItem
+    from System import DateTime
+    from System import Convert
+    from System import Math
+    
+    row.GetCustomCommand("CmdAtender").Enabled = False;
+    row.GetCustomCommand("CmdResolver").Enabled = False;
+    row.GetCustomCommand("CmdConcluir").Enabled = False;
+    
+    if entity.Fields["STATUS"] == ListItem(1, "Aberto"):
+        row.GetCustomCommand("CmdAtender").Enabled = True;
+    elif entity.Fields["STATUS"] == ListItem(2, "Em Andamento"):
+        row.GetCustomCommand("CmdResolver").Enabled = True;
+    elif entity.Fields["STATUS"] == ListItem(3, "Atendido"):
+        if ((int)(Math.Abs((DateTime.Now - Convert.ToDateTime(entity.Fields["DATAALTERACAO"])).TotalDays))) &gt; 7:
+            row.GetCustomCommand("CmdConcluir").Enabled = True;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

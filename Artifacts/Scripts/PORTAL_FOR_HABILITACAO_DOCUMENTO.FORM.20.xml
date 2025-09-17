@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_FOR_HABILITACAO_DOCUMENTO.FORM</ViewName>
+  <EntityName>GN_PESSOADOCHABILITREGISTROS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import FieldDefinition
+    registro = widget.Entity
+    if registro == None: return;
+    situacao = int(registro.Fields["STATUS"].Value)
+    if situacao != 1:
+        widget.View.Commands["New"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        widget.View.Commands["Edit"].Visible = False
+    else:
+        widget.View.Commands["New"].Visible = True
+        widget.View.Commands["Delete"].Visible = True
+        widget.View.Commands["Edit"].Visible = True
+        
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

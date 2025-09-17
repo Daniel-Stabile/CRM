@@ -1,0 +1,71 @@
+﻿
+
+@if (Model["STATUS"].GetInt32() != null)
+{
+    if (Model["STATUS"].GetInt32() == 1)
+    {
+        <label class="label label-default">
+            Em preparação
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 2)
+    {
+        <label class="label label-primary">
+            Aguardando conferência
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 3)
+    {
+        <label class="label label-warning">
+            Com divergências
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 4)
+    {
+        <label class="label label-primary">
+            Aguardando remessa
+        </label>
+    }
+    if (Model["ARQUIVOGERADO"].GetString() == "N" && Model["STATUS"].GetInt32() == 0)
+    {
+        <label class="label label-success">
+            Remessa criada
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 5)
+    {
+        <label class="label label-primary">
+            Aguardando aprovação
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 6)
+    {
+        <label class="label label-danger">
+            Reprovado
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 7)
+    {
+        <label class="label label-success">
+            Aprovado
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 8 || Model["ARQUIVOGERADO"].GetString() == "S")
+    {
+        <label class="label label-success">
+            Gerado
+        </label>
+    }
+    if (Model["STATUS"].GetInt32() == 9)
+    {
+        <label class="label label-success">
+            Processados
+        </label>
+    }
+}
+else
+{
+    <label class="label label-danger">
+        Nulo
+    </label>
+}

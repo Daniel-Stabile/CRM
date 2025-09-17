@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PR_NECESSIDADELIQUIDA.FORM</ViewName>
+  <EntityName>PR_NECESSIDADELIQUIDA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    entidade = widget.Entity
+    if entidade["CALCULOGERADO"].GetBoolean():
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPRODUTOCSV"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORFAMILIA"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORVENDAS"].Visible = False
+        widget.View.Commands["CMD_CALCULAR"].Visible = False
+        widget.View.Commands["CMD_BAIXARNECESSIDADESPLANEJADAS"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        widget.View.Commands["CMD_VOLTAR"].Visible = False
+        widget.View.Commands["CMD_CANCELAR"].Visible = False
+        
+        
+    status = entidade["STATUSCALCULO"].GetInt32()
+    
+    if status == 5:
+        
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPRODUTOCSV"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORFAMILIA"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORVENDAS"].Visible = False
+        widget.View.Commands["CMD_CALCULAR"].Visible = False
+        widget.View.Commands["CMD_BAIXARNECESSIDADESPLANEJADAS"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        widget.View.Commands["CMD_VOLTAR"].Visible = False
+        widget.View.Commands["CMD_CANCELAR"].Visible = False
+        widget.View.Commands["CMD_VISUALIZAR_RESULTADO_CALCULO"].Visible = False
+        
+    if status == 3:
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPRODUTOCSV"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORFAMILIA"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORVENDAS"].Visible = False
+        widget.View.Commands["CMD_CALCULAR"].Visible = False
+        widget.View.Commands["CMD_BAIXARNECESSIDADESPLANEJADAS"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+
+        
+    if status == 2:
+        widget.View.Commands["Edit"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPRODUTOCSV"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORFAMILIA"].Visible = False
+        widget.View.Commands["CMD_ADICIONARPORVENDAS"].Visible = False
+        widget.View.Commands["CMD_CALCULAR"].Visible = False
+        widget.View.Commands["CMD_BAIXARNECESSIDADESPLANEJADAS"].Visible = False
+        widget.View.Commands["Delete"].Visible = False
+        widget.View.Commands["CMD_VISUALIZAR_RESULTADO_CALCULO"].Visible = False
+        widget.View.Commands["CMD_VOLTAR"].Visible = False
+        widget.View.Commands["CMD_CANCELAR"].Visible = False
+        
+    if status == 1:
+        widget.View.Commands["CMD_VISUALIZAR_RESULTADO_CALCULO"].Visible = False
+        widget.View.Commands["CMD_VOLTAR"].Visible = False
+        widget.View.Commands["CMD_CANCELAR"].Visible = False
+        widget.View.Commands["Edit"].Visible = True
+        widget.View.Commands["CMD_ADICIONARPRODUTOCSV"].Visible = True
+        widget.View.Commands["CMD_ADICIONARPORFAMILIA"].Visible = True
+        widget.View.Commands["CMD_ADICIONARPORVENDAS"].Visible = True
+        widget.View.Commands["CMD_CALCULAR"].Visible = True
+        widget.View.Commands["CMD_BAIXARNECESSIDADESPLANEJADAS"].Visible = True
+        widget.View.Commands["Delete"].Visible = True</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

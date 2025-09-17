@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_MF_CTFLOTEABASTECIMENTO.FORM</ViewName>
+  <EntityName>MF_CTFLOTEABASTECIMENTO</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    registro = widget.Entity
+    
+    if(registro.Fields["STATUS"].Value == 1):
+        widget.View.Commands["CMD_ValidarRegistro"].Visible = True
+        widget.View.Commands["CMD_CancelarAbastecimento"].Visible = True
+        widget.View.Commands["CMD_GerarOs"].Visible = True
+        
+    elif(registro.Fields["STATUS"].Value == 2):
+        widget.View.Commands["CMD_ValidarRegistro"].Visible = False
+        widget.View.Commands["CMD_CancelarAbastecimento"].Visible = False
+        widget.View.Commands["CMD_GerarOs"].Visible = False
+        
+    elif(registro.Fields["STATUS"].Value == 3):
+        widget.View.Commands["CMD_ValidarRegistro"].Visible = True
+        widget.View.Commands["CMD_CancelarAbastecimento"].Visible = True
+        widget.View.Commands["CMD_GerarOs"].Visible = True
+        
+    else:
+        widget.View.Commands["CMD_ValidarRegistro"].Visible = True
+        widget.View.Commands["CMD_CancelarAbastecimento"].Visible = True
+        widget.View.Commands["CMD_GerarOs"].Visible = True
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

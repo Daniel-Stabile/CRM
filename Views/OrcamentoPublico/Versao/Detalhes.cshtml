@@ -1,0 +1,110 @@
+@using Benner.Tecnologia.Business;
+@using Benner.Tecnologia.Common;
+
+@{
+    string Versao = (@Model["NOME"].GetString());
+    int VersaoHandle = (@Model["HANDLE"].GetInt32());
+
+    DateTime lastmonth = DateTime.Today.AddMonths(-1);
+
+    var result = new Query(@"
+SELECT
+(SELECT COUNT(A.HANDLE) FROM CT_ORCAMENTOAPROVACOES A WHERE A.STATUS = 1 AND A.VERSAO = Z.HANDLE AND A.DATA > :DATA)
+EMAPROVACAO,
+(SELECT COUNT(B.HANDLE) FROM CT_ORCAMENTOAPROVACOES B WHERE B.STATUS = 2 AND B.VERSAO = Z.HANDLE AND B.DATA > :DATA)
+APROVADO,
+(SELECT COUNT(C.HANDLE) FROM CT_ORCAMENTOAPROVACOES C WHERE C.STATUS = 3 AND C.VERSAO = Z.HANDLE AND C.DATA > :DATA)
+RECUSADO,
+(SELECT COUNT(D.HANDLE) FROM CT_ORCAMENTOAPROVACOES D WHERE D.STATUS = 4 AND D.VERSAO = Z.HANDLE AND D.DATA > :DATA)
+CANCELADO
+FROM CT_VERSOESORCAMENTOS Z WHERE Z.HANDLE = :HANDLE
+", new Parameter("HANDLE", VersaoHandle), new Parameter("DATA", lastmonth)).ExecuteFirstOrDefault();
+
+    int EMAPROVACAO = result["EMAPROVACAO"].GetInt32();
+    int APROVADO = result["APROVADO"].GetInt32();
+    int RECUSADO = result["RECUSADO"].GetInt32();
+    int CANCELADO = result["CANCELADO"].GetInt32();
+
+}
+
+@functions {
+    string getColor(decimal Valor)
+    {
+        if (Valor >= 0)
+            return "#303C8E";//"#003C6E";
+        else
+            return "#AA1F2B";//"#660000";
+    }
+    string getBgColor(decimal Valor)
+    {
+        if (Valor >= 0)
+            return "#A9D8E877";
+        else
+            return "#F8CECC77";
+    }
+    string getIcon(decimal Valor)
+    {
+        if (Valor >= 0)
+            return "fa fa-arrow-circle-up";
+        else
+            return "fa fa-arrow-circle-down";
+    }
+    string getValorString(decimal Valor)
+    {
+        return string.Format("R$ {0:N2}", Valor);
+    }
+}
+
+<div>
+    <h4>Versao Or&ccedil;ament&aacute;ria Em Execu&ccedil;ao:</h4>
+    <div style="display: flex; align-items: center;gap:4px;margin-bottom: 10px;">
+        <div title="Vers&atilde;o Oficial"
+            style="width: 20px;margin-right: 5px; height:20px; display: flex;align-items:center;justify-content:center; background-color: #00ddaa; color: #ffffff; border-radius: 5px !important;">
+            <i class="fa fa-play" style="font-size:10px;"></i>
+        </div>
+
+        <h4>
+            <b>
+                @Versao
+            </b>
+        </h4>
+
+    </div>
+
+    <h5><i> <i class="fa fa-info-circle" style="font-size:10px;"></i> Dados dos ultimos 30 dias:</i></h5>
+
+    <h5>Em aprova&ccedil;&atilde;o: <b>@EMAPROVACAO</b></h5>
+    <h5>Aprovados: <b>@APROVADO</b></h5>
+    <h5>Recusados: <b>@RECUSADO</b></h5>
+    <h5>Cancelados: <b>@CANCELADO</b></h5>
+
+</div>
+
+<style>
+    .form-column {
+        flex: 1;
+        padding: 8px;
+    }
+
+    .form-card {
+        padding: 12px;
+        border-radius: 6px !important;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #dddddd;
+    }
+
+    .form-card-empty {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ffffff;
+    }
+
+    .form-card .header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+</style>

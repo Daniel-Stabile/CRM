@@ -1,0 +1,540 @@
+﻿<div id="appImportaPlanilha" class="row">
+    <div v-show="Loading" style="background-color:whitesmoke;z-index:100;opacity:0.6;height:100%;width:100%;position:absolute">
+        <img src="~/content/img/Dot Loader.gif" style="position:relative;left:40%;top:30%;width:20%"/>
+    </div>
+    <div style="z-index:50;" class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title green tabbable-line">
+                <div class="caption">
+                    <i class="fa fa-list font-green hide"></i>
+                    <span class="caption-subject font-green bold uppercase"> Importar Planilha</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li v-bind:class="{'active':Tab==2}" v-on:click.prevent="Tab=2">
+                        <a href="#portlet_tab2" data-toggle="tab"> Importa contato</a>
+                    </li>
+                    <li v-bind:class="{'active':Tab==1}" v-on:click.prevent="Tab=1">
+                        <a href="#portlet_tab1" data-toggle="tab"> Importa conta</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body row form">
+                <div class="form-horizontal" v-show="Tab == 1">
+                    <div class="form-body col-md-12" style="border-top: 1px solid white;">
+                        <div class="form-group col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Arquivo</label>
+                                <div class="col-md-3">
+                                    <input ref="myFiles" @@change="uploadPlanilha" type="file" id="file" name="file" class="form-control">
+                                    <p class="help-block"> Planilha separada por ";" </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Unidade</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.Unidade">
+                                        <option v-for="item in Unidade" v-bind:value="item">{{item.Nome}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Origem</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.Origem">
+                                        <option v-for="item in Origem" v-bind:value="item">{{item.Nome}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Nome do evento</label>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-comments-o"></i>
+                                        </span>
+                                        <input type="email" class="form-control" placeholder="Nome do evento" v-model="Selecionado.NomeEvento">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo CNPJ</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.CNPJ">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo SDR(Planilha)</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.ResponsavelPlanilha">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">SDR da Conta</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.Responsavel">
+                                        <option v-for="item in GDQ" v-bind:value="item">{{item.Nome}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo Nome</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.Nome">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Vertical</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="Selecionado.Vertical">
+                                        <option v-for="item in Vertical" v-bind:value="item">{{item.Nome}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn green" v-on:click.prevent="postPlanilha()">Importa Planilha</button>
+                                        <button type="button" class="btn default">Cancela</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal" v-show="Tab == 2">
+                    <div class="form-body col-md-12" style="border-top: 1px solid white;">
+                        <div class="form-group col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Arquivo de Contatos</label>
+                                <div class="col-md-3">
+                                    <input ref="myFiles" @@change="uploadPlanilha" type="file" id="file" name="file" class="form-control">
+                                    <p class="help-block"> Planilha separada por ";" </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo Cnpj</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="SelecionadoContato.CNPJ">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo Cargo</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="SelecionadoContato.Cargo">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo Nome</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="SelecionadoContato.Nome">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo Telefone</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="SelecionadoContato.Telefone">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Campo Email</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" v-model="SelecionadoContato.Email">
+                                        <option v-for="item in CamposPlanilha" v-bind:value="item">{{item.Valor}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn green" v-on:click.prevent="postPlanilhaContatos()">Importa Planilha</button>
+                                        <button type="button" class="btn default">Cancela</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el: "#appImportaPlanilha",
+            data: {
+                Mensagem: "Testaaando",
+                Unidade: [],
+                Origem: [],
+                GDQ: [],
+                CamposPlanilha: [],
+                Vertical: [],
+                Files: [],
+                Tab: 1,
+                Loading:false,
+                Selecionado: {
+                    Unidade: {},
+                    Origem: {},
+                    ResponsavelPlanilha: {},
+                    Nome: {},
+                    CNPJ: {},
+                    Responsavel: {},
+                    Vertical: {},
+                    NomeEvento: ""
+                },
+                SelecionadoContato: {
+                    Email: {},
+                    Telefone: {},
+                    Nome: {},
+                    Cargo: {},
+                    CNPJ: {}
+                }
+            },
+            methods: {
+
+                uploadPlanilha: function (e) {
+
+                    var scope = this;
+                    console.log("uploadPlanilha")
+                    console.log(e)
+
+                    scope.Files = e.target.files;
+                    var files = e.target.files[0];
+
+                    var formData = new FormData();
+                    formData.append('file', files);
+
+                    scope.Loading = true;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/LeituraPlanilha",
+                        //url: Benner.Page.getApplicationPath() + "CrmProdutoItens/SaveItens",
+                        type: 'POST',
+                        data: formData,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+                        success: function (data) {
+                            console.log("Files Uploaded!");
+                            if (data.status == "success") {
+                                console.log(data.data);
+                                console.log(JSON.parse(data.data));
+
+                                var aux = [];
+                                aux = JSON.parse(data.data)
+                                scope.CamposPlanilha = aux;
+                                toastr.success(data.message);
+
+                            } else {
+
+                                toastr.error(data.message);
+                            }
+
+                            scope.Loading = false;
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                            scope.Loading = false;
+                        }
+                    });
+
+                },
+                
+                getUnidade: function () {
+                    var scope = this;
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/GetUnidade",
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("getUnidades!");
+                            console.log(data);
+
+                            var aux = [];
+                            aux = JSON.parse(data.data);
+                            scope.Unidade = aux;
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                        }
+                    });
+                },
+
+                getOrigem: function () {
+                    var scope = this;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/GetOrigem",
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("getOrigem!");
+                            console.log(data);
+
+                            var aux = [];
+                            aux = JSON.parse(data.data);
+                            scope.Origem = aux;
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                        }
+                    });
+                },
+
+                getGDQ: function () {
+                    var scope = this;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/GetUsuariosGDQ",
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("getGDQ!");
+                            console.log(data);
+
+                            var aux = [];
+                            aux = JSON.parse(data.data);
+                            scope.GDQ = aux;
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                        }
+                    });
+                },
+
+                getVertical: function () {
+                    var scope = this;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/GetVertical",
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("GetVertical!");
+                            console.log(data);
+
+                            var aux = [];
+                            aux = JSON.parse(data.data);
+                            scope.Vertical = aux;
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                        }
+                    });
+                },
+
+                getExecutivo: function () {
+                    var scope = this;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/GetUsuariosExecutivo",
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("getExecutivo!");
+                            console.log(data);
+
+                            var aux = [];
+                            aux = JSON.parse(data.data);
+                            scope.Executivo = aux;
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                        }
+                    });
+                },
+
+                postPlanilha: function () {
+                    var scope = this;
+                    
+                    var files = scope.Files[0];
+
+                    console.log(scope.Selecionado.Unidade.hasOwnProperty("Handle"))
+                    console.log(scope.Selecionado.Origem.hasOwnProperty("Handle"))
+                    console.log(scope.Selecionado.Responsavel.hasOwnProperty("Handle"))
+                    console.log(scope.Selecionado.Vertical.hasOwnProperty("Handle"))
+                    console.log(scope.Selecionado.Nome.hasOwnProperty("Coluna"))
+                    console.log(scope.Selecionado.CNPJ.hasOwnProperty("Coluna"))
+
+                    if (!scope.Selecionado.Unidade.hasOwnProperty("Handle")
+                        || !scope.Selecionado.Origem.hasOwnProperty("Handle")
+                        || !scope.Selecionado.Responsavel.hasOwnProperty("Handle")
+                        || !scope.Selecionado.Vertical.hasOwnProperty("Handle")
+                        || !scope.Selecionado.Nome.hasOwnProperty("Coluna")
+                        || !scope.Selecionado.CNPJ.hasOwnProperty("Coluna")) {
+                        toastr.error("É preciso preencher os campos: Unidade, Origem, SDR da Conta,Vertical,Campo Nome e Campo CNPJ");
+                        return;
+                    }
+
+                    var formData = new FormData();
+                    formData.append('file', files);
+                    formData.append("unidade", scope.Selecionado.Unidade.Handle);
+                    formData.append('origem', scope.Selecionado.Origem.Handle);
+                    formData.append("responsavel", scope.Selecionado.Responsavel.Handle);
+                    formData.append('vertical', scope.Selecionado.Vertical.Handle);
+                    formData.append('nomeevento', scope.Selecionado.NomeEvento);
+
+                    formData.append('responsavelplanilha', scope.Selecionado.ResponsavelPlanilha.Coluna);
+                    formData.append('nome', scope.Selecionado.Nome.Coluna);
+                    formData.append('cnpj', scope.Selecionado.CNPJ.Coluna);
+
+                    //Selecionado: {
+                    //    Unidade: { },
+                    //    Origem: { },
+                    //    UsuarioGDQ: { },
+                    //    UsuarioExecutivo: { },
+                    //    CampoCNPJ: { }
+                    //}
+
+                    scope.Loading = true;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoas/InserePlanilha",
+                        //url: Benner.Page.getApplicationPath() + "CrmProdutoItens/SaveItens",
+                        type: 'POST',
+                        data: formData,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+                        success: function (data) {
+                            console.log("Files Uploaded!");
+                            console.log(data);
+
+                            scope.Loading = false;
+                            scope.clearVariables();
+                            if(data.status == "success")
+                                toastr.success(data.message);
+                            else
+                                toastr.error(data.message);
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                            scope.Loading = false;
+                            toastr.error(data.message);
+                        }
+                    });
+
+                },
+
+                postPlanilhaContatos: function () {
+
+                    var scope = this;
+
+                    var files = scope.Files[0];
+
+                    var formData = new FormData();
+                    formData.append('file', files);
+                    formData.append('cnpj', scope.SelecionadoContato.CNPJ.Coluna);
+                    formData.append('email', scope.SelecionadoContato.Email.Coluna);
+                    formData.append('nome', scope.SelecionadoContato.Nome.Coluna);
+                    formData.append('cargo', scope.SelecionadoContato.Cargo.Coluna);
+                    formData.append('telefone', scope.SelecionadoContato.Telefone.Coluna);
+
+                    //Selecionado: {
+                    //    Unidade: { },
+                    //    Origem: { },
+                    //    UsuarioGDQ: { },
+                    //    UsuarioExecutivo: { },
+                    //    CampoCNPJ: { }
+                    //}
+
+                    scope.Loading = true;
+
+                    $.ajax({
+                        url: Benner.Page.getApplicationPath() + "CrmPessoaContatos/InserePlanilha",
+                        //url: Benner.Page.getApplicationPath() + "CrmProdutoItens/SaveItens",
+                        type: 'POST',
+                        data: formData,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        type: "POST",
+                        success: function (data) {
+                            console.log("Files Uploaded!");
+                            console.log(data);
+
+                            scope.Loading = false;
+                            scope.clearVariables();
+                            if (data.status == "success")
+                                toastr.success(data.message);
+                            else
+                                toastr.error(data.message);
+                        },
+                        error: function (data) {
+                            console.log("Erro");
+                            console.log(data);
+                            scope.Loading = false;
+                            toastr.error(data.message);
+                        }
+                    });
+
+                },
+
+                clearVariables: function () {
+                    var scope = this;
+
+                    this.$refs.myFiles.value = null
+                    scope.Unidade= [];
+                    scope.Origem= [];
+                    scope.GDQ = [];
+                    scope.CamposPlanilha = [];
+                    scope.Files = [];
+                    scope.Loading = false;
+                    scope.Selecionado = {
+                        Unidade: {},
+                        Origem: {},
+                        Responsavel: {},
+                        Nome: {},
+                        CNPJ: {}
+                    };
+                    scope.SelecionadoContato= {
+                        Email: {},
+                        Telefone: {},
+                        Nome: {},
+                        Cargo: {},
+                        CNPJ: {}
+                    };
+                }
+            },
+            mounted: function () {
+                var scope = this;
+
+                scope.getUnidade();
+                scope.getOrigem();
+                scope.getGDQ();
+                scope.getVertical();
+                //scope.getExecutivo();
+            }
+        });
+    </script>
+</div>

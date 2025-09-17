@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_PRODUTOS.FORM</ViewName>
+  <EntityName>PD_PRODUTOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def ControlaVisibilidadeComandos(widget, produto):
+    if widget.View.Commands["GERAR_VARIACOES"] != None:
+        widget.View.Commands["GERAR_VARIACOES"].Visible = produto.TemVariacao
+    if widget.View.Commands["CMD_GERARCLIENTES"] != None:
+        widget.View.Commands["CMD_GERARCLIENTES"].Visible = not produto.TemVariacao
+    if widget.View.Commands["CMD_GERARFORNECEDORES"] != None:
+        widget.View.Commands["CMD_GERARFORNECEDORES"].Visible = not produto.TemVariacao
+
+def CarregaValoresCamposCustoTotal(widget, produto):
+    CamposCustoTotal = produto.CalcularCamposCustoTotal()
+    widget.View.FieldDefinitions["CUSTOTOTAL"].Value = CamposCustoTotal.CustoTotal.ToString("N4")
+    widget.View.FieldDefinitions["CUSTOTOTAL1"].Value = CamposCustoTotal.CustoTotal1.ToString("N4")
+    widget.View.FieldDefinitions["CUSTOTOTAL2"].Value = CamposCustoTotal.CustoTotal2.ToString("N4")
+
+def Load(widget):
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    produto = widget.Entity
+    if produto == None: return
+    
+    CarregaValoresCamposCustoTotal(widget, produto)
+    ControlaVisibilidadeComandos(widget, produto)</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARCLIENTESExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+def OnCMD_GERARCLIENTESExecute(command, entity):
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial.")</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnCMD_GERARFORNECEDORESExecute</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>from Benner.Tecnologia.Common.Exceptions import CancelledOperationException
+def OnCMD_GERARFORNECEDORESExecute(command, entity):
+    if identity.Branch.ToString() == "0":
+        raise CancelledOperationException("Você precisa selecionar uma filial.")</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

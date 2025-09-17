@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>PORTAL_REPRESENTANTE_PEDIDOITEMENTREGAS.GRID</ViewName>
+  <EntityName>CM_WEB_PEDIDOSVENDAITEMENTREGA</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    pai = widget.ProviderWidget;
+    if pai == None: return
+    registro = pai.Entity;
+    if registro == None: return;
+    concluido = bool(registro.Fields["PEDIDOVENDA"].Instance.Fields["STATUS"].Value &gt; 1);
+    widget.View.Commands["CustomAlterar"].Visible = not concluido;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

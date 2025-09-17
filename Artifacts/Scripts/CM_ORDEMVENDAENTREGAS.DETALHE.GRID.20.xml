@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDEMVENDAENTREGAS.DETALHE.GRID</ViewName>
+  <EntityName>CM_ORDEMVENDAENTREGAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    emElaboracao = entity.EmElaboracao()
+    if (not emElaboracao):
+        if row.EditCommand != None: row.EditCommand.Visible = False
+        if row.DeleteCommand != None: row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if(widget.ProviderWidget == None) : return
+
+    import clr
+    clr.AddReference("Benner.Corporativo.Definicoes")
+    from Benner.Corporativo.Definicoes.Comercial import CMOrdemVendaEntrega
+    
+    handleItem = widget.ProviderWidget.Entity.Handle
+    
+    if handleItem == 0: return    
+    
+    podeCrud = CMOrdemVendaEntrega.EmElaboracao(handleItem)
+    
+    if (not podeCrud):    
+        widget.View.Commands["New"].Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

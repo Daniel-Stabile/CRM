@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CN_DOCUMENTOANEXOS.DOCANEXO.GRID</ViewName>
+  <EntityName>CN_DOCUMENTOANEXOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if widget.View.Commands["New"] != None : widget.View.Commands["New"].Visible = (widget.ProviderWidget.Entity.Fields["STATUS"].Value in (1,4))
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    grid = row.Grid
+    if grid == None: return
+    form = grid.ProviderWidget
+    if form == None: return
+    status = form.Entity.Fields["STATUS"].Value
+    if status in (2,3):
+        if row.EditCommand != None:
+             row.EditCommand.Visible = False
+        if row.DeleteCommand != None:
+             row.DeleteCommand.Visible = False
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CONSULTA_TITULOS_REMESSA.DATASOURCE.GRID</ViewName>
+  <EntityName>CONSULTA_TITULOS_REMESSA.DATASOURCE</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>InitializeRow</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def InitializeRow(entity, row):
+    if entity.Fields["VCTOPRORROGADO"] != None:
+        row.GetCellByName("VCTOPRORROGADO").Text = entity.Fields["VCTOPRORROGADO"].ToString("dd/MM/yyyy") 
+        
+    if entity.Fields["DATAEMISSAO"] != None:
+        row.GetCellByName("DATAEMISSAO").Text = entity.Fields["DATAEMISSAO"].ToString("dd/MM/yyyy") 
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

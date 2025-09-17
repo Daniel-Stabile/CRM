@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AGA_PD_PARAMETROSCOMPRAS.FORM</ViewName>
+  <EntityName>PD_PARAMETROSCOMPRAS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>OnTIPOALCADASOLICITACAOValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnTIPOALCADASOLICITACAOValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    view.FieldDefinitions["EXCEDENTEPEQUENASCOMPRAS"].Visible = entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "N" and entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "W"
+    view.FieldDefinitions["EXCEDENTENEGOCIAVEL"].Visible = entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "N" and entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "W"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERMITESOLREGULARIZACAOPEQCOMPValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERMITESOLREGULARIZACAOPEQCOMPValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    view.FieldDefinitions["EXCEDENTEPEQUENASCOMPRAS"].Visible = entity.Fields["PERMITESOLREGULARIZACAOPEQCOMP"]
+    view.FieldDefinitions["VALORMAXIMOPEQUENASCOMPRAS"].Visible = entity.Fields["PERMITESOLREGULARIZACAOPEQCOMP"]
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityState
+    import clr
+    
+    if widget.Entity == None: return
+    
+    entity = widget.Entity
+    
+    if widget.View.FieldDefinitions["VALORMAXIMONEGOCIAVEL"] != None:
+        widget.View.FieldDefinitions["VALORMAXIMONEGOCIAVEL"].Visible = entity.Fields["PERMITESOLREGULARIZACAONEGOCIA"]          
+    
+    if (widget.Entity.State == EntityState.Read):
+        if widget.View.FieldDefinitions["VALORMAXIMOPEQUENASCOMPRAS"] != None:
+            widget.View.FieldDefinitions["VALORMAXIMOPEQUENASCOMPRAS"].Visible = entity.Fields["PERMITESOLREGULARIZACAOPEQCOMP"]
+        
+        if widget.View.FieldDefinitions["EXCEDENTEPEQUENASCOMPRAS"] != None:
+            widget.View.FieldDefinitions["EXCEDENTEPEQUENASCOMPRAS"].Visible = entity.Fields["PERMITESOLREGULARIZACAOPEQCOMP"] and entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "N" and entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "W"
+        
+        if widget.View.FieldDefinitions["EXCEDENTENEGOCIAVEL"] != None:
+            widget.View.FieldDefinitions["EXCEDENTENEGOCIAVEL"].Visible = entity.Fields["PERMITESOLREGULARIZACAONEGOCIA"] and entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "N" and entity.Fields["TIPOALCADASOLICITACAO"].Value &lt;&gt; "W"
+</SourceCode>
+    </ScriptItemPortable>
+    <ScriptItemPortable>
+      <FunctionName>OnPERMITESOLREGULARIZACAONEGOCIAValueChanged</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def OnPERMITESOLREGULARIZACAONEGOCIAValueChanged(view, entity):
+    from Benner.Tecnologia.Common import FieldDefinition
+    
+    view.FieldDefinitions["EXCEDENTENEGOCIAVEL"].Visible = entity.Fields["PERMITESOLREGULARIZACAONEGOCIA"]
+    view.FieldDefinitions["VALORMAXIMONEGOCIAVEL"].Visible = entity.Fields["PERMITESOLREGULARIZACAONEGOCIA"]
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

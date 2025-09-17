@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>K_CRM_PO_ESCOPO.GRID</ViewName>
+  <EntityName>K_CRM_PO_ESCOPO</EntityName>
+  <Level>Cliente</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    from Benner.Tecnologia.Common import EntityDefinition
+    from Benner.Tecnologia.Common import Entity
+    from Benner.Tecnologia.Common import BennerContext
+    from Benner.Tecnologia.Common import EntityBase
+    from Benner.Tecnologia.Common import Criteria
+    from Benner.Tecnologia.Common import Parameter
+    from Benner.Tecnologia.Common import QuerySource
+    
+    #if (widget.Entity == None):
+    #    return;
+        
+    #if (widget.ProviderWidget.Entity == None):
+    #    return;
+    
+    if widget.ProviderWidget.Entity.Fields["MANUAL"] == True:
+        widget.Hidden = True;
+        
+    sql = "SELECT COUNT(PRODUTO) QTDPROD, COUNT(PRODUTOCONTRATO) QTDPRODCONTRATO, COUNT (TIPORECURSO) QTDTIPORECURSO, COUNT(NUMEROCONTRATO) QTDCONTRATOS FROM K_CRM_PO_ESCOPO WHERE OPORTUNIDADE = :OPORTUNIDADE AND VERSAO = :VERSAO";
+    criterio = Criteria()
+    criterio.Parameters.Add(Parameter("OPORTUNIDADE", widget.ProviderWidget.Entity.Handle))
+    criterio.Parameters.Add(Parameter("VERSAO", widget.ProviderWidget.Entity.Fields["VERSAO"].ToString()))
+    ed = EntityDefinition.Create()
+    ed.EntitySource = QuerySource(sql)
+    result = Entity.GetFirstOrDefault(ed, criterio)
+    
+    widget.View.FieldDefinitions["PRODUTO"].Visible = result.Fields["QTDPROD"] &gt; 0; # widget.Entity.Fields["PRODUTO"].Handle.IsValid();
+    widget.View.FieldDefinitions["TIPORECURSO"].Visible = result.Fields["QTDTIPORECURSO"] &gt; 0; #widget.Entity.Fields["TIPORECURSO"].Handle.IsValid();
+        
+    widget.View.FieldDefinitions["PRODUTOCONTRATO"].Visible = result.Fields["QTDPRODCONTRATO"] &gt; 0; #widget.Entity.Fields["PRODUTOCONTRATO"] != None;
+    widget.View.FieldDefinitions["NUMEROCONTRATO"].Visible = result.Fields["QTDCONTRATOS"] &gt; 0; #widget.Entity.Fields["NUMEROCONTRATO"] != None;
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

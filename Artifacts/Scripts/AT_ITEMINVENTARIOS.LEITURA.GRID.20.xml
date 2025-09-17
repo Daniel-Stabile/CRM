@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>AT_ITEMINVENTARIOS.LEITURA.GRID</ViewName>
+  <EntityName>AT_ITEMINVENTARIOS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    if (widget.ProviderWidget != None):
+        providerEntity = widget.ProviderWidget.Entity;
+        if ((providerEntity.Definition.Name == "AT_INVENTARIOS") and (providerEntity.Fields.ContainsKey("STATUS"))):
+            widget.Hidden = providerEntity["STATUS"].Value.Value == 1 or providerEntity["STATUS"].Value.Value == 3; # cadastrado ou com erro
+</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>

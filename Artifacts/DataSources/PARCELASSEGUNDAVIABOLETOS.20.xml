@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<DataSourcePortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>PARCELASSEGUNDAVIABOLETOS</Identifier>
+  <Name>Parcelas para segunda via de boletos</Name>
+  <Content><![CDATA[<DataSourceDefinition>
+  <FromSql Alias="A" SelectCommand="SELECT B.HANDLE, A.DOCUMENTODIGITADO, A.DATAEMISSAO, B.AP, B.DATAVENCIMENTO, B.PARCELADIGITADA, B.VALOR, (B.VALOR-B.VALORESBAIXADOS) SALDO, B.BANCO, B.CONTATESOURARIA, B.NUMEROBANCO, B.VCTOPRORROGADO&#xD;&#xA;FROM FN_DOCUMENTOS A&#xD;&#xA;INNER JOIN FN_PARCELAS B ON A.HANDLE = B.DOCUMENTO&#xD;&#xA;WHERE A.ABRANGENCIA IN('N','T') AND A.ENTRADASAIDA = 'S' AND A.EHPREVISAO = 'N' AND A.PESSOA IN (SELECT B.PESSOA FROM Z_GRUPOUSUARIOS B WHERE B.HANDLE = @USUARIO)&#xD;&#xA;" />
+  <Fields>
+    <Field Alias="HANDLE" From="A" Path="HANDLE" />
+    <Field Alias="DOCUMENTODIGITADO" From="A" Path="DOCUMENTODIGITADO" />
+    <Field Alias="DATAEMISSAO" From="A" Path="DATAEMISSAO" />
+    <Field Alias="AP" From="A" Path="AP" />
+    <Field Alias="DATAVENCIMENTO" From="A" Path="DATAVENCIMENTO" />
+    <Field Alias="PARCELADIGITADA" From="A" Path="PARCELADIGITADA" />
+    <Field Alias="VALOR" From="A" Path="VALOR" />
+    <Field Alias="SALDO" From="A" Path="SALDO" />
+    <Field Alias="BANCO" From="A" Path="BANCO" />
+    <Field Alias="CONTATESOURARIA" From="A" Path="CONTATESOURARIA" />
+    <Field Alias="NUMEROBANCO" From="A" Path="NUMEROBANCO" />
+    <Field Alias="VCTOPRORROGADO" From="A" Path="VCTOPRORROGADO" />
+  </Fields>
+</DataSourceDefinition>
+]]></Content>
+  <Level>Benner</Level>
+  <ContemDadosPessoaisLgpd>false</ContemDadosPessoaisLgpd>
+  <ExibirNaApi>true</ExibirNaApi>
+</DataSourcePortable>

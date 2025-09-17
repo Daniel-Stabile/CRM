@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ViewName>CM_ORDEMVENDAITENS.DETALHE.FORM</ViewName>
+  <EntityName>CM_ORDEMVENDAITENS</EntityName>
+  <Level>Benner</Level>
+  <Scripts>
+    <ScriptItemPortable>
+      <FunctionName>Load</FunctionName>
+      <LanguageName>IronPython</LanguageName>
+      <SourceCode>def Load(widget):
+    item = widget.Entity
+    if item == None: return
+    
+    emElaboracao = item.OrdemVendaInstance.EmElaboracao
+    
+    if widget.View.Commands["New"] &lt;&gt; None: widget.View.Commands["New"].Visible = emElaboracao
+    if widget.View.Commands["Edit"] &lt;&gt; None: widget.View.Commands["Edit"].Visible = emElaboracao
+    if widget.View.Commands["Delete"] &lt;&gt; None: widget.View.Commands["Delete"].Visible = emElaboracao
+    if widget.View.Commands["SaveNew"] &lt;&gt; None: widget.View.Commands["SaveNew"].Visible = emElaboracao
+    if widget.View.Commands["CMD_COMISSOES"] &lt;&gt; None: widget.View.Commands["CMD_COMISSOES"].Visible = emElaboracao and item.VisibilidadeComandoComissoes
+    if widget.View.Commands["CMD_GERARENTREGAS"] &lt;&gt; None: widget.View.Commands["CMD_GERARENTREGAS"].Visible = emElaboracao</SourceCode>
+    </ScriptItemPortable>
+  </Scripts>
+</ScriptPortable>
