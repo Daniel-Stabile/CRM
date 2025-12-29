@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ScriptPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ViewName>K_CRM_PESSOAOPORTUNIDADES.RESUMO.FORM</ViewName>
   <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
   <Level>Cliente</Level>
@@ -145,7 +145,7 @@
     
     widget.View.Commands["Edit"].Visible = status not in [10]
     widget.View.Commands["Delete"].Visible = status not in [10]
-    
+        
     if entity.Ativo == True:
         widget.View.Commands["cmdEditarOportunidadeManual"].Visible = False;
         widget.View.Commands["cmdEditarOportunidade"].Visible = False;
@@ -167,6 +167,14 @@
         
     if entity.Ativo == True:
         widget.View.Commands["CmdAtivarOportunidadeRaw"].Visible = False;
+
+        
+    #if descricao and descricao.strip().upper() == "ALTERAR STATUS DA OPORTUNIDADE PARA PROPOSTA":
+        #widget.View.Commands["COMIMPOSTO"].Visible = True;
+        #widget.View.Commands["COMIMPOSTO"].Required = True;
+    #else:
+       #widget.View.Commands["COMIMPOSTO"].Visible = False;
+       #widget.View.Commands["COMIMPOSTO"].Required = False;
 </SourceCode>
     </ScriptItemPortable>
   </Scripts>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ViewPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>K_CRM_PESSOAOPORTUNIDADES.MANUAL.FORM</Name>
   <Level>Cliente</Level>
   <EntityName>K_CRM_PESSOAOPORTUNIDADES</EntityName>
@@ -181,11 +181,7 @@
             <bootstrapCols>Col12</bootstrapCols>
             <stateGroup>Fixed</stateGroup>
             <Items>
-              <FormPageItem xsi:type="FormPageField" key="OBSERVACAO">
-                <layout>TwoColumn</layout>
-                <bootstrapCols>Col12</bootstrapCols>
-              </FormPageItem>
-              <FormPageItem xsi:type="FormPageField" key="ORIGEM">
+              <FormPageItem xsi:type="FormPageField" key="PROTOCOLO">
                 <layout>OneColumn</layout>
                 <bootstrapCols>Col6</bootstrapCols>
               </FormPageItem>
@@ -201,35 +197,43 @@
                 <layout>OneColumn</layout>
                 <bootstrapCols>Col6</bootstrapCols>
               </FormPageItem>
-              <FormPageItem xsi:type="FormPageField" key="CONTATO">
-                <layout>OneColumn</layout>
-                <bootstrapCols>Col6</bootstrapCols>
-              </FormPageItem>
               <FormPageItem xsi:type="FormPageField" key="STATUSOPORTUNIDADE">
                 <layout>OneColumn</layout>
                 <bootstrapCols>Col6</bootstrapCols>
               </FormPageItem>
-              <FormPageItem xsi:type="FormPageField" key="PROTOCOLO">
+              <FormPageItem xsi:type="FormPageField" key="OBSERVACAO">
+                <layout>TwoColumn</layout>
+                <bootstrapCols>Col12</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="ORIGEM">
+                <layout>OneColumn</layout>
+                <bootstrapCols>Col6</bootstrapCols>
+              </FormPageItem>
+              <FormPageItem xsi:type="FormPageField" key="CONTATO">
                 <layout>OneColumn</layout>
                 <bootstrapCols>Col6</bootstrapCols>
               </FormPageItem>
             </Items>
           </FormPageItem>
-          <FormPageItem xsi:type="FormPageField" key="CODIGOSUGAR">
+          <FormPageItem xsi:type="FormPageField" key="EVENTO">
             <layout>OneColumn</layout>
-            <bootstrapCols>Col1</bootstrapCols>
-          </FormPageItem>
-          <FormPageItem xsi:type="FormPageField" key="ESCOPOPADRAO">
-            <layout>OneColumn</layout>
-            <bootstrapCols>Col2</bootstrapCols>
+            <bootstrapCols>Col6</bootstrapCols>
           </FormPageItem>
           <FormPageItem xsi:type="FormPageField" key="USUARIOALTERACAO">
             <layout>OneColumn</layout>
             <bootstrapCols>Col3</bootstrapCols>
           </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="ESCOPOPADRAO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
           <FormPageItem xsi:type="FormPageField" key="QTDHORASGERPROJ">
             <layout>OneColumn</layout>
             <bootstrapCols>Col2</bootstrapCols>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="CODIGOSUGAR">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col1</bootstrapCols>
           </FormPageItem>
           <FormPageItem xsi:type="FormPageField" key="CONSIDERACOESADICIONAIS">
             <layout>TwoColumn</layout>
@@ -329,10 +333,10 @@
         <HasScriptEvent xsi:nil="true" />
         <renderTitle>true</renderTitle>
       </FormFieldDefinition>
-      <FormFieldDefinition title="Codigo Sugar" key="CODIGOSUGAR">
+      <FormFieldDefinition key="CODIGOSUGAR">
         <visible>false</visible>
         <DataAccessLevel>Edit</DataAccessLevel>
-        <Required>false</Required>
+        <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
         <renderTitle>true</renderTitle>
       </FormFieldDefinition>
@@ -572,12 +576,12 @@
         <HasScriptEvent xsi:nil="true" />
         <renderTitle>true</renderTitle>
       </FormFieldDefinition>
-      <FormFieldDefinition title="Escopo Padrão" key="ESCOPOPADRAO">
+      <FormFieldDefinition key="ESCOPOPADRAO">
         <visible>false</visible>
         <DataAccessLevel>Read</DataAccessLevel>
-        <Required>true</Required>
+        <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
-        <renderTitle xsi:nil="true" />
+        <renderTitle>true</renderTitle>
       </FormFieldDefinition>
       <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Descricao" key="DESCRICAO">
         <visible>true</visible>
@@ -605,12 +609,12 @@
         <renderTitle xsi:nil="true" />
         <lines>1</lines>
       </FormFieldDefinition>
-      <FormFieldDefinition title="GerenciamentoProjeto" key="QTDHORASGERPROJ">
+      <FormFieldDefinition key="QTDHORASGERPROJ">
         <visible>false</visible>
         <DataAccessLevel>Edit</DataAccessLevel>
-        <Required>true</Required>
+        <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
-        <renderTitle xsi:nil="true" />
+        <renderTitle>true</renderTitle>
       </FormFieldDefinition>
       <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="CONSIDERACOESADICIONAIS">
         <visible>false</visible>
@@ -798,7 +802,7 @@
         <visible>true</visible>
         <DataAccessLevel>Edit</DataAccessLevel>
         <Required xsi:nil="true" />
-        <HasScriptEvent xsi:nil="true" />
+        <HasScriptEvent>false</HasScriptEvent>
         <renderTitle>true</renderTitle>
         <CompanyFilterMode>None</CompanyFilterMode>
         <SelectAnyStructuredLevel xsi:nil="true" />
@@ -905,6 +909,24 @@
         <HasScriptEvent xsi:nil="true" />
         <renderTitle>true</renderTitle>
         <lines>1</lines>
+      </FormFieldDefinition>
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="EVENTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>None</CompanyFilterMode>
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
       </FormFieldDefinition>
     </FieldDefinitions>
     <Commands>

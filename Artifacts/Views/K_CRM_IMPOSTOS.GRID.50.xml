@@ -1,27 +1,60 @@
 <?xml version="1.0"?>
-<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ViewPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>K_CRM_IMPOSTOS.GRID</Name>
   <Level>Cliente</Level>
   <EntityName>K_CRM_IMPOSTOS</EntityName>
   <Type>Grid</Type>
-  <Version>10</Version>
+  <Version>13</Version>
   <GridDefinition entityDefinitionName="K_CRM_IMPOSTOS" name="K_CRM_IMPOSTOS.GRID" title="K_CRM_IMPOSTOS" inherited="true">
     <IsContextCached>false</IsContextCached>
     <Fields />
     <RecordReadOnly>false</RecordReadOnly>
     <TableReadOnly>false</TableReadOnly>
-    <TransitoryVars />
+    <TransitoryVars>
+      <item>
+        <key>
+          <string>RelatedArtifacts</string>
+        </key>
+        <value>
+          <ArrayOfRelatedArtifact xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" z:Type="System.Collections.Generic.List`1[[Benner.Tecnologia.Common.RelatedArtifact, Benner.Tecnologia.Common2, Version=2008.0.0.0, Culture=neutral, PublicKeyToken=f2db26731026fd37]]" z:Assembly="0" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Benner.Tecnologia.Common">
+            <_items z:Id="2" z:Size="0" />
+            <_size>0</_size>
+            <_version>0</_version>
+          </ArrayOfRelatedArtifact>
+        </value>
+      </item>
+      <item>
+        <key>
+          <string>FilesToSyncronize</string>
+        </key>
+        <value>
+          <ArrayOfTemporaryArtifact xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" z:Type="System.Collections.Generic.List`1[[Benner.Tecnologia.Common.TemporaryArtifact, Benner.Tecnologia.Common2, Version=2008.0.0.0, Culture=neutral, PublicKeyToken=f2db26731026fd37]]" z:Assembly="0" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Benner.Tecnologia.Common">
+            <_items z:Id="2" z:Size="4">
+              <TemporaryArtifact z:Id="3">
+                <_x003C_FileName_x003E_k__BackingField z:Id="4">K_CRM_IMPOSTOS.GRID.50.xml</_x003C_FileName_x003E_k__BackingField>
+                <_x003C_Handle_x003E_k__BackingField>137432</_x003C_Handle_x003E_k__BackingField>
+              </TemporaryArtifact>
+              <TemporaryArtifact i:nil="true" />
+              <TemporaryArtifact i:nil="true" />
+              <TemporaryArtifact i:nil="true" />
+            </_items>
+            <_size>1</_size>
+            <_version>1</_version>
+          </ArrayOfTemporaryArtifact>
+        </value>
+      </item>
+    </TransitoryVars>
     <BehaveAsUnstructuredGrid>false</BehaveAsUnstructuredGrid>
     <FieldDefinitions>
       <GridFieldDefinition xsi:type="GridAssociationFieldDefinition" key="EMPRESA" inherited="true">
-        <visible xsi:nil="true" />
+        <visible>true</visible>
         <DataAccessLevel xsi:nil="true" />
         <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
         <footerBehavior>None</footerBehavior>
         <Width />
-        <searchable xsi:nil="true" />
-        <visibility xsi:nil="true" />
+        <searchable>true</searchable>
+        <visibility>Invisible</visibility>
         <CustomLookupPageUrl>
           <Key />
           <Value />
@@ -46,9 +79,9 @@
         <DataAccessLevel xsi:nil="true" />
         <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
-        <footerBehavior xsi:nil="true" />
-        <Width xsi:nil="true" />
-        <searchable xsi:nil="true" />
+        <footerBehavior>None</footerBehavior>
+        <Width />
+        <searchable>true</searchable>
         <visibility xsi:nil="true" />
       </GridFieldDefinition>
       <GridFieldDefinition title="Aliquota (%)" key="ALIQUOTA">
@@ -58,27 +91,7 @@
         <HasScriptEvent xsi:nil="true" />
         <footerBehavior>None</footerBehavior>
         <Width />
-        <searchable xsi:nil="true" />
-        <visibility>Visible</visibility>
-      </GridFieldDefinition>
-      <GridFieldDefinition key="DATAINICIO">
-        <visible>true</visible>
-        <DataAccessLevel xsi:nil="true" />
-        <Required xsi:nil="true" />
-        <HasScriptEvent xsi:nil="true" />
-        <footerBehavior xsi:nil="true" />
-        <Width xsi:nil="true" />
-        <searchable xsi:nil="true" />
-        <visibility>Visible</visibility>
-      </GridFieldDefinition>
-      <GridFieldDefinition key="DATAFIM">
-        <visible>true</visible>
-        <DataAccessLevel xsi:nil="true" />
-        <Required xsi:nil="true" />
-        <HasScriptEvent xsi:nil="true" />
-        <footerBehavior xsi:nil="true" />
-        <Width xsi:nil="true" />
-        <searchable xsi:nil="true" />
+        <searchable>true</searchable>
         <visibility>Visible</visibility>
       </GridFieldDefinition>
     </FieldDefinitions>
@@ -103,7 +116,7 @@
         <showModal>true</showModal>
         <modalSize>Large</modalSize>
         <showInAllLevelsStructuredTable>false</showInAllLevelsStructuredTable>
-        <runInEditMode xsi:nil="true" />
+        <runInEditMode>true</runInEditMode>
         <context xsi:nil="true" />
         <OutputDefinition xsi:type="LocalLinkDefinition">
           <Url />

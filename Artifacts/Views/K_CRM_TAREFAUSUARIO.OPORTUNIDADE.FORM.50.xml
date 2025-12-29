@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ViewPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>K_CRM_TAREFAUSUARIO.OPORTUNIDADE.FORM</Name>
   <Level>Cliente</Level>
   <EntityName>K_CRM_TAREFAUSUARIO</EntityName>
@@ -10,7 +10,40 @@
     <Fields />
     <RecordReadOnly>false</RecordReadOnly>
     <TableReadOnly>false</TableReadOnly>
-    <TransitoryVars />
+    <TransitoryVars>
+      <item>
+        <key>
+          <string>RelatedArtifacts</string>
+        </key>
+        <value>
+          <ArrayOfRelatedArtifact xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" z:Type="System.Collections.Generic.List`1[[Benner.Tecnologia.Common.RelatedArtifact, Benner.Tecnologia.Common2, Version=2008.0.0.0, Culture=neutral, PublicKeyToken=f2db26731026fd37]]" z:Assembly="0" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Benner.Tecnologia.Common">
+            <_items z:Id="2" z:Size="0" />
+            <_size>0</_size>
+            <_version>0</_version>
+          </ArrayOfRelatedArtifact>
+        </value>
+      </item>
+      <item>
+        <key>
+          <string>FilesToSyncronize</string>
+        </key>
+        <value>
+          <ArrayOfTemporaryArtifact xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" z:Type="System.Collections.Generic.List`1[[Benner.Tecnologia.Common.TemporaryArtifact, Benner.Tecnologia.Common2, Version=2008.0.0.0, Culture=neutral, PublicKeyToken=f2db26731026fd37]]" z:Assembly="0" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Benner.Tecnologia.Common">
+            <_items z:Id="2" z:Size="4">
+              <TemporaryArtifact z:Id="3">
+                <_x003C_FileName_x003E_k__BackingField z:Id="4">K_CRM_TAREFAUSUARIO.OPORTUNIDADE.FORM.50.xml</_x003C_FileName_x003E_k__BackingField>
+                <_x003C_Handle_x003E_k__BackingField>137569</_x003C_Handle_x003E_k__BackingField>
+              </TemporaryArtifact>
+              <TemporaryArtifact i:nil="true" />
+              <TemporaryArtifact i:nil="true" />
+              <TemporaryArtifact i:nil="true" />
+            </_items>
+            <_size>1</_size>
+            <_version>1</_version>
+          </ArrayOfTemporaryArtifact>
+        </value>
+      </item>
+    </TransitoryVars>
     <Pages>
       <FormPage caption="Geral" key="GERAL">
         <visible>true</visible>
@@ -57,6 +90,10 @@
                 <bootstrapCols>Col12</bootstrapCols>
               </FormPageItem>
             </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORCOMIMPOSTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
           </FormPageItem>
           <FormPageItem xsi:type="FormPageGroup" key="GRUPOINFORAMACOESRESPOSTA" caption="Informacões da Resposta">
             <visible>true</visible>
@@ -549,6 +586,13 @@
         <Expression>SELECT PV.HANDLE FROM K_CRM_PESSOAVERTICAL PV WHERE PV.PESSOA = @CAMPO(PESSOA) AND PV.VERTICAL =  @CAMPO(VERTICAL)</Expression>
         <FieldType>Integer</FieldType>
         <SystemInstanceName>CRM</SystemInstanceName>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Imposto" key="VALORCOMIMPOSTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent>false</HasScriptEvent>
+        <renderTitle>true</renderTitle>
       </FormFieldDefinition>
     </FieldDefinitions>
     <Commands>

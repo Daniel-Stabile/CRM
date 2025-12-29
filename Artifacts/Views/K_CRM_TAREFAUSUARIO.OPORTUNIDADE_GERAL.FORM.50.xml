@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ViewPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ViewPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>K_CRM_TAREFAUSUARIO.OPORTUNIDADE_GERAL.FORM</Name>
   <Level>Cliente</Level>
   <EntityName>K_CRM_TAREFAUSUARIO</EntityName>
@@ -44,7 +44,7 @@
                 <layout>OneColumn</layout>
                 <bootstrapCols>Col4</bootstrapCols>
               </FormPageItem>
-              <FormPageItem xsi:type="FormPageField" key="TAREFA">
+              <FormPageItem xsi:type="FormPageField" key="RESUMOATIVIDADE">
                 <layout>TwoColumn</layout>
                 <bootstrapCols>Col12</bootstrapCols>
               </FormPageItem>
@@ -52,11 +52,15 @@
                 <layout>OneColumn</layout>
                 <bootstrapCols>Col12</bootstrapCols>
               </FormPageItem>
-              <FormPageItem xsi:type="FormPageField" key="RESUMOATIVIDADE">
+              <FormPageItem xsi:type="FormPageField" key="TAREFA">
                 <layout>TwoColumn</layout>
                 <bootstrapCols>Col12</bootstrapCols>
               </FormPageItem>
             </Items>
+          </FormPageItem>
+          <FormPageItem xsi:type="FormPageField" key="VALORCOMIMPOSTO">
+            <layout>OneColumn</layout>
+            <bootstrapCols>Col2</bootstrapCols>
           </FormPageItem>
           <FormPageItem xsi:type="FormPageGroup" key="GRUPOINFORAMACOESRESPOSTA" caption="Informacões da Resposta">
             <visible>true</visible>
@@ -232,15 +236,23 @@
         </CustomLookupPageUrl>
         <SearchOnEnter xsi:nil="true" />
       </FormFieldDefinition>
-      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" title="Responsável" key="RESPONSAVEL">
+      <FormFieldDefinition xsi:type="FormFieldAssociationDefinition" key="RESPONSAVEL">
         <visible>true</visible>
         <DataAccessLevel>Edit</DataAccessLevel>
-        <Required>true</Required>
+        <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
-        <renderTitle xsi:nil="true" />
-        <CompanyFilterMode>CompanyAndBranch</CompanyFilterMode>
-        <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
-        <SearchOnEnter>false</SearchOnEnter>
+        <renderTitle>true</renderTitle>
+        <CompanyFilterMode>None</CompanyFilterMode>
+        <SelectAnyStructuredLevel xsi:nil="true" />
+        <LookupFormUrl>
+          <Key />
+          <Value />
+        </LookupFormUrl>
+        <CustomLookupPageUrl>
+          <Key />
+          <Value />
+        </CustomLookupPageUrl>
+        <SearchOnEnter xsi:nil="true" />
       </FormFieldDefinition>
       <FormFieldDefinition title="Status" key="STATUS">
         <visible>true</visible>
@@ -338,10 +350,10 @@
         <CompanyFilterMode>None</CompanyFilterMode>
         <SelectAnyStructuredLevel>false</SelectAnyStructuredLevel>
       </FormFieldDefinition>
-      <FormFieldDefinition xsi:type="FormFieldStringDefinition" title="Resumo atividade" key="RESUMOATIVIDADE">
+      <FormFieldDefinition xsi:type="FormFieldStringDefinition" key="RESUMOATIVIDADE">
         <visible>true</visible>
         <DataAccessLevel>Edit</DataAccessLevel>
-        <Required>false</Required>
+        <Required xsi:nil="true" />
         <HasScriptEvent xsi:nil="true" />
         <renderTitle>true</renderTitle>
         <lines>6</lines>
@@ -541,6 +553,13 @@
         <Expression>SELECT PV.HANDLE FROM K_CRM_PESSOAVERTICAL PV WHERE PV.PESSOA = @CAMPO(PESSOA) AND PV.VERTICAL =  @CAMPO(VERTICAL)</Expression>
         <FieldType>Integer</FieldType>
         <SystemInstanceName>CRM</SystemInstanceName>
+      </FormFieldDefinition>
+      <FormFieldDefinition title="Imposto" key="VALORCOMIMPOSTO">
+        <visible>false</visible>
+        <DataAccessLevel>Edit</DataAccessLevel>
+        <Required xsi:nil="true" />
+        <HasScriptEvent xsi:nil="true" />
+        <renderTitle>true</renderTitle>
       </FormFieldDefinition>
     </FieldDefinitions>
     <Commands>

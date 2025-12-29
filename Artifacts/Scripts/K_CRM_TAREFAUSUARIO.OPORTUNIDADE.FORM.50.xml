@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ScriptPortable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ScriptPortable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ViewName>K_CRM_TAREFAUSUARIO.OPORTUNIDADE.FORM</ViewName>
   <EntityName>K_CRM_TAREFAUSUARIO</EntityName>
   <Level>Cliente</Level>
@@ -72,6 +72,16 @@
             view.FieldDefinitions["DATAAGENDAMENTO"].Required   = tipo in [2]
             view.FieldDefinitions["DATACONCLUSAO"].Visible      = tipo in [3]
             view.FieldDefinitions["TAREFA"].Required            = True
+            
+        if entity.Fields["TAREFA"].Instance is not None:
+            descricao = (entity.Fields["TAREFA"].Instance.Fields["NOME"].ToString())
+        
+            if descricao == "Alterar Status da Oportunidade para Proposta":
+                view.FieldDefinitions["VALORCOMIMPOSTO"].Visible = True
+                view.FieldDefinitions["VALORCOMIMPOSTO"].Required = True
+            else:
+                view.FieldDefinitions["VALORCOMIMPOSTO"].Visible = False
+                view.FieldDefinitions["VALORCOMIMPOSTO"].Required = False
             
         if entity.Fields["VERTICAL"].Handle.IsValid():
             vertical = int(entity.Fields["VERTICAL"].Handle.Value)
